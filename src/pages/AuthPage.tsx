@@ -15,13 +15,6 @@ interface UserData {
   joinedAt: string;
 }
 
-function getGreeting(): string {
-  const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 17) return 'Good afternoon';
-  return 'Good evening';
-}
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -63,6 +56,9 @@ export default function AuthPage() {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
+  // All fields must be filled to enable the CTA
+  const canSubmit = name.trim().length > 0 && location !== null && role !== null;
+
   const handleSubmit = () => {
     const newErrors: Record<string, boolean> = {};
     if (!name.trim()) newErrors.name = true;
@@ -86,8 +82,12 @@ export default function AuthPage() {
     localStorage.setItem('zl_user', JSON.stringify(userData));
     localStorage.setItem('zl_language', language);
     localStorage.setItem('zl_location', location!);
-    localStorage.setItem('zl_user_name', name.trim());
 
+    navigate('/home', { replace: true });
+  };
+
+  // Skip / continue as guest — navigates to home with defaults
+  const handleSkip = () => {
     navigate('/home', { replace: true });
   };
 
@@ -114,7 +114,7 @@ export default function AuthPage() {
         >
           {/* Logo */}
           <motion.div variants={itemVariants} className="flex justify-center mb-8">
-            <img src="/logo-white.png" alt="Zero Lines" className="h-10 object-contain opacity-90" />
+            <img src="/logo-white.png" alt="Zero Lines" className="w-24 mx-auto" />
           </motion.div>
 
           {/* Welcome text */}
@@ -128,7 +128,7 @@ export default function AuthPage() {
           {/* Name input */}
           <motion.div variants={itemVariants} className="mb-6">
             <label className="text-sm font-semibold text-white mb-2 block">
-              What's your name?
+              What&apos;s your name?
             </label>
             <input
               type="text"
@@ -176,7 +176,7 @@ export default function AuthPage() {
 
           {/* Role */}
           <motion.div variants={itemVariants} className="mb-6">
-            <label className="text-sm font-semibold text-white mb-3 block">What's your role?</label>
+            <label className="text-sm font-semibold text-white mb-3 block">What&apos;s your role?</label>
             <div className="flex gap-3">
               <button
                 onClick={() => {
@@ -225,15 +225,25 @@ export default function AuthPage() {
           {/* CTA */}
           <motion.div variants={itemVariants} className="pb-4">
             <motion.button
-              whileTap={{ scale: 0.97 }}
+              whileTap={canSubmit ? { scale: 0.97 } : undefined}
               onClick={handleSubmit}
-              className="w-full py-4 rounded-full bg-[#0ABAB5] text-white text-button font-semibold hover:bg-[#09a9a4] transition-colors"
+              disabled={!canSubmit}
+              className={`w-full py-4 rounded-full text-button font-semibold transition-all duration-200 ${
+                canSubmit
+                  ? 'bg-[#0ABAB5] text-white hover:bg-[#09a9a4] cursor-pointer'
+                  : 'bg-[#1A3A3A] text-[#5A7A7A] cursor-not-allowed'
+              }`}
             >
               Get Started
             </motion.button>
-            <p className="text-center text-[11px] text-[#5A5A5A] mt-4">
-              {getGreeting()} — let's build something great
-            </p>
+
+            {/* Skip / guest option */}
+            <button
+              onClick={handleSkip}
+              className="w-full mt-4 text-center text-sm text-[#8A8A8A] hover:text-[#0ABAB5] transition-colors"
+            >
+              Already have an account? Continue as guest
+            </button>
           </motion.div>
         </motion.div>
       </div>

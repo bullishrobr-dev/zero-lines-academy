@@ -21,26 +21,24 @@ import CheatSheetsPage from './pages/CheatSheetsPage';
 import ProfilePage from './pages/ProfilePage';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { LocationProvider } from './contexts/LocationContext';
-
-function checkAuth(): boolean {
-  try {
-    const userData = localStorage.getItem('zl_user');
-    if (userData) {
-      const parsed = JSON.parse(userData);
-      return !!parsed.name;
-    }
-  } catch {
-    // ignore
-  }
-  return false;
-}
+import { useAuth } from './hooks/useAuth';
 
 function RootRoute() {
-  const isAuthenticated = useMemo(() => checkAuth(), []);
-  if (isAuthenticated) {
+  const { isAuthenticated } = useAuth();
+  const authed = useMemo(() => isAuthenticated(), []);
+  if (authed) {
     return <Navigate to="/home" replace />;
   }
   return <OnboardingPage />;
+}
+
+function AuthRoute() {
+  const { isAuthenticated } = useAuth();
+  const authed = useMemo(() => isAuthenticated(), []);
+  if (authed) {
+    return <Navigate to="/home" replace />;
+  }
+  return <AuthPage />;
 }
 
 export default function App() {
@@ -50,7 +48,7 @@ export default function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<RootRoute />} />
-            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/auth" element={<AuthRoute />} />
             <Route path="/home" element={<HomeDashboard />} />
             <Route path="/category/:id" element={<CategoryHub />} />
             <Route path="/lesson/:lessonId" element={<LessonView />} />
