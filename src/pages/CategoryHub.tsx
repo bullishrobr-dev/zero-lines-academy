@@ -175,7 +175,7 @@ export default function CategoryHub() {
   const isProductsCategory = id === 'products';
 
   return (
-    <div className="min-h-full pb-6">
+    <div className="min-h-full pb-20">
       {/* Hero */}
       <div
         className="px-6 pt-6 pb-8 relative overflow-hidden"

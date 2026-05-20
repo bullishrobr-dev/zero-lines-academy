@@ -154,7 +154,7 @@ export default function HomeDashboard() {
   }, [lessonProgress]);
 
   return (
-    <div className="min-h-full px-6 pt-6 pb-8">
+    <div className="min-h-full px-6 pt-6 pb-24">
       <motion.div variants={containerVariants} initial="hidden" animate="visible">
         {/* ── Motivational Quote Hero ── */}
         <motion.div variants={itemVariants} className="mb-6">
