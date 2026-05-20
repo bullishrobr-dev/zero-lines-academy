@@ -189,6 +189,7 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const progress = useProgress();
   const { language, setLanguage } = useLanguage();
+  const [pendingLang, setPendingLang] = useState<'en' | 'es' | null>(null);
   const { location, setLocation } = useLocation();
   const auth = useAuth();
 
@@ -390,19 +391,57 @@ export default function ProfilePage() {
               <label className="text-xs text-[#8A8A8A] font-medium mb-2 block">Language / Idioma</label>
               <div className="flex gap-3">
                 <button
-                  onClick={() => setLanguage('en')}
+                  onClick={() => language !== 'en' && setPendingLang('en')}
                   className={`flex-1 ${pillBtnBase} ${language === 'en' ? pillBtnActive : pillBtnInactive}`}
                 >
                   🇺🇸 English
                 </button>
                 <button
-                  onClick={() => setLanguage('es')}
+                  onClick={() => language !== 'es' && setPendingLang('es')}
                   className={`flex-1 ${pillBtnBase} ${language === 'es' ? pillBtnActive : pillBtnInactive}`}
                 >
                   🇪🇸 Español
                 </button>
               </div>
             </div>
+
+            {/* Language Change Confirmation Dialog */}
+            {pendingLang && (
+              <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 px-6">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-[#1A1A1A] rounded-2xl p-6 w-full max-w-sm border border-[#2A2A2A]"
+                >
+                  <h3 className="text-h4 text-white text-center">
+                    {pendingLang === 'es' ? 'Cambiar idioma a Español?' : 'Change language to English?'}
+                  </h3>
+                  <p className="text-body-small text-[#8A8A8A] text-center mt-2">
+                    {pendingLang === 'es'
+                      ? 'La aplicación se actualizará para mostrar todo en Español.'
+                      : 'The app will refresh to display everything in English.'}
+                  </p>
+                  <div className="flex gap-3 mt-5">
+                    <button
+                      onClick={() => setPendingLang(null)}
+                      className="flex-1 h-12 rounded-full border border-[#2A2A2A] text-white text-sm font-medium active:scale-[0.97] transition-transform"
+                    >
+                      {pendingLang === 'es' ? 'Cancelar' : 'Cancel'}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setLanguage(pendingLang);
+                        setPendingLang(null);
+                        setTimeout(() => window.location.reload(), 100);
+                      }}
+                      className="flex-1 h-12 rounded-full bg-[#0ABAB5] text-white text-sm font-semibold active:scale-[0.97] transition-transform"
+                    >
+                      {pendingLang === 'es' ? 'Confirmar' : 'Confirm'}
+                    </button>
+                  </div>
+                </motion.div>
+              </div>
+            )}
           </div>
         </motion.div>
 

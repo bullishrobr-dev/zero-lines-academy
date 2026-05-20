@@ -24,6 +24,7 @@ import { useMemo, useState, useCallback } from 'react';
 import { categories, getLessonsForCategory, getLesson, getCategory } from '../data/lessons';
 import { getRandomQuote, type Quote } from '../data/quotes';
 import { useProgress } from '../hooks/useProgress';
+import { useLanguage } from '../contexts/LanguageContext';
 import DailyChallengeCard from '../components/DailyChallengeCard';
 
 /* ─── Helpers ─── */
@@ -123,6 +124,7 @@ function QuickAccessItem({
 export default function HomeDashboard() {
   const navigate = useNavigate();
   const progress = useProgress();
+  const { language, t } = useLanguage();
 
   const userName = useMemo(() => getUserName(), []);
   const lessonProgress = progress.lessonProgress;
@@ -166,10 +168,10 @@ export default function HomeDashboard() {
               <RefreshCw size={14} />
             </button>
             <p
-              className="text-lg italic leading-relaxed text-white/90 mb-3"
+              className="text-lg italic leading-relaxed text-[#0ABAB5] mb-3"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              "{quote.text}"
+              "{language === 'es' ? quote.textEs : quote.text}"
             </p>
             <p className="text-sm text-[#8A8A8A]">— {quote.author}</p>
           </div>

@@ -17,6 +17,7 @@ export default function LessonQuiz() {
   const [currentQ, setCurrentQ] = useState(0);
   const [answerState, setAnswerState] = useState<AnswerState>('idle');
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const { language, t } = useLanguage();
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
 

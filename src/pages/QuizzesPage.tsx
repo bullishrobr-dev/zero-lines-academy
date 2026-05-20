@@ -7,6 +7,7 @@ import {
   Footprints, MessageCircle, Eye, Hand, Target, Zap,
 } from 'lucide-react';
 import { generalQuizzes, type QuizQuestion } from '../data/generalQuizzes';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useProgress } from '../hooks/useProgress';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -19,6 +20,7 @@ type View = 'hub' | 'quiz' | 'results';
 export default function QuizzesPage() {
   const navigate = useNavigate();
   const progress = useProgress();
+  const { language } = useLanguage();
   const [view, setView] = useState<View>('hub');
   const [activeQuizId, setActiveQuizId] = useState<string | null>(null);
   const [qIndex, setQIndex] = useState(0);
@@ -119,8 +121,8 @@ export default function QuizzesPage() {
                     <QuizIcon size={20} className="text-[#0ABAB5]" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-h4 text-white">{q.title}</h4>
-                    <p className="text-body-small text-[#8A8A8A] mt-0.5">{q.description}</p>
+                    <h4 className="text-h4 text-white">{language === 'es' && q.titleEs ? q.titleEs : q.title}</h4>
+                    <p className="text-body-small text-[#8A8A8A] mt-0.5">{language === 'es' && q.descriptionEs ? q.descriptionEs : q.description}</p>
                     <div className="flex items-center gap-3 mt-2">
                       <span className="text-[11px] text-[#8A8A8A] bg-[#2A2A2A] px-2 py-0.5 rounded-full">
                         {q.questions.length} questions
@@ -165,7 +167,7 @@ export default function QuizzesPage() {
             <ChevronLeft size={22} className="text-white" />
           </button>
           <div className="text-center">
-            <p className="text-caption text-[#8A8A8A]">{quiz.title}</p>
+            <p className="text-caption text-[#8A8A8A]">{language === 'es' && quiz.titleEs ? quiz.titleEs : quiz.title}</p>
           </div>
           <div className="w-11" />
         </div>
@@ -190,7 +192,7 @@ export default function QuizzesPage() {
 
         {/* Question */}
         <div className="px-6 mt-4">
-          <h3 className="text-h3 text-white leading-snug">{question.question}</h3>
+          <h3 className="text-h3 text-white leading-snug">{language === 'es' && question.questionEs ? question.questionEs : question.question}</h3>
         </div>
 
         {/* Options */}
@@ -226,7 +228,7 @@ export default function QuizzesPage() {
                     }`}>
                       {String.fromCharCode(65 + idx)}
                     </span>
-                    <span className="text-body-small text-white">{opt}</span>
+                    <span className="text-body-small text-white">{language === 'es' && question.optionsEs ? question.optionsEs[idx] : opt}</span>
                   </div>
                 </motion.button>
               );
@@ -253,7 +255,7 @@ export default function QuizzesPage() {
                 }`}>
                   {selectedIdx === question.correctIndex ? 'Correct!' : 'Not quite...'}
                 </p>
-                <p className="text-body-small text-[#B0B0B0] mt-1">{question.explanation}</p>
+                <p className="text-body-small text-[#B0B0B0] mt-1">{language === 'es' && question.explanationEs ? question.explanationEs : question.explanation}</p>
               </div>
               <button
                 onClick={handleNext}

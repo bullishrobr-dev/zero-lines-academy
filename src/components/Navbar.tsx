@@ -1,17 +1,19 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { Home, GraduationCap, Dumbbell, Brain, Trophy } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-const navItems = [
-  { to: '/home', label: 'Home', icon: Home },
-  { to: '/home', label: 'Training', icon: GraduationCap },
-  { to: '/exercises', label: 'Exercises', icon: Dumbbell },
-  { to: '/quizzes', label: 'Quizzes', icon: Brain },
-  { to: '/profile', label: 'Profile', icon: Trophy },
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Navbar() {
   const location = useLocation();
+  const { t } = useLanguage();
+
+  const navItems = [
+    { to: '/home', label: t('navHome'), icon: Home },
+    { to: '/home', label: t('navTraining'), icon: GraduationCap },
+    { to: '/exercises', label: t('navExercises'), icon: Dumbbell },
+    { to: '/quizzes', label: t('navQuizzes'), icon: Brain },
+    { to: '/profile', label: t('navProfile'), icon: Trophy },
+  ];
 
   // Don't render on onboarding route
   if (location.pathname === '/') {
@@ -37,25 +39,16 @@ export default function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className="absolute -top-[1px] w-6 h-[3px] bg-[#0ABAB5] rounded-b-full"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 500,
-                        damping: 35,
-                      }}
+                      className="absolute -top-[1px] w-6 h-[2px] bg-[#0ABAB5] rounded-full"
                     />
                   )}
                   <item.icon size={22} strokeWidth={isActive ? 2.5 : 1.5} />
-                  <span className="text-[10px] font-medium leading-3">
-                    {item.label}
-                  </span>
+                  <span className="text-[10px] font-medium">{item.label}</span>
                 </>
               )}
             </NavLink>
           ))}
         </div>
-        {/* Safe area padding for iOS */}
-        <div className="h-[env(safe-area-inset-bottom)]" />
       </div>
     </nav>
   );
