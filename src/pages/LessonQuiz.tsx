@@ -77,7 +77,7 @@ export default function LessonQuiz() {
   const xpEarned = finished ? Math.round((finalScore / questions.length) * lesson.xpReward) : 0;
 
   return (
-    <div className="min-h-full flex flex-col px-6 pt-6 pb-8">
+    <div className="min-h-full flex flex-col px-6 pt-6 pb-20">
       {/* Header */}
       <button
         onClick={() => navigate(`/lesson/${lesson.id}`)}

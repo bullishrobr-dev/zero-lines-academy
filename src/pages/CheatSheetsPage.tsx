@@ -28,6 +28,7 @@ import {
   Package,
 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useLocation } from '../contexts/LocationContext';
 
 // ── Types ──
 type SheetTab = 'all' | 'prices' | 'scripts' | 'combos' | 'psychology';
@@ -331,6 +332,7 @@ function ExpandableCard({
 
 // ── Main Page ──
 export default function CheatSheetsPage() {
+  const { currency } = useLocation();
   const [activeTab, setActiveTab] = useState<SheetTab>('all');
   const [search, setSearch] = useState('');
   const [scriptFilter, setScriptFilter] = useState<string>('all');
@@ -473,7 +475,7 @@ export default function CheatSheetsPage() {
                 <ExpandableCard
                   key={product.id}
                   title={product.name}
-                  subtitle={`Europe: ${product.europePrice} → From ${product.minPrice}`}
+                  subtitle={`Europe: ${product.europePrice.replace(/€/g, currency)} → From ${product.minPrice.replace(/€/g, currency)}`}
                   icon={product.icon}
                   color={product.color}
                 >
@@ -502,7 +504,7 @@ export default function CheatSheetsPage() {
                                 : 'text-white'
                             }`}
                           >
-                            {step.price}
+                            {step.price.replace(/€/g, currency)}
                           </span>
                         </div>
                         <div className="flex items-start justify-between gap-2">
@@ -517,7 +519,7 @@ export default function CheatSheetsPage() {
                     {/* Min price footer */}
                     <div className="flex items-center justify-between pt-1">
                       <span className="text-[11px] text-[#8A8A8A]">Minimum price:</span>
-                      <span className="text-sm font-bold text-[#0ABAB5]">{product.minPrice}</span>
+                      <span className="text-sm font-bold text-[#0ABAB5]">{product.minPrice.replace(/€/g, currency)}</span>
                     </div>
                   </div>
                 </ExpandableCard>
@@ -640,9 +642,9 @@ export default function CheatSheetsPage() {
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-[#8A8A8A]">
                         <Percent size={10} className="inline mr-0.5" />
-                        Save {combo.savings}
+                        Save {combo.savings.replace(/€/g, currency)}
                       </span>
-                      <span className="text-sm font-bold text-[#0ABAB5]">{combo.price}</span>
+                      <span className="text-sm font-bold text-[#0ABAB5]">{combo.price.replace(/€/g, currency)}</span>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-1.5 mb-2">
