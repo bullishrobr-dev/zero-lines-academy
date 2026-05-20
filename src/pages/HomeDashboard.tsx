@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────
-// HomeDashboard.tsx — Redesigned app home screen
-// Hero quote, welcome, stats, categories, continue learning, daily challenge, quick access
+// HomeDashboard.tsx — Main dashboard screen
+// Motivational quote, welcome, stats, continue learning, daily challenge, quick access
 // ─────────────────────────────────────────────────────────────
 
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +21,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { useMemo, useState, useCallback } from 'react';
-import { categories, getLessonsForCategory, getLesson, getCategory } from '../data/lessons';
+import { getLesson, getCategory } from '../data/lessons';
 import { getRandomQuote, type Quote } from '../data/quotes';
 import { useProgress } from '../hooks/useProgress';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -46,13 +46,6 @@ function getUserName(): string {
   } catch {
     return 'Learner';
   }
-}
-
-function getGreeting(): string {
-  const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 17) return 'Good afternoon';
-  return 'Good evening';
 }
 
 function getContinueLearning(): string[] {
@@ -124,7 +117,7 @@ function QuickAccessItem({
 export default function HomeDashboard() {
   const navigate = useNavigate();
   const progress = useProgress();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   const userName = useMemo(() => getUserName(), []);
   const lessonProgress = progress.lessonProgress;
@@ -133,6 +126,14 @@ export default function HomeDashboard() {
   const totalXP = progress.getTotalXP();
   const lessonsCompleted = progress.getLessonsCompletedCount();
   const currentStreak = progress.getCurrentStreak();
+
+  // Greeting based on time of day
+  const greeting = useMemo(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) return t('homeGoodMorning');
+    if (hour < 17) return t('homeGoodAfternoon');
+    return t('homeGoodEvening');
+  }, [t]);
 
   // Continue learning
   const continueIds = useMemo(() => getContinueLearning(), []);
@@ -144,16 +145,6 @@ export default function HomeDashboard() {
   // Motivational quote
   const [quote, setQuote] = useState<Quote>(() => getRandomQuote());
   const refreshQuote = useCallback(() => setQuote(getRandomQuote()), []);
-
-  // Category data
-  const categoryData = useMemo(() => {
-    return categories.map((cat) => {
-      const catLessons = getLessonsForCategory(cat.id);
-      const catCompleted = catLessons.filter((l) => lessonProgress[l.id]).length;
-      const catPct = catLessons.length > 0 ? Math.round((catCompleted / catLessons.length) * 100) : 0;
-      return { ...cat, catLessons: catLessons.length, catCompleted, catPct };
-    });
-  }, [lessonProgress]);
 
   return (
     <div className="min-h-full px-6 pt-6 pb-24">
@@ -171,16 +162,16 @@ export default function HomeDashboard() {
               className="text-lg italic leading-relaxed text-[#0ABAB5] mb-3"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              "{language === 'es' ? quote.textEs : quote.text}"
+              &ldquo;{language === 'es' ? quote.textEs : quote.text}&rdquo;
             </p>
-            <p className="text-sm text-[#8A8A8A]">— {quote.author}</p>
+            <p className="text-sm text-[#8A8A8A]">&mdash; {quote.author}</p>
           </div>
         </motion.div>
 
         {/* ── Welcome Message ── */}
         <motion.div variants={itemVariants} className="mb-6">
           <h1 className="text-h1 text-white">
-            {getGreeting()}, <span className="text-[#0ABAB5]">{userName}</span>!
+            {greeting}, <span className="text-[#0ABAB5]">{userName}</span>!
           </h1>
         </motion.div>
 
@@ -189,17 +180,17 @@ export default function HomeDashboard() {
           <div className="flex flex-col items-center p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A]">
             <Flame size={22} className="text-orange-500 mb-2" />
             <p className="text-h4 text-white font-bold">{totalXP}</p>
-            <p className="text-caption text-[#8A8A8A]">Total XP</p>
+            <p className="text-caption text-[#8A8A8A]">{t('homeTotalXP')}</p>
           </div>
           <div className="flex flex-col items-center p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A]">
             <BookOpen size={22} className="text-[#0ABAB5] mb-2" />
             <p className="text-h4 text-white font-bold">{lessonsCompleted}</p>
-            <p className="text-caption text-[#8A8A8A]">Lessons</p>
+            <p className="text-caption text-[#8A8A8A]">{t('homeLessonsLabel')}</p>
           </div>
           <div className="flex flex-col items-center p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A]">
             <Zap size={22} className="text-[#F59E0B] mb-2" />
             <p className="text-h4 text-white font-bold">{currentStreak}</p>
-            <p className="text-caption text-[#8A8A8A]">Streak</p>
+            <p className="text-caption text-[#8A8A8A]">{t('homeStreakLabel')}</p>
           </div>
         </motion.div>
 
@@ -207,7 +198,7 @@ export default function HomeDashboard() {
         {continueLessons.length > 0 && (
           <motion.div variants={itemVariants} className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-h2 text-white font-bold">Continue Learning</h2>
+              <h2 className="text-h2 text-white font-bold">{t('homeContinueLearning')}</h2>
             </div>
             <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-6 px-6">
               {continueLessons.map((lesson) => {
@@ -242,7 +233,7 @@ export default function HomeDashboard() {
                       </span>
                       {isDone && (
                         <span className="text-[10px] font-medium text-green-400 flex items-center gap-0.5">
-                          <Award size={10} /> Done
+                          <Award size={10} /> {t('homeDone')}
                         </span>
                       )}
                     </div>
@@ -253,61 +244,9 @@ export default function HomeDashboard() {
           </motion.div>
         )}
 
-        {/* ── Categories Grid ── */}
-        <motion.div variants={itemVariants} className="mb-2">
-          <h2 className="text-h2 text-white font-bold mb-4">Categories</h2>
-        </motion.div>
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          {categoryData.map((cat, i) => {
-            const CatIcon = getIcon(cat.icon);
-            return (
-              <motion.button
-                key={cat.id}
-                variants={itemVariants}
-                custom={i}
-                whileTap={{ scale: 0.96 }}
-                onClick={() => navigate(`/category/${cat.id}`)}
-                className="text-left p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A] hover:border-[#2A2A2A] transition-colors flex flex-col"
-              >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ backgroundColor: `${cat.accentColor}20` }}
-                >
-                  <CatIcon size={22} style={{ color: cat.accentColor }} />
-                </div>
-                <h4 className="text-h4 text-white font-semibold leading-tight mb-1">{cat.title}</h4>
-                <p className="text-caption text-[#8A8A8A] mb-3">{cat.subtitle}</p>
-                {cat.id === 'products' && (
-                  <p className="text-[10px] font-medium text-[#0ABAB5] mb-2">4 Products Inside</p>
-                )}
-                {/* Mini progress bar */}
-                <div className="mt-auto">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] text-[#8A8A8A]">
-                      {cat.catCompleted}/{cat.catLessons}
-                    </span>
-                    <span className="text-[10px] font-semibold" style={{ color: cat.accentColor }}>
-                      {cat.catPct}%
-                    </span>
-                  </div>
-                  <div className="h-1.5 bg-[#1A1A1A] rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full rounded-full"
-                      style={{ backgroundColor: cat.accentColor }}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${cat.catPct}%` }}
-                      transition={{ duration: 0.8, delay: 0.3 + i * 0.1 }}
-                    />
-                  </div>
-                </div>
-              </motion.button>
-            );
-          })}
-        </div>
-
         {/* ── Daily Challenge ── */}
         <motion.div variants={itemVariants} className="mb-6">
-          <h2 className="text-h2 text-white font-bold mb-4">Daily Challenge</h2>
+          <h2 className="text-h2 text-white font-bold mb-4">{t('homeDailyChallenge')}</h2>
           <DailyChallengeCard
             isCompleted={progress.isDailyChallengeCompleted()}
             onComplete={progress.completeDailyChallenge}
@@ -316,23 +255,23 @@ export default function HomeDashboard() {
 
         {/* ── Quick Access Row ── */}
         <motion.div variants={itemVariants}>
-          <h2 className="text-h2 text-white font-bold mb-4">Quick Access</h2>
+          <h2 className="text-h2 text-white font-bold mb-4">{t('homeQuickAccess') || 'Quick Access'}</h2>
           <div className="grid grid-cols-3 gap-3">
             <QuickAccessItem
               icon={FileText}
-              label="Cheat Sheets"
+              label={t('homeQuickAccessCheatSheets')}
               onClick={() => navigate('/cheat-sheets')}
               color="#8B5CF6"
             />
             <QuickAccessItem
               icon={Dumbbell}
-              label="Exercises"
+              label={t('homeQuickAccessExercises')}
               onClick={() => navigate('/exercises')}
               color="#0ABAB5"
             />
             <QuickAccessItem
               icon={BrainCircuit}
-              label="Quizzes"
+              label={t('homeQuickAccessQuizzes')}
               onClick={() => navigate('/quizzes')}
               color="#F59E0B"
             />

@@ -9,7 +9,7 @@ export default function Navbar() {
 
   const navItems = [
     { to: '/home', label: t('navHome'), icon: Home },
-    { to: '/home', label: t('navTraining'), icon: GraduationCap },
+    { to: '/training', label: t('navTraining'), icon: GraduationCap },
     { to: '/exercises', label: t('navExercises'), icon: Dumbbell },
     { to: '/quizzes', label: t('navQuizzes'), icon: Brain },
     { to: '/profile', label: t('navProfile'), icon: Trophy },
@@ -43,7 +43,7 @@ export default function Navbar() {
                     />
                   )}
                   <item.icon size={22} strokeWidth={isActive ? 2.5 : 1.5} />
-                  <span className="text-[10px] font-medium">{item.label}</span>
+                  <span className="text-[10px] font-medium text-center w-full">{item.label}</span>
                 </>
               )}
             </NavLink>

@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import OnboardingPage from './pages/OnboardingPage';
 import AuthPage from './pages/AuthPage';
 import HomeDashboard from './pages/HomeDashboard';
+import TrainingHub from './pages/TrainingHub';
 import CategoryHub from './pages/CategoryHub';
 import LessonView from './pages/LessonView';
 import LessonQuiz from './pages/LessonQuiz';
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="/" element={<RootRoute />} />
             <Route path="/auth" element={<AuthRoute />} />
             <Route path="/home" element={<HomeDashboard />} />
+            <Route path="/training" element={<TrainingHub />} />
             <Route path="/category/:id" element={<CategoryHub />} />
             <Route path="/lesson/:lessonId" element={<LessonView />} />
             <Route path="/lesson/:lessonId/quiz" element={<LessonQuiz />} />
