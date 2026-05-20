@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────
 // CheatSheetsPage.tsx — Comprehensive sales reference with
-// price ladder, scripts, combos, psychology, and more
+// price ladder, scripts, psychology, and more
 // ─────────────────────────────────────────────────────────────
 
 import { useState, useMemo } from 'react';
@@ -21,17 +21,15 @@ import {
   ShieldCheck,
   XCircle,
   BookOpen,
-  Percent,
-  Users,
   Eye,
   ThumbsUp,
-  Package,
+  Users,
 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useLocation } from '../contexts/LocationContext';
 
 // ── Types ──
-type SheetTab = 'all' | 'prices' | 'scripts' | 'combos' | 'psychology';
+type SheetTab = 'all' | 'prices' | 'scripts' | 'psychology';
 
 // ── Price Ladder Data ──
 interface PriceStep {
@@ -56,19 +54,20 @@ interface ProductLadder {
 const PRODUCT_LADDERS: ProductLadder[] = [
   {
     id: 'syringe',
-    name: 'Hyaluronic Acid Syringe',
+    name: 'Hyaluronic Acid Syringe (Eye Treatment)',
     icon: <Syringe size={18} />,
     color: '#0ABAB5',
-    europePrice: '350-500€',
-    basePrice: '69€',
-    minPrice: '39€',
+    europePrice: '500€',
+    basePrice: '300€',
+    minPrice: '100€',
     steps: [
-      { label: 'Europe Price Anchor', price: '350-500€', words: '"In Europe, this treatment costs 350 to 500 euros."', isStrike: true },
-      { label: 'Andorra Base', price: '69€', words: '"Here in Andorra, it\'s only 69 euros."' },
-      { label: 'Offer 1 — With Gift', price: '69€ + Gift', words: '"And today I can include a free beauty gift worth 15€ with it."', highlight: true },
-      { label: 'Offer 2 — Alternative', price: '2 for 99€', words: '"Or if you want the best value, two syringes for 99€ — that\'s nearly 30% off the second one."' },
-      { label: 'Adaptive Fallback', price: 'Flexible', words: '"Let me check what special offers I have available for you today..."' },
-      { label: 'Voucher Close', price: '39€', words: '"I can apply a loyalty voucher — your final price is just 39€. This is only valid today."', highlight: true },
+      { label: 'Europe Price Anchor', price: '500€', words: '"Usually in our shops in Europe this goes for 500€ but here in Andorra we have a much better price."', isStrike: true },
+      { label: 'Andorra Base', price: '300€', words: '"It\'s only 300€."' },
+      { label: 'Offer 1 — 30% Off + Gift', price: '210€', words: '"Right now we have an amazing offer — you can get it for 30% less and you\'ll also receive a gift — Day Cream, Night Cream, or Peeling."', highlight: true },
+      { label: 'Offer 2 — Second Syringe Free', price: '300€', words: '"For 300€ you get a second syringe free — for your forehead, upper lip, or 11s."' },
+      { label: 'Advanced Upsell', price: '300€', words: '"Two syringes plus Day & Night Cream free — that\'s the full package."' },
+      { label: 'Adaptive Fallback (no gift)', price: '175€', words: '"Let me take the gift away and I\'ll give it to you for 175€."', highlight: true },
+      { label: 'Voucher Close', price: '140€', words: '"I want to make sure you leave happy today — I have a 20% voucher, that makes it just 140€."', highlight: true },
     ],
   },
   {
@@ -76,33 +75,33 @@ const PRODUCT_LADDERS: ProductLadder[] = [
     name: 'Glycolic Peeling',
     icon: <Droplets size={18} />,
     color: '#8B5CF6',
-    europePrice: '150-250€',
-    basePrice: '49€',
-    minPrice: '29€',
+    europePrice: '200€',
+    basePrice: '150€',
+    minPrice: '50€',
     steps: [
-      { label: 'Europe Price Anchor', price: '150-250€', words: '"A professional peeling in Europe runs 150 to 250 euros per session."', isStrike: true },
-      { label: 'Andorra Base', price: '49€', words: '"Our professional-grade peeling is just 49 euros."' },
-      { label: 'Offer 1 — With Gift', price: '49€ + Sample Kit', words: '"I\'ll throw in a post-peeling care sample kit so you see the full results at home."', highlight: true },
-      { label: 'Offer 2 — Alternative', price: '3 sessions 99€', words: '"Or prepay three sessions for 99€ — that\'s 33€ each, and you\'ll see real transformation."' },
-      { label: 'Adaptive Fallback', price: 'Flexible', words: '"Depending on your skin goals, I can customize a package..."' },
-      { label: 'Voucher Close', price: '29€', words: '"With today\'s guest voucher, your first peeling is just 29€."', highlight: true },
+      { label: 'Europe Price Anchor', price: '200€', words: '"In Europe this treatment costs 200€."', isStrike: true },
+      { label: 'Andorra Base', price: '150€', words: '"Here in Andorra it\'s only 150€."' },
+      { label: 'Offer 1 — 50% Off + Gift', price: '100€', words: '"This is not an anti-aging cream, this is something completely different — this is a treatment that separates the dead skin from the living skin. Right now you can get it for 50% off and you\'ll receive a Dead Sea Body Scrub gift."', highlight: true },
+      { label: 'Offer 2 — Day & Night Cream Free', price: '150€', words: '"For 150€ you get the peeling plus Day & Night Cream free."' },
+      { label: 'Adaptive Fallback (scrub as credit)', price: '75€', words: '"Let me remove the scrub and give it to you as credit — that makes it 75€."', highlight: true },
+      { label: 'Voucher Close', price: '50€', words: '"With today\'s voucher, a single peeling is just 50€ — no gifts, but the treatment alone is worth it."', highlight: true },
     ],
   },
   {
     id: 'scrub',
-    name: 'Salt Body Scrub',
+    name: 'Dead Sea Scrub & Body Butter',
     icon: <Sparkles size={18} />,
     color: '#F59E0B',
-    europePrice: '80-120€',
-    basePrice: '39€',
-    minPrice: '25€',
+    europePrice: '100€ each',
+    basePrice: '60€ each',
+    minPrice: '30€',
     steps: [
-      { label: 'Europe Price Anchor', price: '80-120€', words: '"A full-body scrub treatment in a European spa costs 80 to 120 euros."', isStrike: true },
-      { label: 'Andorra Base', price: '39€', words: '"Our premium salt scrub is 39 euros — same quality, fraction of the price."' },
-      { label: 'Offer 1 — With Gift', price: '39€ + Glove', words: '"And I\'ll include an exfoliating glove so you can maintain the results at home."', highlight: true },
-      { label: 'Offer 2 — Alternative', price: '2 for 59€', words: '"Take two scrubs for 59€ — gift one to someone or double your treatments."' },
-      { label: 'Adaptive Fallback', price: 'Flexible', words: '"Let me see what bundle makes most sense for your trip..."' },
-      { label: 'Voucher Close', price: '25€', words: '"Special guest price today: just 25€. This rate is exclusive to our store."', highlight: true },
+      { label: 'Europe Price Anchor', price: '100€ each', words: '"In Europe each of these costs 100€ — but here in Andorra they\'re only 60€ each."', isStrike: true },
+      { label: 'Core Offer — Buy 2, Get 1 Free', price: '€120 for 3', words: '"Buy any 2 products and get the third free — that\'s 120€ for 3 products."', highlight: true },
+      { label: 'Christmas Offer — Buy 2, Get 2', price: '€120 for 4', words: '"For the holidays: buy 2, get 2 free — 120€ for 4 products. That\'s our best deal."' },
+      { label: 'Slim Version — Buy 1, Get 1', price: '€60 for 2', words: '"Or just buy one, get one free — 60€ for 2 products."' },
+      { label: 'Butter Demo Script', price: 'Demo', words: '"I\'m going to show you something incredible — even if I flip it over, it doesn\'t fall." (flip test)' },
+      { label: 'Final Push — Scrub Only', price: '30€', words: '"Just the scrub by itself — 30€. That\'s the best price I can do."', highlight: true },
     ],
   },
   {
@@ -110,16 +109,16 @@ const PRODUCT_LADDERS: ProductLadder[] = [
     name: 'French Nail Kit',
     icon: <Scissors size={18} />,
     color: '#EC4899',
-    europePrice: '60-90€',
-    basePrice: '29€',
-    minPrice: '19€',
+    europePrice: '100€',
+    basePrice: '60€',
+    minPrice: '30€',
     steps: [
-      { label: 'Europe Price Anchor', price: '60-90€', words: '"A salon French manicure costs 60 to 90 euros and takes an hour."', isStrike: true },
-      { label: 'Andorra Base', price: '29€', words: '"This kit gives you unlimited French manicures at home for 29 euros."' },
-      { label: 'Offer 1 — With Gift', price: '29€ + File', words: '"I\'ll add a professional glass nail file as a free bonus."', highlight: true },
-      { label: 'Offer 2 — Alternative', price: 'Kit + Polish 39€', words: '"Or grab the kit with our long-wear polish set for 39€ — everything you need."' },
-      { label: 'Adaptive Fallback', price: 'Flexible', words: '"If you do nails regularly, the savings add up fast..."' },
-      { label: 'Voucher Close', price: '19€', words: '"With today\'s voucher, the kit is only 19€. That\'s less than one salon visit."', highlight: true },
+      { label: 'Europe Price Anchor', price: '100€', words: '"In Europe this nail kit costs 100€ — but here in Andorra it\'s only 60€."', isStrike: true },
+      { label: 'Core Offer — Buy 2, Get 1 Free', price: '€120 for 3 kits', words: '"Buy 2 kits, get the third free — 120€ for 3 complete kits."', highlight: true },
+      { label: 'Christmas Premium — Buy 2, Get 2', price: '€120 for 4 kits', words: '"Holiday special: buy 2, get 2 free — 120€ for 4 nail kits."' },
+      { label: 'Mix & Match', price: '€60 for 2', words: '"Mix and match a Nail Kit with a Scrub or Body Butter — buy one, get one — just 60€ for 2 products."' },
+      { label: 'Warranty Pitch', price: 'Demo', words: '"Even if your dog eats it, you can bring it back and we replace it."' },
+      { label: 'Final Push', price: '30€', words: '"The whole kit for 30€ — that\'s my final price."', highlight: true },
     ],
   },
 ];
@@ -144,14 +143,19 @@ const SCRIPTS: ScriptCard[] = [
   { id: 'o7', category: 'opening', title: 'Universal — Direct', text: '"I have something I want to show you — it takes 30 seconds and you\'ll see an instant difference."' },
   { id: 'o8', category: 'opening', title: 'Universal — Gift Angle', text: '"Are you shopping for anyone else today? Because this makes the perfect gift — and I\'ll show you why."' },
   // Closing scripts
-  { id: 'c1', category: 'closing', title: 'Two-Choice Close', text: '"So would you prefer the single treatment at 69€, or the double pack at 99€ for the best value?"' },
+  { id: 'c1', category: 'closing', title: 'Two-Choice Close (Syringe)', text: '"So would you prefer the single syringe at 300€, or two syringes at 300€ with the second one free for your forehead or upper lip?"' },
+  { id: 'c1b', category: 'closing', title: 'Two-Choice Close (Offer)', text: '"Would you prefer the 30% off at 210€ with a free gift, or the two-syringe deal at 300€?"' },
   { id: 'c2', category: 'closing', title: 'Assumptive Close', text: '"I\'ll set this aside for you at the counter. Do you want the gift bag with it?"' },
   { id: 'c3', category: 'closing', title: 'Scarcity Close', text: '"This voucher price is only valid today — I don\'t want you to miss it. Should I ring it up?"' },
-  { id: 'c4', category: 'closing', title: 'Summary Close', text: '"So you\'re getting the full treatment for less than a facial costs in Paris, plus the gift set. Great choice."' },
+  { id: 'c4', category: 'closing', title: 'Summary Close (Syringe)', text: '"So you\'re getting a treatment that costs 500€ in Europe for just 300€ here in Andorra. Great choice."' },
+  { id: 'c4b', category: 'closing', title: 'Summary Close (Offer)', text: '"So you\'re getting the treatment for 30% off at 210€ plus a free gift worth over 50€. Amazing deal."' },
   { id: 'c5', category: 'closing', title: 'Testimonial Close', text: '"A customer was in here yesterday — she bought two, and came back today for three more as gifts. That\'s how good this is."' },
   // Objection responses
   { id: 'r1', category: 'objection', title: '"I need to think about it"', text: '"Of course. Just so you know, this voucher expires when you leave the store — it\'s tied to today\'s visit. I can hold it at the counter for 10 minutes while you look around, and the price stays locked."' },
-  { id: 'r2', category: 'objection', title: '"It\'s too expensive"', text: '"I hear you. Let me ask — how much would you expect to pay in a salon for the same result? [Let them answer] Right. And this gives you multiple treatments. Let me check what I can do..."' },
+  { id: 'r2', category: 'objection', title: '"It\'s too expensive" (Syringe)', text: '"I hear you. In Europe this costs 500€. Here in Andorra it\'s 300€. And with today\'s offer I can do 30% off — that\'s 210€. Let me check what else I can do..."' },
+  { id: 'r2b', category: 'objection', title: '"It\'s too expensive" (Peeling)', text: '"I hear you. In Europe this costs 200€. Here in Andorra it\'s 150€. And right now I can do 50% off — that\'s 100€ with a free Dead Sea scrub gift."' },
+  { id: 'r2c', category: 'objection', title: '"It\'s too expensive" (Scrub)', text: '"I hear you. In Europe one of these is 100€. Here it\'s 60€. And with buy 2 get 1 free, that\'s 120€ for 3 products. Let me take the gift away and I can do even better..."' },
+  { id: 'r2d', category: 'objection', title: '"It\'s too expensive" (Nail Kit)', text: '"I hear you. In Europe this kit is 100€. Here in Andorra it\'s 60€. And with buy 2 get 1 free, that\'s 120€ for 3 complete kits."' },
   { id: 'r3', category: 'objection', title: '"I already have something similar"', text: '"Most of our customers do too. But when they try this, they tell me it\'s completely different. Can I show you why in 30 seconds?"' },
   { id: 'r4', category: 'objection', title: '"I\'m just looking"', text: '"No problem at all — looking is free. But can I show you something that takes 20 seconds? You don\'t have to buy anything, I just love the reaction."' },
   { id: 'r5', category: 'objection', title: '"I need to ask my partner"', text: '"Absolutely. If they were here, what would they say? [Pause] Here — take this sample card with the price written down. The voucher is valid for today only."' },
@@ -160,25 +164,6 @@ const SCRIPTS: ScriptCard[] = [
   { id: 'p1', category: 'partner', title: 'Include the Partner', text: '"And sir/ma\'am — you\'re going to love how this looks on them. Want to see the instant result too?"' },
   { id: 'p2', category: 'partner', title: 'Gift Suggestion', text: '"Most couples buy one for her and a scrub for him — it\'s a nice memory from Andorra. I can do both for a package price."' },
   { id: 'p3', category: 'partner', title: 'Opinion Ask', text: '"What do you think — should they go with the instant glow or the long-term treatment? You know them best."' },
-];
-
-// ── Combo Data ──
-interface Combo {
-  id: string;
-  name: string;
-  items: string[];
-  price: string;
-  savings: string;
-  words: string;
-}
-
-const COMBOS: Combo[] = [
-  { id: 'cb1', name: 'Glow Combo', items: ['Syringe', 'Peeling'], price: '99€', savings: '19€', words: '"The Glow Combo — instant lift plus deep radiance. Everything you need for that \'just back from vacation\' look."' },
-  { id: 'cb2', name: 'Spa Day Set', items: ['Peeling', 'Scrub'], price: '69€', savings: '19€', words: '"Spa Day at home — face-to-toe renewal. This is what I use myself before any big event."' },
-  { id: 'cb3', name: 'Total Renewal', items: ['Syringe', 'Peeling', 'Scrub'], price: '129€', savings: '38€', words: '"The Total Renewal — this is our most popular bundle. Face, body, everything covered. You\'re basically getting the scrub half price."' },
-  { id: 'cb4', name: 'Beauty Essentials', items: ['Syringe', 'Nail Kit'], price: '89€', savings: '9€', words: '"Beauty Essentials — flawless face, perfect nails. The complete package for your trip."' },
-  { id: 'cb5', name: 'Couples Retreat', items: ['2x Scrub', '2x Peeling'], price: '149€', savings: '47€', words: '"Couples Retreat — one for each of you. Most couples who come in grab this. It\'s a great shared experience."' },
-  { id: 'cb6', name: 'Gift Set Deluxe', items: ['Nail Kit', 'Scrub', 'Peeling'], price: '89€', savings: '28€', words: '"Gift Set Deluxe — perfect for splitting up as presents, or keeping one and gifting two. Everyone wins."' },
 ];
 
 // ── Key Phrases ──
@@ -355,16 +340,6 @@ export default function CheatSheetsPage() {
     return list;
   }, [scriptFilter, searchLower]);
 
-  const filteredCombos = useMemo(() => {
-    if (!searchLower) return COMBOS;
-    return COMBOS.filter(
-      (c) =>
-        c.name.toLowerCase().includes(searchLower) ||
-        c.items.some((i) => i.toLowerCase().includes(searchLower)) ||
-        c.words.toLowerCase().includes(searchLower)
-    );
-  }, [searchLower]);
-
   const filteredPhrases = useMemo(() => {
     if (!searchLower) return PHRASES;
     return PHRASES.filter(
@@ -376,7 +351,6 @@ export default function CheatSheetsPage() {
 
   const showPrices = activeTab === 'all' || activeTab === 'prices';
   const showScripts = activeTab === 'all' || activeTab === 'scripts';
-  const showCombos = activeTab === 'all' || activeTab === 'combos';
   const showPsych = activeTab === 'all' || activeTab === 'psychology';
 
   return (
@@ -393,7 +367,7 @@ export default function CheatSheetsPage() {
             <h1 className="text-h1 text-white">Cheat Sheets</h1>
           </div>
           <p className="text-body-small text-[#8A8A8A] mb-4">
-            Quick reference for prices, scripts, combos &amp; psychology
+            Quick reference for prices, scripts &amp; psychology
           </p>
         </motion.div>
 
@@ -440,12 +414,6 @@ export default function CheatSheetsPage() {
                 className="flex-1 text-xs data-[state=active]:bg-[#0ABAB5] data-[state=active]:text-black rounded-lg py-2"
               >
                 Scripts
-              </TabsTrigger>
-              <TabsTrigger
-                value="combos"
-                className="flex-1 text-xs data-[state=active]:bg-[#0ABAB5] data-[state=active]:text-black rounded-lg py-2"
-              >
-                Combos
               </TabsTrigger>
               <TabsTrigger
                 value="psychology"
@@ -620,69 +588,19 @@ export default function CheatSheetsPage() {
           </motion.section>
         )}
 
-        {/* ── COMBOS ── */}
-        {showCombos && (
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <Package size={16} className="text-[#F59E0B]" />
-              <h2 className="text-h4 text-white">Combo Reference</h2>
-            </div>
-            <div className="space-y-3">
-              {filteredCombos.map((combo) => (
-                <div
-                  key={combo.id}
-                  className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-4"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold text-white">{combo.name}</h3>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-[#8A8A8A]">
-                        <Percent size={10} className="inline mr-0.5" />
-                        Save {combo.savings.replace(/€/g, currency)}
-                      </span>
-                      <span className="text-sm font-bold text-[#0ABAB5]">{combo.price.replace(/€/g, currency)}</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 mb-2">
-                    {combo.items.map((item) => (
-                      <span
-                        key={item}
-                        className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#1A1A1A] text-[#8A8A8A]"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="text-xs text-white/70 italic leading-relaxed">{combo.words}</p>
-                    <CopyButton text={combo.words} />
-                  </div>
-                </div>
-              ))}
-              {filteredCombos.length === 0 && (
-                <p className="text-center text-sm text-[#8A8A8A] py-6">No combos match your search</p>
-              )}
-            </div>
-          </motion.section>
-        )}
-
         {/* ── PSYCHOLOGY ── */}
         {showPsych && (
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.35 }}
+            transition={{ delay: 0.3 }}
             className="space-y-5"
           >
             {/* Cialdini Principles */}
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Lightbulb size={16} className="text-[#F59E0B]" />
-                <h2 className="text-h4 text-white">Cialdini's 6 Principles</h2>
+                <h2 className="text-h4 text-white">Cialdini&apos;s 6 Principles</h2>
               </div>
               <div className="space-y-2.5">
                 {CIALDINI.map((p) => (
