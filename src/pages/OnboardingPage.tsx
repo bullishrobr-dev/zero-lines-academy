@@ -39,7 +39,7 @@ const logoVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.6, ease: 'easeOut', delay: 0.2 },
+    transition: { duration: 0.6, ease: 'easeOut' as const, delay: 0.2 },
   },
 };
 
@@ -72,7 +72,7 @@ const overlineVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: 'easeOut' },
+    transition: { duration: 0.4, ease: 'easeOut' as const },
   },
 };
 
@@ -81,7 +81,7 @@ const titleVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: 'easeOut' as const },
   },
 };
 
@@ -89,7 +89,7 @@ const descVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.4, ease: 'easeOut', delay: 0.2 },
+    transition: { duration: 0.4, ease: 'easeOut' as const, delay: 0.2 },
   },
 };
 
@@ -98,7 +98,7 @@ const ctaVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: 'easeOut', delay: 0.4 },
+    transition: { duration: 0.5, ease: 'easeOut' as const, delay: 0.4 },
   },
 };
 

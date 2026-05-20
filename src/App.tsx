@@ -2,6 +2,9 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import OnboardingPage from './pages/OnboardingPage';
 import HomeDashboard from './pages/HomeDashboard';
+import CategoryHub from './pages/CategoryHub';
+import LessonView from './pages/LessonView';
+import LessonQuiz from './pages/LessonQuiz';
 import MindsetPage from './pages/MindsetPage';
 import StoppingPage from './pages/StoppingPage';
 import ConnectingPage from './pages/ConnectingPage';
@@ -21,6 +24,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<OnboardingPage />} />
         <Route path="/home" element={<HomeDashboard />} />
+        <Route path="/category/:id" element={<CategoryHub />} />
+        <Route path="/lesson/:lessonId" element={<LessonView />} />
+        <Route path="/lesson/:lessonId/quiz" element={<LessonQuiz />} />
         <Route path="/mindset" element={<MindsetPage />} />
         <Route path="/stopping" element={<StoppingPage />} />
         <Route path="/connecting" element={<ConnectingPage />} />

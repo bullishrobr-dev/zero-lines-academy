@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const navItems = [
   { to: '/home', label: 'Home', icon: Home },
-  { to: '/training', label: 'Training', icon: GraduationCap },
+  { to: '/home', label: 'Training', icon: GraduationCap },
   { to: '/exercises', label: 'Exercises', icon: Dumbbell },
   { to: '/quizzes', label: 'Quizzes', icon: Brain },
   { to: '/profile', label: 'Profile', icon: Trophy },
