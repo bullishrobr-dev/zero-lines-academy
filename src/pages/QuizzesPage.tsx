@@ -6,7 +6,7 @@ import {
   ArrowRight, Brain, Syringe, Sparkles, FlaskConical,
   Footprints, MessageCircle, Eye, Hand, Target, Zap,
 } from 'lucide-react';
-import { generalQuizzes, type GeneralQuiz, type QuizQuestion } from '../data/generalQuizzes';
+import { generalQuizzes, type QuizQuestion } from '../data/generalQuizzes';
 import { useProgress } from '../hooks/useProgress';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {

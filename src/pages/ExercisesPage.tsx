@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronLeft, CheckCircle, Zap, MessageCircle, Puzzle,
-  TrendingUp, Dumbbell, Trophy, Star, RefreshCw, Shuffle, ListOrdered,
+  TrendingUp, Dumbbell, Trophy, RefreshCw, ListOrdered,
 } from 'lucide-react';
-import { generalExercises, type Exercise, type RolePlayContent, type PriceDrillContent, type MatchingContent, type OrderingContent } from '../data/generalExercises';
+import { generalExercises, type RolePlayContent, type PriceDrillContent, type MatchingContent, type OrderingContent } from '../data/generalExercises';
 
 /* ─── icon map ─── */
 const typeIcon: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {

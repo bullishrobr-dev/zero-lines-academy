@@ -199,7 +199,7 @@ export function useProgress(): UseProgressReturn {
               type: 'lesson',
               title: 'Lesson Completed',
               detail: lessonId,
-              xpEarned: xpReward,
+              xpEarned: 10,
               timestamp: new Date().toISOString(),
             };
             const updatedLog = [newItem, ...log].slice(0, 100);

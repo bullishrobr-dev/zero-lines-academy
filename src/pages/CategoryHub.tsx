@@ -158,7 +158,7 @@ function ProductSubcategoryCard({
 export default function CategoryHub() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { language, t } = useLanguage();
+  useLanguage(); // ensure language context is active
 
   const category = useMemo(() => categories.find((c) => c.id === id), [id]);
   const lessons = useMemo(() => (id ? getLessonsForCategory(id) : []), [id]);
