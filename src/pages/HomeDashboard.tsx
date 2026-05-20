@@ -124,7 +124,7 @@ function QuickAccessItem({
 export default function HomeDashboard() {
   const navigate = useNavigate();
   const progress = useProgress();
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
 
   const userName = useMemo(() => getUserName(), []);
   const lessonProgress = progress.lessonProgress;
