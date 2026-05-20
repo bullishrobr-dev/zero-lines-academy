@@ -10,7 +10,6 @@ import {
   Users,
   Hand,
   Sparkles,
-  Lock,
   Check,
   ChevronRight,
   ArrowLeft,
@@ -23,6 +22,7 @@ import {
 } from 'lucide-react';
 import { useMemo } from 'react';
 import { categories, getLessonsForCategory } from '../data/lessons';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const iconMap: Record<string, LucideIcon> = {
   Brain,
@@ -158,6 +158,7 @@ function ProductSubcategoryCard({
 export default function CategoryHub() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { language, t } = useLanguage();
 
   const category = useMemo(() => categories.find((c) => c.id === id), [id]);
   const lessons = useMemo(() => (id ? getLessonsForCategory(id) : []), [id]);
@@ -250,11 +251,6 @@ export default function CategoryHub() {
           )}
           {lessons.map((lesson, index) => {
             const isCompleted = progress[lesson.id];
-            const prevLesson = lessons[index - 1];
-            const isLocked = index > 0 && prevLesson ? !progress[prevLesson.id] : index > 0;
-            const isFirst = index === 0;
-            const locked = !isFirst && isLocked;
-
             const LessonIcon = getIcon(lesson.icon);
 
             return (
@@ -264,25 +260,15 @@ export default function CategoryHub() {
                 variants={cardVariants}
                 initial="hidden"
                 animate="visible"
-                onClick={() => {
-                  if (!locked) navigate(`/lesson/${lesson.id}`);
-                }}
-                className={`w-full text-left relative flex items-center gap-4 p-4 rounded-2xl border transition-all duration-200 ${
-                  locked
-                    ? 'opacity-50 border-[#1A1A1A] bg-[#0F0F0F] cursor-not-allowed'
-                    : 'border-[#1A1A1A] bg-[#111111] hover:border-[#2A2A2A] active:scale-[0.98]'
-                }`}
+                onClick={() => navigate(`/lesson/${lesson.id}`)}
+                className="w-full text-left relative flex items-center gap-4 p-4 rounded-2xl border border-[#1A1A1A] bg-[#111111] hover:border-[#2A2A2A] active:scale-[0.98] transition-all duration-200"
               >
                 {/* Icon circle */}
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
                   style={{ backgroundColor: `${category.accentColor}18` }}
                 >
-                  {locked ? (
-                    <Lock size={18} style={{ color: category.accentColor }} />
-                  ) : (
-                    <LessonIcon size={18} style={{ color: category.accentColor }} />
-                  )}
+                  <LessonIcon size={18} style={{ color: category.accentColor }} />
                 </div>
 
                 {/* Middle content */}
@@ -302,10 +288,6 @@ export default function CategoryHub() {
                   {isCompleted ? (
                     <div className="w-8 h-8 rounded-full bg-[#0ABAB5] flex items-center justify-center">
                       <Check size={16} strokeWidth={3} className="text-white" />
-                    </div>
-                  ) : locked ? (
-                    <div className="w-8 h-8 rounded-full bg-[#1A1A1A] flex items-center justify-center">
-                      <Lock size={14} className="text-[#8A8A8A]" />
                     </div>
                   ) : (
                     <div className="flex items-center gap-1">

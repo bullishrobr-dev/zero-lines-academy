@@ -175,16 +175,16 @@ export function useProgress(): UseProgressReturn {
 
   // ── Actions ──
   const completeLesson = useCallback(
-    (lessonId: string, xpReward: number) => {
+    (lessonId: string, _xpReward: number) => {
       setLessonProgress((prev) => {
         const alreadyCompleted = prev[lessonId];
         const updated = { ...prev, [lessonId]: true };
         saveJSON(LS_LESSON_PROGRESS, updated);
 
         if (!alreadyCompleted) {
-          // Add XP
+          // Small XP for completing the lesson (10 XP)
           setTotalXP((xpPrev) => {
-            const newXP = xpPrev + xpReward;
+            const newXP = xpPrev + 10;
             saveJSON(LS_XP, newXP);
             return newXP;
           });
@@ -254,21 +254,31 @@ export function useProgress(): UseProgressReturn {
 
   const getBestStreak = useCallback((): number => streak.best, [streak.best]);
 
-  const recordQuizScore = useCallback((quizId: string, score: number) => {
+  const recordQuizScore = useCallback((quizId: string, xpEarned: number) => {
     setQuizScores((prev) => {
-      const updated = { ...prev, [quizId]: score };
+      const updated = { ...prev, [quizId]: xpEarned };
       saveJSON(LS_QUIZ_SCORES, updated);
       return updated;
     });
+
+    // Only award XP for perfect scores (xpEarned > 0)
+    if (xpEarned > 0) {
+      setTotalXP((xpPrev) => {
+        const newXP = xpPrev + xpEarned;
+        saveJSON(LS_XP, newXP);
+        return newXP;
+      });
+      updateStreak();
+    }
 
     // Log activity
     setActivityLog((log) => {
       const newItem: ActivityItem = {
         id: `quiz-${quizId}-${Date.now()}`,
         type: 'quiz',
-        title: 'Quiz Completed',
-        detail: `${score}%`,
-        xpEarned: 0,
+        title: xpEarned > 0 ? 'Quiz Perfect Score!' : 'Quiz Completed',
+        detail: `${xpEarned > 0 ? '100% +' + xpEarned + ' XP' : 'Not perfect'}`,
+        xpEarned,
         timestamp: new Date().toISOString(),
       };
       const updatedLog = [newItem, ...log].slice(0, 100);
