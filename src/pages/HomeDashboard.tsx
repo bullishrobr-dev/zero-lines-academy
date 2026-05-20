@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────────────────────
+// HomeDashboard.tsx — Redesigned app home screen
+// Hero quote, welcome, stats, categories, continue learning, daily challenge, quick access
+// ─────────────────────────────────────────────────────────────
+
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -5,15 +10,21 @@ import {
   Users,
   Hand,
   Sparkles,
-  Zap,
   BookOpen,
   Flame,
+  Zap,
+  FileText,
+  Dumbbell,
+  BrainCircuit,
   Award,
-  Check,
+  RefreshCw,
   type LucideIcon,
 } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import { categories, getLessonsForCategory, lessons, getLesson, getCategory } from '../data/lessons';
+import { useMemo, useState, useCallback } from 'react';
+import { categories, getLessonsForCategory, getLesson, getCategory } from '../data/lessons';
+import { getRandomQuote, type Quote } from '../data/quotes';
+import { useProgress } from '../hooks/useProgress';
+import DailyChallengeCard from '../components/DailyChallengeCard';
 
 /* ─── Helpers ─── */
 
@@ -23,20 +34,24 @@ function getIcon(name: string): LucideIcon {
   return iconMap[name] || Sparkles;
 }
 
-function getProgress(): Record<string, boolean> {
-  try {
-    return JSON.parse(localStorage.getItem('zl_lesson_progress') || '{}');
-  } catch {
-    return {};
-  }
-}
-
 function getUserName(): string {
   try {
+    const userData = localStorage.getItem('zl_user');
+    if (userData) {
+      const parsed = JSON.parse(userData);
+      if (parsed.name) return parsed.name;
+    }
     return localStorage.getItem('zl_user_name') || 'Learner';
   } catch {
     return 'Learner';
   }
+}
+
+function getGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  return 'Good evening';
 }
 
 function getContinueLearning(): string[] {
@@ -54,199 +69,193 @@ function saveContinueLearning(lessonId: string) {
   localStorage.setItem('zl_continue_learning', JSON.stringify(list));
 }
 
-function getDailyChallenge(): { text: string; done: boolean } {
-  try {
-    const saved = localStorage.getItem('zl_daily_challenge');
-    const today = new Date().toDateString();
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (parsed.date === today) return parsed;
-    }
-    const challenges = [
-      'Practice the 3-Second Rule on 5 strangers today',
-      'Compliment 3 customers genuinely today',
-      'Use the Comparison Close in a real demo',
-      'Memorize one new product script perfectly',
-      'Track your stops-to-demos ratio for a full shift',
-    ];
-    const challenge = challenges[Math.floor(Math.random() * challenges.length)];
-    const data = { date: today, text: challenge, done: false };
-    localStorage.setItem('zl_daily_challenge', JSON.stringify(data));
-    return data;
-  } catch {
-    return { text: 'Complete one lesson today', done: false };
-  }
-}
-
-/* ─── Circular Progress ─── */
-
-function CircularProgress({
-  pct,
-  size = 140,
-  strokeWidth = 10,
-  color = '#0ABAB5',
-  children,
-}: {
-  pct: number;
-  size?: number;
-  strokeWidth?: number;
-  color?: string;
-  children?: React.ReactNode;
-}) {
-  const r = (size - strokeWidth) / 2;
-  const c = 2 * Math.PI * r;
-  const offset = c - (pct / 100) * c;
-
-  return (
-    <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} stroke="#1A1A1A" strokeWidth={strokeWidth} fill="none" />
-        <motion.circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          stroke={color}
-          strokeWidth={strokeWidth}
-          fill="none"
-          strokeLinecap="round"
-          strokeDasharray={c}
-          initial={{ strokeDashoffset: c }}
-          animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-        />
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">{children}</div>
-    </div>
-  );
-}
-
 /* ─── Animations ─── */
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.06 },
+    transition: { staggerChildren: 0.07 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
   },
 };
+
+/* ─── Quick Access Item ─── */
+
+function QuickAccessItem({
+  icon: Icon,
+  label,
+  onClick,
+  color,
+}: {
+  icon: LucideIcon;
+  label: string;
+  onClick: () => void;
+  color: string;
+}) {
+  return (
+    <motion.button
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A] hover:border-[#2A2A2A] transition-colors"
+    >
+      <div
+        className="w-12 h-12 rounded-xl flex items-center justify-center"
+        style={{ backgroundColor: `${color}18` }}
+      >
+        <Icon size={24} style={{ color }} />
+      </div>
+      <span className="text-xs font-medium text-[#8A8A8A]">{label}</span>
+    </motion.button>
+  );
+}
 
 /* ─── Main Component ─── */
 
 export default function HomeDashboard() {
   const navigate = useNavigate();
-  const progress = useMemo(() => getProgress(), []);
+  const progress = useProgress();
+
   const userName = useMemo(() => getUserName(), []);
+  const lessonProgress = progress.lessonProgress;
 
-  const totalLessons = Object.keys(lessons).length;
-  const completedLessons = Object.keys(progress).filter((k) => progress[k]).length;
-  const overallPct = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
-
-  // XP calculation
-  const totalXP = useMemo(() => {
-    return Object.keys(progress)
-      .filter((k) => progress[k])
-      .reduce((sum, id) => {
-        const lesson = getLesson(id);
-        return sum + (lesson?.xpReward || 0);
-      }, 0);
-  }, [progress]);
-
-  // Streak (simplified)
-  const streak = 3; // Placeholder — would be calculated from history
+  // Stats
+  const totalXP = progress.getTotalXP();
+  const lessonsCompleted = progress.getLessonsCompletedCount();
+  const currentStreak = progress.getCurrentStreak();
 
   // Continue learning
   const continueIds = useMemo(() => getContinueLearning(), []);
   const continueLessons = useMemo(
-    () => continueIds.map((id) => getLesson(id)).filter(Boolean).slice(0, 5),
+    () => continueIds.map((id) => getLesson(id)).filter(Boolean).slice(0, 6),
     [continueIds]
   );
 
-  // Daily challenge
-  const [daily, setDaily] = useState(() => getDailyChallenge());
+  // Motivational quote
+  const [quote, setQuote] = useState<Quote>(() => getRandomQuote());
+  const refreshQuote = useCallback(() => setQuote(getRandomQuote()), []);
 
-  const handleDailyDone = () => {
-    const updated = { ...daily, done: true };
-    setDaily(updated);
-    localStorage.setItem('zl_daily_challenge', JSON.stringify(updated));
-  };
-
-  // Date
-  const todayStr = new Date().toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-  });
-
-  // Category completion data
+  // Category data
   const categoryData = useMemo(() => {
     return categories.map((cat) => {
       const catLessons = getLessonsForCategory(cat.id);
-      const catCompleted = catLessons.filter((l) => progress[l.id]).length;
+      const catCompleted = catLessons.filter((l) => lessonProgress[l.id]).length;
       const catPct = catLessons.length > 0 ? Math.round((catCompleted / catLessons.length) * 100) : 0;
       return { ...cat, catLessons: catLessons.length, catCompleted, catPct };
     });
-  }, [progress]);
+  }, [lessonProgress]);
 
   return (
     <div className="min-h-full px-6 pt-6 pb-8">
       <motion.div variants={containerVariants} initial="hidden" animate="visible">
-        {/* Welcome header */}
+        {/* ── Motivational Quote Hero ── */}
         <motion.div variants={itemVariants} className="mb-6">
-          <p className="text-overline text-[#8A8A8A] mb-1">{todayStr}</p>
+          <div className="p-5 rounded-2xl bg-[#111111] border border-[#1A1A1A] relative">
+            <button
+              onClick={refreshQuote}
+              className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-[#1A1A1A] flex items-center justify-center text-[#5A5A5A] hover:text-[#0ABAB5] transition-colors"
+            >
+              <RefreshCw size={14} />
+            </button>
+            <p
+              className="text-lg italic leading-relaxed text-white/90 mb-3"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              "{quote.text}"
+            </p>
+            <p className="text-sm text-[#8A8A8A]">— {quote.author}</p>
+          </div>
+        </motion.div>
+
+        {/* ── Welcome Message ── */}
+        <motion.div variants={itemVariants} className="mb-6">
           <h1 className="text-h1 text-white">
-            Welcome back,{' '}
-            <span className="text-[#0ABAB5]">{userName}</span>!
+            {getGreeting()}, <span className="text-[#0ABAB5]">{userName}</span>!
           </h1>
-          <p className="text-body-small text-[#8A8A8A] mt-2 leading-relaxed">
-            Every master was once a beginner. Keep pushing forward.
-          </p>
         </motion.div>
 
-        {/* Overall progress ring */}
-        <motion.div variants={itemVariants} className="flex flex-col items-center mb-8">
-          <CircularProgress pct={overallPct}>
-            <div className="text-center">
-              <p className="text-score text-white">{overallPct}%</p>
-              <p className="text-caption text-[#8A8A8A]">
-                {completedLessons}/{totalLessons}
-              </p>
-            </div>
-          </CircularProgress>
-        </motion.div>
-
-        {/* Stats row */}
-        <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 mb-8">
+        {/* ── Stats Row ── */}
+        <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 mb-6">
           <div className="flex flex-col items-center p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A]">
-            <Zap size={22} className="text-[#F59E0B] mb-2" />
+            <Flame size={22} className="text-orange-500 mb-2" />
             <p className="text-h4 text-white font-bold">{totalXP}</p>
             <p className="text-caption text-[#8A8A8A]">Total XP</p>
           </div>
           <div className="flex flex-col items-center p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A]">
             <BookOpen size={22} className="text-[#0ABAB5] mb-2" />
-            <p className="text-h4 text-white font-bold">{completedLessons}</p>
-            <p className="text-caption text-[#8A8A8A]">Lessons Done</p>
+            <p className="text-h4 text-white font-bold">{lessonsCompleted}</p>
+            <p className="text-caption text-[#8A8A8A]">Lessons</p>
           </div>
           <div className="flex flex-col items-center p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A]">
-            <Flame size={22} className="text-orange-500 mb-2" />
-            <p className="text-h4 text-white font-bold">{streak}</p>
-            <p className="text-caption text-[#8A8A8A]">Day Streak</p>
+            <Zap size={22} className="text-[#F59E0B] mb-2" />
+            <p className="text-h4 text-white font-bold">{currentStreak}</p>
+            <p className="text-caption text-[#8A8A8A]">Streak</p>
           </div>
         </motion.div>
 
-        {/* Category grid */}
+        {/* ── Continue Learning ── */}
+        {continueLessons.length > 0 && (
+          <motion.div variants={itemVariants} className="mb-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-h2 text-white font-bold">Continue Learning</h2>
+            </div>
+            <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-6 px-6">
+              {continueLessons.map((lesson) => {
+                if (!lesson) return null;
+                const cat = getCategory(lesson.categoryId);
+                const isDone = lessonProgress[lesson.id];
+                const LessonIcon = getIcon(lesson.icon);
+                return (
+                  <motion.button
+                    key={lesson.id}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => {
+                      saveContinueLearning(lesson.id);
+                      navigate(`/lesson/${lesson.id}`);
+                    }}
+                    className="snap-start flex-shrink-0 w-60 p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A] hover:border-[#2A2A2A] transition-colors text-left"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <div
+                        className="w-6 h-6 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: `${cat?.accentColor || '#0ABAB5'}20` }}
+                      >
+                        <LessonIcon size={13} style={{ color: cat?.accentColor || '#0ABAB5' }} />
+                      </div>
+                      <span className="text-caption text-[#8A8A8A] truncate">{cat?.title}</span>
+                    </div>
+                    <h4 className="text-h4 text-white font-semibold mb-1 truncate">{lesson.title}</h4>
+                    <p className="text-caption text-[#8A8A8A] truncate mb-2">{lesson.subtitle}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#1A1A1A] text-[#8A8A8A]">
+                        {lesson.duration}
+                      </span>
+                      {isDone && (
+                        <span className="text-[10px] font-medium text-green-400 flex items-center gap-0.5">
+                          <Award size={10} /> Done
+                        </span>
+                      )}
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── Categories Grid ── */}
         <motion.div variants={itemVariants} className="mb-2">
           <h2 className="text-h2 text-white font-bold mb-4">Categories</h2>
         </motion.div>
-        <div className="grid grid-cols-2 gap-3 mb-8">
+        <div className="grid grid-cols-2 gap-3 mb-6">
           {categoryData.map((cat, i) => {
             const CatIcon = getIcon(cat.icon);
             return (
@@ -266,6 +275,9 @@ export default function HomeDashboard() {
                 </div>
                 <h4 className="text-h4 text-white font-semibold leading-tight mb-1">{cat.title}</h4>
                 <p className="text-caption text-[#8A8A8A] mb-3">{cat.subtitle}</p>
+                {cat.id === 'products' && (
+                  <p className="text-[10px] font-medium text-[#0ABAB5] mb-2">4 Products Inside</p>
+                )}
                 {/* Mini progress bar */}
                 <div className="mt-auto">
                   <div className="flex items-center justify-between mb-1">
@@ -291,83 +303,37 @@ export default function HomeDashboard() {
           })}
         </div>
 
-        {/* Continue learning */}
-        {continueLessons.length > 0 && (
-          <>
-            <motion.div variants={itemVariants} className="mb-3 flex items-center justify-between">
-              <h2 className="text-h2 text-white font-bold">Continue Learning</h2>
-            </motion.div>
-            <motion.div variants={itemVariants} className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 mb-8 -mx-6 px-6">
-              {continueLessons.map((lesson) => {
-                if (!lesson) return null;
-                const cat = getCategory(lesson.categoryId);
-                const isDone = progress[lesson.id];
-                return (
-                  <motion.button
-                    key={lesson.id}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => {
-                      saveContinueLearning(lesson.id);
-                      navigate(`/lesson/${lesson.id}`);
-                    }}
-                    className="snap-start flex-shrink-0 w-64 p-4 rounded-2xl bg-[#111111] border border-[#1A1A1A] hover:border-[#2A2A2A] transition-colors text-left"
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div
-                        className="w-6 h-6 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: `${cat?.accentColor || '#0ABAB5'}20` }}
-                      >
-                        {(() => {
-                          const Icon = getIcon(lesson.icon);
-                          return <Icon size={13} style={{ color: cat?.accentColor || '#0ABAB5' }} />;
-                        })()}
-                      </div>
-                      <span className="text-caption text-[#8A8A8A] truncate">{cat?.title}</span>
-                    </div>
-                    <h4 className="text-h4 text-white font-semibold mb-1 truncate">{lesson.title}</h4>
-                    <p className="text-caption text-[#8A8A8A] truncate">{lesson.subtitle}</p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#1A1A1A] text-[#8A8A8A]">
-                        {lesson.duration}
-                      </span>
-                      {isDone && (
-                        <span className="text-[10px] font-medium text-green-400 flex items-center gap-0.5">
-                          <Award size={10} /> Done
-                        </span>
-                      )}
-                    </div>
-                  </motion.button>
-                );
-              })}
-            </motion.div>
-          </>
-        )}
-
-        {/* Daily challenge */}
-        <motion.div variants={itemVariants}>
+        {/* ── Daily Challenge ── */}
+        <motion.div variants={itemVariants} className="mb-6">
           <h2 className="text-h2 text-white font-bold mb-4">Daily Challenge</h2>
-          <div className="p-5 rounded-2xl bg-[#111111] border border-[#1A1A1A] flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#0ABAB5]/15 flex items-center justify-center shrink-0">
-              <Award size={20} className="text-[#0ABAB5]" />
-            </div>
-            <div className="flex-1">
-              <p className="text-body-small text-white font-medium leading-relaxed mb-3">
-                {daily.text}
-              </p>
-              {daily.done ? (
-                <span className="inline-flex items-center gap-1 text-caption text-green-400 font-semibold">
-                  <Check size={14} strokeWidth={3} /> Completed
-                </span>
-              ) : (
-                <motion.button
-                  whileTap={{ scale: 0.97 }}
-                  onClick={handleDailyDone}
-                  className="px-5 py-2.5 rounded-full bg-[#0ABAB5] text-white text-caption font-semibold hover:bg-[#09a9a4] transition-colors"
-                >
-                  Mark Done
-                </motion.button>
-              )}
-            </div>
+          <DailyChallengeCard
+            isCompleted={progress.isDailyChallengeCompleted()}
+            onComplete={progress.completeDailyChallenge}
+          />
+        </motion.div>
+
+        {/* ── Quick Access Row ── */}
+        <motion.div variants={itemVariants}>
+          <h2 className="text-h2 text-white font-bold mb-4">Quick Access</h2>
+          <div className="grid grid-cols-3 gap-3">
+            <QuickAccessItem
+              icon={FileText}
+              label="Cheat Sheets"
+              onClick={() => navigate('/cheat-sheets')}
+              color="#8B5CF6"
+            />
+            <QuickAccessItem
+              icon={Dumbbell}
+              label="Exercises"
+              onClick={() => navigate('/exercises')}
+              color="#0ABAB5"
+            />
+            <QuickAccessItem
+              icon={BrainCircuit}
+              label="Quizzes"
+              onClick={() => navigate('/quizzes')}
+              color="#F59E0B"
+            />
           </div>
         </motion.div>
       </motion.div>

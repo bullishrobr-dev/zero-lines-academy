@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────
 // ProfilePage.tsx — Enhanced profile dashboard with XP, levels,
-// achievements, stats, activity timeline, and settings
+// achievements, stats, activity timeline, settings, language & location
 // ─────────────────────────────────────────────────────────────
 
 import { useState, useMemo } from 'react';
@@ -26,6 +26,7 @@ import {
   ChevronRight,
   Settings,
   Bell,
+  Globe,
   type LucideIcon,
 } from 'lucide-react';
 import { useProgress } from '@/hooks/useProgress';
@@ -42,6 +43,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { categories } from '@/data/lessons';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useLocation } from '@/contexts/LocationContext';
 
 // ── Level Configuration ──
 interface LevelConfig {
@@ -179,6 +182,9 @@ const fadeUp = {
 
 export default function ProfilePage() {
   const progress = useProgress();
+  const { language, setLanguage } = useLanguage();
+  const { location, setLocation } = useLocation();
+
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState(progress.getUserName());
   const [reminderEnabled, setReminderEnabled] = useState(false);
@@ -216,6 +222,10 @@ export default function ProfilePage() {
     setNameInput(progress.getUserName());
     setEditingName(false);
   };
+
+  const pillBtnBase = 'px-4 py-2 rounded-full border text-xs font-semibold transition-all duration-200 select-none';
+  const pillBtnInactive = 'border-[#2A2A2A] bg-[#111111] text-[#8A8A8A] hover:border-[#3A3A3A] hover:text-white';
+  const pillBtnActive = 'border-[#0ABAB5] bg-[#0ABAB5]/10 text-[#0ABAB5]';
 
   return (
     <div className="min-h-full bg-[#0A0A0A] pb-24">
@@ -331,6 +341,59 @@ export default function ProfilePage() {
             isCompleted={progress.isDailyChallengeCompleted()}
             onComplete={progress.completeDailyChallenge}
           />
+        </motion.div>
+
+        {/* ── Location & Language Settings ── */}
+        <motion.div
+          variants={fadeUp}
+          initial="initial"
+          animate="animate"
+          className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-5"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Globe size={16} className="text-[#8A8A8A]" />
+            <h2 className="text-h4 text-white">Region & Language</h2>
+          </div>
+
+          <div className="space-y-5">
+            {/* Location display + switcher */}
+            <div>
+              <label className="text-xs text-[#8A8A8A] font-medium mb-2 block">Location</label>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setLocation('andorra')}
+                  className={`flex-1 ${pillBtnBase} ${location === 'andorra' ? pillBtnActive : pillBtnInactive}`}
+                >
+                  🇦🇩 Andorra
+                </button>
+                <button
+                  onClick={() => setLocation('gibraltar')}
+                  className={`flex-1 ${pillBtnBase} ${location === 'gibraltar' ? pillBtnActive : pillBtnInactive}`}
+                >
+                  🇬🇮 Gibraltar
+                </button>
+              </div>
+            </div>
+
+            {/* Language switcher */}
+            <div>
+              <label className="text-xs text-[#8A8A8A] font-medium mb-2 block">Language / Idioma</label>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setLanguage('en')}
+                  className={`flex-1 ${pillBtnBase} ${language === 'en' ? pillBtnActive : pillBtnInactive}`}
+                >
+                  🇺🇸 English
+                </button>
+                <button
+                  onClick={() => setLanguage('es')}
+                  className={`flex-1 ${pillBtnBase} ${language === 'es' ? pillBtnActive : pillBtnInactive}`}
+                >
+                  🇪🇸 Español
+                </button>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Stats Grid */}

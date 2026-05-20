@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────────────────────
+// CategoryHub.tsx — Category page with product subcategories
+// Shows 4 product subcategory cards before lesson list for products category
+// ─────────────────────────────────────────────────────────────
+
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -9,6 +14,11 @@ import {
   Check,
   ChevronRight,
   ArrowLeft,
+  Eye,
+  Droplets,
+  Waves,
+  Scissors,
+  ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
 import { useMemo } from 'react';
@@ -42,6 +52,109 @@ const cardVariants = {
   }),
 };
 
+/* ─── Product Subcategory Data ─── */
+
+interface ProductSubcategory {
+  id: string;
+  title: string;
+  badge?: string;
+  description: string;
+  icon: LucideIcon;
+  route: string;
+  accentColor: string;
+}
+
+const productSubcategories: ProductSubcategory[] = [
+  {
+    id: 'syringe',
+    title: 'The Syringe',
+    badge: 'FLAGSHIP',
+    description: 'Natural Botox alternative — instant results',
+    icon: Eye,
+    route: '/syringe',
+    accentColor: '#0ABAB5',
+  },
+  {
+    id: 'peeling',
+    title: 'The Peeling',
+    description: 'Weekly treatment — one year of glowing skin',
+    icon: Droplets,
+    route: '/peeling',
+    accentColor: '#8B5CF6',
+  },
+  {
+    id: 'scrub',
+    title: 'Dead Sea Scrub & Body Butter',
+    description: 'Sensory duo — feel the difference',
+    icon: Waves,
+    route: '/scrub',
+    accentColor: '#F59E0B',
+  },
+  {
+    id: 'nail-kit',
+    title: 'Nail Kit',
+    description: '60-second shine — lifetime warranty',
+    icon: Scissors,
+    route: '/nail-kit',
+    accentColor: '#EC4899',
+  },
+];
+
+/* ─── Product Subcategory Card ─── */
+
+function ProductSubcategoryCard({
+  sub,
+  index,
+}: {
+  sub: ProductSubcategory;
+  index: number;
+}) {
+  const navigate = useNavigate();
+  const Icon = sub.icon;
+
+  return (
+    <motion.button
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      whileTap={{ scale: 0.98 }}
+      onClick={() => navigate(sub.route)}
+      className="w-full text-left p-5 rounded-2xl bg-[#111111] border border-[#1A1A1A] hover:border-[#2A2A2A] transition-all duration-200 flex items-start gap-4"
+    >
+      {/* Icon */}
+      <div
+        className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+        style={{ backgroundColor: `${sub.accentColor}18` }}
+      >
+        <Icon size={24} style={{ color: sub.accentColor }} />
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 mb-1">
+          <h3 className="text-h4 text-white font-semibold">{sub.title}</h3>
+          {sub.badge && (
+            <span
+              className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+              style={{ backgroundColor: `${sub.accentColor}20`, color: sub.accentColor }}
+            >
+              {sub.badge}
+            </span>
+          )}
+        </div>
+        <p className="text-caption text-[#8A8A8A] mb-3">{sub.description}</p>
+        <div className="flex items-center gap-1 text-[#0ABAB5] text-xs font-semibold">
+          <span>Learn Pitch</span>
+          <ArrowRight size={12} />
+        </div>
+      </div>
+    </motion.button>
+  );
+}
+
+/* ─── Main Component ─── */
+
 export default function CategoryHub() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -59,6 +172,7 @@ export default function CategoryHub() {
   const completionPct = lessons.length > 0 ? Math.round((completedCount / lessons.length) * 100) : 0;
 
   const CatIcon = getIcon(category.icon);
+  const isProductsCategory = id === 'products';
 
   return (
     <div className="min-h-full pb-6">
@@ -115,83 +229,96 @@ export default function CategoryHub() {
         </p>
       </div>
 
-      {/* Lesson list */}
-      <div className="px-6 space-y-3">
-        {lessons.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-body-small text-[#8A8A8A]">No lessons available yet.</p>
-          </div>
-        )}
-        {lessons.map((lesson, index) => {
-          const isCompleted = progress[lesson.id];
-          const prevLesson = lessons[index - 1];
-          const isLocked = index > 0 && prevLesson ? !progress[prevLesson.id] : index > 0;
-          const isFirst = index === 0;
-          const locked = !isFirst && isLocked;
+      {/* ── Product Subcategories (only for products category) ── */}
+      {isProductsCategory && (
+        <div className="px-6 mb-6 space-y-3">
+          <h2 className="text-h2 text-white font-bold mb-4">Product Deep Dives</h2>
+          {productSubcategories.map((sub, index) => (
+            <ProductSubcategoryCard key={sub.id} sub={sub} index={index} />
+          ))}
+        </div>
+      )}
 
-          const LessonIcon = getIcon(lesson.icon);
+      {/* ── Lesson List ── */}
+      <div className="px-6">
+        {isProductsCategory && <h2 className="text-h2 text-white font-bold mb-4">Lessons</h2>}
+        <div className="space-y-3">
+          {lessons.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-body-small text-[#8A8A8A]">No lessons available yet.</p>
+            </div>
+          )}
+          {lessons.map((lesson, index) => {
+            const isCompleted = progress[lesson.id];
+            const prevLesson = lessons[index - 1];
+            const isLocked = index > 0 && prevLesson ? !progress[prevLesson.id] : index > 0;
+            const isFirst = index === 0;
+            const locked = !isFirst && isLocked;
 
-          return (
-            <motion.button
-              key={lesson.id}
-              custom={index}
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              onClick={() => {
-                if (!locked) navigate(`/lesson/${lesson.id}`);
-              }}
-              className={`w-full text-left relative flex items-center gap-4 p-4 rounded-2xl border transition-all duration-200 ${
-                locked
-                  ? 'opacity-50 border-[#1A1A1A] bg-[#0F0F0F] cursor-not-allowed'
-                  : 'border-[#1A1A1A] bg-[#111111] hover:border-[#2A2A2A] active:scale-[0.98]'
-              }`}
-            >
-              {/* Icon circle */}
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                style={{ backgroundColor: `${category.accentColor}18` }}
+            const LessonIcon = getIcon(lesson.icon);
+
+            return (
+              <motion.button
+                key={lesson.id}
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                onClick={() => {
+                  if (!locked) navigate(`/lesson/${lesson.id}`);
+                }}
+                className={`w-full text-left relative flex items-center gap-4 p-4 rounded-2xl border transition-all duration-200 ${
+                  locked
+                    ? 'opacity-50 border-[#1A1A1A] bg-[#0F0F0F] cursor-not-allowed'
+                    : 'border-[#1A1A1A] bg-[#111111] hover:border-[#2A2A2A] active:scale-[0.98]'
+                }`}
               >
-                {locked ? (
-                  <Lock size={18} style={{ color: category.accentColor }} />
-                ) : (
-                  <LessonIcon size={18} style={{ color: category.accentColor }} />
-                )}
-              </div>
-
-              {/* Middle content */}
-              <div className="flex-1 min-w-0">
-                <h4 className="text-h4 text-white truncate">{lesson.title}</h4>
-                <p className="text-caption text-[#8A8A8A] mt-0.5">{lesson.subtitle}</p>
-                <div className="flex items-center gap-2 mt-1.5">
-                  <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#1A1A1A] text-[#8A8A8A]">
-                    {lesson.duration}
-                  </span>
-                  <span className="text-[11px] font-medium text-[#0ABAB5]">+{lesson.xpReward} XP</span>
+                {/* Icon circle */}
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: `${category.accentColor}18` }}
+                >
+                  {locked ? (
+                    <Lock size={18} style={{ color: category.accentColor }} />
+                  ) : (
+                    <LessonIcon size={18} style={{ color: category.accentColor }} />
+                  )}
                 </div>
-              </div>
 
-              {/* Right indicator */}
-              <div className="shrink-0">
-                {isCompleted ? (
-                  <div className="w-8 h-8 rounded-full bg-[#0ABAB5] flex items-center justify-center">
-                    <Check size={16} strokeWidth={3} className="text-white" />
+                {/* Middle content */}
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-h4 text-white truncate">{lesson.title}</h4>
+                  <p className="text-caption text-[#8A8A8A] mt-0.5">{lesson.subtitle}</p>
+                  <div className="flex items-center gap-2 mt-1.5">
+                    <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#1A1A1A] text-[#8A8A8A]">
+                      {lesson.duration}
+                    </span>
+                    <span className="text-[11px] font-medium text-[#0ABAB5]">+{lesson.xpReward} XP</span>
                   </div>
-                ) : locked ? (
-                  <div className="w-8 h-8 rounded-full bg-[#1A1A1A] flex items-center justify-center">
-                    <Lock size={14} className="text-[#8A8A8A]" />
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-1">
-                    <div className="w-8 h-8 rounded-full border-2 border-[#0ABAB5] flex items-center justify-center">
-                      <ChevronRight size={14} className="text-[#0ABAB5]" />
+                </div>
+
+                {/* Right indicator */}
+                <div className="shrink-0">
+                  {isCompleted ? (
+                    <div className="w-8 h-8 rounded-full bg-[#0ABAB5] flex items-center justify-center">
+                      <Check size={16} strokeWidth={3} className="text-white" />
                     </div>
-                  </div>
-                )}
-              </div>
-            </motion.button>
-          );
-        })}
+                  ) : locked ? (
+                    <div className="w-8 h-8 rounded-full bg-[#1A1A1A] flex items-center justify-center">
+                      <Lock size={14} className="text-[#8A8A8A]" />
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1">
+                      <div className="w-8 h-8 rounded-full border-2 border-[#0ABAB5] flex items-center justify-center">
+                        <ChevronRight size={14} className="text-[#0ABAB5]" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
