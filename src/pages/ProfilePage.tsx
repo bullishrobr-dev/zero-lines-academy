@@ -4,6 +4,7 @@
 // ─────────────────────────────────────────────────────────────
 
 import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Trophy,
@@ -27,9 +28,13 @@ import {
   Settings,
   Bell,
   Globe,
+  LogOut,
+  MapPin,
+  Briefcase,
   type LucideIcon,
 } from 'lucide-react';
 import { useProgress } from '@/hooks/useProgress';
+import { useAuth } from '@/hooks/useAuth';
 import DailyChallengeCard from '@/components/DailyChallengeCard';
 import {
   AlertDialog,
@@ -181,9 +186,14 @@ const fadeUp = {
 };
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const progress = useProgress();
   const { language, setLanguage } = useLanguage();
   const { location, setLocation } = useLocation();
+  const auth = useAuth();
+
+  // Read authenticated user data from zl_user
+  const authUser = useMemo(() => auth.getUser(), []);
 
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState(progress.getUserName());
@@ -245,7 +255,7 @@ export default function ProfilePage() {
               className="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold text-white shrink-0"
               style={{ backgroundColor: level.color }}
             >
-              {(progress.getUserName() || 'S').charAt(0).toUpperCase()}
+              {(authUser?.name || progress.getUserName() || 'S').charAt(0).toUpperCase()}
             </div>
 
             <div className="flex-1 min-w-0">
@@ -279,7 +289,7 @@ export default function ProfilePage() {
               ) : (
                 <div className="flex items-center gap-2">
                   <h1 className="text-h3 text-white truncate">
-                    {progress.getUserName() || 'Sales Trainee'}
+                    {authUser?.name || progress.getUserName() || 'Sales Trainee'}
                   </h1>
                   <button
                     onClick={() => {
@@ -395,6 +405,97 @@ export default function ProfilePage() {
             </div>
           </div>
         </motion.div>
+
+        {/* ── Authenticated User Info ── */}
+        {authUser && (
+          <motion.div
+            variants={fadeUp}
+            initial="initial"
+            animate="animate"
+            className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-5"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Briefcase size={16} className="text-[#8A8A8A]" />
+              <h2 className="text-h4 text-white">Your Account</h2>
+            </div>
+
+            <div className="space-y-3">
+              {/* Name */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#0ABAB5]/10 flex items-center justify-center">
+                    <Target size={14} className="text-[#0ABAB5]" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-[#8A8A8A]">Name</p>
+                    <p className="text-sm text-white">{authUser.name}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 flex items-center justify-center">
+                    <MapPin size={14} className="text-[#8B5CF6]" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-[#8A8A8A]">Location</p>
+                    <p className="text-sm text-white">
+                      {authUser.location === 'andorra' ? '🇦🇩 Andorra' : '🇬🇮 Gibraltar'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Role */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#F59E0B]/10 flex items-center justify-center">
+                    <Briefcase size={14} className="text-[#F59E0B]" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-[#8A8A8A]">Role</p>
+                    <p className="text-sm text-white">
+                      {authUser.role === 'salesperson' ? 'Salesperson' : 'Manager'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Joined date */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#10B981]/10 flex items-center justify-center">
+                    <Calendar size={14} className="text-[#10B981]" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-[#8A8A8A]">Joined</p>
+                    <p className="text-sm text-white">
+                      {new Date(authUser.joinedAt).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Logout button */}
+            <button
+              onClick={() => {
+                auth.logout();
+                navigate('/auth', { replace: true });
+              }}
+              className="w-full mt-5 flex items-center justify-center gap-2 rounded-xl border border-[#EF4444]/20 bg-[#EF4444]/5 p-3.5 transition-colors hover:bg-[#EF4444]/10"
+            >
+              <LogOut size={14} className="text-[#EF4444]" />
+              <span className="text-sm text-[#EF4444] font-medium">Logout</span>
+            </button>
+          </motion.div>
+        )}
 
         {/* Stats Grid */}
         <motion.div
