@@ -54,7 +54,7 @@ interface ProductLadder {
   steps: PriceStep[];
 }
 
-function getProductLadders(lang: Language): ProductLadder[] {
+function getProductLadders(lang: Language, currency: string, locationName: string): ProductLadder[] {
   if (lang === 'es') {
     return [
       {
@@ -62,17 +62,17 @@ function getProductLadders(lang: Language): ProductLadder[] {
         name: 'S\u00e9rum de \u00c1cido Hialur\u00f3nico (Tratamiento de Ojos)',
         icon: <Syringe size={18} />,
         color: '#0ABAB5',
-        europePrice: '500\u20ac',
-        basePrice: '300\u20ac',
-        minPrice: '100\u20ac',
+        europePrice: `500${currency}`,
+        basePrice: `300${currency}`,
+        minPrice: `100${currency}`,
         steps: [
-          { label: 'Anclaje de Precio Europa', price: '500\u20ac', words: '"Normalmente en nuestras tiendas en Europa esto cuesta 500\u20ac pero aqu\u00ed en Andorra tenemos un precio mucho mejor."', isStrike: true },
-          { label: 'Base de Andorra', price: '300\u20ac', words: '"Es solo 300\u20ac."' },
-          { label: 'Oferta 1 \u2014 30% Descuento + Regalo', price: '210\u20ac', words: '"Ahora mismo tenemos una oferta incre\u00edble \u2014 puedes llev\u00e1rtelo con un 30% de descuento y tambi\u00e9n recibir\u00e1s un regalo \u2014 Crema de D\u00eda, Crema de Noche o Peeling."', highlight: true },
-          { label: 'Oferta 2 \u2014 Segunda Jeringa Gratis', price: '300\u20ac', words: '"Por 300\u20ac te llevas una segunda jeringa gratis \u2014 para tu frente, labio superior o l\u00edneas de expresi\u00f3n."' },
-          { label: 'Venta Adicional Avanzada', price: '300\u20ac', words: '"Dos jeringas m\u00e1s Crema de D\u00eda y Noche gratis \u2014 ese es el paquete completo."' },
-          { label: 'Alternativa Adaptativa (sin regalo)', price: '175\u20ac', words: '"D\u00e9jame quitar el regalo y te lo doy por 175\u20ac."', highlight: true },
-          { label: 'Cierre con Cup\u00f3n', price: '140\u20ac', words: '"Quiero asegurarme de que te vayas feliz hoy \u2014 tengo un cup\u00f3n del 20%, eso lo deja en solo 140\u20ac."', highlight: true },
+          { label: 'Anclaje de Precio Europa', price: `500${currency}`, words: '"Normalmente en nuestras tiendas en Europa esto cuesta 500${currency} pero aqu\u00ed en ${locationName} tenemos un precio mucho mejor."', isStrike: true },
+          { label: `Base de ${locationName}`, price: `300${currency}`, words: '"Es solo 300${currency}."' },
+          { label: 'Oferta 1 \u2014 30% Descuento + Regalo', price: `210${currency}`, words: '"Ahora mismo tenemos una oferta incre\u00edble \u2014 puedes llev\u00e1rtelo con un 30% de descuento y tambi\u00e9n recibir\u00e1s un regalo \u2014 Crema de D\u00eda, Crema de Noche o Peeling."', highlight: true },
+          { label: 'Oferta 2 \u2014 Segunda Jeringa Gratis', price: `300${currency}`, words: '"Por 300${currency} te llevas una segunda jeringa gratis \u2014 para tu frente, labio superior o l\u00edneas de expresi\u00f3n."' },
+          { label: 'Venta Adicional Avanzada', price: `300${currency}`, words: '"Dos jeringas m\u00e1s Crema de D\u00eda y Noche gratis \u2014 ese es el paquete completo."' },
+          { label: 'Alternativa Adaptativa (sin regalo)', price: `175${currency}`, words: '"D\u00e9jame quitar el regalo y te lo doy por 175${currency}."', highlight: true },
+          { label: 'Cierre con Cup\u00f3n', price: `140${currency}`, words: '"Quiero asegurarme de que te vayas feliz hoy \u2014 tengo un cup\u00f3n del 20%, eso lo deja en solo 140${currency}."', highlight: true },
         ],
       },
       {
@@ -80,16 +80,16 @@ function getProductLadders(lang: Language): ProductLadder[] {
         name: 'Peeling Glic\u00f3lico',
         icon: <Droplets size={18} />,
         color: '#8B5CF6',
-        europePrice: '200\u20ac',
-        basePrice: '150\u20ac',
-        minPrice: '50\u20ac',
+        europePrice: `200${currency}`,
+        basePrice: `150${currency}`,
+        minPrice: `50${currency}`,
         steps: [
-          { label: 'Anclaje de Precio Europa', price: '200\u20ac', words: '"En Europa este tratamiento cuesta 200\u20ac."', isStrike: true },
-          { label: 'Base de Andorra', price: '150\u20ac', words: '"Aqu\u00ed en Andorra es solo 150\u20ac."' },
-          { label: 'Oferta 1 \u2014 50% Descuento + Regalo', price: '100\u20ac', words: '"Esto no es una crema anti-edad, esto es algo completamente diferente \u2014 esto es un tratamiento que separa la piel muerta de la piel viva. Ahora mismo puedes llev\u00e1rtelo con un 50% de descuento y recibir\u00e1s un regalo de Exfoliante del Mar Muerto."', highlight: true },
-          { label: 'Oferta 2 \u2014 Crema de D\u00eda y Noche Gratis', price: '150\u20ac', words: '"Por 150\u20ac te llevas el peeling m\u00e1s la Crema de D\u00eda y Noche gratis."' },
-          { label: 'Alternativa Adaptativa (exfoliante como cr\u00e9dito)', price: '70\u20ac', words: '"D\u00e9jame quitar el exfoliante y te lo doy como cr\u00e9dito \u2014 eso lo deja en 70\u20ac."', highlight: true },
-          { label: 'Cierre con Cup\u00f3n', price: '50\u20ac', words: '"Con el cup\u00f3n de hoy, un solo peeling es solo 50\u20ac \u2014 sin regalos, pero solo el tratamiento ya vale la pena."', highlight: true },
+          { label: 'Anclaje de Precio Europa', price: `200${currency}`, words: '"En Europa este tratamiento cuesta 200${currency}."', isStrike: true },
+          { label: `Base de ${locationName}`, price: `150${currency}`, words: '"Aqu\u00ed en ${locationName} es solo 150${currency}."' },
+          { label: 'Oferta 1 \u2014 50% Descuento + Regalo', price: `100${currency}`, words: '"Esto no es una crema anti-edad, esto es algo completamente diferente \u2014 esto es un tratamiento que separa la piel muerta de la piel viva. Ahora mismo puedes llev\u00e1rtelo con un 50% de descuento y recibir\u00e1s un regalo de Exfoliante del Mar Muerto."', highlight: true },
+          { label: 'Oferta 2 \u2014 Crema de D\u00eda y Noche Gratis', price: `150${currency}`, words: '"Por 150${currency} te llevas el peeling m\u00e1s la Crema de D\u00eda y Noche gratis."' },
+          { label: 'Alternativa Adaptativa (exfoliante como cr\u00e9dito)', price: `70${currency}`, words: '"D\u00e9jame quitar el exfoliante y te lo doy como cr\u00e9dito \u2014 eso lo deja en 70${currency}."', highlight: true },
+          { label: 'Cierre con Cup\u00f3n', price: `50${currency}`, words: '"Con el cup\u00f3n de hoy, un solo peeling es solo 50${currency} \u2014 sin regalos, pero solo el tratamiento ya vale la pena."', highlight: true },
         ],
       },
       {
@@ -97,16 +97,16 @@ function getProductLadders(lang: Language): ProductLadder[] {
         name: 'Exfoliante del Mar Muerto y Manteca Corporal',
         icon: <Sparkles size={18} />,
         color: '#F59E0B',
-        europePrice: '100\u20ac cada uno',
-        basePrice: '60\u20ac cada uno',
-        minPrice: '30\u20ac',
+        europePrice: `100${currency} cada uno`,
+        basePrice: `60${currency} cada uno`,
+        minPrice: `30${currency}`,
         steps: [
-          { label: 'Anclaje de Precio Europa', price: '100\u20ac cada uno', words: '"En Europa cada uno de estos cuesta 100\u20ac \u2014 pero aqu\u00ed en Andorra son solo 60\u20ac cada uno."', isStrike: true },
-          { label: 'Oferta Principal \u2014 Compra 2, Lleva 1 Gratis', price: '\u20ac120 por 3', words: '"Compra cualquiera 2 productos y ll\u00e9vate el tercero gratis \u2014 eso es 120\u20ac por 3 productos."', highlight: true },
-          { label: 'Oferta Navide\u00f1a \u2014 Compra 2, Lleva 2', price: '\u20ac120 por 4', words: '"Para las fiestas: compra 2, lleva 2 gratis \u2014 120\u20ac por 4 productos. Esa es nuestra mejor oferta."' },
-          { label: 'Versi\u00f3n Reducida \u2014 Compra 1, Lleva 1', price: '\u20ac60 por 2', words: '"O simplemente compra uno, ll\u00e9vate uno gratis \u2014 60\u20ac por 2 productos."' },
+          { label: 'Anclaje de Precio Europa', price: `100${currency} cada uno`, words: '"En Europa cada uno de estos cuesta 100${currency} \u2014 pero aqu\u00ed en ${locationName} son solo 60${currency} cada uno."', isStrike: true },
+          { label: 'Oferta Principal \u2014 Compra 2, Lleva 1 Gratis', price: `${currency}120 por 3`, words: '"Compra cualquiera 2 productos y ll\u00e9vate el tercero gratis \u2014 eso es 120${currency} por 3 productos."', highlight: true },
+          { label: 'Oferta Navide\u00f1a \u2014 Compra 2, Lleva 2', price: `${currency}120 por 4`, words: '"Para las fiestas: compra 2, lleva 2 gratis \u2014 120${currency} por 4 productos. Esa es nuestra mejor oferta."' },
+          { label: 'Versi\u00f3n Reducida \u2014 Compra 1, Lleva 1', price: `${currency}60 por 2`, words: '"O simplemente compra uno, ll\u00e9vate uno gratis \u2014 60${currency} por 2 productos."' },
           { label: 'Script de Demo de Manteca', price: 'Demo', words: '"Te voy a mostrar algo incre\u00edble \u2014 aunque lo voltee, no se cae." (prueba de volteo)' },
-          { label: 'Empuje Final \u2014 Solo Exfoliante', price: '30\u20ac', words: '"Solo el exfoliante por s\u00ed solo \u2014 30\u20ac. Ese es el mejor precio que puedo darte."', highlight: true },
+          { label: 'Empuje Final \u2014 Solo Exfoliante', price: `30${currency}`, words: '"Solo el exfoliante por s\u00ed solo \u2014 30${currency}. Ese es el mejor precio que puedo darte."', highlight: true },
         ],
       },
       {
@@ -114,16 +114,16 @@ function getProductLadders(lang: Language): ProductLadder[] {
         name: 'Kit de U\u00f1as Francesas',
         icon: <Scissors size={18} />,
         color: '#EC4899',
-        europePrice: '100\u20ac',
-        basePrice: '60\u20ac',
-        minPrice: '30\u20ac',
+        europePrice: `100${currency}`,
+        basePrice: `60${currency}`,
+        minPrice: `30${currency}`,
         steps: [
-          { label: 'Anclaje de Precio Europa', price: '100\u20ac', words: '"En Europa este kit de u\u00f1as cuesta 100\u20ac \u2014 pero aqu\u00ed en Andorra es solo 60\u20ac."', isStrike: true },
-          { label: 'Oferta Principal \u2014 Compra 2, Lleva 1 Gratis', price: '\u20ac120 por 3 kits', words: '"Compra 2 kits, ll\u00e9vate el tercero gratis \u2014 120\u20ac por 3 kits completos."', highlight: true },
-          { label: 'Oferta Premium Navide\u00f1a \u2014 Compra 2, Lleva 2', price: '\u20ac120 por 4 kits', words: '"Especial de fiestas: compra 2, lleva 2 gratis \u2014 120\u20ac por 4 kits de u\u00f1as."' },
-          { label: 'Mezcla y Combina', price: '\u20ac60 por 2', words: '"Mezcla y combina un Kit de U\u00f1as con un Exfoliante o Manteca Corporal \u2014 compra uno, ll\u00e9vate uno \u2014 solo 60\u20ac por 2 productos."' },
+          { label: 'Anclaje de Precio Europa', price: `100${currency}`, words: '"En Europa este kit de u\u00f1as cuesta 100${currency} \u2014 pero aqu\u00ed en ${locationName} es solo 60${currency}."', isStrike: true },
+          { label: 'Oferta Principal \u2014 Compra 2, Lleva 1 Gratis', price: `${currency}120 por 3 kits`, words: '"Compra 2 kits, ll\u00e9vate el tercero gratis \u2014 120${currency} por 3 kits completos."', highlight: true },
+          { label: 'Oferta Premium Navide\u00f1a \u2014 Compra 2, Lleva 2', price: `${currency}120 por 4 kits`, words: '"Especial de fiestas: compra 2, lleva 2 gratis \u2014 120${currency} por 4 kits de u\u00f1as."' },
+          { label: 'Mezcla y Combina', price: `${currency}60 por 2`, words: '"Mezcla y combina un Kit de U\u00f1as con un Exfoliante o Manteca Corporal \u2014 compra uno, ll\u00e9vate uno \u2014 solo 60${currency} por 2 productos."' },
           { label: 'Pitch de Garant\u00eda', price: 'Demo', words: '"Aunque tu perro se lo coma, puedes traerlo y lo reemplazamos."' },
-          { label: 'Empuje Final', price: '30\u20ac', words: '"Todo el kit por 30\u20ac \u2014 ese es mi precio final."', highlight: true },
+          { label: 'Empuje Final', price: `30${currency}`, words: '"Todo el kit por 30${currency} \u2014 ese es mi precio final."', highlight: true },
         ],
       },
     ];
@@ -136,17 +136,17 @@ function getProductLadders(lang: Language): ProductLadder[] {
       name: 'Hyaluronic Acid Syringe (Eye Treatment)',
       icon: <Syringe size={18} />,
       color: '#0ABAB5',
-      europePrice: '500\u20ac',
-      basePrice: '300\u20ac',
-      minPrice: '100\u20ac',
+      europePrice: `500${currency}`,
+      basePrice: `300${currency}`,
+      minPrice: `100${currency}`,
       steps: [
-        { label: 'Europe Price Anchor', price: '500\u20ac', words: '"Usually in our shops in Europe this goes for 500\u20ac but here in Andorra we have a much better price."', isStrike: true },
-        { label: 'Andorra Base', price: '300\u20ac', words: '"It\'s only 300\u20ac."' },
-        { label: 'Offer 1 \u2014 30% Off + Gift', price: '210\u20ac', words: '"Right now we have an amazing offer \u2014 you can get it for 30% less and you\'ll also receive a gift \u2014 Day Cream, Night Cream, or Peeling."', highlight: true },
-        { label: 'Offer 2 \u2014 Second Syringe Free', price: '300\u20ac', words: '"For 300\u20ac you get a second syringe free \u2014 for your forehead, upper lip, or 11s."' },
-        { label: 'Advanced Upsell', price: '300\u20ac', words: '"Two syringes plus Day & Night Cream free \u2014 that\'s the full package."' },
-        { label: 'Adaptive Fallback (no gift)', price: '175\u20ac', words: '"Let me take the gift away and I\'ll give it to you for 175\u20ac."', highlight: true },
-        { label: 'Voucher Close', price: '140\u20ac', words: '"I want to make sure you leave happy today \u2014 I have a 20% voucher, that makes it just 140\u20ac."', highlight: true },
+        { label: 'Europe Price Anchor', price: `500${currency}`, words: '"Usually in our shops in Europe this goes for 500${currency} but here in ${locationName} we have a much better price."', isStrike: true },
+        { label: `${locationName} Base`, price: `300${currency}`, words: '"It\'s only 300${currency}."' },
+        { label: 'Offer 1 \u2014 30% Off + Gift', price: `210${currency}`, words: '"Right now we have an amazing offer \u2014 you can get it for 30% less and you\'ll also receive a gift \u2014 Day Cream, Night Cream, or Peeling."', highlight: true },
+        { label: 'Offer 2 \u2014 Second Syringe Free', price: `300${currency}`, words: '"For 300${currency} you get a second syringe free \u2014 for your forehead, upper lip, or 11s."' },
+        { label: 'Advanced Upsell', price: `300${currency}`, words: '"Two syringes plus Day & Night Cream free \u2014 that\'s the full package."' },
+        { label: 'Adaptive Fallback (no gift)', price: `175${currency}`, words: '"Let me take the gift away and I\'ll give it to you for 175${currency}."', highlight: true },
+        { label: 'Voucher Close', price: `140${currency}`, words: '"I want to make sure you leave happy today \u2014 I have a 20% voucher, that makes it just 140${currency}."', highlight: true },
       ],
     },
     {
@@ -154,16 +154,16 @@ function getProductLadders(lang: Language): ProductLadder[] {
       name: 'Glycolic Peeling',
       icon: <Droplets size={18} />,
       color: '#8B5CF6',
-      europePrice: '200\u20ac',
-      basePrice: '150\u20ac',
-      minPrice: '50\u20ac',
+      europePrice: `200${currency}`,
+      basePrice: `150${currency}`,
+      minPrice: `50${currency}`,
       steps: [
-        { label: 'Europe Price Anchor', price: '200\u20ac', words: '"In Europe this treatment costs 200\u20ac."', isStrike: true },
-        { label: 'Andorra Base', price: '150\u20ac', words: '"Here in Andorra it\'s only 150\u20ac."' },
-        { label: 'Offer 1 \u2014 50% Off + Gift', price: '100\u20ac', words: '"This is not an anti-aging cream, this is something completely different \u2014 this is a treatment that separates the dead skin from the living skin. Right now you can get it for 50% off and you\'ll receive a Dead Sea Body Scrub gift."', highlight: true },
-        { label: 'Offer 2 \u2014 Day & Night Cream Free', price: '150\u20ac', words: '"For 150\u20ac you get the peeling plus Day & Night Cream free."' },
-        { label: 'Adaptive Fallback (scrub as credit)', price: '70\u20ac', words: '"Let me remove the scrub and give it to you as credit \u2014 that makes it 70\u20ac."', highlight: true },
-        { label: 'Voucher Close', price: '50\u20ac', words: '"With today\'s voucher, a single peeling is just 50\u20ac \u2014 no gifts, but the treatment alone is worth it."', highlight: true },
+        { label: 'Europe Price Anchor', price: `200${currency}`, words: '"In Europe this treatment costs 200${currency}."', isStrike: true },
+        { label: `${locationName} Base`, price: `150${currency}`, words: '"Here in ${locationName} it\'s only 150${currency}."' },
+        { label: 'Offer 1 \u2014 50% Off + Gift', price: `100${currency}`, words: '"This is not an anti-aging cream, this is something completely different \u2014 this is a treatment that separates the dead skin from the living skin. Right now you can get it for 50% off and you\'ll receive a Dead Sea Body Scrub gift."', highlight: true },
+        { label: 'Offer 2 \u2014 Day & Night Cream Free', price: `150${currency}`, words: '"For 150${currency} you get the peeling plus Day & Night Cream free."' },
+        { label: 'Adaptive Fallback (scrub as credit)', price: `70${currency}`, words: '"Let me remove the scrub and give it to you as credit \u2014 that makes it 70${currency}."', highlight: true },
+        { label: 'Voucher Close', price: `50${currency}`, words: '"With today\'s voucher, a single peeling is just 50${currency} \u2014 no gifts, but the treatment alone is worth it."', highlight: true },
       ],
     },
     {
@@ -171,16 +171,16 @@ function getProductLadders(lang: Language): ProductLadder[] {
       name: 'Dead Sea Scrub & Body Butter',
       icon: <Sparkles size={18} />,
       color: '#F59E0B',
-      europePrice: '100\u20ac each',
-      basePrice: '60\u20ac each',
-      minPrice: '30\u20ac',
+      europePrice: `100${currency} each`,
+      basePrice: `60${currency} each`,
+      minPrice: `30${currency}`,
       steps: [
-        { label: 'Europe Price Anchor', price: '100\u20ac each', words: '"In Europe each of these costs 100\u20ac \u2014 but here in Andorra they\'re only 60\u20ac each."', isStrike: true },
-        { label: 'Core Offer \u2014 Buy 2, Get 1 Free', price: '\u20ac120 for 3', words: '"Buy any 2 products and get the third free \u2014 that\'s 120\u20ac for 3 products."', highlight: true },
-        { label: 'Christmas Offer \u2014 Buy 2, Get 2', price: '\u20ac120 for 4', words: '"For the holidays: buy 2, get 2 free \u2014 120\u20ac for 4 products. That\'s our best deal."' },
-        { label: 'Slim Version \u2014 Buy 1, Get 1', price: '\u20ac60 for 2', words: '"Or just buy one, get one free \u2014 60\u20ac for 2 products."' },
+        { label: 'Europe Price Anchor', price: '100${currency} each', words: `"In Europe each of these costs 100${currency} \u2014 but here in ${locationName} they\'re only 60${currency} each."`, isStrike: true },
+        { label: 'Core Offer \u2014 Buy 2, Get 1 Free', price: '${currency}120 for 3', words: `"Buy any 2 products and get the third free \u2014 that\'s 120${currency} for 3 products."`, highlight: true },
+        { label: 'Christmas Offer \u2014 Buy 2, Get 2', price: '${currency}120 for 4', words: `"For the holidays: buy 2, get 2 free \u2014 120${currency} for 4 products. That\'s our best deal."` },
+        { label: 'Slim Version \u2014 Buy 1, Get 1', price: '${currency}60 for 2', words: `"Or just buy one, get one free \u2014 60${currency} for 2 products."` },
         { label: 'Butter Demo Script', price: 'Demo', words: '"I\'m going to show you something incredible \u2014 even if I flip it over, it doesn\'t fall." (flip test)' },
-        { label: 'Final Push \u2014 Scrub Only', price: '30\u20ac', words: '"Just the scrub by itself \u2014 30\u20ac. That\'s the best price I can do."', highlight: true },
+        { label: 'Final Push \u2014 Scrub Only', price: `30${currency}`, words: '"Just the scrub by itself \u2014 30${currency}. That\'s the best price I can do."', highlight: true },
       ],
     },
     {
@@ -188,21 +188,20 @@ function getProductLadders(lang: Language): ProductLadder[] {
       name: 'French Nail Kit',
       icon: <Scissors size={18} />,
       color: '#EC4899',
-      europePrice: '100\u20ac',
-      basePrice: '60\u20ac',
-      minPrice: '30\u20ac',
+      europePrice: `100${currency}`,
+      basePrice: `60${currency}`,
+      minPrice: `30${currency}`,
       steps: [
-        { label: 'Europe Price Anchor', price: '100\u20ac', words: '"In Europe this nail kit costs 100\u20ac \u2014 but here in Andorra it\'s only 60\u20ac."', isStrike: true },
-        { label: 'Core Offer \u2014 Buy 2, Get 1 Free', price: '\u20ac120 for 3 kits', words: '"Buy 2 kits, get the third free \u2014 120\u20ac for 3 complete kits."', highlight: true },
-        { label: 'Christmas Premium \u2014 Buy 2, Get 2', price: '\u20ac120 for 4 kits', words: '"Holiday special: buy 2, get 2 free \u2014 120\u20ac for 4 nail kits."' },
-        { label: 'Mix & Match', price: '\u20ac60 for 2', words: '"Mix and match a Nail Kit with a Scrub or Body Butter \u2014 buy one, get one \u2014 just 60\u20ac for 2 products."' },
+        { label: 'Europe Price Anchor', price: `100${currency}`, words: '"In Europe this nail kit costs 100${currency} \u2014 but here in ${locationName} it\'s only 60${currency}."', isStrike: true },
+        { label: 'Core Offer \u2014 Buy 2, Get 1 Free', price: '${currency}120 for 3 kits', words: `"Buy 2 kits, get the third free \u2014 120${currency} for 3 complete kits."`, highlight: true },
+        { label: 'Christmas Premium \u2014 Buy 2, Get 2', price: '${currency}120 for 4 kits', words: `"Holiday special: buy 2, get 2 free \u2014 120${currency} for 4 nail kits."` },
+        { label: 'Mix & Match', price: '${currency}60 for 2', words: `"Mix and match a Nail Kit with a Scrub or Body Butter \u2014 buy one, get one \u2014 just 60${currency} for 2 products."` },
         { label: 'Warranty Pitch', price: 'Demo', words: '"Even if your dog eats it, you can bring it back and we replace it."' },
-        { label: 'Final Push', price: '30\u20ac', words: '"The whole kit for 30\u20ac \u2014 that\'s my final price."', highlight: true },
+        { label: 'Final Push', price: `30${currency}`, words: '"The whole kit for 30${currency} \u2014 that\'s my final price."', highlight: true },
       ],
     },
   ];
 }
-
 // ── Script Data ──
 interface ScriptCard {
   id: string;
@@ -212,7 +211,7 @@ interface ScriptCard {
   product?: string;
 }
 
-function getScripts(lang: Language): ScriptCard[] {
+function getScripts(lang: Language, currency: string, locationName: string): ScriptCard[] {
   if (lang === 'es') {
     return [
       // Opening scripts
@@ -225,26 +224,26 @@ function getScripts(lang: Language): ScriptCard[] {
       { id: 'o7', category: 'opening', title: 'Universal \u2014 Directo', text: '"Tengo algo que quiero mostrarte \u2014 toma 30 segundos y ver\u00e1s una diferencia instant\u00e1nea."' },
       { id: 'o8', category: 'opening', title: 'Universal \u2014 \u00c1ngulo de Regalo', text: '"\u00bfEst\u00e1s comprando para alguien m\u00e1s hoy? Porque esto es el regalo perfecto \u2014 y te mostrar\u00e9 por qu\u00e9."' },
       // Closing scripts
-      { id: 'c1', category: 'closing', title: 'Cierre de Dos Opciones (Jeringa)', text: '"Entonces, \u00bfprefieres la jeringa sola a 300\u20ac, o dos jeringas a 300\u20ac con la segunda gratis para tu frente o labio superior?"' },
-      { id: 'c1b', category: 'closing', title: 'Cierre de Dos Opciones (Oferta)', text: '"\u00bfPrefieres el 30% de descuento a 210\u20ac con un regalo gratis, o la oferta de dos jeringas a 300\u20ac?"' },
+      { id: 'c1', category: 'closing', title: 'Cierre de Dos Opciones (Jeringa)', text: `"Entonces, \u00bfprefieres la jeringa sola a 300${currency}, o dos jeringas a 300${currency} con la segunda gratis para tu frente o labio superior?"` },
+      { id: 'c1b', category: 'closing', title: 'Cierre de Dos Opciones (Oferta)', text: `"\u00bfPrefieres el 30% de descuento a 210${currency} con un regalo gratis, o la oferta de dos jeringas a 300${currency}?"` },
       { id: 'c2', category: 'closing', title: 'Cierre Asumido', text: '"Voy a reservar esto para ti en la caja. \u00bfQuieres la bolsa de regalo con \u00e9l?"' },
       { id: 'c3', category: 'closing', title: 'Cierre de Escasez', text: '"Este precio con cup\u00f3n solo es v\u00e1lido hoy \u2014 no quiero que te lo pierdas. \u00bfTe lo paso a caja?"' },
-      { id: 'c4', category: 'closing', title: 'Cierre de Resumen (Jeringa)', text: '"As\u00ed que te llevas un tratamiento que cuesta 500\u20ac en Europa por solo 300\u20ac aqu\u00ed en Andorra. Gran elecci\u00f3n."' },
-      { id: 'c4b', category: 'closing', title: 'Cierre de Resumen (Oferta)', text: '"As\u00ed que te llevas el tratamiento con un 30% de descuento a 210\u20ac m\u00e1s un regalo gratis que vale m\u00e1s de 50\u20ac. Oferta incre\u00edble."' },
+      { id: 'c4', category: 'closing', title: 'Cierre de Resumen (Jeringa)', text: `"As\u00ed que te llevas un tratamiento que cuesta 500${currency} en Europa por solo 300${currency} aqu\u00ed en ${locationName}. Gran elecci\u00f3n."` },
+      { id: 'c4b', category: 'closing', title: 'Cierre de Resumen (Oferta)', text: `"As\u00ed que te llevas el tratamiento con un 30% de descuento a 210${currency} m\u00e1s un regalo gratis que vale m\u00e1s de 50${currency}. Oferta incre\u00edble."` },
       { id: 'c5', category: 'closing', title: 'Cierre con Testimonio', text: '"Una cliente estuvo aqu\u00ed ayer \u2014 compr\u00f3 dos, y volvi\u00f3 hoy por tres m\u00e1s como regalos. As\u00ed de bueno es esto."' },
       // Objection responses
       { id: 'r1', category: 'objection', title: '"Necesito pensarlo"', text: '"Por supuesto. Solo para que sepas, este cup\u00f3n expira cuando salgas de la tienda \u2014 est\u00e1 vinculado a la visita de hoy. Puedo reservarlo en la caja por 10 minutos mientras miras alrededor, y el precio se mantiene."' },
-      { id: 'r2', category: 'objection', title: '"Es muy caro" (Jeringa)', text: '"Te entiendo. En Europa esto cuesta 500\u20ac. Aqu\u00ed en Andorra es 300\u20ac. Y con la oferta de hoy puedo hacer un 30% de descuento \u2014 eso es 210\u20ac. D\u00e9jame ver qu\u00e9 m\u00e1s puedo hacer..."' },
-      { id: 'r2b', category: 'objection', title: '"Es muy caro" (Peeling)', text: '"Te entiendo. En Europa esto cuesta 200\u20ac. Aqu\u00ed en Andorra es 150\u20ac. Y ahora mismo puedo hacer un 50% de descuento \u2014 eso es 100\u20ac con un regalo de exfoliante del Mar Muerto gratis."' },
-      { id: 'r2c', category: 'objection', title: '"Es muy caro" (Exfoliante)', text: '"Te entiendo. En Europa uno de estos cuesta 100\u20ac. Aqu\u00ed es 60\u20ac. Y con compra 2 lleva 1 gratis, eso es 120\u20ac por 3 productos. D\u00e9jame quitar el regalo y puedo hacer algo a\u00fan mejor..."' },
-      { id: 'r2d', category: 'objection', title: '"Es muy caro" (Kit de U\u00f1as)', text: '"Te entiendo. En Europa este kit cuesta 100\u20ac. Aqu\u00ed en Andorra es 60\u20ac. Y con compra 2 lleva 1 gratis, eso es 120\u20ac por 3 kits completos."' },
+      { id: 'r2', category: 'objection', title: '"Es muy caro" (Jeringa)', text: `"Te entiendo. En Europa esto cuesta 500${currency}. Aqu\u00ed en ${locationName} es 300${currency}. Y con la oferta de hoy puedo hacer un 30% de descuento \u2014 eso es 210${currency}. D\u00e9jame ver qu\u00e9 m\u00e1s puedo hacer..."` },
+      { id: 'r2b', category: 'objection', title: '"Es muy caro" (Peeling)', text: `"Te entiendo. En Europa esto cuesta 200${currency}. Aqu\u00ed en ${locationName} es 150${currency}. Y ahora mismo puedo hacer un 50% de descuento \u2014 eso es 100${currency} con un regalo de exfoliante del Mar Muerto gratis."` },
+      { id: 'r2c', category: 'objection', title: '"Es muy caro" (Exfoliante)', text: `"Te entiendo. En Europa uno de estos cuesta 100${currency}. Aqu\u00ed es 60${currency}. Y con compra 2 lleva 1 gratis, eso es 120${currency} por 3 productos. D\u00e9jame quitar el regalo y puedo hacer algo a\u00fan mejor..."` },
+      { id: 'r2d', category: 'objection', title: '"Es muy caro" (Kit de U\u00f1as)', text: `"Te entiendo. En Europa este kit cuesta 100${currency}. Aqu\u00ed en ${locationName} es 60${currency}. Y con compra 2 lleva 1 gratis, eso es 120${currency} por 3 kits completos."` },
       { id: 'r3', category: 'objection', title: '"Ya tengo algo similar"', text: '"La mayor\u00eda de nuestros clientes tambi\u00e9n. Pero cuando prueban esto, me dicen que es completamente diferente. \u00bfPuedo mostrarte por qu\u00e9 en 30 segundos?"' },
       { id: 'r4', category: 'objection', title: '"Solo estoy mirando"', text: '"No hay problema \u2014 mirar es gratis. Pero \u00bfpuedo mostrarte algo que toma 20 segundos? No tienes que comprar nada, solo me encanta la reacci\u00f3n."' },
       { id: 'r5', category: 'objection', title: '"Necesito preguntarle a mi pareja"', text: '"Por supuesto. Si estuviera aqu\u00ed, \u00bfqu\u00e9 dir\u00eda? [Pausa] Toma \u2014 lleva esta tarjeta de muestra con el precio escrito. El cup\u00f3n es v\u00e1lido solo por hoy."' },
       { id: 'r6', category: 'objection', title: '"No tengo tiempo"', text: '"Esto toma exactamente 60 segundos \u2014 te lo cronometro. Y si no ves una diferencia, te deseo un gran d\u00eda. \u00bfTrato?"' },
       // Partner engagement
       { id: 'p1', category: 'partner', title: 'Incluye a la Pareja', text: '"Y se\u00f1or/se\u00f1ora \u2014 te va a encantar c\u00f3mo se ve en ellos. \u00bfQuieres ver el resultado instant\u00e1neo tambi\u00e9n?"' },
-      { id: 'p2', category: 'partner', title: 'Sugerencia de Regalo', text: '"La mayor\u00eda de las parejas compran uno para ella y un exfoliante para \u00e9l \u2014 es un bonito recuerdo de Andorra. Puedo hacer ambos por un precio de paquete."' },
+      { id: 'p2', category: 'partner', title: 'Sugerencia de Regalo', text: `"La mayor\u00eda de las parejas compran uno para ella y un exfoliante para \u00e9l \u2014 es un bonito recuerdo de ${locationName}. Puedo hacer ambos por un precio de paquete."` },
       { id: 'p3', category: 'partner', title: 'Pregunta de Opini\u00f3n', text: '"\u00bfQu\u00e9 crees \u2014 \u00bfte parece que deber\u00eda ir con el brillo instant\u00e1neo o el tratamiento a largo plazo? T\u00fa los conoces mejor."' },
       // Competitor handling
       { id: 'comp1', category: 'competitor', title: '"Dijeron que es m\u00e1s barato all\u00e1"', text: '"\u00a1Puede ser! Pero \u00bfsu producto te muestra resultados en 2 minutos? D\u00e9jame mostrarte..."' },
@@ -265,26 +264,26 @@ function getScripts(lang: Language): ScriptCard[] {
     { id: 'o7', category: 'opening', title: 'Universal \u2014 Direct', text: '"I have something I want to show you \u2014 it takes 30 seconds and you\'ll see an instant difference."' },
     { id: 'o8', category: 'opening', title: 'Universal \u2014 Gift Angle', text: '"Are you shopping for anyone else today? Because this makes the perfect gift \u2014 and I\'ll show you why."' },
     // Closing scripts
-    { id: 'c1', category: 'closing', title: 'Two-Choice Close (Syringe)', text: '"So would you prefer the single syringe at 300\u20ac, or two syringes at 300\u20ac with the second one free for your forehead or upper lip?"' },
-    { id: 'c1b', category: 'closing', title: 'Two-Choice Close (Offer)', text: '"Would you prefer the 30% off at 210\u20ac with a free gift, or the two-syringe deal at 300\u20ac?"' },
+    { id: 'c1', category: 'closing', title: 'Two-Choice Close (Syringe)', text: `"So would you prefer the single syringe at 300${currency}, or two syringes at 300${currency} with the second one free for your forehead or upper lip?"` },
+    { id: 'c1b', category: 'closing', title: 'Two-Choice Close (Offer)', text: `"Would you prefer the 30% off at 210${currency} with a free gift, or the two-syringe deal at 300${currency}?"` },
     { id: 'c2', category: 'closing', title: 'Assumptive Close', text: '"I\'ll set this aside for you at the counter. Do you want the gift bag with it?"' },
     { id: 'c3', category: 'closing', title: 'Scarcity Close', text: '"This voucher price is only valid today \u2014 I don\'t want you to miss it. Should I ring it up?"' },
-    { id: 'c4', category: 'closing', title: 'Summary Close (Syringe)', text: '"So you\'re getting a treatment that costs 500\u20ac in Europe for just 300\u20ac here in Andorra. Great choice."' },
-    { id: 'c4b', category: 'closing', title: 'Summary Close (Offer)', text: '"So you\'re getting the treatment for 30% off at 210\u20ac plus a free gift worth over 50\u20ac. Amazing deal."' },
+    { id: 'c4', category: 'closing', title: 'Summary Close (Syringe)', text: `"So you\'re getting a treatment that costs 500${currency} in Europe for just 300${currency} here in ${locationName}. Great choice."` },
+    { id: 'c4b', category: 'closing', title: 'Summary Close (Offer)', text: `"So you\'re getting the treatment for 30% off at 210${currency} plus a free gift worth over 50${currency}. Amazing deal."` },
     { id: 'c5', category: 'closing', title: 'Testimonial Close', text: '"A customer was in here yesterday \u2014 she bought two, and came back today for three more as gifts. That\'s how good this is."' },
     // Objection responses
     { id: 'r1', category: 'objection', title: '"I need to think about it"', text: '"Of course. Just so you know, this voucher expires when you leave the store \u2014 it\'s tied to today\'s visit. I can hold it at the counter for 10 minutes while you look around, and the price stays locked."' },
-    { id: 'r2', category: 'objection', title: '"It\'s too expensive" (Syringe)', text: '"I hear you. In Europe this costs 500\u20ac. Here in Andorra it\'s 300\u20ac. And with today\'s offer I can do 30% off \u2014 that\'s 210\u20ac. Let me check what else I can do..."' },
-    { id: 'r2b', category: 'objection', title: '"It\'s too expensive" (Peeling)', text: '"I hear you. In Europe this costs 200\u20ac. Here in Andorra it\'s 150\u20ac. And right now I can do 50% off \u2014 that\'s 100\u20ac with a free Dead Sea scrub gift."' },
-    { id: 'r2c', category: 'objection', title: '"It\'s too expensive" (Scrub)', text: '"I hear you. In Europe one of these is 100\u20ac. Here it\'s 60\u20ac. And with buy 2 get 1 free, that\'s 120\u20ac for 3 products. Let me take the gift away and I can do even better..."' },
-    { id: 'r2d', category: 'objection', title: '"It\'s too expensive" (Nail Kit)', text: '"I hear you. In Europe this kit is 100\u20ac. Here in Andorra it\'s 60\u20ac. And with buy 2 get 1 free, that\'s 120\u20ac for 3 complete kits."' },
+    { id: 'r2', category: 'objection', title: '"It\'s too expensive" (Syringe)', text: `"I hear you. In Europe this costs 500${currency}. Here in ${locationName} it\'s 300${currency}. And with today\'s offer I can do 30% off \u2014 that\'s 210${currency}. Let me check what else I can do..."` },
+    { id: 'r2b', category: 'objection', title: '"It\'s too expensive" (Peeling)', text: `"I hear you. In Europe this costs 200${currency}. Here in ${locationName} it\'s 150${currency}. And right now I can do 50% off \u2014 that\'s 100${currency} with a free Dead Sea scrub gift."` },
+    { id: 'r2c', category: 'objection', title: '"It\'s too expensive" (Scrub)', text: `"I hear you. In Europe one of these is 100${currency}. Here it\'s 60${currency}. And with buy 2 get 1 free, that\'s 120${currency} for 3 products. Let me take the gift away and I can do even better..."` },
+    { id: 'r2d', category: 'objection', title: '"It\'s too expensive" (Nail Kit)', text: `"I hear you. In Europe this kit is 100${currency}. Here in ${locationName} it\'s 60${currency}. And with buy 2 get 1 free, that\'s 120${currency} for 3 complete kits."` },
     { id: 'r3', category: 'objection', title: '"I already have something similar"', text: '"Most of our customers do too. But when they try this, they tell me it\'s completely different. Can I show you why in 30 seconds?"' },
     { id: 'r4', category: 'objection', title: '"I\'m just looking"', text: '"No problem at all \u2014 looking is free. But can I show you something that takes 20 seconds? You don\'t have to buy anything, I just love the reaction."' },
     { id: 'r5', category: 'objection', title: '"I need to ask my partner"', text: '"Absolutely. If they were here, what would they say? [Pause] Here \u2014 take this sample card with the price written down. The voucher is valid for today only."' },
     { id: 'r6', category: 'objection', title: '"I don\'t have time"', text: '"This takes exactly 60 seconds \u2014 I\'ll time it. And if you don\'t see a difference, I\'ll wish you a great day. Deal?"' },
     // Partner engagement
     { id: 'p1', category: 'partner', title: 'Include the Partner', text: '"And sir/ma\'am \u2014 you\'re going to love how this looks on them. Want to see the instant result too?"' },
-    { id: 'p2', category: 'partner', title: 'Gift Suggestion', text: '"Most couples buy one for her and a scrub for him \u2014 it\'s a nice memory from Andorra. I can do both for a package price."' },
+    { id: 'p2', category: 'partner', title: 'Gift Suggestion', text: `"Most couples buy one for her and a scrub for him \u2014 it\'s a nice memory from ${locationName}. I can do both for a package price."` },
     { id: 'p3', category: 'partner', title: 'Opinion Ask', text: '"What do you think \u2014 should they go with the instant glow or the long-term treatment? You know them best."' },
     // Competitor handling
     { id: 'comp1', category: 'competitor', title: '"They said it\'s cheaper there"', text: '"Maybe! But does their product show results in 2 minutes? Let me show you..."' },
@@ -293,7 +292,6 @@ function getScripts(lang: Language): ScriptCard[] {
     { id: 'comp4', category: 'competitor', title: '"I\'ve heard of [competitor brand]"', text: '"Great brand! We actually use similar ingredients. The difference is our concentration and the immediate result. Watch..."' },
   ];
 }
-
 // ── Key Phrases ──
 interface Phrase {
   id: string;
@@ -302,14 +300,14 @@ interface Phrase {
   reason: string;
 }
 
-function getPhrases(lang: Language): Phrase[] {
+function getPhrases(lang: Language, _currency: string, locationName: string): Phrase[] {
   if (lang === 'es') {
     return [
       { id: 'g1', text: '"D\u00e9jame mostrarte algo..."', type: 'good', reason: 'Crea curiosidad, sin presi\u00f3n' },
       { id: 'g2', text: '"La mayor\u00eda elige..."', type: 'good', reason: 'Prueba social + gu\u00eda la decisi\u00f3n' },
       { id: 'g3', text: '"Esto solo es v\u00e1lido hoy"', type: 'good', reason: 'Escasez genuina, no agresiva' },
       { id: 'g4', text: '"Ver\u00e1s la diferencia instant\u00e1neamente"', type: 'good', reason: 'Promete valor inmediato' },
-      { id: 'g5', text: '"\u00bfQu\u00e9 te trae a Andorra?"', type: 'good', reason: 'Abre la conversaci\u00f3n naturalmente' },
+      { id: 'g5', text: `"\u00bfQu\u00e9 te trae a ${locationName}?"`, type: 'good', reason: 'Abre la conversaci\u00f3n naturalmente' },
       { id: 'g6', text: '"Esa es una gran elecci\u00f3n"', type: 'good', reason: 'Valida su decisi\u00f3n' },
       { id: 'g7', text: '"Siente esta textura..."', type: 'good', reason: 'Compromiso sensorial' },
       { id: 'g8', text: '"\u00bfPuedo pedir tu opini\u00f3n?"', type: 'good', reason: 'Los hace sentir valorados' },
@@ -327,7 +325,7 @@ function getPhrases(lang: Language): Phrase[] {
     { id: 'g2', text: '"Most people choose..."', type: 'good', reason: 'Social proof + guides decision' },
     { id: 'g3', text: '"This is only valid today"', type: 'good', reason: 'Genuine scarcity, not pushy' },
     { id: 'g4', text: '"You\'ll see the difference instantly"', type: 'good', reason: 'Promises immediate value' },
-    { id: 'g5', text: '"What brings you to Andorra?"', type: 'good', reason: 'Opens conversation naturally' },
+    { id: 'g5', text: `"What brings you to ${locationName}?"`, type: 'good', reason: 'Opens conversation naturally' },
     { id: 'g6', text: '"That\'s a great choice"', type: 'good', reason: 'Validates their decision' },
     { id: 'g7', text: '"Feel this texture..."', type: 'good', reason: 'Sensory engagement' },
     { id: 'g8', text: '"Can I ask your opinion?"', type: 'good', reason: 'Makes them feel valued' },
@@ -339,7 +337,6 @@ function getPhrases(lang: Language): Phrase[] {
     { id: 'b6', text: '"This is our most expensive"', type: 'bad', reason: 'Focuses on cost not value' },
   ];
 }
-
 // ── Psychology Data ──
 interface CialdiniPrinciple {
   id: string;
@@ -419,7 +416,7 @@ interface EmergencyOpener { id: string; text: string; }
 interface EmergencyClose { id: string; text: string; }
 interface EmergencyKiller { id: string; objection: string; killer: string; }
 
-function getEmergencyOpeners(lang: Language): EmergencyOpener[] {
+function getEmergencyOpeners(lang: Language, _currency: string, _locationName: string): EmergencyOpener[] {
   if (lang === 'es') {
     return [
       { id: 'eo1', text: '"Te prometo que estos ser\u00e1n los mejores 2 minutos de tu d\u00eda"' },
@@ -438,36 +435,35 @@ function getEmergencyOpeners(lang: Language): EmergencyOpener[] {
   ];
 }
 
-function getEmergencyCloses(lang: Language): EmergencyClose[] {
+function getEmergencyCloses(lang: Language, currency: string, _locationName: string): EmergencyClose[] {
   if (lang === 'es') {
     return [
-      { id: 'ec1', text: '"Hoy solo \u2014 y me refiero a SOLO hoy \u2014 cuesta {{currency}}X en vez de {{currency}}Y"' },
+      { id: 'ec1', text: `"Hoy solo \u2014 y me refiero a SOLO hoy \u2014 cuesta ${currency}X en vez de ${currency}Y"` },
       { id: 'ec2', text: '"Te incluyo un segundo para tu amiga/mam\u00e1/hermana a mitad de precio"' },
       { id: 'ec3', text: '"Mira \u2014 toma mi tarjeta. Si no te encanta, m\u00e1ndame WhatsApp y te devuelvo el dinero. Pero no lo har\u00e1s."' },
     ];
   }
   return [
-    { id: 'ec1', text: '"Today only \u2014 and I mean ONLY today \u2014 it\'s {{currency}}X instead of {{currency}}Y"' },
+    { id: 'ec1', text: `"Today only \u2014 and I mean ONLY today \u2014 it\'s ${currency}X instead of ${currency}Y"` },
     { id: 'ec2', text: '"I\'ll throw in a second one for your friend/mom/sister at half price"' },
     { id: 'ec3', text: '"Look \u2014 take my card. If you don\'t love it, WhatsApp me and I\'ll refund you. But you won\'t."' },
   ];
 }
 
-function getEmergencyKillers(lang: Language): EmergencyKiller[] {
+function getEmergencyKillers(lang: Language, currency: string, _locationName: string): EmergencyKiller[] {
   if (lang === 'es') {
     return [
-      { id: 'ek1', objection: '"Muy caro"', killer: '"\u00bfComparado con qu\u00e9? Una sola inyecci\u00f3n de Botox cuesta {{currency}}300 y esto dura 3 meses"' },
-      { id: 'ek2', objection: '"Necesito pensarlo"', killer: '"Lo entiendo. Pero este precio es literalmente solo hoy. Ma\u00f1ana vuelve a {{currency}}[mayor]"' },
+      { id: 'ek1', objection: `"Muy caro"`, killer: `"\u00bfComparado con qu\u00e9? Una sola inyecci\u00f3n de Botox cuesta ${currency}300 y esto dura 3 meses"` },
+      { id: 'ek2', objection: `"Necesito pensarlo"`, killer: `"Lo entiendo. Pero este precio es literalmente solo hoy. Ma\u00f1ana vuelve a ${currency}[mayor]"` },
       { id: 'ek3', objection: '"Solo estoy mirando"', killer: '"\u00a1Perfecto! Mirar es gratis. Pero probar cambia la vida. \u00bf2 minutos?"' },
     ];
   }
   return [
-    { id: 'ek1', objection: '"Too expensive"', killer: '"Compared to what? A single Botox injection is {{currency}}300 and this lasts 3 months"' },
-    { id: 'ek2', objection: '"Need to think"', killer: '"I get it. But this price is literally today only. Tomorrow it\'s back to {{currency}}[higher]"' },
+    { id: 'ek1', objection: `"Too expensive"`, killer: `"Compared to what? A single Botox injection is ${currency}300 and this lasts 3 months"` },
+    { id: 'ek2', objection: `"Need to think"`, killer: `"I get it. But this price is literally today only. Tomorrow it\'s back to ${currency}[higher]"` },
     { id: 'ek3', objection: '"Just looking"', killer: '"Perfect! Looking is free. But trying is life-changing. 2 minutes?"' },
   ];
 }
-
 // ── Components ──
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -559,7 +555,7 @@ function ExpandableCard({
 
 // ── Main Page ──
 export default function CheatSheetsPage() {
-  const { currency } = useLocation();
+  const { currency, locationName } = useLocation();
   const { language, t } = useLanguage();
   const [activeTab, setActiveTab] = useState<SheetTab>('all');
   const [search, setSearch] = useState('');
@@ -587,15 +583,15 @@ export default function CheatSheetsPage() {
   ];
 
   // Get data based on current language
-  const PRODUCT_LADDERS = useMemo(() => getProductLadders(language), [language]);
-  const SCRIPTS = useMemo(() => getScripts(language), [language]);
-  const PHRASES = useMemo(() => getPhrases(language), [language]);
+  const PRODUCT_LADDERS = useMemo(() => getProductLadders(language, currency, locationName), [language, currency, locationName]);
+  const SCRIPTS = useMemo(() => getScripts(language, currency, locationName), [language, currency, locationName]);
+  const PHRASES = useMemo(() => getPhrases(language, currency, locationName), [language, currency, locationName]);
   const CIALDINI = useMemo(() => getCialdini(language), [language]);
   const BODY_LANGUAGE = useMemo(() => getBodyLanguage(language), [language]);
   const BUYING_SIGNALS = useMemo(() => getBuyingSignals(language), [language]);
-  const EMERGENCY_OPENERS = useMemo(() => getEmergencyOpeners(language), [language]);
-  const EMERGENCY_CLOSES = useMemo(() => getEmergencyCloses(language), [language]);
-  const EMERGENCY_KILLERS = useMemo(() => getEmergencyKillers(language), [language]);
+  const EMERGENCY_OPENERS = useMemo(() => getEmergencyOpeners(language, currency, locationName), [language, currency, locationName]);
+  const EMERGENCY_CLOSES = useMemo(() => getEmergencyCloses(language, currency, locationName), [language, currency, locationName]);
+  const EMERGENCY_KILLERS = useMemo(() => getEmergencyKillers(language, currency, locationName), [language, currency, locationName]);
 
   const filteredScripts = useMemo(() => {
     let list = SCRIPTS;
