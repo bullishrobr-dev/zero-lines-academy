@@ -352,7 +352,7 @@ const syringePriceDrill: Exercise = {
 
 // ═════════════════════════════════════════════════════════════
 // EXERCISE 5: Peeling Price Ladder Drill
-// Ladder: €200 → €150 → €100/scrub → €150/cream → €75 → €50
+// Ladder: €200 → €150 → €100/scrub → €150/cream → €70 → €50
 // ═════════════════════════════════════════════════════════════
 const peelingPriceDrill: Exercise = {
   id: 'ex-peeling-price-drill',
@@ -388,18 +388,18 @@ const peelingPriceDrill: Exercise = {
         textEs: 'Bajar inmediatamente al precio de vale de €50',
         correct: false,
         explanation:
-          'Too fast! You skipped Offer Option 1 (€100 + scrub gift), Offer Option 2 (€150 + Day & Night Cream free), AND the adaptive fallback (€75). Work the ladder step by step.',
+          'Too fast! You skipped Offer Option 1 (€100 + scrub gift), Offer Option 2 (€150 + Day & Night Cream free), AND the adaptive fallback (€70). Work the ladder step by step.',
         explanationEs:
-          '¡Demasiado rápido! Te saltaste la Opción de Oferta 1 (€100 + regalo exfoliante), la Opción de Oferta 2 (€150 + Crema Día y Noche gratis) Y la reserva adaptativa (€75). Trabaja la escalera paso a paso.',
+          '¡Demasiado rápido! Te saltaste la Opción de Oferta 1 (€100 + regalo exfoliante), la Opción de Oferta 2 (€150 + Crema Día y Noche gratis) Y la reserva adaptativa (€70). Trabaja la escalera paso a paso.',
       },
       {
         text: 'Tell them €150 is the lowest you can go',
         textEs: 'Decirles que €150 es lo más bajo que puedes bajar',
         correct: false,
         explanation:
-          'Wrong! You have more tools in your toolbox. Offer Option 1 (€100 + scrub), Option 2 (€150 + cream), adaptive (€75), and voucher close (€50) are all still available. Never claim a price is your lowest when it is not.',
+          'Wrong! You have more tools in your toolbox. Offer Option 1 (€100 + scrub), Option 2 (€150 + cream), adaptive (€70), and voucher close (€50) are all still available. Never claim a price is your lowest when it is not.',
         explanationEs:
-          '¡Incorrecto! Tienes más herramientas en tu caja de herramientas. La Opción de Oferta 1 (€100 + exfoliante), Opción 2 (€150 + crema), adaptativo (€75) y cierre con vale (€50) todavía están disponibles. Nunca digas que un precio es tu mínimo cuando no lo es.',
+          '¡Incorrecto! Tienes más herramientas en tu caja de herramientas. La Opción de Oferta 1 (€100 + exfoliante), Opción 2 (€150 + crema), adaptativo (€70) y cierre con vale (€50) todavía están disponibles. Nunca digas que un precio es tu mínimo cuando no lo es.',
       },
       {
         text: 'Offer Option 2: "At €150 I will include our Day & Night Cream completely free — that is a €60 value on top of your peeling."',

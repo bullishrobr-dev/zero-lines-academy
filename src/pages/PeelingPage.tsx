@@ -72,11 +72,11 @@ const priceSteps: PriceStep[] = [
     isHighlight: true,
   },
   {
-    price: '€75',
+    price: '€70',
     label: 'Adaptive — Store Credit',
     description: 'Remove the scrub, use as credit',
     script:
-      '"You know what, I totally understand. Let\'s make it easy — I can take away the Scrub, we charge €25 for it anyway, so let\'s just use it as a store credit. This way I can make it €75 for you."',
+      '"You know what, I totally understand. Let\'s make it easy — I can take away the Scrub, we charge €25 for it anyway, so let\'s just use it as a store credit. This way I can make it €70 for you."',
     isHighlight: false,
   },
   {
@@ -84,7 +84,7 @@ const priceSteps: PriceStep[] = [
     label: 'Voucher Close',
     description: '20% voucher — the emotional final push',
     script:
-      '"Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can\'t be greedy, okay? I can\'t do it on the big option — only on the single Peeling. Remember how I told you I could do it for €75 without any gifts? If you use this voucher, I can actually bring it down to €50, just this one time. But from next time, it goes back to the normal price, alright?"',
+      '"Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can\'t be greedy, okay? I can\'t do it on the big option — only on the single Peeling. Remember how I told you I could do it for €70 without any gifts? If you use this voucher, I can actually bring it down to €50, just this one time. But from next time, it goes back to the normal price, alright?"',
     isVoucher: true,
     isHighlight: false,
   },

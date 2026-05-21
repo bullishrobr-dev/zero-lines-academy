@@ -47,39 +47,39 @@ interface Offer {
 const offers: Offer[] = [
   {
     title: 'Buy 2 Get 1 Free',
-    price: '€120',
+    price: '€160',
     subtitle: 'Classic trio — most popular offer',
-    items: ['3 full Nail Kits', 'Perfect for gifts', '€40 per kit effective'],
+    items: ['3 full Nail Kits', 'Perfect for gifts', '€53 per kit effective'],
     tag: 'Most Popular',
     isHighlight: true,
     script:
-      '"Right now we\'ve got an amazing offer: if you buy two, you get one free. So you pay €120 and walk away with three full kits. That\'s why everyone grabs these during the holidays — they make the perfect Christmas gifts. Small, elegant, and actually useful."',
+      '"Right now we\'ve got an amazing offer: if you buy two, you get one free. So you pay €160 and walk away with three full kits. That\'s why everyone grabs these during the holidays — they make the perfect Christmas gifts. Small, elegant, and actually useful."',
   },
   {
     title: 'Buy 2 Get 2 (Christmas)',
-    price: '€120',
+    price: '€160',
     subtitle: 'Premium Christmas — four for the price of two',
-    items: ['4 full Nail Kits', 'One for you, three for gifts', '€30 per kit effective'],
+    items: ['4 full Nail Kits', 'One for you, three for gifts', '€40 per kit effective'],
     tag: 'Christmas',
     script:
-      '"You know what, Christmas is coming — let\'s do something special. Instead of Buy 2, Get 1, I\'ll do Buy 2, Get 2. You\'ll get four full kits for €120 — one for you, one for mom, one for sister, one for a friend. Easiest Christmas shopping ever."',
+      '"You know what, Christmas is coming — let\'s do something special. Instead of Buy 2, Get 1, I\'ll do Buy 2, Get 2. You\'ll get four full kits for €160 — one for you, one for mom, one for sister, one for a friend. Easiest Christmas shopping ever."',
   },
   {
     title: 'Mix & Match (Buy 1 Get 1)',
-    price: '€60',
+    price: '€80',
     subtitle: 'Flexible combo — cross-sell setup',
     items: ['Nail Kit + Scrub', 'Nail Kit + Body Butter', 'Perfect intro pair'],
     tag: 'Flexible',
     script:
-      '"Tell you what — I\'ll do something better for you. Instead of just one kit, I\'ll do Buy 1, Get 1 Free for €60, and you can mix and match it with our Scrub or Body Butter. So you can take one Nail Kit and one Scrub — or one Kit and one Butter — still €60 total."',
+      '"Tell you what — I\'ll do something better for you. Instead of just one kit, I\'ll do Buy 1, Get 1 Free for €80, and you can mix and match it with our Scrub or Body Butter. So you can take one Nail Kit and one Scrub — or one Kit and one Butter — still €80 total."',
   },
   {
     title: 'Single Kit Holiday Close',
-    price: '€30',
+    price: '€45',
     subtitle: 'Final push — whole kit at buffer price',
     items: ['Full kit (not just buffer)', 'Lifetime warranty included', 'Opens door for return'],
     script:
-      '"Alright, you know what — I can see how much you loved it. Normally we sell the buffer by itself for €30, since it\'s got the lifetime warranty. But since it\'s the holidays and I really want you to enjoy it, I\'ll give you the whole kit for the same price — just €30. It\'s my way of opening the door — try it, use it, love it. Next time you\'re in Andorra, you\'ll come back for the second one, I promise."',
+      '"Alright, you know what — I can see how much you loved it. Normally we sell the buffer by itself for €45, since it\'s got the lifetime warranty. But since it\'s the holidays and I really want you to enjoy it, I\'ll give you the whole kit for the same price — just €45. It\'s my way of opening the door — try it, use it, love it. Next time you\'re in Andorra, you\'ll come back for the second one, I promise."',
   },
 ];
 
@@ -384,7 +384,7 @@ export default function NailKitPage() {
                 Europe Price
               </span>
               <span className="font-mono text-lg font-bold text-[#8A8A8A] line-through">
-                €100
+                €140
               </span>
             </div>
             <div className="flex items-center justify-between">
@@ -392,11 +392,11 @@ export default function NailKitPage() {
                 Andorra Price
               </span>
               <button
-                onClick={() => copyPrice('€60')}
+                onClick={() => copyPrice('€80')}
                 className="flex items-center gap-1.5"
               >
-                <span className="font-mono text-lg font-bold text-[#0ABAB5]">€60</span>
-                {copiedPrice === '€60' ? (
+                <span className="font-mono text-lg font-bold text-[#0ABAB5]">€80</span>
+                {copiedPrice === '€80' ? (
                   <Check className="w-3.5 h-3.5 text-green-400" />
                 ) : (
                   <Copy className="w-3.5 h-3.5 text-[#8A8A8A]" />
@@ -490,7 +490,7 @@ export default function NailKitPage() {
               you'll feel clean, polished, and taken care of."
             </p>
             <p className="text-[14px] text-white italic font-serif leading-relaxed mt-3">
-              "And if you think about it — €60 for something that replaces salon visits for
+              "And if you think about it — €80 for something that replaces salon visits for
               years — it's a no-brainer."
             </p>
           </div>
@@ -534,16 +534,16 @@ export default function NailKitPage() {
               {
                 icon: <Package className="w-4 h-4" />,
                 title: 'Buy 2, Get 2 for amazing buyers',
-                text: 'When the energy is high and they have a Christmas list — this is your volume close. Four kits at €120 is €30 per kit.',
+                text: 'When the energy is high and they have a Christmas list — this is your volume close. Four kits at €160 is €40 per kit.',
               },
               {
                 icon: <Hand className="w-4 h-4" />,
                 title: 'Buy 1, Get 1 Mix & Match for quick closes',
-                text: '€60 for a Nail Kit + Scrub/Butter is an easy yes. It also sets up your cross-sell perfectly.',
+                text: '€80 for a Nail Kit + Scrub/Butter is an easy yes. It also sets up your cross-sell perfectly.',
               },
               {
                 icon: <TrendingDown className="w-4 h-4" />,
-                title: '€30 single kit — the holiday gift line',
+                title: '€45 single kit — the holiday gift line',
                 text: "Your graceful exit that still creates a customer. Frame it as a gift from you: 'It's my way of opening the door.'",
               },
               {

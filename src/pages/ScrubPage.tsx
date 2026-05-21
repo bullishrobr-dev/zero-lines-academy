@@ -67,7 +67,7 @@ const comboOffers: ComboOffer[] = [
   },
   {
     title: 'Single Scrub',
-    price: '€30',
+    price: '€35',
     subtitle: 'Final push — the graceful exit',
     items: ['Dead Sea Scrub only', 'No gifts, no extras', 'Opens the door for future purchase'],
   },
@@ -371,7 +371,7 @@ export default function ScrubPage() {
               { name: 'Scent Duo', price: '€60', items: 'Scrub + Body Butter (Buy 1 Get 1)' },
               { name: 'Smart Duo', price: '€60', items: 'Scrub + Nail Kit (kit includes cream)' },
               { name: "Gifter's Four", price: '€120', items: 'Buy 2, Get 2 (Christmas special)' },
-              { name: 'Final Push', price: '€30', items: 'Scrub only, no gifts' },
+              { name: 'Final Push', price: '€35', items: 'Scrub only, no gifts' },
             ].map((combo, i) => (
               <div
                 key={i}
@@ -474,8 +474,8 @@ export default function ScrubPage() {
               },
               {
                 icon: <Sparkles className="w-4 h-4" />,
-                title: '€30 Scrub is your final push',
-                text: "When nothing else works, the single Scrub at €30 creates a customer today and a bigger sale tomorrow. No gifts, no extras — just the hero product in their hands.",
+                title: '€35 Scrub is your final push',
+                text: "When nothing else works, the single Scrub at €35 creates a customer today and a bigger sale tomorrow. No gifts, no extras — just the hero product in their hands.",
               },
               {
                 icon: <Moon className="w-4 h-4" />,
@@ -525,7 +525,7 @@ export default function ScrubPage() {
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
               <span className="text-[#8A8A8A]">Floor:</span>{' '}
-              <span className="text-white font-medium">€30 Scrub</span>
+              <span className="text-white font-medium">€35 Scrub</span>
             </div>
           </div>
         </motion.section>

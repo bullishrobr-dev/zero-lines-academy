@@ -24,6 +24,7 @@ import {
   Eye,
   ThumbsUp,
   Users,
+  Zap,
 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useLocation } from '../contexts/LocationContext';
@@ -31,7 +32,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import type { Language } from '../data/translations';
 
 // ── Types ──
-type SheetTab = 'all' | 'prices' | 'scripts' | 'psychology';
+type SheetTab = 'all' | 'prices' | 'scripts' | 'emergency' | 'psychology';
 
 // ── Price Ladder Data ──
 interface PriceStep {
@@ -87,7 +88,7 @@ function getProductLadders(lang: Language): ProductLadder[] {
           { label: 'Base de Andorra', price: '150\u20ac', words: '"Aqu\u00ed en Andorra es solo 150\u20ac."' },
           { label: 'Oferta 1 \u2014 50% Descuento + Regalo', price: '100\u20ac', words: '"Esto no es una crema anti-edad, esto es algo completamente diferente \u2014 esto es un tratamiento que separa la piel muerta de la piel viva. Ahora mismo puedes llev\u00e1rtelo con un 50% de descuento y recibir\u00e1s un regalo de Exfoliante del Mar Muerto."', highlight: true },
           { label: 'Oferta 2 \u2014 Crema de D\u00eda y Noche Gratis', price: '150\u20ac', words: '"Por 150\u20ac te llevas el peeling m\u00e1s la Crema de D\u00eda y Noche gratis."' },
-          { label: 'Alternativa Adaptativa (exfoliante como cr\u00e9dito)', price: '75\u20ac', words: '"D\u00e9jame quitar el exfoliante y te lo doy como cr\u00e9dito \u2014 eso lo deja en 75\u20ac."', highlight: true },
+          { label: 'Alternativa Adaptativa (exfoliante como cr\u00e9dito)', price: '70\u20ac', words: '"D\u00e9jame quitar el exfoliante y te lo doy como cr\u00e9dito \u2014 eso lo deja en 70\u20ac."', highlight: true },
           { label: 'Cierre con Cup\u00f3n', price: '50\u20ac', words: '"Con el cup\u00f3n de hoy, un solo peeling es solo 50\u20ac \u2014 sin regalos, pero solo el tratamiento ya vale la pena."', highlight: true },
         ],
       },
@@ -161,7 +162,7 @@ function getProductLadders(lang: Language): ProductLadder[] {
         { label: 'Andorra Base', price: '150\u20ac', words: '"Here in Andorra it\'s only 150\u20ac."' },
         { label: 'Offer 1 \u2014 50% Off + Gift', price: '100\u20ac', words: '"This is not an anti-aging cream, this is something completely different \u2014 this is a treatment that separates the dead skin from the living skin. Right now you can get it for 50% off and you\'ll receive a Dead Sea Body Scrub gift."', highlight: true },
         { label: 'Offer 2 \u2014 Day & Night Cream Free', price: '150\u20ac', words: '"For 150\u20ac you get the peeling plus Day & Night Cream free."' },
-        { label: 'Adaptive Fallback (scrub as credit)', price: '75\u20ac', words: '"Let me remove the scrub and give it to you as credit \u2014 that makes it 75\u20ac."', highlight: true },
+        { label: 'Adaptive Fallback (scrub as credit)', price: '70\u20ac', words: '"Let me remove the scrub and give it to you as credit \u2014 that makes it 70\u20ac."', highlight: true },
         { label: 'Voucher Close', price: '50\u20ac', words: '"With today\'s voucher, a single peeling is just 50\u20ac \u2014 no gifts, but the treatment alone is worth it."', highlight: true },
       ],
     },
@@ -205,7 +206,7 @@ function getProductLadders(lang: Language): ProductLadder[] {
 // ── Script Data ──
 interface ScriptCard {
   id: string;
-  category: 'opening' | 'closing' | 'objection' | 'partner';
+  category: 'opening' | 'closing' | 'objection' | 'partner' | 'competitor';
   title: string;
   text: string;
   product?: string;
@@ -245,6 +246,11 @@ function getScripts(lang: Language): ScriptCard[] {
       { id: 'p1', category: 'partner', title: 'Incluye a la Pareja', text: '"Y se\u00f1or/se\u00f1ora \u2014 te va a encantar c\u00f3mo se ve en ellos. \u00bfQuieres ver el resultado instant\u00e1neo tambi\u00e9n?"' },
       { id: 'p2', category: 'partner', title: 'Sugerencia de Regalo', text: '"La mayor\u00eda de las parejas compran uno para ella y un exfoliante para \u00e9l \u2014 es un bonito recuerdo de Andorra. Puedo hacer ambos por un precio de paquete."' },
       { id: 'p3', category: 'partner', title: 'Pregunta de Opini\u00f3n', text: '"\u00bfQu\u00e9 crees \u2014 \u00bfte parece que deber\u00eda ir con el brillo instant\u00e1neo o el tratamiento a largo plazo? T\u00fa los conoces mejor."' },
+      // Competitor handling
+      { id: 'comp1', category: 'competitor', title: '"Dijeron que es m\u00e1s barato all\u00e1"', text: '"\u00a1Puede ser! Pero \u00bfsu producto te muestra resultados en 2 minutos? D\u00e9jame mostrarte..."' },
+      { id: 'comp2', category: 'competitor', title: '"Lo vi en Amazon"', text: '"\u00a1Probablemente s\u00ed lo viste! Pero en l\u00ednea no puedes probarlo. Siente esto \u2014 huele esto \u2014 mira el resultado en tu propia piel."' },
+      { id: 'comp3', category: 'competitor', title: '"La otra tienda me dio mejor precio"', text: '"Lo respeto. Pero el precio no lo es todo \u2014 los resultados s\u00ed. D\u00e9jame mostrarte por qu\u00e9 somos diferentes."' },
+      { id: 'comp4', category: 'competitor', title: '"He o\u00eddo de [marca competidora]"', text: '"\u00a1Excelente marca! De hecho usamos ingredientes similares. La diferencia es nuestra concentraci\u00f3n y el resultado inmediato. Mira..."' },
     ];
   }
 
@@ -280,6 +286,11 @@ function getScripts(lang: Language): ScriptCard[] {
     { id: 'p1', category: 'partner', title: 'Include the Partner', text: '"And sir/ma\'am \u2014 you\'re going to love how this looks on them. Want to see the instant result too?"' },
     { id: 'p2', category: 'partner', title: 'Gift Suggestion', text: '"Most couples buy one for her and a scrub for him \u2014 it\'s a nice memory from Andorra. I can do both for a package price."' },
     { id: 'p3', category: 'partner', title: 'Opinion Ask', text: '"What do you think \u2014 should they go with the instant glow or the long-term treatment? You know them best."' },
+    // Competitor handling
+    { id: 'comp1', category: 'competitor', title: '"They said it\'s cheaper there"', text: '"Maybe! But does their product show results in 2 minutes? Let me show you..."' },
+    { id: 'comp2', category: 'competitor', title: '"I saw this on Amazon"', text: '"You probably did! But online you can\'t try it. Feel this \u2014 smell this \u2014 see the result on your own skin."' },
+    { id: 'comp3', category: 'competitor', title: '"The other shop gave me a better price"', text: '"I respect that. But price isn\'t everything \u2014 results are. Let me show you why we\'re different."' },
+    { id: 'comp4', category: 'competitor', title: '"I\'ve heard of [competitor brand]"', text: '"Great brand! We actually use similar ingredients. The difference is our concentration and the immediate result. Watch..."' },
   ];
 }
 
@@ -403,6 +414,60 @@ function getBuyingSignals(lang: Language) {
   ];
 }
 
+// ── Emergency Cheat Sheet Data ──
+interface EmergencyOpener { id: string; text: string; }
+interface EmergencyClose { id: string; text: string; }
+interface EmergencyKiller { id: string; objection: string; killer: string; }
+
+function getEmergencyOpeners(lang: Language): EmergencyOpener[] {
+  if (lang === 'es') {
+    return [
+      { id: 'eo1', text: '"Te prometo que estos ser\u00e1n los mejores 2 minutos de tu d\u00eda"' },
+      { id: 'eo2', text: '"Solo quiero mostrarte algo incre\u00edble \u2014 sin presi\u00f3n de comprar"' },
+      { id: 'eo3', text: '"Todo el que lo prueba lo compra \u2014 \u00bfquieres ver por qu\u00e9?"' },
+      { id: 'eo4', text: '"\u00bfPuedo hacerte una pregunta r\u00e1pida? \u00bfQu\u00e9 usas para tus ojos?"' },
+      { id: 'eo5', text: '"Mira esto \u2014 te garantizo que nunca has visto nada igual"' },
+    ];
+  }
+  return [
+    { id: 'eo1', text: '"I promise this will be the best 2 minutes of your day"' },
+    { id: 'eo2', text: '"I just want to show you something amazing \u2014 no pressure to buy"' },
+    { id: 'eo3', text: '"Everyone who tries this buys it \u2014 want to see why?"' },
+    { id: 'eo4', text: '"Can I ask you a quick question? What do you use for your eyes?"' },
+    { id: 'eo5', text: '"Watch this \u2014 I guarantee you\'ve never seen anything like it"' },
+  ];
+}
+
+function getEmergencyCloses(lang: Language): EmergencyClose[] {
+  if (lang === 'es') {
+    return [
+      { id: 'ec1', text: '"Hoy solo \u2014 y me refiero a SOLO hoy \u2014 cuesta {{currency}}X en vez de {{currency}}Y"' },
+      { id: 'ec2', text: '"Te incluyo un segundo para tu amiga/mam\u00e1/hermana a mitad de precio"' },
+      { id: 'ec3', text: '"Mira \u2014 toma mi tarjeta. Si no te encanta, m\u00e1ndame WhatsApp y te devuelvo el dinero. Pero no lo har\u00e1s."' },
+    ];
+  }
+  return [
+    { id: 'ec1', text: '"Today only \u2014 and I mean ONLY today \u2014 it\'s {{currency}}X instead of {{currency}}Y"' },
+    { id: 'ec2', text: '"I\'ll throw in a second one for your friend/mom/sister at half price"' },
+    { id: 'ec3', text: '"Look \u2014 take my card. If you don\'t love it, WhatsApp me and I\'ll refund you. But you won\'t."' },
+  ];
+}
+
+function getEmergencyKillers(lang: Language): EmergencyKiller[] {
+  if (lang === 'es') {
+    return [
+      { id: 'ek1', objection: '"Muy caro"', killer: '"\u00bfComparado con qu\u00e9? Una sola inyecci\u00f3n de Botox cuesta {{currency}}300 y esto dura 3 meses"' },
+      { id: 'ek2', objection: '"Necesito pensarlo"', killer: '"Lo entiendo. Pero este precio es literalmente solo hoy. Ma\u00f1ana vuelve a {{currency}}[mayor]"' },
+      { id: 'ek3', objection: '"Solo estoy mirando"', killer: '"\u00a1Perfecto! Mirar es gratis. Pero probar cambia la vida. \u00bf2 minutos?"' },
+    ];
+  }
+  return [
+    { id: 'ek1', objection: '"Too expensive"', killer: '"Compared to what? A single Botox injection is {{currency}}300 and this lasts 3 months"' },
+    { id: 'ek2', objection: '"Need to think"', killer: '"I get it. But this price is literally today only. Tomorrow it\'s back to {{currency}}[higher]"' },
+    { id: 'ek3', objection: '"Just looking"', killer: '"Perfect! Looking is free. But trying is life-changing. 2 minutes?"' },
+  ];
+}
+
 // ── Components ──
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -509,6 +574,7 @@ export default function CheatSheetsPage() {
     closing: t('cheatSheetsClosing'),
     objection: t('cheatSheetsObjections'),
     partner: t('cheatSheetsPartner'),
+    competitor: language === 'es' ? 'Competencia' : 'Competitor',
   };
 
   const scriptFilters = [
@@ -517,6 +583,7 @@ export default function CheatSheetsPage() {
     { key: 'closing', label: categoryLabelMap['closing'] },
     { key: 'objection', label: categoryLabelMap['objection'] },
     { key: 'partner', label: categoryLabelMap['partner'] },
+    { key: 'competitor', label: categoryLabelMap['competitor'] },
   ];
 
   // Get data based on current language
@@ -526,6 +593,9 @@ export default function CheatSheetsPage() {
   const CIALDINI = useMemo(() => getCialdini(language), [language]);
   const BODY_LANGUAGE = useMemo(() => getBodyLanguage(language), [language]);
   const BUYING_SIGNALS = useMemo(() => getBuyingSignals(language), [language]);
+  const EMERGENCY_OPENERS = useMemo(() => getEmergencyOpeners(language), [language]);
+  const EMERGENCY_CLOSES = useMemo(() => getEmergencyCloses(language), [language]);
+  const EMERGENCY_KILLERS = useMemo(() => getEmergencyKillers(language), [language]);
 
   const filteredScripts = useMemo(() => {
     let list = SCRIPTS;
@@ -554,6 +624,7 @@ export default function CheatSheetsPage() {
 
   const showPrices = activeTab === 'all' || activeTab === 'prices';
   const showScripts = activeTab === 'all' || activeTab === 'scripts';
+  const showEmergency = activeTab === 'all' || activeTab === 'emergency';
   const showPsych = activeTab === 'all' || activeTab === 'psychology';
 
   return (
@@ -617,6 +688,12 @@ export default function CheatSheetsPage() {
                 className="flex-1 text-xs data-[state=active]:bg-[#0ABAB5] data-[state=active]:text-black rounded-lg py-2"
               >
                 {t('cheatSheetsScripts')}
+              </TabsTrigger>
+              <TabsTrigger
+                value="emergency"
+                className="flex-1 text-xs data-[state=active]:bg-[#EF4444] data-[state=active]:text-white rounded-lg py-2"
+              >
+                {language === 'es' ? 'Emergencia' : 'Emergency'}
               </TabsTrigger>
               <TabsTrigger
                 value="psychology"
@@ -781,6 +858,90 @@ export default function CheatSheetsPage() {
               {filteredScripts.length === 0 && (
                 <p className="text-center text-sm text-[#8A8A8A] py-6">{t('cheatSheetsNoScripts')}</p>
               )}
+            </div>
+          </motion.section>
+        )}
+
+        {/* ── EMERGENCY CHEAT SHEET ── */}
+        {showEmergency && (
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.25 }}
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-6 h-6 rounded-full bg-[#EF4444]/20 flex items-center justify-center">
+                <span className="text-[#EF4444] text-xs font-bold">!</span>
+              </div>
+              <h2 className="text-h4 text-white">
+                {language === 'es' ? 'Hoja de Emergencia' : 'Emergency Cheat Sheet'}
+              </h2>
+            </div>
+
+            {/* Emergency Openers */}
+            <div className="rounded-xl border border-[#EF4444]/20 bg-[#EF4444]/5 p-4 mb-3">
+              <p className="text-xs font-semibold text-[#EF4444] mb-2 uppercase tracking-wider">
+                {language === 'es' ? 'Aperturas de Emergencia' : 'Emergency Openers'}
+              </p>
+              <p className="text-[11px] text-[#8A8A8A] mb-3">
+                {language === 'es' ? 'Cuando nada más funciona:' : 'When nothing else is working:'}
+              </p>
+              <div className="space-y-2">
+                {EMERGENCY_OPENERS.map((op, i) => (
+                  <div key={op.id} className="flex items-start gap-2.5">
+                    <span className="text-[#EF4444] text-xs font-bold w-5 shrink-0">{i + 1}.</span>
+                    <div className="flex items-start gap-2 flex-1">
+                      <p className="text-xs text-white italic leading-relaxed flex-1">{op.text}</p>
+                      <CopyButton text={op.text} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Emergency Closes */}
+            <div className="rounded-xl border border-[#0ABAB5]/20 bg-[#0ABAB5]/5 p-4 mb-3">
+              <p className="text-xs font-semibold text-[#0ABAB5] mb-2 uppercase tracking-wider">
+                {language === 'es' ? 'Cierres de Emergencia' : 'Emergency Closes'}
+              </p>
+              <p className="text-[11px] text-[#8A8A8A] mb-3">
+                {language === 'es' ? 'Último recurso para cerrar:' : 'Last resort to close:'}
+              </p>
+              <div className="space-y-2">
+                {EMERGENCY_CLOSES.map((cl) => (
+                  <div key={cl.id} className="flex items-start gap-2">
+                    <Sparkles size={12} className="text-[#0ABAB5] mt-0.5 shrink-0" />
+                    <div className="flex items-start gap-2 flex-1">
+                      <p className="text-xs text-white italic leading-relaxed flex-1">{cl.text}</p>
+                      <CopyButton text={cl.text} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Emergency Objection Killers */}
+            <div className="rounded-xl border border-[#F59E0B]/20 bg-[#F59E0B]/5 p-4">
+              <p className="text-xs font-semibold text-[#F59E0B] mb-2 uppercase tracking-wider">
+                {language === 'es' ? 'Matadores de Objeciones' : 'Objection Killers'}
+              </p>
+              <p className="text-[11px] text-[#8A8A8A] mb-3">
+                {language === 'es' ? 'Respuestas rápidas para objeciones comunes:' : 'Quick responses for common objections:'}
+              </p>
+              <div className="space-y-3">
+                {EMERGENCY_KILLERS.map((k) => (
+                  <div key={k.id} className="space-y-1">
+                    <p className="text-xs font-semibold text-[#F59E0B]">{k.objection}</p>
+                    <div className="flex items-start gap-2">
+                      <Zap size={12} className="text-[#0ABAB5] mt-0.5 shrink-0" />
+                      <div className="flex items-start gap-2 flex-1">
+                        <p className="text-xs text-white italic leading-relaxed flex-1">{k.killer}</p>
+                        <CopyButton text={k.killer} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.section>
         )}
