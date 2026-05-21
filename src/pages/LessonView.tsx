@@ -12,6 +12,7 @@ import {
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import confetti from 'canvas-confetti';
 import { getLesson, getCategory, getNextLesson, type ContentSection } from '../data/lessons';
+import { useLocationText } from '../utils/locationText';
 
 /* ─── Section Renderers ─── */
 
@@ -161,36 +162,41 @@ function NumberedList({ items }: { items: string[] }) {
   );
 }
 
-function SectionRenderer({ section }: { section: ContentSection }) {
+function SectionRenderer({ section, replacePlaceholders }: { section: ContentSection; replacePlaceholders: (text: string) => string }) {
   switch (section.type) {
     case 'header':
       return (
-        <h2 className="text-h2 text-white font-bold mt-8 mb-3">{section.text}</h2>
+        <h2 className="text-h2 text-white font-bold mt-8 mb-3">{replacePlaceholders(section.text || '')}</h2>
       );
     case 'subheader':
       return (
-        <h3 className="text-h3 text-gray-300 font-semibold mt-6 mb-2">{section.text}</h3>
+        <h3 className="text-h3 text-gray-300 font-semibold mt-6 mb-2">{replacePlaceholders(section.text || '')}</h3>
       );
     case 'paragraph':
       return (
-        <p className="text-body text-gray-200 leading-relaxed my-4">{section.text}</p>
+        <p className="text-body text-gray-200 leading-relaxed my-4">{replacePlaceholders(section.text || '')}</p>
       );
     case 'quote':
-      return <QuoteCard text={section.text || ''} attribution={section.attribution} />;
+      return <QuoteCard text={replacePlaceholders(section.text || '')} attribution={section.attribution ? replacePlaceholders(section.attribution) : undefined} />;
     case 'tip':
-      return <TipCard text={section.text || ''} />;
+      return <TipCard text={replacePlaceholders(section.text || '')} />;
     case 'keypoint':
-      return <KeyPointCard text={section.text || ''} />;
+      return <KeyPointCard text={replacePlaceholders(section.text || '')} />;
     case 'script':
-      return <ScriptCard text={section.text || ''} />;
+      return <ScriptCard text={replacePlaceholders(section.text || '')} />;
     case 'bullets':
-      return <BulletList items={section.items || []} />;
+      return <BulletList items={(section.items || []).map(item => replacePlaceholders(item))} />;
     case 'numbered':
-      return <NumberedList items={section.items || []} />;
-    case 'comparison':
-      return <ComparisonCard left={section.left} right={section.right} />;
+      return <NumberedList items={(section.items || []).map(item => replacePlaceholders(item))} />;
+    case 'comparison': {
+      const lft = section.left;
+      const rgt = section.right;
+      const lftReplaced = lft ? { label: replacePlaceholders(lft.label), text: replacePlaceholders(lft.text) } : undefined;
+      const rgtReplaced = rgt ? { label: replacePlaceholders(rgt.label), text: replacePlaceholders(rgt.text) } : undefined;
+      return <ComparisonCard left={lftReplaced} right={rgtReplaced} />;
+    }
     case 'checklist':
-      return <ChecklistCard items={section.items || []} />;
+      return <ChecklistCard items={(section.items || []).map(item => replacePlaceholders(item))} />;
     case 'divider':
       return <div className="my-8 h-px bg-[#1A1A1A]" />;
     default:
@@ -213,6 +219,7 @@ export default function LessonView() {
   const navigate = useNavigate();
   const contentRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const { replacePlaceholders } = useLocationText();
 
   const lesson = useMemo(() => (lessonId ? getLesson(lessonId) : undefined), [lessonId]);
   const category = useMemo(() => (lesson ? getCategory(lesson.categoryId) : undefined), [lesson]);
@@ -296,7 +303,7 @@ export default function LessonView() {
               transition={{ duration: 0.3 }}
             >
               {lesson.sections.map((section, i) => (
-                <SectionRenderer key={i} section={section} />
+                <SectionRenderer key={i} section={section} replacePlaceholders={replacePlaceholders} />
               ))}
             </motion.div>
           </AnimatePresence>

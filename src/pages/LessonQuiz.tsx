@@ -4,6 +4,7 @@ import { ArrowLeft, Check, X, Trophy, Star } from 'lucide-react';
 import { useState, useMemo, useCallback } from 'react';
 import confetti from 'canvas-confetti';
 import { getLesson, getCategory } from '../data/lessons';
+import { useLocationText } from '../utils/locationText';
 
 type AnswerState = 'idle' | 'correct' | 'wrong';
 
@@ -13,6 +14,8 @@ export default function LessonQuiz() {
 
   const lesson = useMemo(() => (lessonId ? getLesson(lessonId) : undefined), [lessonId]);
   const category = useMemo(() => (lesson ? getCategory(lesson.categoryId) : undefined), [lesson]);
+
+  const { replacePlaceholders } = useLocationText();
 
   const [currentQ, setCurrentQ] = useState(0);
   const [answerState, setAnswerState] = useState<AnswerState>('idle');
@@ -121,7 +124,7 @@ export default function LessonQuiz() {
             </div>
 
             {/* Question */}
-            <h2 className="text-h2 text-white font-bold mb-8">{question.question}</h2>
+            <h2 className="text-h2 text-white font-bold mb-8">{replacePlaceholders(question.question)}</h2>
 
             {/* Answer options */}
             <div className="space-y-3 mb-6">
@@ -149,7 +152,7 @@ export default function LessonQuiz() {
                     <span className="w-7 h-7 rounded-full bg-[#1A1A1A] flex items-center justify-center shrink-0 text-xs font-bold text-[#8A8A8A]">
                       {String.fromCharCode(65 + i)}
                     </span>
-                    <span className="text-body-small font-medium flex-1">{option}</span>
+                    <span className="text-body-small font-medium flex-1">{replacePlaceholders(option)}</span>
                     {answerState !== 'idle' && i === question.correctIndex && (
                       <Check size={18} className="text-green-400 shrink-0" />
                     )}
@@ -173,14 +176,14 @@ export default function LessonQuiz() {
                   {answerState === 'correct' ? (
                     <div className="p-4 rounded-2xl bg-green-500/10 border border-green-500/30">
                       <p className="text-body-small font-semibold text-green-400 mb-1">Correct!</p>
-                      <p className="text-body-small text-gray-300">{question.explanation}</p>
+                      <p className="text-body-small text-gray-300">{replacePlaceholders(question.explanation)}</p>
                     </div>
                   ) : (
                     <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/30">
                       <p className="text-body-small font-semibold text-red-400 mb-1">
-                        Correct answer was: {question.options[question.correctIndex]}
+                        Correct answer was: {replacePlaceholders(question.options[question.correctIndex])}
                       </p>
-                      <p className="text-body-small text-gray-300">{question.explanation}</p>
+                      <p className="text-body-small text-gray-300">{replacePlaceholders(question.explanation)}</p>
                     </div>
                   )}
                 </motion.div>
