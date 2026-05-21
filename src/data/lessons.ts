@@ -4676,22 +4676,26 @@ export const lessons: Record<string, Lesson> = {
     sections: [
     {
             type: 'header',
-      text: 'Make Them Feel the Moment'
+      text: 'Make Them Feel the Moment',
+      textEs: 'Haz Que Sientan el Momento'
     },
     {
             type: 'paragraph',
-      text: 'Urgency is one of the oldest and most effective sales tools because it works with human psychology. When people feel that an opportunity is limited — in time, quantity, or availability — they act faster. Without urgency, decisions get postponed indefinitely. With urgency, decisions happen NOW. The key is creating genuine urgency without being manipulative or pushy.'
+      text: 'Urgency is one of the oldest and most effective sales tools because it works with human psychology. When people feel that an opportunity is limited — in time, quantity, or availability — they act faster. Without urgency, decisions get postponed indefinitely. With urgency, decisions happen NOW. The key is creating genuine urgency without being manipulative or pushy.',
+      textEs: 'La urgencia es una de las herramientas de venta más antiguas y efectivas porque funciona con la psicología humana. Cuando la gente siente que una oportunidad es limitada — en tiempo, cantidad o disponibilidad — actúa más rápido. Sin urgencia, las decisiones se posponen indefinidamente. Con urgencia, las decisiones pasan AHORA. La clave es crear urgencia genuina sin ser manipulador o agresivo.'
     },
     {
             type: 'keypoint',
-      text: 'Ethical urgency means highlighting real, verifiable limitations. Pushy pressure means inventing false scarcity. Customers can smell fake urgency. Real urgency creates excitement. Fake urgency creates resistance.'
+      text: 'Ethical urgency means highlighting real, verifiable limitations. Pushy pressure means inventing false scarcity. Customers can smell fake urgency. Real urgency creates excitement. Fake urgency creates resistance.',
+      textEs: 'La urgencia ética significa destacar limitaciones reales y verificables. La presión agresiva significa inventar escasez falsa. Los clientes huelen la urgencia falsa. La urgencia real crea emoción. La urgencia falsa crea resistencia.'
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Types of Urgency That Work'
+      text: 'Types of Urgency That Work',
+      textEs: 'Tipos de Urgencia Que Funcionan'
     },
     {
             type: 'numbered',
@@ -4701,6 +4705,13 @@ export const lessons: Record<string, Lesson> = {
         'LOCATION-BASED URGENCY: \'This price only exists in Andorra. Once you cross the border, it\'s back to €500.\' The tax-haven advantage IS genuine scarcity.',
         'SEASONAL URGENCY: \'Christmas is two weeks away and these are our most popular gifts. I\'d hate for you to miss out.\' Seasonal relevance creates natural deadlines.',
         'EXPERIENTIAL URGENCY: \'You\'ve already felt the difference. You know it works. This result is waiting for you — why wait?\' The demo itself creates urgency because they\'ve experienced the value.'
+      ],
+      itemsEs: [
+        'URGENCIA POR TIEMPO: \'Cerramos en 30 minutos\' o \'Esta oferta termina hoy.\' Límites de tiempo reales y verificables. El cliente sabe que son ciertos y actúa en consecuencia.',
+        'URGENCIA POR CANTIDAD: \'Solo me quedan dos muestras\' o \'Se agotó este aroma el fin de semana pasado.\' La disponibilidad limitada crea instinto de competencia.',
+        'URGENCIA POR UBICACIÓN: \'Este precio solo existe en Andorra. Una vez que cruces la frontera, vuelve a €500.\' La ventaja del paraíso fiscal ES escasez genuina.',
+        'URGENCIA POR TEMPORADA: \'La Navidad está en dos semanas y estos son nuestros regalos más populares. Odiaría que te lo pierdas.\' La relevancia de temporada crea plazos naturales.',
+        'URGENCIA POR EXPERIENCIA: \'Ya sentiste la diferencia. Sabes que funciona. Este resultado te está esperando — ¿por qué esperar?\' La demo misma crea urgencia porque han experimentado el valor.'
       ]
     },
     {
@@ -4708,7 +4719,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'Urgency Openers by Situation'
+      text: 'Urgency Openers by Situation',
+      textEs: 'Aperturas de Urgencia por Situación'
     },
     {
             type: 'bullets',
@@ -4718,6 +4730,13 @@ export const lessons: Record<string, Lesson> = {
         '\'This offer literally ends when we close tonight. I know, it sounds like a sales line, but check the sign — it\'s real.\' (Transparency builds trust)',
         '\'The last customer bought our last two scrubs in this scent. Want to see what the hype is about before the rest are gone?\' (Social proof + scarcity)',
         '\'You\'re here at the perfect time — we just restocked the syringe after selling out all weekend. But they go fast.\' (Fresh availability creates urgency)'
+      ],
+      itemsEs: [
+        '\'Solo me quedan dos muestras de nuestro más vendido — ¿quieres ver de qué ha estado hablando todo el mundo?\' (Escasez por cantidad)',
+        '\'Cerramos pronto, pero te puedo hacer espacio para una demo de 2 minutos que te volará la cabeza.\' (Presión de tiempo + valor)',
+        '\'Esta oferta literalmente termina cuando cerremos esta noche. Lo sé, suena a frase de vendedor, pero checa el letrero — es real.\' (La transparencia genera confianza)',
+        '\'El último cliente se llevó nuestros últimos dos exfoliantes de este aroma. ¿Quieres ver de qué va el hype antes de que se acaben el resto?\' (Prueba social + escasez)',
+        '\'Llegaste en el momento perfecto — acabamos de reabastecer la jeringa después de agotarse todo el fin de semana. Pero se van rápido.\' (La disponibilidad fresca crea urgencia)'
       ]
     },
     {
@@ -4725,27 +4744,33 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'Ethical Urgency vs. Pushy Pressure'
+      text: 'Ethical Urgency vs. Pushy Pressure',
+      textEs: 'Urgencia Ética vs. Presión Agresiva'
     },
     {
             type: 'comparison',
       left: { label: 'Ethical Urgency (Good)', text: 'Based on real facts. \'We\'re closing in 20 minutes\' when you actually are. Creates excitement and motivation. Customer feels informed, not pressured. Respects their decision-making.' },
-      right: { label: 'Pushy Pressure (Bad)', text: 'Based on lies or manipulation. \'This is the last one\' when there are 20 more in the back. Creates anxiety and resentment. Customer feels trapped and manipulated. Destroys trust and referrals.' }
+      right: { label: 'Pushy Pressure (Bad)', text: 'Based on lies or manipulation. \'This is the last one\' when there are 20 more in the back. Creates anxiety and resentment. Customer feels trapped and manipulated. Destroys trust and referrals.' },
+      leftEs: { label: 'Urgencia Ética (Buena)', text: 'Basada en hechos reales. \'Cerramos en 20 minutos\' cuando de verdad cierras. Crea emoción y motivación. El cliente se siente informado, no presionado. Respeta su toma de decisiones.' },
+      rightEs: { label: 'Presión Agresiva (Mala)', text: 'Basada en mentiras o manipulación. \'Este es el último\' cuando hay 20 más atrás. Crea ansiedad y resentimiento. El cliente se siente atrapado y manipulado. Destruye la confianza y las referencias.' }
     },
     {
             type: 'tip',
-      text: 'The best urgency is REAL urgency. If you actually are low on stock, say so. If the offer actually ends today, say so. When urgency is verifiable, it works. When it\'s fabricated, customers sense it and trust evaporates.'
+      text: 'The best urgency is REAL urgency. If you actually are low on stock, say so. If the offer actually ends today, say so. When urgency is verifiable, it works. When it\'s fabricated, customers sense it and trust evaporates.',
+      textEs: 'La mejor urgencia es la urgencia REAL. Si de verdad te estás quedando sin stock, dilo. Si la oferta de verdad termina hoy, dilo. Cuando la urgencia es verificable, funciona. Cuando es fabricada, los clientes lo sienten y la confianza se evapora.'
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Seasonal Urgency: Christmas & Ski Season'
+      text: 'Seasonal Urgency: Christmas & Ski Season',
+      textEs: 'Urgencia de Temporada: Navidad y Temporada de Esquí'
     },
     {
             type: 'paragraph',
-      text: 'Andorra\'s peak season (November-February) creates natural urgency that you should leverage:'
+      text: 'Andorra\'s peak season (November-February) creates natural urgency that you should leverage:',
+      textEs: 'La temporada alta de Andorra (noviembre-febrero) crea urgencia natural que debes aprovechar:'
     },
     {
             type: 'bullets',
@@ -4754,16 +4779,25 @@ export const lessons: Record<string, Lesson> = {
         'LAST-MINUTE GIFTS: \'Christmas is in 5 days. If you\'re still looking for gifts, this is your answer. Small, elegant, and under €60.\'',
         'SKI SEASON: \'After a day on the slopes, your skin is so dry from the mountain air. This is what the locals use to recover.\' Seasonal relevance creates immediate need.',
         'WEEKEND RUSH: \'Weekends are crazy here. I\'d hate for you to come back and find your scent sold out.\' Weekend timing creates shopping pressure.'
+      ],
+      itemsEs: [
+        'COMPRAS NAVIDEÑAS: \'Este es el regalo de Navidad más fácil que vas a comprar. A todos les encanta, es unisex, y de verdad se usa.\' Las compras de regalo tienen una fecha límite natural — el 25 de diciembre.',
+        'REGALOS DE ÚLTIMO MINUTO: \'La Navidad es en 5 días. Si todavía buscas regalos, esta es tu respuesta. Pequeño, elegante, y menos de €60.\'',
+        'TEMPORADA DE ESQUÍ: \'Después de un día en las pistas, tu piel queda súper seca por el aire de la montaña. Esto es lo que usan los locales para recuperarse.\' La relevancia de temporada crea necesidad inmediata.',
+        'LOCURA DE FIN DE SEMANA: \'Los fines de semana son una locura aquí. Odiaría que regresaras y encontraras tu aroma agotado.\' El timing de fin de semana crea presión de compra.'
       ]
     },
     {
             type: 'script',
-      text: '\'Look, I\'m not going to give you the fake pressure thing. But I will tell you the truth: we sold 40 of these yesterday, and I have 8 left. The weekend rush starts tomorrow. If you know you want it, I\'d grab it now. If you\'re not sure, no pressure — but I can\'t guarantee it\'ll be here tomorrow.\' Honest, transparent urgency. This builds trust while creating motivation.'
+      text: '\'Look, I\'m not going to give you the fake pressure thing. But I will tell you the truth: we sold 40 of these yesterday, and I have 8 left. The weekend rush starts tomorrow. If you know you want it, I\'d grab it now. If you\'re not sure, no pressure — but I can\'t guarantee it\'ll be here tomorrow.\' Honest, transparent urgency. This builds trust while creating motivation.',
+      textEs: '\'Mira, no te voy a dar la presión falsa. Pero te voy a decir la verdad: vendimos 40 de estos ayer, y me quedan 8. La locura de fin de semana empieza mañana. Si sabes que lo quieres, yo lo agarraría ahora. Si no estás seguro, sin presión — pero no te garantizo que esté aquí mañana.\' Urgencia honesta y transparente. Esto construye confianza mientras crea motivación.'
     },
     {
             type: 'quote',
       text: 'Urgency isn\'t about pressuring people. It\'s about helping them overcome procrastination. The customer who genuinely wants your product but leaves to \'think about it\' often never returns. Urgency helps them make the decision they already want to make.',
-      attribution: 'Zero Lines Method'
+      textEs: 'La urgencia no se trata de presionar a la gente. Se trata de ayudarles a superar la procrastinación. El cliente que genuinamente quiere tu producto pero se va a \'pensarlo\' a menudo nunca regresa. La urgencia les ayuda a tomar la decisión que ya quieren tomar.',
+      attribution: 'Zero Lines Method',
+      attributionEs: 'Método Zero Lines'
     }
     ],
     quiz: [
