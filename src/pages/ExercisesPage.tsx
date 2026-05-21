@@ -124,6 +124,7 @@ type Tab = 'all' | 'roleplay' | 'pricedrill' | 'matching' | 'ordering';
 export default function ExercisesPage() {
   const navigate = useNavigate();
   const { language, t } = useLanguage();
+  const { replacePlaceholders } = useLocationText();
   const [view, setView] = useState<View>('hub');
   const [activeTab, setActiveTab] = useState<Tab>('all');
   const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
@@ -225,8 +226,8 @@ export default function ExercisesPage() {
                       <Icon size={20} className="text-[#0ABAB5]" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-h4 text-white">{(language === 'es' && ex.titleEs) ? ex.titleEs : ex.title}</h4>
-                      <p className="text-body-small text-[#8A8A8A] mt-0.5">{(language === 'es' && ex.descriptionEs) ? ex.descriptionEs : ex.description}</p>
+                      <h4 className="text-h4 text-white">{replacePlaceholders((language === 'es' && ex.titleEs) ? ex.titleEs : ex.title)}</h4>
+                      <p className="text-body-small text-[#8A8A8A] mt-0.5">{replacePlaceholders((language === 'es' && ex.descriptionEs) ? ex.descriptionEs : ex.description)}</p>
                       <div className="flex items-center gap-3 mt-2">
                         <span className="text-[11px] text-[#0ABAB5] bg-[#0ABAB5]/10 px-2 py-0.5 rounded-full">
                           {getTypeLabel(ex.type, language)}
@@ -253,7 +254,7 @@ export default function ExercisesPage() {
   }
 
   /* ─── Exercise View ─── */
-  const exerciseTitle = exercise ? ((language === 'es' && exercise.titleEs) ? exercise.titleEs : exercise.title) : '';
+  const exerciseTitle = exercise ? replacePlaceholders((language === 'es' && exercise.titleEs) ? exercise.titleEs : exercise.title) : '';
   const timeLimit = TIME_LIMITS[exercise?.type ?? ''] ?? 60;
 
   if (view === 'exercise' && exercise) {
@@ -368,7 +369,7 @@ function RolePlayView({ content, title, xpReward, onFinish, onBack, timeLimit }:
         <button onClick={onBack} className="w-11 h-11 flex items-center justify-center rounded-full bg-[#1A1A1A] active:scale-95 transition-transform">
           <ChevronLeft size={22} className="text-white" />
         </button>
-        <div className="flex-1 min-w-0"><h3 className="text-h4 text-white truncate">{title}</h3></div>
+        <div className="flex-1 min-w-0"><h3 className="text-h4 text-white truncate">{replacePlaceholders(title)}</h3></div>
       </div>
 
       <TimerDisplay timeLeft={timeLeft} totalSeconds={timeLimit} isEs={isEs} />
@@ -487,7 +488,7 @@ function PriceDrillView({ content, title, xpReward, onFinish, onBack, timeLimit 
         <button onClick={onBack} className="w-11 h-11 flex items-center justify-center rounded-full bg-[#1A1A1A] active:scale-95 transition-transform">
           <ChevronLeft size={22} className="text-white" />
         </button>
-        <div className="flex-1 min-w-0"><h3 className="text-h4 text-white truncate">{title}</h3></div>
+        <div className="flex-1 min-w-0"><h3 className="text-h4 text-white truncate">{replacePlaceholders(title)}</h3></div>
       </div>
 
       <TimerDisplay timeLeft={timeLeft} totalSeconds={timeLimit} isEs={isEs} />
@@ -601,7 +602,7 @@ function MatchingView({ content, title, xpReward, onFinish, onBack, timeLimit }:
         <button onClick={onBack} className="w-11 h-11 flex items-center justify-center rounded-full bg-[#1A1A1A] active:scale-95 transition-transform">
           <ChevronLeft size={22} className="text-white" />
         </button>
-        <div className="flex-1 min-w-0"><h3 className="text-h4 text-white truncate">{title}</h3></div>
+        <div className="flex-1 min-w-0"><h3 className="text-h4 text-white truncate">{replacePlaceholders(title)}</h3></div>
       </div>
 
       <TimerDisplay timeLeft={timeLeft} totalSeconds={timeLimit} isEs={isEs} />
@@ -700,7 +701,7 @@ function OrderingView({ content, title, xpReward, onFinish, onBack, timeLimit }:
         <button onClick={onBack} className="w-11 h-11 flex items-center justify-center rounded-full bg-[#1A1A1A] active:scale-95 transition-transform">
           <ChevronLeft size={22} className="text-white" />
         </button>
-        <div className="flex-1 min-w-0"><h3 className="text-h4 text-white truncate">{title}</h3></div>
+        <div className="flex-1 min-w-0"><h3 className="text-h4 text-white truncate">{replacePlaceholders(title)}</h3></div>
       </div>
 
       <TimerDisplay timeLeft={timeLeft} totalSeconds={timeLimit} isEs={isEs} />
