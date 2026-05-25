@@ -1,0 +1,185 @@
+{
+    id: 'stop-5',
+    categoryId: 'stopping',
+    title: 'Product-Specific Stops',
+    titleEs: 'La Parada de Curiosidad',
+    subtitle: 'Detailed scripts for each product matched to the person\'s visible traits',
+    duration: '10 min',
+    icon: 'Sparkles',
+    order: 5,
+    xpReward: 150,
+    sections: [
+    {
+            type: 'header',
+      text: 'Match the Product to the Person'
+    },
+    {
+            type: 'paragraph',
+      text: 'Generic stops work. Targeted stops work BETTER. When you match the product to something visible about the person, your stop feels personalized and relevant — not random. A woman with beautiful natural nails is the perfect Nail Kit target. Someone with visible under-eye bags is your Syringe customer. Reading the person\'s traits and matching them to the right product transforms your hit rate.'
+    },
+    {
+            type: 'keypoint',
+      text: 'The formula: Observe a trait → Connect it to the product → Deliver a personalized opener. This makes the customer feel seen, not targeted.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Syringe Stop (Eye Treatment)'
+    },
+    {
+            type: 'paragraph',
+      text: 'Best targets: visible under-eye bags, crow\'s feet, tired-looking eyes, people who mention looking exhausted, older customers (40+) concerned with aging.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE DIRECT APPROACH: \'You look amazing — but the eyes... maybe we can make them look even more relaxed?\' Said with a cheeky smile. This opener acknowledges their overall appearance while pinpointing the improvement area.',
+        'THE TIRED TRAVELER: \'Long trip? I can see it in your eyes — and not in a good way. Let me fix that in two minutes.\' For people who genuinely look tired from travel.',
+        'THE AGE-APPROPRIATE: \'You clearly take great care of yourself. Want to see what I can do around the eyes? It\'s like a spa treatment in two minutes.\' Positions it as enhancement, not correction.',
+        'THE COMPLEMENT TO MAKEUP: \'Your makeup is flawless! Let me show you something that makes the eyes pop even more without any makeup.\' Appeals to beauty enthusiasts.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'You have beautiful eyes — but I can see the travel fatigue. Let me show you our secret weapon. Two minutes, one eye, and you\'ll see the difference yourself in the mirror. It\'s honestly shocking.\' Specific observation + time promise + intrigue.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Peeling Stop (Glow Treatment)'
+    },
+    {
+            type: 'paragraph',
+      text: 'Best targets: dull skin, dry skin, people asking about skincare routines, younger customers (20s-30s) focused on glow, people who mention wanting \'fresher\' skin.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE GLOW HOOK: \'Your skin is nice, but I can give you that \'just got back from vacation\' glow in two minutes. Want to see?\'',
+        'THE SKINCARE ENTHUSIAST: \'I can tell you care about your skin. Let me show you my favorite weekly treatment — it\'s completely different from daily cream.\'',
+        'THE DRY SKIN ANGLE: \'The mountain air here is so drying. Let me show you something that removes all the dead skin instantly — your cream will work 10 times better.\'',
+        'THE AGE-DEFYING: \'This is what I use once a week to keep my skin looking fresh. Want to try it? It\'s like a facial at home.\' Peer recommendation works especially well from younger staff.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'Let me show you my favorite quick trick for glowing skin. It\'s a weekly treatment that removes all the dead layers — your regular cream will work so much better after. Two minutes, and you\'ll feel the difference immediately.\' Quick, friendly, no pressure.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Scrub & Body Butter Stop'
+    },
+    {
+            type: 'paragraph',
+      text: 'Best targets: dry hands (especially in winter), people mentioning the mountain air, eczema or dry skin concerns, gift buyers, couples (great unisex product).'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE DRY SKIN QUESTION: \'Do you ever get dry skin? Ugh, I know — it\'s the worst. You know what? Let me give you something amazing. Come!\' This classic opener works because almost everyone has dry skin, especially in Andorra.',
+        'THE SENSORY HOOK: \'Want to feel something incredible? This is from the Dead Sea — lowest place on Earth, highest mineral concentration. Your hands have never felt this soft.\'',
+        'THE GIFT ANGLE: \'Looking for Christmas gifts? This is our most popular one — everyone loves it, it\'s unisex, and it\'s actually useful. Feel this...\'',
+        'THE COVID LEGACY: \'Since Covid, everyone\'s hands are so dry from sanitizer. This became our #1 seller — people were like, \'Finally something that actually helps!\'\''
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'Do you ever get dry skin, especially in winter? Let me show you something from the Dead Sea. Rub this on your hand... now add water... feel that? That\'s not just soft — that\'s mineral-treated skin. And it lasts even after you wash your hands.\' Interactive demo + education.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Nail Kit Stop'
+    },
+    {
+            type: 'paragraph',
+      text: 'Best targets: natural nails (no heavy polish), well-maintained nails, younger women, gift buyers, people who appreciate natural beauty.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE NATURAL NAIL APPRECIATION: \'Wow! You always keep your nails natural? That\'s awesome. Let me give you a small gift — you\'re gonna love this.\'',
+        'THE CONTRAST APPROACH: \'I see you have polish on — that\'s pretty! But you know what? Let me show you how gorgeous your natural nail can look without any chemicals.\'',
+        'THE GIFT APPROACH: \'These make the perfect gifts — small, elegant, and everyone actually uses them. Watch this...\'',
+        'THE SALON ALTERNATIVE: \'This replaces salon visits. Natural shine that lasts two weeks, no chemicals, lifetime warranty. Look at this...\''
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'Wow, you keep your nails so natural and healthy! Let me show you something — this isn\'t a regular buffer. It brings out your natural shine without any polish or chemicals. Watch... see? Nothing yet. Now the last step... WOW. That is YOUR natural nail. No polish. It stays like this for two weeks.\' Build anticipation, deliver the reveal.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Matching Multiple Products'
+    },
+    {
+            type: 'paragraph',
+      text: 'Sometimes you can offer multiple products in one stop. Here\'s when to combine:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE CLASSIC TRIO (€120): Scrub + Body Butter + Nail Kit. Best for: gift shoppers, couples, people who want variety.',
+        'THE SPA TRIO (€120): Scrub + Body Butter + Face Cleanser. Best for: self-care focused customers, people interested in routines.',
+        'THE SMART DUO (€60): Scrub + Nail Kit. Best for: budget-conscious buyers, the Nail Kit already includes cream.',
+        'THE SCENT DUO (€60): Scrub + Body Butter. Best for: people who love the sensory experience of the scrub demo.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Start with ONE product in your stop. Once they\'re inside and engaged, you can introduce combos and additional products. Leading with multiple options confuses the stop. Simplify to amplify.'
+    },
+    {
+            type: 'quote',
+      text: 'The best stops don\'t feel like stops. They feel like a friend noticing something about you and offering a helpful suggestion. That\'s what happens when you match the product to the person.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'What is the formula for a product-specific stop?',
+      options: [
+        'Mention all products at once',
+        'Observe a trait → Connect it to the product → Deliver a personalized opener',
+        'Lead with the price',
+        'Ask if they want to buy'
+      ],
+      correctIndex: 1,
+      explanation: 'The formula is: observe a visible trait, connect it naturally to a specific product, then deliver a personalized opener. This makes the stop feel relevant, not random.',
+    },
+    {
+      question: 'Who is the best target for the Syringe stop?',
+      options: [
+        'Young children',
+        'People with visible under-eye concerns, tired eyes, or aging concerns',
+        'People who hate skincare',
+        'Men only'
+      ],
+      correctIndex: 1,
+      explanation: 'The Syringe (eye treatment) is best matched to people with visible under-eye bags, crow\'s feet, tired-looking eyes, or those concerned with aging around the eyes.',
+    },
+    {
+      question: 'Why should you start with one product in your stop rather than offering multiple products?',
+      options: [
+        'You only have one product to sell',
+        'Multiple options confuse the stop; simplify to amplify',
+        'Customers only want one product',
+        'It\'s company policy'
+      ],
+      correctIndex: 1,
+      explanation: 'Leading with multiple products confuses the stop. Start with one clear, targeted product to get them inside. Once engaged, you can introduce combos and additional products.',
+    }
+    ],
+  }

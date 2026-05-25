@@ -1,0 +1,176 @@
+{
+    id: 'connect-7',
+    categoryId: 'connecting',
+    title: 'Spotting Buying Signals',
+    titleEs: 'Escuchando Más Allá de las Palabras',
+    subtitle: 'Body language and verbal cues that scream \'I\'m ready to buy\'',
+    duration: '8 min',
+    icon: 'Target',
+    order: 7,
+    xpReward: 100,
+    sections: [
+    {
+            type: 'header',
+      text: 'The Customer Is Always Telling You What They Want — If You\'re Listening'
+    },
+    {
+            type: 'paragraph',
+      text: 'The biggest mistake in sales is talking past the buying signal. The customer leans in, touches the product, asks about price — and the salesperson keeps pitching instead of closing. Buying signals are the green lights of sales. They tell you the customer is ready. Your job is to see them and act.'
+    },
+    {
+            type: 'keypoint',
+      text: 'Buying signals happen before the customer verbally commits. If you wait for them to say \'I\'ll take it,\' you\'ve waited too long. Close when you SEE the signal, not when you HEAR the decision.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Physical Buying Signals'
+    },
+    {
+            type: 'paragraph',
+      text: 'The body reveals the decision before the mouth does. Watch for these physical cues:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'LEANING IN: When a customer physically moves closer to you, the product, or the mirror, they\'re interested. Leaning back or stepping away means resistance. Leaning in means engagement.',
+        'TOUCHING THE FACE: Touching cheeks, chin, or under the eyes while looking at the product or mirror = they\'re imagining themselves using it. This is one of the strongest positive signals.',
+        'HOLDING THE PRODUCT: If they pick up the bottle, read the label, or turn it over in their hands, they\'re taking ownership mentally. Encourage this — let them hold it.',
+        'MIRROR CHECKING: Looking at themselves in the mirror repeatedly during or after the demo is a strong buying signal. They like what they see and are imagining the result.',
+        'RELAXED SHOULDERS: Tense shoulders signal hesitation. When shoulders drop and relax, resistance is dropping too.',
+        'OPEN PALMS: Showing open palms while discussing the product indicates openness and receptivity. Closed fists or crossed arms signal the opposite.',
+        'NODDING: Nodding while you speak (especially during the offer) indicates agreement. Multiple nods = building commitment.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Verbal Buying Signals'
+    },
+    {
+            type: 'paragraph',
+      text: 'Words are data. These phrases almost always indicate buying intent:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        '\'HOW LONG DOES IT LAST?\' — They\'re calculating value per use. This is a value-oriented buyer calculating ROI.',
+        '\'DO YOU SHIP?\' — They\'re imagining owning it but worried about logistics. Solve the logistics, close the sale.',
+        '\'HOW OFTEN DO I USE IT?\' — They\'re fitting it into their lifestyle. Mental ownership has begun.',
+        '\'WHAT DO YOU THINK?\' (to partner) — They\'re seeking validation for a decision they\'ve already made. Engage the partner positively.',
+        '\'CAN I GET THIS IN...?\' — They\'re personalizing the purchase. Color, size, scent — doesn\'t matter. Personalization = commitment.',
+        '\'IS THIS THE LAST ONE?\' — Scarcity concern means they want it. Create gentle urgency.',
+        '\'WHAT\'S THE RETURN POLICY?\' — Risk management. They\'re close but need a safety net.',
+        '\'DO YOU HAVE A CARD?\' — This is as close to \'I\'ll take it\' as you can get without hearing the words. Close immediately.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Micro-Signals: Blink-and-You-Miss-Them'
+    },
+    {
+            type: 'paragraph',
+      text: 'These happen in fractions of a second. Train yourself to notice:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'EYEBROW FLASH: A quick raise of both eyebrows when you mention a benefit or show the result. Surprise and interest. Follow up immediately.',
+        'PUPIL DILATION: When people see something they want, their pupils dilate. Hard to spot but reliable.',
+        'LIP PRESS: Pressing lips together while considering = internal deliberation. Stay quiet and let them think.',
+        'BREATH HOLD + RELEASE: Holding breath during the price reveal, then releasing = relief. They can afford it.',
+        'QUICK GLANCE AT WALLET/BAG: Checking if they have payment ready. Almost always a buying signal.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'When to Close: Timing Is Everything'
+    },
+    {
+            type: 'paragraph',
+      text: 'Closing too early feels pushy. Closing too late loses momentum. The sweet spot is the SECOND buying signal. Here\'s why:'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'FIRST SIGNAL: \'Interesting.\' They lean in. Good, but not enough. Keep building value.',
+        'SECOND SIGNAL: They touch the product and ask \'How long does it last?\' NOW. This is your moment. The second signal confirms genuine interest, not just politeness.',
+        'THIRD SIGNAL: They\'re asking about payment or shipping. If you haven\'t closed by now, close immediately — every word past this point risks the sale.'
+      ]
+    },
+    {
+            type: 'script',
+      text: 'Customer: \'How long does one syringe last?\' (Buying signal!) You: \'A full year of treatments — 52 weeks. That\'s less than €6 per week for this result. Shall I set one aside for you?\' Direct close. Don\'t oversell past this point.'
+    },
+    {
+            type: 'tip',
+      text: 'When you spot a buying signal, STOP TALKING ABOUT FEATURES. Switch to closing mode. Summarize the value, present the options, and ask for the decision. Every additional feature you mention past the buying signal creates new objections.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'False Signals: When Interest Isn\'t Buying Intent'
+    },
+    {
+            type: 'paragraph',
+      text: 'Not every positive signal means a sale is imminent. Learn to distinguish genuine buying signals from polite interest:'
+    },
+    {
+            type: 'comparison',
+      left: { label: 'Genuine Buying Signal', text: 'They ask specific questions about usage, logistics, or value. Their questions are about OWNING the product. They\'re problem-solving for purchase.' },
+      right: { label: 'Polite Interest (Not Ready)', text: 'They say \'It\'s nice\' or \'I\'ll think about it.\' Their questions are general. No specifics about owning. They\'re being polite, not buying.' }
+    },
+    {
+            type: 'quote',
+      text: 'The moment you see the buying signal, your job changes from convincing to facilitating. Make it easy for them to say yes.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'When is the optimal time to close based on buying signals?',
+      options: [
+        'After the first positive signal',
+        'After the second buying signal confirms genuine interest',
+        'Only after they explicitly say they want to buy',
+        'After you\'ve listed all product features'
+      ],
+      correctIndex: 1,
+      explanation: 'The second buying signal is the sweet spot. The first signal could be politeness; the second confirms genuine interest. Closing after the third signal may be too late.',
+    },
+    {
+      question: 'Which of these is a strong PHYSICAL buying signal?',
+      options: [
+        'Checking their phone',
+        'Touching their face while looking at the product',
+        'Crossing their arms',
+        'Stepping backward'
+      ],
+      correctIndex: 1,
+      explanation: 'Touching the face (cheeks, chin, under eyes) while looking at the product means they\'re imagining themselves using it. This is one of the strongest positive buying signals.',
+    },
+    {
+      question: 'What should you do when you spot a buying signal?',
+      options: [
+        'Keep listing more product features',
+        'Switch to closing mode and stop adding new information',
+        'Lower the price immediately',
+        'Ask if they\'re ready to buy in a pushy way'
+      ],
+      correctIndex: 1,
+      explanation: 'When you spot a buying signal, switch from convincing to closing. Summarize value, present options, and ask for the decision. Every new feature you mention creates potential objections.',
+    }
+    ],
+  }

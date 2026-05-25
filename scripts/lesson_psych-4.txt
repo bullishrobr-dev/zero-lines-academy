@@ -1,0 +1,168 @@
+{
+    id: 'psych-4',
+    categoryId: 'psychology',
+    title: 'Rejection-Proof Mindset',
+    titleEs: 'La Urgencia de Cierre',
+    subtitle: 'Why \'no\' is training. The numbers game. How top sellers process rejection.',
+    duration: '8 min',
+    icon: 'Shield',
+    order: 4,
+    xpReward: 100,
+    sections: [
+    {
+            type: 'header',
+      text: 'Every \'No\' Is a Step Closer to \'Yes\''
+    },
+    {
+            type: 'paragraph',
+      text: 'If you stop 100 people in a day, and 80 ignore you, 15 say \'no thanks,\' and 5 buy — you\'ve had a GREAT day. But most people don\'t see the 95 rejections as the path to 5 wins. They see 95 failures. That perspective destroys performance. The rejection-proof mindset sees every interaction as data, not drama.'
+    },
+    {
+            type: 'keypoint',
+      text: 'Top performers know their numbers. If your close rate is 5%, then every \'no\' is 5% of a \'yes.\' A string of 10 rejections isn\'t failure — it\'s statistical progress toward your next sale.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Reframe: The Baseball Batting Average'
+    },
+    {
+            type: 'paragraph',
+      text: 'The best baseball hitters in history fail 70% of the time. A .300 batting average — failing 7 out of 10 times — is considered excellent. In sales, a 5-10% close rate makes you a top earner. You\'re not failing 90-95% of the time. You\'re succeeding at a rate that most people would consider elite performance.'
+    },
+    {
+            type: 'comparison',
+      left: { label: 'Amateur Mindset', text: '\'I\'m terrible. 20 people said no today. I suck at this. Maybe I\'m not cut out for sales.\' Each rejection feels personal and builds a story of failure.' },
+      right: { label: 'Pro Mindset', text: '\'20 rejections today means I\'m 20% closer to my next close. My ratio holds at 1 in 15. Two more stops and I\'ll likely hit a sale.\' Each rejection is data confirming the ratio.' }
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The \'Next One\' Mentality'
+    },
+    {
+            type: 'paragraph',
+      text: 'The most powerful mental habit in sales is instantaneous reset. The moment a customer walks away, that interaction is erased. It doesn\'t exist anymore. Your total focus shifts to the next person approaching. This is how top sellers maintain energy through 8 hours of rejection.'
+    },
+    {
+            type: 'script',
+      text: '\'I used to replay every rejection in my head. I\'d still be thinking about the rude woman from 20 minutes ago while missing the friendly couple right in front of me. Now I have a rule: the moment someone walks away, I literally say \'next\' under my breath. It clears my mental slate.\''
+    },
+    {
+            type: 'tip',
+      text: 'Practice the \'next\' technique literally. After every rejection — verbal or just being ignored — say the word \'next\' quietly to yourself. This creates a mental reset ritual that becomes automatic.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Why Customers Say No (Hint: It\'s Almost Never About You)'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'They\'re in a hurry: Meeting, reservation, tired from shopping. Nothing you could have done.',
+        'They just spent money: Budget exhaustion is real. The best pitch in the world won\'t open an empty wallet.',
+        'They\'re not in a buying mood today: Some days people browse. Same person might buy enthusiastically tomorrow.',
+        'They had a bad experience with a previous salesperson: You\'re paying for someone else\'s mistake.',
+        'They don\'t buy anything on vacation: Some people have a \'no purchases while traveling\' rule.',
+        'They\'re overwhelmed: Too many options, too much information. They shut down.',
+        'Personal problems: Fights, health issues, stress. They\'re not really there.'
+      ]
+    },
+    {
+            type: 'keypoint',
+      text: 'When you internalize that rejection is almost never personal, you stop carrying it. The customer isn\'t rejecting YOU. They\'re rejecting the interaction, the timing, or their own readiness.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'How Top Sellers Process a Bad Day'
+    },
+    {
+            type: 'paragraph',
+      text: 'Even the best have terrible days. Here\'s the protocol that separates pros from amateurs:'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'DON\'T TAKE IT HOME: The moment you clock out, the day is done. Don\'t replay rejections in your head all evening. That day doesn\'t exist anymore.',
+        'FIND ONE WIN: Even on the worst day, find ONE thing you did well. Maybe your opener was smooth. Maybe your demo was great even though they didn\'t buy. Focus on that.',
+        'ANALYZE PATTERNS: If you\'re getting rejected more than usual, look for patterns. Is your energy low? Are you stopping the wrong people? Is your opener tired? Fix the mechanics, not your self-worth.',
+        'SLEEP IT OFF: A bad day feels like a crisis at 6pm and often feels like nothing the next morning. Never make career decisions based on one bad shift.',
+        'TALK TO TEAMMATES: Everyone has bad days. Sharing yours normalizes it. Hearing that your colleague also got rejected 30 times makes you feel less alone.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Turning a Bad Day Around'
+    },
+    {
+            type: 'paragraph',
+      text: 'Sometimes you can actually SAVE a bad day. Here\'s the emergency turnaround protocol:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'CHANGE ONE THING: If you\'ve been using the same opener all day and getting rejected, switch it completely. New energy breaks the pattern.',
+        'TARGET DIFFERENT PEOPLE: If you\'ve been stopping solo women and failing, try couples. Or vice versa. Different demographics respond to different energies.',
+        'GO BACK TO BASICS: When everything falls apart, simplify. Stop overthinking. Smile, make eye contact, deliver your cleanest opener. Fundamentals fix slumps.',
+        'ASK A TEAMMATE TO WATCH YOU: Sometimes you have a blind spot. A colleague might notice you\'re rushing, or your posture has collapsed, or you\'re not making eye contact. External feedback is gold.'
+      ]
+    },
+    {
+            type: 'quote',
+      text: 'The only difference between a top seller and a quitter is that the top seller kept going through the days they wanted to quit.',
+      attribution: 'Zero Lines Method'
+    },
+    {
+            type: 'tip',
+      text: 'Track your numbers daily. Write down: stops, demos, closes, total revenue. Over time, you\'ll see your personal ratio. When you KNOW that you close 1 in 15, the 14 rejections before your next sale become... expected. Peaceful, even.'
+    }
+    ],
+    quiz: [
+    {
+      question: 'If your close rate is 5%, how should you view a string of 10 rejections?',
+      options: [
+        'As proof you\'re having a bad day',
+        'As statistical progress toward your next sale',
+        'As a sign you need to change your pitch completely',
+        'As a reason to take a long break'
+      ],
+      correctIndex: 1,
+      explanation: 'With a 5% close rate, every \'no\' is simply 5% of a \'yes.\' A string of rejections is expected statistical progress toward your next close, not evidence of failure.',
+    },
+    {
+      question: 'What is the \'next one\' mentality?',
+      options: [
+        'Always focusing on the next customer while ignoring the current one',
+        'Instantly resetting your focus to the next person after each rejection',
+        'Trying to stop the next person you see regardless of quality',
+        'Planning your next day during your shift'
+      ],
+      correctIndex: 1,
+      explanation: 'The \'next one\' mentality is an instantaneous mental reset. The moment a customer walks away, that interaction is erased and total focus shifts to the next person approaching.',
+    },
+    {
+      question: 'Which of these is the LEAST likely reason a customer says \'no\'?',
+      options: [
+        'They\'re in a hurry or have a reservation',
+        'They don\'t buy anything while traveling',
+        'You personally are unlikeable',
+        'They\'re overwhelmed from shopping'
+      ],
+      correctIndex: 2,
+      explanation: 'Rejection is almost never personal. Customers say no due to timing, budget, mood, travel habits, or overwhelm. Believing it\'s about your personality is the amateur mindset that destroys performance.',
+    }
+    ],
+  }

@@ -4,7 +4,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Flame, RotateCcw, Target } from 'lucide-react';
+import { Check, Flame, Target } from 'lucide-react';
 
 export interface Challenge {
   id: string;
@@ -117,18 +117,24 @@ export default function DailyChallengeCard({
 
           {!isDone ? (
             <motion.button
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.96 }}
               onClick={handleComplete}
-              className="flex items-center gap-1.5 bg-[#F59E0B] hover:bg-[#D97706] text-black text-xs font-semibold px-4 py-2 rounded-full transition-colors"
+              className="flex items-center gap-1.5 bg-[#0ABAB5] hover:bg-[#09a9a4] text-black font-bold text-xs px-4 py-2.5 rounded-full transition-colors shadow-[0_0_12px_rgba(10,186,181,0.25)]"
             >
               <Check size={14} strokeWidth={2.5} />
               Mark Complete
             </motion.button>
           ) : (
-            <div className="flex items-center gap-1.5 text-[#0ABAB5]">
-              <RotateCcw size={12} />
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="flex items-center gap-1.5 text-[#0ABAB5]"
+            >
+              <div className="w-5 h-5 rounded-full bg-[#0ABAB5]/20 flex items-center justify-center">
+                <Check size={12} strokeWidth={2.5} className="text-[#0ABAB5]" />
+              </div>
               <span className="text-xs font-medium">Resets tomorrow</span>
-            </div>
+            </motion.div>
           )}
         </div>
       </div>

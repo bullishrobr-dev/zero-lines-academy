@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useEffect, type ReactNode } from 'react';
 import Navbar from './Navbar';
+import OfflineBanner from './OfflineBanner';
 
 interface LayoutProps {
   children: ReactNode;
@@ -44,6 +45,9 @@ export default function Layout({ children }: LayoutProps) {
           />
         </div>
       </div>
+
+      {/* Offline / Online indicator */}
+      <OfflineBanner />
 
       {/* Mobile frame */}
       <div

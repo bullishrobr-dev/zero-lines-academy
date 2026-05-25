@@ -1,0 +1,222 @@
+{
+    id: 'stop-3',
+    categoryId: 'stopping',
+    title: 'The Humor Stop',
+    titleEs: 'La Parada del Humor',
+    subtitle: 'Making them smile before they can say no — funny openers that actually work',
+    subtitleEs: 'Ríe primero, vende después',
+    duration: '8 min',
+    icon: 'Smile',
+    order: 3,
+    xpReward: 100,
+    sections: [
+    {
+            type: 'header',
+      text: 'If They Smile, They Stop. If They Stop, You Sell.',
+      textEs: 'Si Sonríen, Paran. Si Paran, Vendes.',
+    },
+    {
+            type: 'paragraph',
+      text: 'Humor is the ultimate disarmer. When someone laughs, their guard drops. They\'re no longer in \'defend against salesperson\' mode — they\'re in \'this person is fun\' mode. A smile creates a micro-moment of connection that buys you the 10 seconds you need to deliver your pitch. But humor is a scalpel, not a hammer. Use it precisely.',
+      textEs: 'El humor es el mejor desarmador. Cuando alguien se ríe, baja la guardia. Ya no está en modo \'defenderse del vendedor\' — está en modo \'esta persona es divertida\'. Una sonrisa crea un micro-momento de conexión que te compra los 10 segundos que necesitas para lanzar tu pitch. Pero el humor es un bisturí, no un martillo. Úsalo con precisión.'
+    },
+    {
+            type: 'keypoint',
+      text: 'The humor stop formula: Light observational humor + Self-awareness about selling + Quick transition to value. You\'re not doing stand-up comedy — you\'re just breaking the tension with a smile.',
+      textEs: 'La fórmula de la parada del humor: Humor observacional ligero + Autoconciencia sobre vender + Transición rápida al valor. No estás haciendo stand-up comedy — solo estás rompiendo la tensión con una sonrisa.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Funny Openers That Work',
+      textEs: 'Abridores Divertidos Que Funcionan',
+    },
+    {
+            type: 'paragraph',
+      text: 'These openers acknowledge the awkwardness of street selling and turn it into a shared joke:',
+      textEs: 'Estos abridores reconocen lo incómodo de vender en la calle y lo convierten en una broma compartida:',
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE HONEST APPROACH: \'I know, I know — another salesperson. But I promise, this is the one time today you\'ll actually be glad someone stopped you.\'',
+        'THE SELF-DEPRECATING: \'I\'m clearly not very good at this because you\'re still walking, but give me 30 seconds and I\'ll change your mind.\'',
+        'THE CHALLENGE: \'Two minutes. If you don\'t love it, you can tell me I\'m terrible at my job. Deal?\'',
+        'THE OVERDRAMATIC: \'STOP! Don\'t make me chase you! ... Okay, I won\'t chase you because that would be creepy. But seriously, two seconds.\'',
+        'THE REALITY CHECK: \'I know you\'re thinking \'not another one.\' I think the same thing when I walk down this street on my day off.\'',
+        'THE CURIOSITY HOOK: \'Can I ask you something? What made you look over here just now? ... Exactly! Your instincts are good. Come see why.\''
+      ],
+      itemsEs: [
+        'EL ENFOQUE HONESTO: \'Lo sé, lo sé — otro vendedor. Pero te prometo que esta es la única vez hoy que vas a agradecer que alguien te detuviera.\'',
+        'EL AUTODEPRECATIVO: \'Claramente no soy muy bueno en esto porque sigues caminando, pero dame 30 segundos y te haré cambiar de opinión.\'',
+        'EL RETO: \'Dos minutos. Si no te encanta, me puedes decir que soy terrible en mi trabajo. ¿Trato?\'',
+        'EL DRAMÁTICO: \'¡ALTO! ¡No me hagas perseguirte! ... Ok, no te voy a perseguir porque sería raro. Pero en serio, dos segundos.\'',
+        'EL TOQUE DE REALIDAD: \'Sé que estás pensando \'otro más.\' Yo pienso lo mismo cuando camino por esta calle en mi día libre.\'',
+        'EL GANCHO DE CURIOSIDAD: \'¿Te puedo preguntar algo? ¿Qué te hizo voltear aquí ahorita? ... ¡Exacto! Tus instintos son buenos. Ven a ver por qué.\''
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Humor by Product',
+      textEs: 'Humor por Producto',
+    },
+    {
+            type: 'paragraph',
+      text: 'Product-specific humor that connects the joke to what you\'re selling:',
+      textEs: 'Humor específico por producto que conecta la broma con lo que estás vendiendo:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'SYRINGE: \'Don\'t worry, it\'s not that kind of syringe! No needles, just magic for your eyes. Promise.\'',
+        'NAIL KIT: \'I promise not to scream when I show you this. My last customer did, and her husband got jealous.\'',
+        'SCRUB: \'This will make your hands softer than a baby\'s... actually, that\'s a weird comparison. Just trust me, they\'re going to feel incredible.\'',
+        'PEELING: \'This is my favorite trick for glowing skin. And by trick, I mean scientifically-proven miracle. But trick sounds cooler.\''
+      ],
+      itemsEs: [
+        'JERINGA: \'¡No te preocupes, no es ese tipo de jeringa! Sin agujas, solo magia para tus ojos. Prometido.\'',
+        'KIT DE UÑAS: \'Prometo no gritar cuando te muestre esto. Mi última clienta sí gritó, y su esposo se puso celoso.\'',
+        'EXFOLIANTE: \'Esto va a dejar tus manos más suaves que las de un bebé... bueno, esa comparación está rara. Solo confía en mí, van a sentirse increíbles.\'',
+        'PEELING: \'Este es mi truco favorito para piel radiante. Y por truco, me refiero a un milagro científicamente comprobado. Pero truco suena más cool.\''
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Reading Humor Receptivity',
+      textEs: 'Leyendo la Receptividad al Humor',
+    },
+    {
+            type: 'paragraph',
+      text: 'Not everyone responds to humor. Here\'s how to read who will:',
+      textEs: 'No todo el mundo responde al humor. Así es como leer a quién sí le funcionará:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'GREEN FOR HUMOR: Smiling already, laughing with their companion, playful energy, eye contact with a twinkle, young or young-at-heart vibe, casual relaxed clothing.',
+        'RED FOR HUMOR: Frowning, intense purpose in their walk, formal business attire with serious demeanor, on a phone call, visibly stressed or angry.',
+        'YELLOW FOR HUMOR: Neutral expression but not negative, solo traveler (harder to read), older customer (test with gentle humor first).'
+      ],
+      itemsEs: [
+        'VERDE PARA HUMOR: Ya sonriendo, riendo con su acompañante, energía juguetona, contacto visual con brillo en los ojos, vibra joven o joven de corazón, ropa casual y relajada.',
+        'ROJO PARA HUMOR: Frunciendo el ceño, caminando con propósito intenso, atuendo formal de negocios con comportamiento serio, en una llamada, visiblemente estresado o enojado.',
+        'AMARILLO PARA HUMOR: Expresión neutral pero no negativa, viajero solo (más difícil de leer), cliente mayor (prueba con humor suave primero).'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Test humor with a light comment first. If they smile or laugh, escalate. If they don\'t react, pivot immediately to a warm, professional tone. Don\'t keep trying to be funny — it becomes awkward.',
+      textEs: 'Prueba el humor con un comentario ligero primero. Si sonríen o se ríen, escala. Si no reaccionan, pivota inmediatamente a un tono cálido y profesional. No sigas intentando ser gracioso — se vuelve incómodo.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Cultural Humor Differences',
+      textEs: 'Diferencias Culturales de Humor',
+    },
+    {
+            type: 'paragraph',
+      text: 'Humor doesn\'t translate equally across cultures:',
+      textEs: 'El humor no se traduce igual entre culturas:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'SPANISH: Appreciate warmth and playful energy. Physical humor and exaggeration work. Self-deprecating humor is charming.',
+        'FRENCH: Subtle, witty humor works better than slapstick. Intellectual observations are appreciated. Avoid overly silly humor.',
+        'BRITISH: Self-deprecating humor is the national sport. They LOVE it. Dry wit and understatement are their love language.',
+        'EASTERN EUROPEAN: Direct humor works. Bold statements with a smile. They appreciate confidence more than subtlety.',
+        'GENERAL RULE: Physical comedy (demonstrative gestures, funny faces during the demo) transcends language barriers. Actions are funnier than words.'
+      ],
+      itemsEs: [
+        'ESPAÑOLES: Aprecian la calidez y la energía juguetona. El humor físico y la exageración funcionan. El humor autodepreciativo es encantador.',
+        'FRANCESES: El humor sutil e ingenioso funciona mejor que el slapstick. Las observaciones intelectuales se aprecian. Evita el humor demasiado tonto.',
+        'BRITÁNICOS: El humor autodepreciativo es el deporte nacional. ¡LO ADORAN! El ingenio seco y la understatement son su lenguaje del amor.',
+        'EUROPEOS ORIENTALES: El humor directo funciona. Declaraciones atrevidas con una sonrisa. Aprecian la confianza más que la sutileza.',
+        'REGLA GENERAL: La comedia física (gestos demostrativos, caras graciosas durante la demo) trasciende barreras del idioma. Las acciones son más divertidas que las palabras.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'When Humor Backfires',
+      textEs: 'Cuando el Humor Falla',
+    },
+    {
+            type: 'bullets',
+      items: [
+        'FORCED HUMOR: If it doesn\'t come naturally to you, don\'t force it. Awkward humor is worse than no humor.',
+        'TOO MUCH: One joke opens the door. Three jokes makes you a comedian trying to sell something. Keep it light and move on.',
+        'AT SOMEONE\'S EXPENSE: Never joke about the customer\'s appearance, clothing, or companion. Self-deprecating humor ONLY.',
+        'INAPPROPRIATE TOPICS: Stay away from politics, religion, crude humor, or anything edgy. Keep it universally safe.',
+        'IGNORING SIGNALS: If they don\'t laugh at your first attempt, pivot. Don\'t keep trying to \'win them over\' with humor.'
+      ],
+      itemsEs: [
+        'HUMOR FORZADO: Si no te sale natural, no lo fuerces. El humor incómodo es peor que ningún humor.',
+        'DEMASIADO: Una broma abre la puerta. Tres bromas te convierten en un comediante intentando vender algo. Manténlo ligero y sigue adelante.',
+        'A COSTA DE ALGUIEN: Nunca bromees sobre la apariencia, ropa o acompañante del cliente. Humor autodepreciativo SOLAMENTE.',
+        'TÓPICOS INAPROPIADOS: Mantente alejado de política, religión, humor vulgar o cualquier cosa controversial. Mantenlo universalmente seguro.',
+        'IGNORAR SEÑALES: Si no se ríen en tu primer intento, pivotea. No sigas intentando \'conquistarlos\' con humor.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'I know what you\'re thinking — not another salesperson! I think the same thing when I\'m shopping. But here\'s the thing — this demo takes literally two minutes, and everyone who tries it walks out smiling. Even the people who don\'t buy. Want to see why?\' Humor → relatability → value proposition → invitation.',
+      textEs: '\'Sé lo que estás pensando — ¡otro vendedor! Yo pienso lo mismo cuando voy de compras. Pero mira — esta demo toma literalmente dos minutos, y todos los que la prueban se van sonriendo. Hasta los que no compran. ¿Quieres ver por qué?\' Humor → empatía → propuesta de valor → invitación.'
+    },
+    {
+            type: 'quote',
+      text: 'Laughter is the shortest distance between two strangers. Cross that distance, and the rest of the sale becomes a conversation.',
+      textEs: 'La risa es la distancia más corta entre dos desconocidos. Cruza esa distancia, y el resto de la venta se convierte en una conversación.',
+      attribution: 'Zero Lines Method',
+      attributionEs: 'Método Zero Lines'
+    }
+    ],
+    quiz: [
+    {
+      question: 'What is the humor stop formula?',
+      options: [
+        'Tell as many jokes as possible',
+        'Light observational humor + self-awareness about selling + quick transition to value',
+        'Make fun of the customer gently',
+        'Use physical comedy only'
+      ],
+      correctIndex: 1,
+      explanation: 'The humor stop uses light observational humor, acknowledges the awkwardness of street selling, and quickly transitions to value. You\'re not doing stand-up — you\'re breaking tension with a smile.',
+    },
+    {
+      question: 'Which type of humor is universally safest in sales?',
+      options: [
+        'Political humor',
+        'Self-deprecating humor',
+        'Sarcasm about the customer',
+        'Edgy jokes'
+      ],
+      correctIndex: 1,
+      explanation: 'Self-deprecating humor is safest because it shows confidence and vulnerability without risking offense. You\'re the punchline, never the customer.',
+    },
+    {
+      question: 'What should you do if a customer doesn\'t laugh at your first humorous attempt?',
+      options: [
+        'Try harder with more jokes',
+        'Pivot immediately to a warm, professional tone',
+        'Give up on that customer',
+        'Make a more extreme joke'
+      ],
+      correctIndex: 1,
+      explanation: 'If humor doesn\'t land on the first attempt, pivot immediately. Don\'t keep trying — it becomes awkward. Read the customer\'s receptivity and adapt your approach.',
+    }
+    ],
+  }

@@ -1,7 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { Home, GraduationCap, Dumbbell, Brain, Trophy } from 'lucide-react';
+import { Home, GraduationCap, Layers as LayersIcon, Brain, Trophy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
+import { haptic } from '../utils/haptics';
 
 export default function Navbar() {
   const location = useLocation();
@@ -10,13 +11,14 @@ export default function Navbar() {
   const navItems = [
     { to: '/home', label: t('navHome'), icon: Home },
     { to: '/training', label: t('navTraining'), icon: GraduationCap },
-    { to: '/exercises', label: t('navExercises'), icon: Dumbbell },
+    { to: '/flashcard-decks', label: 'Flashcards', icon: LayersIcon },
     { to: '/quizzes', label: t('navQuizzes'), icon: Brain },
     { to: '/profile', label: t('navProfile'), icon: Trophy },
   ];
 
-  // Don't render on onboarding route
-  if (location.pathname === '/') {
+  // Don't render on onboarding, auth, first-day routes
+  const hideNavOn = ['/', '/auth', '/first-day'];
+  if (hideNavOn.includes(location.pathname)) {
     return null;
   }
 
@@ -28,6 +30,7 @@ export default function Navbar() {
             <NavLink
               key={item.to}
               to={item.to}
+              onClick={() => haptic('light')}
               className={({ isActive }) =>
                 `flex flex-col items-center justify-center gap-1 w-14 h-full relative select-none transition-colors duration-200 ${
                   isActive ? 'text-[#0ABAB5]' : 'text-[#8A8A8A]'

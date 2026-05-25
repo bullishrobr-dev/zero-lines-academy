@@ -5,6 +5,13 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { categories, getLessonsForCategory } from '@/data/lessons';
+import {
+  getTierForLesson,
+  getTierCompletion,
+  isTierUnlocked,
+  isLessonUnlocked,
+  
+} from '@/data/lessonTiers';
 
 // ── localStorage keys ──
 const LS_LESSON_PROGRESS = 'zl_lesson_progress';
@@ -14,6 +21,7 @@ const LS_XP = 'zl_xp';
 const LS_USER_NAME = 'zl_user_name';
 const LS_DAILY_CHALLENGE = 'zl_daily_challenge';
 const LS_ACTIVITY_LOG = 'zl_activity_log';
+const LS_TIER_PROGRESS = 'zl_tier_progress';
 
 // ── Types ──
 export interface StreakData {
@@ -39,6 +47,7 @@ export interface ActivityItem {
 export interface ProgressState {
   lessonProgress: Record<string, boolean>;
   categoryProgress: Record<string, number>;
+  tierProgress: Record<string, boolean>;
   totalXP: number;
   currentStreak: number;
   bestStreak: number;
@@ -68,6 +77,11 @@ export interface UseProgressReturn extends ProgressState {
   getLessonsCompletedCount: () => number;
   getQuizzesPassedCount: () => number;
   getAccuracyRate: () => number;
+  // Tier progression
+  getTierForLesson: (lessonId: string) => number;
+  isTierUnlocked: (tierNumber: number) => boolean;
+  isLessonUnlocked: (lessonId: string) => boolean;
+  getTierCompletion: (tierId: number) => number;
 }
 
 // ── Helpers ──
@@ -104,6 +118,7 @@ export function useProgress(): UseProgressReturn {
   const [userName, setUserNameState] = useState<string>('');
   const [dailyChallenge, setDailyChallenge] = useState<DailyChallengeData>({ completed: false, date: null });
   const [activityLog, setActivityLog] = useState<ActivityItem[]>([]);
+  const [tierProgress, setTierProgress] = useState<Record<string, boolean>>({});
   const initialized = useRef(false);
 
   // Load from localStorage on mount
@@ -118,6 +133,7 @@ export function useProgress(): UseProgressReturn {
     setUserNameState(loadJSON<string>(LS_USER_NAME, ''));
     setDailyChallenge(loadJSON<DailyChallengeData>(LS_DAILY_CHALLENGE, { completed: false, date: null }));
     setActivityLog(loadJSON<ActivityItem[]>(LS_ACTIVITY_LOG, []));
+    setTierProgress(loadJSON<Record<string, boolean>>(LS_TIER_PROGRESS, {}));
   }, []);
 
   // ── Streak Logic ──
@@ -344,6 +360,7 @@ export function useProgress(): UseProgressReturn {
     setUserNameState('');
     setDailyChallenge({ completed: false, date: null });
     setActivityLog([]);
+    setTierProgress({});
 
     localStorage.removeItem(LS_LESSON_PROGRESS);
     localStorage.removeItem(LS_QUIZ_SCORES);
@@ -352,6 +369,7 @@ export function useProgress(): UseProgressReturn {
     localStorage.removeItem(LS_USER_NAME);
     localStorage.removeItem(LS_DAILY_CHALLENGE);
     localStorage.removeItem(LS_ACTIVITY_LOG);
+    localStorage.removeItem(LS_TIER_PROGRESS);
   }, []);
 
   const getActivityLog = useCallback((): ActivityItem[] => activityLog, [activityLog]);
@@ -370,9 +388,39 @@ export function useProgress(): UseProgressReturn {
     return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
   }, [quizScores]);
 
+  // ── Tier Progression ──
+  const getTierForLessonWrapper = useCallback(
+    (lessonId: string): number => {
+      return getTierForLesson(lessonId);
+    },
+    []
+  );
+
+  const isTierUnlockedWrapper = useCallback(
+    (tierNumber: number): boolean => {
+      return isTierUnlocked(tierNumber, lessonProgress);
+    },
+    [lessonProgress]
+  );
+
+  const isLessonUnlockedWrapper = useCallback(
+    (lessonId: string): boolean => {
+      return isLessonUnlocked(lessonId, lessonProgress);
+    },
+    [lessonProgress]
+  );
+
+  const getTierCompletionWrapper = useCallback(
+    (tierId: number): number => {
+      return getTierCompletion(tierId, lessonProgress);
+    },
+    [lessonProgress]
+  );
+
   return {
     lessonProgress,
     categoryProgress,
+    tierProgress,
     totalXP,
     currentStreak: streak.current,
     bestStreak: streak.best,
@@ -399,5 +447,10 @@ export function useProgress(): UseProgressReturn {
     getLessonsCompletedCount,
     getQuizzesPassedCount,
     getAccuracyRate,
+    // Tier progression
+    getTierForLesson: getTierForLessonWrapper,
+    isTierUnlocked: isTierUnlockedWrapper,
+    isLessonUnlocked: isLessonUnlockedWrapper,
+    getTierCompletion: getTierCompletionWrapper,
   };
 }

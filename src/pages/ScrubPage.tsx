@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import { useLocation } from '../contexts/LocationContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -17,6 +19,7 @@ import {
   Droplets,
   Sun,
 } from 'lucide-react';
+import { scrubData, getComboOffersData } from '../data/scrubData';
 
 /* ------------------------------------------------------------------ */
 /*  Animation helpers                                                  */
@@ -31,53 +34,29 @@ const fadeUp = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Offer data                                                         */
+/*  Icon map for Pro Tips (string name -> component)                   */
 /* ------------------------------------------------------------------ */
-interface ComboOffer {
-  title: string;
-  price: string;
-  subtitle: string;
-  items: string[];
-  tag?: string;
-  isHighlight?: boolean;
-}
-
-const comboOffers: ComboOffer[] = [
-  {
-    title: 'Buy 2 Get 1 Free',
-    price: '€120',
-    subtitle: 'Our core offer — most popular',
-    items: ['Scrub + Body Butter + Nail Kit', 'Scrub + Body Butter + Cleanser', 'Two Scrubs + One Body Butter'],
-    tag: 'Most Popular',
-    isHighlight: true,
-  },
-  {
-    title: 'Buy 2 Get 2 (Christmas)',
-    price: '€120',
-    subtitle: 'For premium gift buyers — four products',
-    items: ['Two for you, two for gifts', 'Perfect for Christmas shopping', 'Same price, extra product'],
-    tag: 'Christmas',
-  },
-  {
-    title: 'Buy 1 Get 1 Free',
-    price: '€60',
-    subtitle: 'Slimmer variation — fast close',
-    items: ['Scrub + Body Butter', 'Scrub + Nail Kit', 'Nail Kit + Body Butter'],
-    tag: 'Quick Close',
-  },
-  {
-    title: 'Single Scrub',
-    price: '€35',
-    subtitle: 'Final push — the graceful exit',
-    items: ['Dead Sea Scrub only', 'No gifts, no extras', 'Opens the door for future purchase'],
-  },
-];
+const iconMap: Record<string, React.ReactNode> = {
+  Hand: <Hand className="w-4 h-4" />,
+  Droplets: <Droplets className="w-4 h-4" />,
+  Sun: <Sun className="w-4 h-4" />,
+  TrendingDown: <TrendingDown className="w-4 h-4" />,
+  Gift: <Gift className="w-4 h-4" />,
+  Package: <Package className="w-4 h-4" />,
+  Sparkles: <Sparkles className="w-4 h-4" />,
+  Moon: <Moon className="w-4 h-4" />,
+};
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 export default function ScrubPage() {
   const navigate = useNavigate();
+  const { currency, locationName } = useLocation();
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+
+  const comboOffers = getComboOffersData(currency);
   const [copiedPrice, setCopiedPrice] = useState<string | null>(null);
 
   const copyPrice = useCallback((price: string) => {
@@ -97,7 +76,9 @@ export default function ScrubPage() {
           className="flex items-center gap-1 text-[#8A8A8A] hover:text-white transition-colors mb-5"
         >
           <ChevronLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">
+            {isEs ? scrubData.backButton.textEs : scrubData.backButton.text}
+          </span>
         </button>
 
         <motion.div
@@ -107,7 +88,7 @@ export default function ScrubPage() {
         >
           <Waves className="w-3.5 h-3.5 text-[#0ABAB5]" />
           <span className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider">
-            Dead Sea Minerals
+            {isEs ? scrubData.hero.badgeEs : scrubData.hero.badge}
           </span>
         </motion.div>
 
@@ -117,7 +98,7 @@ export default function ScrubPage() {
           transition={{ delay: 0.1 }}
           className="text-[28px] font-extrabold text-white leading-tight tracking-tight"
         >
-          Dead Sea Scrub & Body Butter
+          {isEs ? scrubData.hero.titleEs : scrubData.hero.title}
         </motion.h1>
 
         <motion.p
@@ -127,7 +108,7 @@ export default function ScrubPage() {
           className="flex items-center gap-2 text-[#0ABAB5] text-base font-medium mt-2"
         >
           <Hand className="w-4 h-4" />
-          Feel the Difference
+          {isEs ? scrubData.hero.taglineEs : scrubData.hero.tagline}
         </motion.p>
 
         <motion.div
@@ -138,18 +119,30 @@ export default function ScrubPage() {
         >
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <Waves className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Source</p>
-            <p className="text-xs font-bold text-white">Dead Sea</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
+              {isEs ? scrubData.hero.stats.sourceLabelEs : scrubData.hero.stats.sourceLabel}
+            </p>
+            <p className="text-xs font-bold text-white">
+              {isEs ? scrubData.hero.stats.sourceValueEs : scrubData.hero.stats.sourceValue}
+            </p>
           </div>
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <Moon className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Jar Lasts</p>
-            <p className="text-xs font-bold text-white">8-12 Months</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
+              {isEs ? scrubData.hero.stats.jarLastsLabelEs : scrubData.hero.stats.jarLastsLabel}
+            </p>
+            <p className="text-xs font-bold text-white">
+              {isEs ? scrubData.hero.stats.jarLastsValueEs : scrubData.hero.stats.jarLastsValue}
+            </p>
           </div>
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <Sparkles className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Feeling</p>
-            <p className="text-xs font-bold text-white">Instant Soft</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
+              {isEs ? scrubData.hero.stats.feelingLabelEs : scrubData.hero.stats.feelingLabel}
+            </p>
+            <p className="text-xs font-bold text-white">
+              {isEs ? scrubData.hero.stats.feelingValueEs : scrubData.hero.stats.feelingValue}
+            </p>
           </div>
         </motion.div>
       </section>
@@ -166,23 +159,19 @@ export default function ScrubPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Volume2 className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Hook — Stop Scripts</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? scrubData.hookSection.titleEs : scrubData.hookSection.title}
+            </h2>
           </div>
 
           <div className="space-y-3">
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
-              <p className="text-[13px] text-white italic font-serif leading-relaxed">
-                "I'm pretty sure you've tried scrubs before, right? This one is a bit
-                different. You'll love this. It's one of those products that makes everyone
-                smile."
-              </p>
-            </div>
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
-              <p className="text-[13px] text-white italic font-serif leading-relaxed">
-                "Do you ever get dry skin? Ugh, I know — it's the worst. You know what? Let
-                me give you something amazing. Come!"
-              </p>
-            </div>
+            {scrubData.hookSection.quotes.map((quote, idx) => (
+              <div key={idx} className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
+                <p className="text-[13px] text-white italic font-serif leading-relaxed">
+                  "{isEs ? quote.textEs : quote.text}"
+                </p>
+              </div>
+            ))}
           </div>
         </motion.section>
 
@@ -197,44 +186,24 @@ export default function ScrubPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Hand className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Sensory Demo</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? scrubData.sensoryDemoSection.titleEs : scrubData.sensoryDemoSection.title}
+            </h2>
           </div>
 
           <div className="space-y-3">
-            {[
-              {
-                step: '1',
-                title: 'Place the Salts',
-                text: 'Place the Dead Sea salts on the back of their hand. "Start rubbing gently." Let them feel the crystals.',
-              },
-              {
-                step: '2',
-                title: 'The Dead Sea Story',
-                text: '"Have you heard of the Dead Sea? Lowest place on Earth, highest natural mineral concentration — magnesium, calcium, potassium. These minerals detox, rejuvenate, and calm the skin. From the Dead Sea, the lowest point on Earth."',
-              },
-              {
-                step: '3',
-                title: 'Add Water',
-                text: "Add water slowly while they rub. \"This is my personal favorite — I use it myself. It's recommended to help with eczema, psoriasis, severe dry skin, and redness. It basically separates the dry, dead layers from the living ones so your skin can breathe.\"",
-              },
-              {
-                step: '4',
-                title: 'Let Them Feel the Difference',
-                text: `Rinse and dry. Wait two beats. "Be honest — when was the last time your hands felt like this? And the best part? The sensation stays — even if you wash your hands a lot or use sanitizer. Since Covid, this became our #1 seller. People were like, 'Finally something that actually helps!'"`,
-              },
-              {
-                step: '5',
-                title: 'Usage Instructions',
-                text: '"Use it once a week. One teaspoon is enough for the whole body. A jar lasts 8–12 months."',
-              },
-            ].map((item) => (
+            {scrubData.sensoryDemoSection.steps.map((item) => (
               <div key={item.step} className="flex gap-3 bg-[#0A0A0A] rounded-xl p-4">
                 <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#0ABAB5]/20 flex items-center justify-center mt-0.5">
                   <span className="text-xs font-bold text-[#0ABAB5]">{item.step}</span>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white mb-1">{item.title}</p>
-                  <p className="text-[13px] text-[#8A8A8A] leading-relaxed">{item.text}</p>
+                  <p className="text-sm font-semibold text-white mb-1">
+                    {isEs ? item.titleEs : item.title}
+                  </p>
+                  <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
+                    {isEs ? item.textEs : item.text}
+                  </p>
                 </div>
               </div>
             ))}
@@ -252,34 +221,31 @@ export default function ScrubPage() {
         >
           <div className="flex items-center gap-2 mb-3">
             <Droplets className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Butter Flip Test</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? scrubData.butterFlipSection.titleEs : scrubData.butterFlipSection.title}
+            </h2>
           </div>
 
           <p className="text-[13px] text-[#B0B0B0] leading-relaxed mb-3">
-            This is the moment that sells the butter. It's visual, surprising, and impossible
-            to fake.
+            {isEs ? scrubData.butterFlipSection.descriptionEs : scrubData.butterFlipSection.description}
           </p>
 
           <div className="bg-[#0A0A0A]/60 rounded-xl p-4">
             <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-              The Demonstration
+              {isEs ? scrubData.butterFlipSection.demoLabelEs : scrubData.butterFlipSection.demoLabel}
             </p>
             <p className="text-[14px] text-white italic font-serif leading-relaxed mb-2">
-              Open the butter, flip it upside down — no spill. Point to the fact that nothing
-              falls out.
+              {isEs ? scrubData.butterFlipSection.demoQuote1Es : scrubData.butterFlipSection.demoQuote1}
             </p>
             <p className="text-[15px] text-white italic font-serif leading-relaxed border-l-2 border-[#0ABAB5] pl-3">
-              "To complete the treatment — the Body Butter. Same minerals, ultra-rich. You
-              see how it doesn't spill? Even if I flip it over, it doesn't fall. You only need
-              a tiny bit — not because I'm cheap 😄 — because it's really that concentrated."
+              {isEs ? scrubData.butterFlipSection.demoQuote2Es : scrubData.butterFlipSection.demoQuote2}
             </p>
           </div>
 
           <p className="text-[12px] text-[#8A8A8A] mt-3 leading-relaxed">
-            Let them massage it in. Then:{' '}
+            {isEs ? scrubData.butterFlipSection.closingLineEs : scrubData.butterFlipSection.closingLine}
             <em className="text-white/80">
-              "Imagine this feeling all over the body… and the feet? OMG — the best feeling
-              ever!"
+              "{isEs ? scrubData.butterFlipSection.closingQuoteEs : scrubData.butterFlipSection.closingQuote}"
             </em>
           </p>
         </motion.section>
@@ -295,10 +261,12 @@ export default function ScrubPage() {
         >
           <div className="flex items-center gap-2 mb-1">
             <Gift className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Combo Offers</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? scrubData.comboOffersSection.titleEs : scrubData.comboOffersSection.title}
+            </h2>
           </div>
           <p className="text-[12px] text-[#8A8A8A] mb-4">
-            Tap the price to copy. Each offer matches a different customer type.
+            {isEs ? scrubData.comboOffersSection.subtitleEs : scrubData.comboOffersSection.subtitle}
           </p>
 
           <div className="space-y-3">
@@ -315,7 +283,7 @@ export default function ScrubPage() {
                   <div className="flex items-center gap-2">
                     {offer.tag && (
                       <span className="bg-[#0ABAB5]/20 text-[#0ABAB5] text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">
-                        {offer.tag}
+                        {isEs ? offer.tagEs : offer.tag}
                       </span>
                     )}
                   </div>
@@ -333,8 +301,12 @@ export default function ScrubPage() {
                     )}
                   </button>
                 </div>
-                <p className="text-sm font-semibold text-white mb-1">{offer.title}</p>
-                <p className="text-[12px] text-[#8A8A8A] mb-2">{offer.subtitle}</p>
+                <p className="text-sm font-semibold text-white mb-1">
+                  {isEs ? offer.titleEs : offer.title}
+                </p>
+                <p className="text-[12px] text-[#8A8A8A] mb-2">
+                  {isEs ? offer.subtitleEs : offer.subtitle}
+                </p>
                 <div className="flex flex-wrap gap-1.5">
                   {offer.items.map((item, j) => (
                     <span
@@ -361,28 +333,25 @@ export default function ScrubPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Package className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Cheat Combos for Sellers</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? scrubData.cheatCombosSection.titleEs : scrubData.cheatCombosSection.title}
+            </h2>
           </div>
 
           <div className="grid gap-2">
-            {[
-              { name: 'Classic Trio', price: '€120', items: 'Scrub + Body Butter + Nail Kit' },
-              { name: 'Spa Trio', price: '€120', items: 'Scrub + Body Butter + Face Cleanser' },
-              { name: 'Scent Duo', price: '€60', items: 'Scrub + Body Butter (Buy 1 Get 1)' },
-              { name: 'Smart Duo', price: '€60', items: 'Scrub + Nail Kit (kit includes cream)' },
-              { name: "Gifter's Four", price: '€120', items: 'Buy 2, Get 2 (Christmas special)' },
-              { name: 'Final Push', price: '€35', items: 'Scrub only, no gifts' },
-            ].map((combo, i) => (
+            {scrubData.cheatCombosSection.combos.map((combo, i) => (
               <div
                 key={i}
                 className="flex items-center justify-between bg-[#0A0A0A] rounded-lg p-3"
               >
                 <div>
-                  <p className="text-sm font-medium text-white">{combo.name}</p>
+                  <p className="text-sm font-medium text-white">
+                    {isEs ? combo.nameEs : combo.name}
+                  </p>
                   <p className="text-[11px] text-[#8A8A8A]">{combo.items}</p>
                 </div>
                 <span className="font-mono text-sm font-bold text-[#0ABAB5]">
-                  {combo.price}
+                  {combo.price.replace('{currency}', currency)}
                 </span>
               </div>
             ))}
@@ -400,27 +369,38 @@ export default function ScrubPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <TrendingDown className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Price Presentation</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? scrubData.pricePresentationSection.titleEs : scrubData.pricePresentationSection.title}
+            </h2>
           </div>
 
           <div className="bg-[#0A0A0A] rounded-xl p-4 space-y-3">
             <div className="border-l-2 border-[#0ABAB5] pl-3">
-              <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Anchor</p>
+              <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
+                {isEs ? scrubData.pricePresentationSection.anchorLabelEs : scrubData.pricePresentationSection.anchorLabel}
+              </p>
               <p className="text-[14px] text-white italic font-serif">
-                "I won't lie — it's not cheap. Around Europe these go for €100 each."
+                {isEs
+                  ? scrubData.pricePresentationSection.anchorQuoteEs(currency)
+                  : scrubData.pricePresentationSection.anchorQuote(currency)}
               </p>
             </div>
             <div className="border-l-2 border-[#0ABAB5] pl-3">
-              <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Andorra</p>
+              <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{locationName}</p>
               <p className="text-[14px] text-white italic font-serif">
-                "But here in Andorra, we're a tax haven — each one is €60."
+                {isEs
+                  ? scrubData.pricePresentationSection.localQuoteEs(currency, locationName)
+                  : scrubData.pricePresentationSection.localQuote(currency, locationName)}
               </p>
             </div>
             <div className="border-l-2 border-[#0ABAB5] pl-3">
-              <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Core Offer</p>
+              <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
+                {isEs ? scrubData.pricePresentationSection.coreLabelEs : scrubData.pricePresentationSection.coreLabel}
+              </p>
               <p className="text-[14px] text-white italic font-serif">
-                "And the best part — our offer is Buy 2, Get 1 Free. So you pay €120 and you
-                leave with three products."
+                {isEs
+                  ? scrubData.pricePresentationSection.coreQuoteEs(currency)
+                  : scrubData.pricePresentationSection.coreQuote(currency)}
               </p>
             </div>
           </div>
@@ -437,60 +417,27 @@ export default function ScrubPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Lightbulb className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Pro Tips</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? scrubData.proTipsSection.titleEs : scrubData.proTipsSection.title}
+            </h2>
           </div>
 
           <div className="space-y-3">
-            {[
-              {
-                icon: <Hand className="w-4 h-4" />,
-                title: 'Make it sensory — let the hands sell it',
-                text: 'The feeling is everything. Let them rub, rinse, and feel. Once they feel the softness, the sale is halfway done.',
-              },
-              {
-                icon: <Droplets className="w-4 h-4" />,
-                title: 'The flip test is your secret weapon',
-                text: "Flipping the butter jar and showing nothing falls out is a visual proof they can't argue with. Do it every time.",
-              },
-              {
-                icon: <Sun className="w-4 h-4" />,
-                title: 'Use Christmas urgency naturally',
-                text: '"Stock runs faster closer to the holidays, and I\'d hate you to miss colors/scents you like." Timing closes gifts.',
-              },
-              {
-                icon: <TrendingDown className="w-4 h-4" />,
-                title: 'Keep the math clean',
-                text: '€60 each. €120 for three (Buy 2, Get 1). Simple, round numbers are easier to say yes to.',
-              },
-              {
-                icon: <Gift className="w-4 h-4" />,
-                title: 'Buy 2, Get 2 for premium buyers',
-                text: 'When the energy is great and they have a Christmas list — this is your volume play. Same €120, extra product.',
-              },
-              {
-                icon: <Package className="w-4 h-4" />,
-                title: 'Buy 1, Get 1 for fast closes',
-                text: "For hesitant buyers who still felt the demo — this turns 'maybe' into 'yes' instantly. €60 feels like nothing after €120.",
-              },
-              {
-                icon: <Sparkles className="w-4 h-4" />,
-                title: '€35 Scrub is your final push',
-                text: "When nothing else works, the single Scrub at €35 creates a customer today and a bigger sale tomorrow. No gifts, no extras — just the hero product in their hands.",
-              },
-              {
-                icon: <Moon className="w-4 h-4" />,
-                title: 'Keep it fun — jokes, smiles, easy energy',
-                text: 'This demo should feel like a spa moment, not a sales pitch. If they smile, they buy.',
-              },
-            ].map((tip, i) => (
+            {scrubData.proTipsSection.tips.map((tip, i) => (
               <div key={i} className="flex gap-3 bg-[#0A0A0A] rounded-xl p-3.5">
                 <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#0ABAB5]/15 flex items-center justify-center text-[#0ABAB5]">
-                  {tip.icon}
+                  {iconMap[tip.iconName]}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">{tip.title}</p>
+                  <p className="text-sm font-semibold text-white">
+                    {isEs
+                      ? tip.titleEs.replace(/{currency}/g, currency)
+                      : tip.title.replace(/{currency}/g, currency)}
+                  </p>
                   <p className="text-[12px] text-[#8A8A8A] leading-relaxed mt-0.5">
-                    {tip.text}
+                    {isEs
+                      ? tip.textEs.replace(/{currency}/g, currency)
+                      : tip.text.replace(/{currency}/g, currency)}
                   </p>
                 </div>
               </div>
@@ -508,24 +455,40 @@ export default function ScrubPage() {
           className="bg-gradient-to-br from-[#0ABAB5]/15 to-[#1A1A1A] rounded-2xl p-5 border border-[#0ABAB5]/25 mb-8"
         >
           <h3 className="text-sm font-bold text-[#0ABAB5] mb-3 uppercase tracking-wider">
-            Quick Reference
+            {isEs ? scrubData.quickReferenceSection.titleEs : scrubData.quickReferenceSection.title}
           </h3>
           <div className="grid grid-cols-2 gap-2 text-[12px]">
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Europe:</span>{' '}
-              <span className="text-white font-medium">€100 each</span>
+              <span className="text-[#8A8A8A]">
+                {isEs ? scrubData.quickReferenceSection.grid.europeLabelEs : scrubData.quickReferenceSection.grid.europeLabel}
+              </span>{' '}
+              <span className="text-white font-medium">
+                {(isEs ? scrubData.quickReferenceSection.grid.europeValueEs : scrubData.quickReferenceSection.grid.europeValue).replace('{currency}', currency)}
+              </span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Andorra:</span>{' '}
-              <span className="text-white font-medium">€60 each</span>
+              <span className="text-[#8A8A8A]">
+                {(isEs ? scrubData.quickReferenceSection.grid.localLabelEs : scrubData.quickReferenceSection.grid.localLabel).replace('{locationName}', locationName)}
+              </span>{' '}
+              <span className="text-white font-medium">
+                {(isEs ? scrubData.quickReferenceSection.grid.localValueEs : scrubData.quickReferenceSection.grid.localValue).replace('{currency}', currency)}
+              </span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Core:</span>{' '}
-              <span className="text-white font-medium">€120/3 (B2G1)</span>
+              <span className="text-[#8A8A8A]">
+                {isEs ? scrubData.quickReferenceSection.grid.coreLabelEs : scrubData.quickReferenceSection.grid.coreLabel}
+              </span>{' '}
+              <span className="text-white font-medium">
+                {(isEs ? scrubData.quickReferenceSection.grid.coreValueEs : scrubData.quickReferenceSection.grid.coreValue).replace('{currency}', currency)}
+              </span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Floor:</span>{' '}
-              <span className="text-white font-medium">€35 Scrub</span>
+              <span className="text-[#8A8A8A]">
+                {isEs ? scrubData.quickReferenceSection.grid.floorLabelEs : scrubData.quickReferenceSection.grid.floorLabel}
+              </span>{' '}
+              <span className="text-white font-medium">
+                {(isEs ? scrubData.quickReferenceSection.grid.floorValueEs : scrubData.quickReferenceSection.grid.floorValue).replace('{currency}', currency)}
+              </span>
             </div>
           </div>
         </motion.section>

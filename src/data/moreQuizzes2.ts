@@ -1,0 +1,1170 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// Zero Lines Training Academy — MORE QUIZZES BATCH 2
+// 5 Quizzes × 10 Questions = 50 NEW questions
+// Fills critical gaps: Price Ladders, Compliment Approach, Ingredients,
+// One-Eye Demo Mastery, and Tourist Psychology
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export interface QuizQuestion {
+  question: string;
+  questionEs: string;
+  options: string[];
+  optionsEs: string[];
+  correctIndex: number;
+  explanation: string;
+  explanationEs: string;
+}
+
+export interface GeneralQuiz {
+  id: string;
+  title: string;
+  titleEs: string;
+  description: string;
+  descriptionEs: string;
+  icon: string;
+  category: string;
+  categoryEs: string;
+  xpReward: number;
+  questions: QuizQuestion[];
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// QUIZ 1: PRICE LADDER MASTER
+// Tests ALL price points for ALL 4 products in BOTH directions
+// ═══════════════════════════════════════════════════════════════════════════════
+const quizPriceLadder: GeneralQuiz = {
+  id: "quiz-price-ladder",
+  title: "Price Ladder Master",
+  titleEs: "Maestro de Escalera de Precios",
+  description:
+    "Master every price point for every product — syringe, peeling, scrub, and nail kit. Know the ladder forwards and backwards to never lose a sale on price.",
+  descriptionEs:
+    "Domina cada punto de precio para cada producto — jeringa, peeling, scrub y kit de uñas. Conoce la escalera de ida y vuelta para nunca perder una venta por precio.",
+  icon: "TrendingUp",
+  category: "Pricing Strategy",
+  categoryEs: "Estrategia de Precios",
+  xpReward: 150,
+  questions: [
+    {
+      question:
+        "You just anchored the syringe at €500. What is the NEXT price you reveal?",
+      questionEs:
+        "Acabas de anclar la jeringa en €500. ¿Cuál es el SIGUIENTE precio que revelas?",
+      options: ["€210", "€140", "€300", "€175"],
+      optionsEs: ["€210", "€140", "€300", "€175"],
+      correctIndex: 2,
+      explanation:
+        "After the €500 Europe anchor, you reveal the Andorra base price of €300. This makes the customer feel they are already getting a €200 discount before any negotiation begins. The gap between €500 and €300 sets up the entire price ladder.",
+      explanationEs:
+        "Después del anclaje de €500 de Europa, revelas el precio base de Andorra de €300. Esto hace que la cliente sienta que ya está obteniendo un descuento de €200 antes de que comience cualquier negociación. La brecha entre €500 y €300 prepara toda la escalera de precios."
+    },
+    {
+      question:
+        "A customer is interested at €210 but still hesitates. What is the NEXT step down?",
+      questionEs:
+        "Una cliente está interesada en €210 pero aún duda. ¿Cuál es el SIGUIENTE paso hacia abajo?",
+      options: ["€100", "€140", "€175", "€300"],
+      optionsEs: ["€100", "€140", "€175", "€300"],
+      correctIndex: 2,
+      explanation:
+        "The syringe price ladder is: €500 → €300 → €210 → €175 → €140 → €100. From €210, the next step down is €175. Each step should feel like a special deal you're creating just for them.",
+      explanationEs:
+        "La escalera de precios de la jeringa es: €500 → €300 → €210 → €175 → €140 → €100. Desde €210, el siguiente paso hacia abajo es €175. Cada paso debe sentirse como una oferta especial que estás creando solo para ella."
+    },
+    {
+      question:
+        "What is the price IMMEDIATELY BEFORE €140 on the syringe ladder?",
+      questionEs:
+        "¿Cuál es el precio INMEDIATAMENTE ANTES de €140 en la escalera de la jeringa?",
+      options: ["€100", "€175", "€210", "€300"],
+      optionsEs: ["€100", "€175", "€210", "€300"],
+      correctIndex: 1,
+      explanation:
+        "The syringe ladder steps down: €500 → €300 → €210 → €175 → €140 → €100. The price immediately before €140 is €175. You must know the ladder backwards too — when a customer asks 'Can't you do better than €175?' you drop to €140 with a reason like a voucher or bundle.",
+      explanationEs:
+        "La escalera de la jeringa baja: €500 → €300 → €210 → €175 → €140 → €100. El precio inmediatamente antes de €140 es €175. Debes conocer la escalera al revés también — cuando una cliente pregunta '¿No puedes hacer mejor que €175?' bajas a €140 con una razón como un vale o paquete."
+    },
+    {
+      question:
+        "What is the FINAL minimum price for the syringe when nothing else works?",
+      questionEs:
+        "¿Cuál es el precio mínimo FINAL de la jeringa cuando nada más funciona?",
+      options: ["€140", "€175", "€100", "€210"],
+      optionsEs: ["€140", "€175", "€100", "€210"],
+      correctIndex: 2,
+      explanation:
+        "€100 is the floor price for the syringe. You only reach this after walking the full ladder and using every tool: gift removal, voucher mention, bundle framing. Never jump straight to €100 — the journey down the ladder builds perceived value at each step.",
+      explanationEs:
+        "€100 es el precio piso de la jeringa. Solo llegas aquí después de recorrer toda la escalera y usar cada herramienta: remover regalo, mencionar vale, enmarcar paquete. Nunca saltes directo a €100 — el recorrido por la escalera construye valor percibido en cada paso."
+    },
+    {
+      question:
+        "The facial peeling opens at €200. What is the NEXT price drop?",
+      questionEs:
+        "El peeling facial abre en €200. ¿Cuál es el SIGUIENTE descenso de precio?",
+      options: ["€70", "€100", "€150", "€50"],
+      optionsEs: ["€70", "€100", "€150", "€50"],
+      correctIndex: 2,
+      explanation:
+        "The peeling price ladder is: €200 → €150 → €100 → €70 → €50. After the €200 anchor, you drop to €150 (the 'Andorra price'). Each step feels like an exclusive deal, but you're simply following the ladder.",
+      explanationEs:
+        "La escalera de precios del peeling es: €200 → €150 → €100 → €70 → €50. Después del anclaje de €200, bajas a €150 (el 'precio de Andorra'). Cada paso se siente como una oferta exclusiva, pero simplemente estás siguiendo la escalera."
+    },
+    {
+      question:
+        "You offered the peeling at €100. The customer asks for a better deal. What is your next price?",
+      questionEs:
+        "Ofreciste el peeling en €100. La cliente pide un mejor precio. ¿Cuál es tu siguiente precio?",
+      options: ["€50", "€150", "€35", "€70"],
+      optionsEs: ["€50", "€150", "€35", "€70"],
+      correctIndex: 3,
+      explanation:
+        "The peeling ladder is: €200 → €150 → €100 → €70 → €50. From €100, the next step down is €70. This is typically framed as 'removing the gift' or a 'special today-only' price. Know every rung so you never hesitate.",
+      explanationEs:
+        "La escalera del peeling es: €200 → €150 → €100 → €70 → €50. Desde €100, el siguiente paso hacia abajo es €70. Esto típicamente se enmarca como 'quitar el regalo' o un precio 'especial solo por hoy'. Conoce cada peldaño para nunca dudar."
+    },
+    {
+      question:
+        "What is the SCRUB price when sold ALONE (not in a combo)?",
+      questionEs:
+        "¿Cuál es el precio del SCRUB cuando se vende SOLO (no en combo)?",
+      options: ["€50", "€25", "€35", "€45"],
+      optionsEs: ["€50", "€25", "€35", "€45"],
+      correctIndex: 2,
+      explanation:
+        "The Dead Sea salt scrub has a single fixed price: €35. There is no ladder — it is an impulse-buy price point designed to be an easy add-on or entry-level sale. Many customers who hesitate at the syringe will say yes to a €35 scrub.",
+      explanationEs:
+        "El scrub de sal del Mar Muerto tiene un precio único fijo: €35. No hay escalera — es un punto de precio de compra por impulso diseñado para ser una venta adicional fácil o de entrada. Muchas clientes que dudan con la jeringa dirán sí a un scrub de €35."
+    },
+    {
+      question:
+        "A customer buys both the Scrub (€35) and the Peeling (at €50). What combo do you offer and at what price?",
+      questionEs:
+        "Una cliente compra el Scrub (€35) y el Peeling (en €50). ¿Qué combo ofreces y a qué precio?",
+      options: [
+        "Scrub + Peeling = €85",
+        "Scrub + Peeling = €100",
+        "Scrub + Peeling = €75",
+        "Scrub + Peeling = €50"
+      ],
+      optionsEs: [
+        "Scrub + Peeling = €85",
+        "Scrub + Peeling = €100",
+        "Scrub + Peeling = €75",
+        "Scrub + Peeling = €50"
+      ],
+      correctIndex: 1,
+      explanation:
+        "The Scrub + Peeling combo is ALWAYS €100. Even though the scrub alone is €35 and the peeling floor is €50 (total €85), the combo is positioned at €100 as a premium bundle. This is a key combo price you must memorize — do not calculate it, state it with confidence.",
+      explanationEs:
+        "El combo de Scrub + Peeling es SIEMPRE €100. Aunque el scrub solo es €35 y el piso del peeling es €50 (total €85), el combo se posiciona en €100 como un paquete premium. Este es un precio de combo clave que debes memorizar — no lo calcules, díselo con confianza."
+    },
+    {
+      question:
+        "What is the price of the Nail Kit (cuticle oil + file)?",
+      questionEs:
+        "¿Cuál es el precio del Kit de Uñas (aceite para cutículas + lima)?",
+      options: ["€35", "€25", "€45", "€55"],
+      optionsEs: ["€35", "€25", "€45", "€55"],
+      correctIndex: 2,
+      explanation:
+        "The Nail Kit is priced at €45. It includes cuticle oil and a professional file. Like the scrub, it is a single-price item with no ladder — perfect as a gift item, add-on, or lower-commitment sale when the customer is not ready for the syringe.",
+      explanationEs:
+        "El Kit de Uñas tiene un precio de €45. Incluye aceite para cutículas y una lima profesional. Como el scrub, es un artículo de precio único sin escalera — perfecto como regalo, venta adicional o venta de menor compromiso cuando la cliente no está lista para la jeringa."
+    },
+    {
+      question:
+        "A customer is at €140 for the syringe and asks for one more discount. What is your FINAL move?",
+      questionEs:
+        "Una cliente está en €140 por la jeringa y pide un descuento más. ¿Cuál es tu movimiento FINAL?",
+      options: [
+        "Offer €140 + free scrub",
+        "Walk away and find another customer",
+        "Drop to €100 — the absolute floor",
+        "Hold firm at €140 and refuse to budge"
+      ],
+      optionsEs: [
+        "Ofrecer €140 + scrub gratis",
+        "Alejarte y buscar otra cliente",
+        "Bajar a €100 — el piso absoluto",
+        "Mantener firme en €140 y negarse a ceder"
+      ],
+      correctIndex: 2,
+      explanation:
+        "€100 is the absolute floor for the syringe. When you reach this price, frame it as a final gesture: 'Look, I never do this, but you've been so lovely — I can do it for €100, that's my last price.' This creates gratitude and often leads to add-on sales (scrub, nail kit) to make up margin.",
+      explanationEs:
+        "€100 es el piso absoluto para la jeringa. Cuando llegues a este precio, enmárcalo como un gesto final: 'Mira, nunca hago esto, pero has sido tan amable — puedo dejártelo en €100, ese es mi último precio.' Esto genera gratitud y a menudo lleva a ventas adicionales (scrub, kit de uñas) para recuperar margen."
+    }
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// QUIZ 2: THE COMPLIMENT STOP
+// Compliment-based approach technique: specific vs generic, delivery, transitions
+// ═══════════════════════════════════════════════════════════════════════════════
+const quizComplimentStop: GeneralQuiz = {
+  id: "quiz-compliment-stop",
+  title: "The Compliment Stop",
+  titleEs: "La Parada del Cumplido",
+  description:
+    "Master the art of the compliment approach — specific vs generic, genuine delivery, reading reactions, and transitioning smoothly into the product pitch without feeling fake.",
+  descriptionEs:
+    "Domina el arte del acercamiento por cumplido — específico vs genérico, entrega genuina, leer reacciones y transicionar suavemente al pitch del producto sin sentirse falso.",
+  icon: "Heart",
+  category: "Approach Techniques",
+  categoryEs: "Técnicas de Acercamiento",
+  xpReward: 150,
+  questions: [
+    {
+      question:
+        "Which compliment is MORE likely to stop a woman and create genuine engagement?",
+      questionEs:
+        "¿Qué cumplido es MÁS probable que detenga a una mujer y cree conexión genuina?",
+      options: [
+        "You look beautiful today",
+        "Wow, your skin is glowing — what do you use?",
+        "Nice dress, where did you buy it?",
+        "You have a lovely smile"
+      ],
+      optionsEs: [
+        "Te ves hermosa hoy",
+        "Wow, tu piel está radiante — ¿qué usas?",
+        "Bonito vestido, ¿dónde lo compraste?",
+        "Tienes una sonrisa encantadora"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Specific compliments about skin, eyes, or features directly related to beauty products are FAR more effective than generic ones. 'Your skin is glowing — what do you use?' does two things: it compliments AND creates a natural opening to introduce your product as the secret they have been missing.",
+      explanationEs:
+        "Los cumplidos específicos sobre piel, ojos o rasgos directamente relacionados con productos de belleza son MUCHO más efectivos que los genéricos. 'Tu piel está radiante — ¿qué usas?' hace dos cosas: cumplimenta Y crea una apertura natural para introducir tu producto como el secreto que les ha faltado."
+    },
+    {
+      question:
+        "You give a compliment and the woman smiles briefly but keeps walking. What should you do?",
+      questionEs:
+        "Das un cumplido y la mujer sonríe brevemente pero sigue caminando. ¿Qué debes hacer?",
+      options: [
+        "Let her go — she is not interested",
+        "Walk alongside her and match her pace while talking",
+        "Shout a louder compliment to get her attention",
+        "Block her path so she has to stop"
+      ],
+      optionsEs: [
+        "Déjala ir — no está interesada",
+        "Caminar a su lado y igualar su paso mientras hablas",
+        "Gritar un cumplido más fuerte para llamar su atención",
+        "Bloquear su camino para que tenga que parar"
+      ],
+      correctIndex: 1,
+      explanation:
+        "A brief smile is a GREEN LIGHT. Many women will keep walking out of habit or shyness, but a smile means the compliment landed. Walk alongside, match her pace, and say something like 'I know you're busy, but I have to ask — has anyone ever shown you the Dead Sea secret?' Movement + curiosity often gets them to pause.",
+      explanationEs:
+        "Una sonrisa breve es una LUZ VERDE. Muchas mujeres seguirán caminando por hábito o timidez, pero una sonrisa significa que el cumplido funcionó. Camina a su lado, iguala su paso y di algo como 'Sé que estás ocupada, pero tengo que preguntar — ¿alguien te ha mostrado el secreto del Mar Muerto?' El movimiento + curiosidad a menudo las hace detenerse."
+    },
+    {
+      question:
+        "A woman responds to your compliment with 'Oh, I look terrible today.' What is your BEST response?",
+      questionEs:
+        "Una mujer responde a tu cumplido con 'Oh, hoy me veo terrible.' ¿Cuál es tu MEJOR respuesta?",
+      options: [
+        "No you don't, you look great!",
+        "That is exactly why I stopped you — I have something that will help",
+        "You are too hard on yourself",
+        "Ignore the comment and start your product pitch"
+      ],
+      optionsEs: [
+        "No es cierto, te ves genial",
+        "Eso es exactamente por qué te detuve — tengo algo que ayudará",
+        "Eres muy dura contigo misma",
+        "Ignorar el comentario y empezar tu pitch de producto"
+      ],
+      correctIndex: 1,
+      explanation:
+        "When someone dismisses your compliment, they are opening a door about their insecurities. 'That is exactly why I stopped you — I have something that will help' pivots their self-doubt directly into curiosity about your product. This is a powerful psychological transition that feels natural, not pushy.",
+      explanationEs:
+        "Cuando alguien rechaza tu cumplido, está abriendo una puerta sobre sus inseguridades. 'Eso es exactamente por qué te detuve — tengo algo que ayudará' pivota su autodesconfianza directamente hacia la curiosidad sobre tu producto. Esta es una transición psicológica poderosa que se siente natural, no agresiva."
+    },
+    {
+      question:
+        "When is a compliment-based approach MOST likely to BACKFIRE?",
+      questionEs:
+        "¿Cuándo es un acercamiento basado en cumplidos MÁS probable que FRACASE?",
+      options: [
+        "When the woman is walking fast and focused",
+        "When the woman is with her husband",
+        "When the woman is talking on her phone",
+        "All of the above"
+      ],
+      optionsEs: [
+        "Cuando la mujer camina rápido y enfocada",
+        "Cuando la mujer está con su esposo",
+        "Cuando la mujer está hablando por teléfono",
+        "Todas las anteriores"
+      ],
+      correctIndex: 3,
+      explanation:
+        "All three situations are low-probability approaches. A woman walking fast is on a mission — interrupting feels rude. With a husband, she may feel awkward or he may pull her away. On the phone, you are competing for attention she cannot give. Read the body language BEFORE you compliment. A relaxed pace, solo or with friends, and phone put away = green light.",
+      explanationEs:
+        "Las tres situaciones son acercamientos de baja probabilidad. Una mujer caminando rápido va con un propósito — interrumpir se siente grosero. Con un esposo, puede sentirse incómoda o él puede alejarla. Por teléfono, estás compitiendo por atención que no puede dar. Lee el lenguaje corporal ANTES de cumplimentar. Paso relajado, sola o con amigas, y teléfono guardado = luz verde."
+    },
+    {
+      question:
+        "You compliment a woman's eyebrows and she lights up, explaining she just had them done. What is your next move?",
+      questionEs:
+        "Cumplimentas las cejas de una mujer y se ilumina, explicando que acaba de hacerlas. ¿Cuál es tu siguiente movimiento?",
+      options: [
+        "Tell her they look expensive and walk away",
+        "Connect her brow investment to her skincare investment",
+        "Ask where she got them done and talk about brows",
+        "Compliment something else about her"
+      ],
+      optionsEs: [
+        "Decirle que se ven caras e irte",
+        "Conectar su inversión en cejas a inversión en cuidado de piel",
+        "Preguntar dónde se las hizo y hablar de cejas",
+        "Cumplimentar algo más de ella"
+      ],
+      correctIndex: 1,
+      explanation:
+        "She just revealed she INVESTS in her appearance — this is a hot prospect. Connect the dots: 'You clearly care about how you look, and beautiful brows deserve beautiful skin to frame them. Let me show you something that takes 2 minutes and you'll see the difference instantly.' She already spends money on beauty; you are offering the next logical step.",
+      explanationEs:
+        "Acaba de revelar que INVIERTE en su apariencia — esta es una prospecto caliente. Conecta los puntos: 'Claramente te importa cómo te ves, y unas cejas hermosas merecen una piel hermosa para enmarcarlas. Déjame mostrarte algo que toma 2 minutos y verás la diferencia al instante.' Ella ya gasta en belleza; le estás ofreciendo el siguiente paso lógico."
+    },
+    {
+      question:
+        "What makes a compliment feel GENUINE rather than fake or salesy?",
+      questionEs:
+        "¿Qué hace que un cumplido se sienta GENUINO en lugar de falso o de vendedor?",
+      options: [
+        "Using fancy words and dramatic delivery",
+        "Noticing something specific and mentioning it spontaneously",
+        "Complimenting every woman the same way",
+        "Saying it loudly so others hear"
+      ],
+      optionsEs: [
+        "Usar palabras elegantes y entrega dramática",
+        "Notar algo específico y mencionarlo espontáneamente",
+        "Cumplimentar a cada mujer de la misma manera",
+        "Decirlo fuerte para que otros escuchen"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Genuine compliments are OBSERVATION-based, not script-based. Notice her unique freckles, the way her eyes sparkle, her natural lip color, or the smoothness of her hands. The more SPECIFIC and UNEXPECTED the compliment, the more she feels SEEN rather than targeted. Train yourself to find one unique thing about every person before you speak.",
+      explanationEs:
+        "Los cumplidos genuinos se basan en OBSERVACIÓN, no en guion. Nota sus pecas únicas, la forma en que sus ojos brillan, su color natural de labios o la suavidad de sus manos. Mientras más ESPECÍFICO e INESPERADO sea el cumplido, más se sentirá VISTA en lugar de apuntada. Entrénate para encontrar algo único en cada persona antes de hablar."
+    },
+    {
+      question:
+        "A woman gives you a suspicious look after your compliment. What does this body language mean?",
+      questionEs:
+        "Una mujer te da una mirada suspicious después de tu cumplido. ¿Qué significa este lenguaje corporal?",
+      options: [
+        "She is about to buy — push harder",
+        "She thinks you are trying to sell her something — disarm her",
+        "She did not hear you — repeat louder",
+        "She wants you to compliment her more"
+      ],
+      optionsEs: [
+        "Está a punto de comprar — presiona más",
+        "Cree que estás tratando de venderle algo — desarmarla",
+        "No te escuchó — repite más fuerte",
+        "Quiere que la cumplimentes más"
+      ],
+      correctIndex: 1,
+      explanation:
+        "A suspicious look means her sales-defense wall is up. She has been approached by sellers before. Disarm her by being TRANSPARENT: 'I know, I know — you think I'm going to try to sell you something. And you're right, I am. But only because this actually works, and I want to show you why. Two minutes, then you decide.' Honesty about selling defuses suspicion better than pretending you are not selling.",
+      explanationEs:
+        "Una mirada suspicious significa que su muro de defensa contra vendedores está arriba. Ha sido abordada por vendedores antes. Desarmarla siendo TRANSPARENTE: 'Lo sé, lo sé — crees que voy a tratar de venderte algo. Y tienes razón, lo haré. Pero solo porque esto realmente funciona, y quiero mostrarte por qué. Dos minutos, luego tú decides.' La honestidad sobre vender desactiva la suspicacia mejor que fingir que no estás vendiendo."
+    },
+    {
+      question:
+        "After the compliment lands well, what is the BEST transition phrase to move toward the product?",
+      questionEs:
+        "Después de que el cumplido funciona bien, ¿cuál es la MEJOR frase de transición hacia el producto?",
+      options: [
+        "Speaking of beauty, let me show you something",
+        "The reason I noticed is because I'm a skincare specialist",
+        "By the way, can I ask you something?",
+        "All of the above work depending on the moment"
+      ],
+      optionsEs: [
+        "Hablando de belleza, déjame mostrarte algo",
+        "La razón por la que noté es porque soy especialista en cuidado de piel",
+        "Por cierto, ¿te puedo preguntar algo?",
+        "Todas las anteriores funcionan dependiendo del momento"
+      ],
+      correctIndex: 3,
+      explanation:
+        "There is no single 'best' transition — the best one is the one that feels NATURAL in that moment. 'Speaking of beauty' connects the compliment. 'The reason I noticed' builds authority. 'Can I ask you something?' creates curiosity. The key is FLUIDITY — your transition should feel like a conversation, not a script change. Practice all three so you can adapt instantly.",
+      explanationEs:
+        "No hay una transición 'mejor' única — la mejor es la que se siente NATURAL en ese momento. 'Hablando de belleza' conecta el cumplido. 'La razón por la que noté' construye autoridad. '¿Te puedo preguntar algo?' crea curiosidad. La clave es FLUIDEZ — tu transición debe sentirse como conversación, no como cambio de guion. Practica las tres para poder adaptarte al instante."
+    },
+    {
+      question:
+        "You compliment a woman who is with two friends. One friend rolls her eyes. What do you do?",
+      questionEs:
+        "Cumplimentas a una mujer que está con dos amigas. Una amiga pone los ojos en blanco. ¿Qué haces?",
+      options: [
+        "Ignore the friend and focus only on your target",
+        "Include ALL three with a group compliment",
+        "Confront the eye-rolling friend directly",
+        "Walk away — the group is lost"
+      ],
+      optionsEs: [
+        "Ignorar a la amiga y enfocarte solo en tu objetivo",
+        "Incluir a las TRES con un cumplido grupal",
+        "Confrontar directamente a la amiga que puso los ojos en blanco",
+        "Irte — el grupo está perdido"
+      ],
+      correctIndex: 1,
+      explanation:
+        "The eye-rolling friend is a GATEKEEPER — if she is against you, she will poison the sale. Win her over by including her: 'And you ladies too, your skin looks amazing — are you all on vacation together?' A group compliment neutralizes the skeptic and turns a potential obstacle into an audience. Once the group is engaged, the original target becomes more comfortable.",
+      explanationEs:
+        "La amiga de ojos en blanco es una GUARDAESPALDAS — si está en contra, envenenará la venta. Gánatela incluyéndola: 'Y ustedes también, su piel se ve increíble — ¿están todas de vacaciones juntas?' Un cumplido grupal neutraliza a la escéptica y convierte un obstáculo potencial en audiencia. Una vez que el grupo está comprometido, la objetivo original se siente más cómoda."
+    },
+    {
+      question:
+        "Which follow-up after a compliment creates the strongest sense of EXCLUSIVITY?",
+      questionEs:
+        "¿Qué seguimiento después de un cumplido crea el mayor sentido de EXCLUSIVIDAD?",
+      options: [
+        "This product is very popular",
+        "I don't usually stop people, but your skin caught my eye",
+        "We sell hundreds of these every day",
+        "Everyone is buying this"
+      ],
+      optionsEs: [
+        "Este producto es muy popular",
+        "No suelo detener a la gente, pero tu piel me llamó la atención",
+        "Vendemos cientos de estos cada día",
+        "Todos están comprando esto"
+      ],
+      correctIndex: 1,
+      explanation:
+        "'I don't usually stop people, but your skin caught my eye' makes her feel SPECIAL, not targeted. It frames the interaction as a UNIQUE moment rather than a routine sales pitch. Exclusivity is a powerful psychological trigger — people value things more when they feel the opportunity was crafted just for them. Avoid 'everyone is buying this' — it makes her feel like a number.",
+      explanationEs:
+        "'No suelo detener a la gente, pero tu piel me llamó la atención' la hace sentir ESPECIAL, no apuntada. Enmarca la interacción como un momento ÚNICO en lugar de un pitch de ventas rutinario. La exclusividad es un poderoso disparador psicológico — la gente valora más las cosas cuando siente que la oportunidad fue creada solo para ellos. Evita 'todos están comprando esto' — la hace sentir como un número."
+    }
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// QUIZ 3: PRODUCT INGREDIENT EXPERT
+// What's IN the products: hyaluronic acid, glycolic acid, Dead Sea minerals
+// ═══════════════════════════════════════════════════════════════════════════════
+const quizIngredients: GeneralQuiz = {
+  id: "quiz-ingredients",
+  title: "Product Ingredient Expert",
+  titleEs: "Experto en Ingredientes de Productos",
+  description:
+    "Know exactly what is in our products and why it matters. When customers ask about ingredients, your confident answer builds trust and justifies the price.",
+  descriptionEs:
+    "Sabe exactamente qué hay en nuestros productos y por qué importa. Cuando los clientes preguntan sobre ingredientes, tu respuesta confiada construye confianza y justifica el precio.",
+  icon: "FlaskConical",
+  category: "Product Knowledge",
+  categoryEs: "Conocimiento de Producto",
+  xpReward: 150,
+  questions: [
+    {
+      question:
+        "Hyaluronic acid can hold how many times its weight in water?",
+      questionEs:
+        "¿El ácido hialurónico puede retener cuántas veces su peso en agua?",
+      options: ["100x", "500x", "1000x", "50x"],
+      optionsEs: ["100x", "500x", "1000x", "50x"],
+      correctIndex: 2,
+      explanation:
+        "Hyaluronic acid holds 1000 times its weight in water. This is the key fact that makes the syringe so powerful — it literally fills wrinkles from within by hydrating and plumping the skin at a cellular level. When a customer understands this, €100 feels like a bargain compared to Botox.",
+      explanationEs:
+        "El ácido hialurónico retiene 1000 veces su peso en agua. Este es el dato clave que hace la jeringa tan poderosa — literalmente llena las arrugas desde adentro al hidratar y rellenar la piel a nivel celular. Cuando una cliente entiende esto, €100 se siente como una ganga comparado con el Botox."
+    },
+    {
+      question:
+        "Glycolic acid is which type of exfoliating acid?",
+      questionEs:
+        "¿El ácido glicólico es qué tipo de ácido exfoliante?",
+      options: ["BHA (Beta Hydroxy Acid)", "AHA (Alpha Hydroxy Acid)", "PHA (Poly Hydroxy Acid)", "Salicylic acid"],
+      optionsEs: ["BHA (Ácido Beta Hidroxi)", "AHA (Ácido Alfa Hidroxi)", "PHA (Ácido Poli Hidroxi)", "Ácido Salicílico"],
+      correctIndex: 1,
+      explanation:
+        "Glycolic acid is an AHA (Alpha Hydroxy Acid). It works on the SURFACE of the skin to dissolve dead skin cells and reveal the fresh, new layer underneath. This is why the peeling product creates that instant glow — it is literally removing the dull, dead layer. BHAs like salicylic acid work deeper in pores, which is not what our peeling does.",
+      explanationEs:
+        "El ácido glicólico es un AHA (Ácido Alfa Hidroxi). Funciona en la SUPERFICIE de la piel para disolver las células muertas y revelar la capa fresca y nueva debajo. Por eso el peeling crea ese brillo instantáneo — literalmente está removiendo la capa opaca y muerta. Los BHA como el ácido salicílico funcionan más profundo en los poros, que no es lo que nuestro peeling hace."
+    },
+    {
+      question:
+        "The Dead Sea contains which of these key minerals?",
+      questionEs:
+        "¿El Mar Muerto contiene cuál de estos minerales clave?",
+      options: [
+        "Gold, Silver, Copper",
+        "Magnesium, Calcium, Potassium, Bromide",
+        "Iron, Zinc, Lead",
+        "Sodium, Chlorine, Fluoride"
+      ],
+      optionsEs: [
+        "Oro, Plata, Cobre",
+        "Magnesio, Calcio, Potasio, Bromuro",
+        "Hierro, Zinc, Plomo",
+        "Sodio, Cloro, Fluoruro"
+      ],
+      correctIndex: 1,
+      explanation:
+        "The Dead Sea is rich in Magnesium, Calcium, Potassium, and Bromide — 21 minerals in total, 12 of which are found nowhere else on Earth. These minerals have been used for therapeutic and beauty purposes for thousands of years. Our products harness these minerals to nourish, detoxify, and rejuvenate the skin naturally.",
+      explanationEs:
+        "El Mar Muerto es rico en Magnesio, Calcio, Potasio y Bromuro — 21 minerales en total, 12 de los cuales no se encuentran en ningún otro lugar de la Tierra. Estos minerales se han usado con fines terapéuticos y de belleza por miles de años. Nuestros productos aprovechan estos minerales para nutrir, desintoxicar y rejuvenecer la piel naturalmente."
+    },
+    {
+      question:
+        "Why is the 'Clean, Pure, Conscious' positioning important when selling?",
+      questionEs:
+        "¿Por qué es importante el posicionamiento 'Limpio, Puro, Consciente' al vender?",
+      options: [
+        "It allows us to charge higher prices",
+        "Modern customers actively avoid harsh chemicals and want transparency about ingredients",
+        "It is just a marketing slogan with no real meaning",
+        "It only matters to vegan customers"
+      ],
+      optionsEs: [
+        "Nos permite cobrar precios más altos",
+        "Los clientes modernos evitan activamente químicos agresivos y quieren transparencia sobre ingredientes",
+        "Es solo un eslogan de marketing sin significado real",
+        "Solo importa para clientes veganos"
+      ],
+      correctIndex: 1,
+      explanation:
+        "'Clean, Pure, Conscious' speaks to the #1 concern of modern beauty buyers: ingredient safety. More customers than ever read labels, research online, and reject products with parabens, sulfates, and synthetic fragrances. When you say our products are 'clean' and based on NATURAL Dead Sea minerals, you remove a major objection before it even arises.",
+      explanationEs:
+        "'Limpio, Puro, Consciente' habla a la preocupación #1 de los compradores modernos de belleza: seguridad de ingredientes. Más clientes que nunca leen etiquetas, investigan en línea y rechazan productos con parabenos, sulfatos y fragancias sintéticas. Cuando dices que nuestros productos son 'limpios' y basados en minerales NATURALES del Mar Muerto, eliminas una objeción mayor antes de que surja."
+    },
+    {
+      question:
+        "A customer says 'But I already use hyaluronic acid serum from the pharmacy.' What is your BEST response?",
+      questionEs:
+        "Una cliente dice 'Pero ya uso suero de ácido hialurónico de la farmacia.' ¿Cuál es tu MEJOR respuesta?",
+      options: [
+        "Those serums don't work at all",
+        "Pharmacy serums are mostly water with trace amounts — our formula is medical-grade concentration",
+        "Stop using that and use ours instead",
+        "They are all the same, ours just costs more"
+      ],
+      optionsEs: [
+        "Esos sueros no funcionan en absoluto",
+        "Los sueros de farmacia son mayormente agua con trazas — nuestra fórmula es concentración de grado médico",
+        "Deja de usar eso y usa el nuestro en su lugar",
+        "Todos son iguales, el nuestro solo cuesta más"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Never insult what a customer already uses — that puts them on the defensive. Instead, EDUCATE: pharmacy serums typically contain 0.5-1% hyaluronic acid diluted in a water base. Our formula uses medical-grade concentration with additional Dead Sea mineral complexes that boost absorption. The one-eye demo proves the difference in 2 minutes — words are nothing compared to what she sees in the mirror.",
+      explanationEs:
+        "Nunca insultes lo que la cliente ya usa — eso la pone a la defensiva. En su lugar, EDUCA: los sueros de farmacia típicamente contienen 0.5-1% de ácido hialurónico diluido en base de agua. Nuestra fórmula usa concentración de grado médico con complejos adicionales de minerales del Mar Muerto que potencian la absorción. La demo de un ojo prueba la diferencia en 2 minutos — las palabras no son nada comparado con lo que ella ve en el espejo."
+    },
+    {
+      question:
+        "What does glycolic acid actually DO to the skin during the peeling treatment?",
+      questionEs:
+        "¿Qué hace realmente el ácido glicólico a la piel durante el tratamiento de peeling?",
+      options: [
+        "Adds color and tint to the skin",
+        "Dissolves the bonds between dead skin cells to reveal fresh skin",
+        "Creates a protective layer over the skin",
+        "Increases oil production for moisture"
+      ],
+      optionsEs: [
+        "Añade color y tinte a la piel",
+        "Disuelve los enlaces entre células muertas para revelar piel fresca",
+        "Crea una capa protectora sobre la piel",
+        "Aumenta la producción de aceite para humedad"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Glycolic acid works by dissolving the 'glue' that holds dead skin cells together on the surface. As you apply it, these dead cells gently lift away, revealing the newer, brighter, smoother skin underneath. This is why the peeling demo shows INSTANT results — you are literally removing the dull outer layer in real time.",
+      explanationEs:
+        "El ácido glicólico funciona disolviendo el 'pegamento' que mantiene unidas las células muertas en la superficie. Al aplicarlo, estas células muertas se levantan suavemente, revelando la piel más nueva, brillante y suave debajo. Por eso la demo de peeling muestra resultados INSTANTÁNEOS — literalmente estás removiendo la capa opaca exterior en tiempo real."
+    },
+    {
+      question:
+        "Which mineral from the Dead Sea helps CALM irritated skin?",
+      questionEs:
+        "¿Qué mineral del Mar Muerto ayuda a CALMAR la piel irritada?",
+      options: ["Calcium", "Bromide", "Potassium", "Magnesium"],
+      optionsEs: ["Calcio", "Bromuro", "Potasio", "Magnesio"],
+      correctIndex: 1,
+      explanation:
+        "Bromide is the natural calming mineral found in Dead Sea minerals. It soothes irritation, reduces redness, and has a natural relaxing effect on skin cells. This is why our products are excellent for sensitive skin types — the bromide content helps prevent the irritation that chemical-based products often cause.",
+      explanationEs:
+        "El bromuro es el mineral calmante natural encontrado en los minerales del Mar Muerto. Calma la irritación, reduce el enrojecimiento y tiene un efecto relajante natural en las células de la piel. Por eso nuestros productos son excelentes para tipos de piel sensibles — el contenido de bromuro ayuda a prevenir la irritación que los productos basados en químicos a menudo causan."
+    },
+    {
+      question:
+        "A tourist asks 'Are these products tested on animals?' What is the CORRECT answer?",
+      questionEs:
+        "Un turista pregunta '¿Estos productos se prueban en animales?' ¿Cuál es la respuesta CORRECTA?",
+      options: [
+        "Yes, but only on safe animals",
+        "No — our products are cruelty-free and not tested on animals",
+        "I am not sure, probably not",
+        "All cosmetics are tested on animals by law"
+      ],
+      optionsEs: [
+        "Sí, pero solo en animales seguros",
+        "No — nuestros productos son libres de crueldad y no se prueban en animales",
+        "No estoy seguro, probablemente no",
+        "Todos los cosméticos se prueban en animales por ley"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Our products are cruelty-free — NEVER tested on animals. This is a major selling point for many customers, especially from regions with strong ethical consumer preferences. Answer with CONFIDENCE and immediacy: 'Absolutely not. Our products are cruelty-free, clean, and conscious. That is part of why I love representing this brand.' A clear ethical stance builds deep trust.",
+      explanationEs:
+        "Nuestros productos son libres de crueldad — NUNCA se prueban en animales. Este es un punto de venta importante para muchos clientes, especialmente de regiones con fuertes preferencias de consumo ético. Responde con CONFIANZA e inmediatez: 'Absolutamente no. Nuestros productos son libres de crueldad, limpios y conscientes. Eso es parte de por qué amo representar esta marca.' Una postura ética clara construye confianza profunda."
+    },
+    {
+      question:
+        "What is the key difference between our hyaluronic acid syringe and Botox injections?",
+      questionEs:
+        "¿Cuál es la diferencia clave entre nuestra jeringa de ácido hialurónico y las inyecciones de Botox?",
+      options: [
+        "Botox is cheaper",
+        "Botox paralyzes muscles; our HA hydrates and plumps naturally from within",
+        "There is no difference, they do the same thing",
+        "Botox is more natural"
+      ],
+      optionsEs: [
+        "El Botox es más barato",
+        "El Botox paraliza músculos; nuestro AH hidrata y rellena naturalmente desde adentro",
+        "No hay diferencia, hacen lo mismo",
+        "El Botox es más natural"
+      ],
+      correctIndex: 1,
+      explanation:
+        "This distinction is CRUCIAL: Botox is a toxin that paralyzes facial muscles to reduce wrinkles. Our hyaluronic acid is a NATURAL substance that hydrates and plumps the skin from within, filling wrinkles without any paralysis or toxic effects. Position it as 'the natural alternative to Botox' — same visible results, no needles, no toxins, no frozen face.",
+      explanationEs:
+        "Esta distinción es CRUCIAL: el Botox es una toxina que paraliza los músculos faciales para reducir arrugas. Nuestro ácido hialurónico es una sustancia NATURAL que hidrata y rellena la piel desde adentro, llenando arrugas sin parálisis ni efectos tóxicos. Posiciónalo como 'la alternativa natural al Botox' — mismos resultados visibles, sin agujas, sin toxinas, sin cara congelada."
+    },
+    {
+      question:
+        "Why do we emphasize that our products come from the Dead Sea specifically?",
+      questionEs:
+        "¿Por qué enfatizamos que nuestros productos vienen específicamente del Mar Muerto?",
+      options: [
+        "It sounds exotic and mysterious",
+        "The Dead Sea has the highest mineral concentration of any body of water and is scientifically proven for skin therapy",
+        "It is the cheapest place to source minerals",
+        "It is the only place with water"
+      ],
+      optionsEs: [
+        "Suena exótico y misterioso",
+        "El Mar Muerto tiene la concentración mineral más alta de cualquier cuerpo de agua y está científicamente probado para terapia de piel",
+        "Es el lugar más barato para obtener minerales",
+        "Es el único lugar con agua"
+      ],
+      correctIndex: 1,
+      explanation:
+        "The Dead Sea sits at the lowest point on Earth and has a mineral concentration of 34% — 10 times saltier than the ocean. For centuries, people have traveled there specifically to treat skin conditions like psoriasis and eczema. This scientific and historical credibility is what separates our products from generic 'mineral' creams. The Dead Sea name carries instant authority.",
+      explanationEs:
+        "El Mar Muerto se encuentra en el punto más bajo de la Tierra y tiene una concentración mineral del 34% — 10 veces más salado que el océano. Durante siglos, la gente ha viajado allí específicamente para tratar condiciones de piel como psoriasis y eczema. Esta credibilidad científica e histórica es lo que separa nuestros productos de las cremas 'minerales' genéricas. El nombre Mar Muerto porta autoridad instantánea."
+    }
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// QUIZ 4: THE ONE-EYE DEMO
+// The signature syringe demonstration technique
+// ═══════════════════════════════════════════════════════════════════════════════
+const quizOneEyeDemo: GeneralQuiz = {
+  id: "quiz-one-eye-demo",
+  title: "The One-Eye Demo",
+  titleEs: "La Demo de Un Ojo",
+  description:
+    "Master the signature one-eye demonstration — the most powerful closing tool in your kit. Learn timing, pressure, what to say, and how to transition from mirror reveal to sale.",
+  descriptionEs:
+    "Domina la demostración de un ojo — la herramienta de cierre más poderosa en tu kit. Aprende el tiempo, presión, qué decir y cómo transicionar de la revelación en el espejo a la venta.",
+  icon: "Eye",
+  category: "Demo Technique",
+  categoryEs: "Técnica de Demostración",
+  xpReward: 150,
+  questions: [
+    {
+      question:
+        "Why do we apply the syringe demo to ONE eye only (not both)?",
+      questionEs:
+        "¿Por qué aplicamos la demo de la jeringa en UN SOLO ojo (no en ambos)?",
+      options: [
+        "We only have enough product for one eye",
+        "The contrast between treated and untreated eye is the most powerful visual sales tool",
+        "It takes too long to do both eyes",
+        "Customers only care about one eye"
+      ],
+      optionsEs: [
+        "Solo tenemos suficiente producto para un ojo",
+        "El contraste entre el ojo tratado y el no tratado es la herramienta de venta visual más poderosa",
+        "Toma demasiado tiempo hacer ambos ojos",
+        "Las clientes solo se preocupan por un ojo"
+      ],
+      correctIndex: 1,
+      explanation:
+        "The one-eye demo creates a DRAMATIC before/after contrast that the customer sees with her OWN eyes in the mirror. When one eye looks lifted, smooth, and bright while the other shows wrinkles and tiredness, the visual proof is undeniable. The mirror becomes your best salesperson — no words needed.",
+      explanationEs:
+        "La demo de un ojo crea un contraste dramático antes/después que la cliente ve con sus PROPIOS ojos en el espejo. Cuando un ojo se ve levantado, suave y brillante mientras el otro muestra arrugas y cansancio, la prueba visual es innegable. El espejo se convierte en tu mejor vendedor — no se necesitan palabras."
+    },
+    {
+      question:
+        "How long should the one-eye demo application take?",
+      questionEs:
+        "¿Cuánto tiempo debe tomar la aplicación de la demo de un ojo?",
+      options: ["30 seconds", "2 minutes", "5 minutes", "10 minutes"],
+      optionsEs: ["30 segundos", "2 minutos", "5 minutos", "10 minutos"],
+      correctIndex: 1,
+      explanation:
+        "The ideal demo time is approximately 2 minutes. This includes application, gentle massage, and the 'setting' period. Any shorter and the product hasn't had time to work visually. Any longer and you lose the customer's attention and sense of instant gratification. Two minutes creates the perfect 'wow' reveal.",
+      explanationEs:
+        "El tiempo ideal de demo es aproximadamente 2 minutos. Esto incluye aplicación, masaje suave y el período de 'fijación'. Más corto y el producto no ha tenido tiempo de funcionar visualmente. Más largo y pierdes la atención de la cliente y el sentido de gratificación instantánea. Dos minutos crean la revelación 'wow' perfecta."
+    },
+    {
+      question:
+        "During the demo, the customer looks in the mirror and says 'I don't really see a difference.' What is your FIRST move?",
+      questionEs:
+        "Durante la demo, la cliente se mira en el espejo y dice 'No veo mucha diferencia.' ¿Cuál es tu PRIMER movimiento?",
+      options: [
+        "Apply more product immediately",
+        "Ask her to turn her head to the side and look at the crow's feet area specifically",
+        "Tell her she is wrong and the difference is obvious",
+        "Give up and offer a discount instead"
+      ],
+      optionsEs: [
+        "Aplicar más producto inmediatamente",
+        "Pedirle que gire la cabeza hacia el lado y mire específicamente las patas de gallo",
+        "Decirle que está equivocada y la diferencia es obvia",
+        "Rendirse y ofrecer un descuento en su lugar"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Most customers look straight ahead, but wrinkles are most visible at the CROW'S FEET (outer corners). Guide her: 'Turn your head slightly this way and look right here at the corner — see how this side has those lines, and this side is smooth?' Helping her SEE the specific difference is your job — the result is there, she just needs to know where to look.",
+      explanationEs:
+        "La mayoría de las clientes miran hacia adelante, pero las arrugas son más visibles en las PATAS DE GALLO (esquinas externas). Guíala: 'Gira la cabeza ligeramente de este lado y mira justo aquí en la esquina — ¿ves cómo este lado tiene esas líneas, y este lado está suave?' Ayudarla a VER la diferencia específica es tu trabajo — el resultado está ahí, solo necesita saber dónde mirar."
+    },
+    {
+      question:
+        "What TYPE of pressure should you use when massaging the product during the one-eye demo?",
+      questionEs:
+        "¿Qué tipo de presión debes usar al masajear el producto durante la demo de un ojo?",
+      options: [
+        "Hard, deep pressure to push the product in",
+        "Light, upward, gentle tapping motions",
+        "Circular rubbing like washing your face",
+        "No pressure — just let it sit on the surface"
+      ],
+      optionsEs: [
+        "Presión fuerte y profunda para empujar el producto",
+        "Movimientos ligeros, hacia arriba, de toque suave",
+        "Frotación circular como al lavarte la cara",
+        "Sin presión — solo dejarlo sobre la superficie"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Always use LIGHT, UPWARD, GENTLE tapping or sweeping motions. The eye area skin is the thinnest and most delicate on the face — about 0.5mm thick. Hard pressure damages skin, creates redness, and actually works AGAINST the product. Upward motions also counteract gravity (which pulls down), giving a subtle lifting effect during the demo.",
+      explanationEs:
+        "Usa siempre movimientos LIGEROS, HACIA ARRIBA, de toque suave. La piel del área de los ojos es la más delgada y delicada del rostro — aproximadamente 0.5mm de grosor. La presión fuerte daña la piel, crea enrojecimiento y en realidad trabaja EN CONTRA del producto. Los movimientos hacia arriba también contrarrestan la gravedad (que jala hacia abajo), dando un efecto sutil de lifting durante la demo."
+    },
+    {
+      question:
+        "What should you NEVER say during the one-eye demo?",
+      questionEs:
+        "¿Qué NUNCA debes decir durante la demo de un ojo?",
+      options: [
+        "This takes about 2 minutes to work",
+        "Look at the difference in the mirror",
+        "This will completely remove all your wrinkles permanently",
+        "You can feel the product working"
+      ],
+      optionsEs: [
+        "Esto toma aproximadamente 2 minutos en funcionar",
+        "Mira la diferencia en el espejo",
+        "Esto eliminará completamente todas tus arrugas permanentemente",
+        "Puedes sentir el producto funcionando"
+      ],
+      correctIndex: 2,
+      explanation:
+        "NEVER make permanent or exaggerated claims. Our products give visible, temporary results that IMPROVE with continued use — but no cosmetic product 'completely removes all wrinkles permanently.' Overpromising destroys trust and leads to refunds. Underpromise and overdeliver: 'You will see a visible difference today, and with daily use the results keep getting better.'",
+      explanationEs:
+        "NUNCA hagas afirmaciones permanentes o exageradas. Nuestros productos dan resultados visibles y temporales que MEJORAN con uso continuo — pero ningún producto cosmético 'elimina completamente todas las arrugas permanentemente.' Prometer de más destruye la confianza y lleva a reembolsos. Promete menos y entrega más: 'Verás una diferencia visible hoy, y con uso diario los resultados siguen mejorando.'"
+    },
+    {
+      question:
+        "At what point in the demo do you hand the customer the mirror?",
+      questionEs:
+        "¿En qué momento de la demo le entregas el espejo a la cliente?",
+      options: [
+        "Before you start applying the product",
+        "After you have applied, massaged, and allowed the product to set for about 2 minutes",
+        "While you are still applying the product",
+        "After she has already agreed to buy"
+      ],
+      optionsEs: [
+        "Antes de empezar a aplicar el producto",
+        "Después de haber aplicado, masajeado y permitido que el producto se fije por unos 2 minutos",
+        "Mientras aún estás aplicando el producto",
+        "Después de que ya accedió a comprar"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Timing the mirror reveal is EVERYTHING. Apply the product, massage gently, then let it set while you chat. After about 2 minutes, hand her the mirror and guide her comparison: 'Look at this eye... now look at the other one. Do you see how this side is lifted and smooth?' The build-up creates anticipation, and the visual payoff triggers the emotional 'yes' moment.",
+      explanationEs:
+        "El tiempo de la revelación en el espejo lo es TODO. Aplica el producto, masajea suavemente, luego déjalo fijar mientras conversas. Después de unos 2 minutos, entrégale el espejo y guía su comparación: 'Mira este ojo... ahora mira el otro. ¿Ves cómo este lado está levantado y suave?' La preparación crea anticipación, y el resultado visual dispara el momento emocional de 'sí'."
+    },
+    {
+      question:
+        "The customer sees the difference and says 'Wow, that really works!' What is your NEXT line?",
+      questionEs:
+        "La cliente ve la diferencia y dice '¡Wow, eso realmente funciona!' ¿Cuál es tu SIGUIENTE frase?",
+      options: [
+        "Great! That will be €300 please",
+        "I know, right? Imagine using it daily for 30 days — let me show you the price options",
+        "Should I do the other eye too?",
+        "I told you it would work!"
+      ],
+      optionsEs: [
+        "¡Genial! Serán €300 por favor",
+        "¿Verdad? Imagina usarlo diario por 30 días — déjame mostrarte las opciones de precio",
+        "¿Debería hacer el otro ojo también?",
+        "¡Te dije que funcionaría!"
+      ],
+      correctIndex: 1,
+      explanation:
+        "The 'wow' moment is your GREEN LIGHT to close. Capitalize on her excitement by EXPANDING the vision: 'Imagine using it daily for 30 days' takes her from a 2-minute demo to a long-term beauty investment. Then immediately transition to pricing before the excitement fades. Energy and momentum are everything — strike while the iron is hot.",
+      explanationEs:
+        "El momento 'wow' es tu LUZ VERDE para cerrar. Capitaliza su emoción EXPANDIENDO la visión: 'Imagina usarlo diario por 30 días' la lleva de una demo de 2 minutos a una inversión de belleza a largo plazo. Luego transiciona inmediatamente a precios antes de que la emoción se desvanezca. La energía y el momentum lo son todo — hierro caliente, golpea fuerte."
+    },
+    {
+      question:
+        "A customer says 'Do the other eye so I can see the full result.' How do you respond?",
+      questionEs:
+        "Una cliente dice 'Haz el otro ojo para poder ver el resultado completo.' ¿Cómo respondes?",
+      options: [
+        "Do the other eye immediately — the customer is always right",
+        "Explain that the full result happens at home with daily use, and the one-eye contrast is the proof",
+        "Refuse and insist you never do both eyes",
+        "Tell her she needs to buy first before you do the other eye"
+      ],
+      optionsEs: [
+        "Haz el otro ojo inmediatamente — la cliente siempre tiene razón",
+        "Explicar que el resultado completo ocurre en casa con uso diario, y el contraste de un ojo es la prueba",
+        "Negarte e insistir en que nunca haces ambos ojos",
+        "Decirle que necesita comprar primero antes de hacer el otro ojo"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Doing both eyes kills the contrast — your most powerful sales tool. Instead, frame it positively: 'The full result happens when you use it at home every day for 2-3 weeks. What you see on one eye in 2 minutes, imagine your whole face with daily use.' This keeps the one-eye contrast alive AND creates desire for the full product experience at home.",
+      explanationEs:
+        "Hacer ambos ojos mata el contraste — tu herramienta de venta más poderosa. En su lugar, enmárcalo positivamente: 'El resultado completo ocurre cuando lo usas en casa todos los días por 2-3 semanas. Lo que ves en un ojo en 2 minutos, imagina tu rostro completo con uso diario.' Esto mantiene el contraste de un ojo vivo Y crea deseo por la experiencia completa del producto en casa."
+    },
+    {
+      question:
+        "What is the BEST thing to say WHILE applying the product during the demo?",
+      questionEs:
+        "¿Qué es lo MEJOR que decir MIENTRAS aplicas el producto durante la demo?",
+      options: [
+        "Nothing — stay completely silent",
+        "Talk about the product benefits and what she should feel",
+        "Ask about her personal life and family",
+        "Explain the full price ladder step by step"
+      ],
+      optionsEs: [
+        "Nada — mantente completamente en silencio",
+        "Hablar sobre los beneficios del producto y lo que debería sentir",
+        "Preguntar sobre su vida personal y familia",
+        "Explicar la escalera de precios paso a paso"
+      ],
+      correctIndex: 1,
+      explanation:
+        "While applying, describe what is happening: 'You can feel it tightening slightly — that's the hyaluronic acid drawing moisture into the skin. In about 2 minutes you'll see the difference in the mirror.' This builds anticipation, educates the customer, and keeps her engaged during the waiting period. Silence feels awkward; random personal questions feel intrusive; pricing comes AFTER the reveal.",
+      explanationEs:
+        "Mientras aplicas, describe lo que está pasando: 'Puedes sentirlo tensar ligeramente — eso es el ácido hialurónico atrayendo humedad a la piel. En unos 2 minutos verás la diferencia en el espejo.' Esto construye anticipación, educa a la cliente y la mantiene comprometida durante el período de espera. El silencio se siente incómodo; preguntas personales aleatorias se sienten intrusivas; los precios vienen DESPUÉS de la revelación."
+    },
+    {
+      question:
+        "The demo worked perfectly and the customer is impressed. When do you mention the price?",
+      questionEs:
+        "La demo funcionó perfectamente y la cliente está impresionada. ¿Cuándo mencionas el precio?",
+      options: [
+        "Immediately after she reacts positively to the mirror reveal",
+        "Wait 10 minutes to let the excitement build more",
+        "Tell her the price before you even start the demo",
+        "Never mention price — let her ask first"
+      ],
+      optionsEs: [
+        "Inmediatamente después de que reacciona positivamente a la revelación en el espejo",
+        "Esperar 10 minutos para dejar que la emoción se acumule más",
+        "Decirle el precio antes de empezar la demo",
+      "Nunca mencionar el precio — dejar que ella pregunte primero"
+      ],
+      correctIndex: 0,
+      explanation:
+        "Strike WHILE the iron is hot. The moment she sees the difference and reacts with surprise or delight, her emotional 'buying brain' is activated. THIS is when you transition: 'I know, the results are incredible. In Europe this costs €500, but here in Andorra...' Delaying lets doubt creep in. Waiting for her to ask makes you seem evasive. The mirror 'wow' is your cue to close.",
+      explanationEs:
+        "Golpea MIENTRAS el hierro está caliente. El momento en que ve la diferencia y reacciona con sorpresa o deleite, su 'cerebro de compra' emocional está activado. AHORA es cuando transicionas: 'Lo sé, los resultados son increíbles. En Europa esto cuesta €500, pero aquí en Andorra...' El retraso deja que la duda se cuele. Esperar a que ella pregunte te hace parecer evasivo. El 'wow' del espejo es tu señal para cerrar."
+    }
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// QUIZ 5: TOURIST PSYCHOLOGY
+// Selling to tourists: tax-free, urgency, gift appeal, currency differences
+// ═══════════════════════════════════════════════════════════════════════════════
+const quizTouristPsych: GeneralQuiz = {
+  id: "quiz-tourist-psych",
+  title: "Tourist Psychology",
+  titleEs: "Psicología del Turista",
+  description:
+    "Master the psychology of selling to tourists — tax-free angles, vacation mindset, urgency triggers, gift appeal, and currency advantages that make the sale irresistible.",
+  descriptionEs:
+    "Domina la psicología de vender a turistas — ángulo libre de impuestos, mentalidad de vacaciones, disparadores de urgencia, atractivo de regalo y ventajas de moneda que hacen la venta irresistible.",
+  icon: "Brain",
+  category: "Sales Psychology",
+  categoryEs: "Psicología de Ventas",
+  xpReward: 150,
+  questions: [
+    {
+      question:
+        "A British tourist mentions she is visiting from London. What is your BEST pricing angle?",
+      questionEs:
+        "Una turista británica menciona que visita desde Londres. ¿Cuál es tu MEJOR ángulo de precio?",
+      options: [
+        "This is cheaper than a coffee in London",
+        "In London this same product costs over £400 — here you pay in euros and skip the import tax",
+        "Everything is cheaper here because we are poorer",
+        "Don't worry about the price, just enjoy your vacation"
+      ],
+      optionsEs: [
+        "Esto es más barato que un café en Londres",
+        "En Londres este mismo producto cuesta más de £400 — aquí pagas en euros y evitas el impuesto de importación",
+        "Todo es más barato aquí porque somos más pobres",
+        "No te preocupes por el precio, solo disfruta tus vacaciones"
+      ],
+      correctIndex: 1,
+      explanation:
+        "British tourists are VERY price-conscious about the GBP vs EUR exchange AND import costs. Our syringe at €100 converts to roughly £85 — a fraction of what similar products cost in the UK. The 'cheaper than home country' angle is devastatingly effective. Always know the rough conversion: €100 ≈ £85, €140 ≈ £120, €300 ≈ £255.",
+      explanationEs:
+        "Los turistas británicos son MUY conscientes del precio con el cambio GBP vs EUR Y los costos de importación. Nuestra jeringa en €100 se convierte aproximadamente a £85 — una fracción de lo que productos similares cuestan en el UK. El ángulo 'más barato que en tu país' es devastadoramente efectivo. Siempre conoce la conversión aproximada: €100 ≈ £85, €140 ≈ £120, €300 ≈ £255."
+    },
+    {
+      question:
+        "A tourist says 'But I can buy skincare cheaper back home.' What is your STRONGEST response?",
+      questionEs:
+        "Un turista dice 'Pero puedo comprar cuidado de piel más barato en casa.' ¿Cuál es tu respuesta MÁS FUERTE?",
+      options: [
+        "No you can't, we are the cheapest",
+        "These are exclusive Dead Sea products you cannot find in regular stores — plus here it is tax-free and duty-free",
+        "Okay, well thanks for your time",
+        "Everything in your country is overpriced"
+      ],
+      optionsEs: [
+        "No puedes, somos los más baratos",
+        "Estos son productos exclusivos del Mar Muerto que no encuentras en tiendas regulares — además aquí es libre de impuestos",
+        "Bueno, gracias por tu tiempo",
+        "Todo en tu país está sobrevalorado"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Two powerful triggers in one response: EXCLUSIVITY ('you cannot find these') and TAX ADVANTAGE ('tax-free and duty-free'). Tourists love taking home something UNIQUE they cannot get at home — it becomes a travel souvenir AND a beauty investment. The tax-free angle adds a rational justification to the emotional purchase.",
+      explanationEs:
+        "Dos disparadores poderosos en una respuesta: EXCLUSIVIDAD ('no puedes encontrar estos') y VENTAJA FISCAL ('libre de impuestos'). Los turistas aman llevarse algo ÚNICO que no pueden conseguir en casa — se convierte en souvenir de viaje Y inversión de belleza. El ángulo libre de impuestos añade una justificación racional a la compra emocional."
+    },
+    {
+      question:
+        "You learn a tourist is leaving tomorrow morning. How do you use URGENCY?",
+      questionEs:
+        "Te enteras de que una turista se va mañana por la mañana. ¿Cómo usas la URGENCIA?",
+      options: [
+        "Don't worry, you can order online when you get home",
+        "This is your last chance — once you leave Andorra, you will pay European prices plus shipping and tax",
+        "You have plenty of time to decide",
+        "Come back tomorrow before your flight"
+      ],
+      optionsEs: [
+        "No te preocupes, puedes ordenar en línea cuando llegues a casa",
+        "Esta es tu última oportunidad — una vez que dejes Andorra, pagarás precios europeos más envío e impuestos",
+        "Tienes mucho tiempo para decidir",
+        "Regresa mañana antes de tu vuelo"
+      ],
+      correctIndex: 1,
+      explanation:
+        "'Leaving tomorrow' is a GOLDEN urgency trigger. Frame the purchase as a NOW-OR-NEVER opportunity: in Andorra they get tax-free pricing; at home they face €500+ prices, shipping costs, customs fees, and import tax. The 'last chance' language creates a genuine fear of missing out (FOMO) that overrides hesitation.",
+      explanationEs:
+        "'Irse mañana' es un disparador de urgencia DORADO. Enmarca la compra como una oportunidad AHORA-O-NUNCA: en Andorra obtienen precios libres de impuestos; en casa enfrentan precios de €500+, costos de envío, tarifas de aduana e impuestos de importación. El lenguaje de 'última oportunidad' crea un genuino miedo a perderse algo (FOMO) que anula la duda."
+    },
+    {
+      question:
+        "A tourist is buying for her daughter as a gift. What psychology are you leveraging?",
+      questionEs:
+        "Una turista está comprando para su hija como regalo. ¿Qué psicología estás aprovechando?",
+      options: [
+        "Fear of rejection",
+        "Gift-giving guilt and the desire to bring home something special",
+        "Peer pressure",
+        "Price comparison shopping"
+      ],
+      optionsEs: [
+        "Miedo al rechazo",
+        "Culpa de dar regalos y el deseo de llevar a casa algo especial",
+        "Presión de grupo",
+        "Comparación de precios de compra"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Tourists buying GIFTS have a powerful emotional driver: they want to return home with something MEANINGFUL, not just another magnet or t-shirt. Position our products as 'the gift that keeps giving' — every time her daughter uses the syringe, she will think of her mother and the trip to Andorra. Emotional connections create higher willingness to spend.",
+      explanationEs:
+        "Los turistas que compran REGALOS tienen un poderoso motor emocional: quieren regresar a casa con algo SIGNIFICATIVO, no solo otro imán o camiseta. Posiciona nuestros productos como 'el regalo que sigue dando' — cada vez que su hija use la jeringa, pensará en su madre y el viaje a Andorra. Las conexiones emocionales crean mayor disposición a gastar."
+    },
+    {
+      question:
+        "What is the psychology behind 'treating yourself on vacation'?",
+      questionEs:
+        "¿Cuál es la psicología detrás de 'consentirse en vacaciones'?",
+      options: [
+        "People save money on vacation",
+        "Vacation mindset lowers spending resistance — people already mentally budgeted to spend",
+        "Products work better on vacation",
+        "People are more logical on vacation"
+      ],
+      optionsEs: [
+        "La gente ahorra dinero en vacaciones",
+        "La mentalidad de vacaciones reduce la resistencia al gasto — la gente ya presupuestó mentalmente gastar",
+        "Los productos funcionan mejor en vacaciones",
+        "La gente es más lógica en vacaciones"
+      ],
+      correctIndex: 1,
+      explanation:
+        "On vacation, people are in a 'treat yourself' mental mode. They have ALREADY decided to spend money — on meals, experiences, souvenirs. A €100 skincare purchase feels like a small luxury compared to a €200 dinner. Frame your product as part of the vacation experience: 'You are already treating yourself to this beautiful trip — treat your skin to something special too.'",
+      explanationEs:
+        "En vacaciones, la gente está en modo mental de 'consentirse'. Ya DECIDIERON gastar dinero — en comidas, experiencias, souvenirs. Una compra de €100 en cuidado de piel se siente como un pequeño lujo comparado con una cena de €200. Enmarca tu producto como parte de la experiencia de vacaciones: 'Ya te estás consintiendo con este hermoso viaje — consiente tu piel con algo especial también.'"
+    },
+    {
+      question:
+        "A tourist from Gibraltar mentions the tax-free shopping. How do you respond?",
+      questionEs:
+        "Un turista de Gibraltar menciona las compras libres de impuestos. ¿Cómo respondes?",
+      options: [
+        "Gibraltar doesn't really have tax-free shopping",
+        "Exactly — and our Dead Sea products are one of the best tax-free purchases you can make. Real skincare, real results, and you save the VAT",
+        "Tax-free doesn't matter for small purchases",
+        "You should buy something bigger to make it worth it"
+      ],
+      optionsEs: [
+        "Gibraltar realmente no tiene compras libres de impuestos",
+        "Exactamente — y nuestros productos del Mar Muerto son una de las mejores compras libres de impuestos que puedes hacer. Cuidado de piel real, resultados reales, y ahorras el IVA",
+        "Libre de impuestos no importa para compras pequeñas",
+        "Deberías comprar algo más grande para que valga la pena"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Gibraltar and Andorra are both famous tax-free shopping destinations. When a Gibraltarian tourist mentions tax-free, VALIDATE their knowledge and connect it to your product. Emphasize they are getting professional-grade skincare at a price that INCLUDES the tax savings — making it a smart financial AND beauty decision.",
+      explanationEs:
+        "Gibraltar y Andorra son ambos destinos famosos de compras libres de impuestos. Cuando un turista gibraltareño menciona libre de impuestos, VALIDA su conocimiento y conéctalo a tu producto. Enfatiza que están obteniendo cuidado de piel de grado profesional a un precio que INCLUYE los ahorros de impuestos — haciéndolo una decisión financiera Y de belleza inteligente."
+    },
+    {
+      question:
+        "A tourist has €200 in cash she set aside for 'vacation spending.' How does this help your €140 syringe close?",
+      questionEs:
+        "Una turista tiene €200 en efectivo que apartó para 'gastos de vacaciones.' ¿Cómo ayuda esto a tu cierre de la jeringa en €140?",
+      options: [
+        "It doesn't help — she will want to keep all her cash",
+        "Vacation cash is 'already spent' mentally — €140 feels like using play money, not real money",
+        "She will only buy if you accept the exact cash amount",
+        "You should ask for the full €200 instead"
+      ],
+      optionsEs: [
+        "No ayuda — querrá guardar todo su efectivo",
+        "El dinero de vacaciones ya está 'gastado' mentalmente — €140 se siente como usar dinero de juego, no dinero real",
+        "Solo comprará si aceptas el monto exacto en efectivo",
+        "Deberías pedirle los €200 completos en su lugar"
+      ],
+      correctIndex: 1,
+      explanation:
+        "The 'vacation wallet' is a real psychological phenomenon. Money set aside for vacation spending is mentally categorized as 'for fun' — people spend it more freely than their regular income. When a tourist has already mentally 'spent' that €200 on experiences, your €140 syringe feels like a natural part of the vacation budget, not a painful expense. Frame it as: 'Part of your vacation treat to yourself.'",
+      explanationEs:
+        "La 'cartera de vacaciones' es un fenómeno psicológico real. El dinero apartado para gastos de vacaciones se categoriza mentalmente como 'para diversión' — la gente lo gasta más libremente que su ingreso regular. Cuando un turista ya 'gastó' mentalmente esos €200 en experiencias, tu jeringa de €140 se siente como parte natural del presupuesto de vacaciones, no como un gasto doloroso. Enmárcalo como: 'Parte de tu regalo de vacaciones para ti misma.'"
+    },
+    {
+      question:
+        "A tourist couple is browsing. The husband seems impatient. What is your BEST move?",
+      questionEs:
+        "Una pareja de turistas está mirando. El esposo parece impaciente. ¿Cuál es tu MEJOR movimiento?",
+      options: [
+        "Ignore the husband and focus only on the wife",
+        "Get the husband involved by offering him the nail file to try or showing him the product quickly",
+        "Wait until the husband walks away to approach the wife",
+        "Tell the husband this won't take long"
+      ],
+      optionsEs: [
+        "Ignorar al esposo y enfocarte solo en la esposa",
+        "Involucrar al esposo ofreciéndole la lima de uñas para probar o mostrándole el producto rápidamente",
+        "Esperar a que el esposo se aleje para acercarte a la esposa",
+        "Decirle al esposo que esto no tomará mucho tiempo"
+      ],
+      correctIndex: 1,
+      explanation:
+        "An impatient husband can kill a sale by pulling his wife away. The best defense is ENGAGEMENT — get him involved. Hand him the nail file to feel, or say 'Sir, can I show you something amazing in 30 seconds?' Once he sees the product and feels included, he is far less likely to interrupt. An engaged husband often becomes the one saying 'Just get it, babe!'",
+      explanationEs:
+        "Un esposo impaciente puede matar una venta alejando a su esposa. La mejor defensa es el COMPROMISO — involúcralo. Entrégale la lima de uñas para que la sienta, o di 'Señor, ¿puedo mostrarle algo increíble en 30 segundos?' Una vez que ve el producto y se siente incluido, es mucho menos probable que interrumpa. Un esposo comprometido a menudo se convierte en quien dice '¡Cómpralo, amor!'"
+    },
+    {
+      question:
+        "What is the SOUVENIR mindset and how does it help your sale?",
+      questionEs:
+        "¿Qué es la mentalidad de SOUVENIR y cómo ayuda a tu venta?",
+      options: [
+        "Tourists only want cheap souvenirs",
+        "Tourists want to take home a piece of their trip — positioning your product as a 'luxury souvenir from Andorra' makes it a memory, not just a purchase",
+        "Souvenirs are a waste of money",
+        "Tourists never buy souvenirs"
+      ],
+      optionsEs: [
+        "Los turistas solo quieren souvenirs baratos",
+        "Los turistas quieren llevarse a casa un pedazo de su viaje — posicionar tu producto como 'souvenir de lujo de Andorra' lo hace un recuerdo, no solo una compra",
+        "Los souvenirs son una pérdida de dinero",
+        "Los turistas nunca compran souvenirs"
+      ],
+      correctIndex: 1,
+      explanation:
+        "The souvenir mindset transforms a 'purchase' into a 'memory.' When you say 'Every time you use this, you will remember your trip to Andorra,' you are selling NOSTALGIA, not just skincare. This emotional framing justifies a higher price because it is not just a product — it is a piece of the vacation experience they can take home and enjoy for months.",
+      explanationEs:
+        "La mentalidad de souvenir transforma una 'compra' en un 'recuerdo.' Cuando dices 'Cada vez que uses esto, recordarás tu viaje a Andorra', estás vendiendo NOSTALGIA, no solo cuidado de piel. Este enmarcado emocional justifica un precio más alto porque no es solo un producto — es un pedazo de la experiencia de vacaciones que pueden llevar a casa y disfrutar por meses."
+    },
+    {
+      question:
+        "A tourist hesitates because she says 'I need to think about it.' How do you use tourist psychology to close?",
+      questionEs:
+        "Una turista duda porque dice 'Necesito pensarlo.' ¿Cómo usas la psicología del turista para cerrar?",
+      options: [
+        "Give her your card so she can contact you later",
+        "Remind her that 'thinking about it' means missing the tax-free price — at home she pays €500+ and shipping. This moment, right here, is the best deal she will ever get",
+        "Tell her to ask her friends what they think",
+        "Offer to hold the product until she decides"
+      ],
+      optionsEs: [
+        "Darle tu tarjeta para que te contacte después",
+        "Recordarle que 'pensarlo' significa perder el precio libre de impuestos — en casa paga €500+ y envío. Este momento, aquí mismo, es la mejor oferta que tendrá",
+        "Decirle que pregunte a sus amigas qué piensan",
+        "Ofrecer guardarle el producto hasta que decida"
+      ],
+      correctIndex: 1,
+      explanation:
+        "'I need to think about it' is the #1 stalling tactic. For tourists, you have a UNIQUE weapon: SCARCITY of opportunity. She cannot 'think about it' and come back next week — she is LEAVING. Frame hesitation as active loss: every hour she waits, the tax-free advantage disappears. 'At home you pay €500 plus shipping and customs. Right here, right now, it is €100. This exact moment is your best deal.'",
+      explanationEs:
+        "'Necesito pensarlo' es la táctica de demora #1. Para turistas, tienes un arma ÚNICA: ESCASEZ de oportunidad. Ella no puede 'pensarlo' y regresar la próxima semana — se está YENDO. Enmarca la duda como pérdida activa: cada hora que espera, la ventaja libre de impuestos desaparece. 'En casa pagas €500 más envío y aduana. Aquí mismo, ahora mismo, es €100. Este momento exacto es tu mejor oferta.'"
+    }
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// EXPORT ALL 5 QUIZZES
+// ═══════════════════════════════════════════════════════════════════════════════
+export const MORE_QUIZZES_2: GeneralQuiz[] = [
+  quizPriceLadder,
+  quizComplimentStop,
+  quizIngredients,
+  quizOneEyeDemo,
+  quizTouristPsych
+];

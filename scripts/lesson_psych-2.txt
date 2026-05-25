@@ -1,0 +1,151 @@
+{
+    id: 'psych-2',
+    categoryId: 'psychology',
+    title: 'Energy is Your #1 Weapon',
+    titleEs: 'La Energía es tu Arma #1',
+    subtitle: 'Managing energy throughout a shift — rituals, micro-breaks, and the art of faking it till you make it',
+    subtitleEs: 'Tu energía vende antes que tus palabras',
+    duration: '8 min',
+    icon: 'Zap',
+    order: 2,
+    xpReward: 100,
+    sections: [
+    {
+            type: 'header',
+      text: 'Energy Sells Before Words Do'
+    },
+    {
+            type: 'paragraph',
+      text: 'Customers feel your energy from 5 meters away. Before they hear your voice, before they see your smile, they sense your vibration. Tired, heavy energy repels. Light, excited energy attracts. This isn\'t mystical — it\'s neuroscience. Humans have mirror neurons that cause us to emotionally sync with people around us. Your mood literally becomes their mood.'
+    },
+    {
+            type: 'keypoint',
+      text: 'Energy is more important than script, product knowledge, or pricing. A salesperson with great energy and average skills will outsell a tired expert every single time.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Energy Lifecycle of a Shift'
+    },
+    {
+            type: 'paragraph',
+      text: 'Most salespeople\'s energy follows a predictable curve: high at opening, dipping after the first hour, crashing mid-day, then a small recovery before closing. Top performers break this curve deliberately. Here\'s how:'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'PRE-SHIFT (30 min before): Fuel your body. Eat a light, protein-rich meal — not heavy carbs that make you sluggish. Hydrate. Listen to music that pumps you up. Do 2 minutes of jumping jacks or shadow boxing to wake up your nervous system.',
+        'OPENING HOUR (peak alertness): Use this wisely. Your first stops set the tone for the whole day. Smile at EVERY person who passes, even if you don\'t stop them. This builds momentum.',
+        'MID-MORNING (first dip): This is when the 4-minute rotation saves you. Use your inside time to recharge — not by scrolling your phone, but by taking 5 deep breaths, drinking water, and celebrating any small win so far.',
+        'LUNCH PERIOD: Eat light. A heavy meal will kill your afternoon. Salads, protein, fruit. Avoid the pasta and bread trap.',
+        'AFTERNOON SAG (the danger zone 2-4pm): This is where sales are won or lost. Stand up straighter. Move faster. Speak louder. Consciously elevate every physical action — your brain follows your body.',
+        'POWER HOUR (last 90 minutes): End strong. The final push of the day often has the best customers — they\'re done shopping and ready to be sold to. Bring everything you have left.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The 4-Minute Rotation Advantage'
+    },
+    {
+            type: 'paragraph',
+      text: 'The 4-minute door rotation isn\'t just fair — it\'s energy management genius. Knowing you only have 4 minutes outside before switching keeps your intensity high. It\'s like interval training for sales. You sprint, recover, sprint again. This prevents the burnout that kills most street sellers by hour 3.'
+    },
+    {
+            type: 'tip',
+      text: 'During your 4 minutes outside, give 100% energy to every person you stop. During your inside time, consciously lower your shoulders, unclench your jaw, and breathe. This oscillation keeps you fresh all day.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The \'Fake It Till You Make It\' Technique'
+    },
+    {
+            type: 'paragraph',
+      text: 'Some days you just don\'t have it. You didn\'t sleep well. You\'re fighting with your partner. You\'re hungover. Here\'s the truth: your body can trick your brain. Research shows that acting energetic actually creates energy. Stand tall → feel more confident. Smile → feel happier. Speak loudly → feel more alert.'
+    },
+    {
+            type: 'script',
+      text: '\'Even on my worst days, I play a character. I am High-Energy Salesperson. I smile bigger. I move faster. I speak with more enthusiasm. And within 30 minutes, I\'m not playing anymore — I actually feel it.\''
+    },
+    {
+            type: 'bullets',
+      items: [
+        'POWER POSE: Before your shift, stand with hands on hips and chest open for 2 minutes. It literally changes your cortisol/testosterone balance.',
+        'THE SMILE LOOP: Force a wide smile for 10 seconds. Your brain releases dopamine and serotonin. Repeat every hour.',
+        'MUSIC TRIGGERS: Create a 3-song playlist that always hypes you up. Listen during breaks.',
+        'VOICE PROJECTION: Speak 20% louder than normal. Projecting energy through your voice makes you feel more energetic.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Hydration, Nutrition & Physical Maintenance'
+    },
+    {
+            type: 'paragraph',
+      text: 'Coffee is not hydration. Energy drinks create crashes. Sugar spikes then drops. The best fuel for a sales shift is:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'Water: Drink at least 500ml every 2 hours. Dehydration is the #1 cause of afternoon fatigue.',
+        'Protein snacks: Nuts, protein bars, boiled eggs. Sustained energy without the crash.',
+        'Fresh fruit: Natural sugars for quick energy plus fiber to prevent crashes.',
+        'Avoid heavy lunches: They redirect blood from your brain to your stomach. You\'ll feel foggy and slow.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Bring a water bottle to the floor. Sip between customers. Being well-hydrated improves your voice quality, skin appearance, and mental sharpness — all things customers notice subconsciously.'
+    },
+    {
+            type: 'quote',
+      text: 'Your energy introduces you before you even speak. Make sure it\'s saying the right thing.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'Why is the 4-minute rotation system effective for energy management?',
+      options: [
+        'It gives you more breaks',
+        'It works like interval training — high intensity followed by recovery',
+        'It lets you check your phone',
+        'It reduces the number of customers you need to stop'
+      ],
+      correctIndex: 1,
+      explanation: 'The 4-minute rotation creates an interval-training effect. You give 100% energy for 4 minutes, then recover inside. This oscillation prevents the burnout that kills performance.',
+    },
+    {
+      question: 'What should you eat during your lunch break to maintain afternoon energy?',
+      options: [
+        'Pasta and bread for carbs',
+        'A heavy meal to feel satisfied',
+        'Light protein, salads, and fruit',
+        'Skip lunch to stay sharp'
+      ],
+      correctIndex: 2,
+      explanation: 'Heavy meals redirect blood from your brain to your stomach, causing afternoon fog. Light protein, salads, and fruit provide sustained energy without the crash.',
+    },
+    {
+      question: 'How does \'faking\' energy actually work according to psychological research?',
+      options: [
+        'It doesn\'t work — customers can tell',
+        'Your body can trick your brain into actually feeling more energetic',
+        'It only works for experienced sellers',
+        'It\'s about lying to yourself'
+      ],
+      correctIndex: 1,
+      explanation: 'Research on embodied cognition shows that acting energetic (power poses, smiling, speaking loudly) actually changes your brain chemistry and creates real energy.',
+    }
+    ],
+  }

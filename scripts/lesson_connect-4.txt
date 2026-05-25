@@ -1,0 +1,167 @@
+{
+    id: 'connect-4',
+    categoryId: 'connecting',
+    title: 'The Partner Dynamic',
+    titleEs: 'La Dinámica de Pareja',
+    subtitle: 'How to read couples, engage the skeptical partner, and close together',
+    subtitleEs: 'Cómo leer parejas, involucrar al escéptico y cerrar juntos',
+    duration: '8 min',
+    icon: 'Users',
+    order: 4,
+    xpReward: 100,
+    sections: [
+    {
+            type: 'header',
+      text: 'Couples Close at Twice the Rate — If You Know How to Work Them'
+    },
+    {
+            type: 'paragraph',
+      text: 'A solo shopper makes decisions alone. A couple makes decisions together — and that dynamic is either your greatest asset or your biggest obstacle. When you engage both partners skillfully, they validate each other\'s buying decision. When you ignore one partner, they become a silent veto. Couples who both feel included close at nearly double the rate of solo shoppers.'
+    },
+    {
+            type: 'keypoint',
+      text: 'The golden rule: never make one partner feel irrelevant. The person standing quietly might be the one who ultimately decides. Bring them in. Make them feel seen. Their involvement is the key to the sale.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Reading the Decision-Maker'
+    },
+    {
+            type: 'paragraph',
+      text: 'In most couples, one person drives the interaction while the other observes. But the driver isn\'t always the decision-maker. Watch for these signals:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE DRIVER: Does most of the talking, asks questions, engages with you directly. They\'re interested and leading the exploration. Often the one who will USE the product.',
+        'THE DECISION-MAKER: May be quieter but their reactions carry more weight. Watch who the driver looks at after your pitch. If they seek eye contact with their partner before responding, the partner is the decision-maker.',
+        'THE INFLUENCER: Sometimes there\'s a third dynamic — one person uses the product, but a third person (friend, adult child) influences the decision. Read the group\'s attention patterns.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'A classic tell: after you present the offer, the interested partner looks at the other and says \'What do you think?\' That\'s the moment of truth. How the partner responds determines the sale. Prepare for that moment.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Engaging the Skeptical Partner'
+    },
+    {
+            type: 'paragraph',
+      text: 'The skeptical partner is often a man watching his female partner\'s interaction. He may seem bored, suspicious, or protective. Your job is to transform him from potential veto into active supporter. Here\'s how:'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'INCLUDE HIM EARLY: Don\'t wait until the close. From the moment they\'re inside, make eye contact with him. Ask his opinion. \'Sir, you see what I mean about the eye area? You know how she sometimes says she looks tired even after sleeping well?\' This makes him an expert on HIS partner, not just an observer of your sale.',
+        'APPEAL TO HIS LOGIC: Men often respond to practical benefits. \'This lasts a whole year — one syringe, 52 treatments. That\'s less than €6 per week for this result.\' Logic defuses skepticism.',
+        'MAKE HIM THE HERO: Frame the purchase as something HE can give her. \'Imagine her waking up every morning looking this fresh — and she\'ll know it\'s because of you.\' Men love being the source of their partner\'s happiness.',
+        'HUMOR DISARMS: A light joke directed at him breaks tension. \'Sir, don\'t worry — we\'re not changing her face, just making her eyes look like she slept twelve hours.\' Humor makes him smile, and a smiling man doesn\'t veto.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'Sir, be honest — do you see the difference? Look at the lift, the smoothness. You\'re going home with a younger version of your wife!\' This makes him an active evaluator (his opinion matters) while framing the result as something he benefits from too.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Body Language Between Couples'
+    },
+    {
+            type: 'paragraph',
+      text: 'Couples communicate through body language constantly. Learn to read these signals:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'POSITIVE SIGNALS: Standing close together, making eye contact with each other while you talk, one touching the other lightly while considering, both leaning in during the demo, shared smiles or laughter. These couples are likely to buy.',
+        'NEGATIVE SIGNALS: Standing apart, crossed arms (especially the partner), checking phone while you talk, one person walking away to look at other products, eye-rolling, sighing. These are vetos in progress.',
+        'MIXED SIGNALS: She\'s interested but he\'s checking his watch. She\'s asking questions but he\'s stepping back. This requires immediate intervention — engage the skeptical partner NOW before they veto.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Handling Different Couple Types'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE ENTHUSIASTIC COUPLE: Both are interested, both ask questions. Easy mode — deliver your best pitch, give them space to discuss, and close naturally.',
+        'THE INTERESTED WOMAN + RELUCTANT MAN: Common scenario. Your mission: convert him. Use logic, humor, and make him feel included. Don\'t let him feel like a wallet.',
+        'THE INTERESTED MAN + OBSERVING WOMAN: Less common but happens. Men buying for their partners can be decisive. Make sure SHE likes it by involving her in the demo directly.',
+        'THE FRIEND COUPLE: Two friends traveling together. Friend dynamics are social and fun. Group energy works — involve both, create a shared experience, suggest they both try it.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'When a couple is deciding, GIVE THEM SPACE. Step back after presenting the offer. Say \'Take your time, I\'ll be right here.\' Hovering creates pressure. Space creates comfort. The conversation they have in that 30-second gap often seals the deal — one convinces the other.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The \'Gift\' Angle for Couples'
+    },
+    {
+            type: 'paragraph',
+      text: 'Couples are primed for gift purchases. Even when shopping for themselves, they often frame purchases as gifts to each other:'
+    },
+    {
+            type: 'script',
+      text: '\'This would make an incredible Christmas gift for her — but honestly? Use it together. The Scrub and Body Butter work for men too. Make it a couples\' spa night at home.\' This transforms a single purchase into a shared experience and removes the \'selfish purchase\' barrier.'
+    },
+    {
+            type: 'quote',
+      text: 'The couple isn\'t two individual sales. It\'s one sale with two gatekeepers. Unlock both, and the sale opens.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'How can you identify who the actual decision-maker is in a couple?',
+      options: [
+        'The person who talks the most is always the decision-maker',
+        'Watch who the driver looks at after your pitch — if they seek eye contact, that person decides',
+        'The man always decides',
+        'The person who walks into the shop first decides'
+      ],
+      correctIndex: 1,
+      explanation: 'The person doing most of the talking (the driver) often seeks eye contact with their partner after your pitch. If they look to their partner and ask \'What do you think?\' — that partner is the decision-maker.',
+    },
+    {
+      question: 'What is the best way to engage a skeptical male partner?',
+      options: [
+        'Ignore him and focus entirely on the woman',
+        'Include him early, appeal to logic, make him feel like his opinion matters',
+        'Tell him the price first to see if he can afford it',
+        'Make him feel guilty for not buying'
+      ],
+      correctIndex: 1,
+      explanation: 'Engage the skeptical partner early, appeal to his logic with practical benefits, and make him feel like his opinion matters. Transform him from potential veto into active supporter.',
+    },
+    {
+      question: 'Why is giving a couple space after presenting the offer important?',
+      options: [
+        'It shows you don\'t care about the sale',
+        'It lets them have a private conversation where one often convinces the other',
+        'It gives you time to approach other customers',
+        'Couples never buy immediately'
+      ],
+      correctIndex: 1,
+      explanation: 'After presenting the offer, stepping back lets the couple have a private conversation. Often one partner convinces the other during that 30-second gap. Hovering creates pressure that kills this natural persuasion process.',
+    }
+    ],
+  }

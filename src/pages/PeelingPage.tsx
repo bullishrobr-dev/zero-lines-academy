@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import { useLocation } from '../contexts/LocationContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -20,6 +22,7 @@ import {
   Volume2,
   Calendar,
 } from 'lucide-react';
+import { peelingData, getPriceStepsData } from '../data/peelingData';
 
 /* ------------------------------------------------------------------ */
 /*  Animation helpers                                                  */
@@ -34,77 +37,30 @@ const fadeUp = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Price-ladder data                                                  */
+/*  Icon map for tip rendering                                         */
 /* ------------------------------------------------------------------ */
-interface PriceStep {
-  price: string;
-  label: string;
-  description: string;
-  script: string;
-  isMinimum?: boolean;
-  isVoucher?: boolean;
-  isHighlight?: boolean;
-}
-
-const priceSteps: PriceStep[] = [
-  {
-    price: '€200',
-    label: 'Europe Price',
-    description: 'Anchor — mention this first to build value',
-    script:
-      '"Normally, around Europe, this product goes for €200, because it\'s proven and works."',
-    isHighlight: false,
-  },
-  {
-    price: '€150',
-    label: 'Andorra Price',
-    description: 'Tax haven advantage — our standard price',
-    script:
-      '"But here in Andorra — we\'re a tax haven — it\'s only €150!"',
-    isHighlight: false,
-  },
-  {
-    price: '€100',
-    label: '50% Off + Scrub Gift',
-    description: 'Best value — half the Europe price plus a gift',
-    script:
-      '"Right now, we\'ve got an amazing promotion: take it for 50% off the Europe price — that\'s only €100 — and you\'ll also get the Dead Sea Body Scrub as a gift. Same mineral treatment, but for your body."',
-    isHighlight: true,
-  },
-  {
-    price: '€70',
-    label: 'Adaptive — Store Credit',
-    description: 'Remove the scrub, use as credit',
-    script:
-      '"You know what, I totally understand. Let\'s make it easy — I can take away the Scrub, we charge €25 for it anyway, so let\'s just use it as a store credit. This way I can make it €70 for you."',
-    isHighlight: false,
-  },
-  {
-    price: '€50',
-    label: 'Voucher Close',
-    description: '20% voucher — the emotional final push',
-    script:
-      '"Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can\'t be greedy, okay? I can\'t do it on the big option — only on the single Peeling. Remember how I told you I could do it for €70 without any gifts? If you use this voucher, I can actually bring it down to €50, just this one time. But from next time, it goes back to the normal price, alright?"',
-    isVoucher: true,
-    isHighlight: false,
-  },
-  {
-    price: '€50',
-    label: 'Minimum',
-    description: 'Absolute floor — last resort only',
-    script:
-      '"Look, I really want you to try this. I\'m doing something I shouldn\'t — €50, that\'s it. Just promise me you\'ll actually use it, okay? Not once a year — once a week."',
-    isMinimum: true,
-    isHighlight: false,
-  },
-];
+const tipIconMap: Record<string, React.ReactNode> = {
+  Hand: <Hand className="w-4 h-4" />,
+  MessageCircle: <MessageCircle className="w-4 h-4" />,
+  ShieldCheck: <ShieldCheck className="w-4 h-4" />,
+  Calendar: <Calendar className="w-4 h-4" />,
+  Euro: <Euro className="w-4 h-4" />,
+  Heart: <Heart className="w-4 h-4" />,
+  Sparkles: <Sparkles className="w-4 h-4" />,
+  TrendingDown: <TrendingDown className="w-4 h-4" />,
+};
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 export default function PeelingPage() {
   const navigate = useNavigate();
-  const [openPriceIndex, setOpenPriceIndex] = useState<number | null>(2); // €100 open by default
+  const { currency, locationName } = useLocation();
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+
+  const priceSteps = getPriceStepsData(currency, locationName, isEs);
+  const [openPriceIndex, setOpenPriceIndex] = useState<number | null>(2); // {currency}100 open by default
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const copyPrice = useCallback((price: string, index: number) => {
@@ -115,6 +71,18 @@ export default function PeelingPage() {
 
   const togglePrice = (i: number) =>
     setOpenPriceIndex((prev) => (prev === i ? null : i));
+
+  /* ── helpers for cleaner bilingual reads ── */
+  const d = peelingData;
+  const hero = d.hero;
+  const stats = hero.stats;
+  const hook = d.hook;
+  const demo = d.demo;
+  const offers = d.offers;
+  const pl = d.priceLadder;
+  const emo = d.emotionalClose;
+  const tips = d.proTips;
+  const qRef = d.quickRef;
 
   return (
     <div className="min-h-full bg-[#0A0A0A]">
@@ -127,7 +95,9 @@ export default function PeelingPage() {
           className="flex items-center gap-1 text-[#8A8A8A] hover:text-white transition-colors mb-5"
         >
           <ChevronLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">
+            {isEs ? hero.backEs : hero.back}
+          </span>
         </button>
 
         {/* Badge */}
@@ -138,7 +108,7 @@ export default function PeelingPage() {
         >
           <Droplets className="w-3.5 h-3.5 text-[#0ABAB5]" />
           <span className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider">
-            Weekly Treatment
+            {isEs ? hero.badgeEs : hero.badge}
           </span>
         </motion.div>
 
@@ -148,7 +118,7 @@ export default function PeelingPage() {
           transition={{ delay: 0.1 }}
           className="text-[28px] font-extrabold text-white leading-tight tracking-tight"
         >
-          The Peeling
+          {isEs ? hero.titleEs : hero.title}
         </motion.h1>
 
         <motion.p
@@ -158,7 +128,7 @@ export default function PeelingPage() {
           className="flex items-center gap-2 text-[#0ABAB5] text-base font-medium mt-2"
         >
           <Sparkles className="w-4 h-4" />
-          Not a Cream — A Treatment
+          {isEs ? hero.subtitleEs : hero.subtitle}
         </motion.p>
 
         {/* Key stats row */}
@@ -170,18 +140,30 @@ export default function PeelingPage() {
         >
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <Calendar className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Use</p>
-            <p className="text-xs font-bold text-white">Once/Week</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
+              {isEs ? stats.useLabelEs : stats.useLabel}
+            </p>
+            <p className="text-xs font-bold text-white">
+              {isEs ? stats.useValueEs : stats.useValue}
+            </p>
           </div>
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <Clock className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Bottle Lasts</p>
-            <p className="text-xs font-bold text-white">Full Year</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
+              {isEs ? stats.lastsLabelEs : stats.lastsLabel}
+            </p>
+            <p className="text-xs font-bold text-white">
+              {isEs ? stats.lastsValueEs : stats.lastsValue}
+            </p>
           </div>
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <ShieldCheck className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Dermatologist</p>
-            <p className="text-xs font-bold text-white">Recommended</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
+              {isEs ? stats.dermLabelEs : stats.dermLabel}
+            </p>
+            <p className="text-xs font-bold text-white">
+              {isEs ? stats.dermValueEs : stats.dermValue}
+            </p>
           </div>
         </motion.div>
       </section>
@@ -198,50 +180,48 @@ export default function PeelingPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Volume2 className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Hook — Stop Scripts</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? hook.headingEs : hook.heading}
+            </h2>
           </div>
 
           <div className="space-y-4">
+            {/* Trick 1 */}
             <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
               <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                The Favorite Trick
+                {isEs ? hook.tricks[0].nameEs : hook.tricks[0].name}
               </p>
               <p className="text-[15px] text-white leading-relaxed font-serif italic">
-                "Let me show you my favorite quick trick for glowing skin. You'll love this."
+                {isEs ? hook.tricks[0].quoteEs : hook.tricks[0].quote}
               </p>
               <p className="text-[13px] text-[#8A8A8A] mt-2 leading-relaxed">
-                Keep it light, no heavy pressure. Then lead inside confidently — don't wait
-                for a "yes."
+                {isEs ? hook.tricks[0].descEs : hook.tricks[0].desc}
               </p>
             </div>
 
+            {/* Trick 2 */}
             <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
               <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                The Personal Hook
+                {isEs ? hook.tricks[1].nameEs : hook.tricks[1].name}
               </p>
               <p className="text-[13px] text-white leading-relaxed italic font-serif">
-                "What I'm about to show you right now is one of my absolute favorite products
-                — I actually use it myself!"
+                {isEs ? hook.tricks[1].quoteEs : hook.tricks[1].quote}
               </p>
               <p className="text-[13px] text-[#8A8A8A] mt-2">
-                Smile, engage, build trust instantly. Then set the stage:{' '}
+                {isEs ? hook.tricks[1].descEs : hook.tricks[1].desc}{' '}
                 <em className="text-white/80">
-                  "Now, this isn't an anti-aging cream, and it's not here to replace
-                  anything you already use at home. It's something completely different."
+                  {isEs ? hook.tricks[1].followUpQuoteEs : hook.tricks[1].followUpQuote}
                 </em>
               </p>
             </div>
 
+            {/* Trick 3 */}
             <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
               <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                The Separation Pitch
+                {isEs ? hook.tricks[2].nameEs : hook.tricks[2].name}
               </p>
               <p className="text-[13px] text-white leading-relaxed italic font-serif">
-                "This is something completely different. This separates dead skin from living
-                skin. It's a once-a-week treatment that you use at home on clean skin. What
-                it does is separate all the dry and dead layers from the living ones, giving
-                your skin a fresh, clean, and glowing look. It helps your creams work 10×
-                better because they penetrate deeper and act faster."
+                {isEs ? hook.tricks[2].quoteEs : hook.tricks[2].quote}
               </p>
             </div>
           </div>
@@ -258,49 +238,24 @@ export default function PeelingPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Hand className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Demo — Hand Application</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? demo.headingEs : demo.heading}
+            </h2>
           </div>
 
           <div className="space-y-3">
-            {[
-              {
-                step: '1',
-                title: 'Apply to the Hand',
-                text: '"This is a once-a-week treatment that you use at home on clean skin. Let me show you on your hand." Apply a small amount to the back of their hand.',
-              },
-              {
-                step: '2',
-                title: 'The "Roll It, Don\'t Rub It" Technique',
-                text: 'Tell them: "Roll it gently with your fingers — don\'t rub hard." The dead skin will start to pill and roll off. This is the visual WOW moment. Let them see the grey/brown particles forming.',
-              },
-              {
-                step: '3',
-                title: 'Explain What They\'re Seeing',
-                text: '"See that? That\'s dead skin. Dry, dead layers separating from the living skin underneath. It\'s actually so good that dermatologists recommend it for eczema, psoriasis, dry skin, and even redness or sensitivity."',
-              },
-              {
-                step: '4',
-                title: 'The Authority Builder',
-                text: '"It\'s actually so good that dermatologists recommend it for eczema, psoriasis, dry skin, and even redness or sensitivity." That single line builds authority and trust — it\'s science-based, not sales-based.',
-              },
-              {
-                step: '5',
-                title: 'Show the Fresh Skin',
-                text: 'Wipe away the rolled-off skin. Have them feel the area. "Be honest — when was the last time your hand felt this smooth? That\'s not from the product — that\'s YOUR skin, finally breathing."',
-              },
-              {
-                step: '6',
-                title: 'The Longevity Close',
-                text: '"The best part? This bottle will last you a full year of treatments. So it\'s not something you\'ll run out of next month — it\'s an actual investment for your skin."',
-              },
-            ].map((item) => (
+            {demo.steps.map((item) => (
               <div key={item.step} className="flex gap-3 bg-[#0A0A0A] rounded-xl p-4">
                 <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#0ABAB5]/20 flex items-center justify-center mt-0.5">
                   <span className="text-xs font-bold text-[#0ABAB5]">{item.step}</span>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white mb-1">{item.title}</p>
-                  <p className="text-[13px] text-[#8A8A8A] leading-relaxed">{item.text}</p>
+                  <p className="text-sm font-semibold text-white mb-1">
+                    {isEs ? item.titleEs : item.title}
+                  </p>
+                  <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
+                    {isEs ? item.textEs : item.text}
+                  </p>
                 </div>
               </div>
             ))}
@@ -318,10 +273,12 @@ export default function PeelingPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Two Offers</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? offers.headingEs : offers.heading}
+            </h2>
           </div>
           <p className="text-[12px] text-[#8A8A8A] mb-3">
-            Always present TWO choices. Let them decide. Then pause — silence is your friend.
+            {isEs ? offers.subtextEs : offers.subtext}
           </p>
 
           <div className="grid gap-3">
@@ -329,16 +286,17 @@ export default function PeelingPage() {
             <div className="bg-gradient-to-r from-[#0ABAB5]/10 to-transparent rounded-xl p-4 border border-[#0ABAB5]/20">
               <div className="flex items-center gap-2 mb-2">
                 <span className="bg-[#0ABAB5] text-[#0A0A0A] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-                  Option 1
+                  {isEs ? offers.option1.labelEs : offers.option1.label}
                 </span>
-                <span className="font-mono text-lg font-bold text-white">€100</span>
+                <span className="font-mono text-lg font-bold text-white">{currency}100</span>
               </div>
               <p className="text-[11px] text-[#0ABAB5] font-medium uppercase tracking-wider mb-1">
-                50% Off + Dead Sea Body Scrub Gift
+                {isEs ? offers.option1.priceLabelEs : offers.option1.priceLabel}
               </p>
               <p className="text-[13px] text-[#B0B0B0] leading-relaxed">
-                "Take it for 50% off the Europe price — that's only €100, and you'll also get
-                the Dead Sea Body Scrub as a gift. Same mineral treatment, but for your body."
+                {isEs
+                  ? offers.option1.textEs.replace(/{currency}/g, currency)
+                  : offers.option1.text.replace(/{currency}/g, currency)}
               </p>
             </div>
 
@@ -346,16 +304,21 @@ export default function PeelingPage() {
             <div className="bg-gradient-to-r from-[#0ABAB5]/10 to-transparent rounded-xl p-4 border border-[#0ABAB5]/20">
               <div className="flex items-center gap-2 mb-2">
                 <span className="bg-[#0ABAB5] text-[#0A0A0A] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-                  Option 2
+                  {isEs ? offers.option2.labelEs : offers.option2.label}
                 </span>
-                <span className="font-mono text-lg font-bold text-white">€150</span>
+                <span className="font-mono text-lg font-bold text-white">{currency}150</span>
               </div>
               <p className="text-[11px] text-[#0ABAB5] font-medium uppercase tracking-wider mb-1">
-                Full Price + Day & Night Cream Free
+                {isEs ? offers.option2.priceLabelEs : offers.option2.priceLabel}
               </p>
               <p className="text-[13px] text-[#B0B0B0] leading-relaxed">
-                "This is the favorite for most customers: if you pay the normal Andorra price
-                of €150, you'll get the Peeling plus the Day & Night Cream completely free!"
+                {isEs
+                  ? offers.option2.textEs
+                      .replace(/{locationName}/g, locationName)
+                      .replace(/{currency}/g, currency)
+                  : offers.option2.text
+                      .replace(/{locationName}/g, locationName)
+                      .replace(/{currency}/g, currency)}
               </p>
             </div>
           </div>
@@ -372,10 +335,12 @@ export default function PeelingPage() {
         >
           <div className="flex items-center gap-2 mb-1">
             <TrendingDown className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Interactive Price Ladder</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? pl.headingEs : pl.heading}
+            </h2>
           </div>
           <p className="text-[12px] text-[#8A8A8A] mb-4">
-            Tap each step to expand the script. Walk down one step at a time.
+            {isEs ? pl.subtextEs : pl.subtext}
           </p>
 
           <div className="space-y-2">
@@ -411,8 +376,12 @@ export default function PeelingPage() {
                       {step.price}
                     </span>
                     <div>
-                      <p className="text-sm font-medium text-white">{step.label}</p>
-                      <p className="text-[11px] text-[#8A8A8A]">{step.description}</p>
+                      <p className="text-sm font-medium text-white">
+                        {isEs ? step.labelEs : step.label}
+                      </p>
+                      <p className="text-[11px] text-[#8A8A8A]">
+                        {isEs ? step.descriptionEs : step.description}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -448,26 +417,27 @@ export default function PeelingPage() {
                     >
                       <div className="px-4 pb-4 pt-1 border-t border-[#2A2A2A]/50">
                         <p className="text-[11px] font-semibold text-[#8A8A8A] uppercase tracking-wider mb-1.5 mt-2">
-                          What to say
+                          {isEs ? pl.whatToSayEs : pl.whatToSay}
                         </p>
                         <p className="text-[14px] text-white/90 italic font-serif leading-relaxed bg-[#1A1A1A] rounded-lg p-3">
-                          {step.script}
+                          {isEs ? step.scriptEs : step.script}
                         </p>
                         {step.isMinimum && (
                           <p className="text-[11px] text-red-400 mt-2">
-                            ⚠ Last resort only. Try everything else first.
+                            {isEs ? pl.lastResortWarningEs : pl.lastResortWarning}
                           </p>
                         )}
                         {step.isVoucher && (
                           <p className="text-[11px] text-[#0ABAB5] mt-2">
-                            💡 Drop your voice, make it feel exclusive. Only on the single
-                            Peeling, not the combo.
+                            {isEs ? pl.voucherTipEs : pl.voucherTip}
                           </p>
                         )}
                         {step.isHighlight && (
                           <p className="text-[11px] text-[#0ABAB5] mt-2">
-                            💡 Best-value single. Most customers who hesitate on €150 take
-                            this.
+                            {(isEs ? pl.highlightTipEs : pl.highlightTip).replace(
+                              /{currency}/g,
+                              currency
+                            )}
                           </p>
                         )}
                       </div>
@@ -490,32 +460,34 @@ export default function PeelingPage() {
         >
           <div className="flex items-center gap-2 mb-3">
             <Heart className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Emotional Close</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? emo.headingEs : emo.heading}
+            </h2>
           </div>
 
           <div className="bg-[#0A0A0A]/60 rounded-xl p-4 mb-3">
             <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-              The Heart Sell — Say With Emotion
+              {isEs ? emo.heartSellLabelEs : emo.heartSellLabel}
             </p>
             <p className="text-[15px] text-white italic font-serif leading-relaxed">
-              "We always think twice before doing something for ourselves, but come on —
-              when was the last time you actually treated yourself? You work hard, you
-              deserve it. And this isn't an everyday product — it's a year of results."
+              {isEs ? emo.heartSellQuoteEs : emo.heartSellQuote}
             </p>
           </div>
 
           <p className="text-[12px] text-[#8A8A8A] leading-relaxed mb-3">
-            Say this with <strong className="text-white">real emotion</strong> — this line
-            closes deals. Then follow with:
+            {isEs ? emo.emotionInstructionEs : emo.emotionInstruction}{' '}
+            <strong className="text-white">
+              {isEs ? emo.emotionInstructionBoldEs : emo.emotionInstructionBold}
+            </strong>{' '}
+            {isEs ? emo.emotionInstructionAfterEs : emo.emotionInstructionAfter}
           </p>
 
           <div className="bg-[#0A0A0A]/60 rounded-xl p-4">
             <p className="text-[14px] text-white italic font-serif leading-relaxed">
-              "You're going to love this. So, which one sounds better for you — Option 1 or
-              Option 2?"
+              {isEs ? emo.closeQuoteEs : emo.closeQuote}
             </p>
             <p className="text-[11px] text-[#8A8A8A] mt-2">
-              Pause. Smile. Wait. Don't fill the silence.
+              {isEs ? emo.pauseInstructionEs : emo.pauseInstruction}
             </p>
           </div>
         </motion.section>
@@ -531,64 +503,34 @@ export default function PeelingPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Lightbulb className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Pro Tips</h2>
+            <h2 className="text-lg font-bold text-white">
+              {isEs ? tips.headingEs : tips.heading}
+            </h2>
           </div>
 
           <div className="space-y-3">
-            {[
-              {
-                icon: <Hand className="w-4 h-4" />,
-                title: 'Demo on the hand — always',
-                text: 'The visual of dead skin rolling off is your strongest proof. Never skip the hand demo.',
-              },
-              {
-                icon: <MessageCircle className="w-4 h-4" />,
-                title: '"Roll it, don\'t rub it"',
-                text: 'This phrase is crucial. If they rub too hard, it won\'t work. Gentle rolling creates the pilling effect.',
-              },
-              {
-                icon: <ShieldCheck className="w-4 h-4" />,
-                title: 'Mention dermatologists',
-                text: '"Dermatologists recommend it for eczema, psoriasis, dry skin, and redness." This builds instant authority.',
-              },
-              {
-                icon: <Calendar className="w-4 h-4" />,
-                title: 'One bottle = one year',
-                text: 'Always emphasize longevity. €100 for a full year of treatments is less than €2 per week. Frame it as an investment.',
-              },
-              {
-                icon: <Euro className="w-4 h-4" />,
-                title: '€200 first, always',
-                text: 'Start with the Europe price. The Andorra price feels like a gift after that anchor.',
-              },
-              {
-                icon: <Heart className="w-4 h-4" />,
-                title: 'The emotional close is everything',
-                text: '"When was the last time you treated yourself?" Say it with genuine feeling. This line works on every demographic.',
-              },
-              {
-                icon: <Sparkles className="w-4 h-4" />,
-                title: 'Works on everyone',
-                text: 'Women, men, young, old — this pitch works on every demographic because it delivers instant visual proof and emotional value.',
-              },
-              {
-                icon: <TrendingDown className="w-4 h-4" />,
-                title: '€50 voucher is your secret weapon',
-                text: 'Only use the €50 close at the very end. If you drop it too early, you leave money on the table.',
-              },
-            ].map((tip, i) => (
-              <div key={i} className="flex gap-3 bg-[#0A0A0A] rounded-xl p-3.5">
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#0ABAB5]/15 flex items-center justify-center text-[#0ABAB5]">
-                  {tip.icon}
+            {tips.tips.map((tip, i) => {
+              const titleText = isEs
+                ? tip.titleEs.replace(/{currency}/g, currency).replace(/{locationName}/g, locationName)
+                : tip.title.replace(/{currency}/g, currency).replace(/{locationName}/g, locationName);
+              const bodyText = isEs
+                ? tip.textEs.replace(/{currency}/g, currency).replace(/{locationName}/g, locationName)
+                : tip.text.replace(/{currency}/g, currency).replace(/{locationName}/g, locationName);
+
+              return (
+                <div key={i} className="flex gap-3 bg-[#0A0A0A] rounded-xl p-3.5">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#0ABAB5]/15 flex items-center justify-center text-[#0ABAB5]">
+                    {tipIconMap[tip.icon]}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{titleText}</p>
+                    <p className="text-[12px] text-[#8A8A8A] leading-relaxed mt-0.5">
+                      {bodyText}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-white">{tip.title}</p>
-                  <p className="text-[12px] text-[#8A8A8A] leading-relaxed mt-0.5">
-                    {tip.text}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.section>
 
@@ -602,24 +544,24 @@ export default function PeelingPage() {
           className="bg-gradient-to-br from-[#0ABAB5]/15 to-[#1A1A1A] rounded-2xl p-5 border border-[#0ABAB5]/25 mb-8"
         >
           <h3 className="text-sm font-bold text-[#0ABAB5] mb-3 uppercase tracking-wider">
-            Quick Reference
+            {isEs ? qRef.headingEs : qRef.heading}
           </h3>
           <div className="grid grid-cols-2 gap-2 text-[12px]">
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Use:</span>{' '}
-              <span className="text-white font-medium">Once/week</span>
+              <span className="text-[#8A8A8A]">{isEs ? qRef.items.use.labelEs : qRef.items.use.label}</span>{' '}
+              <span className="text-white font-medium">{isEs ? qRef.items.use.valueEs : qRef.items.use.value}</span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Bottle lasts:</span>{' '}
-              <span className="text-white font-medium">Full year</span>
+              <span className="text-[#8A8A8A]">{isEs ? qRef.items.lasts.labelEs : qRef.items.lasts.label}</span>{' '}
+              <span className="text-white font-medium">{isEs ? qRef.items.lasts.valueEs : qRef.items.lasts.value}</span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Creams work:</span>{' '}
-              <span className="text-white font-medium">10× better</span>
+              <span className="text-[#8A8A8A]">{isEs ? qRef.items.creams.labelEs : qRef.items.creams.label}</span>{' '}
+              <span className="text-white font-medium">{isEs ? qRef.items.creams.valueEs : qRef.items.creams.value}</span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Dermatologist:</span>{' '}
-              <span className="text-white font-medium">Approved</span>
+              <span className="text-[#8A8A8A]">{isEs ? qRef.items.derm.labelEs : qRef.items.derm.label}</span>{' '}
+              <span className="text-white font-medium">{isEs ? qRef.items.derm.valueEs : qRef.items.derm.value}</span>
             </div>
           </div>
         </motion.section>

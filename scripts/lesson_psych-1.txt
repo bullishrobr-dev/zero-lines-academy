@@ -1,0 +1,130 @@
+{
+    id: 'psych-1',
+    categoryId: 'psychology',
+    title: 'The \'Luxury Aggressor\' Identity',
+    subtitle: 'How to think of yourself as a premium brand ambassador, not a pushy seller',
+    subtitleEs: 'No eres un vendedor insistente. Eres un curador de transformación.',
+    duration: '8 min',
+    icon: 'Crown',
+    order: 1,
+    xpReward: 100,
+    sections: [
+    {
+            type: 'header',
+      text: 'You Are Not a Pushy Seller. You Are a Curator of Transformation.'
+    },
+    {
+            type: 'paragraph',
+      text: 'The word \'aggressive\' scares people. But in luxury sales, aggression doesn\'t mean pushing — it means approaching with certainty. You are not begging. You are offering a carefully selected experience to someone who deserves it. The \'Luxury Aggressor\' is someone who combines the fearlessness of street sales with the polish of a Tiffany & Co. ambassador.'
+    },
+    {
+            type: 'keypoint',
+      text: 'The mindset shift: You\'re not interrupting someone\'s day — you\'re enhancing it. The products you sell deliver visible, immediate results. You\'re doing them a favor by stopping them.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Three Pillars of the Luxury Aggressor'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'CERTAINTY: You know the product works. You\'ve seen the reactions. That belief radiates from you before you open your mouth.',
+        'PRESENCE: You stand tall. You make eye contact. Your voice is clear and warm. You occupy space like you belong there — because you do.',
+        'SELECTIVITY: You\'re not desperate. You choose who to stop. You assess, you approach, you invite. This posture of selectivity makes customers feel special when you DO approach them.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Identity Reframe Exercise'
+    },
+    {
+            type: 'paragraph',
+      text: 'Before your next shift, stand in front of a mirror and say this out loud:'
+    },
+    {
+            type: 'script',
+      text: '\'I am the gatekeeper to an exclusive experience. I don\'t chase — I invite. My products transform how people look and feel. When I stop someone, I\'m offering them something most tourists walk right past. I am a Luxury Aggressor.\''
+    },
+    {
+            type: 'tip',
+      text: 'Say it even if it feels silly. Your brain doesn\'t know the difference between practiced confidence and real confidence. After a week of this, it becomes who you are.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Practical Techniques'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'Dress the part: Your appearance is your first credibility signal. Polish your shoes. Style your hair. Look like you belong in a premium boutique — because you do.',
+        'Language matters: Say \'I\'d love to show you something\' not \'Can I show you something?\' The first is an invitation. The second is a question they can reject.',
+        'Posture check: Shoulders back, chin up, smile in your eyes. Practice power poses in the stockroom before your shift.',
+        'The pause: After you deliver your opener, pause. Let silence work. The Luxury Aggressor doesn\'t rush — they command attention, then let it land.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'When Rejection Hits'
+    },
+    {
+            type: 'paragraph',
+      text: 'Even the Luxury Aggressor gets ignored. The difference? They don\'t flinch. A rejected invitation isn\'t a reflection on you — it\'s a reflection on their timing, mood, or preoccupations. Maintain your posture. Smile at the next person. Your energy doesn\'t dip because one person said no.'
+    },
+    {
+            type: 'quote',
+      text: 'The difference between a pushy seller and a luxury ambassador is belief. The pushy seller hopes someone will buy. The ambassador knows they will.',
+      attribution: 'Zero Lines Method'
+    },
+    {
+            type: 'tip',
+      text: 'Watch videos of luxury retail staff at stores like Chanel, Dior, or high-end jewelers. Notice how they move, how they stand, how they speak. Copy what feels natural. Adapt it to your energy.'
+    }
+    ],
+    quiz: [
+    {
+      question: 'What are the three pillars of the \'Luxury Aggressor\' identity?',
+      options: [
+        'Confidence, Speed, Volume',
+        'Certainty, Presence, Selectivity',
+        'Charm, Beauty, Intelligence',
+        'Aggression, Persistence, Volume'
+      ],
+      correctIndex: 1,
+      explanation: 'The three pillars are Certainty (belief in the product), Presence (how you carry yourself), and Selectivity (choosing who to approach with confidence, not desperation).',
+    },
+    {
+      question: 'Why does the \'Luxury Aggressor\' use statements instead of questions when approaching?',
+      options: [
+        'Because questions are rude',
+        'Because statements command while questions invite rejection',
+        'Because customers prefer orders',
+        'Because it\'s faster'
+      ],
+      correctIndex: 1,
+      explanation: 'Questions like \'Can I show you something?\' give the customer an easy escape (\'No thanks\'). Statements like \'I\'ll show you something amazing\' lead the customer rather than asking permission.',
+    },
+    {
+      question: 'What should you do after delivering your opening line?',
+      options: [
+        'Keep talking to fill silence',
+        'Immediately show the product',
+        'Pause and let silence work',
+        'Ask another question'
+      ],
+      correctIndex: 2,
+      explanation: 'The Luxury Aggressor pauses after the opener. Silence creates anticipation and shows confidence. Rushing signals nervousness.',
+    }
+    ],
+  }

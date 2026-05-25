@@ -1,0 +1,135 @@
+{
+    id: 'prod-1',
+    categoryId: 'products',
+    title: 'Price Anchoring Psychology',
+    titleEs: 'Psicología del Anclaje de Precio',
+    subtitle: 'Why stating the Europe price first works — the contrast principle and anchoring mistakes',
+    subtitleEs: 'El primer precio mencionado es el punto de referencia mental',
+    duration: '10 min',
+    icon: 'TrendingUp',
+    order: 1,
+    xpReward: 150,
+    sections: [
+    {
+            type: 'header',
+      text: 'The First Number They Hear Becomes Their Reference Point'
+    },
+    {
+            type: 'paragraph',
+      text: 'Price anchoring is one of the most powerful tools in sales psychology. The first price a customer hears becomes their mental anchor — the reference point against which all other prices are judged. If you start with €50, €300 sounds expensive. If you start with €500, €300 sounds like a bargain. The product hasn\'t changed. Only the anchor has. This is why we ALWAYS state the Europe price before the Andorra price.'
+    },
+    {
+            type: 'keypoint',
+      text: 'The anchor sets the frame. Frame the product as a €500 item that happens to cost €300 in Andorra, and it feels like a steal. Frame it as a €300 item, and it feels like a purchase decision. Always anchor HIGH.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Contrast Principle: How €500 Makes €300 Feel Cheap'
+    },
+    {
+            type: 'paragraph',
+      text: 'The contrast principle states that we perceive things differently depending on what we compare them to. A 20kg weight feels light if you first lift a 40kg weight. A €300 price feels cheap if you first hear €500. This isn\'t manipulation — it\'s how human perception works.'
+    },
+    {
+            type: 'script',
+      text: '\'Across Europe, this treatment goes for around €500. It\'s expensive because it works instantly and lasts long-term. But here in Andorra — you know how special it is here — we\'re a tax haven, so instead of €500, we charge only €300.\' The customer doesn\'t hear \'€300 product.\' They hear \'€500 product for €300.\' That\'s a €200 win.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'STEP 1 — ESTABLISH EUROPE PRICE: \'Around Europe this goes for €200\' (Peeling) or \'€500\' (Syringe) or \'€100 each\' (Scrub/Butter). This is the anchor.',
+        'STEP 2 — EXPLAIN WHY IT\'S EXPENSIVE: Brief justification — \'because it works,\' \'because it\'s proven,\' \'dermatologist recommended.\' This validates the high anchor.',
+        'STEP 3 — DELIVER THE ANDORRA ADVANTAGE: \'But here in Andorra, because we\'re a tax haven...\' This is the magic phrase. It\'s TRUE. It\'s verifiable. It frames the lower price as a location advantage, not a product discount.',
+        'STEP 4 — STATE THE ANDORRA PRICE: \'...it\'s only €150.\' After hearing €500, €150 doesn\'t just sound lower. It sounds like a completely different category of purchase.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'When to Mention the Tax Haven'
+    },
+    {
+            type: 'paragraph',
+      text: 'The tax-haven angle is your credibility booster. It explains WHY the price is lower without devaluing the product. But timing matters:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'BEST: Right after the Europe price, before stating the Andorra price. \'Around Europe it\'s €500... but here in Andorra, because we\'re a tax haven, it\'s €300.\' The tax haven explains the discount before they question product quality.',
+        'GOOD: During the initial stop. \'Come try this — prices are amazing because Andorra is a tax haven!\' Sets expectation early.',
+        'LESS EFFECTIVE: After they\'ve already heard the price. If you say \'It\'s €300\' first, then mention the tax haven, it feels like an excuse, not an explanation.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Never apologize for the price. Never say \'I know it\'s expensive\' or \'It\'s a lot, but...\' These phrases undermine the anchor. State the Europe price confidently, explain the tax-haven advantage matter-of-factly, and let the contrast do the work.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Anchoring Mistakes That Backfire'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'STARTING WITH THE LOW PRICE: \'It\'s only €50!\' Now €50 is the anchor, and if you try to upsell to €120, it feels like a huge jump. Always anchor high first.',
+        'MENTIONING THE COST PRICE: \'We buy this for €30 and sell it for €60.\' This destroys perceived value. Customers don\'t care about your margins. They care about what they get.',
+        'APOLOGETIC FRAMING: \'I know it\'s expensive, but...\' This tells the customer they should feel bad about the price. Instead: \'This is a premium product because it delivers premium results.\'',
+        'COMPARING TO CHEAP ALTERNATIVES: \'This is better than drugstore cream.\' Now you\'ve anchored to drugstore prices. Compare to luxury alternatives instead: \'This replaces a €200 salon treatment.\'',
+        'GIVING THE DISCOUNT FIRST: \'It\'s 50% off!\' Now they wonder what the original price was and why it\'s discounted so heavily. Lead with full price, then reveal the savings.'
+      ]
+    },
+    {
+            type: 'comparison',
+      left: { label: 'Weak Anchoring', text: '\'This peeling is €100. It\'s a good deal.\' No contrast. No frame. The customer evaluates €100 against their general sense of what skincare should cost.' },
+      right: { label: 'Strong Anchoring', text: '\'Around Europe this goes for €200. But here in Andorra, because we\'re a tax haven, it\'s only €100 — that\'s 50% off the Europe price just for being here.\' The customer evaluates €100 against €200. It feels like a €100 win.' }
+    },
+    {
+            type: 'quote',
+      text: 'The price is not a number — it\'s a story. Tell the story right, and the number becomes small. Tell it wrong, and the number becomes a wall.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'Why should you always state the Europe price before the Andorra price?',
+      options: [
+        'Because Europe prices are more accurate',
+        'Because the first price heard becomes the mental anchor that makes the Andorra price feel like a bargain',
+        'Because customers prefer European pricing',
+        'Because it\'s required by law'
+      ],
+      correctIndex: 1,
+      explanation: 'The first price heard becomes the mental anchor. When a customer hears €500 first, €300 feels like a bargain. If they hear €300 first, they evaluate it against their general sense of skincare pricing, which is less favorable.',
+    },
+    {
+      question: 'What is the role of the \'tax haven\' phrase in price anchoring?',
+      options: [
+        'It makes Andorra sound special',
+        'It explains WHY the price is lower without devaluing the product quality',
+        'It confuses the customer',
+        'It justifies high prices'
+      ],
+      correctIndex: 1,
+      explanation: 'The tax-haven phrase explains the price difference as a location advantage (true and verifiable) rather than implying the product itself is discounted or lower quality. It maintains value perception.',
+    },
+    {
+      question: 'Which of these is a price anchoring mistake?',
+      options: [
+        'Starting with the Europe price',
+        'Mentioning the tax-haven advantage',
+        'Starting with the low price or apologizing for the cost',
+        'Using the contrast principle'
+      ],
+      correctIndex: 2,
+      explanation: 'Starting with the low price sets a low anchor, making upsells feel expensive. Apologizing for the price (\'I know it\'s expensive\') undermines the value. Both destroy effective anchoring.',
+    }
+    ],
+  }

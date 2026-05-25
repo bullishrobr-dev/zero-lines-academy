@@ -10,6 +10,7 @@ import { useMemo } from 'react';
 import { categories, getLessonsForCategory } from '../data/lessons';
 import { useProgress } from '../hooks/useProgress';
 import { useLanguage } from '../contexts/LanguageContext';
+import { TIER_NAMES, getTierCompletion, isTierUnlocked } from '../data/lessonTiers';
 
 /* ─── Helpers ─── */
 
@@ -69,7 +70,7 @@ const itemVariants = {
 export default function TrainingHub() {
   const navigate = useNavigate();
   const progress = useProgress();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const lessonProgress = progress.lessonProgress;
 
@@ -83,6 +84,16 @@ export default function TrainingHub() {
       return { ...cat, catLessons: catLessons.length, catCompleted, catPct, meta };
     });
   }, [lessonProgress]);
+
+  // Tier progress data
+  const tierData = useMemo(() => {
+    return [1, 2, 3, 4, 5, 6].map((tierNum) => ({
+      tier: tierNum,
+      name: TIER_NAMES[tierNum]?.[language === 'es' ? 'es' : 'en'] || `Tier ${tierNum}`,
+      completion: getTierCompletion(tierNum, lessonProgress),
+      unlocked: isTierUnlocked(tierNum, lessonProgress),
+    }));
+  }, [lessonProgress, language]);
 
   return (
     <div className="min-h-full px-6 pt-6 pb-24">
@@ -98,6 +109,40 @@ export default function TrainingHub() {
         <div>
           <h1 className="text-h1 text-white font-bold">{t('trainingTitle')}</h1>
           <p className="text-sm text-[#8A8A8A]">{t('trainingSubtitle')}</p>
+        </div>
+      </div>
+
+      {/* ── Tier Progress Cards ── */}
+      <div className="mt-4 mb-6">
+        <p className="text-[11px] font-semibold tracking-widest text-[#0ABAB5] uppercase mb-3">
+          {language === 'es' ? 'PROGRESO POR NIVEL' : 'TIER PROGRESS'}
+        </p>
+        <div className="flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide">
+          {tierData.map((t) => (
+            <div
+              key={t.tier}
+              className={`flex-shrink-0 w-28 snap-start p-3 rounded-xl border ${
+                t.unlocked
+                  ? t.completion >= 80
+                    ? 'bg-[#0ABAB5]/10 border-[#0ABAB5]/30'
+                    : 'bg-[#1A1A1A] border-[#2A2A2A]'
+                  : 'bg-[#0A0A0A] border-[#1A1A1A] opacity-50'
+              }`}
+            >
+              <div className="flex items-center gap-1 mb-1">
+                <span className="text-xs font-bold text-[#0ABAB5]">T{t.tier}</span>
+                {!t.unlocked && <span className="text-[9px]">🔒</span>}
+              </div>
+              <p className="text-[10px] text-[#8A8A8A] leading-tight mb-2 truncate">{t.name}</p>
+              <div className="h-1.5 bg-[#2A2A2A] rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-[#0ABAB5] transition-all"
+                  style={{ width: `${t.completion}%` }}
+                />
+              </div>
+              <p className="text-[9px] text-[#8A8A8A] mt-1">{t.completion}%</p>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -119,7 +164,7 @@ export default function TrainingHub() {
               custom={i}
               whileTap={{ scale: 0.98 }}
               onClick={() => navigate(`/category/${cat.id}`)}
-              className="w-full text-left p-5 rounded-2xl bg-[#111111] border border-[#1A1A1A] hover:border-[#2A2A2A] transition-colors flex items-start gap-4"
+              className="w-full text-left p-5 card-elevation-2 hover:border-[#2A2A2A] transition-colors flex items-start gap-4"
             >
               {/* Icon */}
               <div

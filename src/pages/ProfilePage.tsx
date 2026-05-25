@@ -29,12 +29,16 @@ import {
   Bell,
   Globe,
   LogOut,
+  LogIn,
   MapPin,
   Briefcase,
+  Shield,
+  Sparkles,
   type LucideIcon,
 } from 'lucide-react';
 import { useProgress } from '@/hooks/useProgress';
-import { useAuth } from '@/hooks/useAuth';
+import { Button } from '@/components/ui/button';
+import { useAuthContext } from '@/contexts/AuthContext';
 import DailyChallengeCard from '@/components/DailyChallengeCard';
 import {
   AlertDialog,
@@ -191,10 +195,10 @@ export default function ProfilePage() {
   const { language, setLanguage } = useLanguage();
   const [pendingLang, setPendingLang] = useState<'en' | 'es' | null>(null);
   const { location, setLocation } = useLocation();
-  const auth = useAuth();
+  const authCtx = useAuthContext();
 
-  // Read authenticated user data from zl_user
-  const authUser = useMemo(() => auth.getUser(), []);
+  // Read authenticated user data from new auth context
+  const authUser = authCtx.user;
 
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState(progress.getUserName());
@@ -359,7 +363,7 @@ export default function ProfilePage() {
           variants={fadeUp}
           initial="initial"
           animate="animate"
-          className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-5"
+          className="card-elevation-1 p-5"
         >
           <div className="flex items-center gap-2 mb-4">
             <Globe size={16} className="text-[#8A8A8A]" />
@@ -367,23 +371,37 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-5">
-            {/* Location display + switcher */}
+            {/* Location — READ ONLY (locked after signup) */}
             <div>
-              <label className="text-xs text-[#8A8A8A] font-medium mb-2 block">Location</label>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setLocation('andorra')}
-                  className={`flex-1 ${pillBtnBase} ${location === 'andorra' ? pillBtnActive : pillBtnInactive}`}
-                >
-                  🇦🇩 Andorra
-                </button>
-                <button
-                  onClick={() => setLocation('gibraltar')}
-                  className={`flex-1 ${pillBtnBase} ${location === 'gibraltar' ? pillBtnActive : pillBtnInactive}`}
-                >
-                  🇬🇮 Gibraltar
-                </button>
-              </div>
+              <label className="text-xs text-[#8A8A8A] font-medium mb-2 block">
+                {language === 'es' ? 'Ubicación (asignada)' : 'Location (assigned)'}
+              </label>
+              {authUser ? (
+                <div className="flex items-center gap-2 px-4 py-3 rounded-full bg-[#0ABAB5]/10 border border-[#0ABAB5]/30">
+                  <MapPin size={14} className="text-[#0ABAB5]" />
+                  <span className="text-sm text-[#0ABAB5] font-medium capitalize">
+                    {authUser.location === 'andorra' ? '🇦🇩 Andorra' : '🇬🇮 Gibraltar'}
+                  </span>
+                  <span className="text-[10px] text-[#8A8A8A] ml-auto">
+                    {language === 'es' ? 'Bloqueado' : 'Locked'}
+                  </span>
+                </div>
+              ) : (
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setLocation('andorra')}
+                    className={`flex-1 ${pillBtnBase} ${location === 'andorra' ? pillBtnActive : pillBtnInactive}`}
+                  >
+                    🇦🇩 Andorra
+                  </button>
+                  <button
+                    onClick={() => setLocation('gibraltar')}
+                    className={`flex-1 ${pillBtnBase} ${location === 'gibraltar' ? pillBtnActive : pillBtnInactive}`}
+                  >
+                    🇬🇮 Gibraltar
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Language switcher */}
@@ -445,13 +463,102 @@ export default function ProfilePage() {
           </div>
         </motion.div>
 
+        {/* ── First Day Track Quick Link ── */}
+        <motion.div variants={fadeUp} initial="initial" animate="animate" className="card-elevation-1 p-5">
+          <button
+            onClick={() => navigate('/first-day')}
+            className="w-full flex items-center justify-between group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#0ABAB5]/10 flex items-center justify-center">
+                <Sparkles size={20} className="text-[#0ABAB5]" />
+              </div>
+              <div className="text-left">
+                <p className="text-sm font-semibold text-white group-hover:text-[#0ABAB5] transition-colors">
+                  {language === 'es' ? 'Track de Primer Día' : 'First Day Track'}
+                </p>
+                <p className="text-[11px] text-[#8A8A8A]">
+                  {language === 'es' ? 'Guía rápida para nuevos' : 'Quick-start guide for new hires'}
+                </p>
+              </div>
+            </div>
+            <ChevronRight size={18} className="text-[#8A8A8A] group-hover:text-[#0ABAB5] transition-colors" />
+          </button>
+        </motion.div>
+
+        {/* ── NOT Logged In → Show Login CTA ── */}
+        {!authUser && (
+          <motion.div variants={fadeUp} initial="initial" animate="animate" className="rounded-xl border border-[#0ABAB5]/30 bg-[#0ABAB5]/5 p-5">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-[#0ABAB5]/10 flex items-center justify-center">
+                <LogIn size={20} className="text-[#0ABAB5]" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">
+                  {language === 'es' ? 'Iniciar Sesión' : 'Sign In'}
+                </p>
+                <p className="text-[11px] text-[#8A8A8A]">
+                  {language === 'es' ? 'Accede a tu cuenta' : 'Access your account'}
+                </p>
+              </div>
+            </div>
+            <Button onClick={() => navigate('/auth')} className="w-full bg-[#0ABAB5] text-black font-semibold h-12 rounded-xl hover:bg-[#08a89e]">
+              {language === 'es' ? 'Iniciar Sesión / Crear Cuenta' : 'Login / Create Account'}
+            </Button>
+          </motion.div>
+        )}
+
+        {/* ── Manager Dashboard Link ── */}
+        {authCtx.isManager && (
+          <motion.div variants={fadeUp} initial="initial" animate="animate" className="card-elevation-1 p-5">
+            <button onClick={() => navigate('/manager')} className="w-full flex items-center justify-between group">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#0ABAB5]/10 flex items-center justify-center">
+                  <Briefcase size={20} className="text-[#0ABAB5]" />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-white group-hover:text-[#0ABAB5] transition-colors">
+                    {language === 'es' ? 'Panel del Manager' : 'Manager Dashboard'}
+                  </p>
+                  <p className="text-[11px] text-[#8A8A8A]">
+                    {language === 'es' ? 'Ver progreso de tu equipo' : 'View your team\'s progress'}
+                  </p>
+                </div>
+              </div>
+              <ChevronRight size={18} className="text-[#8A8A8A] group-hover:text-[#0ABAB5] transition-colors" />
+            </button>
+          </motion.div>
+        )}
+
+        {/* ── Admin Panel Link ── */}
+        {authCtx.isAdmin && (
+          <motion.div variants={fadeUp} initial="initial" animate="animate" className="rounded-xl border border-purple-500/30 bg-purple-500/5 p-5">
+            <button onClick={() => navigate('/admin')} className="w-full flex items-center justify-between group">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                  <Shield size={20} className="text-purple-400" />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-white group-hover:text-purple-400 transition-colors">
+                    {language === 'es' ? 'Panel de Admin' : 'Admin Panel'}
+                  </p>
+                  <p className="text-[11px] text-[#8A8A8A]">
+                    {language === 'es' ? 'Gestionar usuarios y ubicaciones' : 'Manage users and locations'}
+                  </p>
+                </div>
+              </div>
+              <ChevronRight size={18} className="text-[#8A8A8A] group-hover:text-purple-400 transition-colors" />
+            </button>
+          </motion.div>
+        )}
+
         {/* ── Authenticated User Info ── */}
         {authUser && (
           <motion.div
             variants={fadeUp}
             initial="initial"
             animate="animate"
-            className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-5"
+            className="card-elevation-1 p-5"
           >
             <div className="flex items-center gap-2 mb-4">
               <Briefcase size={16} className="text-[#8A8A8A]" />
@@ -496,7 +603,7 @@ export default function ProfilePage() {
                   <div>
                     <p className="text-[11px] text-[#8A8A8A]">Role</p>
                     <p className="text-sm text-white">
-                      {authUser.role === 'salesperson' ? 'Salesperson' : 'Manager'}
+                      {authUser.role === 'admin' ? 'Admin' : authUser.role === 'manager' ? 'Manager' : 'Salesperson'}
                     </p>
                   </div>
                 </div>
@@ -511,7 +618,7 @@ export default function ProfilePage() {
                   <div>
                     <p className="text-[11px] text-[#8A8A8A]">Joined</p>
                     <p className="text-sm text-white">
-                      {new Date(authUser.joinedAt).toLocaleDateString('en-US', {
+                      {new Date(authUser.createdAt).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
                         year: 'numeric',
@@ -525,7 +632,7 @@ export default function ProfilePage() {
             {/* Logout button */}
             <button
               onClick={() => {
-                auth.logout();
+                authCtx.logout();
                 navigate('/auth', { replace: true });
               }}
               className="w-full mt-5 flex items-center justify-center gap-2 rounded-xl border border-[#EF4444]/20 bg-[#EF4444]/5 p-3.5 transition-colors hover:bg-[#EF4444]/10"
@@ -543,7 +650,7 @@ export default function ProfilePage() {
           animate="animate"
           className="grid grid-cols-2 gap-3"
         >
-          <motion.div variants={fadeUp} className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-4">
+          <motion.div variants={fadeUp} className="card-elevation-1 p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 rounded-lg bg-[#0ABAB5]/10 flex items-center justify-center">
                 <Zap size={14} className="text-[#0ABAB5]" />
@@ -553,7 +660,7 @@ export default function ProfilePage() {
             <span className="text-h2 text-white">{xp}</span>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-4">
+          <motion.div variants={fadeUp} className="card-elevation-1 p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 rounded-lg bg-[#8B5CF6]/10 flex items-center justify-center">
                 <BookOpen size={14} className="text-[#8B5CF6]" />
@@ -563,7 +670,7 @@ export default function ProfilePage() {
             <span className="text-h2 text-white">{lessonsCompleted}</span>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-4">
+          <motion.div variants={fadeUp} className="card-elevation-1 p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 rounded-lg bg-[#F59E0B]/10 flex items-center justify-center">
                 <Brain size={14} className="text-[#F59E0B]" />
@@ -573,7 +680,7 @@ export default function ProfilePage() {
             <span className="text-h2 text-white">{quizzesPassed}</span>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-4">
+          <motion.div variants={fadeUp} className="card-elevation-1 p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 rounded-lg bg-[#EF4444]/10 flex items-center justify-center">
                 <Flame size={14} className="text-[#EF4444]" />
@@ -583,7 +690,7 @@ export default function ProfilePage() {
             <span className="text-h2 text-white">{currentStreak}d</span>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-4">
+          <motion.div variants={fadeUp} className="card-elevation-1 p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 rounded-lg bg-[#10B981]/10 flex items-center justify-center">
                 <TrendingUp size={14} className="text-[#10B981]" />
@@ -593,7 +700,7 @@ export default function ProfilePage() {
             <span className="text-h2 text-white">{bestStreak}d</span>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-4">
+          <motion.div variants={fadeUp} className="card-elevation-1 p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 rounded-lg bg-[#EC4899]/10 flex items-center justify-center">
                 <Target size={14} className="text-[#EC4899]" />
@@ -609,7 +716,7 @@ export default function ProfilePage() {
           variants={fadeUp}
           initial="initial"
           animate="animate"
-          className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-5"
+          className="card-elevation-1 p-5"
         >
           <h2 className="text-h4 text-white mb-4">Category Progress</h2>
           <div className="space-y-4">
@@ -641,7 +748,7 @@ export default function ProfilePage() {
           variants={fadeUp}
           initial="initial"
           animate="animate"
-          className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-5"
+          className="card-elevation-1 p-5"
         >
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-h4 text-white">Achievements</h2>
@@ -694,7 +801,7 @@ export default function ProfilePage() {
           variants={fadeUp}
           initial="initial"
           animate="animate"
-          className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-5"
+          className="card-elevation-1 p-5"
         >
           <h2 className="text-h4 text-white mb-4">Recent Activity</h2>
           {activityLog.length === 0 ? (
@@ -754,7 +861,7 @@ export default function ProfilePage() {
           variants={fadeUp}
           initial="initial"
           animate="animate"
-          className="rounded-xl border border-[#1A1A1A] bg-[#111111] p-5"
+          className="card-elevation-1 p-5"
         >
           <div className="flex items-center gap-2 mb-4">
             <Settings size={16} className="text-[#8A8A8A]" />

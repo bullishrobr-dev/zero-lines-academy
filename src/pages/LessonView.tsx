@@ -8,11 +8,23 @@ import {
   Lightbulb,
   AlertCircle,
   Circle,
+  Lock,
+  ChevronRight,
 } from 'lucide-react';
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import confetti from 'canvas-confetti';
-import { getLesson, getCategory, getNextLesson, type ContentSection } from '../data/lessons';
+import { getLesson, getCategory, getNextLesson, lessons as allLessons, type ContentSection, type Lesson } from '../data/lessons';
+import { celebrateLessonComplete } from '../utils/confetti';
+import { haptic } from '../utils/haptics';
 import { useLocationText } from '../utils/locationText';
+import { useLanguage } from '../contexts/LanguageContext';
+import {
+  getTierForLesson,
+  isLessonUnlocked,
+  getTotalTiers,
+  TIER_NAMES,
+  isTierUnlocked,
+  UNLOCK_THRESHOLD,
+} from '../data/lessonTiers';
 
 /* ─── Section Renderers ─── */
 
@@ -162,32 +174,49 @@ function NumberedList({ items }: { items: string[] }) {
   );
 }
 
-function SectionRenderer({ section, replacePlaceholders }: { section: ContentSection; replacePlaceholders: (text: string) => string }) {
+function getText(section: ContentSection, field: 'text' | 'attribution', isEs: boolean): string | undefined {
+  if (isEs) {
+    const esField = `${field}Es` as keyof ContentSection;
+    const val = section[esField];
+    if (val && typeof val === 'string' && val.trim()) return val;
+  }
+  const enVal = section[field];
+  return enVal && typeof enVal === 'string' ? enVal : undefined;
+}
+
+function getItems(section: ContentSection, isEs: boolean): string[] {
+  if (isEs && section.itemsEs && Array.isArray(section.itemsEs) && section.itemsEs.length > 0) {
+    return section.itemsEs;
+  }
+  return section.items || [];
+}
+
+function SectionRenderer({ section, replacePlaceholders, isEs }: { section: ContentSection; replacePlaceholders: (text: string) => string; isEs: boolean }) {
   switch (section.type) {
     case 'header':
       return (
-        <h2 className="text-h2 text-white font-bold mt-8 mb-3">{replacePlaceholders(section.text || '')}</h2>
+        <h2 className="text-h2 text-white font-bold mt-8 mb-3">{replacePlaceholders(getText(section, 'text', isEs) || '')}</h2>
       );
     case 'subheader':
       return (
-        <h3 className="text-h3 text-gray-300 font-semibold mt-6 mb-2">{replacePlaceholders(section.text || '')}</h3>
+        <h3 className="text-h3 text-gray-300 font-semibold mt-6 mb-2">{replacePlaceholders(getText(section, 'text', isEs) || '')}</h3>
       );
     case 'paragraph':
       return (
-        <p className="text-body text-gray-200 leading-relaxed my-4">{replacePlaceholders(section.text || '')}</p>
+        <p className="text-body text-gray-200 leading-relaxed my-4">{replacePlaceholders(getText(section, 'text', isEs) || '')}</p>
       );
     case 'quote':
-      return <QuoteCard text={replacePlaceholders(section.text || '')} attribution={section.attribution ? replacePlaceholders(section.attribution) : undefined} />;
+      return <QuoteCard text={replacePlaceholders(getText(section, 'text', isEs) || '')} attribution={getText(section, 'attribution', isEs) ? replacePlaceholders(getText(section, 'attribution', isEs)!) : undefined} />;
     case 'tip':
-      return <TipCard text={replacePlaceholders(section.text || '')} />;
+      return <TipCard text={replacePlaceholders(getText(section, 'text', isEs) || '')} />;
     case 'keypoint':
-      return <KeyPointCard text={replacePlaceholders(section.text || '')} />;
+      return <KeyPointCard text={replacePlaceholders(getText(section, 'text', isEs) || '')} />;
     case 'script':
-      return <ScriptCard text={replacePlaceholders(section.text || '')} />;
+      return <ScriptCard text={replacePlaceholders(getText(section, 'text', isEs) || '')} />;
     case 'bullets':
-      return <BulletList items={(section.items || []).map(item => replacePlaceholders(item))} />;
+      return <BulletList items={getItems(section, isEs).map(item => replacePlaceholders(item))} />;
     case 'numbered':
-      return <NumberedList items={(section.items || []).map(item => replacePlaceholders(item))} />;
+      return <NumberedList items={getItems(section, isEs).map(item => replacePlaceholders(item))} />;
     case 'comparison': {
       const lft = section.left;
       const rgt = section.right;
@@ -196,7 +225,7 @@ function SectionRenderer({ section, replacePlaceholders }: { section: ContentSec
       return <ComparisonCard left={lftReplaced} right={rgtReplaced} />;
     }
     case 'checklist':
-      return <ChecklistCard items={(section.items || []).map(item => replacePlaceholders(item))} />;
+      return <ChecklistCard items={getItems(section, isEs).map(item => replacePlaceholders(item))} />;
     case 'divider':
       return <div className="my-8 h-px bg-[#1A1A1A]" />;
     default:
@@ -214,16 +243,88 @@ function getProgress(): Record<string, boolean> {
   }
 }
 
+function getNextUnlockedLesson(currentLessonId: string): Lesson | undefined {
+  const progress = getProgress();
+  // Build ordered list of all lessons by tier
+  const allLessonIds = Object.values(allLessons)
+    .sort((a, b) => {
+      const tierA = getTierForLesson(a.id);
+      const tierB = getTierForLesson(b.id);
+      if (tierA !== tierB) return tierA - tierB;
+      return a.order - b.order;
+    })
+    .map((l) => l.id);
+
+  const currentIdx = allLessonIds.indexOf(currentLessonId);
+  if (currentIdx === -1) return undefined;
+
+  // Find the next lesson that is unlocked (same tier or unlocked future tier)
+  for (let i = currentIdx + 1; i < allLessonIds.length; i++) {
+    const lid = allLessonIds[i];
+    if (isLessonUnlocked(lid, progress)) {
+      return allLessons[lid];
+    }
+  }
+  return undefined;
+}
+
 export default function LessonView() {
   const { lessonId } = useParams<{ lessonId: string }>();
   const navigate = useNavigate();
   const contentRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const { replacePlaceholders } = useLocationText();
+  const { language } = useLanguage();
+  const isEs = language === 'es';
 
   const lesson = useMemo(() => (lessonId ? getLesson(lessonId) : undefined), [lessonId]);
   const category = useMemo(() => (lesson ? getCategory(lesson.categoryId) : undefined), [lesson]);
-  const nextLesson = useMemo(() => (lessonId ? getNextLesson(lessonId) : undefined), [lessonId]);
+  useMemo(() => (lessonId ? getNextLesson(lessonId) : undefined), [lessonId]);
+
+  // Tier info
+  const tierInfo = useMemo(() => {
+    if (!lessonId) return null;
+    const tierNum = getTierForLesson(lessonId);
+    const totalTiers = getTotalTiers();
+    const progress = getProgress();
+    const lang: 'en' | 'es' = isEs ? 'es' : 'en';
+    const tierName = TIER_NAMES[tierNum]?.[lang] || `Tier ${tierNum}`;
+    const tierNameEs = TIER_NAMES[tierNum]?.es || `Tier ${tierNum}`;
+
+    // Next tier info
+    const nextTierNum = tierNum < totalTiers ? tierNum + 1 : null;
+    const nextTierName = nextTierNum
+      ? TIER_NAMES[nextTierNum]?.[lang] || `Tier ${nextTierNum}`
+      : null;
+    const nextTierNameEs = nextTierNum
+      ? TIER_NAMES[nextTierNum]?.es || `Tier ${nextTierNum}`
+      : null;
+    const nextTierUnlocked = nextTierNum ? isTierUnlocked(nextTierNum, progress) : false;
+
+    return {
+      tierNum,
+      tierName,
+      tierNameEs,
+      totalTiers,
+      nextTierNum,
+      nextTierName,
+      nextTierNameEs,
+      nextTierUnlocked,
+    };
+  }, [lessonId]);
+
+  // Check if lesson is locked
+  const isLocked = useMemo(() => {
+    if (!lessonId) return false;
+    const progress = getProgress();
+    return !isLessonUnlocked(lessonId, progress);
+  }, [lessonId]);
+
+  // Next unlocked lesson (skips locked ones)
+  const nextUnlockedLesson = useMemo(() => {
+    if (!lessonId || isLocked) return undefined;
+    return getNextUnlockedLesson(lessonId);
+  }, [lessonId, isLocked]);
 
   const [isCompleted, setIsCompleted] = useState(() => {
     if (!lessonId) return false;
@@ -256,12 +357,8 @@ export default function LessonView() {
     p[lesson.id] = true;
     localStorage.setItem('zl_lesson_progress', JSON.stringify(p));
     setIsCompleted(true);
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { y: 0.7 },
-      colors: ['#0ABAB5', '#0ABAB5', '#FFFFFF', '#F59E0B'],
-    });
+    haptic('medium');
+    celebrateLessonComplete();
   };
 
   const handleBack = () => {
@@ -286,14 +383,66 @@ export default function LessonView() {
           className="flex items-center gap-1 text-[#8A8A8A] mb-3 hover:text-white transition-colors"
         >
           <ArrowLeft size={18} />
-          <span className="text-body-small">Back</span>
+          <span className="text-body-small">{isEs ? 'Volver' : 'Back'}</span>
         </button>
-        <p className="text-overline text-[#0ABAB5] mb-1">{category.title}</p>
-        <h1 className="text-h1 text-white">{lesson.title}</h1>
+        <div className="flex items-center gap-2 mb-1 flex-wrap">
+          <p className="text-overline text-[#0ABAB5]">{isEs ? category.titleEs : category.title}</p>
+          {tierInfo && (
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#0ABAB5]/10 text-[#0ABAB5] border border-[#0ABAB5]/20 font-medium">
+              {isEs ? 'Nivel' : 'Tier'} {tierInfo.tierNum} {isEs ? 'de' : 'of'} {tierInfo.totalTiers} — {tierInfo.tierName}
+            </span>
+          )}
+          {isLocked && (
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 flex items-center gap-1">
+              <Lock size={10} /> {isEs ? 'Bloqueado' : 'Locked'}
+            </span>
+          )}
+        </div>
+        {/* Tier progress hint */}
+        {tierInfo && tierInfo.tierNum < tierInfo.totalTiers && (
+          <div className="mb-2">
+            {!tierInfo.nextTierUnlocked ? (
+              <span className="text-[10px] text-[#8A8A8A]">
+                {isEs ? `Completa el ${UNLOCK_THRESHOLD}% de este nivel para desbloquear` : `Complete ${UNLOCK_THRESHOLD}% of this tier to unlock`}{' '}
+                <span className="text-[#0ABAB5] font-medium">{isEs ? tierInfo.nextTierNameEs : tierInfo.nextTierName}</span>
+              </span>
+            ) : (
+              <span className="text-[10px] text-[#0ABAB5]">
+                {isEs ? 'Siguiente nivel desbloqueado:' : 'Next tier unlocked:'}{' '}
+                <span className="font-medium">{isEs ? tierInfo.nextTierNameEs : tierInfo.nextTierName}</span>
+              </span>
+            )}
+          </div>
+        )}
+        <h1 className="text-h1 text-white">{isEs ? lesson.titleEs : lesson.title}</h1>
+        <p className="text-h3 text-gray-300 mt-1">{isEs ? lesson.subtitleEs : lesson.subtitle}</p>
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="flex-1 overflow-y-auto no-scrollbar">
+      <div ref={contentRef} className="flex-1 overflow-y-auto no-scrollbar relative">
+        {/* Lock overlay for locked lessons */}
+        {isLocked && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm z-30 flex flex-col items-center justify-center text-center px-8"
+          >
+            <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-4">
+              <Lock size={32} className="text-red-400" />
+            </div>
+            <h3 className="text-xl text-white font-bold mb-2">{isEs ? 'Lección Bloqueada' : 'Lesson Locked'}</h3>
+            <p className="text-sm text-[#8A8A8A] mb-6 max-w-[280px]">
+              {isEs ? 'Completa el nivel anterior para desbloquear esta lección.' : 'Complete previous tier to unlock this lesson.'}
+            </p>
+            <button
+              onClick={() => navigate('/training')}
+              className="px-6 py-3 rounded-full bg-[#0ABAB5] text-white text-sm font-semibold hover:bg-[#09a9a4] transition-colors"
+            >
+              {isEs ? 'Ir al Centro de Entrenamiento' : 'Go to Training Hub'}
+            </button>
+          </motion.div>
+        )}
+
         <div className="px-6 pb-28">
           <AnimatePresence mode="wait">
             <motion.div
@@ -303,7 +452,7 @@ export default function LessonView() {
               transition={{ duration: 0.3 }}
             >
               {lesson.sections.map((section, i) => (
-                <SectionRenderer key={i} section={section} replacePlaceholders={replacePlaceholders} />
+                <SectionRenderer key={i} section={section} replacePlaceholders={replacePlaceholders} isEs={isEs} />
               ))}
             </motion.div>
           </AnimatePresence>
@@ -346,16 +495,17 @@ export default function LessonView() {
               </>
             )}
 
-            {nextLesson && isCompleted && (
+            {nextUnlockedLesson && isCompleted && !isLocked && (
               <motion.button
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => navigate(`/lesson/${nextLesson.id}`)}
+                onClick={() => navigate(`/lesson/${nextUnlockedLesson.id}`)}
                 className="w-full py-4 rounded-full bg-[#1A1A1A] text-[#8A8A8A] text-button font-semibold flex items-center justify-center gap-2 border border-[#2A2A2A] hover:border-[#3A3A3A] hover:text-white transition-colors"
               >
-                Next Lesson: {nextLesson.title}
+                Next Lesson: {nextUnlockedLesson.title}
+                <ChevronRight size={18} />
               </motion.button>
             )}
           </div>

@@ -1,0 +1,182 @@
+{
+    id: 'connect-8',
+    categoryId: 'connecting',
+    title: 'Handling Different Personality Types',
+    titleEs: 'Manejando Diferentes Tipos de Personalidad',
+    subtitle: 'The 4 buyer types: Analytical, Driver, Amiable, and Expressive',
+    subtitleEs: 'Adapta tu enfoque al cliente frente a ti',
+    duration: '10 min',
+    icon: 'Users',
+    order: 8,
+    xpReward: 150,
+    sections: [
+    {
+            type: 'header',
+      text: 'One Pitch Does NOT Fit All'
+    },
+    {
+            type: 'paragraph',
+      text: 'You\'ve probably noticed that some customers want every detail while others just want the bottom line. Some need to feel emotionally connected; others want facts and data. These differences aren\'t random — they\'re personality types. Understanding the four buyer types transforms your approach from guessing to precision.'
+    },
+    {
+            type: 'keypoint',
+      text: 'The four buyer types — Analytical, Driver, Amiable, and Expressive — each require a different sales approach. Using the wrong style with the wrong type is like speaking French to a German speaker. Adapt and close.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Type 1: The Analytical (Facts First)'
+    },
+    {
+            type: 'paragraph',
+      text: 'The Analytical buyer is methodical, detail-oriented, and risk-averse. They want to understand HOW the product works before they commit. They\'ll ask about ingredients, research, and proof. They\'re not being difficult — they\'re being thorough.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'IDENTIFYING THEM: Asks specific questions about ingredients, science, or proof. Reads labels. Takes time to consider. May seem skeptical but is actually just processing.',
+        'YOUR APPROACH: Lead with facts and evidence. \'This is recommended by dermatologists.\' \'The Dead Sea has the highest mineral concentration on Earth.\' \'One syringe lasts 52 treatments — here is the math.\'',
+        'WHAT TO AVOID: High-pressure tactics, emotional appeals, rushing them. They need time. Pressure creates resistance, not commitment.',
+        'CLOSING TECHNIQUE: Give them space to decide. \'I know you want to think this through. Here is my WhatsApp — if you have any questions later, just ask.\' Respect their process.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'I completely understand wanting the details. The active ingredient is Dead Sea mineral salt, which contains 21 minerals including magnesium, calcium, and potassium. These are clinically shown to improve skin barrier function. One jar gives you 8-12 months of weekly treatments. The math works out to about €2 per use. Does that help with your decision?\' Facts, structure, respect.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Type 2: The Driver (Results Fast)'
+    },
+    {
+            type: 'paragraph',
+      text: 'The Driver is goal-oriented, time-pressed, and decisive. They don\'t want small talk. They want to know what it does, what it costs, and whether it works. Waste their time and they are gone.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'IDENTIFYING THEM: Walks with purpose. Checks their watch. Gives direct answers. May seem abrupt — they are not rude, they are efficient.',
+        'YOUR APPROACH: Fast, direct, results-focused. Skip the long rapport-building. Get to the demo and the result quickly. \'Two minutes, visible result, lasts a year.\'',
+        'WHAT TO AVOID: Excessive chatting, too many options, slow pacing. Drivers want to make a decision and move on. Respect their time.',
+        'CLOSING TECHNIQUE: Binary choice, quick close. \'Option 1: €210 with a gift. Option 2: €300 with two syringes. Which works for you?\' Clean and decisive.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'I know you are in a hurry. Two minutes. One eye. You will see the result yourself in the mirror. If you don\'t love it, no problem. If you do, I have two price options that take 30 seconds to explain. Sound fair?\' Direct, time-bound, respectful of their schedule.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Type 3: The Amiable (Feel Good)'
+    },
+    {
+            type: 'paragraph',
+      text: 'The Amiable buyer is warm, people-oriented, and relationship-driven. They want to trust you before they buy from you. They make decisions based on how the purchase FEELS, not just the product specs.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'IDENTIFYING THEM: Friendly, asks personal questions, engages in chat, makes eye contact, smiles easily. Takes their partner\'s opinion seriously. Often the most fun to work with.',
+        'YOUR APPROACH: Build genuine rapport first. Share stories. Make them feel special. Emotional connection is the gateway to the sale. The demo should feel like an experience, not a transaction.',
+        'WHAT TO AVOID: Cold facts, aggressive closing, making them feel rushed. Amiable buyers need warmth and connection. Pressure feels like betrayal.',
+        'CLOSING TECHNIQUE: Emotional framing with partner involvement. \'Imagine waking up every morning looking this fresh. Which option feels right for you?\' Feelings over facts.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'Oh my gosh, your energy is amazing! Where are you visiting from? ... That is incredible! I love it there. You know what, I am going to give you my favorite treatment — it is like a spa moment in the middle of your shopping day. Just relax and enjoy.\' Experience-first, relationship-driven, warm.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Type 4: The Expressive (Storyteller)'
+    },
+    {
+            type: 'paragraph',
+      text: 'The Expressive buyer is enthusiastic, talkative, and imaginative. They love stories, emotions, and the big picture. They may seem scattered because they jump between topics — that is just how their mind works.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'IDENTIFYING THEM: Talks a lot, tells stories, gets excited easily, asks creative questions, imagines scenarios (\'Oh, my sister would LOVE this!\').',
+        'YOUR APPROACH: Match their enthusiasm. Use storytelling. Paint pictures of the future. \'Your skin will glow like you just came back from a two-week spa retreat.\' Let them talk — they sell themselves through their own excitement.',
+        'WHAT TO AVOID: Shutting down their stories, being too structured, dampening their enthusiasm. Expressive buyers need to feel heard and excited.',
+        'CLOSING TECHNIQUE: Story-based close with gift potential. \'Your sister would absolutely love this too! Should we do two — one for you, one for her?\' Connect their enthusiasm to the purchase.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'Wait until you tell your friends about this! They are going to be SO jealous. You will be at brunch like \'Oh this? Just something I picked up in Andorra.\' So — are we doing the full experience or starting with the essentials? Let us make it fun!\' Enthusiastic, story-driven, playful.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Quick Reference: Adapting Your Style'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'ANALYTICAL → Use data, respect their process, give space',
+        'DRIVER → Be fast, be direct, respect their time',
+        'AMIABLE → Build rapport, create warmth, involve feelings',
+        'EXPRESSIVE → Match enthusiasm, tell stories, paint pictures'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Most people are a blend of two types. A Driver-Analytical wants fast facts. An Amiable-Expressive wants warm stories. Read the primary type first, then blend in the secondary. Flexibility is the superpower.'
+    },
+    {
+            type: 'quote',
+      text: 'The golden rule of sales is not \'treat everyone the same.\' It is \'treat everyone how THEY want to be treated.\' Personality types show you the way.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'Which approach works best with an Analytical buyer?',
+      options: [
+        'High-energy enthusiasm and storytelling',
+        'Facts, evidence, and respect for their decision-making process',
+        'Fast, direct results with no small talk',
+        'Emotional connection and warm rapport'
+      ],
+      correctIndex: 1,
+      explanation: 'Analytical buyers want facts, evidence, and proof. They need to understand how things work before committing. Respect their thoroughness and give them space to decide.',
+    },
+    {
+      question: 'How should you handle a Driver personality type?',
+      options: [
+        'Build extensive rapport before pitching',
+        'Be fast, direct, and results-focused with binary choices',
+        'Tell stories and paint pictures',
+        'Give them lots of detailed information'
+      ],
+      correctIndex: 1,
+      explanation: 'Drivers are time-pressed and decisive. They want quick results, clear options, and respect for their schedule. Skip the small talk, get to the demo and close fast.',
+    },
+    {
+      question: 'Why is it important to adapt your style to different personality types?',
+      options: [
+        'It is not important — one pitch works for everyone',
+        'Because different types respond to different communication styles, and mismatching creates resistance',
+        'Because the manager requires it',
+        'Because it makes the job more interesting'
+      ],
+      correctIndex: 1,
+      explanation: 'Different personality types process information and make decisions differently. Using the wrong approach with the wrong type creates resistance — like speaking the wrong language. Adaptation is the key to precision selling.',
+    }
+    ],
+  }

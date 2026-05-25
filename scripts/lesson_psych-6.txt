@@ -1,0 +1,178 @@
+{
+    id: 'psych-6',
+    categoryId: 'psychology',
+    title: 'Your Life Outside Work',
+    titleEs: 'Tu Vida Fuera del Trabajo',
+    subtitle: 'Exercise, sleep, nutrition, social life — how taking care of yourself makes you a better seller',
+    subtitleEs: 'El descanso es parte del rendimiento',
+    duration: '8 min',
+    icon: 'Sparkles',
+    order: 6,
+    xpReward: 100,
+    sections: [
+    {
+            type: 'header',
+      text: 'The Best Salespeople Take Care of Themselves'
+    },
+    {
+            type: 'paragraph',
+      text: 'You can\'t pour from an empty cup. A salesperson running on 4 hours of sleep, fast food, and no exercise is a salesperson running at 40% capacity. The job demands energy, clarity, emotional stability, and presence — all of which are built OUTSIDE the shop. Investing in your physical and mental wellbeing isn\'t indulgent. It\'s professional development.'
+    },
+    {
+            type: 'keypoint',
+      text: 'Your commission is directly tied to your energy. If you earn 25-30% commission, every 10% improvement in your daily performance (from better sleep, nutrition, or exercise) translates to real money — potentially hundreds of euros per month.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Sleep: The Foundation of Everything'
+    },
+    {
+            type: 'paragraph',
+      text: 'Sleep deprivation affects the prefrontal cortex — the part of your brain responsible for decision-making, emotional regulation, and social interaction. In other words, it destroys the exact skills you need for sales. After a poor night\'s sleep:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'Your emotional resilience drops by 60%. Rejections hurt more.',
+        'Your facial expressions become flatter and less genuine. Customers notice.',
+        'Your verbal fluency decreases. Words don\'t come as easily.',
+        'Your motivation and drive plummet. You stop more hesitantly.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Aim for 7-8 hours of sleep. If you have a late night before an early shift, a 20-minute power nap before work can restore significant cognitive function. The 20-minute length is critical — longer naps create grogginess.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Exercise: Your Energy Multiplier'
+    },
+    {
+            type: 'paragraph',
+      text: 'You don\'t need to be an athlete. You need consistent movement that builds energy and reduces stress. The best exercise for salespeople is anything that gets your heart rate up and your mood elevated.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'CARDIO (running, cycling, dancing): Builds baseline energy and lung capacity. Better breathing = better voice projection and calmer nerves.',
+        'STRENGTH TRAINING: Builds confidence through physical capability. Standing tall with good posture is easier with a strong back and core.',
+        'YOGA / STRETCHING: Reduces physical tension that accumulates during shifts. A relaxed body creates a relaxed presence.',
+        'WALKING: Even a 20-minute walk after work helps process the day\'s stress and transition out of \'work mode.\''
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'The best time to exercise for sales performance is BEFORE your shift, even if just 10 minutes of jumping jacks and stretching. This elevates your energy when you need it most. If mornings are impossible, exercise on your days off to build baseline energy.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Nutrition: Fuel for Performance'
+    },
+    {
+            type: 'paragraph',
+      text: 'What you eat directly affects your brain function, mood stability, and energy levels. A sugary breakfast creates a mid-morning crash. A heavy lunch creates afternoon fog. Smart nutrition is strategic.'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'BREAKFAST: Protein + complex carbs. Eggs with whole grain toast, Greek yogurt with nuts, or a protein smoothie. Avoid pastries and sugary cereals — they create a crash by 10am.',
+        'DURING SHIFT: Light snacks. Nuts, fruit, protein bars. Avoid heavy meals during breaks. A salad with chicken is perfect. Pizza will make you sluggish.',
+        'HYDRATION: Water is your #1 performance tool. Dehydration causes fatigue, headaches, and poor concentration. Keep a water bottle on the floor.',
+        'AFTER WORK: Eat to recover, not to reward. A nutritious dinner helps you sleep better and wake up with more energy. The \'I deserve junk food after a hard day\' mindset sabotages tomorrow\'s performance.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Social Life & Mental Health'
+    },
+    {
+            type: 'paragraph',
+      text: 'Sales is emotionally demanding. You\'re performing all day — smiling, engaging, handling rejection. You need people who recharge you, not drain you. A supportive social circle is essential for long-term performance.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'SPEND TIME WITH PEOPLE WHO ENERGIZE YOU: After a day of giving energy to customers, you need people who fill your cup. Limit time with people who complain, criticize, or drain you.',
+        'PROCESS REJECTION WITH FRIENDS: Talk about your bad days. Normalize the experience. A friend who says \'that sounds tough, but I know you\'ll crush it tomorrow\' is worth their weight in gold.',
+        'HAVE NON-SALES CONVERSATIONS: Don\'t let your whole identity become selling. Talk about movies, sports, philosophy, travel. A well-rounded mind is a more interesting salesperson.',
+        'CREATE RITUALS: Weekly dinner with friends, a hobby class, a sports team. Scheduled activities ensure you\'re building a life outside work, not just recovering from it.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Building a Growth Mindset: Books, Podcasts & Learning'
+    },
+    {
+            type: 'paragraph',
+      text: 'The best salespeople are perpetual learners. They read, listen, and constantly expand their understanding of human psychology, communication, and business. Here are recommended resources:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'BOOKS: \'Influence\' by Robert Cialdini (the science of persuasion), \'How to Win Friends and Influence People\' by Dale Carnegie (classic rapport building), \'Mindset\' by Carol Dweck (growth vs. fixed mindset), \'The Psychology of Selling\' by Brian Tracy (sales-specific strategies), \'Atomic Habits\' by James Clear (building better routines)',
+        'PODCASTS: Sales-focused podcasts for daily motivation and new techniques. Listen during your commute or while getting ready for work.',
+        'VIDEO CONTENT: Watch TED talks on body language, persuasion, and confidence. Amy Cuddy\'s talk on power posing is particularly relevant.',
+        'LEARN FROM OTHER INDUSTRIES: Great ideas come from cross-pollination. Watch how luxury hotels greet guests. Study how Apple Store employees approach customers. Notice what great restaurant servers do to create experiences.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Set a learning goal: one book per month, or one podcast episode per day during your commute. In 6 months, you\'ll have absorbed more sales knowledge than most people acquire in years. Small daily learning compounds into massive advantage.'
+    },
+    {
+            type: 'quote',
+      text: 'Taking care of yourself isn\'t selfish — it\'s your most profitable investment. A well-rested, well-fed, well-exercised salesperson is a money-making machine.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'How does sleep deprivation specifically affect sales performance?',
+      options: [
+        'It only makes you feel tired but doesn\'t affect sales',
+        'It reduces emotional resilience, verbal fluency, and facial expressiveness',
+        'It actually improves performance because you\'re more desperate for commission',
+        'It only affects your ability to close big sales'
+      ],
+      correctIndex: 1,
+      explanation: 'Sleep deprivation affects the prefrontal cortex, reducing emotional resilience, verbal fluency, and making facial expressions flatter. These are exactly the skills needed for sales.',
+    },
+    {
+      question: 'Why is exercise particularly valuable for salespeople?',
+      options: [
+        'It helps you look better in the uniform',
+        'It builds energy, lung capacity for voice projection, and confidence',
+        'It\'s required by company policy',
+        'It gives you something to talk about with customers'
+      ],
+      correctIndex: 1,
+      explanation: 'Exercise builds baseline energy, improves breathing for better voice projection, and builds confidence through physical capability — all directly relevant to sales performance.',
+    },
+    {
+      question: 'What type of lunch should you eat to maintain afternoon energy?',
+      options: [
+        'Pizza or pasta for satisfaction',
+        'A heavy meal to feel full',
+        'Light protein, salad, and fruit',
+        'Skip lunch and power through'
+      ],
+      correctIndex: 2,
+      explanation: 'Heavy meals redirect blood from the brain to the stomach, causing afternoon fog. Light protein, salads, and fruit provide sustained energy without the crash.',
+    }
+    ],
+  }

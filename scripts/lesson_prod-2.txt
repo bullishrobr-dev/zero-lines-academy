@@ -1,0 +1,155 @@
+{
+    id: 'prod-2',
+    categoryId: 'products',
+    title: 'The Two-Choice Framework',
+    titleEs: 'La Demo de Un Ojo',
+    subtitle: 'Why two options beat one — changing \'yes or no\' into \'which one\'',
+    duration: '10 min',
+    icon: 'GitFork',
+    order: 2,
+    xpReward: 150,
+    sections: [
+    {
+            type: 'header',
+      text: 'Two Choices Turn a Decision Into a Selection'
+    },
+    {
+            type: 'paragraph',
+      text: 'When you offer one option, the customer\'s brain asks: \'Should I buy this or not?\' That\'s a yes/no question, and \'no\' is the default — it\'s easier, safer, requires no action. When you offer two options, the brain asks a different question: \'Which one should I choose?\' The decision to buy is assumed. Now they\'re just picking between A and B. This simple reframing dramatically increases conversion.'
+    },
+    {
+            type: 'keypoint',
+      text: 'A single offer invites rejection. Two offers invite comparison. Comparison assumes purchase. The psychology is subtle but profound — and it works on virtually every human decision.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Psychology: \'Which One\' vs. \'Yes or No\''
+    },
+    {
+            type: 'paragraph',
+      text: 'This is based on a well-studied cognitive bias called \'choice architecture.\' When people face a binary yes/no decision, the default is often \'no\' (status quo bias). But when faced with multiple options within a category, they evaluate which option fits them better — implicitly accepting the category itself.'
+    },
+    {
+            type: 'script',
+      text: 'Single option: \'The syringe is €210.\' Customer thinks: \'€210? That\'s a lot. I don\'t know if I need this. No thanks.\' Two options: \'You can take the single syringe for €210 with a gift, or the double for €300 and treat your forehead and upper lip too. Which works better for you?\' Customer thinks: \'Hmm, do I want the single or double? The double makes more sense...\' See the difference? They went from \'Should I buy?\' to \'Which one?\''
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Option Structure: How to Build Your Two Choices'
+    },
+    {
+            type: 'paragraph',
+      text: 'Not any two options work. The structure matters. Here\'s how to build effective choices:'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'OPTION 1 — THE VALUE CHOICE: Lower price point with a smaller gift or no gift. This captures budget-conscious buyers. Example: Syringe at €210 + one gift.',
+        'OPTION 2 — THE FULL CHOICE: Standard or higher price with a bigger gift or added value. This captures buyers who want the complete experience. Example: Syringe at €300 + second syringe free.',
+        'THE CONTRAST: The gap between options should be clear but not extreme. €210 vs €300 is a meaningful difference. €210 vs €250 is too close — it creates decision paralysis.',
+        'THE DEFAULT: If you sense hesitation, guide them toward Option 1: \'Most people start with Option 1 — it\'s a great entry point.\' This simplifies their decision.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Two-Choice Examples by Product'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'SYRINGE: Option 1 — €210 (single syringe + gift). Option 2 — €300 (two syringes + Day & Night Cream free). One is entry-level value; the other is the complete experience.',
+        'PEELING: Option 1 — €100 (single peeling + Dead Sea Scrub gift). Option 2 — €150 (peeling + Day & Night Cream free). Budget-conscious vs. skincare routine builders.',
+        'SCRUB & BUTTER: Option 1 — €60 (Buy 1 Get 1 — Scrub + Body Butter). Option 2 — €120 (Buy 2 Get 1 — trio with Nail Kit or Cleanser). Casual buyer vs. serious self-care or gift shopper.',
+        'NAIL KIT: Option 1 — €60 (Buy 1 Get 1 — mix with Scrub or Butter). Option 2 — €120 (Buy 2 Get 1 — three full kits for gifting).'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'The Decoy Effect (Advanced)'
+    },
+    {
+            type: 'paragraph',
+      text: 'A more advanced technique involves adding a third option that\'s designed to make one of the two main options more attractive:'
+    },
+    {
+            type: 'script',
+      text: '\'We have three options. The basic scrub alone is €30. The Scrub + Body Butter duo is €60. Or the full trio with the Nail Kit is €120.\' The €30 option makes the €60 option look like much better value. The €120 option makes the €60 option look like a smart, budget-friendly choice. Most people pick the middle — which is exactly what you want.'
+    },
+    {
+            type: 'tip',
+      text: 'The two-choice framework only works when BOTH options are genuinely good values. If Option 1 is a terrible deal designed to push people to Option 2, customers sense the manipulation. Make both options attractive, just for different types of buyers.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'When Two Choices Become One'
+    },
+    {
+            type: 'paragraph',
+      text: 'Sometimes the customer\'s situation clearly points to one option. When this happens, guide them to it rather than forcing a comparison that doesn\'t make sense:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'CLEAR BUDGET CONSTRAINT: If they visibly hesitate at €300, immediately pivot to €210. Don\'t make them reject both options.',
+        'CLEAR GIFT SHOPPER: If they\'re buying for three sisters, Option 2 (Buy 2 Get 1) is obvious. Don\'t overcomplicate.',
+        'CLEAR PREMIUM BUYER: If they\'re carrying luxury bags and show zero price sensitivity, lead with Option 2 or even an upsell beyond it.',
+        'UNCERTAIN BUYER: When genuinely unsure, default to Option 1. It\'s easier to say yes to, and they can always upgrade later.'
+      ]
+    },
+    {
+            type: 'quote',
+      text: 'Give them one option and they decide whether to buy. Give them two options and they decide which to buy. That\'s the difference between a conversation and a close.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'What cognitive shift happens when you offer two options instead of one?',
+      options: [
+        'The customer thinks the prices are too high',
+        'The customer shifts from \'Should I buy?\' to \'Which one should I choose?\'',
+        'The customer gets confused',
+        'The customer always picks the cheaper option'
+      ],
+      correctIndex: 1,
+      explanation: 'Two options change the mental frame from a yes/no purchase decision (where \'no\' is the default) to a comparison between options (where buying is assumed and they\'re just picking which one).',
+    },
+    {
+      question: 'What is the decoy effect?',
+      options: [
+        'A technique where you trick the customer',
+        'Adding a third option designed to make one of the main options more attractive',
+        'Giving away free products',
+        'Only showing the expensive option first'
+      ],
+      correctIndex: 1,
+      explanation: 'The decoy effect involves adding a third option (like a basic €30 scrub) that makes the target option (€60 duo) look like better value by comparison. Most customers pick the middle option.',
+    },
+    {
+      question: 'What should you do when a customer clearly has budget constraints?',
+      options: [
+        'Still present both options equally',
+        'Immediately pivot to the lower-priced option',
+        'Insist on the premium option',
+        'End the conversation'
+      ],
+      correctIndex: 1,
+      explanation: 'When budget constraints are clear, immediately pivot to the lower-priced option. Forcing a comparison that doesn\'t make sense for their situation creates awkwardness and can lose the sale entirely.',
+    }
+    ],
+  }

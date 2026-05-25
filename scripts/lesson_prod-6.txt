@@ -1,0 +1,171 @@
+{
+    id: 'prod-6',
+    categoryId: 'products',
+    title: 'Product Comparison Guide',
+    titleEs: 'Guía de Comparación de Productos',
+    subtitle: 'When to pitch which product — skin type matching, age, tourist origin, and decision trees',
+    subtitleEs: 'Cuándo empujar qué producto',
+    duration: '10 min',
+    icon: 'GitCompare',
+    order: 6,
+    xpReward: 150,
+    sections: [
+    {
+            type: 'header',
+      text: 'The Right Product to the Right Person at the Right Time'
+    },
+    {
+            type: 'paragraph',
+      text: 'A 25-year-old solo female traveler has different skincare needs than a 55-year-old couple on a luxury vacation. A French tourist interested in ingredients needs a different pitch than a British tourist buying Christmas gifts. Product matching isn\'t random — it\'s strategic. This lesson gives you decision trees to quickly determine which product to lead with.'
+    },
+    {
+            type: 'keypoint',
+      text: 'Every person who walks past your door has a product that\'s optimal for them. Your job is to identify it in 10 seconds and deliver the perfect pitch. Matching = higher conversion, higher satisfaction, and higher return visits.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Quick Decision Tree: Which Product to Lead With'
+    },
+    {
+            type: 'paragraph',
+      text: 'Follow this flow chart mentally for each customer:'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'VISIBLE EYE CONCERNS? (Bags, crow\'s feet, tired eyes) → LEAD WITH SYRINGE. Immediate visual result. High perceived value. Premium price point.',
+        'YOUNG (20s-30s) + GOOD SKIN? → LEAD WITH PEELING. Prevention-focused, glow-enhancing, weekly ritual appeal. Or NAIL KIT for visible natural nails.',
+        'DRY SKIN SIGNS? (Flaky, dull, mentions dryness) → LEAD WITH SCRUB. Sensory demo is immediate and universally appealing.',
+        'NATURAL NAILS + NO POLISH? → LEAD WITH NAIL KIT. Fast demo, visible result, gift potential.',
+        'BUYING GIFTS? → LEAD WITH SCRUB/NAIL KIT COMBO. Lower price points, unisex appeal, easy gifting.',
+        'MALE CUSTOMER OR SKEPTICAL PARTNER? → LEAD WITH SCRUB. Unisex, no beauty stigma, feels practical rather than cosmetic.',
+        'LUXURY BUYER? (Designer bags, expensive watch) → LEAD WITH SYRINGE. Premium positioning matches their expectations.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Skin Type Matching'
+    },
+    {
+            type: 'paragraph',
+      text: 'Different skin types respond to different products. Here\'s how to match:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'DRY SKIN: Peeling (removes dead layers, allows better cream absorption) + Scrub (Dead Sea minerals hydrate) + Body Butter (rich moisture). Avoid: nothing — all products work for dry skin.',
+        'OILY SKIN: Peeling (weekly deep clean, reduces oil buildup) + Syringe (eye area typically not oily). Scrub is fine in moderation. Body Butter may feel heavy — suggest smaller amounts.',
+        'SENSITIVE SKIN: Lead with the gentle approach. Peeling is dermatologist-recommended for sensitivity and eczema. Emphasize the \'natural, no chemicals\' angle. Do a small patch test first.',
+        'MATURE SKIN (50+): Syringe (collagen stimulation, visible anti-aging) + Peeling (restores glow that diminishes with age) + rich Body Butter. Focus on results and investment in self-care.',
+        'YOUNG SKIN (20s): Peeling (prevention, weekly glow) + Nail Kit (fun, affordable, giftable). Syringe may feel unnecessary unless they have specific eye concerns.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Age-Appropriate Recommendations'
+    },
+    {
+            type: 'comparison',
+      left: { label: 'Younger Customers (20s-30s)', text: 'Lead with: Peeling (prevention + glow) or Nail Kit (affordable + fun). Frame as: Self-care ritual, Instagram-worthy results, smart prevention. Avoid: Heavy anti-aging language. They don\'t relate to \'wrinkles\' yet.' },
+      right: { label: 'Mature Customers (40s+)', text: 'Lead with: Syringe (visible anti-aging) or Peeling (restores radiance). Frame as: Investment in yourself, proven results, dermatologist-recommended. Emphasize: The visible difference in the mirror. They know their skin and notice changes.' }
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Tourist Origin → Product Matching'
+    },
+    {
+            type: 'paragraph',
+      text: 'Different nationalities have different skincare cultures and preferences:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'SPANISH: Peeling or Scrub (value-conscious, respond to tax-haven savings). Emphasize: \'Smart shopping in Andorra.\'',
+        'FRENCH: Syringe or Peeling (skincare-savvy, appreciate quality and science). Emphasize: Ingredients, dermatologist recommendation, European quality.',
+        'BRITISH: Scrub or Nail Kit (love sensory experiences, appreciate humor, gift-buyers). Emphasize: Fun demo, Christmas gifts, bargain pricing.',
+        'EASTERN EUROPEAN: Syringe (premium positioning, visible results, status). Emphasize: #1 best-seller, luxury treatment, European prestige.',
+        'ASIAN: Peeling or Syringe (ingredient-conscious, results-driven). Emphasize: Science, natural ingredients, visible before/after.',
+        'GERMAN/DUTCH: Peeling or Scrub (practical, quality-focused). Emphasize: Value per use, long-lasting, dermatologist-approved.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Decision Tree Summary'
+    },
+    {
+            type: 'paragraph',
+      text: 'Here\'s the ultra-quick version for the door:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'EYES LOOK TIRED → SYRINGE (€140-€300)',
+        'YOUNG + GLOW-FOCUSED → PEELING (€50-€150)',
+        'DRY SKIN / WINTER → SCRUB (€30-€120)',
+        'NATURAL NAILS → NAIL KIT (€30-€120)',
+        'CHRISTMAS GIFTS → SCRUB/NAIL KIT COMBO (€60-€120)',
+        'LUXURY SHOPPER → SYRINGE → PEELING UPSALE (€300+)',
+        'SKEPTICAL MAN → SCRUB (practical, sensory, €30-€60)'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'This isn\'t rigid — it\'s a starting point. The best sellers read the individual, not just the demographic. A 25-year-old with prominent eye bags is still a syringe candidate. A 60-year-old who loves nail care is still a Nail Kit candidate. Use the guide, then adapt.'
+    },
+    {
+            type: 'quote',
+      text: 'Matching the right product isn\'t about stereotypes. It\'s about observation, empathy, and giving each person exactly what they need. That\'s how you become a trusted advisor, not just a seller.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'Which product should you lead with for a customer with visible under-eye bags?',
+      options: [
+        'Peeling',
+        'Scrub',
+        'Syringe',
+        'Nail Kit'
+      ],
+      correctIndex: 2,
+      explanation: 'Visible eye concerns (bags, crow\'s feet, tired eyes) make the Syringe the optimal lead product. The immediate visual result and high perceived value make it the perfect match.',
+    },
+    {
+      question: 'Which product is best for a skeptical male partner?',
+      options: [
+        'Syringe',
+        'Peeling',
+        'Scrub',
+        'Nail Kit'
+      ],
+      correctIndex: 2,
+      explanation: 'The Scrub is ideal for skeptical men because it\'s unisex, feels practical rather than cosmetic, has an immediate sensory demo, and doesn\'t carry a beauty stigma.',
+    },
+    {
+      question: 'Why should you adapt product recommendations by tourist origin?',
+      options: [
+        'Because of stereotypes',
+        'Because different cultures have different skincare priorities, knowledge levels, and buying motivations',
+        'Because the manager says so',
+        'Because some products are only for certain nationalities'
+      ],
+      correctIndex: 1,
+      explanation: 'Different nationalities have different skincare cultures, ingredient knowledge, and buying motivations. French tourists appreciate science; British tourists love sensory experiences; Eastern European tourists respond to premium positioning. Matching to cultural context increases relevance.',
+    }
+    ],
+  }

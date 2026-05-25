@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import { useLocation } from '../contexts/LocationContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -18,6 +20,7 @@ import {
   TrendingDown,
   HeartHandshake,
 } from 'lucide-react';
+import { nailKitData } from '../data/nailKitData';
 
 /* ------------------------------------------------------------------ */
 /*  Animation helpers                                                  */
@@ -32,62 +35,29 @@ const fadeUp = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Offer data                                                         */
+/*  Icon component map for Pro Tips                                    */
 /* ------------------------------------------------------------------ */
-interface Offer {
-  title: string;
-  price: string;
-  subtitle: string;
-  items: string[];
-  tag?: string;
-  isHighlight?: boolean;
-  script: string;
-}
-
-const offers: Offer[] = [
-  {
-    title: 'Buy 2 Get 1 Free',
-    price: '€160',
-    subtitle: 'Classic trio — most popular offer',
-    items: ['3 full Nail Kits', 'Perfect for gifts', '€53 per kit effective'],
-    tag: 'Most Popular',
-    isHighlight: true,
-    script:
-      '"Right now we\'ve got an amazing offer: if you buy two, you get one free. So you pay €160 and walk away with three full kits. That\'s why everyone grabs these during the holidays — they make the perfect Christmas gifts. Small, elegant, and actually useful."',
-  },
-  {
-    title: 'Buy 2 Get 2 (Christmas)',
-    price: '€160',
-    subtitle: 'Premium Christmas — four for the price of two',
-    items: ['4 full Nail Kits', 'One for you, three for gifts', '€40 per kit effective'],
-    tag: 'Christmas',
-    script:
-      '"You know what, Christmas is coming — let\'s do something special. Instead of Buy 2, Get 1, I\'ll do Buy 2, Get 2. You\'ll get four full kits for €160 — one for you, one for mom, one for sister, one for a friend. Easiest Christmas shopping ever."',
-  },
-  {
-    title: 'Mix & Match (Buy 1 Get 1)',
-    price: '€80',
-    subtitle: 'Flexible combo — cross-sell setup',
-    items: ['Nail Kit + Scrub', 'Nail Kit + Body Butter', 'Perfect intro pair'],
-    tag: 'Flexible',
-    script:
-      '"Tell you what — I\'ll do something better for you. Instead of just one kit, I\'ll do Buy 1, Get 1 Free for €80, and you can mix and match it with our Scrub or Body Butter. So you can take one Nail Kit and one Scrub — or one Kit and one Butter — still €80 total."',
-  },
-  {
-    title: 'Single Kit Holiday Close',
-    price: '€45',
-    subtitle: 'Final push — whole kit at buffer price',
-    items: ['Full kit (not just buffer)', 'Lifetime warranty included', 'Opens door for return'],
-    script:
-      '"Alright, you know what — I can see how much you loved it. Normally we sell the buffer by itself for €45, since it\'s got the lifetime warranty. But since it\'s the holidays and I really want you to enjoy it, I\'ll give you the whole kit for the same price — just €45. It\'s my way of opening the door — try it, use it, love it. Next time you\'re in Andorra, you\'ll come back for the second one, I promise."',
-  },
-];
+const iconComponents: Record<string, React.ElementType> = {
+  Sparkles,
+  Shield,
+  Gift,
+  Package,
+  Hand,
+  TrendingDown,
+  Star,
+  Clock,
+};
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 export default function NailKitPage() {
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+  const { currency, locationName } = useLocation();
+  const offers = nailKitData.getOffers(currency, locationName, isEs);
+  const proTips = nailKitData.getProTips(currency, isEs);
   const [copiedPrice, setCopiedPrice] = useState<string | null>(null);
 
   const copyPrice = useCallback((price: string) => {
@@ -95,6 +65,8 @@ export default function NailKitPage() {
     setCopiedPrice(price);
     setTimeout(() => setCopiedPrice(null), 1500);
   }, []);
+
+  const d = nailKitData;
 
   return (
     <div className="min-h-full bg-[#0A0A0A]">
@@ -107,7 +79,7 @@ export default function NailKitPage() {
           className="flex items-center gap-1 text-[#8A8A8A] hover:text-white transition-colors mb-5"
         >
           <ChevronLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{isEs ? d.hero.backEs : d.hero.back}</span>
         </button>
 
         <motion.div
@@ -117,7 +89,7 @@ export default function NailKitPage() {
         >
           <Sparkles className="w-3.5 h-3.5 text-[#0ABAB5]" />
           <span className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider">
-            60-Second Demo
+            {isEs ? d.hero.badgeEs : d.hero.badge}
           </span>
         </motion.div>
 
@@ -127,7 +99,7 @@ export default function NailKitPage() {
           transition={{ delay: 0.1 }}
           className="text-[28px] font-extrabold text-white leading-tight tracking-tight"
         >
-          Nail Kit
+          {isEs ? d.hero.titleEs : d.hero.title}
         </motion.h1>
 
         <motion.p
@@ -137,7 +109,7 @@ export default function NailKitPage() {
           className="flex items-center gap-2 text-[#0ABAB5] text-base font-medium mt-2"
         >
           <Star className="w-4 h-4" />
-          60-Second Salon Shine
+          {isEs ? d.hero.subtitleEs : d.hero.subtitle}
         </motion.p>
 
         <motion.div
@@ -148,18 +120,18 @@ export default function NailKitPage() {
         >
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <Clock className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Demo Time</p>
-            <p className="text-xs font-bold text-white">60 Seconds</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{isEs ? d.hero.statDemoTimeEs : d.hero.statDemoTime}</p>
+            <p className="text-xs font-bold text-white">{isEs ? d.hero.statDemoValueEs : d.hero.statDemoValue}</p>
           </div>
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <Shield className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Warranty</p>
-            <p className="text-xs font-bold text-white">Lifetime</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{isEs ? d.hero.statWarrantyEs : d.hero.statWarranty}</p>
+            <p className="text-xs font-bold text-white">{isEs ? d.hero.statWarrantyValueEs : d.hero.statWarrantyValue}</p>
           </div>
           <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
             <Sparkles className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">Shine Lasts</p>
-            <p className="text-xs font-bold text-white">2 Weeks</p>
+            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{isEs ? d.hero.statShineLastsEs : d.hero.statShineLasts}</p>
+            <p className="text-xs font-bold text-white">{isEs ? d.hero.statShineValueEs : d.hero.statShineValue}</p>
           </div>
         </motion.div>
       </section>
@@ -176,34 +148,31 @@ export default function NailKitPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Volume2 className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Hook — Stop Scripts</h2>
+            <h2 className="text-lg font-bold text-white">{isEs ? d.hook.sectionTitleEs : d.hook.sectionTitle}</h2>
           </div>
 
           <div className="space-y-3">
             <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
               <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                The Natural Nail Compliment
+                {isEs ? d.hook.complimentLabelEs : d.hook.complimentLabel}
               </p>
               <p className="text-[14px] text-white italic font-serif leading-relaxed">
-                "Wow! You always keep your nails natural? That's awesome. Let me give you a
-                small gift — you're gonna love this."
+                {isEs ? d.hook.complimentScriptEs : d.hook.complimentScript}
               </p>
               <p className="text-[12px] text-[#8A8A8A] mt-2">
-                Say it confidently, smile, and lead inside immediately. No hesitation, no
-                questions.
+                {isEs ? d.hook.complimentCoachingEs : d.hook.complimentCoaching}
               </p>
             </div>
 
             <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
               <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                Setting the Scene
+                {isEs ? d.hook.sceneLabelEs : d.hook.sceneLabel}
               </p>
               <p className="text-[13px] text-white leading-relaxed italic font-serif">
-                "So this isn't your typical nail buffer — it's a professional system that
-                keeps your nails shiny and healthy for up to two weeks without any polish."
+                {isEs ? d.hook.sceneScriptEs : d.hook.sceneScript}
               </p>
               <p className="text-[12px] text-[#8A8A8A] mt-2">
-                Unbox it slowly while you talk — create curiosity and ownership.
+                {isEs ? d.hook.sceneCoachingEs : d.hook.sceneCoaching}
               </p>
             </div>
           </div>
@@ -220,11 +189,11 @@ export default function NailKitPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <ScanEye className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The 3-Step Demo</h2>
+            <h2 className="text-lg font-bold text-white">{isEs ? d.demo.sectionTitleEs : d.demo.sectionTitle}</h2>
           </div>
 
           <p className="text-[12px] text-[#8A8A8A] mb-4">
-            The magic is in the buildup. Steps 1 and 2 create suspense. Step 3 is the WOW.
+            {isEs ? d.demo.descriptionEs : d.demo.description}
           </p>
 
           <div className="space-y-3">
@@ -235,21 +204,19 @@ export default function NailKitPage() {
                   <span className="text-[10px] font-bold text-white">1</span>
                 </div>
                 <span className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-                  Grey Side
+                  {isEs ? d.demo.step1LabelEs : d.demo.step1Label}
                 </span>
               </div>
-              <p className="text-sm font-semibold text-white mb-1">Step 1 — Smooth</p>
+              <p className="text-sm font-semibold text-white mb-1">{isEs ? d.demo.step1TitleEs : d.demo.step1Title}</p>
               <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
-                Hold her hand gently. Start with the first two steps on one nail.{' '}
+                {isEs ? d.demo.step1InstructionEs : d.demo.step1Instruction}{' '}
                 <em className="text-white/80">
-                  "Most buffers you see remove the top layer of your nail to make it shiny —
-                  that's actually bad. It makes the nails weak and thin. This one's different.
-                  It smooths, shapes, but doesn't remove anything."
+                  {isEs ? d.demo.step1ScriptEs : d.demo.step1Script}
                 </em>
               </p>
               <p className="text-[12px] text-[#8A8A8A] mt-2 italic">
-                Show the nail — not shiny yet. "See? Nothing dramatic yet — now wait for the
-                last step."
+                {isEs ? d.demo.step1CoachingPrefixEs : d.demo.step1CoachingPrefix}
+                {isEs ? d.demo.step1CoachingEs : d.demo.step1Coaching}
               </p>
             </div>
 
@@ -260,15 +227,14 @@ export default function NailKitPage() {
                   <span className="text-[10px] font-bold text-[#0A0A0A]">2</span>
                 </div>
                 <span className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-                  White Side — Prep
+                  {isEs ? d.demo.step2LabelEs : d.demo.step2Label}
                 </span>
               </div>
-              <p className="text-sm font-semibold text-white mb-1">Step 2 — Polish</p>
+              <p className="text-sm font-semibold text-white mb-1">{isEs ? d.demo.step2TitleEs : d.demo.step2Title}</p>
               <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
-                Use the white strip, buff gently.{' '}
+                {isEs ? d.demo.step2InstructionEs : d.demo.step2Instruction}{' '}
                 <em className="text-white/80">
-                  "Feel that? It's soft, not rough. It's actually pushing your natural oils up
-                  to the surface — that's what gives the shine and strengthens the nail."
+                  {isEs ? d.demo.step2ScriptEs : d.demo.step2Script}
                 </em>
               </p>
             </div>
@@ -280,27 +246,25 @@ export default function NailKitPage() {
                   <Sparkles className="w-3.5 h-3.5 text-[#0A0A0A]" />
                 </div>
                 <span className="text-[10px] text-[#0ABAB5] uppercase tracking-wider font-semibold">
-                  THE WOW MOMENT
+                  {isEs ? d.demo.step3LabelEs : d.demo.step3Label}
                 </span>
               </div>
               <p className="text-sm font-semibold text-white mb-2">
-                Step 3 — Shine (The Close)
+                {isEs ? d.demo.step3TitleEs : d.demo.step3Title}
               </p>
               <p className="text-[13px] text-[#B0B0B0] leading-relaxed mb-3">
-                Pause. Lower your voice. Build suspense.
+                {isEs ? d.demo.step3InstructionEs : d.demo.step3Instruction}
               </p>
               <div className="bg-[#0A0A0A]/60 rounded-lg p-3 border-l-2 border-[#0ABAB5]">
                 <p className="text-[11px] text-[#0ABAB5] font-medium mb-1">
-                  "Promise not to scream?"
+                  {isEs ? d.demo.step3TeaserEs : d.demo.step3Teaser}
                 </p>
                 <p className="text-[15px] text-white italic font-serif leading-relaxed">
-                  "WOWOWOWOW! 😄 Look at that — that's your natural nail! No polish, no
-                  chemicals — and it stays shiny like this for two whole weeks."
+                  {isEs ? d.demo.step3ScriptEs : d.demo.step3Script}
                 </p>
               </div>
               <p className="text-[12px] text-[#8A8A8A] mt-3">
-                If she's with a partner or friend, make them part of the reaction — laughter
-                = comfort = buying mode.
+                {isEs ? d.demo.step3CoachingEs : d.demo.step3Coaching}
               </p>
             </div>
           </div>
@@ -317,45 +281,39 @@ export default function NailKitPage() {
         >
           <div className="flex items-center gap-2 mb-3">
             <Shield className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">The Warranty Pitch</h2>
+            <h2 className="text-lg font-bold text-white">{isEs ? d.warranty.sectionTitleEs : d.warranty.sectionTitle}</h2>
           </div>
 
           <p className="text-[13px] text-[#B0B0B0] leading-relaxed mb-3">
-            The lifetime warranty is one of your strongest closes. It removes all risk and
-            creates unbelievable perceived value.
+            {isEs ? d.warranty.descriptionEs : d.warranty.description}
           </p>
 
           <div className="bg-[#0A0A0A]/60 rounded-xl p-4">
             <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-              Present the Full Kit
+              {isEs ? d.warranty.presentKitLabelEs : d.warranty.presentKitLabel}
             </p>
             <p className="text-[14px] text-white italic font-serif leading-relaxed">
-              "Everything you saw comes in this full kit — buffer, professional file, cuticle
-              oil, and cream. And the best part — the buffer has a lifetime warranty. No
-              matter what happens — if it breaks, if it wears out,{' '}
-              <strong>even if your dog eats it</strong> — you can exchange it in any of our
-              stores worldwide."
+              {isEs ? d.warranty.presentKitScriptEs : d.warranty.presentKitScript}
             </p>
           </div>
 
           <p className="text-[12px] text-[#8A8A8A] mt-3 leading-relaxed">
-            Let them laugh — humor lowers the guard. Then close the logic:{' '}
+            {isEs ? d.warranty.coachingIntroEs : d.warranty.coachingIntro}{' '}
             <em className="text-white/80">
-              "It's one simple kit, one design — there are no colors or versions to choose
-              from. This is the one everyone loves."
+              {isEs ? d.warranty.coachingScriptEs : d.warranty.coachingScript}
             </em>
           </p>
 
           <div className="grid grid-cols-2 gap-2 mt-3">
             <div className="bg-[#0A0A0A]/60 rounded-lg p-3 text-center">
               <Shield className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-              <p className="text-[10px] text-[#8A8A8A]">Warranty</p>
-              <p className="text-xs font-bold text-white">Lifetime — Any Store</p>
+              <p className="text-[10px] text-[#8A8A8A]">{isEs ? d.warranty.statWarrantyLabelEs : d.warranty.statWarrantyLabel}</p>
+              <p className="text-xs font-bold text-white">{isEs ? d.warranty.statWarrantyValueEs : d.warranty.statWarrantyValue}</p>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-3 text-center">
               <Package className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-              <p className="text-[10px] text-[#8A8A8A]">Kit Includes</p>
-              <p className="text-xs font-bold text-white">Buffer, File, Oil, Cream</p>
+              <p className="text-[10px] text-[#8A8A8A]">{isEs ? d.warranty.statKitLabelEs : d.warranty.statKitLabel}</p>
+              <p className="text-xs font-bold text-white">{isEs ? d.warranty.statKitValueEs : d.warranty.statKitValue}</p>
             </div>
           </div>
         </motion.section>
@@ -371,32 +329,34 @@ export default function NailKitPage() {
         >
           <div className="flex items-center gap-2 mb-1">
             <TrendingDown className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Price & Offers</h2>
+            <h2 className="text-lg font-bold text-white">{isEs ? d.price.sectionTitleEs : d.price.sectionTitle}</h2>
           </div>
           <p className="text-[12px] text-[#8A8A8A] mb-4">
-            Tap any price to copy. Always anchor with Europe first.
+            {isEs ? d.price.descriptionEs : d.price.description}
           </p>
 
           {/* Price anchor */}
           <div className="bg-[#0A0A0A] rounded-xl p-4 mb-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-                Europe Price
+                {isEs ? d.price.europeLabelEs : d.price.europeLabel}
               </span>
               <span className="font-mono text-lg font-bold text-[#8A8A8A] line-through">
-                €140
+                {currency}140
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-[10px] text-[#0ABAB5] uppercase tracking-wider font-semibold">
-                Andorra Price
+                {isEs
+                  ? d.price.locationPriceLabelEs.replace('{locationName}', locationName)
+                  : d.price.locationPriceLabel.replace('{locationName}', locationName)}
               </span>
               <button
-                onClick={() => copyPrice('€80')}
+                onClick={() => copyPrice(`${currency}80`)}
                 className="flex items-center gap-1.5"
               >
-                <span className="font-mono text-lg font-bold text-[#0ABAB5]">€80</span>
-                {copiedPrice === '€80' ? (
+                <span className="font-mono text-lg font-bold text-[#0ABAB5]">{currency}80</span>
+                {copiedPrice === `${currency}80` ? (
                   <Check className="w-3.5 h-3.5 text-green-400" />
                 ) : (
                   <Copy className="w-3.5 h-3.5 text-[#8A8A8A]" />
@@ -458,7 +418,7 @@ export default function NailKitPage() {
                 </div>
                 <div className="bg-[#1A1A1A] rounded-lg p-3">
                   <p className="text-[11px] font-semibold text-[#8A8A8A] uppercase tracking-wider mb-1">
-                    Script
+                    {isEs ? d.price.scriptLabelEs : d.price.scriptLabel}
                   </p>
                   <p className="text-[13px] text-white/90 italic font-serif leading-relaxed">
                     {offer.script}
@@ -480,23 +440,21 @@ export default function NailKitPage() {
         >
           <div className="flex items-center gap-2 mb-3">
             <HeartHandshake className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Emotional Connection</h2>
+            <h2 className="text-lg font-bold text-white">{isEs ? d.emotional.sectionTitleEs : d.emotional.sectionTitle}</h2>
           </div>
 
           <div className="bg-[#0A0A0A] rounded-xl p-4">
             <p className="text-[14px] text-white italic font-serif leading-relaxed">
-              "You know, this isn't just about beauty — it's about that little daily detail
-              that makes you feel fresh and confident. Every time you look at your hands,
-              you'll feel clean, polished, and taken care of."
+              "{isEs ? d.emotional.script1Es : d.emotional.script1}"
             </p>
             <p className="text-[14px] text-white italic font-serif leading-relaxed mt-3">
-              "And if you think about it — €80 for something that replaces salon visits for
-              years — it's a no-brainer."
+              "{isEs
+                ? d.emotional.script2TemplateEs.replace('{currency}', currency)
+                : d.emotional.script2Template.replace('{currency}', currency)}"
             </p>
           </div>
           <p className="text-[12px] text-[#8A8A8A] mt-3">
-            Keep the tone friendly, not pushy — this pitch should feel like a fun chat, not a
-            sale.
+            {isEs ? d.emotional.coachingEs : d.emotional.coaching}
           </p>
         </motion.section>
 
@@ -511,64 +469,26 @@ export default function NailKitPage() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Lightbulb className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">Pro Tips</h2>
+            <h2 className="text-lg font-bold text-white">{isEs ? d.proTips.sectionTitleEs : d.proTips.sectionTitle}</h2>
           </div>
 
           <div className="space-y-3">
-            {[
-              {
-                icon: <Sparkles className="w-4 h-4" />,
-                title: 'Let them feel the shine before showing price',
-                text: 'The WOW moment in Step 3 is your close. Never mention price before they see the mirror. The visual proof sells itself.',
-              },
-              {
-                icon: <Shield className="w-4 h-4" />,
-                title: '"Even if your dog eats it" — use the warranty',
-                text: "The lifetime warranty is your risk-remover. The 'dog eats it' line makes them laugh and remember. Use it every time.",
-              },
-              {
-                icon: <Gift className="w-4 h-4" />,
-                title: 'Mention Christmas gifts naturally',
-                text: '"Small, elegant, and actually useful." During peak season, every demo should include a gift reference.',
-              },
-              {
-                icon: <Package className="w-4 h-4" />,
-                title: 'Buy 2, Get 2 for amazing buyers',
-                text: 'When the energy is high and they have a Christmas list — this is your volume close. Four kits at €160 is €40 per kit.',
-              },
-              {
-                icon: <Hand className="w-4 h-4" />,
-                title: 'Buy 1, Get 1 Mix & Match for quick closes',
-                text: '€80 for a Nail Kit + Scrub/Butter is an easy yes. It also sets up your cross-sell perfectly.',
-              },
-              {
-                icon: <TrendingDown className="w-4 h-4" />,
-                title: '€45 single kit — the holiday gift line',
-                text: "Your graceful exit that still creates a customer. Frame it as a gift from you: 'It's my way of opening the door.'",
-              },
-              {
-                icon: <Star className="w-4 h-4" />,
-                title: 'Build suspense before the WOW',
-                text: '"Promise not to scream?" — this line creates anticipation. The contrast between the buildup and the reveal is what makes them buy.',
-              },
-              {
-                icon: <Clock className="w-4 h-4" />,
-                title: 'Fast, fun, and feel-good',
-                text: 'This is a 60-second demo. Keep energy high, move quickly, and celebrate their reaction. If they smile, they buy.',
-              },
-            ].map((tip, i) => (
-              <div key={i} className="flex gap-3 bg-[#0A0A0A] rounded-xl p-3.5">
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#0ABAB5]/15 flex items-center justify-center text-[#0ABAB5]">
-                  {tip.icon}
+            {proTips.map((tip, i) => {
+              const IconComp = iconComponents[tip.iconName] || Sparkles;
+              return (
+                <div key={i} className="flex gap-3 bg-[#0A0A0A] rounded-xl p-3.5">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#0ABAB5]/15 flex items-center justify-center text-[#0ABAB5]">
+                    <IconComp className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{tip.title}</p>
+                    <p className="text-[12px] text-[#8A8A8A] leading-relaxed mt-0.5">
+                      {tip.text}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-white">{tip.title}</p>
-                  <p className="text-[12px] text-[#8A8A8A] leading-relaxed mt-0.5">
-                    {tip.text}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.section>
 
@@ -582,24 +502,24 @@ export default function NailKitPage() {
           className="bg-gradient-to-br from-[#0ABAB5]/15 to-[#1A1A1A] rounded-2xl p-5 border border-[#0ABAB5]/25 mb-8"
         >
           <h3 className="text-sm font-bold text-[#0ABAB5] mb-3 uppercase tracking-wider">
-            Quick Reference
+            {isEs ? d.quickRef.sectionTitleEs : d.quickRef.sectionTitle}
           </h3>
           <div className="grid grid-cols-2 gap-2 text-[12px]">
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Demo:</span>{' '}
-              <span className="text-white font-medium">60 seconds</span>
+              <span className="text-[#8A8A8A]">{isEs ? d.quickRef.demoLabelEs : d.quickRef.demoLabel}</span>{' '}
+              <span className="text-white font-medium">{isEs ? d.quickRef.demoValueEs : d.quickRef.demoValue}</span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Shine lasts:</span>{' '}
-              <span className="text-white font-medium">2 weeks</span>
+              <span className="text-[#8A8A8A]">{isEs ? d.quickRef.shineLabelEs : d.quickRef.shineLabel}</span>{' '}
+              <span className="text-white font-medium">{isEs ? d.quickRef.shineValueEs : d.quickRef.shineValue}</span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">Warranty:</span>{' '}
-              <span className="text-white font-medium">Lifetime</span>
+              <span className="text-[#8A8A8A]">{isEs ? d.quickRef.warrantyLabelEs : d.quickRef.warrantyLabel}</span>{' '}
+              <span className="text-white font-medium">{isEs ? d.quickRef.warrantyValueEs : d.quickRef.warrantyValue}</span>
             </div>
             <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">No polish:</span>{' '}
-              <span className="text-white font-medium">Natural shine</span>
+              <span className="text-[#8A8A8A]">{isEs ? d.quickRef.noPolishLabelEs : d.quickRef.noPolishLabel}</span>{' '}
+              <span className="text-white font-medium">{isEs ? d.quickRef.noPolishValueEs : d.quickRef.noPolishValue}</span>
             </div>
           </div>
         </motion.section>

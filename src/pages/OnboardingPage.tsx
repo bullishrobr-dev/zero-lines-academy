@@ -12,10 +12,10 @@ interface SlideData {
 
 const slides: SlideData[] = [
   {
-    overline: 'THE ACADEMY',
-    title: 'Master the Art of Zero Lines Selling',
+    overline: 'CLEAN.  PURE.  CONSCIOUS.',
+    title: 'Welcome to Zero Lines',
     description:
-      'Learn the exact techniques, pitches, and closes used by top earners across Gibraltar and Andorra.',
+      'Premium skincare born from nature. Join the team that brings clean beauty to the streets of Gibraltar and Andorra.',
     image: '/onboarding-1.png',
   },
   {
@@ -27,7 +27,7 @@ const slides: SlideData[] = [
   },
   {
     overline: 'EARN MORE',
-    title: 'From \u20AC1,500 to \u20AC8,000/Month',
+    title: 'From €1,500 to €8,000/Month',
     description:
       'Base salary is just the start. Top performers earn 5x their base through commission. Your skills directly determine your paycheck.',
     image: '/onboarding-3.png',
@@ -159,7 +159,7 @@ export default function OnboardingPage() {
   };
 
   const handleGetStarted = () => {
-    navigate('/home');
+    navigate('/auth');
   };
 
   const slide = slides[current];
@@ -174,46 +174,17 @@ export default function OnboardingPage() {
     >
       {/* Logo */}
       <motion.div
-        className="flex justify-center mt-12"
+        className="flex justify-center mt-10"
         variants={logoVariants}
         initial="hidden"
         animate="visible"
       >
-        <div className="flex flex-col items-center">
-          {/* ZL Monogram */}
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-            <rect
-              x="4"
-              y="4"
-              width="72"
-              height="72"
-              rx="16"
-              stroke="#0ABAB5"
-              strokeWidth="3"
-              fill="none"
-            />
-            <text
-              x="40"
-              y="52"
-              textAnchor="middle"
-              fill="#FFFFFF"
-              fontFamily="Inter, sans-serif"
-              fontWeight="800"
-              fontSize="32"
-              letterSpacing="-0.04em"
-            >
-              ZL
-            </text>
-            {/* Leaf accent */}
-            <path
-              d="M48 18C48 18 52 14 56 16C54 20 50 22 48 18Z"
-              fill="#0ABAB5"
-            />
-          </svg>
-          <span className="text-overline text-[#0ABAB5] mt-3 tracking-[0.12em]">
-            ZERO LINES
-          </span>
-        </div>
+        <img
+          src="/logo-white.png"
+          alt="Zero Lines"
+          className="w-28 h-auto"
+          draggable={false}
+        />
       </motion.div>
 
       {/* Carousel Area */}

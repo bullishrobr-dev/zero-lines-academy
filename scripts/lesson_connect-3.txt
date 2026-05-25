@@ -1,0 +1,208 @@
+{
+    id: 'connect-3',
+    categoryId: 'connecting',
+    title: 'Cultural Intelligence',
+    titleEs: 'Inteligencia Cultural',
+    subtitle: 'Selling to Spanish, French, British, and Eastern European tourists — key differences and phrases',
+    subtitleEs: 'Vendiendo a turistas españoles, franceses, británicos y del este de Europa',
+    duration: '10 min',
+    icon: 'Globe',
+    order: 3,
+    xpReward: 150,
+    sections: [
+    {
+            type: 'header',
+      text: 'Every Culture Buys Differently. Know the Difference.'
+    },
+    {
+            type: 'paragraph',
+      text: 'Andorra is a crossroads — Spanish, French, British, Eastern European, and Asian tourists all converge on the same street. Selling the same product to a Frenchwoman from Paris requires a different approach than selling to a British family or a solo Spanish shopper. Cultural intelligence isn\'t stereotyping — it\'s understanding how cultural background shapes communication style, decision-making, and buying psychology.'
+    },
+    {
+            type: 'keypoint',
+      text: 'A technique that closes a Spanish customer might repel a French one. Humor that charms a British tourist might confuse an Eastern European. Adapt your approach to the person in front of you.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Spanish Tourists: Warmth, Energy, and Value'
+    },
+    {
+            type: 'paragraph',
+      text: 'Spanish tourists often arrive in groups — families, couples, friends. They\'re typically shopping-oriented, respond well to high energy, and appreciate genuine warmth. The tax-haven angle resonates strongly because Spanish VAT is high.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'COMMUNICATION STYLE: Warm, expressive, relationship-oriented. They appreciate personal connection before business. Ask about their trip, their day, their plans.',
+        'DECISION-MAKING: Often consensus-based (especially in groups). The group dynamic matters — get everyone involved.',
+        'PRICE SENSITIVITY: Value-conscious but will spend for quality. The tax-haven savings narrative works brilliantly — frame it as \'smart shopping.\'',
+        'KEY PHRASES: \'Hola!\' (always greet warmly), \'Ahorras mucho aquí en Andorra\' (You save a lot here in Andorra), \'Es de muy buena calidad\' (It\'s very good quality), \'Regalo perfecto\' (Perfect gift).',
+        'APPROACH: High energy, warm smile, personal questions. Show enthusiasm. Spanish customers often mirror your energy — bring it.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'Hola! ¿Qué tal vuestro día en Andorra? Me encanta tu bolso — claramente sabes encontrar las mejores tiendas. Déjame enseñarte algo que la mayoría de turistas no conocen. Es mi producto favorito aquí.\' (Hello! How\'s your day in Andorra? I love your bag — you clearly know how to find the best shops. Let me show you something most tourists don\'t know about. It\'s my favorite product here.)'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'French Tourists: Sophistication, Knowledge, and Subtlety'
+    },
+    {
+            type: 'paragraph',
+      text: 'French culture has deep skincare knowledge. French customers often know about ingredients, brands, and beauty science. They appreciate quality demonstrations but can be skeptical of hype. Subtlety works better than high-pressure energy.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'COMMUNICATION STYLE: Measured, thoughtful, appreciate expertise. Show product knowledge. Don\'t oversell — let the product speak.',
+        'DECISION-MAKING: Individual or couple-based. They think before deciding. Give them space to consider. Pressure backfires.',
+        'PRICE SENSITIVITY: Quality over price. A French customer will pay €300 for something that works vs. €50 for something cheap. Frame it as investment, not discount.',
+        'KEY PHRASES: \'Bonjour!\' (essential greeting), \'C\'est un produit exceptionnel\' (It\'s an exceptional product), \'Résultats immédiats\' (Immediate results), \'Sans parabènes, sans chimie\' (Without parabens, without chemicals).',
+        'APPROACH: Professional, knowledgeable, respectful. Demonstrate the product with confidence. Answer technical questions well. Give them time to decide.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'Bonjour! Vous connaissez les produits de la Mer Morte? C\'est exceptionnel — les minéraux sont les plus concentrés au monde. Regardez ce résultat, c\'est immédiat.\' (Hello! Do you know Dead Sea products? It\'s exceptional — the minerals are the most concentrated in the world. Look at this result, it\'s immediate.)'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'British Tourists: Directness, Humor, and Straight Talk'
+    },
+    {
+            type: 'paragraph',
+      text: 'British tourists generally appreciate directness, humor, and no-nonsense communication. They can be skeptical of \'sales talk\' and respond well to someone who feels genuine rather than performative. Self-deprecating humor works brilliantly.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'COMMUNICATION STYLE: Direct, humorous, appreciates authenticity. Don\'t be too \'salesy.\' Be a real person having a real conversation.',
+        'DECISION-MAKING: Usually couple-based. The partner\'s opinion matters heavily. Involve them with humor and direct questions.',
+        'PRICE SENSITIVITY: Reasonably price-aware but responsive to genuine value. The tax-haven angle works well. They love a \'bargain\' but hate feeling \'sold to.\'',
+        'APPROACH: Friendly, slightly cheeky, direct. \'I know you weren\'t planning to stop, but I promise this is worth two minutes of your time.\' British customers respect honesty and humor.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'I know, I know — you\'re thinking \'not another salesperson.\' But I promise you, this is actually worth stopping for. Two minutes, and if you don\'t love it, you can tell me I\'m terrible at my job. Fair deal?\' This disarms skepticism with humor and directness.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Eastern European Tourists: Exclusivity, Status, and Results'
+    },
+    {
+            type: 'paragraph',
+      text: 'Eastern European tourists often respond to premium positioning, exclusivity, and visible results. They\'re typically decisive buyers — when interested, they move fast. They appreciate being treated as VIPs.'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'COMMUNICATION STYLE: Direct, relationship-oriented, appreciate status and exclusivity. Frame the product as premium and exclusive.',
+        'DECISION-MAKING: Often individual or with a trusted companion. Once convinced, they decide quickly. Don\'t slow them down with too many options.',
+        'PRICE SENSITIVITY: Less price-sensitive when the value is clear. Premium framing actually INCREASES appeal. They want the BEST.',
+        'APPROACH: Confident, premium, results-focused. Show the demo. Let the result speak. Frame it as the #1 product, the flagship, the best-seller.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'This is our number one product across all of Europe. Everyone who tries it is shocked by the result. Here, look in the mirror — you see the difference? That\'s after two minutes. Imagine after one month.\' Results-driven, premium-framed, confident delivery.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Personal Space and Touch: Cultural Differences'
+    },
+    {
+            type: 'paragraph',
+      text: 'Physical proximity and touch are interpreted differently across cultures:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'SOUTHERN EUROPEANS (Spanish, Italian, Portuguese): Generally comfortable with closer proximity and light touch (shoulder, hand). Warm, expressive gestures are welcome.',
+        'NORTHERN EUROPEANS (British, German, Scandinavian): Prefer more personal space. Touch should be minimal and only after rapport is established. Respect their bubble.',
+        'FRENCH: Moderate personal space. Appreciate elegance and grace in movement. Touch is acceptable during the demo but keep it professional.',
+        'EASTERN EUROPEANS: Generally comfortable with warmth and proximity once rapport is established. Build trust first, then be warm.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'When uncertain about someone\'s cultural background, start with moderate distance and minimal touch. If they lean in, move closer. If they stay back, respect their space. Let THEM close the distance.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Language Tips: Key Phrases That Open Doors'
+    },
+    {
+            type: 'paragraph',
+      text: 'Even a few words in someone\'s native language creates instant connection. It shows respect and effort. Here are essential phrases:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'SPANISH: \'Hola\' (Hello), \'¿Cómo estás?\' (How are you?), \'Mira\' (Look), \'Increíble\' (Incredible), \'Regalo\' (Gift), \'Precio especial\' (Special price), \'Para ti\' (For you), \'Gracias\' (Thank you)',
+        'FRENCH: \'Bonjour\' (Hello), \'Regardez\' (Look), \'Incroyable\' (Incredible), \'Résultat immédiat\' (Immediate result), \'Cadeau\' (Gift), \'Prix spécial\' (Special price), \'Merci\' (Thank you)',
+        'ENGLISH: You\'re likely already fluent, but British-specific phrases help: \'Brilliant,\' \'Lovely,\' \'Absolutely,\' \'Cheers\' — mirror their vocabulary.',
+        'RUSSIAN (common in Andorra): \'Zdravstvuyte\' (Hello), \'Smotrite\' (Look), \'Potryasayushche\' (Amazing) — even attempting a greeting creates goodwill.'
+      ]
+    },
+    {
+            type: 'quote',
+      text: 'Language is the road map of a culture. It tells you where its people come from and where they are going. Speaking even a few words in someone\'s language is a sign of respect that opens wallets.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'Which approach works best with French tourists?',
+      options: [
+        'High energy and lots of enthusiasm',
+        'Professional expertise with product knowledge and space to decide',
+        'Self-deprecating humor and cheekiness',
+        'Exclusivity and VIP treatment'
+      ],
+      correctIndex: 1,
+      explanation: 'French tourists appreciate expertise, product knowledge, and space to consider. They\'re often knowledgeable about skincare and respond to substance over hype. Pressure backfires.',
+    },
+    {
+      question: 'Why does the tax-haven savings narrative work especially well with Spanish tourists?',
+      options: [
+        'They don\'t care about quality',
+        'Spanish VAT is high, so the savings feel significant and smart',
+        'They only buy cheap products',
+        'They don\'t understand luxury pricing'
+      ],
+      correctIndex: 1,
+      explanation: 'Spanish VAT is relatively high, so the tax-haven savings feel significant. Spanish tourists respond well to value framing — \'smart shopping\' in Andorra.',
+    },
+    {
+      question: 'What should you do when uncertain about someone\'s cultural background?',
+      options: [
+        'Guess based on appearance',
+        'Start with moderate distance and minimal touch, letting them close the gap',
+        'Ask directly where they\'re from',
+        'Use the same approach for everyone'
+      ],
+      correctIndex: 1,
+      explanation: 'When uncertain, start with moderate distance and minimal touch. Watch their body language — if they lean in, you can move closer. Let them set the proximity comfort level.',
+    }
+    ],
+  }

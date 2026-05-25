@@ -23,6 +23,7 @@ import {
 import { useMemo } from 'react';
 import { categories, getLessonsForCategory } from '../data/lessons';
 import { useLanguage } from '../contexts/LanguageContext';
+import { LESSON_TIERS, TIER_NAMES } from '../data/lessonTiers';
 
 const iconMap: Record<string, LucideIcon> = {
   Brain,
@@ -158,7 +159,8 @@ function ProductSubcategoryCard({
 export default function CategoryHub() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  useLanguage(); // ensure language context is active
+  const { language } = useLanguage();
+  const isEs = language === 'es';
 
   const category = useMemo(() => categories.find((c) => c.id === id), [id]);
   const lessons = useMemo(() => (id ? getLessonsForCategory(id) : []), [id]);
@@ -189,7 +191,7 @@ export default function CategoryHub() {
           className="flex items-center gap-1 text-[#8A8A8A] mb-4 hover:text-white transition-colors"
         >
           <ArrowLeft size={18} />
-          <span className="text-body-small">Back</span>
+          <span className="text-body-small">{isEs ? 'Volver' : 'Back'}</span>
         </button>
 
         <motion.div
@@ -203,15 +205,15 @@ export default function CategoryHub() {
           >
             <CatIcon size={28} style={{ color: category.accentColor }} />
           </div>
-          <h1 className="text-h1 text-white mb-2">{category.title}</h1>
-          <p className="text-body-small text-[#8A8A8A] leading-relaxed">{category.description}</p>
+          <h1 className="text-h1 text-white mb-2">{isEs && category.titleEs ? category.titleEs : category.title}</h1>
+          <p className="text-body-small text-[#8A8A8A] leading-relaxed">{isEs && (category as any).descriptionEs ? (category as any).descriptionEs : category.description}</p>
         </motion.div>
       </div>
 
       {/* Progress bar */}
       <div className="px-6 mb-6">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-caption text-[#8A8A8A]">Category Progress</span>
+          <span className="text-caption text-[#8A8A8A]">{isEs ? 'Progreso' : 'Category Progress'}</span>
           <span className="text-caption font-semibold" style={{ color: category.accentColor }}>
             {completionPct}%
           </span>
@@ -226,14 +228,14 @@ export default function CategoryHub() {
           />
         </div>
         <p className="text-caption text-[#8A8A8A] mt-2">
-          {completedCount} of {lessons.length} lessons completed
+          {completedCount} {isEs ? 'de' : 'of'} {lessons.length} {isEs ? 'lecciones completadas' : 'lessons completed'}
         </p>
       </div>
 
       {/* ── Product Subcategories (only for products category) ── */}
       {isProductsCategory && (
         <div className="px-6 mb-6 space-y-3">
-          <h2 className="text-h2 text-white font-bold mb-4">Product Deep Dives</h2>
+          <h2 className="text-h2 text-white font-bold mb-4">{isEs ? 'Inmersiones de Producto' : 'Product Deep Dives'}</h2>
           {productSubcategories.map((sub, index) => (
             <ProductSubcategoryCard key={sub.id} sub={sub} index={index} />
           ))}
@@ -252,6 +254,8 @@ export default function CategoryHub() {
           {lessons.map((lesson, index) => {
             const isCompleted = progress[lesson.id];
             const LessonIcon = getIcon(lesson.icon);
+            const tierNum = LESSON_TIERS[lesson.id] || 1;
+            const tierName = TIER_NAMES[tierNum]?.en || `Tier ${tierNum}`;
 
             return (
               <motion.button
@@ -273,8 +277,16 @@ export default function CategoryHub() {
 
                 {/* Middle content */}
                 <div className="flex-1 min-w-0">
-                  <h4 className="text-h4 text-white truncate">{lesson.title}</h4>
-                  <p className="text-caption text-[#8A8A8A] mt-0.5">{lesson.subtitle}</p>
+                  <div className="flex items-center gap-2">
+                    <h4 className="text-h4 text-white truncate">{isEs && lesson.titleEs ? lesson.titleEs : lesson.title}</h4>
+                    <span
+                      className="text-[9px] px-1.5 py-0.5 rounded bg-[#0ABAB5]/10 text-[#0ABAB5] font-medium shrink-0"
+                      title={tierName}
+                    >
+                      T{tierNum}
+                    </span>
+                  </div>
+                  <p className="text-caption text-[#8A8A8A] mt-0.5">{isEs && lesson.subtitleEs ? lesson.subtitleEs : lesson.subtitle}</p>
                   <div className="flex items-center gap-2 mt-1.5">
                     <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#1A1A1A] text-[#8A8A8A]">
                       {lesson.duration}

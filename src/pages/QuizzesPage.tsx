@@ -5,13 +5,19 @@ import {
   ChevronLeft, Trophy, Star, CheckCircle, XCircle,
   ArrowRight, Brain, Syringe, Sparkles, FlaskConical,
   Footprints, MessageCircle, Eye, Hand, Target, Zap,
+  Waves, Palette, Heart, TrendingUp,
 } from 'lucide-react';
 import { generalQuizzes, type QuizQuestion } from '../data/generalQuizzes';
+import { MORE_QUIZZES } from '../data/moreQuizzes';
+import { MORE_QUIZZES_2 } from '../data/moreQuizzes2';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useProgress } from '../hooks/useProgress';
 
+const allQuizzes = [...generalQuizzes, ...MORE_QUIZZES, ...MORE_QUIZZES_2];
+
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Brain, Syringe, Sparkles, FlaskConical, Footprints, MessageCircle, Eye, Hand, Target, Zap,
+  Waves, Palette, Heart, TrendingUp,
 };
 
 /* ──────────────────────── views ──────────────────────── */
@@ -29,7 +35,7 @@ export default function QuizzesPage() {
   const [showExplanation, setShowExplanation] = useState(false);
 
   const quiz = useMemo(
-    () => generalQuizzes.find((q) => q.id === activeQuizId) ?? null,
+    () => allQuizzes.find((q) => q.id === activeQuizId) ?? null,
     [activeQuizId]
   );
   const question: QuizQuestion | null = quiz ? quiz.questions[qIndex] ?? null : null;
@@ -68,9 +74,9 @@ export default function QuizzesPage() {
 
   /* ─── Hub ─── */
   if (view === 'hub') {
-    const completed = generalQuizzes.filter((q) => progress.getQuizScore(q.id) !== undefined).length;
-    const avg = generalQuizzes.length
-      ? Math.round(generalQuizzes.reduce((s, q) => s + (progress.getQuizScore(q.id) ?? 0), 0) / generalQuizzes.length)
+    const completed = allQuizzes.filter((q) => progress.getQuizScore(q.id) !== undefined).length;
+    const avg = allQuizzes.length
+      ? Math.round(allQuizzes.reduce((s, q) => s + (progress.getQuizScore(q.id) ?? 0), 0) / allQuizzes.length)
       : 0;
 
     return (
@@ -91,7 +97,7 @@ export default function QuizzesPage() {
         <div className="flex gap-3 px-4 mt-3">
           <div className="flex-1 bg-[#1A1A1A] rounded-xl p-3 text-center">
             <p className="text-overline text-[#8A8A8A]">Total</p>
-            <p className="text-h3 text-white mt-1">{generalQuizzes.length}</p>
+            <p className="text-h3 text-white mt-1">{allQuizzes.length}</p>
           </div>
           <div className="flex-1 bg-[#1A1A1A] rounded-xl p-3 text-center">
             <p className="text-overline text-[#8A8A8A]">Completed</p>
@@ -105,7 +111,7 @@ export default function QuizzesPage() {
 
         {/* Quiz Cards */}
         <div className="px-4 mt-6 space-y-3">
-          {generalQuizzes.map((q, i) => {
+          {allQuizzes.map((q, i) => {
             const QuizIcon = iconMap[q.icon] ?? Brain;
             const isDone = progress.getQuizScore(q.id) !== undefined;
             return (

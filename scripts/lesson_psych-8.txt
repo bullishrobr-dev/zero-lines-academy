@@ -1,0 +1,183 @@
+{
+    id: 'psych-8',
+    categoryId: 'psychology',
+    title: 'Developing Your Sales Intuition',
+    titleEs: 'Desarrollando tu Intuición de Ventas',
+    subtitle: 'How experience becomes instinct. Pattern recognition. Reading micro-signals.',
+    subtitleEs: 'Aprende a leer clientes como un libro',
+    duration: '10 min',
+    icon: 'Compass',
+    order: 8,
+    xpReward: 150,
+    sections: [
+    {
+            type: 'header',
+      text: 'From Thinking to Knowing: The Path to Sales Instinct'
+    },
+    {
+            type: 'paragraph',
+      text: 'Watch a master salesperson work, and it looks like magic. They seem to just KNOW who will buy, when to push, when to back off, what to say. But it\'s not magic — it\'s pattern recognition developed through hundreds of interactions. Every customer you\'ve ever stopped has taught you something. The question is: are you paying attention?'
+    },
+    {
+            type: 'keypoint',
+      text: 'Sales intuition is the ability to read a situation and know the right move without consciously thinking through it. It comes from deliberate practice + active reflection on every interaction.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'How Experience Becomes Instinct'
+    },
+    {
+            type: 'paragraph',
+      text: 'Your brain is a pattern-recognition machine. When you encounter a situation repeatedly, your brain starts building mental models. Over time, these models become so ingrained that you recognize patterns instantly, without conscious thought. This is how a chess grandmaster \'sees\' the right move in seconds, or how a doctor \'feels\' a diagnosis before the tests come back.'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'STAGE 1 — CONSCIOUS INCOMPETENCE: You\'re new. You don\'t know what you don\'t know. Every interaction requires intense focus. You think through every word.',
+        'STAGE 2 — CONSCIOUS COMPETENCE: You\'ve had enough interactions to start seeing patterns. You can read some customers, but it still takes effort. You\'re thinking AND doing.',
+        'STAGE 3 — UNCONSCIOUS COMPETENCE: The magic stage. Patterns jump out at you. You just KNOW. Your body moves before your brain decides. This is where top sellers live.',
+        'STAGE 4 — MASTERY: Not only do you intuitively read situations, but you can ALSO explain your intuition to others. You can teach. This is the level of a true sales leader.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Most salespeople reach Stage 2 and stop growing. They get good enough to make money and plateau. The ones who reach Stage 3 and 4 are those who actively reflect on every interaction, seeking patterns rather than just counting wins.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Building Pattern Recognition Deliberately'
+    },
+    {
+            type: 'paragraph',
+      text: 'Intuition isn\'t just \'experience\' — it\'s EXPERIENCE THAT YOU\'VE PROCESSED. Here\'s how to accelerate the process:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE AFTER-ACTION REVIEW: After every interaction — yes OR no — ask yourself three questions: What did I notice about this person? What did I do? What was the result? Write it down. This forces your brain to process patterns.',
+        'THE CUSTOMER LOG: Keep a small notebook. For each customer: nationality (if known), approximate age, what they were wearing, who they were with, what product you demoed, what objection they gave, did they buy. Over weeks, patterns emerge.',
+        'STUDY YOUR WINS: What did your buyers have in common? Were they couples? Did they carry luxury bags? Were they in a certain age range? Your best customers have patterns.',
+        'STUDY YOUR LOSSES EQUALLY: What did non-buyers have in common? Were they in a rush? Were they on their phones? Did they have kids? Understanding who WON\'T buy is as valuable as understanding who will.'
+      ]
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Reading Micro-Signals: The Language of the Body'
+    },
+    {
+            type: 'paragraph',
+      text: 'Micro-signals are tiny, often unconscious cues that reveal what someone is really thinking. They happen in milliseconds. A master salesperson reads these automatically:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'EYE DIRECTION: Looking up and to the left often indicates visual imagination (they\'re picturing the result). Looking down indicates internal dialogue (they\'re thinking through the logic). Rapid eye movement between you and the product indicates interest.',
+        'MICRO-EXPRESSIONS: A brief flash of surprise when you mention the price (they expected higher). A quick eyebrow raise when you show the demo result (they\'re impressed but trying to hide it). These flashes reveal true feelings beneath the polite mask.',
+        'POSTURE SHIFTS: Leaning in = interest. Crossing arms after the price = resistance. Relaxing shoulders after the offer = acceptance. The body reveals the decision before the mouth does.',
+        'TOUCHING THE FACE: Touching the cheek or chin while looking at the product = they\'re imagining themselves using it. A very positive signal.',
+        'BREATHING CHANGES: A held breath when you show the price, then a release = relief (they can afford it). Shallow breathing = anxiety about the price.',
+        'VOICE TONE CHANGES: Higher pitch when asking questions = excitement. Lower, slower speech = thoughtful consideration (often a buying signal). Flat tone = disengagement.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'Don\'t try to read all micro-signals at once. Pick ONE signal per week to focus on. For example, week 1: notice when customers lean in vs. lean back. Week 2: watch for face-touching. Within 2 months, you\'ll be reading the full picture automatically.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'When to Push and When to Back Off'
+    },
+    {
+            type: 'paragraph',
+      text: 'This is the million-euro question. The answer lies in reading the customer\'s buying temperature:'
+    },
+    {
+            type: 'numbered',
+      items: [
+        'GREEN LIGHTS (PUSH): Leaning in, touching the product, asking unprompted questions about usage or price, involving their partner positively, smiling with genuine eye crinkles, touching their face while looking at the product. These customers are warm — close with confidence.',
+        'YELLOW LIGHTS (GENTLE): Hesitant questions, looking at partner for approval, saying \'it\'s nice but...\', touching the product but not committing. These customers need reassurance, not pressure. Use emotional connection and logic together.',
+        'RED LIGHTS (BACK OFF): Crossed arms after price, stepping back, checking phone repeatedly, flat responses, looking around for exit, partner shaking head subtly. These customers are not buying today. Plant a seed and let them go gracefully.'
+      ]
+    },
+    {
+            type: 'script',
+      text: '\'I can see you\'re thinking about it — that\'s smart. Here\'s my WhatsApp. If you have any questions later, or if you want to come back and try something else, just message me. No pressure at all.\' This plants a seed, builds a bridge, and respects their signals.'
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'Learning from Every Interaction'
+    },
+    {
+            type: 'paragraph',
+      text: 'The fastest way to develop intuition is to extract a lesson from EVERY customer — even the ones who ignore you completely:'
+    },
+    {
+            type: 'bullets',
+      items: [
+        'THE IGNORE: \'They were walking fast, looking at their phone, carrying coffee. I probably should have let them pass.\' → Lesson: Match stopping effort to customer receptivity.',
+        'THE \'NO THANKS\': \'They smiled but kept walking. Good energy but bad timing.\' → Lesson: My approach was warm but they\'re in a rush. Speed up the opener next time.',
+        'THE DEMO, NO BUY: \'They loved the nail kit demo but said it was too expensive even at €30.\' → Lesson: Either a price objection to work through, or genuinely no budget. Note the signals for future reference.',
+        'THE CLOSE: \'They bought the syringe after I involved the husband in the demo.\' → Lesson: Partner engagement was the key factor. Replicate that approach with couples.'
+      ]
+    },
+    {
+            type: 'tip',
+      text: 'At the end of each day, write down the ONE most important lesson you learned. Just one sentence. After 6 months, you\'ll have 180 lessons. That\'s more accumulated wisdom than most salespeople acquire in years.'
+    },
+    {
+            type: 'quote',
+      text: 'Intuition is not magic. It is pattern recognition that has been practiced until it becomes automatic. Every customer is a teacher — if you\'re willing to learn.',
+      attribution: 'Zero Lines Method'
+    }
+    ],
+    quiz: [
+    {
+      question: 'What are the four stages of developing sales intuition?',
+      options: [
+        'Beginner, Intermediate, Advanced, Expert',
+        'Conscious Incompetence, Conscious Competence, Unconscious Competence, Mastery',
+        'Learning, Doing, Teaching, Leading',
+        'Theory, Practice, Failure, Success'
+      ],
+      correctIndex: 1,
+      explanation: 'The four stages are Conscious Incompetence (new, thinking hard), Conscious Competence (seeing patterns with effort), Unconscious Competence (intuitive knowing), and Mastery (can also teach others).',
+    },
+    {
+      question: 'What does it mean when a customer touches their face while looking at the product?',
+      options: [
+        'They\'re anxious about the price',
+        'They\'re imagining themselves using it — a very positive signal',
+        'They want to leave',
+        'They\'re checking their makeup'
+      ],
+      correctIndex: 1,
+      explanation: 'Face-touching while looking at a product is a strong positive signal. It indicates the customer is unconsciously imagining themselves using it — a key buying indicator.',
+    },
+    {
+      question: 'Why is it valuable to study your losses (non-buyers) as much as your wins?',
+      options: [
+        'To feel bad about yourself',
+        'To understand patterns of who won\'t buy, saving time and energy',
+        'To blame external factors',
+        'To avoid those types of customers entirely'
+      ],
+      correctIndex: 1,
+      explanation: 'Understanding patterns in non-buyers is as valuable as understanding buyers. It helps you recognize who to invest energy in, when to pivot, and when to gracefully let someone go.',
+    }
+    ],
+  }
