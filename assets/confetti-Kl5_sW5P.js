@@ -1,0 +1,1 @@
+import{c as e}from"./confetti.module-oQXWb4Lk.js";function r(){e({particleCount:100,spread:70,origin:{y:.6},colors:["#0ABAB5","#F59E0B","#8B5CF6"]})}function t(){e({particleCount:60,spread:50,origin:{y:.7},colors:["#0ABAB5","#10B981"]})}function a(){e({particleCount:80,spread:60,origin:{y:.5},colors:["#F59E0B","#EF4444","#0ABAB5"]})}export{r as a,a as b,t as c};
