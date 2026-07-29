@@ -111,8 +111,12 @@ export default function ProductHero({
                 <span aria-hidden="true" className="text-[rgb(var(--pa-strong))]">
                   {stat.icon}
                 </span>
-                <dt className="text-caption text-ink-2 leading-tight">{stat.label}</dt>
-                <dd className="text-body-small font-bold text-ink leading-tight">{stat.value}</dd>
+                <dt className="text-caption text-ink-2 leading-tight w-full break-words">
+                  {stat.label}
+                </dt>
+                <dd className="text-body-small font-bold text-ink leading-tight w-full break-words">
+                  {stat.value}
+                </dd>
               </div>
             ))}
           </motion.dl>
