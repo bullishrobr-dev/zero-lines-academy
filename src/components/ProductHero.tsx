@@ -53,12 +53,16 @@ export default function ProductHero({
       <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={wash} />
 
       <div className="relative">
-        <button type="button" onClick={() => navigate(-1)} className="btn-quiet px-4 text-caption">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="btn-quiet flex w-fit px-4 text-caption"
+        >
           <ChevronLeft size={18} aria-hidden="true" />
           {backLabel}
         </button>
 
-        <motion.span
+        <motion.p
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           className="mt-5 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 bg-[rgb(var(--pa-tint))] text-[rgb(var(--pa-strong))]"
@@ -67,7 +71,7 @@ export default function ProductHero({
             {badgeIcon}
           </span>
           <span className="text-overline">{badge}</span>
-        </motion.span>
+        </motion.p>
 
         <motion.h1
           initial={{ opacity: 0, y: 10 }}

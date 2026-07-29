@@ -171,7 +171,7 @@ export default function OnboardingPage() {
       onPointerUp={(e) => swipe(pointerStart.current - e.clientX)}
     >
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <div className="relative h-[48vh] min-h-[280px] w-full shrink-0 overflow-hidden">
+      <div className="relative h-[42vh] min-h-[240px] w-full shrink-0 overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.img
             key={current}
@@ -214,7 +214,10 @@ export default function OnboardingPage() {
             width={448}
             height={550}
             draggable={false}
-            className="mt-5 h-auto w-[84px] mix-blend-screen"
+            /* The asset is an opaque black tile, so it is presented as a brand
+               badge rather than faked into a transparent mark — screen-blending
+               it vanished against the bright counter photograph on slide 3. */
+            className="mt-4 h-auto w-[74px] rounded-card shadow-feature ring-1 ring-white/10"
           />
 
           {/* Half the sellers are Spanish-first and the language control
@@ -292,7 +295,7 @@ export default function OnboardingPage() {
           </div>
 
           <motion.div
-            className="pb-8 pt-2"
+            className="pb-6 pt-1"
             variants={ctaVariants}
             initial="hidden"
             animate="visible"

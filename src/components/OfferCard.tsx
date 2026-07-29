@@ -55,17 +55,14 @@ export default function OfferCard({
       className={highlight ? 'rounded-card border p-4' : 'surface-flat p-4'}
       style={highlight ? highlightSkin : undefined}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          {tag && (
-            <span className="inline-block text-overline rounded-full px-2 py-0.5 bg-[rgb(var(--pa-tint))] text-[rgb(var(--pa-strong))] mb-1.5">
-              {sub(tag)}
-            </span>
-          )}
-          <h3 className="text-h4 text-ink">{sub(title)}</h3>
-        </div>
-        <p className="shrink-0 text-price text-ink">{price}</p>
-      </div>
+      {tag && (
+        <p className="inline-block text-overline rounded-full px-2 py-0.5 bg-[rgb(var(--pa-tint))] text-[rgb(var(--pa-strong))] mb-2">
+          {sub(tag)}
+        </p>
+      )}
+
+      <p className="text-price text-ink">{price}</p>
+      <h3 className="text-h4 text-ink mt-0.5">{sub(title)}</h3>
 
       {subtitle && <p className="text-body-small text-ink-2 mt-1.5">{sub(subtitle)}</p>}
 

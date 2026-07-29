@@ -49,12 +49,16 @@ export default function Layout({ children }: LayoutProps) {
   const isOnboarding = location.pathname === '/';
   const hasNav = !NAVLESS_ROUTES.includes(location.pathname);
 
-  // Reset scroll on route change
+  /* Reset scroll on route change.
+     The old version only touched #main-content. That element is a flex child of
+     a `min-h` container, so it grows with its content and never scrolls itself —
+     the document does. Every navigation therefore kept the previous page's
+     scroll position. Reset both, and skip the smooth-scroll animation that
+     `html { scroll-behavior: smooth }` would otherwise apply to the jump. */
   useEffect(() => {
     const contentEl = document.getElementById('main-content');
-    if (contentEl) {
-      contentEl.scrollTop = 0;
-    }
+    if (contentEl) contentEl.scrollTop = 0;
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
   }, [location.pathname]);
 
   return (

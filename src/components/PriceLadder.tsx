@@ -116,13 +116,13 @@ function Rung({
     <>
       <span className="flex items-start justify-between gap-3">
           <span className="min-w-0 flex-1">
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-baseline gap-1.5">
               <span
                 className={`text-caption font-bold tabular-nums ${isFloor ? 'text-danger' : 'text-ink-3'}`}
               >
                 {index + 1}
               </span>
-              <span className={`text-h4 ${isAnchor ? 'text-ink-2' : 'text-ink'} truncate`}>
+              <span className={`text-h4 ${isAnchor ? 'text-ink-2' : 'text-ink'}`}>
                 {sub(rung.label)}
               </span>
             </span>
@@ -156,8 +156,8 @@ function Rung({
               {price(rung.amount)}
             </span>
             {rung.units && rung.units > 1 ? (
-              <span className="block text-caption text-ink-2">
-                {c.for} {rung.units} · {price(each)} {c.each}
+              <span className="block text-caption text-ink-2 whitespace-nowrap">
+                {rung.units} × {price(each)}
               </span>
             ) : rung.perUnit ? (
               <span className="block text-caption text-ink-2">{c.each}</span>
