@@ -105,18 +105,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!backend.isDatabaseConfigured) return;
     let cancelled = false;
+
+    /*
+     * Never let a slow network hold the app on a blank loading screen. If the
+     * session has not resolved in a few seconds — patchy signal in the street,
+     * or a free-tier database waking up — fall through to the sign-in page,
+     * which is somewhere the seller can actually act.
+     */
+    const giveUp = setTimeout(() => {
+      if (!cancelled) setIsLoading(false);
+    }, 8000);
+
+    const settle = (u: SafeUser | null) => {
+      if (cancelled) return;
+      clearTimeout(giveUp);
+      setUser(u);
+      setIsLoading(false);
+    };
+
     backend
       .getCurrentUserAsync()
-      .then((u) => {
-        if (cancelled) return;
-        setUser(u);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        if (!cancelled) setIsLoading(false);
-      });
+      .then(settle)
+      .catch(() => settle(null));
+
     return () => {
       cancelled = true;
+      clearTimeout(giveUp);
     };
   }, []);
 

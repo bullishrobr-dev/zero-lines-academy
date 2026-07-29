@@ -34,9 +34,27 @@ export async function login(username: string, password: string) {
     email: usernameToEmail(username),
     password,
   });
-  // One message for both causes — telling someone which half they got right is
-  // free help to whoever is guessing.
-  if (error) return { success: false as const, error: 'Incorrect username or password' };
+
+  if (error) {
+    // A wrong password and an unreachable server are completely different
+    // problems, and telling a seller "incorrect password" when their signal
+    // dropped sends them hunting for the wrong thing.
+    const code = error.code ?? '';
+    const wrongDetails =
+      code === 'invalid_credentials' ||
+      code === 'invalid_login_credentials' ||
+      /invalid login credentials/i.test(error.message);
+
+    if (wrongDetails) {
+      // One message for both causes — telling someone which half they got
+      // right is free help to whoever is guessing.
+      return { success: false as const, error: 'Incorrect username or password' };
+    }
+    if (error.status === 0 || /fetch|network/i.test(error.message)) {
+      return { success: false as const, error: 'Cannot reach the server. Check your signal and try again.' };
+    }
+    return { success: false as const, error: error.message };
+  }
 
   const user = await getCurrentUser();
   if (!user) return { success: false as const, error: 'Signed in, but no profile found' };
