@@ -137,7 +137,7 @@ function Rung({
                       : 'bg-surface text-ink-3 border border-line'
                 }`}
               >
-                {isFloor && <Lock size={12} aria-hidden="true" />}
+                {isFloor && <Lock size={14} className="shrink-0" aria-hidden="true" />}
                 {chip}
               </span>
             )}

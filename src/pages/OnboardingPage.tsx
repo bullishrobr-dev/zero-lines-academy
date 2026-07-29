@@ -43,12 +43,12 @@ const slides: SlideData[] = [
     titleKey: 'onboardingTitle1',
     descKey: 'onboardingDesc1',
     image: '/onboarding-1.webp',
-    // Held low so the wordmark printed in the photograph does not sit directly
-    // under the wordmark we overlay.
-    focus: '50% 88%',
+    // Framed on the wordmark: this photograph carries the brand for the whole
+    // sequence, which is why no logo is overlaid on top of it.
+    focus: '50% 42%',
     alt: {
-      en: 'Dark green botanical leaves lit from the side, the Zero Lines house style.',
-      es: 'Hojas botánicas verde oscuro iluminadas de lado, el estilo de Zero Lines.',
+      en: 'The Zero Lines wordmark set among dark green botanical leaves.',
+      es: 'El logotipo de Zero Lines entre hojas botánicas verde oscuro.',
     },
   },
   {
@@ -173,27 +173,37 @@ export default function OnboardingPage() {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <div className="relative h-[42vh] min-h-[240px] w-full shrink-0 overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
-          <motion.img
+          {/* The slide transform lives on the wrapper so each photograph can
+              carry its own crop transform without framer overwriting it. */}
+          <motion.div
             key={current}
             custom={direction}
             variants={imageVariants}
             initial="enter"
             animate="center"
             exit="exit"
-            src={slide.image}
-            alt={isEs ? slide.alt.es : slide.alt.en}
-            loading={current === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-            draggable={false}
-            style={{ objectPosition: slide.focus }}
-            className="absolute inset-0 h-full w-full object-cover"
-          />
+            className="absolute inset-0 overflow-hidden"
+          >
+            <img
+              src={slide.image}
+              alt={isEs ? slide.alt.es : slide.alt.en}
+              loading={current === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              draggable={false}
+              style={{
+                objectPosition: slide.focus,
+                transform: slide.zoom,
+                transformOrigin: '50% 100%',
+              }}
+              className="h-full w-full object-cover"
+            />
+          </motion.div>
         </AnimatePresence>
 
-        {/* Scrim so the wordmark reads over any of the three photographs. */}
+        {/* Keeps the badge and the language switch legible on a bright photo. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/60 via-black/25 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 via-black/15 to-transparent"
         />
         {/* Dissolve the photograph into the page rather than cutting it off. */}
         <div
@@ -230,7 +240,7 @@ export default function OnboardingPage() {
                 onClick={() => setLanguage(lang)}
                 aria-pressed={language === lang}
                 aria-label={lang === 'en' ? t('authEnglish') : t('authSpanish')}
-                className={`min-h-[34px] rounded-full px-2.5 text-caption font-semibold transition-colors ${
+                className={`min-h-touch rounded-full px-3.5 text-caption font-semibold transition-colors ${
                   language === lang ? 'bg-teal text-on-teal' : 'text-white/85'
                 }`}
               >

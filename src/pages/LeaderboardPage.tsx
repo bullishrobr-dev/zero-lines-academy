@@ -50,6 +50,7 @@ const COPY = {
     leadsBy: 'leads by',
     xp: 'XP',
     tied: 'Level on the figures that have synced',
+    noCompare: (store: string) => `Not a race yet — nothing has synced from ${store}`,
     deviceOnly:
       'Counted on this device only. Your teammates’ XP arrives when the shops are connected to a server — until then it shows as awaiting sync, not as a number we made up.',
     leading: 'Leading here',
@@ -83,6 +84,7 @@ const COPY = {
     leadsBy: 'lidera por',
     xp: 'XP',
     tied: 'Empate con los datos sincronizados',
+    noCompare: (store: string) => `Todavía no hay carrera — no ha llegado nada de ${store}`,
     deviceOnly:
       'Contado solo en este móvil. El XP de tus compañeros llegará cuando las tiendas estén conectadas a un servidor — hasta entonces aparece como pendiente de sincronizar, no como un número inventado.',
     leading: 'Va en cabeza aquí',
@@ -236,6 +238,11 @@ export default function LeaderboardPage({
     if (!a || !b || a.knownXP === b.knownXP) return null;
     return a.knownXP > b.knownXP ? a : b;
   }, [standings]);
+  /** A shop that has reported nothing at all — it is not losing, it is absent. */
+  const silentStore = useMemo(
+    () => (standings.some((s) => s.syncedCount > 0) ? standings.find((s) => s.syncedCount === 0) : undefined),
+    [standings]
+  );
   const gap = leadingStore
     ? Math.abs((standings[0]?.knownXP ?? 0) - (standings[1]?.knownXP ?? 0))
     : 0;
@@ -386,11 +393,16 @@ export default function LeaderboardPage({
                   ))}
                 </div>
 
+                {/* "Andorra leads by 150 XP" is only true if Gibraltar has
+                    actually reported something. One store versus silence is
+                    not a lead — say what it really is. */}
                 {totalKnownXP > 0 && (
                   <p className="mt-3.5 text-center text-caption text-ink-2">
-                    {leadingStore
-                      ? `${leadingStore.flag} ${leadingStore.name} ${t.leadsBy} ${gap.toLocaleString()} ${t.xp}`
-                      : t.tied}
+                    {silentStore
+                      ? t.noCompare(`${silentStore.flag} ${silentStore.name}`)
+                      : leadingStore
+                        ? `${leadingStore.flag} ${leadingStore.name} ${t.leadsBy} ${gap.toLocaleString()} ${t.xp}`
+                        : t.tied}
                   </p>
                 )}
 

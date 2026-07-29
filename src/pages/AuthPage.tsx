@@ -263,11 +263,12 @@ export default function AuthPage() {
                 type="button"
                 onClick={() => setLanguage(lang)}
                 aria-pressed={language === lang}
-                className={`min-h-[36px] rounded-full px-3 text-caption font-semibold transition-colors ${
+                aria-label={lang === 'en' ? t('authEnglish') : t('authSpanish')}
+                className={`min-h-touch rounded-full px-3.5 text-caption font-semibold transition-colors ${
                   language === lang ? 'bg-teal text-on-teal' : 'text-ink-2'
                 }`}
               >
-                {lang === 'en' ? t('authEnglish') : t('authSpanish')}
+                {lang === 'en' ? 'EN' : 'ES'}
               </button>
             ))}
           </div>
@@ -325,7 +326,7 @@ export default function AuthPage() {
                     from onboarding — i.e. a blank front door. */}
                 {mode === m && (
                   <span
-                    className="absolute inset-0 rounded-full bg-surface shadow-raised"
+                    className="absolute inset-0 rounded-full bg-surface-raised shadow-raised"
                     aria-hidden="true"
                   />
                 )}
