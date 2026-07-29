@@ -1,10 +1,14 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // LeaderboardPage — Andorra vs Gibraltar, without lying about it.
 //
-// The board is built from the real account roster. This device can only measure
-// the signed-in seller's XP, so every other figure is shown as "awaiting sync"
-// instead of an invented number. Everything on screen is either real or is
-// labelled as missing. See `hooks/useLeaderboard.ts` for the TODO(backend).
+// With the database connected the board is live: real XP for everyone, from
+// `db.getLeaderboard()`. The server keeps a lifetime total, so the timeframe
+// tabs step aside rather than put an all-time number under "this week".
+//
+// Without it, this device can only measure the signed-in seller's XP, so every
+// other figure is shown as "awaiting sync" instead of an invented number.
+//
+// Either way: everything on screen is either measured or labelled as missing.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useMemo } from 'react';
@@ -12,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronLeft,
+  Database,
   Megaphone,
   Crown,
   CloudOff,
@@ -53,6 +58,11 @@ const COPY = {
     noCompare: (store: string) => `Not a race yet — nothing has synced from ${store}`,
     deviceOnly:
       'Counted on this device only. Your teammates’ XP arrives when the shops are connected to a server — until then it shows as awaiting sync, not as a number we made up.',
+    live: 'Live from the team database. Everyone’s real XP, all time.',
+    sellers: 'sellers',
+    seller: 'seller',
+    notStarted: 'Not started yet',
+    notStartedNote: 'No XP earned yet',
     leading: 'Leading here',
     youOnly: 'Only your figures have synced so far',
     rankings: 'Rankings',
@@ -87,6 +97,11 @@ const COPY = {
     noCompare: (store: string) => `Todavía no hay carrera — no ha llegado nada de ${store}`,
     deviceOnly:
       'Contado solo en este móvil. El XP de tus compañeros llegará cuando las tiendas estén conectadas a un servidor — hasta entonces aparece como pendiente de sincronizar, no como un número inventado.',
+    live: 'En directo desde la base de datos del equipo. El XP real de todos, histórico.',
+    sellers: 'vendedores',
+    seller: 'vendedor',
+    notStarted: 'Aún sin empezar',
+    notStartedNote: 'Todavía sin XP',
     leading: 'Va en cabeza aquí',
     youOnly: 'Por ahora solo se han sincronizado tus datos',
     rankings: 'Clasificación',
@@ -146,6 +161,7 @@ function StoreRow({
   rosterCount,
   share,
   isLeading,
+  isLive,
   storeId,
   t,
   delay,
@@ -157,6 +173,7 @@ function StoreRow({
   rosterCount: number;
   share: number;
   isLeading: boolean;
+  isLive: boolean;
   storeId: string;
   t: (typeof COPY)['en'];
   delay: number;
@@ -187,8 +204,12 @@ function StoreRow({
         />
       </div>
 
+      {/* Live, every seller at the shop is counted, so "3 of 3 synced" is just
+          noise — say how many people are racing instead. */}
       <p className="mt-1 text-caption text-ink-3">
-        {syncedCount} {t.of} {rosterCount} {t.synced}
+        {isLive
+          ? `${rosterCount} ${rosterCount === 1 ? t.seller : t.sellers}`
+          : `${syncedCount} ${t.of} ${rosterCount} ${t.synced}`}
       </p>
     </div>
   );
@@ -213,8 +234,17 @@ export default function LeaderboardPage({
   const [timeframe, setTimeframe] = useState<Timeframe>('week');
   const [showShoutout, setShowShoutout] = useState(false);
 
-  const { entries, ranked, awaitingSync, standings, isLoading, getUserRank, addShoutout } =
-    useLeaderboard(currentUserId, timeframe);
+  const {
+    entries,
+    ranked,
+    awaitingSync,
+    notStarted,
+    isLive,
+    standings,
+    isLoading,
+    getUserRank,
+    addShoutout,
+  } = useLeaderboard(currentUserId, timeframe);
 
   const tabs: { label: string; value: Timeframe }[] = [
     { label: t.week, value: 'week' },
@@ -281,28 +311,33 @@ export default function LeaderboardPage({
             </button>
           </div>
 
-          {/* Timeframe */}
-          <div className="flex gap-1.5 px-4 pb-3" role="tablist" aria-label={t.title}>
-            {tabs.map((tab) => {
-              const active = timeframe === tab.value;
-              return (
-                <button
-                  key={tab.value}
-                  type="button"
-                  role="tab"
-                  aria-selected={active}
-                  onClick={() => setTimeframe(tab.value)}
-                  className={`flex-1 min-h-touch rounded-chip text-caption font-semibold transition-colors ${
-                    active
-                      ? 'bg-teal text-on-teal'
-                      : 'bg-surface-sunken text-ink-2 border border-line'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
+          {/* Timeframe — device-only figures come from a timestamped activity
+              log, so they can be sliced by week. The server keeps a lifetime
+              total and nothing else, so when the board is live there is one
+              honest timeframe and the tabs would be a lie with three options. */}
+          {!isLive && (
+            <div className="flex gap-1.5 px-4 pb-3" role="tablist" aria-label={t.title}>
+              {tabs.map((tab) => {
+                const active = timeframe === tab.value;
+                return (
+                  <button
+                    key={tab.value}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setTimeframe(tab.value)}
+                    className={`flex-1 min-h-touch rounded-chip text-caption font-semibold transition-colors ${
+                      active
+                        ? 'bg-teal text-on-teal'
+                        : 'bg-surface-sunken text-ink-2 border border-line'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </header>
 
         <main className="px-4 pt-4 pb-8 space-y-5">
@@ -372,7 +407,7 @@ export default function LeaderboardPage({
               <section className="surface-raised p-4" aria-label={t.storeRace}>
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="text-overline text-ink-3">{t.storeRace}</h2>
-                  <span className="text-caption text-ink-3">{t[timeframe]}</span>
+                  <span className="text-caption text-ink-3">{isLive ? t.allTime : t[timeframe]}</span>
                 </div>
 
                 <div className="space-y-3.5">
@@ -387,6 +422,7 @@ export default function LeaderboardPage({
                       rosterCount={s.rosterCount}
                       share={totalKnownXP > 0 ? (s.knownXP / totalKnownXP) * 100 : 0}
                       isLeading={leadingStore?.store === s.store}
+                      isLive={isLive}
                       t={t}
                       delay={0.1 + i * 0.12}
                     />
@@ -406,10 +442,16 @@ export default function LeaderboardPage({
                   </p>
                 )}
 
-                {/* The honest bit, on screen and not in a tooltip. */}
+                {/* The honest bit, on screen and not in a tooltip. Live, the
+                    old explanation for why teammates have no figures is simply
+                    no longer true, so it goes. */}
                 <div className="mt-3 flex items-start gap-2 rounded-chip bg-surface-sunken p-3">
-                  <Info className="mt-0.5 h-4 w-4 shrink-0 text-ink-3" aria-hidden="true" />
-                  <p className="text-caption text-ink-2">{t.deviceOnly}</p>
+                  {isLive ? (
+                    <Database className="mt-0.5 h-4 w-4 shrink-0 text-teal-strong" aria-hidden="true" />
+                  ) : (
+                    <Info className="mt-0.5 h-4 w-4 shrink-0 text-ink-3" aria-hidden="true" />
+                  )}
+                  <p className="text-caption text-ink-2">{isLive ? t.live : t.deviceOnly}</p>
                 </div>
               </section>
 
@@ -538,6 +580,50 @@ export default function LeaderboardPage({
                         </motion.li>
                       );
                     })}
+                  </ul>
+                </section>
+              )}
+
+              {/* ── Not started yet ──
+                  Live only, and a different statement from "awaiting sync":
+                  the server reports a measured 0 for these people. They are on
+                  the board, they simply have not begun — so the figure shown
+                  is the 0 the server actually holds, not a dash. */}
+              {notStarted.length > 0 && (
+                <section>
+                  <div className="mb-2 flex items-center gap-2">
+                    <Users className="h-4 w-4 text-ink-3" aria-hidden="true" />
+                    <h2 className="text-overline text-ink-3">
+                      {t.notStarted} · {notStarted.length}{' '}
+                      {notStarted.length === 1 ? t.teammate : t.teammates}
+                    </h2>
+                  </div>
+                  <ul className="space-y-2">
+                    {notStarted.map((entry) => (
+                      <li
+                        key={entry.id}
+                        className="flex items-center gap-3 rounded-card border border-line bg-surface-sunken p-3"
+                      >
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-caption font-bold text-ink-3">
+                          {entry.initials}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-1.5">
+                            <p className="truncate text-body-small font-medium text-ink-2">
+                              {entry.name}
+                            </p>
+                            <span className="shrink-0 text-caption" aria-hidden="true">
+                              {entry.flag}
+                            </span>
+                          </div>
+                          <p className="text-caption text-ink-3">{t.notStartedNote}</p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <p className="text-body-small font-bold tabular-nums text-ink-3">0</p>
+                          <p className="text-caption text-ink-3">{t.xp}</p>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                 </section>
               )}

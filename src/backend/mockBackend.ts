@@ -1,20 +1,20 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// backend/mockBackend.ts — the seam where a real API would go.
+// backend/mockBackend.ts — the seam in front of the two backends.
 //
-// WHERE THE DATA ACTUALLY LIVES, because this trips people up:
+// WHERE THE DATA ACTUALLY LIVES:
 //
-//   WHO CAN SIGN IN  →  src/data/accounts.ts, committed to the repository.
-//                       Edit that file and commit; everyone gets it on the next
-//                       deploy. This is why a seller can sign in on their own
-//                       phone at all — there is no server holding a user table.
+//   Normally  →  the database. src/backend/db.ts. Accounts are created from
+//                inside the app, progress follows people between phones, and
+//                the leaderboard is live. This is the path in production.
 //
-//   PROGRESS         →  localStorage, on each person's own device. XP, streaks,
-//                       lesson completion and quiz scores never leave the phone
-//                       they were earned on. A manager cannot see them from
-//                       here; that genuinely needs a server. See the README.
+//   Fallback  →  only if src/backend/supabaseClient.ts has no URL and key: the
+//                committed roster in src/data/accounts.ts, with progress kept
+//                on each person's own device. Nothing leaves the phone, so a
+//                manager cannot see it. Kept so a fork of this repository still
+//                runs before anyone sets a database up.
 //
-// Everything below is deliberately confined to this file so a real API can
-// replace it without the rest of the app noticing.
+// Everything below is deliberately confined to this file so the rest of the app
+// never has to know which one it is talking to.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import type { User, UserRole, UserLocation, LessonProgress, QuizResult, TeamStats } from './types';

@@ -1,124 +1,107 @@
-# Turning on the database
+# The database
 
-Right now the app saves progress on each person's own phone. That means no shared
-leaderboard, no way for you to see anyone's numbers, and accounts that have to be
-committed by hand.
+**It is already set up. There is nothing for you to do here.**
 
-This gets you a real one: **logins that work anywhere, progress that follows the
-person between devices, and a live leaderboard.**
-
-It is free, permanently, at your size. No card, no trial.
+This page is a record of how it is put together, for whoever looks after the app
+next.
 
 ---
 
-## What you do — about 10 minutes, once
+## What is running
 
-### 1. Make a Supabase account
-
-Go to **[supabase.com](https://supabase.com)** → **Start your project** → sign in with GitHub.
-
-Create a project:
-
-| Field | What to put |
+| | |
 |---|---|
-| Name | `zero-lines-academy` |
-| Database password | Let it generate one. **Save it in your password manager** — you will rarely need it, but it cannot be recovered. |
-| Region | **West EU (Ireland)** — closest to Andorra and Gibraltar |
-| Plan | **Free** |
+| Project | **Zero Lines Academy**, region `eu-west-1` |
+| URL | `https://cwlrmwajxbtjhqnbeghe.supabase.co` |
+| Cost | Free tier — no card, no bill |
+| Schema | [`supabase/schema.sql`](../supabase/schema.sql) |
+| App connection | [`src/backend/supabaseClient.ts`](../src/backend/supabaseClient.ts) |
 
-It takes a couple of minutes to spin up.
+### Tables
 
-### 2. Create the tables
-
-Left sidebar → **SQL Editor** → **New query**.
-
-Open [`supabase/schema.sql`](../supabase/schema.sql) in this repo, copy the whole
-file, paste it in, press **Run**.
-
-You should see *Success. No rows returned*. That is correct — it built the tables,
-not a result.
-
-### 3. Create your own login
-
-Left sidebar → **Authentication** → **Users** → **Add user** → **Create new user**.
-
-| Field | Value |
+| Table | Holds |
 |---|---|
-| Email | `admin@zerolines.local` |
-| Password | whatever you want to type into the app |
-| Auto Confirm User | **✅ tick this** |
-
-> That email address is not real and nothing is ever sent to it. Supabase requires
-> an email; the app lets you sign in with just `admin` and adds the rest.
-
-Then back to **SQL Editor** → **New query**, paste this, **Run**:
-
-```sql
-update public.profiles
-   set role = 'admin', name = 'Owner', username = 'admin'
- where id = (select id from auth.users where email = 'admin@zerolines.local');
-```
-
-That makes you the admin rather than a seller.
-
-### 4. Send me two values
-
-Left sidebar → **Project Settings** → **Data API**, and **Project Settings** → **API Keys**.
-
-Copy me:
-
-- **Project URL** — looks like `https://abcdefghijkl.supabase.co`
-- **anon / public** key — a long string starting `eyJ...`
-
-Paste both into the chat and I will wire them in and deploy.
-
-> **These two are safe to share and safe to publish.** The anon key is built to
-> ship inside a web page; the database is protected by access rules, not by
-> hiding the key.
->
-> **Do not send the `service_role` key.** That one ignores every rule. If a value
-> is labelled `service_role`, it is the wrong one.
+| `profiles` | Who each person is — username, name, role, shop, their manager |
+| `progress` | Which lessons someone has finished |
+| `quiz_results` | Best score per quiz and per exercise |
+| `stats` | XP, streaks and totals — this is what the leaderboard reads |
+| `sales` | Street tracker: stops, brings, sales |
+| `leaderboard` | A view joining `profiles` to `stats`, admins excluded |
 
 ---
 
-## What happens then
+## Signing in
 
-I flip the app over to the database and push. From that moment:
+Sellers sign in with a **username**, not an email — most shop staff have no work
+address, and a short username is far quicker to type on a phone between
+customers. The auth server needs an email, so the app appends
+`@zerolines.local`: `maria` becomes `maria@zerolines.local`. That domain does not
+exist and is never sent to.
 
-- **Logins work everywhere.** A seller signs in on their own phone with the
-  username and password you give them.
-- **Progress follows the person.** New phone, same XP and streak.
-- **The leaderboard is live** — a real Andorra vs Gibraltar race across everyone.
-- **You add people in the app.** Admin Panel → Add user. No commits, no editing
-  files. They can sign in immediately.
-- **You can see the team.** The manager dashboard shows real progress, because
-  there is finally somewhere shared to read it from.
+## Adding people
+
+From the app — **Admin Panel → Add someone**. It generates a password, creates
+the login, and shows you the credentials once to pass on. No dashboard, no
+commit, no waiting for a rebuild.
+
+Behind it is `admin_create_user()` in the database rather than the normal sign-up
+endpoint, because sign-up would try to post a confirmation mail to a domain that
+does not exist, and would also return a session — quietly signing you in as the
+person you just created.
+
+A **manager** can add people too, but only sellers, only to their own shop, and
+only onto their own team. That is enforced in the database, not in the screen,
+so it holds however the request arrives.
+
+## Forgotten passwords
+
+`admin_set_password()` gives someone a new password. There is no "forgot
+password" email, because there are no email addresses.
+
+## Removing someone
+
+`admin_delete_user()` deletes the login itself, so the username can be used
+again; their progress goes with it. The last remaining admin cannot be removed,
+and you cannot remove yourself.
 
 ---
 
-## Is the free tier really enough?
+## About the key in the repository
 
-For a two-shop team, comfortably.
+`src/backend/supabaseClient.ts` contains a publishable key. **That is correct and
+safe.** It is designed to be public and to ship inside the app — it identifies
+the project, it does not grant anything.
 
-| Free tier gives you | You will use |
-|---|---|
-| 500 MB database | A few MB. Every lesson result for 20 sellers for a year is well under 10 MB. |
-| 50,000 monthly active users | However many sellers you have |
-| 5 GB bandwidth / month | Far less — the app is served from GitHub, not Supabase |
-| Unlimited API requests | — |
+What actually protects the data is Row Level Security. Every table has policies
+that decide what the signed-in person may read and write:
 
-The one thing to know: **a free project pauses after 7 days with no activity.**
-Anyone opening the app wakes it, so a team using it weekly will never notice. If
-it does pause, you un-pause it from the dashboard in one click.
+- you can only write your own progress, scores and stats
+- everyone signed in can read `stats`, because that *is* the leaderboard
+- managers and admins can read their people's progress
+- only admins can change the roster
+
+The key that must **never** be committed is the `service_role` (or
+`sb_secret_…`) key. That one bypasses every policy.
 
 ---
 
-## What this does not change
+## If you ever need to rebuild it from nothing
 
-- The site stays on GitHub Pages at the same URL, and still deploys from GitHub.
-- Supabase holds the data. It is a second service, but a free one, and it is the
-  only way a website with no server can remember anything between devices.
-- **The repository is public**, so the training content is readable by anyone who
-  finds it. The database is not — that is behind real access rules. If you want
-  the content private too, that needs GitHub Pro (~$4/month) to run Pages from a
-  private repo.
+1. Create a Supabase project.
+2. SQL Editor → paste [`supabase/schema.sql`](../supabase/schema.sql) → Run.
+3. Run the first-admin block at the bottom of that file, with a password of your
+   choosing.
+4. Put the project URL and publishable key into
+   [`src/backend/supabaseClient.ts`](../src/backend/supabaseClient.ts).
+
+The app checks those two values at startup. If they are blank it falls back to
+the committed roster in `src/data/accounts.ts` with progress kept on each
+device — so a fork still runs before anyone sets a database up.
+
+---
+
+## Free tier
+
+The project sleeps after about a week with no traffic and wakes on the next
+request. With sellers using it during shifts that will not happen. If it ever
+does, opening the app wakes it — the first load is slow, the rest are normal.

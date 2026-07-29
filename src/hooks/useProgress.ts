@@ -1,17 +1,43 @@
 // ─────────────────────────────────────────────────────────────
 // useProgress.ts — Comprehensive progress tracking hook
 // Manages lessons, XP, streaks, quizzes, daily challenges
+//
+// WHERE THE NUMBERS LIVE
+// ----------------------
+// localStorage is the source of truth for everything on this screen. It is
+// synchronous, so XP appears the instant it is earned and a seller on a dead
+// connection in the street keeps earning normally.
+//
+// When the database is configured the same figures are ALSO mirrored to the
+// server, so they follow the person to a new phone and feed the leaderboard:
+//
+//   on mount   → pullStats(), then the merge rule in `decideStatsMerge` below.
+//                Never a blind overwrite: whichever side has more XP wins, so
+//                a new phone cannot wipe a year of progress and offline
+//                progress cannot be lost to a stale server row.
+//   on change  → pushStats(), debounced, so a quiz does not fire a request per
+//                XP point.
+//   lessons    → recordLessonComplete()
+//   quizzes    → recordQuiz(kind: 'quiz')
+//   exercises  → recordQuiz(kind: 'exercise')
+//
+// Every one of those calls is fire-and-forget and guarded by
+// `isDatabaseConfigured`. A rejection is swallowed on purpose: the server is a
+// mirror, and a mirror failing must never cost the seller XP or break a screen.
 // ─────────────────────────────────────────────────────────────
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { categories, getLessonsForCategory } from '@/data/lessons';
 import {
   getTierForLesson,
   getTierCompletion,
   isTierUnlocked,
   isLessonUnlocked,
-  
+
 } from '@/data/lessonTiers';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { isDatabaseConfigured } from '@/backend/mockBackend';
+import * as db from '@/backend/db';
 
 // ── localStorage keys ──
 const LS_LESSON_PROGRESS = 'zl_lesson_progress';
@@ -144,6 +170,58 @@ function hasStreakExpired(s: StreakData, today: string, yesterday: string): bool
   return s.lastActiveDate !== today && s.lastActiveDate !== yesterday;
 }
 
+// ── Server mirror ───────────────────────────────────────────────────────────
+
+/**
+ * How long to wait after the last change before telling the server.
+ *
+ * A finished quiz can move XP, the streak and the quiz map within the same
+ * tick, and a lesson run moves them again seconds later. The debounce collapses
+ * a burst into one request; the figures pushed are always read fresh from
+ * localStorage at the moment the timer fires, so the last write wins.
+ */
+const PUSH_DEBOUNCE_MS = 1500;
+
+/** What this device believes, read straight from localStorage. */
+function readDeviceStats(): db.StatsSnapshot {
+  const xp = loadJSON<number>(LS_XP, 0);
+  const streak = loadJSON<StreakData>(LS_STREAK, { current: 0, best: 0, lastActiveDate: null });
+  const lessons = loadJSON<Record<string, boolean>>(LS_LESSON_PROGRESS, {});
+  const quizzes = loadJSON<Record<string, number>>(LS_QUIZ_SCORES, {});
+  return {
+    xp: Number.isFinite(xp) ? xp : 0,
+    currentStreak: streak?.current ?? 0,
+    bestStreak: streak?.best ?? 0,
+    lastActiveDate: streak?.lastActiveDate ?? null,
+    lessonsDone: Object.values(lessons).filter(Boolean).length,
+    quizzesPassed: Object.values(quizzes).filter((s) => s >= 70).length,
+  };
+}
+
+export type StatsMerge = 'adopt' | 'push' | 'none';
+
+/**
+ * Which way the figures have to travel when this device and the server
+ * disagree. Exported because it is the one rule in this file that must never
+ * be got wrong, and it is worth being able to test on its own.
+ *
+ *   server ahead  → 'adopt'  a new phone, or a reinstall. Take the server's
+ *                            figures; starting from zero would be a lie and
+ *                            pushing that zero would destroy the real total.
+ *   device ahead  → 'push'   progress earned offline, or before the database
+ *                            existed. The server catches up.
+ *   equal         → 'none'   nothing to say. No write in either direction.
+ *
+ * `serverXP === null` means the server has no row for this person at all, so
+ * there is nothing to adopt: push, but only if there is anything to push.
+ */
+export function decideStatsMerge(deviceXP: number, serverXP: number | null): StatsMerge {
+  if (serverXP === null) return deviceXP > 0 ? 'push' : 'none';
+  if (serverXP > deviceXP) return 'adopt';
+  if (deviceXP > serverXP) return 'push';
+  return 'none';
+}
+
 // ── Hook ──
 export function useProgress(): UseProgressReturn {
   /*
@@ -179,6 +257,129 @@ export function useProgress(): UseProgressReturn {
   const [tierProgress, setTierProgress] = useState<Record<string, boolean>>(() =>
     loadJSON<Record<string, boolean>>(LS_TIER_PROGRESS, {})
   );
+
+  /*
+   * The server mirror. `userId` is empty on the roster path and while the
+   * session is still resolving, and every call below is guarded on it as well
+   * as on `isDatabaseConfigured`, so nothing is attempted until there is a
+   * person to attribute it to.
+   */
+  const { user } = useAuthContext();
+  const userId = user?.id ?? '';
+  const syncing = isDatabaseConfigured && userId !== '';
+
+  /** The highest XP the server is known to hold. Never push below it. */
+  const serverXPRef = useRef(0);
+  /**
+   * The lesson and quiz counts the server holds.
+   *
+   * A phone that adopted someone's XP still has an empty lesson map — the stats
+   * row carries totals, not which lessons — so pushing this device's count of
+   * 0 would erase a real 21. They are a floor, not a starting point. Taking the
+   * larger of the two under-reports when a lesson is redone on the new phone,
+   * which is the honest direction to be wrong in.
+   */
+  const serverCountsRef = useRef({ lessonsDone: 0, quizzesPassed: 0 });
+  /**
+   * True once this instance has actually read the server's row.
+   *
+   * Nothing is pushed before that. Signing out clears this device's XP (a
+   * shared shop tablet must not hand the next seller the last one's progress),
+   * so a hook that pushed before pulling could take a freshly-emptied 0 and
+   * write it over a real total. Push only once you know what you are replacing.
+   */
+  const pulledRef = useRef(false);
+  /** Set by resetProgress, so a local wipe is not mirrored up as a real zero. */
+  const justResetRef = useRef(false);
+
+  const pushStatsToServer = useCallback(() => {
+    if (!syncing || !pulledRef.current) return;
+    const device = readDeviceStats();
+    // The only thing that lowers this device's XP is a local reset, and that
+    // must never take the earned total off the server with it.
+    if (device.xp < serverXPRef.current) return;
+    const snapshot: db.StatsSnapshot = {
+      ...device,
+      lessonsDone: Math.max(device.lessonsDone, serverCountsRef.current.lessonsDone),
+      quizzesPassed: Math.max(device.quizzesPassed, serverCountsRef.current.quizzesPassed),
+    };
+    serverXPRef.current = snapshot.xp;
+    serverCountsRef.current = {
+      lessonsDone: snapshot.lessonsDone,
+      quizzesPassed: snapshot.quizzesPassed,
+    };
+    void db.pushStats(userId, snapshot).catch(() => {
+      // Offline. The next change tries again; nothing is lost locally.
+    });
+  }, [syncing, userId]);
+
+  // ── On mount: reconcile with the server, in whichever direction is right ──
+  useEffect(() => {
+    if (!syncing) return;
+
+    let cancelled = false;
+    db.pullStats(userId)
+      .then((server) => {
+        if (cancelled) return;
+        pulledRef.current = true;
+        const device = readDeviceStats();
+        const decision = decideStatsMerge(device.xp, server ? server.xp : null);
+        if (server) {
+          serverCountsRef.current = {
+            lessonsDone: server.lessonsDone,
+            quizzesPassed: server.quizzesPassed,
+          };
+        }
+
+        if (decision === 'adopt' && server) {
+          // A phone that has never seen this account. Adopt rather than start
+          // from zero — the seller earned these.
+          serverXPRef.current = server.xp;
+          saveJSON(LS_XP, server.xp);
+          setTotalXP(server.xp);
+
+          const adopted: StreakData = {
+            current: server.currentStreak,
+            // The best streak is a record, so keep whichever side remembers more.
+            best: Math.max(server.bestStreak, device.bestStreak),
+            lastActiveDate: server.lastActiveDate,
+          };
+          saveJSON(LS_STREAK, adopted);
+          setStreak(adopted);
+          return;
+        }
+
+        serverXPRef.current = server?.xp ?? 0;
+        if (decision === 'push') pushStatsToServer();
+        // 'none' — the two agree. No request, in either direction.
+      })
+      .catch(() => {
+        // No connection, or the row is not readable. `pulledRef` stays false,
+        // so this instance stays read-only rather than guessing; the next
+        // screen the seller opens tries the pull again.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [syncing, userId, pushStatsToServer]);
+
+  // ── After any change: one debounced push ──
+  const settledRef = useRef(false);
+  useEffect(() => {
+    if (!syncing) return;
+    if (!settledRef.current) {
+      // The first pass is this instance mounting; the merge above owns that.
+      settledRef.current = true;
+      return;
+    }
+    if (justResetRef.current) {
+      justResetRef.current = false;
+      return;
+    }
+    const timer = window.setTimeout(pushStatsToServer, PUSH_DEBOUNCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [totalXP, streak, lessonProgress, quizScores, syncing, pushStatsToServer]);
 
   // ── Streak Logic ──
   const updateStreak = useCallback((): StreakData => {
@@ -241,6 +442,14 @@ export function useProgress(): UseProgressReturn {
       // data. Honour what the lesson actually says it is worth.
       const award = Number.isFinite(xpReward) && xpReward > 0 ? Math.round(xpReward) : 10;
 
+      // Fire-and-forget, and outside the state updater so a re-render can never
+      // fire it twice. The upsert is idempotent, so a repeat costs nothing.
+      if (syncing) {
+        void db.recordLessonComplete(userId, lessonId).catch(() => {
+          // The lesson is already ticked off on this device. That is what counts.
+        });
+      }
+
       setLessonProgress((prev) => {
         const alreadyCompleted = prev[lessonId];
         const updated = { ...prev, [lessonId]: true };
@@ -275,7 +484,7 @@ export function useProgress(): UseProgressReturn {
         return updated;
       });
     },
-    [updateStreak]
+    [updateStreak, syncing, userId]
   );
 
   const getLessonCompletion = useCallback(
@@ -333,6 +542,9 @@ export function useProgress(): UseProgressReturn {
    */
   const recordQuizScore = useCallback((quizId: string, scorePercent: number, xpEarned = 0) => {
     const pct = Math.max(0, Math.min(100, Math.round(scorePercent)));
+    // Read before the updater runs, so the server gets the same "best attempt"
+    // figure the device keeps rather than a lower retry.
+    const bestScore = Math.max(loadJSON<Record<string, number>>(LS_QUIZ_SCORES, {})[quizId] ?? 0, pct);
 
     setQuizScores((prev) => {
       // Keep the learner's best attempt rather than overwriting with a retry.
@@ -358,6 +570,14 @@ export function useProgress(): UseProgressReturn {
     }
     updateStreak();
 
+    // `alreadyAwarded[quizId]` is now the running total this quiz has paid out,
+    // which is what the quiz_results row records.
+    if (syncing) {
+      void db.recordQuiz(userId, quizId, 'quiz', bestScore, alreadyAwarded[quizId] ?? 0).catch(() => {
+        // Recorded on the device either way.
+      });
+    }
+
     // Log activity
     setActivityLog((log) => {
       const newItem: ActivityItem = {
@@ -372,7 +592,7 @@ export function useProgress(): UseProgressReturn {
       saveJSON(LS_ACTIVITY_LOG, updatedLog);
       return updatedLog;
     });
-  }, [updateStreak]);
+  }, [updateStreak, syncing, userId]);
 
   /**
    * Exercises are recorded separately from quizzes. They used to share the
@@ -382,6 +602,10 @@ export function useProgress(): UseProgressReturn {
   const recordExerciseScore = useCallback(
     (exerciseId: string, scorePercent: number, xpEarned = 0) => {
       const pct = Math.max(0, Math.min(100, Math.round(scorePercent)));
+      const bestScore = Math.max(
+        loadJSON<Record<string, number>>(LS_EXERCISE_SCORES, {})[exerciseId] ?? 0,
+        pct
+      );
 
       setExerciseScores((prev) => {
         const updated = { ...prev, [exerciseId]: Math.max(prev[exerciseId] ?? 0, pct) };
@@ -404,6 +628,17 @@ export function useProgress(): UseProgressReturn {
       }
       updateStreak();
 
+      // Same table as quizzes, told apart by `kind` — exercise ids are `ex-…`
+      // and quiz ids are `quiz-…`/`lesson-…`, so the two never collide on the
+      // (user_id, quiz_id) key.
+      if (syncing) {
+        void db
+          .recordQuiz(userId, exerciseId, 'exercise', bestScore, alreadyAwarded[key] ?? 0)
+          .catch(() => {
+            // Recorded on the device either way.
+          });
+      }
+
       setActivityLog((log) => {
         const newItem: ActivityItem = {
           id: `exercise-${exerciseId}-${Date.now()}`,
@@ -418,7 +653,7 @@ export function useProgress(): UseProgressReturn {
         return updatedLog;
       });
     },
-    [updateStreak]
+    [updateStreak, syncing, userId]
   );
 
   const getExerciseScore = useCallback(
@@ -476,6 +711,11 @@ export function useProgress(): UseProgressReturn {
   }, [dailyChallenge]);
 
   const resetProgress = useCallback(() => {
+    // Local only. Clearing this phone is not the same as saying the person
+    // never earned anything, so the wipe is never pushed — and the merge on the
+    // next sign-in will hand their real total back.
+    justResetRef.current = true;
+
     setLessonProgress({});
     setQuizScores({});
     setStreak({ current: 0, best: 0, lastActiveDate: null });

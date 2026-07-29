@@ -9,14 +9,7 @@
 // dispatches to whichever implementation is available.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { createClient } from '@supabase/supabase-js';
-import {
-  getSupabase,
-  usernameToEmail,
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY,
-  type ProfileRow,
-} from './supabaseClient';
+import { getSupabase, usernameToEmail, type ProfileRow } from './supabaseClient';
 import type { User, UserRole, UserLocation } from './types';
 
 function toUser(p: ProfileRow, managerUsername?: string): User {
@@ -121,59 +114,69 @@ export async function usernameExists(username: string): Promise<boolean> {
 }
 
 /**
- * Create a login and its profile.
+ * Create a login and its profile — in one call, from inside the app.
  *
- * Signs up through a SEPARATE client with `persistSession: false`, so creating
- * someone does not replace the admin's own session — which is exactly the bug
- * the old localStorage backend had, where adding an employee silently logged
- * the admin in as them.
+ * This goes through `admin_create_user` in the database rather than the normal
+ * sign-up endpoint, for two reasons:
+ *
+ *  1. Sellers have no email address. The app invents one on a domain that does
+ *     not exist, so sign-up would have the auth server try — and fail — to post
+ *     a confirmation mail to it, and the account would never be usable.
+ *  2. Sign-up returns a session. Creating someone would quietly sign the admin
+ *     in as the person they just created.
+ *
+ * The function runs with elevated rights, so it checks the caller itself: only
+ * an admin or a manager may call it, and a manager may only add sellers to
+ * their own shop and their own team.
  */
 export async function createUser(input: CreateUserInput) {
   const sb = getSupabase();
   if (!sb) return { success: false as const, error: 'Database not configured' };
 
-  const username = input.username.trim().toLowerCase();
-  if (await usernameExists(username)) {
-    return { success: false as const, error: 'That username is taken' };
-  }
-
-  const isolated = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+  const { data, error } = await sb.rpc('admin_create_user', {
+    p_username: input.username.trim().toLowerCase(),
+    p_name: input.name.trim(),
+    p_password: input.password,
+    p_role: input.role,
+    p_location: input.location,
+    p_manager_id: input.managerId ?? null,
   });
 
-  const { data, error } = await isolated.auth.signUp({
-    email: usernameToEmail(username),
-    password: input.password,
-    // Read by the handle_new_user() trigger in supabase/schema.sql.
-    options: { data: { username, name: input.name, role: input.role, location: input.location } },
-  });
-
-  if (error) return { success: false as const, error: error.message };
-  if (!data.user) {
-    return {
-      success: false as const,
-      error: 'Account created but not confirmed — turn off "Confirm email" in Supabase → Authentication → Providers.',
-    };
-  }
-
-  // The trigger writes role and location from the metadata above, but the
-  // manager link needs the admin's own session (RLS lets an admin update
-  // profiles; the isolated client is not signed in as anyone).
-  if (input.managerId) {
-    await sb.from('profiles').update({ manager_id: input.managerId }).eq('id', data.user.id);
-  }
-
-  return { success: true as const, userId: data.user.id };
+  if (error) return { success: false as const, error: friendly(error.message) };
+  return { success: true as const, userId: String(data) };
 }
 
+/** Give someone a new password — for when a seller forgets theirs. */
+export async function setPassword(userId: string, password: string) {
+  const sb = getSupabase();
+  if (!sb) return { success: false as const, error: 'Database not configured' };
+  const { error } = await sb.rpc('admin_set_password', {
+    p_user_id: userId,
+    p_password: password,
+  });
+  if (error) return { success: false as const, error: friendly(error.message) };
+  return { success: true as const };
+}
+
+/**
+ * Remove someone completely — the login as well as the profile, so the username
+ * can be used again. Progress and stats go with it through the cascades.
+ */
 export async function deleteUser(userId: string) {
   const sb = getSupabase();
   if (!sb) return { success: false as const, error: 'Database not configured' };
-  // Removing the profile revokes access; the auth row is cleaned up from the
-  // Supabase dashboard, which needs a privileged key the browser must not hold.
-  const { error } = await sb.from('profiles').delete().eq('id', userId);
-  if (error) return { success: false as const, error: error.message };
+  const { error } = await sb.rpc('admin_delete_user', { p_user_id: userId });
+  if (error) return { success: false as const, error: friendly(error.message) };
   return { success: true as const };
+}
+
+/**
+ * Database errors arrive with Postgres framing around them. The messages raised
+ * by our own functions are already written for a person, so strip the wrapper
+ * and leave anything unrecognised alone.
+ */
+function friendly(message: string): string {
+  return message.replace(/^ERROR:\s*/i, '').replace(/\s*CONTEXT:[\s\S]*$/, '').trim() || 'Something went wrong';
 }
 
 export async function updateUser(

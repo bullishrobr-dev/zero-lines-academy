@@ -6,23 +6,23 @@
 // progress, so the site never breaks while the database is being set up.
 //
 // ── ABOUT THE KEY BELOW ──────────────────────────────────────────────────────
-// The "anon" key is DESIGNED to be public and shipped in the browser. It is not
-// a secret and committing it is correct. What protects the data is Row Level
-// Security in supabase/schema.sql — those policies decide what each signed-in
-// person may read and write.
+// The publishable key is DESIGNED to be public and shipped in the browser. It
+// is not a secret and committing it is correct. What protects the data is Row
+// Level Security in supabase/schema.sql — those policies decide what each
+// signed-in person may read and write.
 //
-// The key that must NEVER appear here is the `service_role` key. If you are
-// pasting something labelled service_role, stop: that one bypasses every
-// policy.
+// The key that must NEVER appear here is the `service_role` (or `sb_secret_…`)
+// key. If you are pasting something labelled service_role, stop: that one
+// bypasses every policy.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 /** Supabase → Project Settings → Data API → Project URL */
-export const SUPABASE_URL = '';
+export const SUPABASE_URL = 'https://cwlrmwajxbtjhqnbeghe.supabase.co';
 
-/** Supabase → Project Settings → API Keys → anon / public */
-export const SUPABASE_ANON_KEY = '';
+/** Supabase → Project Settings → API Keys → publishable (`sb_publishable_…`) */
+export const SUPABASE_ANON_KEY = 'sb_publishable_2V2SwnHqEZUBrWOOdCT0Fg_UAoeteDO';
 
 /**
  * Sellers sign in with a username, not an email — most shop staff have no work

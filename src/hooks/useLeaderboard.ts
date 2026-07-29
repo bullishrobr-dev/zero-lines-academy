@@ -11,18 +11,26 @@
 //
 // WHAT IT DOES NOW
 // ----------------
-// The roster is real: it comes from the accounts in `backend/mockBackend`, with
-// the shop each seller is actually assigned to. The XP is real too — but this
-// device can only ever know ONE person's XP honestly, the signed-in seller's,
-// because there is no server. So everybody else is reported as `xp: null`,
-// which the UI renders as "awaiting sync" rather than as a number.
+// Two modes, and in both of them every figure on screen was measured.
 //
-// No invented figures. No invented ranks. See TODO(backend) below for the one
-// place a real fetch belongs.
+//   Database configured  → `db.getLeaderboard()`. Real XP for everyone, so the
+//                          Andorra vs Gibraltar race is an actual race. The
+//                          server keeps a lifetime total, so this board is
+//                          all-time; the page hides the week/month tabs rather
+//                          than label an all-time number "this week".
+//
+//   Not configured       → the roster is real (the committed accounts, with the
+//                          shop each seller is assigned to) but this device can
+//                          only know ONE person's XP honestly, the signed-in
+//                          seller's. Everybody else is `xp: null`, which the UI
+//                          renders as "awaiting sync" rather than as a number.
+//
+// No invented figures. No invented ranks.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import { getUsers } from '../backend/mockBackend';
+import { getUsers, isDatabaseConfigured } from '../backend/mockBackend';
+import * as db from '../backend/db';
 import type { User } from '../backend/types';
 
 export type Store = 'andorra' | 'gibraltar';
@@ -35,9 +43,10 @@ export interface LeaderboardEntry {
   store: Store;
   flag: string;
   /**
-   * XP known ON THIS DEVICE for the selected timeframe.
+   * Measured XP: from the server when the database is configured, otherwise
+   * this device's own record for the selected timeframe.
    * `null` means "we genuinely do not know" — never render it as a zero or as
-   * a guess. Only the signed-in seller can be non-null without a backend.
+   * a guess. Without a database only the signed-in seller can be non-null.
    */
   xp: number | null;
   /** True for the signed-in seller — the only figure this device measures. */
@@ -50,9 +59,9 @@ export interface StoreStanding {
   flag: string;
   /** Sum of the XP we can actually account for. Never inflated. */
   knownXP: number;
-  /** Sellers at this shop whose XP this device knows. */
+  /** Sellers at this shop with a measured figure. All of them, when live. */
   syncedCount: number;
-  /** Sellers on the roster for this shop. */
+  /** Sellers on the board for this shop. */
   rosterCount: number;
 }
 
@@ -162,6 +171,18 @@ export interface UseLeaderboardReturn {
   ranked: LeaderboardEntry[];
   /** Teammates this device has no figure for. Rendered as "awaiting sync". */
   awaitingSync: LeaderboardEntry[];
+  /**
+   * Live mode only: teammates the server reports a measured 0 for. They are on
+   * the board and have simply not started, which is a different statement from
+   * "we do not know", so they get their own list rather than a rank of last.
+   */
+  notStarted: LeaderboardEntry[];
+  /**
+   * True when the figures come from the database — real XP for everyone, and
+   * all-time rather than per-timeframe. The page uses it to drop the "awaiting
+   * sync" explanation, which stops being true the moment this is on.
+   */
+  isLive: boolean;
   standings: StoreStanding[];
   shoutouts: Shoutout[];
   isLoading: boolean;
@@ -177,6 +198,11 @@ export function useLeaderboard(
   timeframe: Timeframe = 'week'
 ): UseLeaderboardReturn {
   const [roster, setRoster] = useState<User[]>([]);
+  /**
+   * The server's figures, by user id. `null` means there is no database, so
+   * this device is back to knowing only its own seller.
+   */
+  const [live, setLive] = useState<Map<string, db.LiveLeaderboardEntry> | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [shoutouts, setShoutouts] = useState<Shoutout[]>(() =>
     loadJSON<Shoutout[]>(STORAGE_KEY_SHOUTOUTS, [])
@@ -192,23 +218,31 @@ export function useLeaderboard(
     }
   }, []);
 
-  // ── Roster ──────────────────────────────────────────────────────────────
-  // TODO(backend): this is the seam. When a real API exists, replace this with
-  // GET /leaderboard?timeframe=… returning [{ userId, name, store, xp,
-  // syncedAt }] and drop `xp: null` for everyone but the signed-in seller. The
-  // rest of this file — ranks, standings, the store race — already works off
-  // whatever figures arrive, so nothing downstream has to change.
+  // ── Roster, and the server's figures when there are any ─────────────────
+  // The roster carries the role and the shop; the board carries the XP. Two
+  // small reads rather than one, because "sellers race, staff do not" is a rule
+  // this app makes and the leaderboard view does not know about it.
+  //
+  // Each request fails on its own: a leaderboard that cannot be reached must
+  // still leave the roster on screen rather than empty the page.
   useEffect(() => {
     let cancelled = false;
-    getUsers()
-      .then((users) => {
+    Promise.all([
+      getUsers().catch(() => [] as User[]),
+      isDatabaseConfigured
+        ? db.getLeaderboard().catch(() => [] as db.LiveLeaderboardEntry[])
+        : Promise.resolve<db.LiveLeaderboardEntry[]>([]),
+    ])
+      .then(([users, rows]) => {
         if (cancelled) return;
         setRoster(users);
+        setLive(isDatabaseConfigured ? new Map(rows.map((r) => [r.id, r])) : null);
         setIsLoading(false);
       })
       .catch(() => {
         if (cancelled) return;
         setRoster([]);
+        setLive(null);
         setIsLoading(false);
       });
     return () => {
@@ -231,26 +265,42 @@ export function useLeaderboard(
 
     const built = competitors
       .filter((u) => isStore(u.location))
-      .map<LeaderboardEntry>((u) => {
+      .map<LeaderboardEntry | null>((u) => {
         const isYou = u.id === currentUserId;
         const store = u.location as Store;
-        return {
+        const base = {
           id: u.id,
           name: u.name,
           initials: initialsOf(u.name),
           store,
           flag: STORE_META[store].flag,
-          // The one honest number on this device.
-          xp: isYou ? readOwnXP(timeframe) : null,
           isYou,
         };
-      });
+
+        if (live) {
+          const row = live.get(u.id);
+          // Nobody the server has no line for. The leaderboard view leaves
+          // admins out on purpose, and a missing row is not a zero.
+          if (!row) return null;
+          return {
+            ...base,
+            // Your own phone may hold XP that has not been pushed yet — a
+            // seller who worked a shift underground. Both figures are measured,
+            // so take the one that reflects what they have actually earned.
+            xp: isYou ? Math.max(row.xp, readOwnXP('allTime')) : row.xp,
+          };
+        }
+
+        // No database: the one honest number on this device.
+        return { ...base, xp: isYou ? readOwnXP(timeframe) : null };
+      })
+      .filter((e): e is LeaderboardEntry => e !== null);
 
     return built.sort((a, b) => {
       if (a.isYou !== b.isYou) return a.isYou ? -1 : 1;
       return a.name.localeCompare(b.name);
     });
-  }, [roster, currentUserId, timeframe]);
+  }, [roster, live, currentUserId, timeframe]);
 
   // Zero XP is a known figure, but it is not a placing. Ranking someone #1 with
   // 0 XP and putting a crown on it is the same species of lie as inventing the
@@ -264,6 +314,14 @@ export function useLeaderboard(
   );
 
   const awaitingSync = useMemo(() => entries.filter((e) => e.xp === null), [entries]);
+
+  // A measured zero is not a missing figure. Live, these people are known to
+  // have earned nothing yet; "you" is left out because the card at the top of
+  // the page already says so in the first person.
+  const notStarted = useMemo(
+    () => (live ? entries.filter((e) => e.xp === 0 && !e.isYou) : []),
+    [entries, live]
+  );
 
   // ── Store standings — the Andorra vs Gibraltar race ─────────────────────
 
@@ -342,6 +400,8 @@ export function useLeaderboard(
     entries,
     ranked,
     awaitingSync,
+    notStarted,
+    isLive: live !== null,
     standings,
     shoutouts,
     isLoading,

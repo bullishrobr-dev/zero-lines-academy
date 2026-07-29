@@ -1,17 +1,23 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// AdminPanel.tsx — the committed team roster, and the machine that writes it.
+// AdminPanel.tsx — the team, and how someone joins it.
 //
-// There is no server. An account "created" in the browser would exist only on
-// the phone that created it, so the roster is a file — src/data/accounts.ts —
-// and adding someone is a commit. This screen exists to make that commit
-// trivial: it generates the password, derives the salt and verifier, and prints
-// the exact block to paste. Nobody has to understand any of that.
+// TWO MODES, AND THE DIFFERENCE IS THE WHOLE POINT.
 //
-// Consequences, on purpose:
-//  • The list is read-only. It is whatever `getUsers()` reads out of the file.
-//  • Removing someone shows the line to delete. It does not pretend to delete.
-//  • The password is shown once, in the clear, because this is the only moment
-//    it exists — it is a hash from here on.
+//   Database configured  → "Create" creates. `db.createUser()` makes the login
+//                          and the profile, the list refreshes, and the person
+//                          signs in on their own phone straight away. "Remove"
+//                          removes, through `db.deleteUser()`. No commit, no
+//                          GitHub, no waiting for a rebuild.
+//
+//   Not configured       → there is no server, so an account "created" in the
+//                          browser would exist only on this phone. The roster
+//                          is a file — src/data/accounts.ts — and adding
+//                          someone is a commit. This screen makes that commit
+//                          trivial: it generates the password, derives the salt
+//                          and verifier, and prints the exact block to paste.
+//
+// Constant in both: the password is shown once, in the clear, because that is
+// the only moment it exists. It is a hash (or Supabase's problem) from here on.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -40,6 +46,7 @@ import { useAuthContext } from '../contexts/AuthContext';
 import LoadingScreen from '../components/LoadingScreen';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import * as backend from '../backend/mockBackend';
+import * as db from '../backend/db';
 import type { User, UserRole, UserLocation } from '../backend/types';
 import { generatePassword, newSalt } from '../utils/credentials';
 
@@ -76,6 +83,10 @@ const COPY = {
     en: 'The team lives in the code, so adding someone is a one-line commit — this writes the line for you.',
     es: 'El equipo vive en el código, así que dar de alta a alguien es un commit de una línea — aquí la tienes escrita.',
   },
+  addLeadDb: {
+    en: 'Fill this in and press Create. The account exists straight away — no commit, nothing to deploy.',
+    es: 'Rellena esto y pulsa Crear. La cuenta existe al momento — sin commit ni despliegue.',
+  },
   name: { en: 'Name', es: 'Nombre' },
   namePlaceholder: { en: 'e.g. Maria Garcia', es: 'p. ej. María García' },
   username: { en: 'Username', es: 'Usuario' },
@@ -93,6 +104,8 @@ const COPY = {
     es: 'Solo los vendedores tienen responsable.',
   },
   generate: { en: 'Generate the account', es: 'Generar la cuenta' },
+  create: { en: 'Create', es: 'Crear' },
+  creating: { en: 'Creating…', es: 'Creando…' },
   cancel: { en: 'Cancel', es: 'Cancelar' },
   errName: { en: 'Type their name.', es: 'Escribe su nombre.' },
   errUsernameEmpty: { en: 'Pick a username.', es: 'Elige un usuario.' },
@@ -105,7 +118,21 @@ const COPY = {
     es: 'Ese usuario ya está en el equipo.',
   },
 
+  errCreate: {
+    en: 'The account was not created',
+    es: 'No se ha creado la cuenta',
+  },
+  errUnknown: {
+    en: 'Could not reach the database. Check the connection and try again.',
+    es: 'No se ha podido conectar con la base de datos. Comprueba la conexión e inténtalo otra vez.',
+  },
+
   /* ── Result ── */
+  created: { en: 'Account created', es: 'Cuenta creada' },
+  signInNow: {
+    en: 'They can sign in now, on their own phone. Nothing else to do.',
+    es: 'Ya puede entrar desde su móvil. No hay que hacer nada más.',
+  },
   ready: { en: 'Account ready', es: 'Cuenta lista' },
   theirLogin: { en: 'Their login', es: 'Sus datos de acceso' },
   theirPassword: { en: 'Password', es: 'Contraseña' },
@@ -152,6 +179,23 @@ const COPY = {
     en: 'Their training history stays on their own phone. Nothing here can reach it.',
     es: 'Su historial de formación se queda en su móvil. Desde aquí no se toca.',
   },
+
+  /* ── Remove, with a database behind it ── */
+  removeLeadDb: {
+    en: 'They lose access immediately, on every device.',
+    es: 'Pierde el acceso al momento, en todos los dispositivos.',
+  },
+  removeLosesProgress: {
+    en: 'Their training record goes with their profile — XP, lessons and quiz scores. This cannot be undone.',
+    es: 'Su historial se borra con el perfil — XP, lecciones y resultados. Esto no se puede deshacer.',
+  },
+  removeAuthNote: {
+    en: 'The login itself is deleted from the Supabase dashboard, under Authentication → Users.',
+    es: 'El acceso en sí se borra desde el panel de Supabase, en Authentication → Users.',
+  },
+  removeConfirm: { en: 'Remove from the team', es: 'Sacar del equipo' },
+  removingNow: { en: 'Removing…', es: 'Sacando…' },
+  errRemove: { en: 'They were not removed', es: 'No se ha podido sacar' },
 } as const;
 
 type CopyKey = keyof typeof COPY;
@@ -231,6 +275,17 @@ export default function AdminPanel() {
     return () => {
       cancelled = true;
     };
+  }, []);
+
+  /* Re-read the roster after a create or a remove. With the database on, the
+     list is the database, so it has to be asked again — nothing to deploy. */
+  const refreshRoster = useCallback(() => {
+    void backend
+      .getUsers()
+      .then((data) => setUsers(data))
+      .catch(() => {
+        // Keep showing what we had rather than blanking the screen.
+      });
   }, []);
 
   const managers = useMemo(
@@ -453,15 +508,19 @@ export default function AdminPanel() {
           )}
         </div>
 
-        <a
-          href={ROSTER_EDIT_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="btn-quiet w-full text-body-small"
-        >
-          <ExternalLink size={16} aria-hidden />
-          {c('openRoster')}
-        </a>
+        {/* The file only decides who can sign in while there is no database.
+            Once there is one, pointing the owner at it is a wrong turn. */}
+        {!backend.isDatabaseConfigured && (
+          <a
+            href={ROSTER_EDIT_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-quiet w-full text-body-small"
+          >
+            <ExternalLink size={16} aria-hidden />
+            {c('openRoster')}
+          </a>
+        )}
 
         <div className="pb-safe" />
       </div>
@@ -472,11 +531,22 @@ export default function AdminPanel() {
           roleLabel={roleLabel}
           managers={managers}
           defaultLocation={user?.location ?? 'andorra'}
+          onCreated={refreshRoster}
           onClose={() => setAdding(false)}
         />
       )}
 
-      {removing && <RemoveSheet person={removing} c={c} onClose={() => setRemoving(null)} />}
+      {removing &&
+        (backend.isDatabaseConfigured ? (
+          <DeleteFromDatabaseSheet
+            person={removing}
+            c={c}
+            onRemoved={refreshRoster}
+            onClose={() => setRemoving(null)}
+          />
+        ) : (
+          <RemoveSheet person={removing} c={c} onClose={() => setRemoving(null)} />
+        ))}
     </div>
   );
 }
@@ -719,27 +789,43 @@ function Sheet({
   );
 }
 
-interface Generated {
-  draft: backend.NewAccountDraft;
+/** What to show once the account exists. */
+interface Created {
+  name: string;
+  username: string;
   password: string;
-  snippet: string;
+  /**
+   * Only set when there is no database: the block to paste into accounts.ts.
+   * Its absence is what makes the result screen say "they can sign in now"
+   * instead of printing four steps and a link to GitHub.
+   */
+  snippet?: string;
+}
+
+/** Whatever went wrong, in words, rather than a swallowed failure. */
+function errorText(err: unknown, fallback: string): string {
+  if (err instanceof Error && err.message) return err.message;
+  if (typeof err === 'string' && err) return err;
+  return fallback;
 }
 
 /**
- * Two states in one sheet: the form, then what to commit. Kept together because
- * the password only exists between them — it is a hash the moment this closes.
+ * Two states in one sheet: the form, then the login. Kept together because the
+ * password only exists between them — it is a hash the moment this closes.
  */
 function AddPersonSheet({
   c,
   roleLabel,
   managers,
   defaultLocation,
+  onCreated,
   onClose,
 }: {
   c: (key: CopyKey) => string;
   roleLabel: (role: UserRole) => string;
   managers: User[];
   defaultLocation: UserLocation;
+  onCreated: () => void;
   onClose: () => void;
 }) {
   const [name, setName] = useState('');
@@ -750,54 +836,103 @@ function AddPersonSheet({
   const [managerUsername, setManagerUsername] = useState('');
   const [nameError, setNameError] = useState<string | null>(null);
   const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [createError, setCreateError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [result, setResult] = useState<Generated | null>(null);
+  const [result, setResult] = useState<Created | null>(null);
+
+  const live = backend.isDatabaseConfigured;
 
   const handleName = (value: string) => {
     setName(value);
     if (!usernameTouched) setUsername(suggestUsername(value));
   };
 
-  const generate = async () => {
+  const submit = async () => {
     if (busy) return;
     const cleanName = name.trim();
     const cleanUser = username.trim().toLowerCase();
 
     setNameError(cleanName ? null : c('errName'));
+    // The committed roster can be checked here and now. The database cannot —
+    // that is a request, so it happens below, once the shape is known to be ok.
+    const takenOnRoster = !live && backend.usernameTaken(cleanUser);
     if (!cleanUser) setUsernameError(c('errUsernameEmpty'));
     else if (!USERNAME_RE.test(cleanUser)) setUsernameError(c('errUsernameShape'));
-    else if (backend.usernameTaken(cleanUser)) setUsernameError(c('errUsernameTaken'));
+    else if (takenOnRoster) setUsernameError(c('errUsernameTaken'));
     else setUsernameError(null);
 
-    if (!cleanName || !cleanUser || !USERNAME_RE.test(cleanUser) || backend.usernameTaken(cleanUser)) {
+    if (!cleanName || !cleanUser || !USERNAME_RE.test(cleanUser) || takenOnRoster) {
       return;
     }
 
     setBusy(true);
+    setCreateError(null);
+    const password = generatePassword();
+
+    // ── The database path: this actually creates the account. ──
+    if (live) {
+      try {
+        if (await db.usernameExists(cleanUser)) {
+          setUsernameError(c('errUsernameTaken'));
+          return;
+        }
+        const created = await db.createUser({
+          username: cleanUser,
+          name: cleanName,
+          password,
+          role,
+          // Only sellers report to anyone; managers and admins never do.
+          managerId:
+            role === 'employee' && managerUsername
+              ? (managers.find((m) => m.username === managerUsername)?.id ?? null)
+              : null,
+          location,
+        });
+        if (!created.success) {
+          // Verbatim. One of these messages tells the owner to turn off
+          // "Confirm email" in Supabase, which is the only way to fix it.
+          setCreateError(created.error);
+          return;
+        }
+        setResult({ name: cleanName, username: cleanUser, password });
+        onCreated();
+      } catch (err) {
+        setCreateError(errorText(err, c('errUnknown')));
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+
+    // ── No database: write the commit instead. ──
     const draft: backend.NewAccountDraft = {
       username: cleanUser,
       name: cleanName,
       role,
       location,
-      // Only sellers report to anyone; managers and admins never do.
       managerUsername: role === 'employee' && managerUsername ? managerUsername : undefined,
     };
-    const password = generatePassword();
     const snippet = await backend.buildAccountSnippet(draft, password, newSalt());
-    setResult({ draft, password, snippet });
+    setResult({ name: cleanName, username: cleanUser, password, snippet });
     setBusy(false);
   };
 
   if (result) {
     return (
-      <Sheet title={c('ready')} subtitle={result.draft.name} onClose={onClose} closeLabel={c('close')}>
+      <Sheet
+        title={result.snippet ? c('ready') : c('created')}
+        subtitle={result.name}
+        onClose={onClose}
+        closeLabel={c('close')}
+      >
         <div className="space-y-4">
-          {/* 1 — the password, while it still exists. */}
+          {/* The password, while it still exists. Shown once either way — this
+              is genuinely the only moment it is readable. */}
           <section className="surface-feature feature-gold p-4">
             <p className="text-overline text-gold-strong">{c('theirLogin')}</p>
             <dl className="mt-2">
               <dt className="text-caption text-ink-3">{c('username')}</dt>
-              <dd className="break-all font-mono text-body-small text-ink">{result.draft.username}</dd>
+              <dd className="break-all font-mono text-body-small text-ink">{result.username}</dd>
               <dt className="mt-2 text-caption text-ink-3">{c('theirPassword')}</dt>
               <dd className="break-all font-mono text-h3 text-ink">{result.password}</dd>
             </dl>
@@ -813,21 +948,30 @@ function AddPersonSheet({
                 variant="teal"
               />
               <CopyRow
-                value={`${result.draft.username} / ${result.password}`}
+                value={`${result.username} / ${result.password}`}
                 label={c('copyLogin')}
                 copiedLabel={c('copied')}
               />
             </div>
           </section>
 
-          {/* 2 — the commit. */}
-          <section className="space-y-3">
-            <p className="text-overline text-ink-3">{c('theCode')}</p>
-            <CodeBlock code={result.snippet} />
-            <CopyRow value={result.snippet} label={c('copyCode')} copiedLabel={c('copied')} />
-            <Steps items={[c('stepCopy'), c('stepOpen'), c('stepPaste'), c('stepCommit')]} />
-            <GitHubLink label={c('openOnGitHub')} />
-          </section>
+          {result.snippet ? (
+            /* No database: the commit that makes the account real. */
+            <section className="space-y-3">
+              <p className="text-overline text-ink-3">{c('theCode')}</p>
+              <CodeBlock code={result.snippet} />
+              <CopyRow value={result.snippet} label={c('copyCode')} copiedLabel={c('copied')} />
+              <Steps items={[c('stepCopy'), c('stepOpen'), c('stepPaste'), c('stepCommit')]} />
+              <GitHubLink label={c('openOnGitHub')} />
+            </section>
+          ) : (
+            /* The account already exists. There is nothing else to do, and
+               saying so is the entire improvement. */
+            <p className="flex items-start gap-2 text-body-small leading-6 text-ink-2">
+              <Check size={16} className="mt-1 shrink-0 text-teal-strong" aria-hidden />
+              {c('signInNow')}
+            </p>
+          )}
 
           <button type="button" onClick={onClose} className="btn-primary w-full">
             {c('done')}
@@ -838,7 +982,12 @@ function AddPersonSheet({
   }
 
   return (
-    <Sheet title={c('addUser')} description={c('addLead')} onClose={onClose} closeLabel={c('cancel')}>
+    <Sheet
+      title={c('addUser')}
+      description={live ? c('addLeadDb') : c('addLead')}
+      onClose={onClose}
+      closeLabel={c('cancel')}
+    >
       <div className="space-y-4">
         <Field id="new-name" label={c('name')} error={nameError}>
           <input
@@ -915,14 +1064,97 @@ function AddPersonSheet({
           </select>
         </Field>
 
+        {/* Whatever the database said, said back. Swallowing this is how an
+            owner ends up staring at a button that does nothing. */}
+        {createError && (
+          <div className="rounded-card border border-danger/40 bg-danger-tint p-3">
+            <p className="text-caption font-semibold text-danger">{c('errCreate')}</p>
+            <p className="mt-1 text-caption leading-5 text-ink-2">{createError}</p>
+          </div>
+        )}
+
         <button
           type="button"
-          onClick={generate}
+          onClick={submit}
           disabled={busy}
           className="btn-primary w-full disabled:opacity-50"
         >
           <KeyRound size={16} aria-hidden />
-          {c('generate')}
+          {busy && live ? c('creating') : live ? c('create') : c('generate')}
+        </button>
+      </div>
+    </Sheet>
+  );
+}
+
+/**
+ * Remove, when removing is a real thing that happens. The confirmation is the
+ * whole screen: this deletes their profile and their training record, and the
+ * old flow's "here is the line to delete" has nothing to say about it.
+ */
+function DeleteFromDatabaseSheet({
+  person,
+  c,
+  onRemoved,
+  onClose,
+}: {
+  person: User;
+  c: (key: CopyKey) => string;
+  onRemoved: () => void;
+  onClose: () => void;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const remove = async () => {
+    if (busy) return;
+    setBusy(true);
+    setError(null);
+    const result = await db
+      .deleteUser(person.id)
+      .catch((err: unknown) => ({ success: false as const, error: errorText(err, c('errUnknown')) }));
+    setBusy(false);
+    if (!result.success) {
+      setError(result.error);
+      return;
+    }
+    onRemoved();
+    onClose();
+  };
+
+  return (
+    <Sheet
+      title={c('removeTitle')}
+      subtitle={person.name}
+      description={c('removeLeadDb')}
+      onClose={onClose}
+      closeLabel={c('close')}
+    >
+      <div className="space-y-3">
+        <p className="flex items-start gap-2 text-caption leading-5 text-ink-2">
+          <AlertTriangle size={14} className="mt-0.5 shrink-0 text-danger" aria-hidden />
+          {c('removeLosesProgress')}
+        </p>
+        <p className="text-caption leading-5 text-ink-3">{c('removeAuthNote')}</p>
+
+        {error && (
+          <div className="rounded-card border border-danger/40 bg-danger-tint p-3">
+            <p className="text-caption font-semibold text-danger">{c('errRemove')}</p>
+            <p className="mt-1 text-caption leading-5 text-ink-2">{error}</p>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={remove}
+          disabled={busy}
+          className="btn-primary w-full disabled:opacity-50"
+        >
+          <UserMinus size={16} aria-hidden />
+          {busy ? c('removingNow') : c('removeConfirm')}
+        </button>
+        <button type="button" onClick={onClose} className="btn-quiet w-full">
+          {c('cancel')}
         </button>
       </div>
     </Sheet>

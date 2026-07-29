@@ -221,19 +221,168 @@ with (security_invoker = true) as
   order by coalesce(s.xp, 0) desc;
 
 -- ═════════════════════════════════════════════════════════════════════════════
---  DONE.
+--  ADDING PEOPLE, FROM INSIDE THE APP
 --
---  Next: create your own login.
---    Authentication → Users → Add user → Create new user
---      Email:    admin@zerolines.local
---      Password: (choose one)
---      ✅ Auto Confirm User
+--  Sellers have no email address, so the app invents one on a domain that does
+--  not exist. Going through the normal sign-up endpoint would make the auth
+--  server try — and fail — to post a confirmation mail to it, and sign-up also
+--  returns a session, which would quietly sign the admin in as the person they
+--  just created.
 --
---  Then run this so that login is an admin rather than a seller:
+--  So provisioning happens here instead: one call, already confirmed, no mail,
+--  no session. SECURITY DEFINER means these run with full rights, so the first
+--  thing each one does is check who is calling.
+-- ═════════════════════════════════════════════════════════════════════════════
+
+create or replace function public.admin_create_user(
+  p_username text, p_name text, p_password text,
+  p_role text default 'employee', p_location text default 'andorra',
+  p_manager_id uuid default null
+) returns uuid language plpgsql security definer set search_path = public, extensions as $fn$
+declare
+  v_caller_role text; v_caller_location text;
+  v_username text := lower(trim(p_username));
+  v_name     text := trim(p_name);
+  v_role     text := coalesce(nullif(trim(p_role), ''), 'employee');
+  v_location text := coalesce(nullif(trim(p_location), ''), 'andorra');
+  v_manager_id uuid := p_manager_id;
+  v_id uuid := gen_random_uuid();
+  v_email text;
+begin
+  select role, location into v_caller_role, v_caller_location
+    from public.profiles where id = auth.uid();
+  if v_caller_role is null or v_caller_role not in ('admin','manager') then
+    raise exception 'Only an admin or a manager may add people' using errcode = '42501';
+  end if;
+
+  -- A manager may only add sellers, to their own shop, onto their own team.
+  if v_caller_role = 'manager' then
+    v_role := 'employee'; v_location := v_caller_location; v_manager_id := auth.uid();
+  end if;
+
+  if v_role not in ('admin','manager','employee') then
+    raise exception 'Unknown role: %', v_role using errcode = '22023'; end if;
+  if v_location not in ('andorra','gibraltar') then
+    raise exception 'Unknown shop: %', v_location using errcode = '22023'; end if;
+  if v_username !~ '^[a-z0-9._-]{3,32}$' then
+    raise exception 'Username must be 3-32 characters, using letters, numbers, dot, dash or underscore' using errcode = '22023'; end if;
+  if v_name = '' then
+    raise exception 'Name is required' using errcode = '22023'; end if;
+  if length(p_password) < 8 then
+    raise exception 'Password must be at least 8 characters' using errcode = '22023'; end if;
+
+  v_email := v_username || '@zerolines.local';
+  if exists (select 1 from public.profiles where username = v_username)
+     or exists (select 1 from auth.users where email = v_email) then
+    raise exception 'That username is taken' using errcode = '23505'; end if;
+  if v_manager_id is not null and not exists (select 1 from public.profiles where id = v_manager_id) then
+    raise exception 'That manager no longer exists' using errcode = '22023'; end if;
+
+  insert into auth.users (
+    instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
+    raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+    -- These four have no default and the auth server cannot read a NULL into
+    -- them; leaving them out breaks sign-in with a type error.
+    confirmation_token, recovery_token, email_change, email_change_token_new
+  ) values (
+    '00000000-0000-0000-0000-000000000000', v_id, 'authenticated', 'authenticated',
+    v_email, extensions.crypt(p_password, extensions.gen_salt('bf', 10)), now(),
+    jsonb_build_object('provider','email','providers', jsonb_build_array('email')),
+    jsonb_build_object('username', v_username, 'name', v_name, 'role', v_role, 'location', v_location),
+    now(), now(), '', '', '', ''
+  );
+
+  insert into auth.identities (id, user_id, provider_id, identity_data, provider,
+                               last_sign_in_at, created_at, updated_at)
+  values (gen_random_uuid(), v_id, v_id::text,
+          jsonb_build_object('sub', v_id::text, 'email', v_email,
+                             'email_verified', true, 'phone_verified', false),
+          'email', now(), now(), now());
+
+  -- handle_new_user() has already written the profile and stats rows from the
+  -- metadata above; this only adds the team link, which it cannot know.
+  update public.profiles set manager_id = v_manager_id where id = v_id;
+  return v_id;
+end;
+$fn$;
+
+-- ── Resetting a forgotten password ──────────────────────────────────────────
+create or replace function public.admin_set_password(p_user_id uuid, p_password text)
+returns void language plpgsql security definer set search_path = public, extensions as $fn$
+declare v_caller_role text; v_target_mgr uuid;
+begin
+  select role into v_caller_role from public.profiles where id = auth.uid();
+  select manager_id into v_target_mgr from public.profiles where id = p_user_id;
+  if v_caller_role is null or v_caller_role not in ('admin','manager') then
+    raise exception 'Only an admin or a manager may reset a password' using errcode = '42501'; end if;
+  if v_caller_role = 'manager' and v_target_mgr is distinct from auth.uid() then
+    raise exception 'A manager may only reset their own team' using errcode = '42501'; end if;
+  if length(p_password) < 8 then
+    raise exception 'Password must be at least 8 characters' using errcode = '22023'; end if;
+  if not exists (select 1 from auth.users where id = p_user_id) then
+    raise exception 'No such person' using errcode = '22023'; end if;
+
+  update auth.users
+     set encrypted_password = extensions.crypt(p_password, extensions.gen_salt('bf', 10)),
+         updated_at = now()
+   where id = p_user_id;
+end;
+$fn$;
+
+-- ── Removing someone ────────────────────────────────────────────────────────
+-- Deletes the login itself, so the username can be used again. Everything else
+-- (profile, progress, stats) goes with it through the cascades.
+create or replace function public.admin_delete_user(p_user_id uuid)
+returns void language plpgsql security definer set search_path = public, extensions as $fn$
+begin
+  if not public.is_admin() then
+    raise exception 'Only an admin may remove someone' using errcode = '42501'; end if;
+  if p_user_id = auth.uid() then
+    raise exception 'You cannot remove your own account' using errcode = '22023'; end if;
+  if (select role from public.profiles where id = p_user_id) = 'admin'
+     and (select count(*) from public.profiles where role = 'admin') <= 1 then
+    raise exception 'That is the last admin - promote someone else first' using errcode = '22023'; end if;
+  delete from auth.users where id = p_user_id;
+end;
+$fn$;
+
+-- Signed-out visitors must never be able to call any of these.
+revoke all on function public.admin_create_user(text, text, text, text, text, uuid) from public, anon;
+revoke all on function public.admin_set_password(uuid, text) from public, anon;
+revoke all on function public.admin_delete_user(uuid) from public, anon;
+grant execute on function public.admin_create_user(text, text, text, text, text, uuid) to authenticated;
+grant execute on function public.admin_set_password(uuid, text) to authenticated;
+grant execute on function public.admin_delete_user(uuid) to authenticated;
+
+-- ═════════════════════════════════════════════════════════════════════════════
+--  THE FIRST ADMIN
 --
---    update public.profiles
---       set role = 'admin', name = 'Owner', username = 'admin'
---     where id = (select id from auth.users where email = 'admin@zerolines.local');
+--  Everyone else is made from inside the app, but the first admin has to exist
+--  before anyone can sign in to make anybody. Run this once, with a password of
+--  your own. This project has already had it run.
+--
+--    do $boot$
+--    declare v_id uuid := gen_random_uuid(); v_email text := 'admin@zerolines.local';
+--    begin
+--      if exists (select 1 from auth.users where email = v_email) then return; end if;
+--      insert into auth.users (
+--        instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
+--        raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+--        confirmation_token, recovery_token, email_change, email_change_token_new
+--      ) values (
+--        '00000000-0000-0000-0000-000000000000', v_id, 'authenticated', 'authenticated',
+--        v_email, extensions.crypt('CHOOSE-A-PASSWORD', extensions.gen_salt('bf', 10)), now(),
+--        jsonb_build_object('provider','email','providers', jsonb_build_array('email')),
+--        jsonb_build_object('username','admin','name','Owner','role','admin','location','andorra'),
+--        now(), now(), '', '', '', ''
+--      );
+--      insert into auth.identities (id, user_id, provider_id, identity_data, provider,
+--                                   last_sign_in_at, created_at, updated_at)
+--      values (gen_random_uuid(), v_id, v_id::text,
+--              jsonb_build_object('sub', v_id::text, 'email', v_email,
+--                                 'email_verified', true, 'phone_verified', false),
+--              'email', now(), now(), now());
+--    end $boot$;
 --
 --  You sign in to the app as `admin` — it adds the @zerolines.local part.
 -- ═════════════════════════════════════════════════════════════════════════════
