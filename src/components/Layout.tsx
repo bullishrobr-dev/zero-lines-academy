@@ -50,14 +50,11 @@ export default function Layout({ children }: LayoutProps) {
   const hasNav = !NAVLESS_ROUTES.includes(location.pathname);
 
   /* Reset scroll on route change.
-     The old version only touched #main-content. That element is a flex child of
-     a `min-h` container, so it grows with its content and never scrolls itself —
-     the document does. Every navigation therefore kept the previous page's
-     scroll position. Reset both, and skip the smooth-scroll animation that
-     `html { scroll-behavior: smooth }` would otherwise apply to the jump. */
+     The document is the scroller — see the note on <main> below — so this must
+     be `window.scrollTo`, not `#main-content.scrollTop`, which is permanently
+     0. `instant` skips the animation that `html { scroll-behavior: smooth }`
+     would otherwise apply to the jump. */
   useEffect(() => {
-    const contentEl = document.getElementById('main-content');
-    if (contentEl) contentEl.scrollTop = 0;
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
   }, [location.pathname]);
 
@@ -86,11 +83,25 @@ export default function Layout({ children }: LayoutProps) {
             : 'relative z-10 flex min-h-[100dvh] w-full max-w-app flex-col overflow-hidden border-line bg-background pt-safe md:rounded-feature md:border md:shadow-feature'
         }
       >
+        {/*
+          The DOCUMENT is the scroller, not this element.
+
+          <main> is `flex-1` inside a `min-h-[100dvh]` column, so it grows with
+          its content and can never overflow itself. It previously carried
+          `overflow-y-auto`, which made it *look* like the scroll container
+          without ever behaving as one: `position: sticky` inside any page
+          silently did nothing, and `main.scrollTop` was permanently 0, so any
+          page reading it for scroll progress got a frozen value.
+
+          `overflow-x-clip` rather than `overflow-x-hidden` is deliberate: per
+          CSS overflow rules, setting one axis to `hidden` computes the other
+          axis to `auto`, which would re-create exactly the phantom scroll
+          container this is meant to remove. `clip` contains horizontal bleed
+          without establishing a scroll container.
+        */}
         <main
           id="main-content"
-          className={`no-scrollbar relative flex-1 overflow-y-auto overflow-x-hidden ${
-            hasNav ? CONTENT_BOTTOM_PADDING : ''
-          }`}
+          className={`relative flex-1 overflow-x-clip ${hasNav ? CONTENT_BOTTOM_PADDING : ''}`}
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
