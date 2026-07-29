@@ -1,25 +1,20 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// AdminPanel.tsx — every account in the company.
+// AdminPanel.tsx — the committed team roster, and the machine that writes it.
 //
-// Security fixes in this pass:
-//  • The generated credential was rendered in a plain `<Input value={password}>`
-//    with no `type="password"` — legible from across a shop floor on a shared
-//    tablet. It is masked now, with an explicit reveal toggle and a copy button.
-//  • Passwords were `"emp" + random(100..999)`: 900 possibilities, matching the
-//    seeded emp1…emp6 convention, against a login with no rate limiting. They
-//    now come from `crypto.getRandomValues` over a 32-symbol alphabet.
-//  • `managerId` was never sent, so no seller was ever linked to a manager and
-//    every manager's team fell back to "same shop, unassigned". The admin picks
-//    the manager explicitly now.
-//  • Location was not editable anywhere: a seller in the wrong shop had to be
-//    deleted and recreated, and until someone noticed they were being trained to
-//    quote the wrong currency. There is a proper edit sheet now.
-//  • `deleteUser()` returns `{ success, error }` (it refuses self-deletion and
-//    deleting the last admin) — the refusal reason is shown instead of silently
-//    doing nothing.
+// There is no server. An account "created" in the browser would exist only on
+// the phone that created it, so the roster is a file — src/data/accounts.ts —
+// and adding someone is a commit. This screen exists to make that commit
+// trivial: it generates the password, derives the salt and verifier, and prints
+// the exact block to paste. Nobody has to understand any of that.
+//
+// Consequences, on purpose:
+//  • The list is read-only. It is whatever `getUsers()` reads out of the file.
+//  • Removing someone shows the line to delete. It does not pretend to delete.
+//  • The password is shown once, in the clear, because this is the only moment
+//    it exists — it is a hash from here on.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -28,15 +23,13 @@ import {
   Check,
   Copy,
   Crown,
-  Eye,
-  EyeOff,
+  ExternalLink,
+  KeyRound,
   MapPin,
-  Pencil,
-  RefreshCw,
   Search,
   Shield,
-  Trash2,
   User as UserIcon,
+  UserMinus,
   UserPlus,
   Users,
   X,
@@ -45,39 +38,24 @@ import {
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuthContext } from '../contexts/AuthContext';
 import LoadingScreen from '../components/LoadingScreen';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import * as backend from '../backend/mockBackend';
-import type { UserRole, UserLocation } from '../backend/types';
+import type { User, UserRole, UserLocation } from '../backend/types';
+import { generatePassword, newSalt } from '../utils/credentials';
 
-interface SafeUser {
-  id: string;
-  email: string;
-  name: string;
-  role: UserRole;
-  location: UserLocation;
-  managerId?: string;
-  createdAt: string;
-}
+/** The file that decides who can sign in, and the one-tap way to edit it. */
+const ROSTER_FILE = 'src/data/accounts.ts';
+const ROSTER_EDIT_URL =
+  'https://github.com/bullishrobr-dev/zero-lines-academy/edit/main/src/data/accounts.ts';
 
 /* Strings with no key in src/data/translations.ts (it has none for the
    management screens, and that file is owned elsewhere). */
 const COPY = {
   overline: { en: 'Admin', es: 'Administración' },
-  title: { en: 'People', es: 'Personas' },
+  title: { en: 'The team', es: 'El equipo' },
   close: { en: 'Close', es: 'Cerrar' },
-  addUser: { en: 'Add person', es: 'Añadir persona' },
-  editUser: { en: 'Edit person', es: 'Editar persona' },
-  search: { en: 'Search by name or email', es: 'Busca por nombre o correo' },
+  addUser: { en: 'Add someone', es: 'Añadir a alguien' },
+  search: { en: 'Search by name or username', es: 'Busca por nombre o usuario' },
   filterRole: { en: 'Role', es: 'Puesto' },
   filterShop: { en: 'Shop', es: 'Tienda' },
   all: { en: 'All', es: 'Todos' },
@@ -88,59 +66,92 @@ const COPY = {
   roleManager: { en: 'Manager', es: 'Responsable' },
   roleEmployee: { en: 'Seller', es: 'Vendedor' },
   noUsers: { en: 'Nobody matches that search', es: 'Nadie coincide con esa búsqueda' },
+  you: { en: 'you', es: 'tú' },
+  reportsTo: { en: 'Reports to', es: 'Responsable' },
+  noManager: { en: 'No manager set', es: 'Sin responsable' },
+  openRoster: { en: 'Open the roster file', es: 'Abrir el archivo del equipo' },
+
+  /* ── Add ── */
+  addLead: {
+    en: 'The team lives in the code, so adding someone is a one-line commit — this writes the line for you.',
+    es: 'El equipo vive en el código, así que dar de alta a alguien es un commit de una línea — aquí la tienes escrita.',
+  },
   name: { en: 'Name', es: 'Nombre' },
   namePlaceholder: { en: 'e.g. Maria Garcia', es: 'p. ej. María García' },
-  email: { en: 'Email', es: 'Correo' },
-  tempPassword: { en: 'Temporary password', es: 'Contraseña temporal' },
-  passwordHint: {
-    en: 'Generated, not guessable. Share it once — they should change it after signing in.',
-    es: 'Generada, no adivinable. Compártela una vez — deberían cambiarla al entrar.',
+  username: { en: 'Username', es: 'Usuario' },
+  usernamePlaceholder: { en: 'e.g. maria', es: 'p. ej. maria' },
+  usernameHint: {
+    en: 'What they type to sign in. Lowercase letters and numbers, nothing else.',
+    es: 'Lo que escribe para entrar. Minúsculas y números, nada más.',
   },
-  reveal: { en: 'Show password', es: 'Mostrar contraseña' },
-  hide: { en: 'Hide password', es: 'Ocultar contraseña' },
-  copy: { en: 'Copy password', es: 'Copiar contraseña' },
-  copied: { en: 'Copied', es: 'Copiado' },
-  regenerate: { en: 'Generate a new password', es: 'Generar otra contraseña' },
-  reportsTo: { en: 'Reports to', es: 'Responsable asignado' },
-  noManager: { en: 'No manager yet', es: 'Sin responsable' },
+  shopHint: {
+    en: 'The shop sets the currency they are trained in — € in Andorra, £ in Gibraltar.',
+    es: 'La tienda define la moneda con la que se forma — € en Andorra, £ en Gibraltar.',
+  },
   managerOnlyForSellers: {
     en: 'Only sellers report to a manager.',
     es: 'Solo los vendedores tienen responsable.',
   },
-  create: { en: 'Create account', es: 'Crear cuenta' },
-  saveChanges: { en: 'Save changes', es: 'Guardar cambios' },
+  generate: { en: 'Generate the account', es: 'Generar la cuenta' },
   cancel: { en: 'Cancel', es: 'Cancelar' },
-  created: { en: 'Account created', es: 'Cuenta creada' },
-  credentialsOnce: {
-    en: 'Write this down now — the password is not shown again.',
-    es: 'Apúntala ahora — la contraseña no se vuelve a mostrar.',
+  errName: { en: 'Type their name.', es: 'Escribe su nombre.' },
+  errUsernameEmpty: { en: 'Pick a username.', es: 'Elige un usuario.' },
+  errUsernameShape: {
+    en: 'Lowercase letters and numbers only — no spaces, no dots, no dashes.',
+    es: 'Solo minúsculas y números — sin espacios, puntos ni guiones.',
   },
-  copyBoth: { en: 'Copy email and password', es: 'Copiar correo y contraseña' },
-  gotIt: { en: 'Done', es: 'Hecho' },
-  deleteTitle: { en: 'Delete this account?', es: '¿Eliminar esta cuenta?' },
-  deleteBody: {
-    en: 'They lose access immediately. Their training history stays on their own device.',
-    es: 'Pierde el acceso al momento. Su historial de formación se queda en su dispositivo.',
+  errUsernameTaken: {
+    en: 'That username is already on the roster.',
+    es: 'Ese usuario ya está en el equipo.',
   },
-  delete: { en: 'Delete', es: 'Eliminar' },
-  deleteAction: { en: 'Delete account', es: 'Eliminar cuenta' },
-  edit: { en: 'Edit', es: 'Editar' },
-  saved: { en: 'Changes saved', es: 'Cambios guardados' },
-  deleted: { en: 'Account deleted', es: 'Cuenta eliminada' },
-  emailTaken: { en: 'That email is already registered', es: 'Ese correo ya está registrado' },
-  emailInvalid: { en: 'Enter a valid email address', es: 'Escribe un correo válido' },
-  errNotFound: { en: 'That account no longer exists', es: 'Esa cuenta ya no existe' },
-  errSelfDelete: { en: 'You cannot delete your own account', es: 'No puedes eliminar tu propia cuenta' },
-  errLastAdmin: {
-    en: 'This is the last admin account — promote someone else first',
-    es: 'Es la última cuenta de admin — asciende antes a otra persona',
+
+  /* ── Result ── */
+  ready: { en: 'Account ready', es: 'Cuenta lista' },
+  theirLogin: { en: 'Their login', es: 'Sus datos de acceso' },
+  theirPassword: { en: 'Password', es: 'Contraseña' },
+  passwordWarning: {
+    en: 'The password is shown once and cannot be recovered. Write it down or send it to them now.',
+    es: 'La contraseña se muestra una sola vez y no se puede recuperar. Apúntala o envíasela ahora.',
   },
-  errGeneric: { en: 'Something went wrong', es: 'Algo ha ido mal' },
-  shopHint: {
-    en: 'The shop sets the currency this person is trained in — € in Andorra, £ in Gibraltar.',
-    es: 'La tienda define la moneda con la que se forma — € en Andorra, £ en Gibraltar.',
+  copyPassword: { en: 'Copy the password', es: 'Copiar la contraseña' },
+  copyLogin: { en: 'Copy both', es: 'Copiar los dos' },
+  copied: { en: 'Copied', es: 'Copiado' },
+  theCode: { en: 'The line to commit', es: 'La línea que subir' },
+  copyCode: { en: 'Copy the code', es: 'Copiar el código' },
+  openOnGitHub: { en: 'Open the file on GitHub', es: 'Abrir el archivo en GitHub' },
+  stepCopy: { en: 'Copy the code above.', es: 'Copia el código de arriba.' },
+  stepOpen: { en: `Open ${ROSTER_FILE} on GitHub.`, es: `Abre ${ROSTER_FILE} en GitHub.` },
+  stepPaste: {
+    en: 'Paste it just above the closing ].',
+    es: 'Pégalo justo encima del ] final.',
   },
-  you: { en: 'you', es: 'tú' },
+  stepCommit: {
+    en: 'Commit. They can sign in about a minute later, once the site rebuilds.',
+    es: 'Haz commit. Podrá entrar un minuto después, cuando el sitio se reconstruya.',
+  },
+  done: { en: 'Done', es: 'Hecho' },
+
+  /* ── Remove ── */
+  removeTitle: { en: 'Remove from the team', es: 'Sacar del equipo' },
+  removeLead: {
+    en: 'Removing someone is a commit too: delete their block from the roster.',
+    es: 'Sacar a alguien también es un commit: borra su bloque del archivo.',
+  },
+  removeFind: { en: 'Find this line', es: 'Busca esta línea' },
+  copyLine: { en: 'Copy the line', es: 'Copiar la línea' },
+  removeStepOpen: { en: `Open ${ROSTER_FILE} on GitHub.`, es: `Abre ${ROSTER_FILE} en GitHub.` },
+  removeStepDelete: {
+    en: 'Delete the whole { … } block containing that line.',
+    es: 'Borra todo el bloque { … } que contiene esa línea.',
+  },
+  removeStepCommit: {
+    en: 'Commit. They lose access about a minute later, on every device.',
+    es: 'Haz commit. Pierde el acceso un minuto después, en todos los dispositivos.',
+  },
+  removeKeepsProgress: {
+    en: 'Their training history stays on their own phone. Nothing here can reach it.',
+    es: 'Su historial de formación se queda en su móvil. Desde aquí no se toca.',
+  },
 } as const;
 
 type CopyKey = keyof typeof COPY;
@@ -157,23 +168,17 @@ const ROLE_CHIP: Record<UserRole, string> = {
   employee: 'bg-surface-sunken text-ink-2',
 };
 
-/**
- * A shop-floor-friendly password: 14 symbols from a 32-character alphabet with
- * no look-alikes (0/O, 1/l/I), read out loud without ambiguity. ~70 bits of
- * entropy against the 900 values the old `"emp" + random(100..999)` produced.
- * Duplicated in ManagerDashboard.tsx on purpose — src/utils is owned elsewhere.
- */
-const PASSWORD_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+/** Lowercase letters and digits, starting with a letter. Nothing to mistype. */
+const USERNAME_RE = /^[a-z][a-z0-9]*$/;
 
-function generatePassword(length = 14): string {
-  const cryptoObj = globalThis.crypto;
-  if (cryptoObj?.getRandomValues) {
-    const bytes = new Uint32Array(length);
-    cryptoObj.getRandomValues(bytes);
-    return Array.from(bytes, (b) => PASSWORD_ALPHABET[b % PASSWORD_ALPHABET.length]).join('');
-  }
-  // Last resort only — a browser without WebCrypto also has no secure storage.
-  return (cryptoObj?.randomUUID?.() ?? String(Date.now())).replace(/-/g, '').slice(0, length).toUpperCase();
+/** "María García" → "maria". Only a suggestion; the field stays editable. */
+function suggestUsername(name: string): string {
+  const first = name.trim().split(/\s+/)[0] ?? '';
+  return first
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
 }
 
 async function copyToClipboard(text: string): Promise<boolean> {
@@ -181,11 +186,24 @@ async function copyToClipboard(text: string): Promise<boolean> {
     await navigator.clipboard.writeText(text);
     return true;
   } catch {
-    return false;
+    // The Clipboard API needs a secure context; the shop tablets are not always
+    // on one, and a copy button that silently fails is worse than useless.
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch {
+      return false;
+    }
   }
 }
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* ── Page ── */
 
@@ -198,18 +216,12 @@ export default function AdminPanel() {
 
   /* `null` means "not loaded yet" — derived instead of a setLoading(true) that
      an effect had to fire synchronously. */
-  const [users, setUsers] = useState<SafeUser[] | null>(null);
-  const [reloadToken, setReloadToken] = useState(0);
+  const [users, setUsers] = useState<User[] | null>(null);
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState<UserRole | 'all'>('all');
   const [locFilter, setLocFilter] = useState<UserLocation | 'all'>('all');
-
-  const [addDraft, setAddDraft] = useState<{ password: string } | null>(null);
-  const [editing, setEditing] = useState<SafeUser | null>(null);
-  const [deleting, setDeleting] = useState<SafeUser | null>(null);
-  const [createdUser, setCreatedUser] = useState<{ email: string; password: string } | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [adding, setAdding] = useState(false);
+  const [removing, setRemoving] = useState<User | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -219,12 +231,15 @@ export default function AdminPanel() {
     return () => {
       cancelled = true;
     };
-  }, [reloadToken]);
-
-  const refresh = useCallback(() => setReloadToken((n) => n + 1), []);
+  }, []);
 
   const managers = useMemo(
     () => (users ?? []).filter((u) => u.role === 'manager' || u.role === 'admin'),
+    [users]
+  );
+
+  const nameOf = useCallback(
+    (username?: string) => (users ?? []).find((u) => u.username === username)?.name ?? username,
     [users]
   );
 
@@ -234,7 +249,7 @@ export default function AdminPanel() {
       if (roleFilter !== 'all' && u.role !== roleFilter) return false;
       if (locFilter !== 'all' && u.location !== locFilter) return false;
       if (!q) return true;
-      return u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q);
+      return u.name.toLowerCase().includes(q) || u.username.includes(q);
     });
   }, [users, roleFilter, locFilter, search]);
 
@@ -250,71 +265,10 @@ export default function AdminPanel() {
   }, [users]);
 
   const roleLabel = useCallback(
-    (role: UserRole) => (role === 'admin' ? c('roleAdmin') : role === 'manager' ? c('roleManager') : c('roleEmployee')),
+    (role: UserRole) =>
+      role === 'admin' ? c('roleAdmin') : role === 'manager' ? c('roleManager') : c('roleEmployee'),
     [c]
   );
-
-  /* The backend answers in English; sellers and managers here may be reading in
-     Spanish, so map the known refusals rather than passing them straight on. */
-  const translateError = useCallback(
-    (message?: string) => {
-      switch (message) {
-        case 'Email already registered':
-          return c('emailTaken');
-        case 'User not found':
-          return c('errNotFound');
-        case 'You cannot delete your own account':
-          return c('errSelfDelete');
-        case 'Cannot delete the last admin account':
-          return c('errLastAdmin');
-        default:
-          return message || c('errGeneric');
-      }
-    },
-    [c]
-  );
-
-  const handleCreate = async (data: backend.SignupData) => {
-    setError(null);
-    const result = await backend.createUser(data);
-    if (!result.success) {
-      setError(translateError(result.error));
-      return false;
-    }
-    setAddDraft(null);
-    setCreatedUser({ email: data.email, password: data.password });
-    refresh();
-    return true;
-  };
-
-  const handleSaveEdit = async (
-    id: string,
-    changes: { name: string; role: UserRole; location: UserLocation; managerId?: string }
-  ) => {
-    setError(null);
-    const ok = await backend.updateUser(id, changes);
-    if (!ok) {
-      setError(c('errNotFound'));
-      return;
-    }
-    setEditing(null);
-    setNotice(c('saved'));
-    refresh();
-  };
-
-  /* deleteUser() now answers `{ success, error }` — it refuses self-deletion and
-     deleting the last admin. The old call site ignored the result entirely. */
-  const handleDelete = async (target: SafeUser) => {
-    setError(null);
-    const result = await backend.deleteUser(target.id);
-    setDeleting(null);
-    if (!result.success) {
-      setError(translateError(result.error));
-      return;
-    }
-    setNotice(c('deleted'));
-    refresh();
-  };
 
   if (!isAdmin) return null;
   if (users === null) return <LoadingScreen />;
@@ -333,7 +287,7 @@ export default function AdminPanel() {
           <div className="flex shrink-0 items-center gap-2">
             <button
               type="button"
-              onClick={() => setAddDraft({ password: generatePassword() })}
+              onClick={() => setAdding(true)}
               aria-label={c('addUser')}
               className="btn-icon bg-teal text-on-teal"
             >
@@ -352,34 +306,7 @@ export default function AdminPanel() {
       </header>
 
       <div className="space-y-5 px-5 pt-5">
-        {(error || notice) && (
-          <div
-            role="status"
-            className={`flex items-start gap-2 rounded-card border p-3 ${
-              error ? 'border-danger/30 bg-danger-tint' : 'border-teal/30 bg-teal-tint'
-            }`}
-          >
-            {error ? (
-              <AlertTriangle size={16} className="mt-0.5 shrink-0 text-danger" aria-hidden />
-            ) : (
-              <Check size={16} className="mt-0.5 shrink-0 text-teal-strong" aria-hidden />
-            )}
-            <p className="flex-1 text-caption text-ink">{error ?? notice}</p>
-            <button
-              type="button"
-              onClick={() => {
-                setError(null);
-                setNotice(null);
-              }}
-              aria-label={c('close')}
-              className="-m-2 flex h-touch w-touch items-center justify-center text-ink-3"
-            >
-              <X size={16} aria-hidden />
-            </button>
-          </div>
-        )}
-
-        {/* Head count */}
+        {/* Head count — real roster entries, nothing seeded. */}
         <div className="surface-raised p-4">
           <div className="grid grid-cols-3 divide-x divide-line">
             {[
@@ -416,7 +343,11 @@ export default function AdminPanel() {
             {c('search')}
           </label>
           <div className="relative">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3" aria-hidden />
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3"
+              aria-hidden
+            />
             <input
               id="admin-search"
               type="search"
@@ -453,7 +384,7 @@ export default function AdminPanel() {
           />
         </div>
 
-        {/* Roster */}
+        {/* Roster — read-only, straight out of the committed file. */}
         <div className="space-y-2">
           {filtered.map((u) => {
             const RoleIcon = ROLE_ICON[u.role];
@@ -480,7 +411,7 @@ export default function AdminPanel() {
                     <p className="truncate text-body-small font-semibold text-ink">{u.name}</p>
                     {isSelf && <span className="shrink-0 text-caption text-ink-3">({c('you')})</span>}
                   </div>
-                  <p className="truncate text-caption text-ink-3">{u.email}</p>
+                  <p className="truncate font-mono text-caption text-ink-3">{u.username}</p>
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">
                     <span
                       className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-caption ${ROLE_CHIP[u.role]}`}
@@ -493,28 +424,23 @@ export default function AdminPanel() {
                       {u.location}
                     </span>
                   </div>
-                </div>
-
-                <div className="flex shrink-0 flex-col gap-1">
-                  <button
-                    type="button"
-                    onClick={() => setEditing(u)}
-                    aria-label={`${c('edit')} — ${u.name}`}
-                    className="btn-icon h-10 w-10"
-                  >
-                    <Pencil size={15} aria-hidden />
-                  </button>
-                  {!isSelf && (
-                    <button
-                      type="button"
-                      onClick={() => setDeleting(u)}
-                      aria-label={`${c('delete')} — ${u.name}`}
-                      className="btn-icon h-10 w-10 border-danger/30 bg-danger-tint text-danger"
-                    >
-                      <Trash2 size={15} aria-hidden />
-                    </button>
+                  {u.role === 'employee' && (
+                    <p className="mt-1 truncate text-caption text-ink-3">
+                      {c('reportsTo')}: {u.managerUsername ? nameOf(u.managerUsername) : c('noManager')}
+                    </p>
                   )}
                 </div>
+
+                {!isSelf && (
+                  <button
+                    type="button"
+                    onClick={() => setRemoving(u)}
+                    aria-label={`${c('removeTitle')} — ${u.name}`}
+                    className="btn-icon shrink-0"
+                  >
+                    <UserMinus size={16} aria-hidden />
+                  </button>
+                )}
               </motion.div>
             );
           })}
@@ -527,83 +453,30 @@ export default function AdminPanel() {
           )}
         </div>
 
+        <a
+          href={ROSTER_EDIT_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-quiet w-full text-body-small"
+        >
+          <ExternalLink size={16} aria-hidden />
+          {c('openRoster')}
+        </a>
+
         <div className="pb-safe" />
       </div>
 
-      {/* ── Add ── */}
-      {addDraft && (
-        <UserFormSheet
-          mode="create"
-          initialPassword={addDraft.password}
+      {adding && (
+        <AddPersonSheet
+          c={c}
+          roleLabel={roleLabel}
           managers={managers}
-          c={c}
-          roleLabel={roleLabel}
-          onClose={() => setAddDraft(null)}
-          onSubmitCreate={handleCreate}
+          defaultLocation={user?.location ?? 'andorra'}
+          onClose={() => setAdding(false)}
         />
       )}
 
-      {/* ── Edit ── */}
-      {editing && (
-        <UserFormSheet
-          mode="edit"
-          user={editing}
-          managers={managers.filter((m) => m.id !== editing.id)}
-          c={c}
-          roleLabel={roleLabel}
-          onClose={() => setEditing(null)}
-          onSubmitEdit={(changes) => handleSaveEdit(editing.id, changes)}
-        />
-      )}
-
-      {/* ── Credentials, shown once ── */}
-      <Dialog open={createdUser !== null} onOpenChange={(open) => !open && setCreatedUser(null)}>
-        <DialogContent showCloseButton={false} className="rounded-feature border-line bg-surface">
-          <DialogTitle className="text-h3 text-ink">{c('created')}</DialogTitle>
-          <DialogDescription className="text-body-small text-ink-2">{c('credentialsOnce')}</DialogDescription>
-          {createdUser && (
-            <>
-              <dl className="rounded-card bg-surface-sunken p-3">
-                <dt className="text-caption text-ink-3">{c('email')}</dt>
-                <dd className="break-all font-mono text-body-small text-ink">{createdUser.email}</dd>
-                <dt className="mt-2 text-caption text-ink-3">{c('tempPassword')}</dt>
-                <dd className="break-all font-mono text-body-small text-ink">{createdUser.password}</dd>
-              </dl>
-              <CopyButton
-                label={c('copyBoth')}
-                copiedLabel={c('copied')}
-                value={`${createdUser.email} / ${createdUser.password}`}
-              />
-              <button type="button" onClick={() => setCreatedUser(null)} className="btn-quiet w-full">
-                {c('gotIt')}
-              </button>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
-
-      {/* ── Delete confirmation ── */}
-      <AlertDialog open={deleting !== null} onOpenChange={(open) => !open && setDeleting(null)}>
-        <AlertDialogContent className="rounded-feature border-line bg-surface">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-h4 text-ink">{c('deleteTitle')}</AlertDialogTitle>
-            <AlertDialogDescription className="text-body-small text-ink-2">
-              {deleting?.name} · {deleting?.email}
-              <br />
-              {c('deleteBody')}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="btn-quiet min-h-touch border-line">{c('cancel')}</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => deleting && handleDelete(deleting)}
-              className="min-h-touch rounded-full bg-danger px-6 font-semibold text-destructive-foreground"
-            >
-              {c('deleteAction')}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      {removing && <RemoveSheet person={removing} c={c} onClose={() => setRemoving(null)} />}
     </div>
   );
 }
@@ -635,7 +508,7 @@ function FilterRow({
               type="button"
               onClick={() => onChange(opt.key)}
               aria-pressed={active}
-              className={`min-h-[36px] shrink-0 rounded-full border px-3 text-caption font-semibold transition-colors ${
+              className={`min-h-touch shrink-0 rounded-full border px-3 text-caption font-semibold transition-colors ${
                 active ? 'border-teal bg-teal text-on-teal' : 'border-line bg-surface text-ink-2'
               }`}
             >
@@ -648,23 +521,80 @@ function FilterRow({
   );
 }
 
-function CopyButton({ value, label, copiedLabel }: { value: string; label: string; copiedLabel: string }) {
+function CopyRow({
+  value,
+  label,
+  copiedLabel,
+  variant = 'quiet',
+}: {
+  value: string;
+  label: string;
+  copiedLabel: string;
+  variant?: 'quiet' | 'teal';
+}) {
   const [copied, setCopied] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   return (
     <button
       type="button"
       onClick={async () => {
-        const ok = await copyToClipboard(value);
-        if (ok) {
+        if (await copyToClipboard(value)) {
           setCopied(true);
-          setTimeout(() => setCopied(false), 1800);
+          window.clearTimeout(timer.current);
+          timer.current = window.setTimeout(() => setCopied(false), 1800);
         }
       }}
-      className="btn-secondary w-full"
+      className={`${variant === 'teal' ? 'btn-secondary' : 'btn-quiet'} w-full text-body-small`}
     >
       {copied ? <Check size={16} aria-hidden /> : <Copy size={16} aria-hidden />}
-      {copied ? copiedLabel : label}
+      <span aria-live="polite">{copied ? copiedLabel : label}</span>
     </button>
+  );
+}
+
+/** Monospace, sunken, and allowed to scroll sideways so it cannot widen a 390px
+    phone. `min-w-0` because a grid/flex child otherwise refuses to shrink. */
+function CodeBlock({ code }: { code: string }) {
+  return (
+    <div className="min-w-0">
+      <pre className="max-w-full overflow-x-auto rounded-card bg-surface-sunken p-3 font-mono text-caption leading-5 text-ink">
+        {code}
+      </pre>
+    </div>
+  );
+}
+
+function Steps({ items }: { items: string[] }) {
+  return (
+    <ol className="space-y-2">
+      {items.map((text, i) => (
+        <li key={text} className="flex items-start gap-2.5">
+          <span
+            aria-hidden
+            className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal text-caption font-semibold text-on-teal"
+          >
+            {i + 1}
+          </span>
+          <span className="min-w-0 flex-1 text-caption leading-5 text-ink-2">{text}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function GitHubLink({ label }: { label: string }) {
+  return (
+    <a
+      href={ROSTER_EDIT_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="btn-quiet w-full text-body-small"
+    >
+      <ExternalLink size={16} aria-hidden />
+      {label}
+    </a>
   );
 }
 
@@ -672,11 +602,13 @@ function Field({
   id,
   label,
   hint,
+  error,
   children,
 }: {
   id: string;
   label: string;
   hint?: string;
+  error?: string | null;
   children: React.ReactNode;
 }) {
   return (
@@ -685,7 +617,11 @@ function Field({
         {label}
       </label>
       {children}
-      {hint && <p className="mt-1.5 text-caption leading-5 text-ink-3">{hint}</p>}
+      {error ? (
+        <p className="mt-1.5 text-caption leading-5 text-danger">{error}</p>
+      ) : (
+        hint && <p className="mt-1.5 text-caption leading-5 text-ink-3">{hint}</p>
+      )}
     </div>
   );
 }
@@ -712,7 +648,11 @@ function SegmentedField<T extends string>({
       <p id={labelId} className="mb-1.5 text-caption font-semibold text-ink-2">
         {label}
       </p>
-      <div role="group" aria-labelledby={labelId} className="flex gap-2 rounded-full bg-surface-sunken p-1">
+      <div
+        role="group"
+        aria-labelledby={labelId}
+        className="flex gap-2 rounded-full bg-surface-sunken p-1"
+      >
         {options.map((opt) => {
           const active = value === opt.key;
           return (
@@ -735,212 +675,290 @@ function SegmentedField<T extends string>({
   );
 }
 
-/** Create/edit sheet. Radix Dialog, so focus is trapped and Escape closes it —
-    the previous hand-rolled `fixed inset-0` did neither. */
-function UserFormSheet({
-  mode,
-  user,
-  initialPassword,
-  managers,
-  c,
-  roleLabel,
+/** Radix Dialog, so focus is trapped and Escape closes it. */
+function Sheet({
+  title,
+  subtitle,
   onClose,
-  onSubmitCreate,
-  onSubmitEdit,
+  closeLabel,
+  description,
+  children,
 }: {
-  mode: 'create' | 'edit';
-  user?: SafeUser;
-  initialPassword?: string;
-  managers: SafeUser[];
-  c: (key: CopyKey) => string;
-  roleLabel: (role: UserRole) => string;
+  title: string;
+  subtitle?: string;
   onClose: () => void;
-  onSubmitCreate?: (data: backend.SignupData) => Promise<boolean>;
-  onSubmitEdit?: (changes: {
-    name: string;
-    role: UserRole;
-    location: UserLocation;
-    managerId?: string;
-  }) => Promise<void>;
+  closeLabel: string;
+  description?: string;
+  children: React.ReactNode;
 }) {
-  const [name, setName] = useState(user?.name ?? '');
-  const [email, setEmail] = useState(user?.email ?? '');
-  const [password, setPassword] = useState(initialPassword ?? '');
-  const [revealed, setRevealed] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [role, setRole] = useState<UserRole>(user?.role ?? 'employee');
-  const [location, setLocation] = useState<UserLocation>(user?.location ?? 'andorra');
-  const [managerId, setManagerId] = useState<string>(user?.managerId ?? '');
-  const [emailError, setEmailError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-
-  const isCreate = mode === 'create';
-  const canSubmit = name.trim().length > 0 && (!isCreate || (email.trim().length > 0 && password.length > 0));
-
-  const submit = async () => {
-    if (!canSubmit || busy) return;
-    const cleanEmail = email.trim().toLowerCase();
-    if (isCreate && !EMAIL_RE.test(cleanEmail)) {
-      setEmailError(c('emailInvalid'));
-      return;
-    }
-    setEmailError(null);
-    setBusy(true);
-    // Only sellers report to a manager; managers and admins never do.
-    const link = role === 'employee' && managerId ? managerId : undefined;
-    if (isCreate && onSubmitCreate) {
-      await onSubmitCreate({ email: cleanEmail, name: name.trim(), password, role, location, managerId: link });
-    } else if (onSubmitEdit) {
-      await onSubmitEdit({ name: name.trim(), role, location, managerId: link });
-    }
-    setBusy(false);
-  };
-
   return (
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         showCloseButton={false}
         className="max-h-[88vh] overflow-y-auto rounded-feature border-line bg-surface"
       >
-        <div className="flex items-start justify-between gap-3">
-          <DialogTitle className="text-h3 text-ink">{isCreate ? c('addUser') : c('editUser')}</DialogTitle>
-          <button type="button" onClick={onClose} aria-label={c('cancel')} className="btn-icon shrink-0">
+        <div className="flex min-w-0 items-start justify-between gap-3">
+          <div className="min-w-0">
+            <DialogTitle className="text-h3 text-ink">{title}</DialogTitle>
+            {subtitle && <p className="mt-0.5 truncate text-caption text-ink-3">{subtitle}</p>}
+          </div>
+          <button type="button" onClick={onClose} aria-label={closeLabel} className="btn-icon shrink-0">
             <X size={18} aria-hidden />
           </button>
         </div>
-        <DialogDescription className="sr-only">{isCreate ? c('addUser') : c('editUser')}</DialogDescription>
-
-        <div className="space-y-4">
-          <Field id="user-name" label={c('name')}>
-            <input
-              id="user-name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={c('namePlaceholder')}
-              className={inputClass}
-              autoComplete="off"
-            />
-          </Field>
-
-          {isCreate ? (
-            <Field id="user-email" label={c('email')} hint={emailError ?? undefined}>
-              <input
-                id="user-email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="maria@zerolines.com"
-                className={inputClass}
-                autoComplete="off"
-                inputMode="email"
-              />
-            </Field>
-          ) : (
-            <Field id="user-email-static" label={c('email')}>
-              <p id="user-email-static" className="break-all rounded-chip bg-surface-sunken px-3 py-3 text-body-small text-ink-2">
-                {email}
-              </p>
-            </Field>
-          )}
-
-          {isCreate && (
-            <Field id="user-password" label={c('tempPassword')} hint={c('passwordHint')}>
-              <div className="flex gap-2">
-                <input
-                  id="user-password"
-                  /* Was a plain text input — legible over the shoulder. */
-                  type={revealed ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={`${inputClass} font-mono tracking-wide`}
-                  autoComplete="new-password"
-                  spellCheck={false}
-                />
-                <button
-                  type="button"
-                  onClick={() => setRevealed((r) => !r)}
-                  aria-label={revealed ? c('hide') : c('reveal')}
-                  aria-pressed={revealed}
-                  className="btn-icon shrink-0"
-                >
-                  {revealed ? <EyeOff size={16} aria-hidden /> : <Eye size={16} aria-hidden />}
-                </button>
-                <button
-                  type="button"
-                  onClick={async () => {
-                    const ok = await copyToClipboard(password);
-                    if (ok) {
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 1800);
-                    }
-                  }}
-                  aria-label={copied ? c('copied') : c('copy')}
-                  className="btn-icon shrink-0"
-                >
-                  {copied ? <Check size={16} aria-hidden /> : <Copy size={16} aria-hidden />}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPassword(generatePassword())}
-                  aria-label={c('regenerate')}
-                  className="btn-icon shrink-0"
-                >
-                  <RefreshCw size={16} aria-hidden />
-                </button>
-              </div>
-            </Field>
-          )}
-
-          <SegmentedField<UserRole>
-            label={c('filterRole')}
-            value={role}
-            onChange={setRole}
-            options={[
-              { key: 'employee', label: roleLabel('employee') },
-              { key: 'manager', label: roleLabel('manager') },
-              { key: 'admin', label: roleLabel('admin') },
-            ]}
-          />
-
-          <SegmentedField<UserLocation>
-            label={c('filterShop')}
-            value={location}
-            onChange={setLocation}
-            hint={c('shopHint')}
-            options={[
-              { key: 'andorra', label: 'Andorra' },
-              { key: 'gibraltar', label: 'Gibraltar' },
-            ]}
-          />
-
-          {/* managerId was never set by either form, so no seller was ever linked. */}
-          <Field
-            id="user-manager"
-            label={c('reportsTo')}
-            hint={role !== 'employee' ? c('managerOnlyForSellers') : undefined}
-          >
-            <select
-              id="user-manager"
-              value={managerId}
-              onChange={(e) => setManagerId(e.target.value)}
-              disabled={role !== 'employee'}
-              className={`${inputClass} disabled:opacity-50`}
-            >
-              <option value="">{c('noManager')}</option>
-              {managers.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {m.name} — {m.location === 'andorra' ? 'Andorra' : 'Gibraltar'}
-                </option>
-              ))}
-            </select>
-          </Field>
-
-          <button type="button" onClick={submit} disabled={!canSubmit || busy} className="btn-primary w-full disabled:opacity-50">
-            {isCreate ? c('create') : c('saveChanges')}
-          </button>
-        </div>
+        {description ? (
+          <DialogDescription className="text-body-small leading-6 text-ink-2">
+            {description}
+          </DialogDescription>
+        ) : (
+          <DialogDescription className="sr-only">{title}</DialogDescription>
+        )}
+        <div className="min-w-0">{children}</div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+interface Generated {
+  draft: backend.NewAccountDraft;
+  password: string;
+  snippet: string;
+}
+
+/**
+ * Two states in one sheet: the form, then what to commit. Kept together because
+ * the password only exists between them — it is a hash the moment this closes.
+ */
+function AddPersonSheet({
+  c,
+  roleLabel,
+  managers,
+  defaultLocation,
+  onClose,
+}: {
+  c: (key: CopyKey) => string;
+  roleLabel: (role: UserRole) => string;
+  managers: User[];
+  defaultLocation: UserLocation;
+  onClose: () => void;
+}) {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [usernameTouched, setUsernameTouched] = useState(false);
+  const [role, setRole] = useState<UserRole>('employee');
+  const [location, setLocation] = useState<UserLocation>(defaultLocation);
+  const [managerUsername, setManagerUsername] = useState('');
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [result, setResult] = useState<Generated | null>(null);
+
+  const handleName = (value: string) => {
+    setName(value);
+    if (!usernameTouched) setUsername(suggestUsername(value));
+  };
+
+  const generate = async () => {
+    if (busy) return;
+    const cleanName = name.trim();
+    const cleanUser = username.trim().toLowerCase();
+
+    setNameError(cleanName ? null : c('errName'));
+    if (!cleanUser) setUsernameError(c('errUsernameEmpty'));
+    else if (!USERNAME_RE.test(cleanUser)) setUsernameError(c('errUsernameShape'));
+    else if (backend.usernameTaken(cleanUser)) setUsernameError(c('errUsernameTaken'));
+    else setUsernameError(null);
+
+    if (!cleanName || !cleanUser || !USERNAME_RE.test(cleanUser) || backend.usernameTaken(cleanUser)) {
+      return;
+    }
+
+    setBusy(true);
+    const draft: backend.NewAccountDraft = {
+      username: cleanUser,
+      name: cleanName,
+      role,
+      location,
+      // Only sellers report to anyone; managers and admins never do.
+      managerUsername: role === 'employee' && managerUsername ? managerUsername : undefined,
+    };
+    const password = generatePassword();
+    const snippet = await backend.buildAccountSnippet(draft, password, newSalt());
+    setResult({ draft, password, snippet });
+    setBusy(false);
+  };
+
+  if (result) {
+    return (
+      <Sheet title={c('ready')} subtitle={result.draft.name} onClose={onClose} closeLabel={c('close')}>
+        <div className="space-y-4">
+          {/* 1 — the password, while it still exists. */}
+          <section className="surface-feature feature-gold p-4">
+            <p className="text-overline text-gold-strong">{c('theirLogin')}</p>
+            <dl className="mt-2">
+              <dt className="text-caption text-ink-3">{c('username')}</dt>
+              <dd className="break-all font-mono text-body-small text-ink">{result.draft.username}</dd>
+              <dt className="mt-2 text-caption text-ink-3">{c('theirPassword')}</dt>
+              <dd className="break-all font-mono text-h3 text-ink">{result.password}</dd>
+            </dl>
+            <p className="mt-2 flex items-start gap-2 text-caption leading-5 text-ink-2">
+              <AlertTriangle size={14} className="mt-0.5 shrink-0 text-gold-strong" aria-hidden />
+              {c('passwordWarning')}
+            </p>
+            <div className="mt-3 space-y-2">
+              <CopyRow
+                value={result.password}
+                label={c('copyPassword')}
+                copiedLabel={c('copied')}
+                variant="teal"
+              />
+              <CopyRow
+                value={`${result.draft.username} / ${result.password}`}
+                label={c('copyLogin')}
+                copiedLabel={c('copied')}
+              />
+            </div>
+          </section>
+
+          {/* 2 — the commit. */}
+          <section className="space-y-3">
+            <p className="text-overline text-ink-3">{c('theCode')}</p>
+            <CodeBlock code={result.snippet} />
+            <CopyRow value={result.snippet} label={c('copyCode')} copiedLabel={c('copied')} />
+            <Steps items={[c('stepCopy'), c('stepOpen'), c('stepPaste'), c('stepCommit')]} />
+            <GitHubLink label={c('openOnGitHub')} />
+          </section>
+
+          <button type="button" onClick={onClose} className="btn-primary w-full">
+            {c('done')}
+          </button>
+        </div>
+      </Sheet>
+    );
+  }
+
+  return (
+    <Sheet title={c('addUser')} description={c('addLead')} onClose={onClose} closeLabel={c('cancel')}>
+      <div className="space-y-4">
+        <Field id="new-name" label={c('name')} error={nameError}>
+          <input
+            id="new-name"
+            type="text"
+            value={name}
+            onChange={(e) => handleName(e.target.value)}
+            placeholder={c('namePlaceholder')}
+            className={inputClass}
+            autoComplete="off"
+          />
+        </Field>
+
+        <Field id="new-username" label={c('username')} hint={c('usernameHint')} error={usernameError}>
+          <input
+            id="new-username"
+            type="text"
+            value={username}
+            onChange={(e) => {
+              setUsernameTouched(true);
+              // Lowercase and de-space as they type; anything else still trips
+              // the rule below, so the rule stays visible.
+              setUsername(e.target.value.toLowerCase().replace(/\s+/g, ''));
+            }}
+            placeholder={c('usernamePlaceholder')}
+            className={`${inputClass} font-mono`}
+            autoComplete="off"
+            autoCapitalize="none"
+            spellCheck={false}
+          />
+        </Field>
+
+        <SegmentedField<UserRole>
+          label={c('filterRole')}
+          value={role}
+          onChange={setRole}
+          options={[
+            { key: 'employee', label: roleLabel('employee') },
+            { key: 'manager', label: roleLabel('manager') },
+            { key: 'admin', label: roleLabel('admin') },
+          ]}
+        />
+
+        <SegmentedField<UserLocation>
+          label={c('filterShop')}
+          value={location}
+          onChange={setLocation}
+          hint={c('shopHint')}
+          options={[
+            { key: 'andorra', label: 'Andorra' },
+            { key: 'gibraltar', label: 'Gibraltar' },
+          ]}
+        />
+
+        {/* Sellers report to a manager; managers and admins never do. */}
+        <Field
+          id="new-manager"
+          label={c('reportsTo')}
+          hint={role !== 'employee' ? c('managerOnlyForSellers') : undefined}
+        >
+          <select
+            id="new-manager"
+            value={managerUsername}
+            onChange={(e) => setManagerUsername(e.target.value)}
+            disabled={role !== 'employee'}
+            className={`${inputClass} disabled:opacity-50`}
+          >
+            <option value="">{c('noManager')}</option>
+            {managers.map((m) => (
+              <option key={m.id} value={m.username}>
+                {m.name} — {m.location === 'andorra' ? 'Andorra' : 'Gibraltar'}
+              </option>
+            ))}
+          </select>
+        </Field>
+
+        <button
+          type="button"
+          onClick={generate}
+          disabled={busy}
+          className="btn-primary w-full disabled:opacity-50"
+        >
+          <KeyRound size={16} aria-hidden />
+          {c('generate')}
+        </button>
+      </div>
+    </Sheet>
+  );
+}
+
+/** No delete exists any more, so this shows the edit to make instead. */
+function RemoveSheet({
+  person,
+  c,
+  onClose,
+}: {
+  person: User;
+  c: (key: CopyKey) => string;
+  onClose: () => void;
+}) {
+  const line = `username: '${person.username}',`;
+  return (
+    <Sheet
+      title={c('removeTitle')}
+      subtitle={person.name}
+      description={c('removeLead')}
+      onClose={onClose}
+      closeLabel={c('close')}
+    >
+      <div className="space-y-3">
+        <p className="text-overline text-ink-3">{c('removeFind')}</p>
+        <CodeBlock code={line} />
+        <CopyRow value={line} label={c('copyLine')} copiedLabel={c('copied')} />
+        <Steps items={[c('removeStepOpen'), c('removeStepDelete'), c('removeStepCommit')]} />
+        <GitHubLink label={c('openOnGitHub')} />
+        <p className="text-caption leading-5 text-ink-3">{c('removeKeepsProgress')}</p>
+        <button type="button" onClick={onClose} className="btn-quiet w-full">
+          {c('done')}
+        </button>
+      </div>
+    </Sheet>
   );
 }

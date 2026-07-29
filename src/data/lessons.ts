@@ -2,7 +2,15 @@
 // Zero Lines Academy — Lesson Data Structure
 // All lesson content lives here as structured data.
 // UI components render dynamically from this file.
+//
+// Two categories live in sibling files purely for size — `scenarios` and
+// `objections` are 20 lessons between them. They import `Lesson` as a TYPE
+// only, so nothing here is a runtime cycle: `import type` is erased under
+// verbatimModuleSyntax.
 // ─────────────────────────────────────────────────────────────
+
+import { scenarioLessons } from './scenarioLessons';
+import { objectionLessons } from './objectionLessons';
 
 export type SectionType =
   | 'header'
@@ -115,6 +123,41 @@ export const categories: Category[] = [
     icon: 'Sparkles',
     accentColor: '#0ABAB5',
     lessonOrder: ['prod-1', 'prod-2', 'prod-3', 'prod-4', 'prod-5', 'prod-6', 'prod-7', 'prod-8'],
+  },
+
+  // ── The practice shelves ──
+  // The four paths above own the four brand accents (teal / violet / coral /
+  // gold — see the hue maps in TrainingHub and CategoryHub). These two are not
+  // a fifth and sixth path: they are reference material a seller dips into
+  // mid-shift, so they take the design system's SEMANTIC tokens instead of a
+  // brand hue. `--warning` (#A16207) and `--success` (#15803D) are real tokens
+  // with light, dark and tint values already defined in src/index.css, they are
+  // both AA on `--surface`, and neither is claimed by a learning path. Nothing
+  // renders `accentColor` today; these values are the tokens to reach for when
+  // something does.
+  {
+    id: 'scenarios',
+    title: 'Street Scenarios',
+    titleEs: 'Situaciones de Calle',
+    subtitle: 'When it goes sideways, you already know what to do',
+    subtitleEs: 'Cuando se tuerce, ya sabes qué hacer',
+    description:
+      'The drunk customer, the demo that fails in front of a crowd, the competitor who walks into your pitch, the toddler mid-tantrum. Every one of these will happen to you. These are the drills — read the situation, the moves, the words, and the mistakes that cost the sale — so the first time it happens is not the first time you have thought about it.',
+    icon: 'Drama',
+    accentColor: '#A16207',
+    lessonOrder: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10'],
+  },
+  {
+    id: 'objections',
+    title: 'Objection Handling',
+    titleEs: 'Manejo de Objeciones',
+    subtitle: 'Every "no" has a door in it',
+    subtitleEs: 'Todo "no" tiene una puerta',
+    description:
+      '"I am on a budget." "Let me think about it." "I can get it cheaper on Amazon." These ten lines account for almost every lost sale on the street — and none of them mean no. Each lesson gives you the psychology underneath the objection, three scripts at three lengths, and the responses that kill the sale outright.',
+    icon: 'ShieldQuestion',
+    accentColor: '#15803D',
+    lessonOrder: ['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7', 'O8', 'O9', 'O10'],
   },
 ];
 
@@ -6730,6 +6773,13 @@ export const lessons: Record<string, Lesson> = {
     }
     ],
   },
+
+  // The two practice shelves. They live in their own files because they are
+  // 20 lessons on their own, but they are ordinary `Lesson` records and belong
+  // in the same registry — `getLesson`, `getLessonsForCategory` and every page
+  // that reads `lessons` resolve them exactly like the 31 above.
+  ...scenarioLessons,
+  ...objectionLessons,
 };
 
 // ── Helper functions ──

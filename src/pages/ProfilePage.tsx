@@ -8,7 +8,12 @@
 //    embossed silhouette when not, with a real unlock moment (ConfettiCelebration
 //    + XPToast, both of which existed in the repo and were rendered nowhere).
 //  • The shop is presented as the read-only fact it is. The old code showed a
-//    "Locked" badge next to a toggle that only appeared when signed OUT.
+//    "Locked" badge next to a toggle that only appeared when signed OUT. The
+//    name is the same kind of fact now: it comes from the committed roster in
+//    src/data/accounts.ts, so there is nothing here that could save an edit.
+//  • "Share my stats" copies this seller's own numbers as plain text. Progress
+//    never leaves the device that earned it — there is no server — so pasting
+//    it into WhatsApp is the honest version of a team view.
 //  • 43 hardcoded English strings replaced: the 26 Profile/Achievement keys that
 //    already existed in translations.ts were never wired up, and this file never
 //    even destructured `t`.
@@ -16,11 +21,12 @@
 //    2.41:1) is now a Radix AlertDialog with dark ink on the teal fill.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   AlertTriangle,
+  AtSign,
   Bell,
   BookOpen,
   Brain,
@@ -32,13 +38,12 @@ import {
   Languages,
   Lock,
   LogOut,
-  Mail,
   MapPin,
   Monitor,
   Moon,
   Palette,
-  Pencil,
   RotateCcw,
+  Share2,
   Shield,
   Sparkles,
   Sun,
@@ -53,7 +58,6 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme, type ThemePreference } from '@/contexts/ThemeContext';
 import { useCurrency } from '@/utils/currency';
-import * as backend from '@/backend/mockBackend';
 import DailyChallengeCard from '@/components/DailyChallengeCard';
 import ConfettiCelebration from '@/components/ConfettiCelebration';
 import XPToast from '@/components/XPToast';
@@ -93,12 +97,25 @@ const COPY = {
   roleManager: { en: 'Manager', es: 'Responsable' },
   roleSeller: { en: 'Salesperson', es: 'Vendedor' },
   joined: { en: 'Joined', es: 'Desde' },
-  joinedUnknown: { en: 'Date not recorded', es: 'Fecha no registrada' },
-  email: { en: 'Email', es: 'Correo' },
+  username: { en: 'Username', es: 'Usuario' },
+  usernameNote: {
+    en: 'Your name and username come from the team file. Your manager changes them.',
+    es: 'Tu nombre y tu usuario vienen del archivo del equipo. Los cambia tu responsable.',
+  },
   signOut: { en: 'Sign out', es: 'Cerrar sesión' },
-  editName: { en: 'Edit your name', es: 'Editar tu nombre' },
-  saveName: { en: 'Save name', es: 'Guardar nombre' },
-  cancelEdit: { en: 'Cancel editing', es: 'Cancelar edición' },
+  shareStats: { en: 'Share my stats', es: 'Compartir mis datos' },
+  shareCopied: { en: 'Copied — now paste it', es: 'Copiado — ahora pégalo' },
+  shareHint: {
+    en: 'Copies your numbers as plain text. Your progress stays on this phone, so this is how your manager gets to see it.',
+    es: 'Copia tus números en texto plano. Tu progreso se queda en este móvil, así que así es como lo ve tu responsable.',
+  },
+  shareLevel: { en: 'Level', es: 'Nivel' },
+  shareXP: { en: 'XP', es: 'XP' },
+  shareLessons: { en: 'Lessons completed', es: 'Lecciones completadas' },
+  shareQuizzes: { en: 'Quizzes passed', es: 'Tests superados' },
+  shareStreak: { en: 'Current streak', es: 'Racha actual' },
+  shareDays: { en: 'days', es: 'días' },
+  shareAccuracy: { en: 'Accuracy', es: 'Precisión' },
   tools: { en: 'Shortcuts', es: 'Accesos' },
   firstDay: { en: 'First Day Track', es: 'Ruta del Primer Día' },
   firstDayDesc: { en: 'Quick-start guide for new hires', es: 'Guía rápida para los nuevos' },
@@ -279,9 +296,9 @@ export default function ProfilePage() {
   const locale = isEs ? 'es-ES' : 'en-GB';
 
   const [pendingLang, setPendingLang] = useState<'en' | 'es' | null>(null);
-  const [editingName, setEditingName] = useState(false);
-  const [nameInput, setNameInput] = useState('');
-  const [savingName, setSavingName] = useState(false);
+  const [statsCopied, setStatsCopied] = useState(false);
+  const copyTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(copyTimer.current), []);
   const [reminderEnabled, setReminderEnabled] = useState(() => {
     try {
       return localStorage.getItem(REMINDER_KEY) === '1';
@@ -340,28 +357,46 @@ export default function ProfilePage() {
     });
   }, [xp, level.level, unlockedKey, hydrated]);
 
-  const handleStartEdit = () => {
-    setNameInput(authUser?.name || progress.getUserName());
-    setEditingName(true);
-  };
+  /* The honest stand-in for a server-side team view: this seller's own numbers,
+     as plain text they can paste into WhatsApp. Every figure comes from the
+     progress hook — nothing here is estimated or rounded up. */
+  const buildStatsSummary = () =>
+    [
+      `Zero Lines Academy — ${displayName}${authUser ? ` (${authUser.username})` : ''}`,
+      `${c('shareLevel')} ${level.level} · ${levelName}`,
+      `${c('shareXP')}: ${xp}`,
+      `${c('shareLessons')}: ${lessonsCompleted}`,
+      `${c('shareQuizzes')}: ${quizzesPassed}`,
+      `${c('shareStreak')}: ${currentStreak} ${c('shareDays')}`,
+      `${c('shareAccuracy')}: ${accuracy}%`,
+    ].join('\n');
 
-  /* Editing the name used to write only to `zl_user_name`, which the header then
-     ignored in favour of the account name — the control did nothing for anyone
-     signed in. Persist to the account record instead. */
-  const handleSaveName = async () => {
-    const name = nameInput.trim();
-    if (!name) {
-      setEditingName(false);
-      return;
+  const handleShareStats = async () => {
+    const summary = buildStatsSummary();
+    let ok = true;
+    try {
+      await navigator.clipboard.writeText(summary);
+    } catch {
+      // The Clipboard API needs a secure context, which a shop tablet is not
+      // always on. A copy button that silently does nothing is worse than none.
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = summary;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch {
+        ok = false;
+      }
     }
-    progress.setUserName(name);
-    if (authUser) {
-      setSavingName(true);
-      await backend.updateUser(authUser.id, { name });
-      authCtx.refreshUser();
-      setSavingName(false);
-    }
-    setEditingName(false);
+    if (!ok) return;
+    setStatsCopied(true);
+    window.clearTimeout(copyTimer.current);
+    copyTimer.current = window.setTimeout(() => setStatsCopied(false), 2400);
   };
 
   const handleReset = () => {
@@ -413,55 +448,9 @@ export default function ProfilePage() {
           </div>
 
           <div className="min-w-0 flex-1">
-            {editingName ? (
-              <div className="flex items-center gap-2">
-                <label htmlFor="profile-name" className="sr-only">
-                  {t('profileYourName')}
-                </label>
-                <input
-                  id="profile-name"
-                  type="text"
-                  value={nameInput}
-                  onChange={(e) => setNameInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleSaveName();
-                    if (e.key === 'Escape') setEditingName(false);
-                  }}
-                  placeholder={t('profileYourName')}
-                  autoFocus
-                  className="min-w-0 flex-1 rounded-chip border border-line-strong bg-surface-sunken px-3 py-2 text-body text-ink outline-none placeholder:text-ink-3 focus:border-teal-strong"
-                />
-                <button
-                  type="button"
-                  onClick={handleSaveName}
-                  disabled={savingName}
-                  aria-label={c('saveName')}
-                  className="btn-icon bg-teal text-on-teal disabled:opacity-60"
-                >
-                  <Check size={18} aria-hidden />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setEditingName(false)}
-                  aria-label={c('cancelEdit')}
-                  className="btn-icon"
-                >
-                  <X size={18} aria-hidden />
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-1">
-                <h1 className="truncate text-h2 text-ink">{displayName}</h1>
-                <button
-                  type="button"
-                  onClick={handleStartEdit}
-                  aria-label={c('editName')}
-                  className="btn-icon h-touch w-touch shrink-0 border-0 bg-transparent text-ink-3"
-                >
-                  <Pencil size={16} aria-hidden />
-                </button>
-              </div>
-            )}
+            {/* A fact, not a field. The name is whatever the committed roster
+                says; there is no server call that could change it from here. */}
+            <h1 className="truncate text-h2 text-ink">{displayName}</h1>
 
             <div className="mt-1 flex flex-wrap items-center gap-2">
               <span
@@ -554,6 +543,13 @@ export default function ProfilePage() {
                 </div>
               ))}
             </div>
+
+            {/* Progress never leaves this phone, so sending it is a copy-paste. */}
+            <button type="button" onClick={handleShareStats} className="btn-secondary mt-4 w-full">
+              {statsCopied ? <Check size={16} aria-hidden /> : <Share2 size={16} aria-hidden />}
+              <span aria-live="polite">{statsCopied ? c('shareCopied') : c('shareStats')}</span>
+            </button>
+            <p className="mt-2 text-caption leading-5 text-ink-3">{c('shareHint')}</p>
           </div>
         </section>
 
@@ -722,7 +718,13 @@ export default function ProfilePage() {
           <section>
             <SectionHeading icon={Briefcase} title={c('yourAccount')} />
             <div className="surface-raised divide-y divide-line">
-              <FactRow icon={Mail} label={c('email')} value={authUser.email} />
+              <FactRow
+                icon={AtSign}
+                label={c('username')}
+                value={authUser.username}
+                note={c('usernameNote')}
+                mono
+              />
               <FactRow icon={Briefcase} label={c('role')} value={roleLabel} />
               <FactRow
                 icon={MapPin}
@@ -730,7 +732,9 @@ export default function ProfilePage() {
                 value={`${locationName} · ${currency}`}
                 note={c('shopExplainer')}
               />
-              <FactRow icon={Calendar} label={c('joined')} value={joined ?? c('joinedUnknown')} />
+              {/* The roster does not record join dates, so this row simply is not
+                  there rather than printing an empty or invalid one. */}
+              {joined && <FactRow icon={Calendar} label={c('joined')} value={joined} />}
             </div>
           </section>
         )}
@@ -1068,11 +1072,13 @@ function FactRow({
   label,
   value,
   note,
+  mono = false,
 }: {
   icon: LucideIcon;
   label: string;
   value: string;
   note?: string;
+  mono?: boolean;
 }) {
   return (
     <div className="flex items-start gap-3 p-4">
@@ -1081,7 +1087,7 @@ function FactRow({
       </div>
       <div className="min-w-0 flex-1">
         <p className="text-caption text-ink-3">{label}</p>
-        <p className="break-words text-body-small text-ink">{value}</p>
+        <p className={`break-words text-body-small text-ink ${mono ? 'font-mono' : ''}`}>{value}</p>
         {note && <p className="mt-1 text-caption leading-5 text-ink-3">{note}</p>}
       </div>
     </div>
