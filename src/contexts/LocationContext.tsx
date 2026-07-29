@@ -1,8 +1,23 @@
 // ─────────────────────────────────────────────────────────────
-// LocationContext — Manages Andorra/Gibraltar location state
+// LocationContext — Andorra (€) / Gibraltar (£)
+//
+// The seller's shop is assigned by their manager and stored on the user
+// record. This provider used to read ONLY `localStorage['zl_location']` and
+// default to 'andorra', so every Gibraltar seller was shown euro prices — and
+// the only line that ever synced the two lived in `hooks/useAuth.ts`, a file
+// with zero importers. The signed-in user is now the source of truth.
 // ─────────────────────────────────────────────────────────────
 
-import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  type ReactNode,
+} from 'react';
+import { useAuthContext } from './AuthContext';
 
 const LS_LOCATION_KEY = 'zl_location';
 
@@ -10,22 +25,44 @@ export type Location = 'andorra' | 'gibraltar';
 
 interface LocationContextType {
   location: Location;
+  /**
+   * Only takes effect when nobody is signed in (onboarding / marketing).
+   * A signed-in seller's shop comes from their account — it is not theirs to
+   * change, because it determines the currency they quote to real customers.
+   */
   setLocation: (loc: Location) => void;
+  /** True when `location` is coming from the signed-in user's account. */
+  isLocked: boolean;
   currency: string;
+  currencyCode: 'EUR' | 'GBP';
   locationName: string;
   taxHavenText: string;
+  taxHavenTextEs: string;
 }
 
-const LOCATION_DATA: Record<Location, { currency: string; name: string; taxHavenText: string }> = {
+const LOCATION_DATA: Record<
+  Location,
+  {
+    currency: string;
+    currencyCode: 'EUR' | 'GBP';
+    name: string;
+    taxHavenText: string;
+    taxHavenTextEs: string;
+  }
+> = {
   andorra: {
     currency: '€',
+    currencyCode: 'EUR',
     name: 'Andorra',
-    taxHavenText: 'Tax-free shopping — save up to 21% vs. neighboring countries',
+    taxHavenText: 'Tax-free shopping — no VAT added on top',
+    taxHavenTextEs: 'Compras libres de impuestos — sin IVA añadido',
   },
   gibraltar: {
     currency: '£',
+    currencyCode: 'GBP',
     name: 'Gibraltar',
     taxHavenText: 'Tax-free luxury — zero VAT on all purchases',
+    taxHavenTextEs: 'Lujo libre de impuestos — cero IVA en todas las compras',
   },
 };
 
@@ -36,40 +73,60 @@ function getStoredLocation(): Location {
     const stored = localStorage.getItem(LS_LOCATION_KEY);
     if (stored === 'andorra' || stored === 'gibraltar') return stored;
   } catch {
-    // ignore
+    // localStorage unavailable
   }
   return 'andorra';
 }
 
 export function LocationProvider({ children }: { children: ReactNode }) {
-  const [location, setLocationState] = useState<Location>(getStoredLocation);
+  const { user } = useAuthContext();
+  const [guestLocation, setGuestLocation] = useState<Location>(getStoredLocation);
 
-  // Persist location to localStorage
+  // A signed-in seller's shop always wins over anything cached in this browser.
+  const location: Location = user?.location ?? guestLocation;
+  const isLocked = !!user;
+
+  // Mirror to localStorage so a full reload paints the right currency before
+  // the auth record has loaded, instead of flashing the wrong symbol.
   useEffect(() => {
-    localStorage.setItem(LS_LOCATION_KEY, location);
+    try {
+      localStorage.setItem(LS_LOCATION_KEY, location);
+    } catch {
+      // non-fatal
+    }
   }, [location]);
 
-  const setLocation = useCallback((loc: Location) => {
-    setLocationState(loc);
-  }, []);
+  const setLocation = useCallback(
+    (loc: Location) => {
+      if (user) return; // assigned by the account; see the interface comment
+      setGuestLocation(loc);
+    },
+    [user]
+  );
 
   const data = LOCATION_DATA[location];
 
-  return (
-    <LocationContext.Provider
-      value={{
-        location,
-        setLocation,
-        currency: data.currency,
-        locationName: data.name,
-        taxHavenText: data.taxHavenText,
-      }}
-    >
-      {children}
-    </LocationContext.Provider>
+  const value = useMemo<LocationContextType>(
+    () => ({
+      location,
+      setLocation,
+      isLocked,
+      currency: data.currency,
+      currencyCode: data.currencyCode,
+      locationName: data.name,
+      taxHavenText: data.taxHavenText,
+      taxHavenTextEs: data.taxHavenTextEs,
+    }),
+    [location, setLocation, isLocked, data]
   );
+
+  return <LocationContext.Provider value={value}>{children}</LocationContext.Provider>;
 }
 
+/**
+ * NOTE: `react-router-dom` also exports a `useLocation`. This one is the shop.
+ * Always import it explicitly from '../contexts/LocationContext'.
+ */
 export function useLocation(): LocationContextType {
   const context = useContext(LocationContext);
   if (!context) {

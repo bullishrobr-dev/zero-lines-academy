@@ -1,11 +1,13 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../contexts/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLeaderboard, type Timeframe } from "../hooks/useLeaderboard";
 import PeerShoutout from "../components/PeerShoutout";
 
 interface LeaderboardPageProps {
   currentUserId?: string;
-  onNavigateHome: () => void;
+  onNavigateHome?: () => void;
 }
 
 const TIMEFRAME_TABS: { label: string; value: Timeframe }[] = [
@@ -74,9 +76,15 @@ function WeeklyChange({ change }: { change: number }) {
 }
 
 export default function LeaderboardPage({
-  currentUserId = "u7",
+  currentUserId: currentUserIdProp,
   onNavigateHome,
 }: LeaderboardPageProps) {
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
+  // Was hardcoded to "u7", so every seller on every device was identified as
+  // the same fictional person ("Anna Roca") and saw an identical "your rank".
+  const currentUserId = currentUserIdProp ?? user?.id ?? '';
+  const goHome = onNavigateHome ?? (() => navigate('/home'));
   const { entries, getLeaderboard, getStoreStats, getUserRank, addShoutout } = useLeaderboard();
   const [timeframe, setTimeframe] = useState<Timeframe>("week");
   const [showShoutout, setShowShoutout] = useState(false);
@@ -119,7 +127,7 @@ export default function LeaderboardPage({
         <div className="flex items-center px-4 py-3 gap-3">
           <motion.button
             whileTap={{ scale: 0.9 }}
-            onClick={onNavigateHome}
+            onClick={goHome}
             className="w-9 h-9 rounded-full bg-[#1A1A1A] flex items-center justify-center text-[#AAA] hover:text-white transition-colors"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

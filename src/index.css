@@ -1,38 +1,145 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Zero Lines Academy — "Counter Light" design system
+   Light-first, warm-neutral, with a teal/coral duo accent and champagne gold
+   for achievement. Full dark mode on `html.dark`.
+
+   Fonts are loaded via <link> in index.html — do NOT @import them here as well
+   (it duplicates the request and violates CSS @import ordering).
+
+   All colour tokens are stored as space-separated RGB channels so Tailwind's
+   `<alpha-value>` opacity modifiers (bg-primary/90) keep working.
+   ─────────────────────────────────────────────────────────────────────────── */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
-
 @layer base {
   :root {
-    /* Zero Lines Dark Theme */
-    --background: 0 0% 4%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 178 90% 38%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 16%;
-    --muted-foreground: 0 0% 54%;
-    --accent: 178 90% 38%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 16%;
-    --input: 0 0% 16%;
-    --ring: 178 90% 38%;
-    --radius: 0.625rem;
+    /* ── Surfaces ── */
+    --background: 250 247 245; /* #FAF7F5 warm porcelain */
+    --surface: 255 255 255; /* #FFFFFF cards lift off the ground */
+    --surface-sunken: 242 236 232; /* #F2ECE8 inset wells */
+    --surface-raised: 255 255 255;
 
-    /* Brand tokens */
-    --brand-blue: #0ABAB5;
-    --brand-black: #0A0A0A;
-    --brand-white: #FFFFFF;
+    /* ── Text ── (floor is WCAG AA; no exceptions) */
+    --ink: 22 17 15; /* #16110F  18.7:1 on surface */
+    --ink-2: 92 82 76; /* #5C524C   7.6:1 */
+    --ink-3: 111 99 91; /* #6F635B   5.8:1 */
+
+    /* ── Lines ── */
+    --line: 233 224 218; /* #E9E0DA decorative hairline */
+    --line-strong: 142 130 122; /* #8E827A controls — 3.7:1, meets 1.4.11 */
+
+    /* ── Teal: navigation, progress, learning, "you" ── */
+    --teal: 10 186 181; /* #0ABAB5 brand teal — FILLS ONLY */
+    --teal-strong: 6 122 118; /* #067A76 teal for TEXT — 5.2:1 */
+    --teal-tint: 230 247 246; /* #E6F7F6 */
+    --on-teal: 6 40 42; /* #06282A dark ink on teal — 8.9:1 */
+
+    /* ── Coral: action, streaks, urgency, primary CTA ── */
+    --coral: 255 106 122; /* #FF6A7A */
+    --coral-strong: 198 58 76; /* #C63A4C  5.1:1 */
+    --coral-tint: 255 238 240; /* #FFEEF0 */
+    --on-coral: 42 15 19; /* #2A0F13 */
+
+    /* ── Gold: achievement, mastery, rank ── */
+    --gold: 227 181 74; /* #E3B54A */
+    --gold-strong: 138 100 16; /* #8A6410  5.4:1 */
+    --gold-tint: 251 240 218; /* #FBF0DA */
+    --on-gold: 42 33 16; /* #2A2110 */
+
+    /* ── Violet: fourth category hue ── */
+    --violet: 122 84 214; /* #7A54D6 */
+    --violet-strong: 91 59 168; /* #5B3BA8  6.8:1 */
+    --violet-tint: 240 235 251; /* #F0EBFB */
+
+    /* ── Semantic status ── */
+    --success: 21 128 61; /* #15803D  4.8:1 */
+    --success-tint: 220 252 231;
+    --warning: 161 98 7; /* #A16207  4.8:1 */
+    --warning-tint: 254 243 199;
+    --danger: 190 34 44; /* #BE222C  5.9:1 */
+    --danger-tint: 254 232 233;
+
+    /* ── shadcn/ui compatibility (only button, input, tabs, alert-dialog use these) ── */
+    --foreground: var(--ink);
+    --card: var(--surface);
+    --card-foreground: var(--ink);
+    --popover: var(--surface);
+    --popover-foreground: var(--ink);
+    --primary: var(--coral); /* primary action = coral */
+    --primary-foreground: var(--on-coral);
+    --secondary: var(--surface-sunken);
+    --secondary-foreground: var(--ink);
+    --muted: var(--surface-sunken);
+    --muted-foreground: var(--ink-3);
+    --accent: var(--teal-tint);
+    --accent-foreground: var(--teal-strong);
+    --destructive: var(--danger);
+    --destructive-foreground: 255 255 255;
+    --border: var(--line);
+    --input: var(--line-strong);
+    --ring: var(--teal-strong);
+
+    /* ── Radii — four values, not eleven ── */
+    --r-chip: 8px;
+    --r-card: 16px;
+    --r-feature: 24px;
+    --radius: var(--r-card);
+
+    /* ── Elevation — genuinely perceptible steps ── */
+    --shadow-raised: 0 1px 2px rgb(20 12 8 / 0.06), 0 8px 24px -8px rgb(20 12 8 / 0.12);
+    --shadow-feature: 0 2px 4px rgb(20 12 8 / 0.05), 0 16px 40px -12px rgb(20 12 8 / 0.18);
+    --shadow-nav: 0 -1px 2px rgb(20 12 8 / 0.04), 0 -8px 32px -8px rgb(20 12 8 / 0.14);
+  }
+
+  .dark {
+    /* Deep teal-ink rather than neutral black, so the brand teal has somewhere
+       to live and surfaces can actually separate from the page. */
+    --background: 14 21 23; /* #0E1517 */
+    --surface: 26 36 38; /* #1A2426 */
+    --surface-sunken: 18 26 28; /* #121A1C */
+    --surface-raised: 36 47 49; /* #242F31 — a perceptible step, not 1% */
+
+    --ink: 243 248 247; /* #F3F8F7  15.1:1 */
+    --ink-2: 167 188 186; /* #A7BCBA   8.2:1 */
+    --ink-3: 137 160 158; /* #89A09E   5.9:1 — tertiary floor is still AA */
+
+    --line: 42 55 57; /* #2A3739 */
+    --line-strong: 91 115 118; /* #5B7376  3.2:1 */
+
+    --teal: 43 217 210; /* #2BD9D2  9.3:1 */
+    --teal-strong: 43 217 210;
+    --teal-tint: 14 42 41; /* #0E2A29 */
+    --on-teal: 6 40 42;
+
+    --coral: 255 138 148; /* #FF8A94  7.2:1 */
+    --coral-strong: 255 138 148;
+    --coral-tint: 43 20 24; /* #2B1418 */
+    --on-coral: 42 15 19;
+
+    --gold: 240 203 114; /* #F0CB72 11.0:1 */
+    --gold-strong: 240 203 114;
+    --gold-tint: 42 33 16; /* #2A2110 */
+    --on-gold: 42 33 16;
+
+    --violet: 180 155 240; /* #B49BF0 */
+    --violet-strong: 180 155 240;
+    --violet-tint: 27 21 51; /* #1B1533 */
+
+    --success: 74 222 128;
+    --success-tint: 6 46 26;
+    --warning: 250 204 21;
+    --warning-tint: 46 34 6;
+    --danger: 255 138 148;
+    --danger-tint: 48 20 24;
+
+    --destructive-foreground: 42 15 19;
+
+    --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -8px rgb(0 0 0 / 0.5);
+    --shadow-feature: 0 2px 4px rgb(0 0 0 / 0.4), 0 16px 40px -12px rgb(0 0 0 / 0.6);
+    --shadow-nav: 0 -1px 2px rgb(0 0 0 / 0.3), 0 -8px 32px -8px rgb(0 0 0 / 0.5);
   }
 
   * {
@@ -42,144 +149,183 @@
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
-    overscroll-behavior-y: contain; /* Prevent pull-to-refresh on Android */
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+    overscroll-behavior-y: contain;
   }
 
   body {
-    @apply bg-[#0A0A0A] text-white antialiased;
+    @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
+    /* Stats and prices must not jitter while counting up. */
+    font-variant-numeric: tabular-nums;
   }
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
+  /* A visible focus ring everywhere, replacing the removed outlines. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
 
-  /* Typography */
+@layer components {
+  /* ── Type scale ──
+     In `components` (not `base`) so Tailwind utilities can still override.
+     Minimums raised: sellers read this in Mediterranean daylight. */
+  .text-display-xl {
+    @apply text-[40px] font-extrabold leading-[44px] tracking-[-0.045em];
+  }
   .text-display {
     @apply text-[32px] font-extrabold leading-[36px] tracking-[-0.04em];
   }
-
   .text-h1 {
     @apply text-[28px] font-bold leading-[32px] tracking-[-0.03em];
   }
-
   .text-h2 {
     @apply text-[24px] font-bold leading-[28px] tracking-[-0.02em];
   }
-
   .text-h3 {
-    @apply text-[20px] font-semibold leading-[24px] tracking-[-0.02em];
+    @apply text-[20px] font-semibold leading-[26px] tracking-[-0.02em];
   }
-
   .text-h4 {
-    @apply text-[18px] font-semibold leading-[22px] tracking-[-0.01em];
+    @apply text-[18px] font-semibold leading-[24px] tracking-[-0.01em];
   }
-
   .text-body {
-    @apply text-base font-normal leading-6;
+    @apply text-base font-normal leading-7;
   }
-
   .text-body-small {
-    @apply text-sm font-normal leading-5;
+    @apply text-[15px] font-normal leading-6;
   }
-
   .text-caption {
-    @apply text-xs font-medium leading-4 tracking-[0.02em];
+    @apply text-[13px] font-medium leading-5;
   }
-
   .text-overline {
-    @apply text-[11px] font-semibold leading-[14px] tracking-[0.08em] uppercase;
+    @apply text-[12px] font-semibold leading-4 tracking-[0.08em] uppercase;
   }
-
   .text-button {
     @apply text-base font-semibold leading-5;
   }
-
-  .text-nav {
-    @apply text-xs font-medium leading-4;
-  }
-
   .text-score {
-    @apply text-5xl font-extrabold leading-none tracking-[-0.04em];
+    @apply text-[56px] font-extrabold leading-none tracking-[-0.04em] tabular-nums;
   }
-
   .text-price {
-    @apply text-[28px] font-bold leading-[32px] tracking-[-0.02em];
+    @apply text-[28px] font-bold leading-[32px] tracking-[-0.02em] tabular-nums;
+  }
+  .font-brand {
+    font-family: 'Playfair Display', Georgia, serif;
   }
 
-  /* Gradient utilities */
-  .brand-gradient {
-    background: linear-gradient(270deg, #0ABAB5 0%, #065B58 100%);
+  /* ── Surfaces — three genuinely different KINDS, not three shades ── */
+  .surface-flat {
+    @apply bg-surface border border-line rounded-card;
+  }
+  .surface-raised {
+    @apply bg-surface border border-line rounded-card;
+    box-shadow: var(--shadow-raised);
+  }
+  .surface-feature {
+    @apply border rounded-feature;
+    background: linear-gradient(135deg, rgb(var(--teal-tint)) 0%, rgb(var(--surface)) 60%);
+    border-color: rgb(var(--teal) / 0.28);
+    box-shadow: var(--shadow-feature);
+  }
+  .surface-sunken {
+    @apply bg-surface-sunken rounded-chip;
   }
 
-  .dark-card-gradient {
-    background: linear-gradient(180deg, #1A1A1A 0%, #0F0F0F 100%);
+  /* Accent-tinted feature surfaces, one per category/product. */
+  .feature-coral {
+    background: linear-gradient(135deg, rgb(var(--coral-tint)) 0%, rgb(var(--surface)) 60%);
+    border-color: rgb(var(--coral) / 0.28);
+  }
+  .feature-gold {
+    background: linear-gradient(135deg, rgb(var(--gold-tint)) 0%, rgb(var(--surface)) 60%);
+    border-color: rgb(var(--gold) / 0.28);
+  }
+  .feature-violet {
+    background: linear-gradient(135deg, rgb(var(--violet-tint)) 0%, rgb(var(--surface)) 60%);
+    border-color: rgb(var(--violet) / 0.28);
   }
 
-  .glow-gradient {
-    background: radial-gradient(ellipse at center, rgba(10,186,181,0.15) 0%, transparent 70%);
+  /* ── Buttons ── teal/coral fills always take dark ink, never white. */
+  .btn-primary {
+    @apply bg-coral text-on-coral font-semibold rounded-full;
+    @apply min-h-touch px-6 inline-flex items-center justify-center gap-2;
+    @apply transition-transform active:scale-[0.97];
+  }
+  .btn-secondary {
+    @apply bg-teal text-on-teal font-semibold rounded-full;
+    @apply min-h-touch px-6 inline-flex items-center justify-center gap-2;
+    @apply transition-transform active:scale-[0.97];
+  }
+  .btn-quiet {
+    @apply bg-surface-sunken text-ink font-semibold rounded-full border border-line;
+    @apply min-h-touch px-6 inline-flex items-center justify-center gap-2;
+    @apply transition-transform active:scale-[0.97];
+  }
+  /* Icon-only control that still meets the 44px touch minimum. */
+  .btn-icon {
+    @apply w-touch h-touch rounded-full inline-flex items-center justify-center;
+    @apply bg-surface-sunken text-ink-2 border border-line;
+    @apply transition-transform active:scale-95;
   }
 
-  .achievement-gradient {
-    background: linear-gradient(135deg, #D4A843 0%, #F0D878 50%, #D4A843 100%);
+  /* ── Time-of-day hero wash (Home) ── */
+  .hero-dawn {
+    background:
+      radial-gradient(120% 90% at 12% 0%, rgb(var(--coral) / 0.22) 0%, transparent 60%),
+      radial-gradient(110% 80% at 92% 8%, rgb(var(--gold) / 0.2) 0%, transparent 62%);
+  }
+  .hero-day {
+    background:
+      radial-gradient(120% 90% at 10% 0%, rgb(var(--teal) / 0.22) 0%, transparent 60%),
+      radial-gradient(110% 80% at 94% 6%, rgb(var(--violet) / 0.14) 0%, transparent 62%);
+  }
+  .hero-dusk {
+    background:
+      radial-gradient(120% 90% at 14% 0%, rgb(var(--violet) / 0.26) 0%, transparent 62%),
+      radial-gradient(110% 80% at 90% 6%, rgb(var(--coral) / 0.18) 0%, transparent 60%);
   }
 
-  /* Streak gradient */
-  .streak-gradient {
-    background: linear-gradient(270deg, #F59E0B 0%, #D97706 100%);
+  /* Champagne foil for unlocked achievements. */
+  .foil-gold {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--gold)) 0%,
+      rgb(var(--gold) / 0.55) 38%,
+      rgb(var(--gold)) 52%,
+      rgb(var(--gold) / 0.7) 70%,
+      rgb(var(--gold)) 100%
+    );
+  }
+
+  /* Safe-area helpers — the bottom nav sat under the iPhone home bar. */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .mb-safe {
+    margin-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
-
-/* ── Card Elevation System ── */
-
-.card-elevation-1 {
-  background: #141414;
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-}
-
-.card-elevation-2 {
-  background: #1A1A1A;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-}
-
-.card-elevation-3 {
-  background: #1C1C1C;
-  border: 1px solid rgba(10,186,181,0.15);
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(10,186,181,0.08);
-  position: relative;
-}
-
-.card-elevation-3::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-  pointer-events: none;
-}
-
-/* ── Auto-translation Styles ─────────────────────────────────────────── */
-/* No Google Translate widget. All content is pre-translated at build time.
-   The app uses manual translations for UI + pre-translated content data. */

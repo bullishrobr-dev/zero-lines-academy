@@ -1,14 +1,29 @@
 // ─────────────────────────────────────────────────────────────
 // contexts/AuthContext.tsx — Authentication React Context
-// Bridges useAuth localStorage with backend user management
+//
+// This provider deliberately does NOT write to `zl_user` itself. It used to
+// overwrite the record the backend had just persisted with a smaller "legacy"
+// shape — dropping id, email and managerId, and mapping admin down to manager.
+// The result was that after any page refresh the signed-in user had no id, and
+// admins silently lost admin rights. The backend is the only writer now.
 // ─────────────────────────────────────────────────────────────
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  type ReactNode,
+} from 'react';
 import * as backend from '../backend/mockBackend';
 import type { User } from '../backend/types';
 
+export type SafeUser = Omit<User, 'password'>;
+
 interface AuthContextType {
-  user: Omit<User, 'password'> | null;
+  user: SafeUser | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
   isManager: boolean;
@@ -21,14 +36,64 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+/**
+ * Learner state that belongs to whoever is signed in. Cleared on logout so a
+ * shared shop tablet does not hand the next seller the previous seller's XP,
+ * streak and activity history — or let them factory-reset it.
+ */
+const PER_USER_KEYS = [
+  'zl_lesson_progress',
+  'zl_quiz_scores',
+  'zl_streak',
+  'zl_xp',
+  'zl_user_name',
+  'zl_daily_challenge',
+  'zl_activity_log',
+  'zl_tier_progress',
+  'zl_daily_flow',
+  'zl_daily_streak',
+  'zl_flashcard_state',
+  'zl_street_tracker',
+  'zl_street_xp',
+  'zl_streak_defense',
+  'zl_continue_learning',
+  'zl_location',
+];
+
+const LS_LAST_USER = 'zl_last_user_id';
+
+function clearPerUserState() {
+  for (const key of PER_USER_KEYS) {
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      // non-fatal
+    }
+  }
+}
+
+/**
+ * Clearing on logout is not enough on a shared device — someone can close the
+ * browser without signing out. Whenever a *different* person signs in, wipe the
+ * previous learner's state too.
+ */
+function claimDeviceFor(userId: string) {
+  try {
+    if (localStorage.getItem(LS_LAST_USER) !== userId) {
+      clearPerUserState();
+      localStorage.setItem(LS_LAST_USER, userId);
+    }
+  } catch {
+    // non-fatal
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<Omit<User, 'password'> | null>(null);
+  const [user, setUser] = useState<SafeUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load user on mount
   useEffect(() => {
-    const current = backend.getCurrentUser();
-    setUser(current);
+    setUser(backend.getCurrentUser());
     setIsLoading(false);
   }, []);
 
@@ -37,15 +102,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const result = await backend.login(email, password);
     setIsLoading(false);
     if (result.success && result.user) {
+      claimDeviceFor(result.user.id);
       setUser(result.user);
-      // Sync with legacy useAuth format
-      localStorage.setItem('zl_user', JSON.stringify({
-        name: result.user.name,
-        location: result.user.location,
-        role: result.user.role === 'admin' ? 'manager' : result.user.role,
-        language: 'en',
-        joinedAt: result.user.createdAt,
-      }));
       return { success: true };
     }
     return { success: false, error: result.error };
@@ -56,14 +114,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const result = await backend.signup(data);
     setIsLoading(false);
     if (result.success && result.user) {
+      claimDeviceFor(result.user.id);
       setUser(result.user);
-      localStorage.setItem('zl_user', JSON.stringify({
-        name: result.user.name,
-        location: result.user.location,
-        role: result.user.role === 'admin' ? 'manager' : result.user.role,
-        language: 'en',
-        joinedAt: result.user.createdAt,
-      }));
       return { success: true };
     }
     return { success: false, error: result.error };
@@ -71,7 +123,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(() => {
     backend.logout();
-    localStorage.removeItem('zl_user');
+    clearPerUserState();
     setUser(null);
   }, []);
 
@@ -79,26 +131,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(backend.getCurrentUser());
   }, []);
 
-  const isAdmin = user?.role === 'admin';
-  const isManager = user?.role === 'manager' || user?.role === 'admin';
-
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        isAdmin,
-        isManager,
-        isLoading,
-        login,
-        signup,
-        logout,
-        refreshUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo<AuthContextType>(
+    () => ({
+      user,
+      isAuthenticated: !!user,
+      isAdmin: user?.role === 'admin',
+      isManager: user?.role === 'manager' || user?.role === 'admin',
+      isLoading,
+      login,
+      signup,
+      logout,
+      refreshUser,
+    }),
+    [user, isLoading, login, signup, logout, refreshUser]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext(): AuthContextType {

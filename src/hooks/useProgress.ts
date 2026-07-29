@@ -66,7 +66,8 @@ export interface UseProgressReturn extends ProgressState {
   getTotalXP: () => number;
   getCurrentStreak: () => number;
   getBestStreak: () => number;
-  recordQuizScore: (quizId: string, score: number) => void;
+  /** @param scorePercent 0-100 correctness. @param xpEarned XP to award. */
+  recordQuizScore: (quizId: string, scorePercent: number, xpEarned?: number) => void;
   getQuizScore: (quizId: string) => number | undefined;
   setUserName: (name: string) => void;
   getUserName: () => string;
@@ -85,14 +86,30 @@ export interface UseProgressReturn extends ProgressState {
 }
 
 // ── Helpers ──
+/**
+ * Date keys are LOCAL, not UTC.
+ *
+ * `toISOString().split('T')[0]` was used before, which is a UTC key. Both shops
+ * sit at UTC+1/+2, so a seller wrapping up at 01:00 local was still "yesterday"
+ * in UTC — their streak silently failed to advance and then reset two days
+ * later, despite them being active every single day. A streak is a human-day
+ * concept, so it must use the human's day.
+ */
+function dateKey(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 function getToday(): string {
-  return new Date().toISOString().split('T')[0];
+  return dateKey(new Date());
 }
 
 function getYesterday(): string {
   const d = new Date();
   d.setDate(d.getDate() - 1);
-  return d.toISOString().split('T')[0];
+  return dateKey(d);
 }
 
 function loadJSON<T>(key: string, fallback: T): T {
@@ -106,7 +123,18 @@ function loadJSON<T>(key: string, fallback: T): T {
 }
 
 function saveJSON<T>(key: string, value: T): void {
-  localStorage.setItem(key, JSON.stringify(value));
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Storage full or blocked. Losing a write is survivable; throwing from
+    // inside a setState updater is not — it crashes to the ErrorBoundary.
+  }
+}
+
+/** Has the streak lapsed (last activity older than yesterday)? */
+function hasStreakExpired(s: StreakData, today: string, yesterday: string): boolean {
+  if (!s.lastActiveDate) return false;
+  return s.lastActiveDate !== today && s.lastActiveDate !== yesterday;
 }
 
 // ── Hook ──
@@ -191,16 +219,20 @@ export function useProgress(): UseProgressReturn {
 
   // ── Actions ──
   const completeLesson = useCallback(
-    (lessonId: string, _xpReward: number) => {
+    (lessonId: string, xpReward = 10) => {
+      // The reward was previously accepted and then ignored in favour of a
+      // hardcoded 10, which made the `xpReward` field on all 31 lessons dead
+      // data. Honour what the lesson actually says it is worth.
+      const award = Number.isFinite(xpReward) && xpReward > 0 ? Math.round(xpReward) : 10;
+
       setLessonProgress((prev) => {
         const alreadyCompleted = prev[lessonId];
         const updated = { ...prev, [lessonId]: true };
         saveJSON(LS_LESSON_PROGRESS, updated);
 
         if (!alreadyCompleted) {
-          // Small XP for completing the lesson (10 XP)
           setTotalXP((xpPrev) => {
-            const newXP = xpPrev + 10;
+            const newXP = xpPrev + award;
             saveJSON(LS_XP, newXP);
             return newXP;
           });
@@ -215,7 +247,7 @@ export function useProgress(): UseProgressReturn {
               type: 'lesson',
               title: 'Lesson Completed',
               detail: lessonId,
-              xpEarned: 10,
+              xpEarned: award,
               timestamp: new Date().toISOString(),
             };
             const updatedLog = [newItem, ...log].slice(0, 100);
@@ -253,47 +285,72 @@ export function useProgress(): UseProgressReturn {
 
   const getTotalXP = useCallback((): number => totalXP, [totalXP]);
 
+  /**
+   * PURE. This is called during render by HomeDashboard and ProfilePage.
+   *
+   * It used to call setStreak() here with a guard that could never be
+   * satisfied (it preserved the stale lastActiveDate) and returned a fresh
+   * object identity each time, so React could not bail out: render → setState
+   * → render → setState → "Too many re-renders". Any seller returning after a
+   * weekend hit the error screen on /home, the post-login landing route.
+   *
+   * The expiry is now written by the effect below instead.
+   */
   const getCurrentStreak = useCallback((): number => {
-    // Validate streak hasn't expired (in case days passed without activity)
-    const today = getToday();
-    const yesterday = getYesterday();
     if (!streak.lastActiveDate) return 0;
-    if (streak.lastActiveDate === today || streak.lastActiveDate === yesterday) {
-      return streak.current;
-    }
-    // Streak expired — update silently
-    const updated: StreakData = { ...streak, current: 0 };
-    setStreak(updated);
-    saveJSON(LS_STREAK, updated);
-    return 0;
+    return hasStreakExpired(streak, getToday(), getYesterday()) ? 0 : streak.current;
+  }, [streak]);
+
+  // Reconcile a lapsed streak once, as a side effect — never during render.
+  useEffect(() => {
+    if (!streak.lastActiveDate) return;
+    if (!hasStreakExpired(streak, getToday(), getYesterday())) return;
+    // Clear lastActiveDate too, otherwise this condition stays true forever.
+    const reset: StreakData = { current: 0, best: streak.best, lastActiveDate: null };
+    setStreak(reset);
+    saveJSON(LS_STREAK, reset);
   }, [streak]);
 
   const getBestStreak = useCallback((): number => streak.best, [streak.best]);
 
-  const recordQuizScore = useCallback((quizId: string, xpEarned: number) => {
+  /**
+   * Record a completed quiz.
+   *
+   * @param scorePercent 0-100, the share of questions answered correctly.
+   * @param xpEarned     XP to add to the running total.
+   *
+   * These are two different numbers and used to be conflated: the XP value was
+   * written into the `quizScores` map, which every consumer then read as a
+   * percentage. A quiz worth 50 XP therefore displayed as "50% accuracy" and
+   * never counted as passed (the threshold is 70), while the "score 100%"
+   * achievement could only unlock if a quiz's XP reward happened to equal 100.
+   */
+  const recordQuizScore = useCallback((quizId: string, scorePercent: number, xpEarned = 0) => {
+    const pct = Math.max(0, Math.min(100, Math.round(scorePercent)));
+
     setQuizScores((prev) => {
-      const updated = { ...prev, [quizId]: xpEarned };
+      // Keep the learner's best attempt rather than overwriting with a retry.
+      const updated = { ...prev, [quizId]: Math.max(prev[quizId] ?? 0, pct) };
       saveJSON(LS_QUIZ_SCORES, updated);
       return updated;
     });
 
-    // Only award XP for perfect scores (xpEarned > 0)
     if (xpEarned > 0) {
       setTotalXP((xpPrev) => {
         const newXP = xpPrev + xpEarned;
         saveJSON(LS_XP, newXP);
         return newXP;
       });
-      updateStreak();
     }
+    updateStreak();
 
     // Log activity
     setActivityLog((log) => {
       const newItem: ActivityItem = {
         id: `quiz-${quizId}-${Date.now()}`,
         type: 'quiz',
-        title: xpEarned > 0 ? 'Quiz Perfect Score!' : 'Quiz Completed',
-        detail: `${xpEarned > 0 ? '100% +' + xpEarned + ' XP' : 'Not perfect'}`,
+        title: pct === 100 ? 'Quiz Perfect Score!' : 'Quiz Completed',
+        detail: xpEarned > 0 ? `${pct}% · +${xpEarned} XP` : `${pct}%`,
         xpEarned,
         timestamp: new Date().toISOString(),
       };

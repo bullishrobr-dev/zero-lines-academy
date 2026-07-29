@@ -7,9 +7,18 @@ import type { User, UserRole, UserLocation, LessonProgress, QuizResult, TeamStat
 
 // ── Storage keys ──
 const LS_USERS = 'zl_backend_users';
-const LS_CURRENT_USER = 'zl_user'; // shared with useAuth hook
+const LS_CURRENT_USER = 'zl_user';
 const LS_PROGRESS = 'zl_backend_progress';
 const LS_QUIZZES = 'zl_backend_quiz_results';
+const LS_SEEDED = 'zl_backend_seeded';
+
+/**
+ * Total lessons in the curriculum. Deliberately a constant rather than an
+ * import of `src/data/lessons.ts` — that module is 435 kB and is already
+ * code-split behind the lesson routes; importing it here would pull it into
+ * the initial bundle for every user. Keep in sync with `getTotalLessons()`.
+ */
+export const TOTAL_LESSON_COUNT = 31;
 
 // ── Helpers ──
 function loadJSON<T>(key: string, fallback: T): T {
@@ -32,8 +41,15 @@ function genId(): string {
 
 // ── Seed Data ──
 function seedData(): void {
-  const existing = loadJSON<User[]>(LS_USERS, []);
-  if (existing.length > 0) return; // already seeded
+  // Use an explicit flag rather than inferring from an empty array. Inferring
+  // meant a corrupt or quota-evicted `zl_backend_users` looked "unseeded", and
+  // the next call would silently overwrite every real account with the demo
+  // ones. It also meant deleting all users resurrected the demo admin.
+  try {
+    if (localStorage.getItem(LS_SEEDED) === 'v1') return;
+  } catch {
+    // localStorage unavailable — seeding in memory is the best we can do
+  }
 
   const admin: User = {
     id: 'admin-1',
@@ -76,6 +92,11 @@ function seedData(): void {
 
   const allUsers = [admin, managerAndorra, managerGibraltar, ...employees];
   saveJSON(LS_USERS, allUsers);
+  try {
+    localStorage.setItem(LS_SEEDED, 'v1');
+  } catch {
+    // non-fatal
+  }
 }
 
 // ── Auth ──
@@ -110,19 +131,21 @@ export interface SignupData {
   managerId?: string;
 }
 
-export async function signup(data: SignupData): Promise<LoginResult> {
+/** Creates the account record. Does NOT touch the current session. */
+async function createUserRecord(data: SignupData): Promise<LoginResult> {
   seedData();
   await simulateNetwork();
 
   const users = loadJSON<User[]>(LS_USERS, []);
 
-  if (users.some((u) => u.email === data.email)) {
+  const email = data.email.trim().toLowerCase();
+  if (users.some((u) => u.email.toLowerCase() === email)) {
     return { success: false, error: 'Email already registered' };
   }
 
   const newUser: User = {
     id: genId(),
-    email: data.email,
+    email,
     name: data.name,
     password: data.password,
     role: data.role,
@@ -135,16 +158,45 @@ export async function signup(data: SignupData): Promise<LoginResult> {
   saveJSON(LS_USERS, users);
 
   const { password: _, ...safeUser } = newUser;
-  saveJSON(LS_CURRENT_USER, safeUser);
   return { success: true, user: safeUser };
+}
+
+/** Self-registration: creates the account AND signs that person in. */
+export async function signup(data: SignupData): Promise<LoginResult> {
+  const result = await createUserRecord(data);
+  if (result.success && result.user) {
+    saveJSON(LS_CURRENT_USER, result.user);
+  }
+  return result;
 }
 
 export function logout(): void {
   localStorage.removeItem(LS_CURRENT_USER);
 }
 
+/**
+ * The session record, or null if there isn't a valid one.
+ *
+ * This used to blind-cast whatever was in localStorage to a full `User`. A
+ * legacy writer stored a smaller shape under the same key, so after any page
+ * refresh `user.id` and `user.email` were `undefined` while `isAuthenticated`
+ * stayed true — which silently broke team lookups, progress records and admin
+ * rights. Now an incomplete record is treated as no session at all.
+ */
 export function getCurrentUser(): Omit<User, 'password'> | null {
-  return loadJSON<Omit<User, 'password'> | null>(LS_CURRENT_USER, null);
+  const raw = loadJSON<Partial<User> | null>(LS_CURRENT_USER, null);
+  if (!raw || typeof raw !== 'object') return null;
+  if (!raw.id || !raw.email || !raw.role || !raw.location) {
+    // Stale or truncated session — clear it so the user is asked to sign in
+    // again rather than operating with a half-formed identity.
+    try {
+      localStorage.removeItem(LS_CURRENT_USER);
+    } catch {
+      // non-fatal
+    }
+    return null;
+  }
+  return raw as Omit<User, 'password'>;
 }
 
 // ── User Management ──
@@ -155,13 +207,29 @@ export async function getUsers(): Promise<Omit<User, 'password'>[]> {
   return users.map(({ password, ...safe }) => safe);
 }
 
+/**
+ * Employees reporting to a manager.
+ *
+ * Assigned reports only, plus any employee at the same shop who has no manager
+ * yet. The previous `||` meant every manager at a location saw every employee
+ * at that location — which is also what let a plain seller read the whole
+ * roster by opening /manager directly.
+ */
+function resolveTeam(users: User[], manager: User): User[] {
+  return users.filter(
+    (u) =>
+      u.role === 'employee' &&
+      (u.managerId === manager.id || (!u.managerId && u.location === manager.location))
+  );
+}
+
 export async function getMyTeam(managerId: string): Promise<Omit<User, 'password'>[]> {
   seedData();
   await simulateNetwork();
   const users = loadJSON<User[]>(LS_USERS, []);
-  return users
-    .filter((u) => u.managerId === managerId || (u.role === 'employee' && u.location === getCurrentUser()?.location))
-    .map(({ password, ...safe }) => safe);
+  const manager = users.find((u) => u.id === managerId);
+  if (!manager) return [];
+  return resolveTeam(users, manager).map(({ password, ...safe }) => safe);
 }
 
 export async function getEmployeesByLocation(location: UserLocation): Promise<Omit<User, 'password'>[]> {
@@ -173,16 +241,64 @@ export async function getEmployeesByLocation(location: UserLocation): Promise<Om
     .map(({ password, ...safe }) => safe);
 }
 
+/**
+ * Admin/manager provisioning a seller. Must NOT switch the current session —
+ * this used to delegate to signup(), so an admin who added an employee was
+ * silently logged in as that employee on their next page refresh.
+ */
 export async function createUser(data: SignupData): Promise<LoginResult> {
-  return signup(data);
+  return createUserRecord(data);
 }
 
-export async function deleteUser(userId: string): Promise<boolean> {
+export interface DeleteResult {
+  success: boolean;
+  error?: string;
+}
+
+export async function deleteUser(userId: string): Promise<DeleteResult> {
   await simulateNetwork();
   const users = loadJSON<User[]>(LS_USERS, []);
-  const filtered = users.filter((u) => u.id !== userId);
-  if (filtered.length === users.length) return false;
-  saveJSON(LS_USERS, filtered);
+  const target = users.find((u) => u.id === userId);
+  if (!target) return { success: false, error: 'User not found' };
+
+  if (getCurrentUser()?.id === userId) {
+    return { success: false, error: 'You cannot delete your own account' };
+  }
+  if (target.role === 'admin' && users.filter((u) => u.role === 'admin').length === 1) {
+    return { success: false, error: 'Cannot delete the last admin account' };
+  }
+
+  saveJSON(
+    LS_USERS,
+    users.filter((u) => u.id !== userId)
+  );
+  return { success: true };
+}
+
+/**
+ * Edit an existing account. `location` was previously not editable at all, so a
+ * seller assigned to the wrong shop had to be deleted and recreated — and,
+ * because location drives which currency they are taught, that meant quoting
+ * the wrong money until someone noticed.
+ */
+export async function updateUser(
+  userId: string,
+  changes: Partial<Pick<User, 'name' | 'role' | 'location' | 'managerId'>>
+): Promise<boolean> {
+  await simulateNetwork();
+  const users = loadJSON<User[]>(LS_USERS, []);
+  const idx = users.findIndex((u) => u.id === userId);
+  if (idx === -1) return false;
+
+  users[idx] = { ...users[idx], ...changes };
+  saveJSON(LS_USERS, users);
+
+  // Keep the live session in step if the edited user is the signed-in one.
+  const current = getCurrentUser();
+  if (current?.id === userId) {
+    const { password: _, ...safe } = users[idx];
+    saveJSON(LS_CURRENT_USER, safe);
+  }
   return true;
 }
 
@@ -254,12 +370,9 @@ export async function getTeamProgress(managerId: string): Promise<EmployeeProgre
   const manager = users.find((u) => u.id === managerId);
   if (!manager) return [];
 
-  // Get employees under this manager or at same location
-  const employees = users.filter(
-    (u) => u.role === 'employee' && (u.managerId === managerId || u.location === manager.location)
-  );
+  const employees = resolveTeam(users, manager);
 
-  const TOTAL_LESSONS = 31;
+  const TOTAL_LESSONS = TOTAL_LESSON_COUNT;
 
   return employees.map((emp) => {
     const empProgress = allProgress.filter((p) => p.userId === emp.id && p.completed);
