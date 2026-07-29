@@ -336,15 +336,15 @@ const quizComplimentStop: GeneralQuiz = {
       questionEs:
         "¿Qué hace que un cumplido se sienta GENUINO en lugar de falso o de vendedor?",
       options: [
-        "Using fancy words and dramatic delivery",
-        "Complimenting every woman the same way",
-        "Saying it loudly so others hear",
+        "Using fancy words and a dramatic delivery so the compliment stands out from everything else she hears",
+        "Complimenting every woman the same way, so you get faster at it and never have to think on your feet",
+        "Saying it loudly so the people around her hear it too and she feels flattered in front of them",
         "Noticing something specific and mentioning it spontaneously"
       ],
       optionsEs: [
-        "Usar palabras elegantes y entrega dramática",
-        "Cumplimentar a cada mujer de la misma manera",
-        "Decirlo fuerte para que otros escuchen",
+        "Usar palabras elegantes y una entrega dramática para que el cumplido destaque sobre todo lo que oye",
+        "Cumplimentar a cada mujer igual, así te vuelves más rápida y nunca tienes que improvisar",
+        "Decirlo alto para que también lo oiga la gente de alrededor y ella se sienta halagada delante de ellos",
         "Notar algo específico y mencionarlo espontáneamente"
       ],
       correctIndex: 3,

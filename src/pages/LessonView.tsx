@@ -598,7 +598,9 @@ export default function LessonView() {
         </article>
 
         {/* ── Finish ─────────────────────────────────────────────────────── */}
-        <div className="mx-auto max-w-[34rem] px-5 pb-10 pt-3">
+        {/* Hidden entirely while locked, so it cannot be reached by keyboard
+            from behind the overlay. */}
+        <div className="mx-auto max-w-[34rem] px-5 pb-10 pt-3" hidden={isLocked}>
           <div className="border-t border-line pt-7">
             {!isCompleted ? (
               <motion.button

@@ -633,13 +633,13 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "Una clienta compra el exfoliante por {currency}60. ¿Cuál es el MEJOR siguiente paso para aumentar la venta?",
       options: [
-        "Thank them and move to the next customer quickly, because the fastest way to grow the day is more sales, not bigger ones",
+        "Thank them and move to the next customer quickly, because the fastest way to grow the day is more sales, not bigger ones. A happy customer who leaves fast makes room for the next one at the table",
         "Ask: 'Do you want the glow version too?' and move her to the Peeling at {currency}100 with the Scrub included as its gift — just {currency}40 more for a complete facial renewal system",
         "Give them a discount coupon for next time so they come back on their next trip and buy something bigger then",
         "Tell them they should have bought more while they were thinking about it"
       ],
       optionsEs: [
-        "Darles las gracias y pasar rápido al siguiente cliente, porque la forma de crecer el día es más ventas, no más grandes",
+        "Darles las gracias y pasar rápido al siguiente cliente, porque la forma de crecer el día es hacer más ventas, no más grandes. Un cliente contento que se va rápido deja hueco para el siguiente en la mesa",
         "Preguntar: '¿Quieres la versión glow también?' y pasarla al Peeling a {currency}100 con el Exfoliante incluido de regalo — solo {currency}40 más por un sistema completo de renovación facial",
         "Darles un cupón de descuento para la próxima vez y que vuelvan en su siguiente viaje a comprar algo mayor",
         "Decirles que deberían haber comprado más mientras lo estaban pensando"
@@ -884,13 +884,13 @@ const quizNailKitPro: GeneralQuiz = {
       options: [
         "Ignore the friend and keep pitching to the buyer — every second you spend on the friend is a second the buyer spends cooling off",
         "Tell the friend to mind her own business — it is not her hands, not her money, and she is only slowing the whole thing down",
-        "Offer a discount if the friend stops talking — buy the silence with the voucher price and close before she can raise another objection",
+        "Offer a discount if the friend stops talking — buy the silence with the voucher price and close before she can raise another objection. A cheap sale beats a lost one, and the friend will not argue with a number that low",
         "'Great point! Regular polish is {currency}10 but chips in 2 days. This lasts 2 weeks, never chips, needs zero drying time, and saves {currency}200+ yearly on salon visits. Your friend is smart — she should try it too!'"
       ],
       optionsEs: [
         "Ignorar a la amiga y seguir con la compradora — cada segundo que le dedicas a la amiga es un segundo en que la compradora se enfría",
         "Decirle a la amiga que se meta en sus asuntos — no son sus manos ni su dinero, y solo está retrasando todo",
-        "Ofrecer un descuento si la amiga deja de hablar — cómprale el silencio con el precio del cupón y cierra antes de que saque otra objeción",
+        "Ofrecer un descuento si la amiga deja de hablar — cómprale el silencio con el precio del cupón y cierra antes de que saque otra objeción. Una venta barata es mejor que ninguna, y con esa cifra la amiga no discute",
         "¡Buen punto! El esmalte normal cuesta {currency}10 pero se desconcha en 2 días. Esto dura 2 semanas, nunca se desconcha, no necesita tiempo de secado, y ahorra {currency}200+ al año en visitas al salón. ¡Tu amiga es inteligente — ella también debería probarlo!"
       ],
       correctIndex: 3,
@@ -1041,13 +1041,13 @@ const quizObjectionsChampion: GeneralQuiz = {
       options: [
         "I understand — this isn't for everyone, and I would rather you spent your money on something you actually need this week",
         "How much do you have? I'll take whatever you can give — tell me the number in your pocket and I will make the price fit it",
-        "Stop making excuses and invest in yourself — everybody says they are on a tight budget and then spends the same money on dinner",
+        "Stop making excuses and invest in yourself — everybody says they are on a tight budget and then spends the same money on dinner that same evening without thinking about it twice",
         "I get it. Here's the thing — the budget option IS the Peeling. One {currency}100 bottle is a whole year of treatments and replaces {currency}500+ in salon visits. It's actually saving you money"
       ],
       optionsEs: [
         "Te entiendo — esto no es para todo el mundo, y prefiero que te gastes el dinero en algo que de verdad necesites esta semana",
         "¿Cuánto llevas encima? Acepto lo que me puedas dar — dime la cifra que tienes en el bolsillo y ajusto el precio a eso",
-        "Deja de poner excusas e invierte en ti misma — todo el mundo dice que va justa de dinero y luego se lo gasta igual en una cena",
+        "Deja de poner excusas e invierte en ti misma — todo el mundo dice que va justa de dinero y luego se gasta lo mismo en una cena esa misma noche sin pensárselo dos veces",
         "Te entiendo. El caso es que la opción económica ES el Peeling. Un frasco de {currency}100 es un año entero de tratamientos y sustituye {currency}500+ en visitas al salón. De hecho te está ahorrando dinero"
       ],
       correctIndex: 3,
@@ -1110,13 +1110,13 @@ const quizObjectionsChampion: GeneralQuiz = {
       options: [
         "I'm not a scammer, I promise — here's my word, and you can see for yourself that I have been standing on this same corner all week",
         "I completely understand your caution. Look — we have a physical address, a 30-year-old company, lifetime warranty, and you see the result on your own face right now. A scammer can't show you real results in a mirror.",
-        "Those other guys were fake, we're the real deal — there is a whole difference between them and a proper brand with a shop behind it",
+        "Those other guys were fake, we're the real deal — there is a whole difference between them and a proper brand with a shop behind it. You can tell by looking at us which one of the two we are",
         "If you don't trust me, don't buy — your loss, but do not come back next week asking for the same price when you change your mind"
       ],
       optionsEs: [
         "No soy un estafador, te lo prometo — y puedes comprobar tú misma que llevo toda la semana en esta misma esquina",
         "Entiendo completamente tu precaución. Mira — tenemos una dirección física, una empresa de 30 años, garantía de por vida, y ves el resultado en tu propia cara ahora mismo. Un estafador no puede mostrarte resultados reales en un espejo.",
-        "Esos otros eran falsos, nosotros somos los de verdad — hay mucha diferencia entre ellos y una marca con una tienda detrás",
+        "Esos otros eran falsos, nosotros somos los de verdad — hay mucha diferencia entre ellos y una marca con una tienda detrás. Solo con mirarnos se nota cuál de las dos cosas somos",
         "Si no confías en mí, no compres — tú te lo pierdes, pero no vuelvas la semana que viene pidiendo el mismo precio"
       ],
       correctIndex: 1,
@@ -1131,13 +1131,13 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: '¿Esto funcionará en mi piel oscura? Me preocupa que los productos me aclaren el tono.' ¿Qué respuesta es la MEJOR?",
       options: [
-        "This will definitely lighten your skin — that's the whole point of the treatment, and most customers ask for exactly that effect",
+        "This will definitely lighten your skin — that's the whole point of the treatment, and most customers ask for exactly that effect. Give it a month and you will see the tone even out all over",
         "Hyaluronic acid doesn't change skin color at all — it hydrates and plumps ALL skin types equally. The 'Botox effect' works the same on dark, medium, or light skin because it works from within, not on the surface",
         "Dark skin doesn't wrinkle so you don't need this — you would be better off with the scrub or the body butter instead",
         "It works better on dark skin actually — you'll see faster results than most people do, usually within the first week of using it"
       ],
       optionsEs: [
-        "Esto te aclarará la piel sin duda — ese es justo el objetivo del tratamiento, y la mayoría de clientas pide precisamente ese efecto",
+        "Esto te aclarará la piel sin duda — ese es justo el objetivo del tratamiento, y la mayoría de clientas pide precisamente ese efecto. Dale un mes y verás cómo se uniforma el tono",
         "El ácido hialurónico no cambia el color de piel para nada — hidrata y rellena TODOS los tipos de piel por igual. El efecto 'Botox' funciona igual en piel oscura, media o clara porque trabaja desde adentro, no en la superficie",
         "La piel oscura no se arruga, así que no necesitas esto — te vendría mejor el exfoliante o el body butter",
         "En realidad funciona mejor en piel oscura — verás resultados más rápido que la mayoría, normalmente en la primera semana"
@@ -1179,13 +1179,13 @@ const quizObjectionsChampion: GeneralQuiz = {
       options: [
         "I appreciate your honesty. The one-eye demo shows about 30% of the full result because we use a tiny amount for the demo. With the full kit and 2 weeks of use, the difference is dramatic. But I understand — want me to show you the peeling kit instead? It gives instant glow",
         "You must not have been looking closely — the difference is huge, look again in the mirror and compare the two sides properly this time",
-        "Most people see a huge difference, maybe your skin is just different — some people need two or three applications before anything shows up at all",
+        "Most people see a huge difference, maybe your skin is just different — some people need two or three applications before anything shows up at all, and yours may simply be one of those. Take it home, give it a fortnight and judge it then",
         "Give it time — you'll see results in a month once the product has built up, so buy it now and judge it properly at home"
       ],
       optionsEs: [
         "Aprecio tu honestidad. La demo de un ojo muestra aproximadamente 30% del resultado completo porque usamos una cantidad mínima para la demo. Con el kit completo y 2 semanas de uso, la diferencia es dramática. Pero entiendo — ¿quieres que te muestre el kit de peeling en su lugar? Da brillo instantáneo",
         "No debiste mirar de cerca — la diferencia es enorme, mírate otra vez en el espejo y compara bien los dos lados esta vez",
-        "La mayoría ve una gran diferencia, quizá tu piel es distinta — hay quien necesita dos o tres aplicaciones antes de que se vea algo",
+        "La mayoría ve una gran diferencia, quizá tu piel sea distinta — hay quien necesita dos o tres aplicaciones antes de que se note algo, y puede que la tuya sea de esas. Llévatelo, dale quince días y lo juzgas entonces",
         "Dale tiempo — verás resultados en un mes cuando el producto se acumule, así que llévatelo ahora y lo juzgas bien en casa"
       ],
       correctIndex: 0,
@@ -1223,13 +1223,13 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Ya tengo montones de productos de cuidado de la piel en casa que apenas uso.' ¿Cuál es la MEJOR respuesta?",
       options: [
-        "Those other products are probably why you don't see results — ours is different, and mixing brands is exactly what stops any of them from working",
+        "Those other products are probably why you don't see results — ours is different, and mixing brands is exactly what stops any of them from working. Clear the shelf, keep one system, and you will finally see what your skin can do",
         "I hear that all the time. Here's the difference — those products didn't come with ME showing you exactly how to use them and what results to expect. Let me give you my card. Use your products for 2 more weeks. When they don't deliver what I just showed you, text me and I'll be here.",
         "You should throw all those away and start fresh with our line — a half-used shelf of products is worth less than one that actually works",
         "Then you don't need anything — have a nice day, and come back when you have actually finished the ones you already own"
       ],
       optionsEs: [
-        "Esos otros productos son probablemente la razón de que no veas resultados — el nuestro es distinto, y mezclar marcas es justo lo que impide que ninguno funcione",
+        "Esos otros productos son probablemente la razón de que no veas resultados — el nuestro es distinto, y mezclar marcas es justo lo que impide que ninguno funcione. Vacía el estante, quédate con un sistema y por fin verás lo que puede hacer tu piel",
         "Eso lo escucho todo el tiempo. Aquí está la diferencia — esos productos no vinieron conmigo mostrándote exactamente cómo usarlos y qué resultados esperar. Déjame darte mi tarjeta. Usa tus productos por 2 semanas más. Cuando no entreguen lo que acabo de mostrarte, escríbeme y estaré aquí.",
         "Deberías tirarlos todos y empezar de cero con nuestra línea — un estante de productos a medias vale menos que uno que de verdad funcione",
         "Entonces no necesitas nada — que tengas buen día, y vuelve cuando hayas terminado de verdad los que ya tienes"
@@ -1246,15 +1246,15 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Necesito revisar el saldo de mi cuenta bancaria primero.' ¿Cuál es la respuesta MÁS efectiva?",
       options: [
-        "Go check and come back — I'll hold the price for 10 minutes, and if you are not back by then I will have to put it out on the table again for the next customer",
+        "Go check and come back — I'll hold the price for 10 minutes, and if you are not back by then I will have to put it out on the table again for the next customer, because I cannot keep stock off the table on a promise",
         "No problem at all. While you're checking — if the {currency}140 is there, you know what to do. If it's a stretch today, I can do the {currency}100 emergency price for you. If even that's too much, the Dead Sea Scrub at {currency}60 gives you a great glow and you can upgrade later. Three options, no pressure — what feels right?",
-        "Don't worry about your balance — just use your credit card, nobody checks their account before buying something this small and you can move the money across later tonight",
+        "Don't worry about your balance — just use your credit card, nobody checks their account before buying something this small and you can move the money across later tonight. Nobody has ever regretted a purchase they made on a card",
         "If you need to check your balance, you probably can't afford this — come back another day when you have set the money aside and we will start the whole thing again"
       ],
       optionsEs: [
-        "Ve a mirar y vuelve — te guardo el precio 10 minutos, y si no has vuelto para entonces tendré que sacarlo otra vez a la mesa para la siguiente clienta",
+        "Ve a mirar y vuelve — te guardo el precio 10 minutos, y si no has vuelto para entonces tendré que sacarlo otra vez a la mesa para la siguiente clienta, porque no puedo retirar producto por una promesa",
         "Ningún problema. Mientras revisas — si los {currency}140 están ahí, ya sabes qué hacer. Si es un estirón hoy, puedo hacerte el precio de emergencia de {currency}100. Si incluso eso es mucho, el Exfoliante del Mar Muerto a {currency}60 te da un brillo estupendo y puedes subir de nivel después. Tres opciones, sin presión — ¿qué se siente bien?",
-        "No te preocupes por tu saldo — usa la tarjeta de crédito, nadie mira su cuenta antes de comprar algo tan pequeño y ya moverás el dinero esta noche",
+        "No te preocupes por tu saldo — usa la tarjeta de crédito, nadie mira su cuenta antes de comprar algo tan pequeño y ya moverás el dinero esta noche. Nadie se ha arrepentido nunca de una compra pagada con tarjeta",
         "Si necesitas mirar el saldo, probablemente no te lo puedes permitir — vuelve otro día cuando hayas apartado el dinero y empezamos otra vez desde el principio"
       ],
       correctIndex: 1,
@@ -1312,13 +1312,13 @@ const quizBodyLanguage: GeneralQuiz = {
         "Una cliente cruza los brazos mientras explicas el precio. ¿Qué significa esto GENERALMENTE, y cómo deberías responder?",
       options: [
         "They're cold — offer them your jacket and move the demo somewhere out of the wind before you carry on with the price",
-        "They're comfortable and ready to buy — close immediately, name the price again and put the product straight into their hands",
+        "They're comfortable and ready to buy — close immediately, name the price again and put the product straight into their hands. Folded arms mean they have settled in, and people who settle in are people who stay to pay",
         "They want you to talk faster and finish, so skip the rest of the ladder and go straight to your best price",
         "Crossed arms typically indicate a defensive or resistant mental state. DON'T push harder — instead, ask an open question like 'What concerns do you have?' to uncover the real objection and address it"
       ],
       optionsEs: [
         "Tienen frío — ofréceles tu chaqueta y mueve la demo a un sitio sin viento antes de seguir con el precio",
-        "Están cómodas y listas para comprar — cierra ya, repite el precio y ponles el producto directamente en las manos",
+        "Están cómodas y listas para comprar — cierra ya, repite el precio y ponles el producto directamente en las manos. Los brazos cruzados significan que se han acomodado, y quien se acomoda se queda a pagar",
         "Quieren que hables más rápido y acabes, así que sáltate el resto de la escalera y ve directa a tu mejor precio",
         "Brazos cruzados típicamente indican un estado mental defensivo o resistente. NO empujes más fuerte — en su lugar, haz una pregunta abierta como '¿Qué inquietudes tienes?' para descubrir la objeción real y abordarla"
       ],
@@ -1449,13 +1449,13 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Una cliente dice 'tal vez' y empieza a buscar a su amiga, pero sigue sosteniendo el producto. ¿Deberías empujar o retroceder?",
       options: [
-        "Push hard — they're holding the product so they want to buy, and if you let the moment pass they will hand it back and walk",
+        "Push hard — they're holding the product so they want to buy, and if you let the moment pass they will hand it back and walk. Name the price again, put the bag in their other hand and keep talking until they say yes",
         "Soft push with a decision helper: 'I can see you're thinking it over. Here's what I'll do — hold this, feel how it feels in your hands. When your friend gets here, let her see the result too. Three minutes, then you decide. No pressure either way.'",
         "Back off completely — they said maybe, respect that, take the product back and let them come to you if they change their mind",
         "Take the product out of their hands so they can't leave with it, and tell them you will keep it behind the counter until they decide"
       ],
       optionsEs: [
-        "Presionar fuerte — tienen el producto en la mano así que quieren comprar, y si dejas pasar el momento te lo devuelven y se van",
+        "Presionar fuerte — tienen el producto en la mano así que quieren comprar, y si dejas pasar el momento te lo devuelven y se van. Repite el precio, ponles la bolsa en la otra mano y sigue hablando hasta que digan que sí",
         "Empujón suave con ayudante de decisión: 'Veo que lo estás pensando. Esto haré — sostén esto, siente cómo se siente en tus manos. Cuando llegue tu amiga, deja que ella también vea el resultado. Tres minutos, luego decides. Sin presión de ningún lado.'",
         "Retirarte del todo — han dicho tal vez, respétalo, recoge el producto y deja que vuelvan ellas si cambian de idea",
         "Quitarles el producto de las manos para que no se lo lleven, y decirles que lo guardas detrás del mostrador hasta que decidan"
@@ -1473,14 +1473,14 @@ const quizBodyLanguage: GeneralQuiz = {
         "Una cliente sonríe educadamente pero dice 'no gracias.' Su sonrisa no llega a sus ojos. ¿Qué está pasando realmente?",
       options: [
         "A polite smile without eye involvement is a 'social mask' — they're uncomfortable saying no to your face. Offer a low-pressure alternative: 'Totally understand! Here, just try the hand scrub — no obligation, just so you know what we do.' This removes the pressure while keeping them engaged",
-        "They're being friendly but genuinely not interested — thank them, move on, and spend the time on someone who has not already made their mind up",
-        "They want you to try harder with a better pitch — start the whole presentation again from the top with more energy and they will come round",
+        "They're being friendly but genuinely not interested — thank them, move on, and spend the time on someone who has not already made their mind up. A no delivered with a smile is still a no, and chasing it costs you the next three approaches",
+        "They want you to try harder with a better pitch — start the whole presentation again from the top with more energy and they will come round. Polite refusals are usually a test of how much you believe in what you are holding",
         "They have something in their eye or the sun is bothering them, so step to the side and start the demo again from a different angle"
       ],
       optionsEs: [
         "Una sonrisa educada sin involucramiento de ojos es una 'máscara social' — se sienten incómodas diciendo no a tu cara. Ofrece una alternativa de baja presión: '¡Totalmente entendido! Aquí, solo prueba el scrub de manos — sin obligación, solo para que sepas lo que hacemos.' Esto elimina la presión mientras las mantiene comprometidas",
-        "Están siendo amables pero de verdad no les interesa — dales las gracias, sigue adelante y dedica el tiempo a alguien que no haya decidido ya",
-        "Quieren que te esfuerces más con un mejor pitch — empieza la presentación otra vez desde el principio con más energía y acabarán cediendo",
+        "Están siendo amables pero de verdad no les interesa — dales las gracias, sigue adelante y dedica el tiempo a alguien que no lo haya decidido ya. Un no con sonrisa sigue siendo un no, y perseguirlo te cuesta los tres siguientes acercamientos",
+        "Quieren que te esfuerces más con un mejor pitch — empieza la presentación otra vez desde arriba con más energía y acabarán cediendo. Un rechazo educado suele ser una prueba de cuánto te crees lo que llevas en la mano",
         "Tienen algo en el ojo o les molesta el sol, así que muévete a un lado y empieza la demo otra vez desde otro ángulo"
       ],
       correctIndex: 0,
