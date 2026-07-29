@@ -99,7 +99,6 @@ const COPY = {
   progress: { en: 'Progress', es: 'Progreso' },
   lessons: { en: 'Lessons', es: 'Lecciones' },
   quizAvg: { en: 'Quiz avg', es: 'Media test' },
-  streak: { en: 'Streak', es: 'Racha' },
   lastActive: { en: 'Last active', es: 'Última actividad' },
   statusOnTrack: { en: 'On track', es: 'En buen camino' },
   statusNeedsPush: { en: 'Needs a push', es: 'Necesita empuje' },
