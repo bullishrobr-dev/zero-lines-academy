@@ -171,7 +171,7 @@ export default function OnboardingPage() {
       onPointerUp={(e) => swipe(pointerStart.current - e.clientX)}
     >
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <div className="relative h-[42vh] min-h-[240px] w-full shrink-0 overflow-hidden">
+      <div className="relative h-[46vh] min-h-[260px] w-full shrink-0 overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           {/* The slide transform lives on the wrapper so each photograph can
               carry its own crop transform without framer overwriting it. */}
@@ -190,20 +190,16 @@ export default function OnboardingPage() {
               loading={current === 0 ? 'eager' : 'lazy'}
               decoding="async"
               draggable={false}
-              style={{
-                objectPosition: slide.focus,
-                transform: slide.zoom,
-                transformOrigin: '50% 100%',
-              }}
+              style={{ objectPosition: slide.focus }}
               className="h-full w-full object-cover"
             />
           </motion.div>
         </AnimatePresence>
 
-        {/* Keeps the badge and the language switch legible on a bright photo. */}
+        {/* Keeps the language switch legible on a bright photograph. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 via-black/15 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 via-black/15 to-transparent"
         />
         {/* Dissolve the photograph into the page rather than cutting it off. */}
         <div
@@ -214,40 +210,28 @@ export default function OnboardingPage() {
           }}
         />
 
-        <div className="absolute inset-x-0 top-0 flex items-start justify-center">
-          <motion.img
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            src="/logo-white.webp"
-            alt="Zero Lines"
-            width={448}
-            height={550}
-            draggable={false}
-            /* The asset is an opaque black tile, so it is presented as a brand
-               badge rather than faked into a transparent mark — screen-blending
-               it vanished against the bright counter photograph on slide 3. */
-            className="mt-4 h-auto w-[74px] rounded-card shadow-feature ring-1 ring-white/10"
-          />
+        {/* No logo is overlaid here on purpose: the logo asset is an opaque
+            black tile, and slide 1's photograph already carries the wordmark —
+            two of them on one screen read as a mistake. The mark appears at
+            real scale on the very next screen. */}
 
-          {/* Half the sellers are Spanish-first and the language control
-              otherwise sits behind sign-in, three screens away. */}
-          <div className="absolute right-2 top-2 flex items-center rounded-full bg-black/40 p-0.5 backdrop-blur-sm">
-            {(['en', 'es'] as const).map((lang) => (
-              <button
-                key={lang}
-                type="button"
-                onClick={() => setLanguage(lang)}
-                aria-pressed={language === lang}
-                aria-label={lang === 'en' ? t('authEnglish') : t('authSpanish')}
-                className={`min-h-touch rounded-full px-3.5 text-caption font-semibold transition-colors ${
-                  language === lang ? 'bg-teal text-on-teal' : 'text-white/85'
-                }`}
-              >
-                {lang === 'en' ? 'EN' : 'ES'}
-              </button>
-            ))}
-          </div>
+        {/* Half the sellers are Spanish-first, and the language control
+            otherwise sits behind sign-in, three screens away. */}
+        <div className="absolute right-2 top-2 flex items-center rounded-full bg-black/40 p-0.5 backdrop-blur-sm">
+          {(['en', 'es'] as const).map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              onClick={() => setLanguage(lang)}
+              aria-pressed={language === lang}
+              aria-label={lang === 'en' ? t('authEnglish') : t('authSpanish')}
+              className={`min-h-touch rounded-full px-3.5 text-caption font-semibold transition-colors ${
+                language === lang ? 'bg-teal text-on-teal' : 'text-white/85'
+              }`}
+            >
+              {lang === 'en' ? 'EN' : 'ES'}
+            </button>
+          ))}
         </div>
       </div>
 

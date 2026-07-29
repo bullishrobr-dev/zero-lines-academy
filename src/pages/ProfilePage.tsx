@@ -825,21 +825,27 @@ export default function ProfilePage() {
                   <p className="text-caption text-ink-3">{t('profileRemindMe')}</p>
                 </div>
               </div>
+              {/* 56x32 track inside a 56x44 hit area — the switch itself was
+                  below the 44px touch minimum. */}
               <button
                 type="button"
                 role="switch"
                 aria-checked={reminderEnabled}
                 aria-label={t('profileDailyReminder')}
                 onClick={toggleReminder}
-                className={`relative h-8 w-14 shrink-0 rounded-full border transition-colors ${
-                  reminderEnabled ? 'border-teal bg-teal' : 'border-line-strong bg-surface-sunken'
-                }`}
+                className="flex h-touch w-14 shrink-0 items-center justify-center"
               >
                 <span
-                  className={`absolute top-1 h-6 w-6 rounded-full bg-surface shadow-raised transition-transform ${
-                    reminderEnabled ? 'translate-x-7' : 'translate-x-1'
+                  className={`relative block h-8 w-14 rounded-full border transition-colors ${
+                    reminderEnabled ? 'border-teal bg-teal' : 'border-line-strong bg-surface-sunken'
                   }`}
-                />
+                >
+                  <span
+                    className={`absolute top-1 block h-6 w-6 rounded-full bg-surface shadow-raised transition-transform ${
+                      reminderEnabled ? 'translate-x-7' : 'translate-x-1'
+                    }`}
+                  />
+                </span>
               </button>
             </div>
           </div>
