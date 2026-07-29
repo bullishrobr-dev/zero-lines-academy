@@ -12,6 +12,7 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
   useCallback,
   useMemo,
   type ReactNode,
@@ -89,15 +90,35 @@ function claimDeviceFor(userId: string) {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   /*
-   * Seeded synchronously. The session lives in localStorage, which is a
-   * synchronous read, so there is nothing to wait for — loading it in a mount
-   * effect just meant the route guards saw `isAuthenticated: false` on the
-   * first paint and could bounce a signed-in seller to /auth before the user
-   * landed.
+   * Roster path: localStorage is synchronous, so seed during the first render.
+   * Loading it in an effect meant the route guards saw isAuthenticated: false
+   * on first paint and could bounce a signed-in seller to /auth.
+   *
+   * Database path: the session has to be fetched, so start empty and resolve
+   * below. isLoading keeps the guards from redirecting while that is in flight.
    */
-  const [user, setUser] = useState<SafeUser | null>(() => backend.getCurrentUser());
-  /** Kept on the interface for callers, but there is no async bootstrap. */
-  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState<SafeUser | null>(() =>
+    backend.isDatabaseConfigured ? null : backend.getCurrentUser()
+  );
+  const [isLoading, setIsLoading] = useState(backend.isDatabaseConfigured);
+
+  useEffect(() => {
+    if (!backend.isDatabaseConfigured) return;
+    let cancelled = false;
+    backend
+      .getCurrentUserAsync()
+      .then((u) => {
+        if (cancelled) return;
+        setUser(u);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        if (!cancelled) setIsLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const login = useCallback(async (username: string, password: string) => {
     setIsLoading(true);
@@ -119,7 +140,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const refreshUser = useCallback(() => {
-    setUser(backend.getCurrentUser());
+    void backend.getCurrentUserAsync().then(setUser);
   }, []);
 
   const value = useMemo<AuthContextType>(

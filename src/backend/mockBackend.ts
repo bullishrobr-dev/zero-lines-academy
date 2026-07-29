@@ -20,6 +20,20 @@
 import type { User, UserRole, UserLocation, LessonProgress, QuizResult, TeamStats } from './types';
 import { ACCOUNTS, accountId, findAccount, type Account } from '../data/accounts';
 import { hashPassword, verifierMatches } from '../utils/credentials';
+import { isDatabaseConfigured } from './supabaseClient';
+import * as db from './db';
+
+/*
+ * Two implementations live behind these functions.
+ *
+ *   Database configured  → src/backend/db.ts. Real accounts, real cross-device
+ *                          progress, a real leaderboard.
+ *   Not configured       → the committed roster below, progress on the device.
+ *
+ * The switch is `isDatabaseConfigured`, so the app works either way and the
+ * rest of the codebase never has to know which one it is talking to.
+ */
+export { isDatabaseConfigured };
 
 // ── Storage keys ──
 const LS_CURRENT_USER = 'zl_user';
@@ -85,6 +99,8 @@ export interface LoginResult {
  * password" — telling someone which half they got right is free help.
  */
 export async function login(username: string, password: string): Promise<LoginResult> {
+  if (isDatabaseConfigured) return db.login(username, password);
+
   const account = findAccount(username);
 
   // Hash even when the username is unknown, so a missing account does not
@@ -102,6 +118,10 @@ export async function login(username: string, password: string): Promise<LoginRe
 }
 
 export function logout(): void {
+  if (isDatabaseConfigured) {
+    void db.logout();
+    return;
+  }
   try {
     localStorage.removeItem(LS_CURRENT_USER);
   } catch {
@@ -116,7 +136,18 @@ export function logout(): void {
  * from accounts.ts signs them out everywhere on the next deploy, and a change
  * to their role or shop takes effect without them signing in again.
  */
+/**
+ * Async resolution of the signed-in user. The database path has to make a
+ * request; the roster path answers immediately.
+ */
+export async function getCurrentUserAsync(): Promise<User | null> {
+  if (isDatabaseConfigured) return db.getCurrentUser();
+  return getCurrentUser();
+}
+
+/** Synchronous — roster path only. Returns null when the database is in use. */
 export function getCurrentUser(): User | null {
+  if (isDatabaseConfigured) return null;
   const raw = loadJSON<Partial<User> | null>(LS_CURRENT_USER, null);
   if (!raw?.username) return null;
 
@@ -132,6 +163,7 @@ export function getCurrentUser(): User | null {
 
 // ── User management ──
 export async function getUsers(): Promise<User[]> {
+  if (isDatabaseConfigured) return db.getUsers();
   return allUsers();
 }
 
