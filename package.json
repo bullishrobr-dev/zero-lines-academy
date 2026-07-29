@@ -1,13 +1,19 @@
 {
-  "name": "my-app",
+  "name": "zero-lines-academy",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.0.0",
+  "description": "Sales training academy for the Zero Lines street team in Andorra and Gibraltar",
+  "license": "UNLICENSED",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
