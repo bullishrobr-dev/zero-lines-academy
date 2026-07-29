@@ -329,6 +329,7 @@ export default function ExercisesPage() {
         startVelocity: 45,
         gravity: 0.9,
         ticks: 140,
+        disableForReducedMotion: true,
         origin: { y: 0.7 },
         colors: CONFETTI_GOLD,
       });

@@ -6,7 +6,7 @@
 // prefers-reduced-motion.
 // ─────────────────────────────────────────────────────────────
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 
 interface ConfettiCelebrationProps {
@@ -77,32 +77,21 @@ function burst() {
   }, 450);
 }
 
+/**
+ * Renders nothing; fires a celebration when `trigger` flips to true and calls
+ * `onComplete` once the burst has settled so the caller can reset the flag.
+ */
 export default function ConfettiCelebration({ trigger, onComplete }: ConfettiCelebrationProps) {
-  const firedRef = useRef(false);
+  const done = useCallback(() => onComplete?.(), [onComplete]);
 
-  const fire = useCallback(() => {
-    if (firedRef.current) return;
-    firedRef.current = true;
+  useEffect(() => {
+    if (!trigger) return;
 
     if (!prefersReducedMotion()) burst();
 
-    setTimeout(() => {
-      firedRef.current = false;
-      onComplete?.();
-    }, 2000);
-  }, [onComplete]);
-
-  // Fire automatically when trigger becomes true
-  if (trigger && !firedRef.current) {
-    fire();
-  }
+    const timer = setTimeout(done, 2000);
+    return () => clearTimeout(timer);
+  }, [trigger, done]);
 
   return null;
-}
-
-export function useConfetti() {
-  return useCallback(() => {
-    if (prefersReducedMotion()) return;
-    burst();
-  }, []);
 }

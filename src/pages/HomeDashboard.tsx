@@ -61,7 +61,6 @@ const COPY = {
   en: {
     signIn: 'Sign in for the admin & manager dashboard',
     dayStreak: 'day streak',
-    startStreak: 'Start your streak',
     checkIn: 'Shift check-in',
     checkInSub: 'How are you feeling? What is today’s goal?',
     endShift: 'End of shift',
@@ -98,7 +97,6 @@ const COPY = {
   es: {
     signIn: 'Inicia sesión para el panel de admin y manager',
     dayStreak: 'días de racha',
-    startStreak: 'Empieza tu racha',
     checkIn: 'Check-in de turno',
     checkInSub: '¿Cómo te sientes? ¿Cuál es tu meta de hoy?',
     endShift: 'Fin de turno',
@@ -211,7 +209,7 @@ function StatTile({
     <div className="surface-flat flex flex-col items-center gap-1 px-2 py-3">
       <Icon size={20} className={iconTone} aria-hidden="true" />
       {/* Zero state used to render at 2.87:1. `text-ink-3` is the AA floor. */}
-      <p className={`text-h3 tabular-nums ${isZero ? 'text-ink-3' : 'text-ink'}`}>{value}</p>
+      <p className={`text-h2 tabular-nums ${isZero ? 'text-ink-3' : 'text-ink'}`}>{value}</p>
       <p className="text-caption text-ink-2">{label}</p>
     </div>
   );
@@ -267,16 +265,15 @@ function PracticeCard({
     <motion.button
       whileTap={{ scale: 0.97 }}
       onClick={onClick}
-      className="surface-raised flex w-60 flex-shrink-0 snap-start items-center gap-3 p-4 text-left"
+      className="surface-raised flex w-[248px] flex-shrink-0 snap-start items-center gap-3 p-4 text-left"
     >
       <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${tint}`}>
         <Icon size={22} className={ink} aria-hidden="true" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-h4 text-ink">{title}</span>
-        <span className="block truncate text-caption text-ink-2">{subtitle}</span>
+        <span className="block text-h4 text-ink">{title}</span>
+        <span className="block text-caption text-ink-2">{subtitle}</span>
       </span>
-      <ChevronRight size={18} className="shrink-0 text-ink-3" aria-hidden="true" />
     </motion.button>
   );
 }
@@ -430,12 +427,18 @@ export default function HomeDashboard() {
 
             {/* Streak flame */}
             <div
-              className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 ${
-                currentStreak > 0 ? 'bg-coral text-on-coral' : 'bg-surface/70 text-ink-2'
+              className={`flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 ${
+                currentStreak > 0
+                  ? 'bg-coral text-on-coral'
+                  : 'border border-line bg-surface text-ink-2'
               }`}
             >
-              <Flame size={18} className={currentStreak > 0 ? '' : 'text-ink-3'} aria-hidden="true" />
-              <span className="text-button tabular-nums">{animatedStreak}</span>
+              <Flame size={18} aria-hidden="true" />
+              {currentStreak > 0 ? (
+                <span className="text-button tabular-nums">{animatedStreak}</span>
+              ) : (
+                <span className="text-caption">{t('start')}</span>
+              )}
               <span className="sr-only">{c.dayStreak}</span>
             </div>
           </div>
@@ -464,8 +467,8 @@ export default function HomeDashboard() {
             </span>
             <span className="min-w-0 flex-1">
               <span className="block text-overline text-coral-strong">{c.nowLabel}</span>
-              <span className="block truncate text-h4 text-ink">{primaryAction.title}</span>
-              <span className="block truncate text-caption text-ink-2">
+              <span className="block text-h4 text-ink">{primaryAction.title}</span>
+              <span className="line-clamp-2 text-caption text-ink-2">
                 {primaryAction.subtitle}
               </span>
             </span>
@@ -546,9 +549,9 @@ export default function HomeDashboard() {
           </div>
         </motion.section>
 
-        {/* ── Daily challenge — the achievement that matters today ── */}
+        {/* ── Daily challenge — the achievement that matters today.
+             The card carries its own heading, so there is no section title. ── */}
         <motion.section variants={itemVariants}>
-          <SectionHeading title={t('homeDailyChallenge')} />
           <DailyChallengeCard
             isCompleted={progress.isDailyChallengeCompleted()}
             onComplete={handleDailyChallengeComplete}

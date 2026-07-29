@@ -1,27 +1,42 @@
-// ─────────────────────────────────────────────────────────────
-// AuthPage.tsx — Login / Signup Screen
-// Supports both modes with toggle. Uses backend auth context.
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// AuthPage — sign in / create account.
+//
+// SECURITY: the public signup form used to offer Employee / Manager / Admin
+// role pills with no verification whatsoever, so anyone who could reach this
+// screen could mint themselves an admin account and read the whole roster.
+// Self-registration now creates an `employee`, full stop. Managers and admins
+// are provisioned from the Admin Panel.
+//
+// Also fixed here:
+//   • There was no <form> and no submit button — only an Enter keypress in one
+//     of the two login inputs actually submitted anything, and signup had no
+//     keyboard path at all. Both modes are real forms now.
+//   • 0 of 5 inputs were label-associated. Every field has id/htmlFor,
+//     autoComplete, and the password fields have a visibility toggle.
+//   • The dev-account panel published admin and manager credentials in the UI
+//     behind a triple-tap. It is now behind `import.meta.env.DEV` so it cannot
+//     ship to production at all.
+//   • "Demo accounts available" was #3A3A3A on #0A0A0A — 1.74:1, invisible.
+//   • hero-glow.png was a 1.13 MB image rendered at opacity-10. It is a CSS
+//     gradient now (and the file has since been deleted).
+//   • A local `const t = (en, es) => …` shadowed the real t() from useLanguage.
+//     The local helper is `tx` and the real keys are used wherever they exist.
+// ─────────────────────────────────────────────────────────────────────────────
 
-import { useState, useRef, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef, useCallback, type ReactNode } from 'react';
+import { useNavigate, useLocation as useRouterLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ArrowLeft, LogIn, UserPlus, HelpCircle } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.08 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
@@ -31,14 +46,89 @@ const itemVariants = {
 
 type AuthMode = 'login' | 'signup';
 type UserLocation = 'andorra' | 'gibraltar';
-type UserRole = 'employee' | 'manager' | 'admin';
+
+/* ── Field primitives ────────────────────────────────────────────────────── */
+
+const FIELD =
+  'h-[52px] w-full rounded-card border border-line-strong bg-surface px-4 text-body text-ink placeholder:text-ink-3';
+
+function Field({
+  id,
+  label,
+  children,
+}: {
+  id: string;
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="mb-4">
+      <label htmlFor={id} className="mb-1.5 block text-caption font-semibold text-ink-2">
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function PasswordField({
+  id,
+  label,
+  value,
+  onChange,
+  autoComplete,
+  showLabel,
+  hideLabel,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  autoComplete: 'current-password' | 'new-password';
+  showLabel: string;
+  hideLabel: string;
+}) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <Field id={id} label={label}>
+      <div className="relative">
+        <input
+          id={id}
+          name={id}
+          type={visible ? 'text' : 'password'}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          autoComplete={autoComplete}
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
+          placeholder="••••••"
+          className={`${FIELD} pr-14`}
+        />
+        <button
+          type="button"
+          onClick={() => setVisible((v) => !v)}
+          aria-label={visible ? hideLabel : showLabel}
+          aria-pressed={visible}
+          className="absolute right-1 top-1/2 grid h-touch w-touch -translate-y-1/2 place-items-center rounded-full text-ink-2"
+        >
+          {visible ? <EyeOff size={19} aria-hidden="true" /> : <Eye size={19} aria-hidden="true" />}
+        </button>
+      </div>
+    </Field>
+  );
+}
+
+/* ── Page ────────────────────────────────────────────────────────────────── */
 
 export default function AuthPage() {
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const routerLocation = useRouterLocation();
+  const { language, setLanguage, t } = useLanguage();
   const { login, signup } = useAuthContext();
 
-  const [mode, setMode] = useState<AuthMode>('login');
+  const navState = routerLocation.state as { mode?: AuthMode; from?: string } | null;
+  const [mode, setMode] = useState<AuthMode>(navState?.mode === 'signup' ? 'signup' : 'login');
 
   // Login fields
   const [loginEmail, setLoginEmail] = useState('');
@@ -46,16 +136,15 @@ export default function AuthPage() {
   const [loginError, setLoginError] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
 
-  // Signup fields
+  // Signup fields. There is deliberately no role field: see the header note.
   const [suName, setSuName] = useState('');
   const [suEmail, setSuEmail] = useState('');
   const [suPassword, setSuPassword] = useState('');
   const [suLocation, setSuLocation] = useState<UserLocation>('andorra');
-  const [suRole, setSuRole] = useState<UserRole>('employee');
   const [suError, setSuError] = useState('');
   const [suLoading, setSuLoading] = useState(false);
 
-  // Triple-tap dev gesture to reveal default accounts
+  // Dev-only shortcut to the seeded accounts.
   const [devTapCount, setDevTapCount] = useState(0);
   const [showDevAccounts, setShowDevAccounts] = useState(false);
   const logoTapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -63,15 +152,8 @@ export default function AuthPage() {
   const handleLogoTap = useCallback(() => {
     const nextCount = devTapCount + 1;
     setDevTapCount(nextCount);
-
-    if (logoTapTimerRef.current) {
-      clearTimeout(logoTapTimerRef.current);
-    }
-
-    // Reset counter after 1.5s of inactivity
+    if (logoTapTimerRef.current) clearTimeout(logoTapTimerRef.current);
     logoTapTimerRef.current = setTimeout(() => setDevTapCount(0), 1500);
-
-    // Triple-tap triggers reveal
     if (nextCount >= 3) {
       setShowDevAccounts(true);
       setDevTapCount(0);
@@ -79,28 +161,31 @@ export default function AuthPage() {
     }
   }, [devTapCount]);
 
-  const t = (en: string, es: string) => (language === 'es' ? es : en);
+  /** Inline copy that has no key in translations.ts. Named `tx` so it cannot
+   *  shadow the real t() from useLanguage the way the old helper did. */
+  const tx = (en: string, es: string) => (language === 'es' ? es : en);
 
-  const handleLogin = async () => {
+  const landing = navState?.from || '/home';
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     setLoginError('');
     if (!loginEmail.trim() || !loginPassword.trim()) {
-      setLoginError(t('Please fill in all fields', 'Por favor complete todos los campos'));
+      setLoginError(tx('Please fill in all fields', 'Rellena todos los campos'));
       return;
     }
     setLoginLoading(true);
     const result = await login(loginEmail.trim(), loginPassword);
     setLoginLoading(false);
-    if (result.success) {
-      navigate('/home', { replace: true });
-    } else {
-      setLoginError(result.error || t('Invalid credentials', 'Credenciales inválidas'));
-    }
+    if (result.success) navigate(landing, { replace: true });
+    else setLoginError(result.error || tx('Invalid credentials', 'Credenciales incorrectas'));
   };
 
-  const handleSignup = async () => {
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
     setSuError('');
     if (!suName.trim() || !suEmail.trim() || !suPassword.trim()) {
-      setSuError(t('Please fill in all fields', 'Por favor complete todos los campos'));
+      setSuError(tx('Please fill in all fields', 'Rellena todos los campos'));
       return;
     }
     setSuLoading(true);
@@ -108,221 +193,368 @@ export default function AuthPage() {
       email: suEmail.trim(),
       name: suName.trim(),
       password: suPassword,
-      role: suRole,
+      // Never anything else. Elevated roles come from the Admin Panel.
+      role: 'employee',
       location: suLocation,
     });
     setSuLoading(false);
-    if (result.success) {
-      navigate('/home', { replace: true });
-    } else {
-      setSuError(result.error || t('Something went wrong', 'Algo salió mal'));
-    }
+    if (result.success) navigate('/home', { replace: true });
+    else setSuError(result.error || tx('Something went wrong', 'Algo ha ido mal'));
   };
 
-  const pillBase = 'px-4 py-2 rounded-full border text-xs font-semibold transition-all';
-  const pillInactive = 'border-[#2A2A2A] bg-[#111] text-[#8A8A8A]';
-  const pillActive = 'border-[#0ABAB5] bg-[#0ABAB5]/10 text-[#0ABAB5]';
+  const showPw = tx('Show password', 'Mostrar contraseña');
+  const hidePw = tx('Hide password', 'Ocultar contraseña');
+
+  const tabClass = (active: boolean) =>
+    `relative flex-1 inline-flex min-h-touch items-center justify-center gap-2 rounded-full text-button transition-colors ${
+      active ? 'text-ink' : 'text-ink-2'
+    }`;
+
+  const locationPill = (value: UserLocation, label: string) => (
+    <button
+      key={value}
+      type="button"
+      onClick={() => setSuLocation(value)}
+      aria-pressed={suLocation === value}
+      className={`flex-1 min-h-touch rounded-full border px-4 text-button transition-colors ${
+        suLocation === value
+          ? 'border-teal bg-teal-tint text-teal-strong'
+          : 'border-line bg-surface text-ink-2'
+      }`}
+    >
+      {label}
+    </button>
+  );
 
   return (
-    <div className="min-h-[100dvh] w-full bg-[#0A0A0A] flex justify-center relative overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-10">
-          <img src="/hero-glow.png" alt="" className="w-full h-full object-contain" aria-hidden="true" />
+    <div className="relative min-h-[100dvh] w-full overflow-hidden bg-background">
+      {/* Warm brand wash. Was a 1.13 MB PNG at opacity-10. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[60vh]"
+        style={{
+          background:
+            'radial-gradient(90% 55% at 12% 0%, rgb(var(--coral) / 0.22) 0%, transparent 60%),' +
+            'radial-gradient(85% 55% at 96% 10%, rgb(var(--gold) / 0.22) 0%, transparent 58%),' +
+            'radial-gradient(90% 60% at 50% 42%, rgb(var(--teal) / 0.14) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-app flex-col px-6 pb-8">
+        <div className="flex items-center justify-between pt-2">
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            className="-ml-2 inline-flex min-h-touch items-center gap-1 pr-3 text-body-small font-medium text-ink-2"
+          >
+            <ArrowLeft size={18} aria-hidden="true" /> {t('lessonBack')}
+          </button>
+
+          {/* The language toggle otherwise lives behind sign-in, which is no use
+              to a Spanish-speaking seller looking at an English front door. */}
+          <div
+            className="flex items-center rounded-full border border-line bg-surface p-0.5"
+            role="group"
+            aria-label={t('authLanguage')}
+          >
+            {(['en', 'es'] as const).map((lang) => (
+              <button
+                key={lang}
+                type="button"
+                onClick={() => setLanguage(lang)}
+                aria-pressed={language === lang}
+                className={`min-h-[36px] rounded-full px-3 text-caption font-semibold transition-colors ${
+                  language === lang ? 'bg-teal text-on-teal' : 'text-ink-2'
+                }`}
+              >
+                {lang === 'en' ? t('authEnglish') : t('authSpanish')}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="w-full max-w-[430px] relative z-10 flex flex-col min-h-[100dvh] px-6 py-8">
-        {/* Back button */}
-        <button onClick={() => navigate('/')} className="flex items-center gap-1 text-[#8A8A8A] hover:text-white transition-colors mb-6 w-fit">
-          <ArrowLeft size={18} /> {t('Back', 'Atrás')}
-        </button>
-
-        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex-1 flex flex-col">
-          {/* Logo — triple-tap to reveal dev accounts */}
-          <motion.div variants={itemVariants} className="flex justify-center mb-6">
-            <button onClick={handleLogoTap} className="relative">
-              <img src="/logo-white.png" alt="Zero Lines" className="w-20 mx-auto" />
-              {!showDevAccounts && (
-                <HelpCircle
-                  size={14}
-                  className="absolute -bottom-1 -right-3 text-[#3A3A3A]"
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-1 flex-col"
+        >
+          {/* ── Brand ── */}
+          <motion.div variants={itemVariants} className="mt-5 flex justify-center">
+            {import.meta.env.DEV ? (
+              <button type="button" onClick={handleLogoTap} aria-label="Zero Lines">
+                <img
+                  src="/logo-white.webp"
+                  alt="Zero Lines"
+                  width={448}
+                  height={550}
+                  className="h-auto w-[108px] rounded-card shadow-feature"
                 />
-              )}
-            </button>
+              </button>
+            ) : (
+              <img
+                src="/logo-white.webp"
+                alt="Zero Lines"
+                width={448}
+                height={550}
+                className="h-auto w-[108px] rounded-card shadow-feature"
+              />
+            )}
           </motion.div>
 
-          {/* Mode Toggle */}
-          <motion.div variants={itemVariants} className="flex gap-2 mb-8 bg-[#111] rounded-full p-1 border border-[#1A1A1A]">
-            <button
-              onClick={() => { setMode('login'); setLoginError(''); setSuError(''); }}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                mode === 'login' ? 'bg-[#0ABAB5] text-black' : 'text-[#8A8A8A]'
-              }`}
-            >
-              <LogIn size={16} /> {t('Sign In', 'Iniciar Sesión')}
-            </button>
-            <button
-              onClick={() => { setMode('signup'); setLoginError(''); setSuError(''); }}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                mode === 'signup' ? 'bg-[#0ABAB5] text-black' : 'text-[#8A8A8A]'
-              }`}
-            >
-              <UserPlus size={16} /> {t('New Account', 'Nueva Cuenta')}
-            </button>
+          {/* ── Mode toggle ── */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-7 flex gap-1 rounded-full border border-line bg-surface-sunken p-1"
+          >
+            {(['login', 'signup'] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => {
+                  setMode(m);
+                  setLoginError('');
+                  setSuError('');
+                }}
+                aria-pressed={mode === m}
+                className={tabClass(mode === m)}
+              >
+                {mode === m && (
+                  <motion.span
+                    layoutId="auth-tab"
+                    className="absolute inset-0 rounded-full bg-surface shadow-raised"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    aria-hidden="true"
+                  />
+                )}
+                <span className="relative z-10 inline-flex items-center gap-2">
+                  {m === 'login' ? (
+                    <LogIn size={17} aria-hidden="true" />
+                  ) : (
+                    <UserPlus size={17} aria-hidden="true" />
+                  )}
+                  {m === 'login'
+                    ? tx('Sign in', 'Iniciar sesión')
+                    : tx('New account', 'Nueva cuenta')}
+                </span>
+              </button>
+            ))}
           </motion.div>
 
-          {/* ── LOGIN MODE ── */}
+          {/* ── LOGIN ── */}
           {mode === 'login' && (
-            <>
+            <form onSubmit={handleLogin} className="flex flex-1 flex-col">
+              <motion.div variants={itemVariants} className="mb-7 mt-8">
+                <h1 className="font-brand text-display text-ink">
+                  {tx('Welcome back', 'Hola de nuevo')}
+                </h1>
+                <p className="mt-2 text-body text-ink-2">
+                  {tx('Sign in to pick up where you left off.', 'Inicia sesión y sigue donde lo dejaste.')}
+                </p>
+              </motion.div>
+
               <motion.div variants={itemVariants}>
-                <h1 className="text-2xl font-bold text-white mb-2">{t('Welcome Back', 'Bienvenido de Nuevo')}</h1>
-                <p className="text-sm text-[#8A8A8A] mb-6">{t('Sign in to your account', 'Inicia sesión en tu cuenta')}</p>
-              </motion.div>
+                <Field id="login-email" label={tx('Email', 'Correo electrónico')}>
+                  <input
+                    id="login-email"
+                    name="email"
+                    type="email"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    autoComplete="username"
+                    inputMode="email"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    placeholder="maria@zerolines.com"
+                    className={FIELD}
+                  />
+                </Field>
 
-              <motion.div variants={itemVariants} className="mb-4">
-                <label className="text-xs text-[#8A8A8A] mb-1.5 block">Email</label>
-                <Input
-                  type="email"
-                  value={loginEmail}
-                  onChange={(e) => setLoginEmail(e.target.value)}
-                  placeholder="admin@zerolines.com"
-                  onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
-                  className="bg-[#111] border-[#2A2A2A] text-white h-12 rounded-xl"
-                />
-              </motion.div>
-
-              <motion.div variants={itemVariants} className="mb-4">
-                <label className="text-xs text-[#8A8A8A] mb-1.5 block">{t('Password', 'Contraseña')}</label>
-                <Input
-                  type="password"
+                <PasswordField
+                  id="login-password"
+                  label={tx('Password', 'Contraseña')}
                   value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                  placeholder="••••••"
-                  onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
-                  className="bg-[#111] border-[#2A2A2A] text-white h-12 rounded-xl"
+                  onChange={setLoginPassword}
+                  autoComplete="current-password"
+                  showLabel={showPw}
+                  hideLabel={hidePw}
                 />
               </motion.div>
 
               {loginError && (
-                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-xs mb-4">{loginError}</motion.p>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  role="alert"
+                  className="rounded-chip bg-danger-tint px-3 py-2 text-body-small font-medium text-danger"
+                >
+                  {loginError}
+                </motion.p>
               )}
 
-              {/* Default accounts — hidden behind triple-tap dev gesture */}
-              {showDevAccounts ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-6 card-elevation-1 p-3"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{t('Dev Accounts', 'Cuentas de Desarrollo')}</p>
-                    <button
-                      onClick={() => setShowDevAccounts(false)}
-                      className="text-[10px] text-[#5A5A5A] hover:text-[#8A8A8A] transition-colors"
+              {/* Seeded credentials must never reach a production bundle. */}
+              {import.meta.env.DEV && (
+                <div className="mt-5">
+                  {showDevAccounts ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="surface-flat p-3"
                     >
-                      {t('Hide', 'Ocultar')}
-                    </button>
-                  </div>
-                  <div className="space-y-1.5">
-                    <button
-                      onClick={() => { setLoginEmail('admin@zerolines.com'); setLoginPassword('admin123'); }}
-                      className="w-full text-left px-3 py-2 rounded-lg bg-[#1A1A1A] border border-[#2A2A2A] hover:border-[#0ABAB5]/30 transition-colors"
-                    >
-                      <p className="text-xs text-[#8A8A8A] font-medium">Admin</p>
-                      <p className="text-[10px] text-[#5A5A5A]">admin@zerolines.com / admin123</p>
-                    </button>
-                    <button
-                      onClick={() => { setLoginEmail('manager.andorra@zerolines.com'); setLoginPassword('manager1'); }}
-                      className="w-full text-left px-3 py-2 rounded-lg bg-[#1A1A1A] border border-[#2A2A2A] hover:border-[#3A3A3A] transition-colors"
-                    >
-                      <p className="text-xs text-[#8A8A8A] font-medium">Manager Andorra</p>
-                      <p className="text-[10px] text-[#5A5A5A]">manager.andorra@zerolines.com / manager1</p>
-                    </button>
-                    <button
-                      onClick={() => { setLoginEmail('manager.gibraltar@zerolines.com'); setLoginPassword('manager2'); }}
-                      className="w-full text-left px-3 py-2 rounded-lg bg-[#1A1A1A] border border-[#2A2A2A] hover:border-[#3A3A3A] transition-colors"
-                    >
-                      <p className="text-xs text-[#8A8A8A] font-medium">Manager Gibraltar</p>
-                      <p className="text-[10px] text-[#5A5A5A]">manager.gibraltar@zerolines.com / manager2</p>
-                    </button>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  variants={itemVariants}
-                  className="mb-6 flex items-center justify-center gap-1.5 py-2"
-                >
-                  <p className="text-[11px] text-[#3A3A3A]">{t('Demo accounts available', 'Cuentas de demo disponibles')}</p>
-                  <HelpCircle size={12} className="text-[#3A3A3A]" />
-                </motion.div>
+                      <div className="mb-2 flex items-center justify-between">
+                        <p className="text-overline text-ink-3">
+                          {tx('Dev accounts', 'Cuentas de desarrollo')}
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setShowDevAccounts(false)}
+                          className="min-h-touch px-2 text-caption text-ink-2"
+                        >
+                          {tx('Hide', 'Ocultar')}
+                        </button>
+                      </div>
+                      <div className="space-y-1.5">
+                        {[
+                          ['Seller', 'maria@zerolines.com', 'emp1'],
+                          ['Manager', 'manager.andorra@zerolines.com', 'manager1'],
+                          ['Admin', 'admin@zerolines.com', 'admin123'],
+                        ].map(([role, email, pw]) => (
+                          <button
+                            key={email}
+                            type="button"
+                            onClick={() => {
+                              setLoginEmail(email);
+                              setLoginPassword(pw);
+                            }}
+                            className="w-full rounded-chip border border-line bg-surface-sunken px-3 py-2 text-left"
+                          >
+                            <p className="text-caption font-semibold text-ink">{role}</p>
+                            <p className="text-caption text-ink-3">
+                              {email} / {pw}
+                            </p>
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <p className="text-center text-caption text-ink-3">
+                      {tx(
+                        'Development build — triple-tap the logo for test accounts.',
+                        'Compilación de desarrollo — toca el logo tres veces para las cuentas de prueba.',
+                      )}
+                    </p>
+                  )}
+                </div>
               )}
 
-              <motion.div variants={itemVariants} className="mt-auto pb-4">
-                <Button
-                  onClick={handleLogin}
+              <motion.div variants={itemVariants} className="mt-auto pt-8">
+                <button
+                  type="submit"
                   disabled={loginLoading}
-                  className="w-full bg-[#0ABAB5] text-black font-semibold h-14 rounded-2xl text-base hover:bg-[#09a9a4]"
+                  className="btn-primary h-14 w-full text-button disabled:opacity-60"
                 >
-                  {loginLoading ? t('Signing in...', 'Iniciando...') : t('Sign In', 'Iniciar Sesión')}
-                </Button>
+                  {loginLoading
+                    ? tx('Signing in…', 'Iniciando sesión…')
+                    : tx('Sign in', 'Iniciar sesión')}
+                </button>
               </motion.div>
-            </>
+            </form>
           )}
 
-          {/* ── SIGNUP MODE ── */}
+          {/* ── SIGNUP ── */}
           {mode === 'signup' && (
-            <>
+            <form onSubmit={handleSignup} className="flex flex-1 flex-col">
+              <motion.div variants={itemVariants} className="mb-7 mt-8">
+                <h1 className="font-brand text-display text-ink">
+                  {tx('Create your account', 'Crea tu cuenta')}
+                </h1>
+                <p className="mt-2 text-body text-ink-2">
+                  {tx('Join your team on Zero Lines.', 'Únete a tu equipo en Zero Lines.')}
+                </p>
+              </motion.div>
+
               <motion.div variants={itemVariants}>
-                <h1 className="text-2xl font-bold text-white mb-2">{t('Create Account', 'Crear Cuenta')}</h1>
-                <p className="text-sm text-[#8A8A8A] mb-6">{t('Join your team on Zero Lines', 'Únete a tu equipo en Zero Lines')}</p>
-              </motion.div>
+                <Field id="signup-name" label={tx('Full name', 'Nombre completo')}>
+                  <input
+                    id="signup-name"
+                    name="name"
+                    type="text"
+                    value={suName}
+                    onChange={(e) => setSuName(e.target.value)}
+                    autoComplete="name"
+                    placeholder={t('authNamePlaceholder')}
+                    className={FIELD}
+                  />
+                </Field>
 
-              <motion.div variants={itemVariants} className="mb-4">
-                <label className="text-xs text-[#8A8A8A] mb-1.5 block">{t('Full Name', 'Nombre Completo')}</label>
-                <Input value={suName} onChange={(e) => setSuName(e.target.value)} placeholder="Maria Garcia" className="bg-[#111] border-[#2A2A2A] text-white h-12 rounded-xl" />
-              </motion.div>
+                <Field id="signup-email" label={tx('Email', 'Correo electrónico')}>
+                  <input
+                    id="signup-email"
+                    name="email"
+                    type="email"
+                    value={suEmail}
+                    onChange={(e) => setSuEmail(e.target.value)}
+                    autoComplete="email"
+                    inputMode="email"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    placeholder="maria@zerolines.com"
+                    className={FIELD}
+                  />
+                </Field>
 
-              <motion.div variants={itemVariants} className="mb-4">
-                <label className="text-xs text-[#8A8A8A] mb-1.5 block">Email</label>
-                <Input type="email" value={suEmail} onChange={(e) => setSuEmail(e.target.value)} placeholder="maria@zerolines.com" className="bg-[#111] border-[#2A2A2A] text-white h-12 rounded-xl" />
-              </motion.div>
+                <PasswordField
+                  id="signup-password"
+                  label={tx('Password', 'Contraseña')}
+                  value={suPassword}
+                  onChange={setSuPassword}
+                  autoComplete="new-password"
+                  showLabel={showPw}
+                  hideLabel={hidePw}
+                />
 
-              <motion.div variants={itemVariants} className="mb-4">
-                <label className="text-xs text-[#8A8A8A] mb-1.5 block">{t('Password', 'Contraseña')}</label>
-                <Input type="password" value={suPassword} onChange={(e) => setSuPassword(e.target.value)} placeholder="••••••" className="bg-[#111] border-[#2A2A2A] text-white h-12 rounded-xl" />
-              </motion.div>
+                <fieldset className="mb-4">
+                  <legend className="mb-1.5 block text-caption font-semibold text-ink-2">
+                    {t('authSelectLocation')}
+                  </legend>
+                  <div className="flex gap-2">
+                    {locationPill('andorra', t('authAndorra'))}
+                    {locationPill('gibraltar', t('authGibraltar'))}
+                  </div>
+                </fieldset>
 
-              <motion.div variants={itemVariants} className="mb-4">
-                <label className="text-xs text-[#8A8A8A] mb-2 block">{t('Location', 'Ubicación')}</label>
-                <div className="flex gap-2">
-                  <button onClick={() => setSuLocation('andorra')} className={`flex-1 ${pillBase} ${suLocation === 'andorra' ? pillActive : pillInactive}`}>Andorra</button>
-                  <button onClick={() => setSuLocation('gibraltar')} className={`flex-1 ${pillBase} ${suLocation === 'gibraltar' ? pillActive : pillInactive}`}>Gibraltar</button>
-                </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants} className="mb-6">
-                <label className="text-xs text-[#8A8A8A] mb-2 block">Role</label>
-                <div className="flex gap-2">
-                  <button onClick={() => setSuRole('employee')} className={`flex-1 ${pillBase} ${suRole === 'employee' ? pillActive : pillInactive}`}>{t('Employee', 'Empleado')}</button>
-                  <button onClick={() => setSuRole('manager')} className={`flex-1 ${pillBase} ${suRole === 'manager' ? pillActive : pillInactive}`}>{t('Manager', 'Manager')}</button>
-                  <button onClick={() => setSuRole('admin')} className={`flex-1 ${pillBase} ${suRole === 'admin' ? pillActive : pillInactive}`}>{t('Admin', 'Admin')}</button>
-                </div>
+                {/* Replaces the Employee / Manager / Admin pills. */}
+                <p className="text-caption text-ink-3">
+                  {tx(
+                    'New accounts are created as sellers. Managers and admins are set up by an administrator.',
+                    'Las cuentas nuevas se crean como vendedor. Los responsables y administradores los da de alta un administrador.',
+                  )}
+                </p>
               </motion.div>
 
               {suError && (
-                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-xs mb-4">{suError}</motion.p>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  role="alert"
+                  className="mt-4 rounded-chip bg-danger-tint px-3 py-2 text-body-small font-medium text-danger"
+                >
+                  {suError}
+                </motion.p>
               )}
 
-              <motion.div variants={itemVariants} className="mt-auto pb-4">
-                <Button
-                  onClick={handleSignup}
+              <motion.div variants={itemVariants} className="mt-auto pt-8">
+                <button
+                  type="submit"
                   disabled={suLoading}
-                  className="w-full bg-[#0ABAB5] text-black font-semibold h-14 rounded-2xl text-base hover:bg-[#09a9a4]"
+                  className="btn-primary h-14 w-full text-button disabled:opacity-60"
                 >
-                  {suLoading ? t('Creating...', 'Creando...') : t('Create Account', 'Crear Cuenta')}
-                </Button>
+                  {suLoading ? tx('Creating…', 'Creando…') : tx('Create account', 'Crear cuenta')}
+                </button>
               </motion.div>
-            </>
+            </form>
           )}
         </motion.div>
       </div>

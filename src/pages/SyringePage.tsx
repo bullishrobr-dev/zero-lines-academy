@@ -1,620 +1,354 @@
-import { useState, useCallback } from 'react';
-import { useLocation } from '../contexts/LocationContext';
-import { useLanguage } from '../contexts/LanguageContext';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+// ─────────────────────────────────────────────────────────────────────────────
+// SyringePage — the flagship deep-dive. Accent: teal.
+//
+// Prices come from SYRINGE_LADDER in src/data/pricing.ts; nothing on this page
+// types a number. Every authored string goes through `t()`, which picks the
+// Spanish field when there is one, falls back to English when there is not,
+// and resolves {currency} / {locationName} for the seller's shop.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { useCallback, type ReactNode } from 'react';
 import {
-  ChevronLeft,
-  Eye,
+  Clock,
   Crown,
-  Copy,
-  Check,
-  MessageCircle,
-  Sparkles,
+  Eye,
   HeartHandshake,
+  Lightbulb,
+  MessageCircle,
+  ScanEye,
+  ShieldCheck,
+  Sparkles,
   TrendingDown,
   Users,
-  Lightbulb,
-  ChevronDown,
-  ChevronUp,
-  ShieldCheck,
-  Clock,
-  Euro,
-  ScanEye,
   Volume2,
 } from 'lucide-react';
-import { syringeData, getLocalizedPriceSteps } from '../data/syringeData';
+import OfferCard from '../components/OfferCard';
+import PriceLadder, { type LadderRung } from '../components/PriceLadder';
+import ProductHero from '../components/ProductHero';
+import ProductSection, {
+  CurrencyIcon,
+  ProductPage,
+  QuickRefGrid,
+  ScriptBlock,
+  StepRow,
+} from '../components/ProductSection';
+import { useLanguage } from '../contexts/LanguageContext';
+import { SYRINGE_LADDER } from '../data/pricing';
+import { syringeData } from '../data/syringeData';
+import { useCurrency } from '../utils/currency';
 
-/* ------------------------------------------------------------------ */
-/*  Animation helpers                                                  */
-/* ------------------------------------------------------------------ */
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] as const },
-  }),
-};
+const d = syringeData;
+const L = SYRINGE_LADDER;
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
+/** A named rung's total, straight from the single source of truth. */
+const stepPrice = (id: string) => L.steps.find((s) => s.id === id)?.price ?? L.base;
+const stepUnits = (id: string) => L.steps.find((s) => s.id === id)?.units;
+
 export default function SyringePage() {
-  const navigate = useNavigate();
-  const { currency, locationName } = useLocation();
   const { language } = useLanguage();
+  const { price, priceFor, sub } = useCurrency();
   const isEs = language === 'es';
 
-  const priceSteps = getLocalizedPriceSteps(currency, locationName, isEs);
-  const [openPriceIndex, setOpenPriceIndex] = useState<number | null>(2);
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  /** Localised + currency-resolved, with an English fallback per field. */
+  const t = useCallback(
+    (en?: string, es?: string) => sub((isEs && es) || en || es || ''),
+    [isEs, sub]
+  );
 
-  const copyPrice = useCallback((price: string, index: number) => {
-    navigator.clipboard?.writeText(price).catch(() => {});
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 1500);
-  }, []);
+  const forWord = isEs ? 'por' : 'for';
+  const ps = d.priceSteps;
+  const pl = d.priceLadder;
 
-  const togglePrice = (i: number) =>
-    setOpenPriceIndex((prev) => (prev === i ? null : i));
+  const rungs: LadderRung[] = [
+    {
+      id: 'europe',
+      amount: L.europeAnchor,
+      tone: 'anchor',
+      label: t(ps.europeLabel, ps.europeLabelEs),
+      note: t(ps.europeDescription, ps.europeDescriptionEs),
+      script: t(ps.europeScript, ps.europeScriptEs),
+    },
+    {
+      id: 'base',
+      amount: L.base,
+      label: t(ps.locationLabel, ps.locationLabelEs),
+      note: t(ps.locationDescription, ps.locationDescriptionEs),
+      script: t(ps.locationScript, ps.locationScriptEs),
+    },
+    {
+      id: 'promo',
+      amount: stepPrice('promo'),
+      recommended: true,
+      label: t(ps.promoLabel, ps.promoLabelEs),
+      note: t(ps.promoDescription, ps.promoDescriptionEs),
+      script: t(ps.promoScript, ps.promoScriptEs),
+      hint: t(pl.highlightHint, pl.highlightHintEs),
+    },
+    {
+      id: 'no-gift',
+      amount: stepPrice('no-gift'),
+      label: t(ps.noGiftLabel, ps.noGiftLabelEs),
+      note: t(ps.noGiftDescription, ps.noGiftDescriptionEs),
+      script: t(ps.noGiftScript, ps.noGiftScriptEs),
+    },
+    {
+      id: 'voucher',
+      amount: stepPrice('voucher'),
+      label: t(ps.voucherLabel, ps.voucherLabelEs),
+      note: t(ps.voucherDescription, ps.voucherDescriptionEs),
+      script: t(ps.voucherScript, ps.voucherScriptEs),
+      hint: t(pl.voucherHint, pl.voucherHintEs),
+    },
+    {
+      id: 'floor',
+      amount: L.floor,
+      tone: 'floor',
+      label: t(ps.minimumLabel, ps.minimumLabelEs),
+      note: t(ps.minimumDescription, ps.minimumDescriptionEs),
+      script: t(ps.minimumScript, ps.minimumScriptEs),
+      hint: t(pl.minimumWarning, pl.minimumWarningEs),
+    },
+  ];
 
-  const d = syringeData;
-
-  /* Map icon names to components for Pro Tips */
-  const iconMap: Record<string, React.ReactNode> = {
-    Euro: <Euro className="w-4 h-4" />,
-    Eye: <Eye className="w-4 h-4" />,
-    Users: <Users className="w-4 h-4" />,
-    MessageCircle: <MessageCircle className="w-4 h-4" />,
-    ShieldCheck: <ShieldCheck className="w-4 h-4" />,
-    TrendingDown: <TrendingDown className="w-4 h-4" />,
-    HeartHandshake: <HeartHandshake className="w-4 h-4" />,
-    Sparkles: <Sparkles className="w-4 h-4" />,
+  const tipIcon: Record<string, ReactNode> = {
+    Euro: <CurrencyIcon size={16} />,
+    Eye: <Eye size={16} />,
+    Users: <Users size={16} />,
+    MessageCircle: <MessageCircle size={16} />,
+    ShieldCheck: <ShieldCheck size={16} />,
+    TrendingDown: <TrendingDown size={16} />,
+    HeartHandshake: <HeartHandshake size={16} />,
+    Sparkles: <Sparkles size={16} />,
   };
 
   return (
-    <div className="min-h-full bg-[#0A0A0A]">
-      {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0D1F1F] to-[#0A0A0A] px-5 pt-6 pb-8">
-        {/* Decorative glow */}
-        <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-[#0ABAB5] opacity-10 blur-3xl pointer-events-none" />
+    <ProductPage accent="teal">
+      <ProductHero
+        backLabel={t(d.hero.backButton, d.hero.backButtonEs)}
+        badge={t(d.hero.badge, d.hero.badgeEs)}
+        badgeIcon={<Crown size={14} />}
+        title={t(d.hero.title, d.hero.titleEs)}
+        subtitle={t(d.hero.subtitle, d.hero.subtitleEs)}
+        subtitleIcon={<Eye size={18} />}
+        stats={[
+          {
+            icon: <Clock size={18} />,
+            label: t(d.stats.useLabel, d.stats.useLabelEs),
+            value: t(d.stats.useValue, d.stats.useValueEs),
+          },
+          {
+            icon: <ShieldCheck size={18} />,
+            label: t(d.stats.lastsLabel, d.stats.lastsLabelEs),
+            value: t(d.stats.lastsValue, d.stats.lastsValueEs),
+          },
+          {
+            icon: <Sparkles size={18} />,
+            label: t(d.stats.resultsLabel, d.stats.resultsLabelEs),
+            value: t(d.stats.resultsValue, d.stats.resultsValueEs),
+          },
+        ]}
+      />
 
-        {/* Back button */}
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-1 text-[#8A8A8A] hover:text-white transition-colors mb-5"
+      <div className="px-5 pb-8 space-y-5">
+        {/* ── THE HOOK ── */}
+        <ProductSection
+          index={0}
+          icon={<Volume2 size={18} />}
+          title={t(d.hook.sectionTitle, d.hook.sectionTitleEs)}
         >
-          <ChevronLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">
-            {isEs ? d.hero.backButtonEs : d.hero.backButton}
-          </span>
-        </button>
-
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="inline-flex items-center gap-1.5 bg-[#0ABAB5]/15 border border-[#0ABAB5]/30 rounded-full px-3 py-1 mb-4"
-        >
-          <Crown className="w-3.5 h-3.5 text-[#0ABAB5]" />
-          <span className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider">
-            {isEs ? d.hero.badgeEs : d.hero.badge}
-          </span>
-        </motion.div>
-
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-[28px] font-extrabold text-white leading-tight tracking-tight"
-        >
-          {isEs ? d.hero.titleEs : d.hero.title}
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="flex items-center gap-2 text-[#0ABAB5] text-base font-medium mt-2"
-        >
-          <Eye className="w-4 h-4" />
-          {isEs ? d.hero.subtitleEs : d.hero.subtitle}
-        </motion.p>
-
-        {/* Key stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-3 gap-2 mt-5"
-        >
-          <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
-            <Clock className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-              {isEs ? d.stats.useLabelEs : d.stats.useLabel}
-            </p>
-            <p className="text-xs font-bold text-white">
-              {isEs ? d.stats.useValueEs : d.stats.useValue}
-            </p>
-          </div>
-          <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
-            <ShieldCheck className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-              {isEs ? d.stats.lastsLabelEs : d.stats.lastsLabel}
-            </p>
-            <p className="text-xs font-bold text-white">
-              {isEs ? d.stats.lastsValueEs : d.stats.lastsValue}
-            </p>
-          </div>
-          <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
-            <Sparkles className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-              {isEs ? d.stats.resultsLabelEs : d.stats.resultsLabel}
-            </p>
-            <p className="text-xs font-bold text-white">
-              {isEs ? d.stats.resultsValueEs : d.stats.resultsValue}
-            </p>
-          </div>
-        </motion.div>
-      </section>
-
-      <div className="px-5 pb-10 space-y-6">
-        {/* ─── THE HOOK ─── */}
-        <motion.section
-          custom={0}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Volume2 className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">
-              {isEs ? d.hook.sectionTitleEs : d.hook.sectionTitle}
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {/* Script 1 */}
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
-              <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                {isEs ? d.hook.script1LabelEs : d.hook.script1Label}
-              </p>
-              <p className="text-[15px] text-white leading-relaxed font-serif italic">
-                {isEs ? d.hook.script1TextEs : d.hook.script1Text}
-              </p>
-              <p className="text-[13px] text-[#8A8A8A] mt-2 leading-relaxed">
-                {isEs ? d.hook.script1InstructionEs : d.hook.script1Instruction}{' '}
-                <em className="text-white/80">
-                  {isEs ? d.hook.script1ContinuationEs : d.hook.script1Continuation}
-                </em>
-              </p>
-            </div>
-
-            {/* Script 2 */}
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
-              <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                {isEs ? d.hook.script2LabelEs : d.hook.script2Label}
-              </p>
-              <p className="text-[13px] text-white leading-relaxed italic font-serif">
-                {isEs ? d.hook.script2TextEs : d.hook.script2Text}
-              </p>
-              <p className="text-[13px] text-[#8A8A8A] mt-2">
-                {isEs ? d.hook.script2InstructionEs : d.hook.script2Instruction}{' '}
-                <em className="text-white/80">
-                  {isEs ? d.hook.script2ContinuationEs : d.hook.script2Continuation}
-                </em>
-              </p>
-            </div>
-
-            {/* Script 3 */}
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
-              <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                {isEs ? d.hook.script3LabelEs : d.hook.script3Label}
-              </p>
-              <p className="text-[13px] text-white leading-relaxed italic font-serif">
-                {isEs ? d.hook.script3TextEs : d.hook.script3Text}
-              </p>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* ─── THE DEMO ─── */}
-        <motion.section
-          custom={1}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <ScanEye className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">
-              {isEs ? d.demo.sectionTitleEs : d.demo.sectionTitle}
-            </h2>
-          </div>
-
           <div className="space-y-3">
+            <ScriptBlock
+              label={t(d.hook.script1Label, d.hook.script1LabelEs)}
+              quote={t(d.hook.script1Text, d.hook.script1TextEs)}
+              note={
+                <>
+                  {t(d.hook.script1Instruction, d.hook.script1InstructionEs)}{' '}
+                  <em className="text-ink">
+                    {t(d.hook.script1Continuation, d.hook.script1ContinuationEs)}
+                  </em>
+                </>
+              }
+            />
+            <ScriptBlock
+              label={t(d.hook.script2Label, d.hook.script2LabelEs)}
+              quote={t(d.hook.script2Text, d.hook.script2TextEs)}
+              note={
+                <>
+                  {t(d.hook.script2Instruction, d.hook.script2InstructionEs)}{' '}
+                  <em className="text-ink">
+                    {t(d.hook.script2Continuation, d.hook.script2ContinuationEs)}
+                  </em>
+                </>
+              }
+            />
+            <ScriptBlock
+              label={t(d.hook.script3Label, d.hook.script3LabelEs)}
+              quote={t(d.hook.script3Text, d.hook.script3TextEs)}
+            />
+          </div>
+        </ProductSection>
+
+        {/* ── THE DEMO ── */}
+        <ProductSection
+          index={1}
+          icon={<ScanEye size={18} />}
+          title={t(d.demo.sectionTitle, d.demo.sectionTitleEs)}
+        >
+          <div className="space-y-2.5">
             {d.demo.steps.map((item) => (
-              <div
+              <StepRow
                 key={item.step}
-                className="flex gap-3 bg-[#0A0A0A] rounded-xl p-4"
+                step={item.step}
+                title={t(item.title, item.titleEs)}
+                highlight={item.step === '6'}
               >
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#0ABAB5]/20 flex items-center justify-center mt-0.5">
-                  <span className="text-xs font-bold text-[#0ABAB5]">{item.step}</span>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-white mb-1">
-                    {isEs ? item.titleEs : item.title}
-                  </p>
-                  <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
-                    {isEs ? item.textEs : item.text}
-                  </p>
-                </div>
-              </div>
+                <p className="text-body-small text-ink-2">{t(item.text, item.textEs)}</p>
+              </StepRow>
             ))}
           </div>
-        </motion.section>
+        </ProductSection>
 
-        {/* ─── PARTNER UPSELL ─── */}
-        <motion.section
-          custom={2}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-gradient-to-br from-[#0ABAB5]/10 to-[#1A1A1A] rounded-2xl p-5 border border-[#0ABAB5]/25"
+        {/* ── PARTNER UPSELL ── */}
+        <ProductSection
+          index={2}
+          variant="feature"
+          icon={<Users size={18} />}
+          title={t(d.partnerUpsell.sectionTitle, d.partnerUpsell.sectionTitleEs)}
+          subtitle={t(d.partnerUpsell.subtitle, d.partnerUpsell.subtitleEs)}
         >
-          <div className="flex items-center gap-2 mb-3">
-            <Users className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">
-              {isEs ? d.partnerUpsell.sectionTitleEs : d.partnerUpsell.sectionTitle}
-            </h2>
-          </div>
-          <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-            {isEs ? d.partnerUpsell.subtitleEs : d.partnerUpsell.subtitle}
+          <p className="text-body-small text-ink-2 mb-3">
+            {t(d.partnerUpsell.description, d.partnerUpsell.descriptionEs)}
           </p>
-          <p className="text-[13px] text-[#B0B0B0] leading-relaxed mb-3">
-            {isEs ? d.partnerUpsell.descriptionEs : d.partnerUpsell.description}
-          </p>
-          <div className="bg-[#0A0A0A]/60 rounded-xl p-4 space-y-3">
-            <p className="text-[14px] text-white italic font-serif leading-relaxed">
-              {isEs ? d.partnerUpsell.script1Es : d.partnerUpsell.script1}
-            </p>
-            <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
-              {isEs ? d.partnerUpsell.option2IntroEs : d.partnerUpsell.option2Intro}{' '}
-              <em className="text-white/80">
-                {isEs
-                  ? d.partnerUpsell.option2ScriptEs.replace(/{currency}/g, currency).replace(/{locationName}/g, locationName)
-                  : d.partnerUpsell.option2Script.replace(/{currency}/g, currency).replace(/{locationName}/g, locationName)}
+          <ScriptBlock quote={t(d.partnerUpsell.script1, d.partnerUpsell.script1Es)} />
+          <div className="mt-3 space-y-2">
+            <p className="text-body-small text-ink-2">
+              {t(d.partnerUpsell.option2Intro, d.partnerUpsell.option2IntroEs)}{' '}
+              <em className="text-ink">
+                {t(d.partnerUpsell.option2Script, d.partnerUpsell.option2ScriptEs)}
               </em>
             </p>
-            <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
-              {isEs ? d.partnerUpsell.advancedLabelEs : d.partnerUpsell.advancedLabel}{' '}
-              <em className="text-white/80">
-                {isEs ? d.partnerUpsell.advancedScriptEs : d.partnerUpsell.advancedScript}
+            <p className="text-body-small text-ink-2">
+              {t(d.partnerUpsell.advancedLabel, d.partnerUpsell.advancedLabelEs)}{' '}
+              <em className="text-ink">
+                {t(d.partnerUpsell.advancedScript, d.partnerUpsell.advancedScriptEs)}
               </em>
             </p>
           </div>
-        </motion.section>
+        </ProductSection>
 
-        {/* ─── INTERACTIVE PRICE LADDER ─── */}
-        <motion.section
-          custom={3}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
+        {/* ── THE PRICE LADDER ── */}
+        <ProductSection
+          index={3}
+          icon={<TrendingDown size={18} />}
+          title={t(pl.sectionTitle, pl.sectionTitleEs)}
+          subtitle={t(pl.description, pl.descriptionEs)}
         >
-          <div className="flex items-center gap-2 mb-1">
-            <TrendingDown className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">
-              {isEs ? d.priceLadder.sectionTitleEs : d.priceLadder.sectionTitle}
-            </h2>
-          </div>
-          <p className="text-[12px] text-[#8A8A8A] mb-4">
-            {isEs ? d.priceLadder.descriptionEs : d.priceLadder.description}
-          </p>
+          <PriceLadder rungs={rungs} anchor={L.europeAnchor} />
+        </ProductSection>
 
-          <div className="space-y-2">
-            {priceSteps.map((step, i) => (
-              <div
-                key={i}
-                className={`rounded-xl border overflow-hidden transition-colors ${
-                  step.isMinimum
-                    ? 'border-red-500/30 bg-red-500/5'
-                    : step.isVoucher
-                    ? 'border-[#0ABAB5]/40 bg-[#0ABAB5]/8'
-                    : step.isHighlight
-                    ? 'border-[#0ABAB5]/30 bg-[#0ABAB5]/10'
-                    : 'border-[#2A2A2A] bg-[#0A0A0A]'
-                }`}
-              >
-                {/* Price row — clickable */}
-                <button
-                  onClick={() => togglePrice(i)}
-                  className="w-full flex items-center justify-between px-4 py-3.5 text-left"
+        {/* ── OFFER 2 — the second-syringe upsell, not a step down ── */}
+        <ProductSection
+          index={4}
+          icon={<Sparkles size={18} />}
+          title={t(d.offer2.sectionTitle, d.offer2.sectionTitleEs)}
+        >
+          <OfferCard
+            highlight
+            title={t(d.offer2.whatTheyGetValue, d.offer2.whatTheyGetValueEs)}
+            price={priceFor(stepPrice('second-free'), stepUnits('second-free') ?? 2, forWord)}
+            subtitle={t(d.offer2.description, d.offer2.descriptionEs).replace(/<\/?strong>/g, '')}
+            items={[
+              `${t(d.offer2.treatsLabel, d.offer2.treatsLabelEs)} ${t(d.offer2.treatsValue, d.offer2.treatsValueEs)}`,
+            ]}
+            scriptLabel={t(d.offer2.scriptLabel, d.offer2.scriptLabelEs)}
+            script={t(d.offer2.script, d.offer2.scriptEs)}
+          />
+        </ProductSection>
+
+        {/* ── VOUCHER CLOSE ── */}
+        <ProductSection
+          index={5}
+          icon={<HeartHandshake size={18} />}
+          title={t(d.voucherClose.sectionTitle, d.voucherClose.sectionTitleEs)}
+        >
+          <div className="space-y-3">
+            <ScriptBlock
+              label={t(d.voucherClose.exactWordsLabel, d.voucherClose.exactWordsLabelEs)}
+              quote={`“${t(d.voucherClose.voucherScript, d.voucherClose.voucherScriptEs)}”`}
+            />
+            <ScriptBlock
+              label={t(d.voucherClose.twoPromisesLabel, d.voucherClose.twoPromisesLabelEs)}
+              quote={t(d.voucherClose.twoPromisesScript, d.voucherClose.twoPromisesScriptEs)}
+            />
+            <ScriptBlock
+              label={t(d.voucherClose.whatsappLabel, d.voucherClose.whatsappLabelEs)}
+              quote={t(d.voucherClose.whatsappScript, d.voucherClose.whatsappScriptEs)}
+              note={t(d.voucherClose.whatsappNote, d.voucherClose.whatsappNoteEs)}
+            />
+          </div>
+        </ProductSection>
+
+        {/* ── PRO TIPS ── */}
+        <ProductSection
+          index={6}
+          icon={<Lightbulb size={18} />}
+          title={t(d.proTips.sectionTitle, d.proTips.sectionTitleEs)}
+        >
+          <ul className="space-y-2.5">
+            {d.proTips.tips.map((tip) => (
+              <li key={tip.title} className="flex gap-3 rounded-card bg-surface-sunken p-3.5">
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 w-9 h-9 rounded-chip flex items-center justify-center bg-[rgb(var(--pa-tint))] text-[rgb(var(--pa-strong))]"
                 >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className={`font-mono text-xl font-bold ${
-                        step.isMinimum
-                          ? 'text-red-400'
-                          : step.isVoucher
-                          ? 'text-[#0ABAB5]'
-                          : step.isHighlight
-                          ? 'text-[#0ABAB5]'
-                          : 'text-white'
-                      }`}
-                    >
-                      {step.price}
-                    </span>
-                    <div>
-                      <p className="text-sm font-medium text-white">{step.label}</p>
-                      <p className="text-[11px] text-[#8A8A8A]">{step.description}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        copyPrice(step.price, i);
-                      }}
-                      className="p-1.5 rounded-lg bg-[#1A1A1A] hover:bg-[#2A2A2A] transition-colors"
-                    >
-                      {copiedIndex === i ? (
-                        <Check className="w-3.5 h-3.5 text-green-400" />
-                      ) : (
-                        <Copy className="w-3.5 h-3.5 text-[#8A8A8A]" />
-                      )}
-                    </button>
-                    {openPriceIndex === i ? (
-                      <ChevronUp className="w-4 h-4 text-[#8A8A8A]" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-[#8A8A8A]" />
-                    )}
-                  </div>
-                </button>
-
-                {/* Expanded script */}
-                <AnimatePresence>
-                  {openPriceIndex === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-4 pb-4 pt-1 border-t border-[#2A2A2A]/50">
-                        <p className="text-[11px] font-semibold text-[#8A8A8A] uppercase tracking-wider mb-1.5 mt-2">
-                          {isEs ? d.priceLadder.whatToSayEs : d.priceLadder.whatToSay}
-                        </p>
-                        <p className="text-[14px] text-white/90 italic font-serif leading-relaxed bg-[#1A1A1A] rounded-lg p-3">
-                          {step.script}
-                        </p>
-                        {step.isMinimum && (
-                          <p className="text-[11px] text-red-400 mt-2">
-                            {isEs ? d.priceLadder.minimumWarningEs : d.priceLadder.minimumWarning}
-                          </p>
-                        )}
-                        {step.isVoucher && (
-                          <p className="text-[11px] text-[#0ABAB5] mt-2">
-                            {isEs ? d.priceLadder.voucherHintEs : d.priceLadder.voucherHint}
-                          </p>
-                        )}
-                        {step.isHighlight && (
-                          <p className="text-[11px] text-[#0ABAB5] mt-2">
-                            {isEs ? d.priceLadder.highlightHintEs : d.priceLadder.highlightHint}
-                          </p>
-                        )}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  {tipIcon[tip.icon] ?? <Sparkles size={16} />}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-body-small font-semibold text-ink">
+                    {t(tip.title, tip.titleEs)}
+                  </span>
+                  <span className="block text-body-small text-ink-2 mt-0.5">
+                    {t(tip.text, tip.textEs)}
+                  </span>
+                </span>
+              </li>
             ))}
-          </div>
-        </motion.section>
+          </ul>
+        </ProductSection>
 
-        {/* ─── VOUCHER CLOSE ─── */}
-        <motion.section
-          custom={4}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
+        {/* ── QUICK REFERENCE ── */}
+        <ProductSection
+          index={7}
+          variant="feature"
+          icon={<Crown size={18} />}
+          title={t(d.quickRef.sectionTitle, d.quickRef.sectionTitleEs)}
         >
-          <div className="flex items-center gap-2 mb-4">
-            <HeartHandshake className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">
-              {isEs ? d.voucherClose.sectionTitleEs : d.voucherClose.sectionTitle}
-            </h2>
-          </div>
-
-          <div className="bg-gradient-to-r from-[#0ABAB5]/10 to-transparent rounded-xl p-4 border-l-3 border-[#0ABAB5] mb-3">
-            <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-              {isEs ? d.voucherClose.exactWordsLabelEs : d.voucherClose.exactWordsLabel}
-            </p>
-            <p className="text-[14px] text-white italic font-serif leading-relaxed mb-3">
-              &quot;{isEs
-                ? d.voucherClose.voucherScriptEs.replace(/{currency}/g, currency)
-                : d.voucherClose.voucherScript.replace(/{currency}/g, currency)
-              }&quot;
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <div className="bg-[#0A0A0A] rounded-xl p-4">
-              <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                {isEs ? d.voucherClose.twoPromisesLabelEs : d.voucherClose.twoPromisesLabel}
-              </p>
-              <p className="text-[13px] text-white leading-relaxed italic font-serif">
-                {isEs ? d.voucherClose.twoPromisesScriptEs : d.voucherClose.twoPromisesScript}
-              </p>
-            </div>
-
-            <div className="bg-[#0A0A0A] rounded-xl p-4">
-              <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                {isEs ? d.voucherClose.whatsappLabelEs : d.voucherClose.whatsappLabel}
-              </p>
-              <p className="text-[13px] text-white leading-relaxed italic font-serif">
-                {isEs ? d.voucherClose.whatsappScriptEs : d.voucherClose.whatsappScript}
-              </p>
-              <p className="text-[12px] text-[#8A8A8A] mt-2">
-                {isEs ? d.voucherClose.whatsappNoteEs : d.voucherClose.whatsappNote}
-              </p>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* ─── OFFER 2 ─── */}
-        <motion.section
-          custom={5}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">
-              {isEs
-                ? d.offer2.sectionTitleEs.replace('{currency}', currency)
-                : d.offer2.sectionTitle.replace('{currency}', currency)}
-            </h2>
-          </div>
-          <p className="text-[13px] text-[#B0B0B0] leading-relaxed mb-3">
-            {isEs
-              ? d.offer2.descriptionEs.replace(/{locationName}/g, locationName).replace(/{currency}/g, currency)
-              : d.offer2.description.replace(/{locationName}/g, locationName).replace(/{currency}/g, currency)}
+          <QuickRefGrid
+            items={[
+              {
+                label: t(d.quickRef.useLabel, d.quickRef.useLabelEs),
+                value: t(d.quickRef.useValue, d.quickRef.useValueEs),
+              },
+              {
+                label: t(d.quickRef.lastsLabel, d.quickRef.lastsLabelEs),
+                value: t(d.quickRef.lastsValue, d.quickRef.lastsValueEs),
+              },
+              {
+                label: t(d.quickRef.resultsLabel, d.quickRef.resultsLabelEs),
+                value: t(d.quickRef.resultsValue, d.quickRef.resultsValueEs),
+              },
+              {
+                label: t(d.quickRef.ruleLabel, d.quickRef.ruleLabelEs),
+                value: t(d.quickRef.ruleValue, d.quickRef.ruleValueEs),
+              },
+            ]}
+          />
+          <p className="text-caption text-ink-2 mt-3">
+            {isEs ? 'Nunca por debajo de' : 'Never below'}{' '}
+            <span className="text-danger font-bold">{price(L.floor)}</span>
           </p>
-          <div className="bg-[#0A0A0A] rounded-xl p-4">
-            <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-              {isEs ? d.offer2.scriptLabelEs : d.offer2.scriptLabel}
-            </p>
-            <p className="text-[14px] text-white italic font-serif leading-relaxed">
-              {isEs
-                ? d.offer2.scriptEs.replace(/{currency}/g, currency).replace(/{locationName}/g, locationName)
-                : d.offer2.script.replace(/{currency}/g, currency).replace(/{locationName}/g, locationName)}
-            </p>
-          </div>
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="bg-[#0A0A0A] rounded-lg p-3 text-center">
-              <p className="text-[10px] text-[#8A8A8A] uppercase">
-                {isEs ? d.offer2.whatTheyGetLabelEs : d.offer2.whatTheyGetLabel}
-              </p>
-              <p className="text-xs font-bold text-white mt-1">
-                {isEs ? d.offer2.whatTheyGetValueEs : d.offer2.whatTheyGetValue}
-              </p>
-            </div>
-            <div className="bg-[#0A0A0A] rounded-lg p-3 text-center">
-              <p className="text-[10px] text-[#8A8A8A] uppercase">
-                {isEs ? d.offer2.treatsLabelEs : d.offer2.treatsLabel}
-              </p>
-              <p className="text-xs font-bold text-white mt-1">
-                {isEs ? d.offer2.treatsValueEs : d.offer2.treatsValue}
-              </p>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* ─── PRO TIPS ─── */}
-        <motion.section
-          custom={6}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Lightbulb className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">
-              {isEs ? d.proTips.sectionTitleEs : d.proTips.sectionTitle}
-            </h2>
-          </div>
-
-          <div className="space-y-3">
-            {d.proTips.tips.map((tip, i) => (
-              <div
-                key={i}
-                className="flex gap-3 bg-[#0A0A0A] rounded-xl p-3.5"
-              >
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#0ABAB5]/15 flex items-center justify-center text-[#0ABAB5]">
-                  {iconMap[tip.icon]}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-white">
-                    {isEs ? tip.titleEs : tip.title}
-                  </p>
-                  <p className="text-[12px] text-[#8A8A8A] leading-relaxed mt-0.5">
-                    {isEs
-                      ? tip.textEs.replace(/{currency}/g, currency)
-                      : tip.text.replace(/{currency}/g, currency)}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* ─── Quick Reference Card ─── */}
-        <motion.section
-          custom={7}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-gradient-to-br from-[#0ABAB5]/15 to-[#1A1A1A] rounded-2xl p-5 border border-[#0ABAB5]/25 mb-8"
-        >
-          <h3 className="text-sm font-bold text-[#0ABAB5] mb-3 uppercase tracking-wider">
-            {isEs ? d.quickRef.sectionTitleEs : d.quickRef.sectionTitle}
-          </h3>
-          <div className="grid grid-cols-2 gap-2 text-[12px]">
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">
-                {isEs ? d.quickRef.useLabelEs : d.quickRef.useLabel}
-              </span>{' '}
-              <span className="text-white font-medium">
-                {isEs ? d.quickRef.useValueEs : d.quickRef.useValue}
-              </span>
-            </div>
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">
-                {isEs ? d.quickRef.lastsLabelEs : d.quickRef.lastsLabel}
-              </span>{' '}
-              <span className="text-white font-medium">
-                {isEs ? d.quickRef.lastsValueEs : d.quickRef.lastsValue}
-              </span>
-            </div>
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">
-                {isEs ? d.quickRef.resultsLabelEs : d.quickRef.resultsLabel}
-              </span>{' '}
-              <span className="text-white font-medium">
-                {isEs ? d.quickRef.resultsValueEs : d.quickRef.resultsValue}
-              </span>
-            </div>
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">
-                {isEs ? d.quickRef.ruleLabelEs : d.quickRef.ruleLabel}
-              </span>{' '}
-              <span className="text-white font-medium">
-                {isEs ? d.quickRef.ruleValueEs : d.quickRef.ruleValue}
-              </span>
-            </div>
-          </div>
-        </motion.section>
+        </ProductSection>
       </div>
-    </div>
+    </ProductPage>
   );
 }

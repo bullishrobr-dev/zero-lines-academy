@@ -158,6 +158,7 @@ export default function LessonQuiz() {
           startVelocity: 45,
           gravity: 0.9,
           ticks: 140,
+          disableForReducedMotion: true,
           origin: { x: i === 0 ? 0.25 : 0.75, y: 0.75 },
           colors: CONFETTI_GOLD,
         });

@@ -1,278 +1,276 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Zap, Flame, Hand, DoorOpen, Coins, Trophy, DoorClosed } from 'lucide-react';
 import { useStreetTracker } from '../hooks/useStreetTracker';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useCurrency } from '../utils/currency';
 import QuickLogButtons from '../components/QuickLogButtons';
 import SaleLogModal from '../components/SaleLogModal';
 import BetweenShiftsCard from '../components/BetweenShiftsCard';
 import { PRODUCTS } from '../types/streetTracker';
 import type { StreetSession, DailySummary } from '../types/streetTracker';
 
-const t = {
+const COPY = {
   en: {
     title: 'Street Tracker',
-    todayStats: "Today's Performance",
+    subtitle: 'Log it the second it happens',
+    todayStats: "Today's performance",
     stops: 'Stops',
     brings: 'Brings',
     sales: 'Sales',
     revenue: 'Revenue',
-    conversionRate: 'Conversion Rate',
-    personalBests: 'Personal Bests',
-    bestStops: 'Best Stops',
-    bestBrings: 'Best Brings',
-    bestSales: 'Best Sales',
-    bestRevenue: 'Best Revenue',
-    weekTrend: '7-Day Trend',
-    activityLog: 'Activity Log',
-    noActivity: "No activity yet today. Let's get out there!",
-    justNow: 'Just now',
+    stop: 'Stop',
+    bring: 'Bring',
+    sale: 'Sale',
+    conversionRate: 'Conversion rate',
+    personalBests: 'Personal bests',
+    bestStops: 'Best stops',
+    bestBrings: 'Best brings',
+    bestSales: 'Best sales',
+    bestRevenue: 'Best revenue',
+    weekTrend: '7-day trend',
+    activity: 'Activity',
+    revenueLegend: 'Revenue',
+    noActivity: 'Nothing logged yet today. Get out there.',
+    justNow: 'just now',
     minsAgo: 'm ago',
     hrsAgo: 'h ago',
-    xpToday: 'XP Today',
+    xpToday: 'XP today',
     dayStreak: 'day streak',
-    saleNote: 'Sale:',
-    noteLabel: 'Note:',
   },
   es: {
     title: 'Tracker de Calle',
-    todayStats: 'Rendimiento de Hoy',
+    subtitle: 'Regístralo en el momento',
+    todayStats: 'Rendimiento de hoy',
     stops: 'Paradas',
     brings: 'Adentro',
     sales: 'Ventas',
     revenue: 'Ingresos',
-    conversionRate: 'Tasa de Conversión',
-    personalBests: 'Mejores Marcas',
-    bestStops: 'Mejores Paradas',
-    bestBrings: 'Mejores Adentro',
-    bestSales: 'Mejores Ventas',
-    bestRevenue: 'Mejores Ingresos',
-    weekTrend: 'Tendencia 7 Días',
-    activityLog: 'Registro de Actividad',
-    noActivity: 'Sin actividad aún hoy. ¡Vamos allá!',
-    justNow: 'Ahora mismo',
+    stop: 'Parada',
+    bring: 'Adentro',
+    sale: 'Venta',
+    conversionRate: 'Tasa de conversión',
+    personalBests: 'Mejores marcas',
+    bestStops: 'Mejores paradas',
+    bestBrings: 'Mejores adentro',
+    bestSales: 'Mejores ventas',
+    bestRevenue: 'Mejores ingresos',
+    weekTrend: 'Tendencia 7 días',
+    activity: 'Actividad',
+    revenueLegend: 'Ingresos',
+    noActivity: 'Aún no has registrado nada hoy. Sal ahí fuera.',
+    justNow: 'ahora mismo',
     minsAgo: 'm',
     hrsAgo: 'h',
-    xpToday: 'XP Hoy',
-    dayStreak: 'días racha',
-    saleNote: 'Venta:',
-    noteLabel: 'Nota:',
+    xpToday: 'XP hoy',
+    dayStreak: 'días de racha',
   },
 };
 
-function timeAgo(timestamp: number, lang: 'en' | 'es'): string {
+type Copy = (typeof COPY)['en'];
+
+const VISITS_KEY = 'zl_tracker_visits';
+
+function timeAgo(timestamp: number, t: Copy): string {
   const mins = Math.floor((Date.now() - timestamp) / 60000);
-  if (mins < 1) return t[lang].justNow;
-  if (mins < 60) return `${mins}${t[lang].minsAgo}`;
-  const hrs = Math.floor(mins / 60);
-  return `${hrs}${t[lang].hrsAgo}`;
+  if (mins < 1) return t.justNow;
+  if (mins < 60) return `${mins}${t.minsAgo}`;
+  return `${Math.floor(mins / 60)}${t.hrsAgo}`;
 }
 
-function formatCurrency(amount: number): string {
-  return `€${amount.toLocaleString()}`;
+/** Weekday initials for the trend chart, in the seller's language. */
+function weekdayLabel(key: string, isEs: boolean): string {
+  const [y, m, d] = key.split('-').map(Number);
+  if (!y || !m || !d) return '';
+  return new Date(y, m - 1, d)
+    .toLocaleDateString(isEs ? 'es-ES' : 'en-GB', { weekday: 'short' })
+    .slice(0, 3);
 }
 
-function formatDateLabel(dateKey: string): string {
-  const d = new Date(dateKey + 'T00:00:00');
-  return d.toLocaleDateString('en', { weekday: 'short' }).slice(0, 3);
-}
+// ── Activity row ────────────────────────────────────────────────────────────
 
-const ActivityItem: React.FC<{ session: StreetSession; lang: 'en' | 'es' }> = ({
+// Tints rather than solid fills: there is no `on-violet` ink token, and a
+// coloured fill without its matching ink is exactly how contrast gets lost.
+const ACTIVITY_STYLE = {
+  stop: { fill: 'bg-teal-tint text-teal-strong', ink: 'text-teal-strong', xp: '+2' },
+  bring: { fill: 'bg-violet-tint text-violet-strong', ink: 'text-violet-strong', xp: '+5' },
+  sale: { fill: 'bg-gold-tint text-gold-strong', ink: 'text-gold-strong', xp: '+10' },
+} as const;
+
+const ActivityRow: React.FC<{ session: StreetSession; t: Copy; isEs: boolean; money: (n: number) => string }> = ({
   session,
-  lang,
+  t,
+  isEs,
+  money,
 }) => {
   const product = PRODUCTS.find((p) => p.id === session.productId);
-  const productName = product ? (lang === 'es' ? product.nameEs : product.name) : '';
-
-  const icon =
-    session.type === 'stop' ? '🛑' : session.type === 'bring' ? '🚪' : '💰';
-  const color =
-    session.type === 'stop'
-      ? 'text-[#0ABAB5] bg-[#0ABAB5]/10 border-[#0ABAB5]/20'
-      : session.type === 'bring'
-      ? 'text-[#22C55E] bg-[#22C55E]/10 border-[#22C55E]/20'
-      : 'text-[#F59E0B] bg-[#F59E0B]/10 border-[#F59E0B]/20';
-  const label =
-    session.type === 'stop'
-      ? '+2'
-      : session.type === 'bring'
-      ? '+5'
-      : '+10';
+  const productName = product ? (isEs ? product.nameEs : product.name) : '';
+  const style = ACTIVITY_STYLE[session.type];
+  const Icon = session.type === 'stop' ? Hand : session.type === 'bring' ? DoorOpen : Coins;
+  const label = session.type === 'stop' ? t.stop : session.type === 'bring' ? t.bring : t.sale;
 
   return (
-    <motion.div
+    <motion.li
       layout
-      initial={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: -12 }}
       animate={{ opacity: 1, x: 0 }}
-      className="flex items-start gap-3 py-2.5 border-b border-gray-800/40 last:border-b-0"
+      className="flex items-start gap-3 border-b border-line py-2.5 last:border-b-0"
     >
       <div
-        className={`w-9 h-9 rounded-full flex items-center justify-center text-base border flex-shrink-0 mt-0.5 ${color}`}
+        className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${style.fill}`}
       >
-        {icon}
+        <Icon className="h-4 w-4" aria-hidden="true" />
       </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-white capitalize">
-            {session.type === 'stop'
-              ? t[lang].stops.slice(0, -1)
-              : session.type === 'bring'
-              ? t[lang].brings.slice(0, -1)
-              : t[lang].sales.slice(0, -1)}
-          </span>
-          <div className="flex items-center gap-2">
-            <span className={`text-xs font-bold ${color.split(' ')[0]}`}>{label} XP</span>
-            <span className="text-[10px] text-gray-500">{timeAgo(session.timestamp, lang)}</span>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-body-small font-semibold text-ink">{label}</span>
+          <div className="flex shrink-0 items-center gap-2">
+            <span className={`text-caption font-bold ${style.ink}`}>{style.xp} XP</span>
+            <span className="text-caption text-ink-3">{timeAgo(session.timestamp, t)}</span>
           </div>
         </div>
         {session.type === 'sale' && productName && (
-          <p className="text-xs text-[#F59E0B]/80 mt-0.5">
-            {t[lang].saleNote} {productName} — {formatCurrency(session.amount || 0)}
+          <p className="mt-0.5 text-caption text-gold-strong">
+            {productName} — {money(session.amount || 0)}
           </p>
         )}
-        {session.note && (
-          <p className="text-[11px] text-gray-400 mt-0.5 italic truncate">{session.note}</p>
-        )}
+        {session.note && <p className="mt-0.5 truncate text-caption italic text-ink-3">{session.note}</p>}
       </div>
-    </motion.div>
+    </motion.li>
   );
 };
+
+// ── Small pieces ────────────────────────────────────────────────────────────
 
 const StatCard: React.FC<{
   label: string;
   value: string | number;
-  color: string;
-  icon: string;
+  ink: string;
+  tint: string;
+  icon: React.ReactNode;
   delay?: number;
-}> = ({ label, value, color, icon, delay = 0 }) => (
+}> = ({ label, value, ink, tint, icon, delay = 0 }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={{ opacity: 0, y: 14 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay }}
-    className="bg-[#141414] rounded-xl p-3 border border-gray-800/50"
+    className="surface-flat p-3"
   >
-    <div className="flex items-center gap-1.5 mb-1.5">
-      <span className="text-sm">{icon}</span>
-      <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wider">{label}</span>
+    <div className="mb-1.5 flex items-center gap-1.5">
+      <span className={`flex h-6 w-6 items-center justify-center rounded-chip ${tint} ${ink}`}>
+        {icon}
+      </span>
+      <span className="truncate text-caption font-medium text-ink-2">{label}</span>
     </div>
-    <p className="text-2xl font-bold" style={{ color }}>
-      {value}
-    </p>
+    <p className={`text-h2 tabular-nums ${ink}`}>{value}</p>
   </motion.div>
 );
 
-const ConversionGauge: React.FC<{ rate: number }> = ({ rate }) => {
-  const clamped = Math.min(rate, 100);
-  const getColor = () => {
-    if (clamped >= 50) return '#22C55E';
-    if (clamped >= 25) return '#0ABAB5';
-    if (clamped >= 10) return '#F59E0B';
-    return '#EF4444';
-  };
-  const color = getColor();
+const ConversionGauge: React.FC<{ rate: number; label: string }> = ({ rate, label }) => {
+  const clamped = Math.min(Math.max(rate, 0), 100);
+  const tone =
+    clamped >= 50
+      ? { bar: 'bg-success', ink: 'text-success' }
+      : clamped >= 25
+        ? { bar: 'bg-teal', ink: 'text-teal-strong' }
+        : clamped >= 10
+          ? { bar: 'bg-warning', ink: 'text-warning' }
+          : { bar: 'bg-danger', ink: 'text-danger' };
 
   return (
-    <div className="bg-[#141414] rounded-xl p-4 border border-gray-800/50">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wider">
-          Conversion Rate
-        </span>
-        <span className="text-lg font-bold" style={{ color }}>
-          {rate}%
-        </span>
+    <div className="surface-flat p-4">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <span className="text-overline text-ink-3">{label}</span>
+        <span className={`text-h3 tabular-nums ${tone.ink}`}>{rate}%</span>
       </div>
-      <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden">
+      <div
+        className="h-3 w-full overflow-hidden rounded-full bg-surface-sunken"
+        role="progressbar"
+        aria-valuenow={clamped}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={label}
+      >
         <motion.div
-          className="h-full rounded-full"
-          style={{ backgroundColor: color }}
+          className={`h-full rounded-full ${tone.bar}`}
           initial={{ width: 0 }}
           animate={{ width: `${clamped}%` }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         />
       </div>
-      <div className="flex justify-between mt-1.5">
-        <span className="text-[9px] text-gray-600">0%</span>
-        <span className="text-[9px] text-gray-600">50%</span>
-        <span className="text-[9px] text-gray-600">100%</span>
+      <div className="mt-1.5 flex justify-between text-caption text-ink-3">
+        <span>0%</span>
+        <span>50%</span>
+        <span>100%</span>
       </div>
     </div>
   );
 };
 
-const WeekChart: React.FC<{ data: DailySummary[]; lang: 'en' | 'es' }> = ({ data, lang }) => {
+const WeekChart: React.FC<{ data: DailySummary[]; t: Copy; isEs: boolean }> = ({ data, t, isEs }) => {
   const maxVal = Math.max(...data.map((d) => d.stops + d.brings + d.sales), 1);
 
   return (
-    <div className="bg-[#141414] rounded-xl p-4 border border-gray-800/50">
-      <h3 className="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3">
-        {t[lang].weekTrend}
-      </h3>
-      <div className="flex items-end justify-between gap-1.5 h-28">
+    <div className="surface-flat p-4">
+      <h3 className="mb-3 text-overline text-ink-3">{t.weekTrend}</h3>
+      <div className="flex h-28 items-end justify-between gap-1.5">
         {data.map((day, i) => {
           const total = day.stops + day.brings + day.sales;
           const pct = total === 0 ? 0 : (total / maxVal) * 100;
-          // Revenue indicator could be added here as a dot overlay
           return (
-            <div key={day.date} className="flex-1 flex flex-col items-center gap-1.5">
-              <div className="w-full flex-1 flex items-end justify-center gap-0.5">
-                {/* Activity bar */}
+            <div key={day.date} className="flex flex-1 flex-col items-center gap-1.5">
+              <div className="flex w-full flex-1 items-end justify-center">
                 <motion.div
-                  className="w-full max-w-[18px] rounded-t-md"
-                  style={{ backgroundColor: '#0ABAB5' }}
+                  className="w-full max-w-[18px] rounded-t-chip bg-teal"
                   initial={{ height: 0 }}
                   animate={{ height: `${Math.max(pct, 4)}%` }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  transition={{ delay: i * 0.06, duration: 0.45 }}
                 />
               </div>
-              {/* Revenue dot indicator */}
-              {day.revenue > 0 && (
-                <div
-                  className="w-1.5 h-1.5 rounded-full bg-[#F59E0B]"
-                  title={`€${day.revenue}`}
-                />
-              )}
-              {day.revenue === 0 && <div className="w-1.5 h-1.5" />}
-              <span className="text-[9px] text-gray-500">{formatDateLabel(day.date)}</span>
+              <div
+                className={`h-1.5 w-1.5 rounded-full ${day.revenue > 0 ? 'bg-gold' : 'bg-transparent'}`}
+              />
+              <span className="text-caption text-ink-3">{weekdayLabel(day.date, isEs)}</span>
             </div>
           );
         })}
       </div>
-      {/* Legend */}
-      <div className="flex items-center gap-3 mt-2 pt-2 border-t border-gray-800/30">
-        <div className="flex items-center gap-1">
-          <div className="w-2 h-2 rounded-sm bg-[#0ABAB5]" />
-          <span className="text-[9px] text-gray-500">Activity</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-2 h-2 rounded-full bg-[#F59E0B]" />
-          <span className="text-[9px] text-gray-500">Revenue</span>
-        </div>
+      <div className="mt-2 flex items-center gap-4 border-t border-line pt-2">
+        <span className="flex items-center gap-1.5 text-caption text-ink-3">
+          <span className="h-2 w-2 rounded-sm bg-teal" />
+          {t.activity}
+        </span>
+        <span className="flex items-center gap-1.5 text-caption text-ink-3">
+          <span className="h-2 w-2 rounded-full bg-gold" />
+          {t.revenueLegend}
+        </span>
       </div>
     </div>
   );
 };
 
-const PersonalBestBadge: React.FC<{
-  label: string;
-  value: string | number;
-  color: string;
-  delay?: number;
-}> = ({ label, value, color, delay = 0 }) => (
+const PersonalBest: React.FC<{ label: string; value: string | number; delay?: number }> = ({
+  label,
+  value,
+  delay = 0,
+}) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
+    initial={{ opacity: 0, scale: 0.96 }}
     animate={{ opacity: 1, scale: 1 }}
-    transition={{ delay, type: 'spring', stiffness: 300 }}
-    className="flex items-center gap-2 bg-[#0A0A0A] rounded-lg px-3 py-2 border border-gray-800/40"
+    transition={{ delay, type: 'spring', stiffness: 280 }}
+    className="flex items-center gap-2 rounded-card border border-line bg-surface-sunken px-3 py-2"
   >
-    <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: `${color}20` }}>
-      <span className="text-xs">🏆</span>
-    </div>
-    <div>
-      <p className="text-[9px] text-gray-400 uppercase tracking-wider">{label}</p>
-      <p className="text-sm font-bold" style={{ color }}>
-        {value}
-      </p>
+    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold text-on-gold">
+      <Trophy className="h-3.5 w-3.5" aria-hidden="true" />
+    </span>
+    <div className="min-w-0">
+      <p className="truncate text-caption text-ink-3">{label}</p>
+      <p className="text-body-small font-bold tabular-nums text-ink">{value}</p>
     </div>
   </motion.div>
 );
+
+// ── Page ────────────────────────────────────────────────────────────────────
 
 const StreetTrackerPage: React.FC = () => {
   const {
@@ -285,16 +283,50 @@ const StreetTrackerPage: React.FC = () => {
     getStreak,
   } = useStreetTracker();
 
-  const [lang, setLang] = useState<'en' | 'es'>('en');
-  const [showSaleModal, setShowSaleModal] = useState(false);
-  const [showBetweenShifts, setShowBetweenShifts] = useState(() => {
-    const visits = parseInt(localStorage.getItem('zl_tracker_visits') || '0', 10);
-    localStorage.setItem('zl_tracker_visits', String(visits + 1));
-    return visits >= 2;
-  });
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+  const t = COPY[isEs ? 'es' : 'en'];
 
-  const txt = t[lang];
-  const todayKey = new Date().toISOString().slice(0, 10);
+  // Gibraltar sells in £. This page hardcoded `€${amount}`, so a Gibraltar
+  // seller logged pound takings into a euro-labelled field all shift.
+  const { currency } = useCurrency();
+  const money = useMemo(
+    () => (amount: number) => `${currency}${amount.toLocaleString(isEs ? 'es-ES' : 'en-GB')}`,
+    [currency, isEs]
+  );
+
+  const [showSaleModal, setShowSaleModal] = useState(false);
+
+  // A state initializer must be PURE — React may call it twice, and under
+  // StrictMode it does. This one wrote to localStorage, so the visit counter
+  // jumped by two per mount and the "between shifts" prompt appeared a visit
+  // early. Read here, write in the effect below.
+  const [visitCount] = useState(() => {
+    try {
+      const n = parseInt(localStorage.getItem(VISITS_KEY) || '0', 10);
+      return Number.isFinite(n) ? n : 0;
+    } catch {
+      return 0;
+    }
+  });
+  const [showBetweenShifts, setShowBetweenShifts] = useState(visitCount >= 2);
+
+  const counted = useRef(false);
+  useEffect(() => {
+    if (counted.current) return;
+    counted.current = true;
+    try {
+      localStorage.setItem(VISITS_KEY, String(visitCount + 1));
+    } catch {
+      /* non-fatal */
+    }
+  }, [visitCount]);
+
+  const todayKey = useMemo(() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }, []);
+
   const todayLogs = useMemo(() => getTodayLogs(), [getTodayLogs]);
   const summary = useMemo(() => getDailySummary(todayKey), [getDailySummary, todayKey]);
   const weekData = useMemo(() => getWeekSummary(), [getWeekSummary]);
@@ -306,59 +338,40 @@ const StreetTrackerPage: React.FC = () => {
   const bestSales = useMemo(() => getPersonalBest('sales'), [getPersonalBest]);
   const bestRevenue = useMemo(() => getPersonalBest('revenue'), [getPersonalBest]);
 
-  const handleLogStop = () => logActivity('stop');
-  const handleLogBring = () => logActivity('bring');
-  const handleLogSale = () => setShowSaleModal(true);
-
-  const handleSaleSubmit = (productId: string, amount: number, note: string) => {
-    logActivity('sale', productId, amount, note || undefined);
-  };
-
-  // Force re-render on log by using a key derived from sessions count
-  const [, setTick] = useState(0);
-  const refresh = () => setTick((t) => t + 1);
-
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white max-w-[430px] mx-auto relative pb-36">
+    // Clearance for the fixed quick-log bar. Layout already adds the nav pill's
+    // own padding to <main>, so this only has to cover the bar itself.
+    <div className="relative min-h-screen bg-background pb-32 text-ink">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-gray-800/40">
-        <div className="flex items-center justify-between px-4 py-3">
-          <div>
-            <h1 className="text-lg font-bold text-white">{txt.title}</h1>
-            <p className="text-[10px] text-gray-500">Zero Lines Training Academy</p>
+      <header className="sticky top-0 z-40 border-b border-line bg-background/95 backdrop-blur-md">
+        <div className="mx-auto flex max-w-app items-center justify-between gap-3 px-4 py-3">
+          <div className="min-w-0">
+            <h1 className="truncate text-h4 text-ink">{t.title}</h1>
+            <p className="truncate text-caption text-ink-3">{t.subtitle}</p>
           </div>
-          <div className="flex items-center gap-2">
-            {/* XP Badge */}
-            <div className="flex items-center gap-1 bg-[#0ABAB5]/10 border border-[#0ABAB5]/20 rounded-full px-2.5 py-1">
-              <span className="text-xs">⚡</span>
-              <span className="text-xs font-bold text-[#0ABAB5]">{totalXP} XP</span>
-            </div>
-            {/* Streak */}
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="flex items-center gap-1 rounded-full bg-teal-tint px-2.5 py-1">
+              <Zap className="h-3.5 w-3.5 text-teal-strong" aria-hidden="true" />
+              <span className="text-caption font-bold tabular-nums text-teal-strong">
+                {totalXP} XP
+              </span>
+            </span>
             {streak > 1 && (
-              <div className="flex items-center gap-1 bg-orange-500/10 border border-orange-500/20 rounded-full px-2.5 py-1">
-                <span className="text-xs">🔥</span>
-                <span className="text-xs font-bold text-orange-400">
-                  {streak} {t[lang].dayStreak}
+              <span className="flex items-center gap-1 rounded-full bg-coral-tint px-2.5 py-1">
+                <Flame className="h-3.5 w-3.5 text-coral-strong" aria-hidden="true" />
+                <span className="text-caption font-bold text-coral-strong">
+                  {streak} {t.dayStreak}
                 </span>
-              </div>
+              </span>
             )}
-            {/* Language Toggle */}
-            <button
-              onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
-              className="w-8 h-8 rounded-full bg-gray-800 text-[10px] font-bold text-gray-300 flex items-center justify-center"
-            >
-              {lang === 'en' ? 'ES' : 'EN'}
-            </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="px-4 pt-4 space-y-4">
-        {/* Between Shifts Card */}
+      <div className="mx-auto max-w-app space-y-5 px-4 pt-4">
         <AnimatePresence>
           {showBetweenShifts && (
             <BetweenShiftsCard
-              lang={lang}
               onFlashcardSprint={() => setShowBetweenShifts(false)}
               onScenarioDrill={() => setShowBetweenShifts(false)}
               onTechniqueReminder={() => setShowBetweenShifts(false)}
@@ -367,104 +380,93 @@ const StreetTrackerPage: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* Today's Stats Grid */}
-        <div>
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-0.5">
-            {txt.todayStats}
-          </h2>
+        {/* Today */}
+        <section>
+          <h2 className="mb-2 text-overline text-ink-3">{t.todayStats}</h2>
           <div className="grid grid-cols-2 gap-2.5">
-            <StatCard label={txt.stops} value={summary.stops} color="#0ABAB5" icon="🛑" delay={0} />
-            <StatCard label={txt.brings} value={summary.brings} color="#22C55E" icon="🚪" delay={0.05} />
-            <StatCard label={txt.sales} value={summary.sales} color="#F59E0B" icon="💰" delay={0.1} />
             <StatCard
-              label={txt.revenue}
-              value={formatCurrency(summary.revenue)}
-              color="#F59E0B"
-              icon="💶"
-              delay={0.15}
+              label={t.stops}
+              value={summary.stops}
+              ink="text-teal-strong"
+              tint="bg-teal-tint"
+              icon={<Hand className="h-3.5 w-3.5" aria-hidden="true" />}
             />
-          </div>
-        </div>
-
-        {/* Conversion Rate Gauge */}
-        <ConversionGauge rate={summary.conversionRate} />
-
-        {/* Personal Bests */}
-        <div>
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-0.5">
-            {txt.personalBests}
-          </h2>
-          <div className="grid grid-cols-2 gap-2">
-            <PersonalBestBadge label={txt.bestStops} value={bestStops} color="#0ABAB5" delay={0} />
-            <PersonalBestBadge
-              label={txt.bestBrings}
-              value={bestBrings}
-              color="#22C55E"
+            <StatCard
+              label={t.brings}
+              value={summary.brings}
+              ink="text-violet-strong"
+              tint="bg-violet-tint"
+              icon={<DoorOpen className="h-3.5 w-3.5" aria-hidden="true" />}
               delay={0.05}
             />
-            <PersonalBestBadge label={txt.bestSales} value={bestSales} color="#F59E0B" delay={0.1} />
-            <PersonalBestBadge
-              label={txt.bestRevenue}
-              value={formatCurrency(bestRevenue)}
-              color="#F59E0B"
+            <StatCard
+              label={t.sales}
+              value={summary.sales}
+              ink="text-gold-strong"
+              tint="bg-gold-tint"
+              icon={<Coins className="h-3.5 w-3.5" aria-hidden="true" />}
+              delay={0.1}
+            />
+            <StatCard
+              label={t.revenue}
+              value={money(summary.revenue)}
+              ink="text-coral-strong"
+              tint="bg-coral-tint"
+              icon={<span className="text-caption font-bold">{currency}</span>}
               delay={0.15}
             />
           </div>
-        </div>
+        </section>
 
-        {/* Week Trend Chart */}
-        <WeekChart data={weekData} lang={lang} />
+        <ConversionGauge rate={summary.conversionRate} label={t.conversionRate} />
 
-        {/* Activity Log */}
-        <div>
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-0.5">
-            {txt.activityLog}
-          </h2>
-          <div className="bg-[#141414] rounded-xl p-4 border border-gray-800/50">
+        {/* Personal bests */}
+        <section>
+          <h2 className="mb-2 text-overline text-ink-3">{t.personalBests}</h2>
+          <div className="grid grid-cols-2 gap-2">
+            <PersonalBest label={t.bestStops} value={bestStops} />
+            <PersonalBest label={t.bestBrings} value={bestBrings} delay={0.05} />
+            <PersonalBest label={t.bestSales} value={bestSales} delay={0.1} />
+            <PersonalBest label={t.bestRevenue} value={money(bestRevenue)} delay={0.15} />
+          </div>
+        </section>
+
+        <WeekChart data={weekData} t={t} isEs={isEs} />
+
+        {/* Activity log */}
+        <section>
+          <h2 className="mb-2 text-overline text-ink-3">{t.activity}</h2>
+          <div className="surface-flat p-4">
             {todayLogs.length === 0 ? (
-              <div className="text-center py-8">
-                <span className="text-3xl block mb-2">🚪</span>
-                <p className="text-sm text-gray-500">{txt.noActivity}</p>
+              <div className="py-8 text-center">
+                <DoorClosed className="mx-auto mb-2 h-8 w-8 text-ink-3" aria-hidden="true" />
+                <p className="text-body-small text-ink-2">{t.noActivity}</p>
               </div>
             ) : (
-              <div className="max-h-64 overflow-y-auto pr-1">
-                <AnimatePresence>
+              <ul className="max-h-64 overflow-y-auto pr-1">
+                <AnimatePresence initial={false}>
                   {todayLogs.map((log) => (
-                    <ActivityItem key={log.id} session={log} lang={lang} />
+                    <ActivityRow key={log.id} session={log} t={t} isEs={isEs} money={money} />
                   ))}
                 </AnimatePresence>
-              </div>
+              </ul>
             )}
           </div>
-        </div>
-
-        {/* Bottom spacer for fixed buttons */}
-        <div className="h-4" />
+        </section>
       </div>
 
-      {/* Quick Log Buttons - Fixed Bottom */}
       <QuickLogButtons
-        onLogStop={() => {
-          handleLogStop();
-          refresh();
-        }}
-        onLogBring={() => {
-          handleLogBring();
-          refresh();
-        }}
-        onLogSale={handleLogSale}
-        lang={lang}
+        onLogStop={() => logActivity('stop')}
+        onLogBring={() => logActivity('bring')}
+        onLogSale={() => setShowSaleModal(true)}
       />
 
-      {/* Sale Log Modal */}
       <SaleLogModal
         isOpen={showSaleModal}
         onClose={() => setShowSaleModal(false)}
-        onSubmit={(productId, amount, note) => {
-          handleSaleSubmit(productId, amount, note);
-          refresh();
-        }}
-        lang={lang}
+        onSubmit={(productId, amount, note) =>
+          logActivity('sale', productId, amount, note || undefined)
+        }
       />
     </div>
   );

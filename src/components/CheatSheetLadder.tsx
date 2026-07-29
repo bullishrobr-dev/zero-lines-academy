@@ -42,7 +42,7 @@ function Rung({ rung, index, anchor, accent }: { rung: LadderRung; index: number
         ? `bg-surface border-2 ${a.border} shadow-raised`
         : 'surface-flat';
   const chip = isFloor
-    ? tr(language, 'Hard minimum — never below', 'Mínimo absoluto — nunca por debajo')
+    ? tr(language, 'Never go below', 'Nunca bajes de aquí')
     : rung.recommended
       ? tr(language, 'Open here', 'Empieza aquí')
       : rung.tone === 'upsell'

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { Check, Flame, Target } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-export interface Challenge {
+interface Challenge {
   id: string;
   text: string;
   textEs: string;
@@ -213,5 +213,3 @@ export default function DailyChallengeCard({
     </motion.div>
   );
 }
-
-export { ALL_CHALLENGES, getTodaysChallenge };

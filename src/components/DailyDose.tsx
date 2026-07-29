@@ -5,7 +5,7 @@
 // highlightEs, practicePromptEs) and was never rendered. It is now.
 // ─────────────────────────────────────────────────────────────
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Check, Clock, X, Lightbulb, MessageSquare, Wand2, Brain, Award } from 'lucide-react';
 import { useDailyFlow } from '../hooks/useDailyFlow';
@@ -144,10 +144,20 @@ export function DailyDoseModal({ isOpen, onClose, onCompleted }: DailyDoseModalP
     onCompleted?.(dose.xpReward);
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setMarkedDone(false);
     onClose();
-  };
+  }, [onClose]);
+
+  // A bottom sheet that cannot be dismissed from the keyboard is a trap.
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, handleClose]);
 
   return (
     <AnimatePresence>
@@ -156,7 +166,10 @@ export function DailyDoseModal({ isOpen, onClose, onCompleted }: DailyDoseModalP
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 backdrop-blur-sm"
+          /* z-[60] clears the floating nav pill (z-50); the scrim is neutral
+             black in both themes because a scrim must darken, and `--ink`
+             inverts to near-white in dark mode. */
+          className="fixed inset-0 z-[60] flex items-end justify-center bg-black/50 backdrop-blur-sm"
           onClick={handleClose}
           role="dialog"
           aria-modal="true"

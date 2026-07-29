@@ -1,6 +1,12 @@
 // ─────────────────────────────────────────────────────────────
-// CategoryHub.tsx — Category page with product subcategories
-// Shows 4 product subcategory cards before lesson list for products category
+// CategoryHub.tsx — one learning path, its product deep-dives and its lessons
+//
+// Mirrors TrainingHub's hue map so a path keeps its identity when you open it.
+//
+// Line 209 used to read `(category as any).descriptionEs` — a cast for a field
+// that does not exist on Category at all, so it silently always served English
+// prose to Spanish sellers while telling the compiler everything was fine. The
+// hero now uses `subtitle`/`subtitleEs`, which is translated for every category.
 // ─────────────────────────────────────────────────────────────
 
 import { useParams, useNavigate } from 'react-router-dom';
@@ -20,20 +26,18 @@ import {
   ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
-import { useMemo } from 'react';
-import { categories, getLessonsForCategory } from '../data/lessons';
+import { createElement, useMemo } from 'react';
+import { categories, getLessonsForCategory, type Category } from '../data/lessons';
 import { useLanguage } from '../contexts/LanguageContext';
 import { LESSON_TIERS, TIER_NAMES } from '../data/lessonTiers';
 
-const iconMap: Record<string, LucideIcon> = {
-  Brain,
-  Users,
-  Hand,
-  Sparkles,
-};
+const iconMap: Record<string, LucideIcon> = { Brain, Users, Hand, Sparkles };
 
-function getIcon(name: string): LucideIcon {
-  return iconMap[name] || Sparkles;
+/** The icon is data-driven, so it is resolved and instantiated in one step —
+ *  binding it to a capitalised local first would be a component created during
+ *  render, which resets its state on every pass. */
+function renderIcon(name: string, props: { size: number; className: string }) {
+  return createElement(iconMap[name] || Sparkles, { ...props, 'aria-hidden': true });
 }
 
 function getProgress(): Record<string, boolean> {
@@ -44,74 +48,151 @@ function getProgress(): Record<string, boolean> {
   }
 }
 
+/**
+ * `Category` carries a long English `description` with no `descriptionEs`, so
+ * Spanish speakers were served English prose behind an `as any` cast that
+ * claimed otherwise. The short `subtitle` IS translated for every category, so
+ * the hero uses that in both languages — same information density, no cast, and
+ * a page that opens on the lessons rather than on five lines of intro copy.
+ */
+function categoryTagline(category: Category, isEs: boolean): string {
+  if (isEs) return category.subtitleEs ?? category.subtitle;
+  return category.subtitle;
+}
+
+type Hue = 'teal' | 'violet' | 'coral' | 'gold';
+
+/* Same assignment as TrainingHub — four paths, four worlds. */
+const CATEGORY_HUE: Record<string, Hue> = {
+  psychology: 'teal',
+  connecting: 'violet',
+  stopping: 'coral',
+  products: 'gold',
+};
+
+const HUE: Record<
+  Hue,
+  { wash: string; chip: string; ink: string; bar: string; fill: string; onFill: string }
+> = {
+  teal: {
+    wash: 'hero-day',
+    chip: 'bg-teal-tint',
+    ink: 'text-teal-strong',
+    bar: 'bg-teal',
+    fill: 'bg-teal',
+    onFill: 'text-on-teal',
+  },
+  violet: {
+    wash: 'hero-dusk',
+    chip: 'bg-violet-tint',
+    ink: 'text-violet-strong',
+    bar: 'bg-violet',
+    fill: 'bg-violet',
+    onFill: 'text-on-teal',
+  },
+  coral: {
+    wash: 'hero-dawn',
+    chip: 'bg-coral-tint',
+    ink: 'text-coral-strong',
+    bar: 'bg-coral',
+    fill: 'bg-coral',
+    onFill: 'text-on-coral',
+  },
+  gold: {
+    wash: 'hero-dawn',
+    chip: 'bg-gold-tint',
+    ink: 'text-gold-strong',
+    bar: 'bg-gold',
+    fill: 'bg-gold',
+    onFill: 'text-on-gold',
+  },
+};
+
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.05, duration: 0.35, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    transition: {
+      delay: i * 0.05,
+      duration: 0.35,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
   }),
 };
 
-/* ─── Product Subcategory Data ─── */
+/* ─── Product deep-dives ─── */
 
 interface ProductSubcategory {
   id: string;
   title: string;
+  titleEs: string;
   badge?: string;
+  badgeEs?: string;
   description: string;
+  descriptionEs: string;
   icon: LucideIcon;
   route: string;
-  accentColor: string;
+  hue: Hue;
 }
 
 const productSubcategories: ProductSubcategory[] = [
   {
     id: 'syringe',
     title: 'The Syringe',
+    titleEs: 'La Jeringa',
     badge: 'FLAGSHIP',
+    badgeEs: 'ESTRELLA',
     description: 'Natural Botox alternative — instant results',
+    descriptionEs: 'Alternativa natural al bótox — resultados al instante',
     icon: Eye,
     route: '/syringe',
-    accentColor: '#0ABAB5',
+    hue: 'teal',
   },
   {
     id: 'peeling',
     title: 'The Peeling',
+    titleEs: 'El Peeling',
     description: 'Weekly treatment — one year of glowing skin',
+    descriptionEs: 'Tratamiento semanal — un año de piel radiante',
     icon: Droplets,
     route: '/peeling',
-    accentColor: '#8B5CF6',
+    hue: 'violet',
   },
   {
     id: 'scrub',
     title: 'Dead Sea Scrub & Body Butter',
+    titleEs: 'Exfoliante del Mar Muerto y Manteca',
     description: 'Sensory duo — feel the difference',
+    descriptionEs: 'Dúo sensorial — nota la diferencia',
     icon: Waves,
     route: '/scrub',
-    accentColor: '#F59E0B',
+    hue: 'gold',
   },
   {
     id: 'nail-kit',
     title: 'Nail Kit',
+    titleEs: 'Kit de Uñas',
     description: '60-second shine — lifetime warranty',
+    descriptionEs: 'Brillo en 60 segundos — garantía de por vida',
     icon: Scissors,
     route: '/nail-kit',
-    accentColor: '#EC4899',
+    hue: 'coral',
   },
 ];
-
-/* ─── Product Subcategory Card ─── */
 
 function ProductSubcategoryCard({
   sub,
   index,
+  isEs,
 }: {
   sub: ProductSubcategory;
   index: number;
+  isEs: boolean;
 }) {
   const navigate = useNavigate();
   const Icon = sub.icon;
+  const hue = HUE[sub.hue];
 
   return (
     <motion.button
@@ -121,45 +202,39 @@ function ProductSubcategoryCard({
       animate="visible"
       whileTap={{ scale: 0.98 }}
       onClick={() => navigate(sub.route)}
-      className="w-full text-left p-5 rounded-2xl bg-[#111111] border border-[#1A1A1A] hover:border-[#2A2A2A] transition-all duration-200 flex items-start gap-4"
+      className="surface-raised flex w-full items-start gap-4 p-4 text-left"
     >
-      {/* Icon */}
-      <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-        style={{ backgroundColor: `${sub.accentColor}18` }}
-      >
-        <Icon size={24} style={{ color: sub.accentColor }} />
-      </div>
+      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-chip ${hue.chip}`}>
+        <Icon size={24} className={hue.ink} aria-hidden="true" />
+      </span>
 
-      {/* Content */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
-          <h3 className="text-h4 text-white font-semibold">{sub.title}</h3>
+      <span className="min-w-0 flex-1">
+        <span className="mb-1 flex flex-wrap items-center gap-2">
+          <span className="text-h4 text-ink">{isEs ? sub.titleEs : sub.title}</span>
           {sub.badge && (
-            <span
-              className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-              style={{ backgroundColor: `${sub.accentColor}20`, color: sub.accentColor }}
-            >
-              {sub.badge}
+            <span className={`rounded-full px-2 py-0.5 text-overline ${hue.chip} ${hue.ink}`}>
+              {isEs ? sub.badgeEs ?? sub.badge : sub.badge}
             </span>
           )}
-        </div>
-        <p className="text-caption text-[#8A8A8A] mb-3">{sub.description}</p>
-        <div className="flex items-center gap-1 text-[#0ABAB5] text-xs font-semibold">
-          <span>Learn Pitch</span>
-          <ArrowRight size={12} />
-        </div>
-      </div>
+        </span>
+        <span className="block text-caption text-ink-2">
+          {isEs ? sub.descriptionEs : sub.description}
+        </span>
+        <span className={`mt-2 flex items-center gap-1 text-caption font-bold ${hue.ink}`}>
+          {isEs ? 'Ver el pitch' : 'Learn the pitch'}
+          <ArrowRight size={14} aria-hidden="true" />
+        </span>
+      </span>
     </motion.button>
   );
 }
 
-/* ─── Main Component ─── */
+/* ─── Main component ─── */
 
 export default function CategoryHub() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const { t, language } = useLanguage();
   const isEs = language === 'es';
 
   const category = useMemo(() => categories.find((c) => c.id === id), [id]);
@@ -172,90 +247,81 @@ export default function CategoryHub() {
   }
 
   const completedCount = lessons.filter((l) => progress[l.id]).length;
-  const completionPct = lessons.length > 0 ? Math.round((completedCount / lessons.length) * 100) : 0;
+  const completionPct =
+    lessons.length > 0 ? Math.round((completedCount / lessons.length) * 100) : 0;
 
-  const CatIcon = getIcon(category.icon);
   const isProductsCategory = id === 'products';
+  const hue = HUE[CATEGORY_HUE[category.id] ?? 'teal'];
 
   return (
-    <div className="min-h-full pb-20">
-      {/* Hero */}
-      <div
-        className="px-6 pt-6 pb-8 relative overflow-hidden"
-        style={{
-          background: `linear-gradient(180deg, ${category.accentColor}18 0%, transparent 100%)`,
-        }}
-      >
+    <div className="min-h-full">
+      {/* ── Hero ── */}
+      <header className={`${hue.wash} rounded-b-feature border-b border-line px-5 pb-6 pt-7`}>
         <button
-          onClick={() => navigate('/home')}
-          className="flex items-center gap-1 text-[#8A8A8A] mb-4 hover:text-white transition-colors"
+          onClick={() => navigate('/training')}
+          className="mb-4 flex min-h-touch items-center gap-1.5 text-body-small text-ink-2"
         >
-          <ArrowLeft size={18} />
-          <span className="text-body-small">{isEs ? 'Volver' : 'Back'}</span>
+          <ArrowLeft size={18} aria-hidden="true" />
+          {t('categoryBack')}
         </button>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <div
-            className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
-            style={{ backgroundColor: `${category.accentColor}25` }}
-          >
-            <CatIcon size={28} style={{ color: category.accentColor }} />
-          </div>
-          <h1 className="text-h1 text-white mb-2">{isEs && category.titleEs ? category.titleEs : category.title}</h1>
-          <p className="text-body-small text-[#8A8A8A] leading-relaxed">{isEs && (category as any).descriptionEs ? (category as any).descriptionEs : category.description}</p>
-        </motion.div>
-      </div>
-
-      {/* Progress bar */}
-      <div className="px-6 mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-caption text-[#8A8A8A]">{isEs ? 'Progreso' : 'Category Progress'}</span>
-          <span className="text-caption font-semibold" style={{ color: category.accentColor }}>
-            {completionPct}%
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+          <span className={`mb-4 flex h-14 w-14 items-center justify-center rounded-feature ${hue.chip}`}>
+            {renderIcon(category.icon, { size: 28, className: hue.ink })}
           </span>
-        </div>
-        <div className="h-2 bg-[#1A1A1A] rounded-full overflow-hidden">
-          <motion.div
-            className="h-full rounded-full"
-            style={{ backgroundColor: category.accentColor }}
-            initial={{ width: 0 }}
-            animate={{ width: `${completionPct}%` }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-          />
-        </div>
-        <p className="text-caption text-[#8A8A8A] mt-2">
-          {completedCount} {isEs ? 'de' : 'of'} {lessons.length} {isEs ? 'lecciones completadas' : 'lessons completed'}
-        </p>
-      </div>
+          <h1 className="text-h1 text-ink">
+            {isEs && category.titleEs ? category.titleEs : category.title}
+          </h1>
+          <p className="mt-2 text-body text-ink-2">{categoryTagline(category, isEs)}</p>
+        </motion.div>
 
-      {/* ── Product Subcategories (only for products category) ── */}
-      {isProductsCategory && (
-        <div className="px-6 mb-6 space-y-3">
-          <h2 className="text-h2 text-white font-bold mb-4">{isEs ? 'Inmersiones de Producto' : 'Product Deep Dives'}</h2>
-          {productSubcategories.map((sub, index) => (
-            <ProductSubcategoryCard key={sub.id} sub={sub} index={index} />
-          ))}
+        {/* Progress */}
+        <div className="mt-6">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <span className="text-caption text-ink-2">{t('categoryProgress')}</span>
+            <span className={`text-caption font-bold tabular-nums ${hue.ink}`}>{completionPct}%</span>
+          </div>
+          <div className="h-2 overflow-hidden rounded-full bg-line">
+            <motion.div
+              className={`h-full rounded-full ${hue.bar}`}
+              initial={{ width: 0 }}
+              animate={{ width: `${completionPct}%` }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+            />
+          </div>
+          <p className="mt-2 text-caption text-ink-3">
+            {completedCount} {isEs ? 'de' : 'of'} {lessons.length} {t('categoryLessonsCompleted')}
+          </p>
         </div>
+      </header>
+
+      {/* ── Product deep-dives (products path only) ── */}
+      {isProductsCategory && (
+        <section className="px-5 pt-7">
+          <h2 className="mb-3 text-h3 text-ink">
+            {isEs ? 'Inmersiones de producto' : 'Product deep dives'}
+          </h2>
+          <div className="space-y-3">
+            {productSubcategories.map((sub, index) => (
+              <ProductSubcategoryCard key={sub.id} sub={sub} index={index} isEs={isEs} />
+            ))}
+          </div>
+        </section>
       )}
 
-      {/* ── Lesson List ── */}
-      <div className="px-6">
-        {isProductsCategory && <h2 className="text-h2 text-white font-bold mb-4">Lessons</h2>}
+      {/* ── Lessons ── */}
+      <section className="px-5 pt-7">
+        <h2 className="mb-3 text-h3 text-ink">{t('lessons')}</h2>
         <div className="space-y-3">
           {lessons.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-body-small text-[#8A8A8A]">No lessons available yet.</p>
-            </div>
+            <p className="surface-flat p-6 text-center text-body-small text-ink-2">
+              {t('categoryNoLessons')}
+            </p>
           )}
           {lessons.map((lesson, index) => {
             const isCompleted = progress[lesson.id];
-            const LessonIcon = getIcon(lesson.icon);
             const tierNum = LESSON_TIERS[lesson.id] || 1;
-            const tierName = TIER_NAMES[tierNum]?.en || `Tier ${tierNum}`;
+            const tierName = TIER_NAMES[tierNum]?.[isEs ? 'es' : 'en'] || `Tier ${tierNum}`;
 
             return (
               <motion.button
@@ -264,56 +330,58 @@ export default function CategoryHub() {
                 variants={cardVariants}
                 initial="hidden"
                 animate="visible"
+                whileTap={{ scale: 0.98 }}
                 onClick={() => navigate(`/lesson/${lesson.id}`)}
-                className="w-full text-left relative flex items-center gap-4 p-4 rounded-2xl border border-[#1A1A1A] bg-[#111111] hover:border-[#2A2A2A] active:scale-[0.98] transition-all duration-200"
+                className="surface-flat flex w-full items-center gap-3 p-4 text-left"
               >
-                {/* Icon circle */}
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `${category.accentColor}18` }}
+                <span
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-chip ${hue.chip}`}
                 >
-                  <LessonIcon size={18} style={{ color: category.accentColor }} />
-                </div>
+                  {renderIcon(lesson.icon, { size: 20, className: hue.ink })}
+                </span>
 
-                {/* Middle content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-h4 text-white truncate">{isEs && lesson.titleEs ? lesson.titleEs : lesson.title}</h4>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-h4 text-ink">
+                    {isEs && lesson.titleEs ? lesson.titleEs : lesson.title}
+                  </span>
+                  <span className="mt-0.5 line-clamp-2 text-caption text-ink-2">
+                    {isEs && lesson.subtitleEs ? lesson.subtitleEs : lesson.subtitle}
+                  </span>
+                  <span className="mt-2 flex flex-wrap items-center gap-2">
                     <span
-                      className="text-[9px] px-1.5 py-0.5 rounded bg-[#0ABAB5]/10 text-[#0ABAB5] font-medium shrink-0"
+                      className={`rounded-full px-2.5 py-0.5 text-caption font-semibold ${hue.chip} ${hue.ink}`}
                       title={tierName}
                     >
-                      T{tierNum}
+                      {isEs ? 'Nivel' : 'Tier'} {tierNum}
                     </span>
-                  </div>
-                  <p className="text-caption text-[#8A8A8A] mt-0.5">{isEs && lesson.subtitleEs ? lesson.subtitleEs : lesson.subtitle}</p>
-                  <div className="flex items-center gap-2 mt-1.5">
-                    <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#1A1A1A] text-[#8A8A8A]">
+                    <span className="rounded-full bg-surface-sunken px-2.5 py-0.5 text-caption text-ink-2">
                       {lesson.duration}
                     </span>
-                    <span className="text-[11px] font-medium text-[#0ABAB5]">+{lesson.xpReward} XP</span>
-                  </div>
-                </div>
+                    <span className="text-caption font-semibold text-ink-2">
+                      +{lesson.xpReward} XP
+                    </span>
+                  </span>
+                </span>
 
-                {/* Right indicator */}
-                <div className="shrink-0">
+                <span className="shrink-0">
                   {isCompleted ? (
-                    <div className="w-8 h-8 rounded-full bg-[#0ABAB5] flex items-center justify-center">
-                      <Check size={16} strokeWidth={3} className="text-white" />
-                    </div>
+                    <span
+                      className={`flex h-9 w-9 items-center justify-center rounded-full ${hue.fill} ${hue.onFill}`}
+                    >
+                      <Check size={18} strokeWidth={3} aria-hidden="true" />
+                      <span className="sr-only">{t('completed')}</span>
+                    </span>
                   ) : (
-                    <div className="flex items-center gap-1">
-                      <div className="w-8 h-8 rounded-full border-2 border-[#0ABAB5] flex items-center justify-center">
-                        <ChevronRight size={14} className="text-[#0ABAB5]" />
-                      </div>
-                    </div>
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-line-strong text-ink-2">
+                      <ChevronRight size={16} aria-hidden="true" />
+                    </span>
                   )}
-                </div>
+                </span>
               </motion.button>
             );
           })}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

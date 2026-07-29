@@ -298,7 +298,56 @@ export default function LeaderboardPage({
           </div>
         </header>
 
-        <main className="px-4 pt-4 pb-40 space-y-5">
+        <main className="px-4 pt-4 pb-8 space-y-5">
+          {/* Your standing, at the TOP.
+              It used to be a `fixed bottom-0` bar — which the app's floating
+              nav pill now sits directly on top of. Above the fold is also where
+              it belongs: it is the first thing a seller opens this page for. */}
+          {userEntry && (
+            <motion.section
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="surface-raised flex items-center gap-3 p-3"
+              aria-label={t.yourRank}
+            >
+              <div className="flex shrink-0 flex-col items-center">
+                <span className="text-h3 tabular-nums text-teal-strong">
+                  {userRank !== null ? `#${userRank}` : '—'}
+                </span>
+                <span className="text-caption text-ink-3">{t.yourRank}</span>
+              </div>
+
+              <div className="h-10 w-px shrink-0 bg-line" />
+
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal text-caption font-bold text-on-teal">
+                  {userEntry.initials}
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-body-small font-semibold text-ink">{userEntry.name}</p>
+                  <p className="text-caption tabular-nums text-ink-2">
+                    {userEntry.xp !== null ? `${userEntry.xp.toLocaleString()} ${t.xp}` : t.unranked}
+                  </p>
+                </div>
+              </div>
+
+              {personAhead && xpGap > 0 ? (
+                <div className="shrink-0 text-right">
+                  <p className="text-caption text-ink-3">
+                    {t.beat} {personAhead.name.split(' ')[0]}
+                  </p>
+                  <p className="text-caption font-bold text-gold-strong">
+                    +{xpGap} {t.xp}
+                  </p>
+                </div>
+              ) : (
+                userRank === 1 && (
+                  <Crown className="h-6 w-6 shrink-0 text-gold-strong" aria-hidden="true" />
+                )
+              )}
+            </motion.section>
+          )}
+
           {isLoading ? (
             <div className="surface-flat p-8 flex flex-col items-center gap-3">
               <div className="h-7 w-7 animate-spin rounded-full border-2 border-teal border-t-transparent" />
@@ -526,58 +575,6 @@ export default function LeaderboardPage({
           )}
         </main>
       </div>
-
-      {/* ── Your rank — sticky ── */}
-      {userEntry && (
-        <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: 'spring', damping: 22, stiffness: 220, delay: 0.35 }}
-          className="fixed bottom-0 left-0 right-0 z-20 flex justify-center"
-        >
-          <div className="w-full max-w-app border-t border-line bg-surface/98 px-4 py-3 pb-safe backdrop-blur-lg shadow-nav">
-            <div className="flex items-center gap-3">
-              <div className="flex shrink-0 flex-col items-center">
-                <span className="text-h4 tabular-nums text-teal-strong">
-                  {userRank !== null ? `#${userRank}` : '—'}
-                </span>
-                <span className="text-caption text-ink-3">{t.yourRank}</span>
-              </div>
-
-              <div className="h-10 w-px shrink-0 bg-line" />
-
-              <div className="flex min-w-0 flex-1 items-center gap-2">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal text-caption font-bold text-on-teal">
-                  {userEntry.initials}
-                </div>
-                <div className="min-w-0">
-                  <p className="truncate text-body-small font-semibold text-ink">
-                    {userEntry.name}
-                  </p>
-                  <p className="text-caption text-ink-2 tabular-nums">
-                    {userEntry.xp !== null
-                      ? `${userEntry.xp.toLocaleString()} ${t.xp}`
-                      : t.unranked}
-                  </p>
-                </div>
-              </div>
-
-              {personAhead && xpGap > 0 ? (
-                <div className="shrink-0 text-right">
-                  <p className="text-caption text-ink-3">
-                    {t.beat} {personAhead.name.split(' ')[0]}
-                  </p>
-                  <p className="text-caption font-bold text-gold-strong">+{xpGap} {t.xp}</p>
-                </div>
-              ) : (
-                userRank === 1 && (
-                  <Crown className="h-6 w-6 shrink-0 text-gold-strong" aria-hidden="true" />
-                )
-              )}
-            </div>
-          </div>
-        </motion.div>
-      )}
 
       {/* ── Shout-out sheet ── */}
       <AnimatePresence>

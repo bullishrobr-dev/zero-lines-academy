@@ -1,51 +1,75 @@
 import { useState, useCallback, useEffect } from 'react';
-import {
-  XP_VALUES,
-  STORAGE_KEY,
-  XP_LOG_KEY,
-} from '../types/streetTracker';
+import { XP_VALUES, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
 import type { StreetSession, DailySummary, XPAward } from '../types/streetTracker';
 
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-function getTodayKey(): string {
-  return new Date().toISOString().slice(0, 10);
+/**
+ * LOCAL date key — same convention as `hooks/useProgress.ts`.
+ *
+ * This was `toISOString().slice(0, 10)`, a UTC key. Both shops run at UTC+1/+2,
+ * so anything logged after 22:00 or 23:00 local was filed under *yesterday*:
+ * the stop a seller had just recorded vanished from "Today's performance", and
+ * the closing hours of every shift — the busy ones — landed on the wrong day.
+ */
+function dateKey(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
 }
 
-function getDateKey(date: Date): string {
-  return date.toISOString().slice(0, 10);
+function getTodayKey(): string {
+  return dateKey(new Date());
+}
+
+/** N days before today, in local time. */
+function daysAgoKey(n: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return dateKey(d);
 }
 
 function loadSessions(): StreetSession[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
 }
 
 function saveSessions(sessions: StreetSession[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  } catch {
+    /* quota or private mode — never throw at the seller mid-shift */
+  }
 }
 
 function loadXPAwards(): XPAward[] {
   try {
     const raw = localStorage.getItem(XP_LOG_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
 }
 
 function saveXPAwards(awards: XPAward[]): void {
-  localStorage.setItem(XP_LOG_KEY, JSON.stringify(awards));
+  try {
+    localStorage.setItem(XP_LOG_KEY, JSON.stringify(awards));
+  } catch {
+    /* non-fatal */
+  }
 }
 
-function aggregateDay(sessions: StreetSession[], dateKey: string): DailySummary {
-  const daySessions = sessions.filter((s) => s.date === dateKey);
+function aggregateDay(sessions: StreetSession[], key: string): DailySummary {
+  const daySessions = sessions.filter((s) => s.date === key);
   const stops = daySessions.filter((s) => s.type === 'stop').length;
   const brings = daySessions.filter((s) => s.type === 'bring').length;
   const sales = daySessions.filter((s) => s.type === 'sale').length;
@@ -53,7 +77,7 @@ function aggregateDay(sessions: StreetSession[], dateKey: string): DailySummary 
     .filter((s) => s.type === 'sale')
     .reduce((sum, s) => sum + (s.amount || 0), 0);
   const conversionRate = stops > 0 ? Math.round((brings / stops) * 100) : 0;
-  return { date: dateKey, stops, brings, sales, revenue, conversionRate };
+  return { date: key, stops, brings, sales, revenue, conversionRate };
 }
 
 export function useStreetTracker() {
@@ -86,15 +110,14 @@ export function useStreetTracker() {
       };
       setSessions((prev) => [...prev, entry]);
 
-      const points = XP_VALUES[type];
       const award: XPAward = {
         activity:
           type === 'stop'
             ? 'Stopped someone'
             : type === 'bring'
-            ? 'Brought them inside'
-            : 'Made a sale',
-        points,
+              ? 'Brought them inside'
+              : 'Made a sale',
+        points: XP_VALUES[type],
         timestamp: Date.now(),
       };
       setXpAwards((prev) => [...prev, award]);
@@ -106,26 +129,17 @@ export function useStreetTracker() {
 
   const getTodayLogs = useCallback((): StreetSession[] => {
     const todayKey = getTodayKey();
-    return sessions
-      .filter((s) => s.date === todayKey)
-      .sort((a, b) => b.timestamp - a.timestamp);
+    return sessions.filter((s) => s.date === todayKey).sort((a, b) => b.timestamp - a.timestamp);
   }, [sessions]);
 
   const getDailySummary = useCallback(
-    (date: string): DailySummary => {
-      return aggregateDay(sessions, date);
-    },
+    (date: string): DailySummary => aggregateDay(sessions, date),
     [sessions]
   );
 
   const getWeekSummary = useCallback((): DailySummary[] => {
     const result: DailySummary[] = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const key = getDateKey(d);
-      result.push(aggregateDay(sessions, key));
-    }
+    for (let i = 6; i >= 0; i--) result.push(aggregateDay(sessions, daysAgoKey(i)));
     return result;
   }, [sessions]);
 
@@ -133,34 +147,33 @@ export function useStreetTracker() {
     (field: keyof DailySummary): number => {
       const allDates = [...new Set(sessions.map((s) => s.date))];
       if (allDates.length === 0) return 0;
-      const summaries = allDates.map((d) => aggregateDay(sessions, d));
-      const values = summaries.map((s) => s[field] as number);
+      const values = allDates.map((d) => aggregateDay(sessions, d)[field] as number);
       return Math.max(...values);
     },
     [sessions]
   );
 
+  /** XP earned today. Also a local-day figure, so it matches the log above it. */
   const getTotalXP = useCallback((): number => {
     const todayKey = getTodayKey();
     return xpAwards
-      .filter((a) => new Date(a.timestamp).toISOString().slice(0, 10) === todayKey)
+      .filter((a) => dateKey(new Date(a.timestamp)) === todayKey)
       .reduce((sum, a) => sum + a.points, 0);
   }, [xpAwards]);
 
   const getStreak = useCallback((): number => {
-    const uniqueDates = [...new Set(sessions.map((s) => s.date))].sort().reverse();
+    const active = new Set(sessions.map((s) => s.date));
+    if (active.size === 0) return 0;
+
+    // Today counts if there is activity; otherwise a streak can still be alive
+    // from yesterday (the shift may not have started yet).
+    let offset = active.has(getTodayKey()) ? 0 : 1;
+    if (!active.has(daysAgoKey(offset))) return 0;
+
     let streak = 0;
-    const today = getTodayKey();
-    const yesterday = getDateKey(new Date(Date.now() - 86400000));
-    let checkDate = uniqueDates.includes(today) ? today : yesterday;
-    for (const date of uniqueDates) {
-      if (date === checkDate) {
-        streak++;
-        const prev = new Date(new Date(checkDate).getTime() - 86400000);
-        checkDate = getDateKey(prev);
-      } else {
-        break;
-      }
+    while (active.has(daysAgoKey(offset))) {
+      streak++;
+      offset++;
     }
     return streak;
   }, [sessions]);

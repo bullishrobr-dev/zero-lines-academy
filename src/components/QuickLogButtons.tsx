@@ -1,141 +1,139 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import { Hand, DoorOpen, Coins } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface QuickLogButtonsProps {
   onLogStop: () => void;
   onLogBring: () => void;
   onLogSale: () => void;
-  lang: 'en' | 'es';
 }
 
-const t = {
+const COPY = {
   en: {
-    stop: 'I Stopped Someone!',
-    bring: 'Brought Them Inside!',
-    sale: 'I Made a Sale!',
-    xpStop: '+2 XP',
-    xpBring: '+5 XP',
-    xpSale: '+10 XP',
+    stop: 'I stopped someone',
+    bring: 'Brought them inside',
+    sale: 'I made a sale',
+    stopShort: 'Stop',
+    bringShort: 'Bring',
+    saleShort: 'Sale',
   },
   es: {
-    stop: '\u00a1Par\u00e9 a Alguien!',
-    bring: '\u00a1Lo Met\u00ed Adentro!',
-    sale: '\u00a1Hice una Venta!',
-    xpStop: '+2 XP',
-    xpBring: '+5 XP',
-    xpSale: '+10 XP',
+    stop: 'He parado a alguien',
+    bring: 'Lo he metido dentro',
+    sale: 'He hecho una venta',
+    stopShort: 'Parada',
+    bringShort: 'Adentro',
+    saleShort: 'Venta',
   },
 };
 
-function triggerConfetti(color: string, originY: number = 0.85) {
-  const count = 40;
-  confetti({
-    particleCount: count,
-    spread: 70,
-    origin: { y: originY, x: 0.3 },
-    colors: [color, '#ffffff', '#FFD700'],
-    disableForReducedMotion: true,
-    ticks: 100,
-    gravity: 1.2,
-    scalar: 0.8,
-  });
-  setTimeout(() => {
+/** Confetti colours are read from the live theme tokens, never hardcoded. */
+function tokenColor(name: string, fallback: string): string {
+  if (typeof window === 'undefined') return fallback;
+  const raw = getComputedStyle(document.documentElement).getPropertyValue(`--${name}`).trim();
+  if (!raw) return fallback;
+  return `rgb(${raw.split(/\s+/).join(',')})`;
+}
+
+function burst(token: string, fallback: string) {
+  const color = tokenColor(token, fallback);
+  const shoot = (x: number) =>
     confetti({
-      particleCount: count,
+      particleCount: 40,
       spread: 70,
-      origin: { y: originY, x: 0.7 },
-      colors: [color, '#ffffff', '#FFD700'],
+      origin: { y: 0.85, x },
+      colors: [color, tokenColor('gold', '#E3B54A')],
       disableForReducedMotion: true,
       ticks: 100,
       gravity: 1.2,
       scalar: 0.8,
     });
-  }, 100);
+  shoot(0.3);
+  setTimeout(() => shoot(0.7), 100);
 }
 
-const StopButton: React.FC<{ onClick: () => void; label: string; xp: string }> = ({
-  onClick,
-  label,
-  xp,
-}) => (
+const LogButton: React.FC<{
+  onClick: () => void;
+  label: string;
+  short: string;
+  xp: string;
+  fill: string;
+  ink: string;
+  icon: React.ReactNode;
+}> = ({ onClick, label, short, xp, fill, ink, icon }) => (
   <motion.button
-    onClick={() => {
-      triggerConfetti('#0ABAB5');
-      onClick();
-    }}
-    whileTap={{ scale: 0.88 }}
-    whileHover={{ scale: 1.04 }}
+    type="button"
+    onClick={onClick}
+    whileTap={{ scale: 0.9 }}
     className="flex flex-col items-center justify-center gap-1"
     aria-label={label}
   >
-    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0ABAB5] to-[#088A87] flex items-center justify-center shadow-[0_0_24px_rgba(10,186,181,0.35)] border-2 border-[#0ABAB5]/30">
-      <span className="text-3xl" role="img" aria-label="stop">{'\ud83d\uded1'}</span>
-    </div>
-    <span className="text-[11px] font-semibold text-[#0ABAB5] mt-1">{xp}</span>
-    <span className="text-[10px] text-gray-400 text-center leading-tight max-w-[80px]">{label}</span>
+    <span
+      className={`flex h-[60px] w-[60px] items-center justify-center rounded-full shadow-raised ${fill}`}
+    >
+      {icon}
+    </span>
+    <span className="max-w-[92px] text-center text-caption leading-tight text-ink-2">
+      {short} <span className={`font-bold ${ink}`}>{xp}</span>
+    </span>
   </motion.button>
 );
 
-const BringButton: React.FC<{ onClick: () => void; label: string; xp: string }> = ({
-  onClick,
-  label,
-  xp,
-}) => (
-  <motion.button
-    onClick={() => {
-      triggerConfetti('#22C55E');
-      onClick();
-    }}
-    whileTap={{ scale: 0.88 }}
-    whileHover={{ scale: 1.04 }}
-    className="flex flex-col items-center justify-center gap-1"
-    aria-label={label}
-  >
-    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#22C55E] to-[#16A34A] flex items-center justify-center shadow-[0_0_24px_rgba(34,197,94,0.35)] border-2 border-[#22C55E]/30">
-      <span className="text-3xl" role="img" aria-label="bring">{'\ud83d\udeaa'}</span>
-    </div>
-    <span className="text-[11px] font-semibold text-[#22C55E] mt-1">{xp}</span>
-    <span className="text-[10px] text-gray-400 text-center leading-tight max-w-[80px]">{label}</span>
-  </motion.button>
-);
-
-const SaleButton: React.FC<{ onClick: () => void; label: string; xp: string }> = ({
-  onClick,
-  label,
-  xp,
-}) => (
-  <motion.button
-    onClick={() => {
-      triggerConfetti('#F59E0B');
-      onClick();
-    }}
-    whileTap={{ scale: 0.88 }}
-    whileHover={{ scale: 1.04 }}
-    className="flex flex-col items-center justify-center gap-1"
-    aria-label={label}
-  >
-    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#F59E0B] to-[#D97706] flex items-center justify-center shadow-[0_0_24px_rgba(245,158,11,0.35)] border-2 border-[#F59E0B]/30">
-      <span className="text-3xl" role="img" aria-label="sale">{'\ud83d\udcb0'}</span>
-    </div>
-    <span className="text-[11px] font-semibold text-[#F59E0B] mt-1">{xp}</span>
-    <span className="text-[10px] text-gray-400 text-center leading-tight max-w-[80px]">{label}</span>
-  </motion.button>
-);
-
-const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogBring, onLogSale, lang }) => {
-  const txt = t[lang];
+const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogBring, onLogSale }) => {
+  const { language } = useLanguage();
+  const t = COPY[language === 'es' ? 'es' : 'en'];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A]/95 backdrop-blur-lg border-t border-gray-800/60">
-      <div className="max-w-[430px] mx-auto px-4 py-3">
-        <div className="flex items-center justify-around">
-          <StopButton onClick={onLogStop} label={txt.stop} xp={txt.xpStop} />
-          <BringButton onClick={onLogBring} label={txt.bring} xp={txt.xpBring} />
-          <SaleButton onClick={onLogSale} label={txt.sale} xp={txt.xpSale} />
+    // Sits ABOVE the floating nav pill, not on top of it. At `bottom-0` the
+    // nav's own container covered these three buttons and swallowed every tap —
+    // on the one screen where tapping them fast is the entire point.
+    // 6.5rem clears the pill (60px + 12px lift) and its raised centre action.
+    <div
+      className="fixed left-0 right-0 z-40 border-t border-line bg-surface/95 backdrop-blur-lg shadow-nav"
+      style={{ bottom: 'calc(6.5rem + env(safe-area-inset-bottom, 0px))' }}
+    >
+      <div className="mx-auto max-w-app px-4 py-2.5">
+        <div className="flex items-start justify-around">
+          <LogButton
+            onClick={() => {
+              burst('teal', '#0ABAB5');
+              onLogStop();
+            }}
+            label={t.stop}
+            short={t.stopShort}
+            xp="+2 XP"
+            fill="bg-teal text-on-teal"
+            ink="text-teal-strong"
+            icon={<Hand className="h-7 w-7" aria-hidden="true" />}
+          />
+          <LogButton
+            onClick={() => {
+              burst('violet', '#7A54D6');
+              onLogBring();
+            }}
+            label={t.bring}
+            short={t.bringShort}
+            xp="+5 XP"
+            fill="bg-violet-tint text-violet-strong border border-violet/30"
+            ink="text-violet-strong"
+            icon={<DoorOpen className="h-7 w-7" aria-hidden="true" />}
+          />
+          <LogButton
+            onClick={() => {
+              burst('gold', '#E3B54A');
+              onLogSale();
+            }}
+            label={t.sale}
+            short={t.saleShort}
+            xp="+10 XP"
+            fill="bg-gold text-on-gold"
+            ink="text-gold-strong"
+            icon={<Coins className="h-7 w-7" aria-hidden="true" />}
+          />
         </div>
       </div>
-      <div className="h-[env(safe-area-inset-bottom)]" />
     </div>
   );
 };

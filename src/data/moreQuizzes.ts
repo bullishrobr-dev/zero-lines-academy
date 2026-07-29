@@ -43,16 +43,16 @@ const quizSyringeDeep: GeneralQuiz = {
       questionEs:
         "Demuestras la jeringa en UN SOLO ojo. ¿Por qué esta técnica es tan efectiva?",
       options: [
-        "It saves product so you can do more demos",
+        "It saves product so you can do more demos in a shift, which matters when the syringe is your most expensive stock",
         "It creates a dramatic before/after contrast the customer can see in the mirror",
-        "It's faster so you can move to the next customer",
-        "Most people only have wrinkles on one side"
+        "It's faster so you can move to the next customer sooner, and speed is what fills a shift with sales",
+        "Most people only have wrinkles on one side because of how they sleep, so you treat the side that needs it"
       ],
       optionsEs: [
-        "Ahorra producto para poder hacer más demostraciones",
+        "Ahorra producto para hacer más demos por turno, algo importante cuando la jeringa es tu stock más caro",
         "Crea un contraste dramático antes/después que la cliente ve en el espejo",
-        "Es más rápido para poder pasar al siguiente cliente",
-        "La mayoría solo tiene arrugas de un lado"
+        "Es más rápido y así pasas antes al siguiente cliente, y la velocidad es lo que llena un turno de ventas",
+        "La mayoría solo tiene arrugas de un lado por cómo duerme, así que tratas el lado que lo necesita"
       ],
       correctIndex: 1,
       explanation:
@@ -89,18 +89,18 @@ const quizSyringeDeep: GeneralQuiz = {
       questionEs:
         "¿Cuál de estas es la escalera de precios CORRECTA para la Jeringa de Ácido Hialurónico?",
       options: [
-        "{currency}500 → {currency}350 → {currency}250 → {currency}175 → {currency}120",
         "{currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100",
+        "{currency}500 → {currency}350 → {currency}250 → {currency}175 → {currency}120",
         "{currency}400 → {currency}280 → {currency}200 → {currency}150 → {currency}100 → {currency}80",
         "{currency}600 → {currency}400 → {currency}300 → {currency}200 → {currency}150 → {currency}120"
       ],
       optionsEs: [
-        "{currency}500 → {currency}350 → {currency}250 → {currency}175 → {currency}120",
         "{currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100",
+        "{currency}500 → {currency}350 → {currency}250 → {currency}175 → {currency}120",
         "{currency}400 → {currency}280 → {currency}200 → {currency}150 → {currency}100 → {currency}80",
         "{currency}600 → {currency}400 → {currency}300 → {currency}200 → {currency}150 → {currency}120"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The price ladder is: {currency}500 (Europe anchor) → {currency}300 (local base price) → {currency}210 (Offer 1: 30% off plus a free gift) → {currency}175 (the same single syringe with the gift taken away) → {currency}140 (the 20% voucher close) → {currency}100 (absolute floor). Every rung is ONE syringe — the only multi-unit deal is Offer 2, which keeps the price at {currency}300 and adds a second syringe free. Each drop creates a 'yes ladder' moment, and the {currency}500 anchor makes everything below it feel like a bargain.",
       explanationEs:
@@ -112,18 +112,18 @@ const quizSyringeDeep: GeneralQuiz = {
       questionEs:
         "¿Cuándo deberías usar el precio de emergencia de {currency}100 para la jeringa?",
       options: [
-        "Immediately, to every customer who shows interest",
         "Only after the customer has rejected at least 2 higher prices and is genuinely walking away",
-        "When the customer says they have less than {currency}100",
-        "At the end of the day to clear remaining stock"
+        "Immediately, to every customer who shows interest, because the lowest number is the one that stops them walking",
+        "When the customer says they have less than {currency}100 on them, so you match the price to whatever is in the wallet",
+        "At the end of the day to clear the remaining stock, so nothing goes back into the box unsold"
       ],
       optionsEs: [
-        "Inmediatamente, a toda cliente que muestre interés",
         "Solo después de que la cliente haya rechazado al menos 2 precios más altos y realmente se esté yendo",
-        "Cuando la cliente dice que tiene menos de {currency}100",
-        "Al final del día para liquidar stock restante"
+        "De inmediato, a toda clienta que muestre interés, porque la cifra más baja es la que evita que se vayan",
+        "Cuando la clienta dice que lleva menos de {currency}100 encima, y ajustas el precio a lo que tenga en la cartera",
+        "Al final del día para liquidar el stock que queda, y que nada vuelva a la caja sin vender"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The {currency}100 price is your 'nuclear option.' Using it too early destroys your profit margin and trains customers to hold out for the lowest price. The correct sequence: anchor high, drop gradually, read the customer's commitment level. Only pull {currency}100 when the customer has mentally said 'yes' but the price is the only barrier — and even then, make it feel like you're breaking the rules for them.",
       explanationEs:
@@ -136,17 +136,17 @@ const quizSyringeDeep: GeneralQuiz = {
         "¿Cómo posicionas la jeringa como 'Botox natural' sin hacer afirmaciones médicas que te puedan causar problemas?",
       options: [
         "Say it contains actual Botox from the same factory",
-        "Call it 'Botox in a bottle' and say doctors hate this trick",
         "Say it's the 'natural, needle-free alternative' that works with your body's own hyaluronic acid",
+        "Call it 'Botox in a bottle' and say doctors hate this trick",
         "Show before/after photos of Botox patients and claim they're from your product"
       ],
       optionsEs: [
         "Decir que contiene Botox real de la misma fábrica",
-        "Llamarlo 'Botox en botella' y decir que los doctores odian este truco",
         "Decir que es la 'alternativa natural, sin agujas' que trabaja con el ácido hialurónico de tu propio cuerpo",
+        "Llamarlo 'Botox en botella' y decir que los doctores odian este truco",
         "Mostrar fotos antes/después de pacientes de Botox y afirmar que son de tu producto"
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "The phrase 'natural, needle-free alternative' draws the comparison without making false medical claims. It positions the product alongside Botox (the gold standard) while emphasizing the advantages: no needles, no doctor visits, no frozen face, works WITH your body. Always use phrases like 'people say it's like...' rather than claiming medical equivalence directly.",
       explanationEs:
@@ -159,17 +159,17 @@ const quizSyringeDeep: GeneralQuiz = {
         "Una cliente pregunta: '¿Cómo exactamente me aplico esto en casa?' ¿Cuál es la técnica CORRECTA para enseñarle?",
       options: [
         "Rub it in like a regular cream all over your face",
-        "Pat a tiny amount onto clean skin, focus on wrinkles, let it absorb — do not rub",
         "Apply thick layer before bed and wash off in the morning",
-        "Mix it with your moisturizer for easier application"
+        "Mix it with your moisturizer for easier application",
+        "Pat a tiny amount onto clean skin, focus on wrinkles, let it absorb — do not rub"
       ],
       optionsEs: [
         "Frotarlo como una crema normal por toda la cara",
-        "Aplicar una pequeña cantidad sobre piel limpia, enfocar en arrugas, dejar absorber — no frotar",
         "Aplicar capa gruesa antes de dormir y lavar en la mañana",
-        "Mezclarlo con tu hidratante para aplicación más fácil"
+        "Mezclarlo con tu hidratante para aplicación más fácil",
+        "Aplicar una pequeña cantidad sobre piel limpia, enfocar en arrugas, dejar absorber — no frotar"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "The syringe is concentrated — a little goes a long way. The correct technique is: cleanse the face, pat (don't rub) a tiny amount directly onto wrinkle lines and crow's feet, allow 2-3 minutes to absorb before applying moisturizer. Rubbing disperses the active ingredients instead of concentrating them where needed. Teaching proper use also reduces complaints and increases satisfaction.",
       explanationEs:
@@ -181,18 +181,18 @@ const quizSyringeDeep: GeneralQuiz = {
       questionEs:
         "¿Cuál de estos es un beneficio REAL del ácido hialurónico que deberías enfatizar durante tu pitch?",
       options: [
-        "It permanently removes wrinkles after one use",
         "It holds 1000x its weight in water, plumping skin from within",
+        "It permanently removes wrinkles after one use",
         "It bleaches dark spots and evens skin tone",
         "It replaces the need for sunscreen completely"
       ],
       optionsEs: [
-        "Elimina arrugas permanentemente después de un uso",
         "Retiene 1000 veces su peso en agua, rellenando la piel desde adentro",
+        "Elimina arrugas permanentemente después de un uso",
         "Blanquea manchas oscuras y unifica el tono de piel",
         "Reemplaza completamente la necesidad de protector solar"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Hyaluronic acid is a naturally occurring molecule in our skin that can hold up to 1,000 times its molecular weight in water. As we age, our natural HA levels drop. The syringe replenishes this, drawing moisture into the skin and plumping wrinkles from the inside out. This is a scientifically-backed fact that builds massive credibility. Never over-promise — the '1000x water' fact is impressive enough on its own.",
       explanationEs:
@@ -227,18 +227,18 @@ const quizSyringeDeep: GeneralQuiz = {
       questionEs:
         "Una cliente está impresionada por la demo de un ojo pero dice: 'Necesito preguntarle a mi esposo primero.' ¿Cuál es tu MEJOR respuesta?",
       options: [
-        "Okay, come back when he says yes — I'll be here",
+        "Okay, come back when he says yes — I'll be here all week, and the offer will be waiting for you when he has agreed",
+        "Call him right now and I'll explain it to him myself — men always understand it better when they hear the numbers directly",
         "How much did your last haircut cost? Did you ask permission? This is your face, your decision, and today's price won't be here tomorrow",
-        "Call him right now and I'll explain it to him",
-        "Most husbands say no to everything, just buy it and hide it"
+        "Most husbands say no to everything, just buy it and hide it — by the time he notices, you will already be using it every week"
       ],
       optionsEs: [
-        "Okay, regresa cuando él diga que sí — aquí estaré",
+        "Vale, vuelve cuando él diga que sí — estaré aquí toda la semana y la oferta te seguirá esperando",
+        "Llámalo ahora mismo y se lo explico yo — a los hombres siempre les entra mejor cuando oyen las cifras directamente",
         "¿Cuánto costó tu último corte de pelo? ¿Pediste permiso? Esta es tu cara, tu decisión, y el precio de hoy no estará mañana",
-        "Llámalo ahora mismo y se lo explico",
-        "La mayoría de los esposos dicen que no a todo, cómpralo y escóndelo"
+        "La mayoría de los maridos dicen que no a todo, cómpralo y escóndelo — para cuando se dé cuenta ya lo estarás usando cada semana"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "This response empowers the customer without being aggressive. The haircut analogy makes her realize she makes purchase decisions independently all the time. 'Your face, your decision' appeals to autonomy. The scarcity note (today's price) creates urgency. Never mock the husband or pressure in a way that feels manipulative — empowerment closes more sales than pressure.",
       explanationEs:
@@ -250,18 +250,18 @@ const quizSyringeDeep: GeneralQuiz = {
       questionEs:
         "Una cliente está lista para llevarse la Oferta 1 — una jeringa a {currency}210 con regalo. ¿Cómo la subes a la Oferta 2, {currency}300 con una segunda jeringa gratis?",
       options: [
+        "You should take the second one because it works out cheaper per syringe that way, and everybody who does the maths ends up taking two",
+        "If you don't take the second one now you are going to regret it later, because this offer is not on the table every week",
         "For just {currency}90 more you get a whole second syringe free — enough for the forehead and upper lip too, not only the eyes. That is the full-face version of what you just saw",
-        "You should take the second one because it works out cheaper per syringe that way",
-        "If you don't take the second one now you are going to regret it later",
-        "The single syringe is a bad deal, the two-syringe offer is much smarter"
+        "The single syringe is a bad deal, the two-syringe offer is much smarter and honestly nobody should buy just the one"
       ],
       optionsEs: [
+        "Deberías llevarte la segunda porque así sale más barata cada jeringa, y todo el que hace la cuenta acaba llevándose dos",
+        "Si no te llevas la segunda ahora te vas a arrepentir después, porque esta oferta no está en la mesa todas las semanas",
         "Por solo {currency}90 más te llevas una segunda jeringa entera gratis — suficiente para la frente y el labio superior también, no solo los ojos. Es la versión de cara completa de lo que acabas de ver",
-        "Deberías llevarte la segunda porque así sale más barata cada jeringa",
-        "Si no te llevas la segunda ahora te vas a arrepentir después",
-        "La jeringa sola es mal negocio, la oferta de dos es mucho más inteligente"
+        "La jeringa sola es mal negocio, la oferta de dos es mucho más inteligente y nadie debería llevarse solo una"
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation:
         "The upgrade pitch uses the 'just a little more' framing — {currency}90 is the real gap between Offer 1 ({currency}210) and Offer 2 ({currency}300), and it sounds small next to what she has already agreed to spend. Naming the extra treatment areas gives her a concrete picture instead of an abstract discount. Notice it doesn't insult Offer 1 — you're building on her 'yes,' not criticising it. This upsell technique increases your average ticket significantly.",
       explanationEs:
@@ -293,17 +293,17 @@ const quizPeelingMastery: GeneralQuiz = {
         "¿Qué hace el ácido glicólico REALMENTE a la piel que lo hace tan efectivo?",
       options: [
         "It bleaches the skin to make it lighter",
-        "It dissolves dead skin cells and triggers collagen production",
         "It fills wrinkles like a filler injection",
-        "It tightens skin by dehydrating it"
+        "It tightens skin by dehydrating it",
+        "It dissolves dead skin cells and triggers collagen production"
       ],
       optionsEs: [
         "Blanquea la piel para hacerla más clara",
-        "Disuelve células muertas y estimula la producción de colágeno",
         "Rellena arrugas como una inyección de relleno",
-        "Aprieta la piel deshidratándola"
+        "Aprieta la piel deshidratándola",
+        "Disuelve células muertas y estimula la producción de colágeno"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Glycolic acid is an alpha-hydroxy acid (AHA) with the smallest molecular size, allowing it to penetrate deeply. It works by dissolving the 'glue' between dead skin cells (exfoliation) and stimulating fibroblasts to produce new collagen. This dual action — removing the old and building the new — is what creates the glow. Understanding this science makes you sound like an expert, not just a salesperson.",
       explanationEs:
@@ -316,17 +316,17 @@ const quizPeelingMastery: GeneralQuiz = {
         "¿Cuál es la escalera de precios CORRECTA para el Kit de Peeling Glicólico?",
       options: [
         "{currency}500 → {currency}300 → {currency}200 → {currency}150 → {currency}100 → {currency}70",
-        "{currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50",
         "{currency}300 → {currency}250 → {currency}180 → {currency}120 → {currency}80 → {currency}60",
+        "{currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50",
         "{currency}400 → {currency}280 → {currency}200 → {currency}150 → {currency}100 → {currency}75"
       ],
       optionsEs: [
         "{currency}500 → {currency}300 → {currency}200 → {currency}150 → {currency}100 → {currency}70",
-        "{currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50",
         "{currency}300 → {currency}250 → {currency}180 → {currency}120 → {currency}80 → {currency}60",
+        "{currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50",
         "{currency}400 → {currency}280 → {currency}200 → {currency}150 → {currency}100 → {currency}75"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The Glycolic Peeling Kit ladder is: {currency}200 (Europe anchor) → {currency}150 (local base) → {currency}100 (Offer 1: 50% off plus the Dead Sea Scrub as a gift) → {currency}70 (the Scrub taken out and its value given back as credit) → {currency}50 (voucher close, and the absolute floor). Every rung is one bottle. Notice it's roughly 1/3 the price of the syringe — this positioning matters when bundling. The lower entry point makes it an easier upsell after the syringe sale or a great standalone for budget-conscious customers.",
       explanationEs:
@@ -338,18 +338,18 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "Al demostrar el peeling glicólico, ¿cuánto tiempo deberías dejarlo actuar durante la demo antes de neutralizar?",
       options: [
-        "30 seconds — any longer is dangerous",
         "3-5 minutes — enough to feel the tingle without risking a reaction",
+        "30 seconds — any longer is dangerous",
         "15 minutes — the longer the better results",
         "Leave it on and let the customer decide when to remove it"
       ],
       optionsEs: [
-        "30 segundos — más tiempo es peligroso",
         "3-5 minutos — suficiente para sentir el hormigueo sin arriesgar una reacción",
+        "30 segundos — más tiempo es peligroso",
         "15 minutos — entre más tiempo mejores resultados",
         "Dejarlo actuar y dejar que la cliente decida cuándo quitarlo"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "For a street demo, 3-5 minutes is the sweet spot. The customer should feel a slight tingle (which proves it's working) but you must neutralize before any redness becomes visible. Safety is your #1 priority — a bad reaction on the street destroys your credibility and could cause liability issues. Always have neutralizer ready and explain the tingling sensation before applying.",
       explanationEs:
@@ -361,18 +361,18 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "Una cliente dice: 'Mi piel es sensible — ¿aún puedo usar esto?' ¿Cuál es la respuesta CORRECTA?",
       options: [
-        "Absolutely not, glycolic acid is only for normal skin",
-        "Yes — but start with just 2 minutes, once per week, and always do a patch test behind the ear first",
-        "Sensitive skin actually needs stronger exfoliation, use it daily",
-        "It only works on sensitive skin, you'll get the best results"
+        "Absolutely not, glycolic acid is only for normal skin — with sensitive skin you should take the scrub instead",
+        "Sensitive skin actually needs stronger exfoliation, so use it daily until the skin toughens up and stops reacting",
+        "It only works on sensitive skin, so you will get better results from it than almost anyone else who buys it",
+        "Yes — but start with just 2 minutes, once per week, and always do a patch test behind the ear first"
       ],
       optionsEs: [
-        "Absolutamente no, el ácido glicólico es solo para piel normal",
-        "Sí — pero empieza con solo 2 minutos, una vez por semana, y siempre haz una prueba de parche detrás de la oreja primero",
-        "La piel sensible realmente necesita exfoliación más fuerte, úsalo diario",
-        "Solo funciona en piel sensible, obtendrás los mejores resultados"
+        "En absoluto, el ácido glicólico es solo para piel normal — con piel sensible mejor llévate el exfoliante",
+        "La piel sensible necesita exfoliación más fuerte, así que úsalo a diario hasta que la piel se acostumbre y deje de reaccionar",
+        "Solo funciona en piel sensible, así que sacarás mejores resultados que casi cualquiera que lo compre",
+        "Sí — pero empieza con solo 2 minutos, una vez por semana, y siempre haz una prueba de parche detrás de la oreja primero"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "This is the honest, safe answer that also makes the sale. Sensitive skin CAN use glycolic acid — the key is starting slow and testing first. By giving specific guidance (2 minutes, once/week, patch test), you sound knowledgeable and responsible. Never promise zero risk, but don't turn away sales unnecessarily either. The patch test recommendation builds trust and covers you.",
       explanationEs:
@@ -384,16 +384,16 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "Una cliente ya compró la jeringa. ¿Cómo posicionas el Kit de Peeling Glicólico como la compra complementaria PERFECTA?",
       options: [
-        "You need this too or the syringe won't work",
+        "You need this too or the syringe won't work properly — without it the dead skin blocks everything and you wasted your money",
         "The syringe treats wrinkles, the peeling removes the dead skin that's blocking it from working deeper — together they're a complete facial system",
-        "This is the same thing but cheaper",
-        "Most people buy both so you should too"
+        "This is the same thing but cheaper, so if the syringe felt like a lot you can take this one instead and get the same effect",
+        "Most people buy both so you should too — nearly everyone who takes the syringe walks out with the peeling in the same bag"
       ],
       optionsEs: [
-        "Necesitas esto también o la jeringa no funcionará",
+        "Necesitas esto también o la jeringa no funcionará bien — sin ello la piel muerta lo bloquea todo y habrás tirado el dinero",
         "La jeringa trata arrugas, el peeling elimina la piel muerta que bloquea que funcione más profundo — juntos son un sistema facial completo",
-        "Es lo mismo pero más barato",
-        "La mayoría compra ambos, tú también deberías"
+        "Es lo mismo pero más barato, así que si la jeringa te pareció mucho llévate este y consigues el mismo efecto",
+        "La mayoría se lleva los dos, tú también deberías — casi todo el que se lleva la jeringa sale con el peeling en la misma bolsa"
       ],
       correctIndex: 1,
       explanation:
@@ -430,18 +430,18 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "Una cliente dice: 'Puedo conseguir productos con ácido glicólico en la farmacia por {currency}15.' ¿Cómo respondes?",
       options: [
-        "Those are fake, only ours is real",
         "Pharmacy products use 3-5% glycolic acid — our professional formula is 15-20% concentration. It's like comparing a toy car to a real engine",
-        "{currency}15 products are for poor people, you deserve better",
-        "The pharmacy ones don't work at all, don't waste your money"
+        "Those are fake, only ours is real — pharmacy shelves are full of relabelled products with almost nothing active in them",
+        "{currency}15 products are for poor people, you deserve better — you can see from your own skin that you already take care of yourself",
+        "The pharmacy ones don't work at all, don't waste your money on them — you will finish the bottle and see exactly nothing"
       ],
       optionsEs: [
-        "Esos son falsos, solo el nuestro es real",
         "Los productos de farmacia usan 3-5% de ácido glicólico — nuestra fórmula profesional es 15-20% de concentración. Es como comparar un carrito de juguete con un motor real",
-        "Los productos de {currency}15 son para gente pobre, tú mereces mejor",
-        "Los de farmacia no funcionan para nada, no desperdicies tu dinero"
+        "Esos son falsos, solo el nuestro es real — las estanterías de farmacia están llenas de productos reetiquetados casi sin activo",
+        "Los productos de {currency}15 son para gente pobre, tú mereces algo mejor — se te nota en la piel que ya te cuidas",
+        "Los de farmacia no funcionan nada, no tires el dinero en eso — te acabarás el bote y no verás absolutamente nada"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "This response educates rather than attacks. The concentration comparison (3-5% vs 15-20%) is a factual, verifiable difference that justifies the price premium. The 'toy car vs real engine' analogy is vivid and memorable. You're not insulting the customer or the competitor — you're explaining the value difference. Education-based objection handling builds trust and justifies price.",
       explanationEs:
@@ -453,18 +453,18 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "Después de aplicar el peeling glicólico, la piel de una cliente se pone ligeramente rosa. ¿Qué deberías hacer?",
       options: [
-        "Panic and tell them they're having an allergic reaction",
+        "Panic and tell them they're having an allergic reaction, wash it off immediately and end the demo before it gets worse",
+        "Apply more peeling to even out the colour so both sides of the face end up looking the same before she sees the mirror",
         "Calmly explain this is normal — increased blood flow to the surface means it's working — then apply neutralizer and soothing cream",
-        "Apply more peeling to even out the color",
-        "Tell them not to worry and send them away — it'll go away on its own"
+        "Tell them not to worry and send them away — it'll go away on its own in an hour, so there is no need to do anything about it"
       ],
       optionsEs: [
-        "Entrar en pánico y decirles que están teniendo una reacción alérgica",
+        "Entrar en pánico y decirles que están teniendo una reacción alérgica, lavarlo ya y cortar la demo antes de que empeore",
+        "Aplicar más peeling para igualar el color y que las dos partes de la cara queden igual antes de que se mire al espejo",
         "Explicar calmadamente que es normal — el aumento de flujo sanguíneo a la superficie significa que está funcionando — luego aplicar neutralizador y crema calmante",
-        "Aplicar más peeling para uniformizar el color",
-        "Decirles que no se preocupen y dejarlas ir — se les quitará sola"
+        "Decirles que no se preocupen y dejarlas marchar — se les quitará solo en una hora, así que no hay que hacer nada"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Slight pinkness (erythema) is a NORMAL and EXPECTED response to glycolic acid — it indicates increased microcirculation, which is part of the rejuvenation process. Your calm, knowledgeable reaction turns a potential panic moment into a trust-building demonstration. Always explain BEFORE the demo that a slight tingle and pinkness are signs it's working. Having neutralizer and soothing cream ready shows professionalism.",
       explanationEs:
@@ -476,18 +476,18 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "¿Cuál es la MEJOR oferta de empaquetado que combina el Scrub de Minerales del Mar Muerto con el Kit de Peeling Glicólico?",
       options: [
-        "Buy either product and the other one is half price on the spot",
+        "Buy either product and the other one is half price on the spot, whichever way round the customer wants to do it",
+        "Buy two Scrubs and the Peeling goes in free on top, which turns the cheapest product into the route to the dearest one",
         "The Peeling at {currency}100 with the Dead Sea Scrub included as the gift — the Scrub alone is {currency}60, so it costs them nothing",
-        "Buy two Scrubs and the Peeling goes in free on top",
-        "The bundle doesn't save money but you get a free bag"
+        "The bundle doesn't save any money but you get a free gift bag, which is enough for most people buying presents"
       ],
       optionsEs: [
-        "Compra cualquiera de los dos y el otro te sale a mitad de precio en el momento",
+        "Compra cualquiera de los dos y el otro sale a mitad de precio en el momento, en el orden que la clienta prefiera",
+        "Compra dos Exfoliantes y el Peeling entra gratis encima, lo que convierte el producto más barato en la vía hacia el más caro",
         "El Peeling a {currency}100 con el Exfoliante del Mar Muerto incluido de regalo — el Exfoliante solo son {currency}60, así que no les cuesta nada",
-        "Compra dos Exfoliantes y el Peeling entra gratis encima",
-        "El paquete no ahorra dinero pero llevas bolsa gratis"
+        "El paquete no ahorra dinero pero llevas bolsa de regalo gratis, que a la mayoría que compra regalos le basta"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "You do not invent a bundle for these two — Offer 1 already is one. The Peeling at {currency}100 comes with the Dead Sea Scrub as its gift, and the Scrub on its own is {currency}60. So the customer pays {currency}100 for a {currency}160 pair, and you can say that out loud because it is true. It feels like a complete ritual — scrub first to cleanse, then peel to renew. Always know your bundle math before hitting the street; a saving you cannot show on your fingers is a saving the customer will not believe.",
       explanationEs:
@@ -499,18 +499,18 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "Una cliente con acné activo pregunta si debería usar el peeling glicólico. ¿Cuál es la respuesta CORRECTA?",
       options: [
-        "Yes — glycolic acid will clear your acne completely",
-        "Not on active, inflamed acne — wait until breakouts calm down, then use it to fade scars and prevent future ones",
-        "No — glycolic acid causes acne in everyone",
-        "Use it twice daily directly on pimples to dry them out"
+        "Yes — glycolic acid will clear your acne completely, so start using it tonight and keep going every day until it is gone",
+        "No — glycolic acid causes acne in everyone, so this is the one product you should never use on a face that already breaks out",
+        "Use it twice daily directly on pimples to dry them out, and the stronger the tingling feels the faster it will be working",
+        "Not on active, inflamed acne — wait until breakouts calm down, then use it to fade scars and prevent future ones"
       ],
       optionsEs: [
-        "Sí — el ácido glicólico eliminará tu acné completamente",
-        "No sobre acné activo e inflamado — espera a que los brotes se calmen, luego úsalo para atenuar cicatrices y prevenir futuros",
-        "No — el ácido glicólico causa acné en todos",
-        "Úsalo dos veces al día directamente sobre granos para secarlos"
+        "Sí — el ácido glicólico te quitará el acné del todo, empieza esta noche y sigue cada día hasta que desaparezca",
+        "No — el ácido glicólico causa acné en todo el mundo, así que es el producto que nunca deberías usar en una cara con brotes",
+        "Úsalo dos veces al día directamente sobre los granos para secarlos, y cuanto más pique más rápido estará funcionando",
+        "No sobre acné activo e inflamado — espera a que los brotes se calmen, luego úsalo para atenuar cicatrices y prevenir futuros"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "This is a SAFETY question, not just a sales question. Applying acid to inflamed, broken skin can cause irritation, hyperpigmentation, and scarring. The honest answer protects the customer AND sets up a future sale ('come back when your skin calms down, I'll show you how to fade the scars'). This integrity builds your reputation and prevents dangerous misuse. Never sacrifice safety for a sale.",
       explanationEs:
@@ -541,18 +541,18 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "Durante la demo del Scrub del Mar Muerto, le pides a la cliente que 'sienta los cristales.' ¿Cuál es el propósito psicológico de esta técnica?",
       options: [
-        "To prove the product contains real salt",
         "To create a sensory connection — touch triggers ownership psychology and makes the product feel real",
-        "To show how rough it is compared to competitors",
-        "To check if they have sensitive hands"
+        "To prove the product contains real salt rather than the plastic microbeads used in cheaper scrubs",
+        "To show how rough it is compared to competitors, because a stronger scrub is what removes more dead skin per use",
+        "To check if they have sensitive hands before you go any further, so nobody reacts badly to the minerals"
       ],
       optionsEs: [
-        "Para probar que el producto contiene sal real",
         "Para crear una conexión sensorial — el tacto dispara la psicología de propiedad y hace que el producto se sienta real",
-        "Para mostrar qué tan áspero es comparado con competidores",
-        "Para verificar si tienen manos sensibles"
+        "Para demostrar que el producto lleva sal de verdad y no las microesferas de plástico de los exfoliantes baratos",
+        "Para enseñar lo áspero que es comparado con la competencia, porque cuanto más fuerte más piel muerta quita",
+        "Para comprobar si tienen las manos sensibles antes de seguir, y que nadie reaccione mal a los minerales"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The 'feel the crystals' technique is pure sensory selling. When a customer touches and feels the texture, their brain begins to register the product as 'theirs.' This tactile engagement creates an emotional bond that words alone cannot achieve. Touch also activates mirror neurons — the customer imagines the sensation on their own skin. The more senses you involve, the stronger the desire to buy.",
       explanationEs:
@@ -564,18 +564,18 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "¿Qué minerales del Mar Muerto deberías mencionar como beneficios clave durante tu pitch?",
       options: [
-        "Gold, silver, and platinum for luxury appeal",
+        "Gold, silver, and platinum for luxury appeal — precious metals give the pitch a premium feel that justifies the price",
+        "Iron, copper, and zinc for strength — the same minerals people take as supplements, so the customer already trusts them",
         "Magnesium, calcium, potassium, and bromide — which detoxify, hydrate, and improve circulation",
-        "Iron, copper, and zinc for strength",
-        "Sodium chloride — just regular table salt"
+        "Sodium chloride — just regular table salt, which is what does the actual scrubbing once it dissolves in water"
       ],
       optionsEs: [
-        "Oro, plata y platino para apelar al lujo",
+        "Oro, plata y platino para apelar al lujo — los metales preciosos dan un aire premium que justifica el precio",
+        "Hierro, cobre y zinc para fortalecer — los mismos minerales que la gente toma en suplementos, así que ya confía en ellos",
         "Magnesio, calcio, potasio y bromuro — que desintoxican, hidratan y mejoran la circulación",
-        "Hierro, cobre y zinc para fortaleza",
-        "Cloruro de sodio — solo sal de mesa regular"
+        "Cloruro de sodio — sal de mesa normal, que es lo que realmente exfolia en cuanto se disuelve en agua"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The Dead Sea contains 21 minerals, 12 of which exist nowhere else on Earth. The 'big four' for selling are: Magnesium (anti-inflammatory, hydrates), Calcium (skin barrier repair), Potassium (moisture balance), and Bromide (soothing, relaxes muscles). These are scientifically recognized benefits — mentioning them with confidence positions you as an expert, not just a seller.",
       explanationEs:
@@ -587,18 +587,18 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "¿Cuál es la técnica correcta para la demostración práctica del scrub?",
       options: [
-        "Apply dry scrub to dry hands and rub vigorously",
+        "Apply dry scrub to dry hands and rub vigorously, so the crystals are at their roughest and the effect is obvious",
+        "Apply a thick layer and leave it on for 5 minutes so the minerals have time to sink in before you rinse",
         "Wet the customer's hand, apply a small amount, massage in circles for 30 seconds, then rinse and compare hands",
-        "Apply thick layer and leave it on for 5 minutes",
-        "Mix with water first to create a paste, then apply to face directly"
+        "Mix it with water first to create a paste, then apply it to the face directly where the customer will see the result"
       ],
       optionsEs: [
-        "Aplicar scrub seco sobre manos secas y frotar vigorosamente",
+        "Aplicar el exfoliante seco sobre manos secas y frotar con fuerza, para que los cristales estén ásperos y el efecto se note",
+        "Aplicar una capa gruesa y dejarla actuar 5 minutos para que los minerales penetren antes de enjuagar",
         "Mojar la mano de la cliente, aplicar una pequeña cantidad, masajear en círculos por 30 segundos, luego enjuagar y comparar manos",
-        "Aplicar capa gruesa y dejar actuar por 5 minutos",
-        "Mezclar con agua primero para crear pasta, luego aplicar directamente en la cara"
+        "Mezclarlo primero con agua para hacer una pasta y aplicarlo directamente en la cara, donde la clienta verá el resultado"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The 30-second hand demo is the perfect 'hook' for the scrub. Wetting first activates the minerals, circular massage lets them feel the crystals working, and the side-by-side hand comparison creates an instant visual result. One hand looks brighter and feels smoother — the difference is undeniable. Always have a towel ready and do the comparison immediately while the contrast is fresh.",
       explanationEs:
@@ -610,16 +610,16 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "A una cliente le encanta la demo del scrub en sus manos pero dice: 'No necesito esto, ya tengo un scrub corporal en casa.' ¿Cómo respondes?",
       options: [
-        "Your body scrub is nothing compared to this",
+        "Your body scrub is nothing compared to this — whatever you have at home is sugar and oil, and it does not do a fraction of what you just felt",
         "This isn't a body scrub — it's a Dead Sea mineral facial treatment. Those salt crystals you felt? 21 minerals, 12 found nowhere else. Feel your hand — that's not just clean, that's mineral therapy",
-        "Okay, no problem — have a nice day!",
-        "Most body scrubs are fake, this is the real thing"
+        "Okay, no problem — have a nice day! If your one ever runs out you know where we are and I will be here all week",
+        "Most body scrubs are fake, this is the real thing — the supermarket ones are relabelled the same product with a different sticker on the jar"
       ],
       optionsEs: [
-        "Tu scrub corporal no se compara con esto",
+        "Tu exfoliante corporal no se compara con esto — lo que tienes en casa es azúcar y aceite, y no hace ni una fracción de lo que acabas de notar",
         "Esto no es un scrub corporal — es un tratamiento facial con minerales del Mar Muerto. ¿Esos cristales de sal que sentiste? 21 minerales, 12 que no se encuentran en ningún otro lugar. Siente tu mano — eso no es solo limpieza, es terapia mineral",
-        "Okay, no hay problema — ¡que tengas buen día!",
-        "La mayoría de los scrubs corporales son falsos, este es el verdadero"
+        "Vale, sin problema — ¡que tengas buen día! Si el tuyo se acaba ya sabes dónde estamos, aquí voy a estar toda la semana",
+        "La mayoría de los exfoliantes corporales son falsos, este es el de verdad — los del supermercado son el mismo producto con otra pegatina"
       ],
       correctIndex: 1,
       explanation:
@@ -633,15 +633,15 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "Una clienta compra el exfoliante por {currency}60. ¿Cuál es el MEJOR siguiente paso para aumentar la venta?",
       options: [
-        "Thank them and move to the next customer quickly",
+        "Thank them and move to the next customer quickly, because the fastest way to grow the day is more sales, not bigger ones",
         "Ask: 'Do you want the glow version too?' and move her to the Peeling at {currency}100 with the Scrub included as its gift — just {currency}40 more for a complete facial renewal system",
-        "Give them a discount coupon for next time",
+        "Give them a discount coupon for next time so they come back on their next trip and buy something bigger then",
         "Tell them they should have bought more while they were thinking about it"
       ],
       optionsEs: [
-        "Agradecer y pasar rápido al siguiente cliente",
+        "Darles las gracias y pasar rápido al siguiente cliente, porque la forma de crecer el día es más ventas, no más grandes",
         "Preguntar: '¿Quieres la versión glow también?' y pasarla al Peeling a {currency}100 con el Exfoliante incluido de regalo — solo {currency}40 más por un sistema completo de renovación facial",
-        "Darles un cupón de descuento para la próxima vez",
+        "Darles un cupón de descuento para la próxima vez y que vuelvan en su siguiente viaje a comprar algo mayor",
         "Decirles que deberían haber comprado más mientras lo estaban pensando"
       ],
       correctIndex: 1,
@@ -656,16 +656,16 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "¿Cuál de estos es un beneficio REAL de los minerales del Mar Muerto que hace al scrub único comparado con scrubs de sal regulares?",
       options: [
-        "It contains 10x more salt than regular scrubs",
+        "It contains 10x more salt than regular scrubs, which is what makes the crystals feel so different on the back of the hand",
         "Dead Sea minerals have been clinically studied for psoriasis and eczema treatment — the mineral concentration is 30% vs 3% in regular seawater",
-        "It smells better than other scrubs",
-        "The crystals are sharper so they exfoliate deeper"
+        "It smells better than other scrubs because the minerals are unscented, so nothing competes with the perfume you already wear",
+        "The crystals are sharper so they exfoliate deeper than sugar or plastic beads, which is why one use is enough for a whole week"
       ],
       optionsEs: [
-        "Contiene 10 veces más sal que scrubs regulares",
+        "Contiene 10 veces más sal que los exfoliantes normales, que es lo que hace que los cristales se noten tan distintos en la mano",
         "Los minerales del Mar Muerto han sido estudiados clínicamente para tratamiento de psoriasis y eczema — la concentración mineral es 30% vs 3% en agua de mar regular",
-        "Huele mejor que otros scrubs",
-        "Los cristales son más afilados así que exfolian más profundo"
+        "Huele mejor que otros exfoliantes porque los minerales no llevan perfume, así que nada compite con el que ya usas",
+        "Los cristales son más afilados, así que exfolian más hondo que el azúcar o las microesferas, por eso un uso basta para toda la semana"
       ],
       correctIndex: 1,
       explanation:
@@ -680,17 +680,17 @@ const quizScrubExpert: GeneralQuiz = {
         "¿Con qué frecuencia debería una cliente usar el Scrub del Mar Muerto para mejores resultados?",
       options: [
         "Daily — use it every morning in the shower",
-        "2-3 times per week — enough to maintain glow without over-exfoliating",
         "Once per month for a deep treatment",
-        "Only when skin looks dull — no set schedule needed"
+        "Only when skin looks dull — no set schedule needed",
+        "2-3 times per week — enough to maintain glow without over-exfoliating"
       ],
       optionsEs: [
         "Diario — úsalo cada mañana en la ducha",
-        "2-3 veces por semana — suficiente para mantener el brillo sin sobre-exfoliar",
         "Una vez al mes para un tratamiento profundo",
-        "Solo cuando la piel se ve opaca — no se necesita horario fijo"
+        "Solo cuando la piel se ve opaca — no se necesita horario fijo",
+        "2-3 veces por semana — suficiente para mantener el brillo sin sobre-exfoliar"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "2-3 times per week is the dermatologist-recommended frequency for physical scrubs. Daily use can damage the skin barrier, causing sensitivity and irritation. The '2-3 times' advice shows you care about their results long-term, not just making a sale. It also means one jar lasts longer — but they'll love the results so much they'll come back for more and for your other products.",
       explanationEs:
@@ -702,18 +702,18 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "Una cliente se toca la cara después de la demo del scrub y sonríe. ¿Qué te dice este lenguaje corporal?",
       options: [
-        "They're just being polite",
+        "They're just being polite and doing what people do when a stranger puts something on their hand — it means nothing either way",
+        "They have an itch and are being nice about it — offer them a tissue and move the demo on to the body butter",
         "This is a strong buying signal — touching the treated area and smiling indicates they like the result and are imagining owning the product",
-        "They have an itch and are being nice about it",
-        "They're checking if they had an allergic reaction"
+        "They're checking if they had an allergic reaction to the minerals, so reassure them about the ingredients before you say anything else"
       ],
       optionsEs: [
-        "Solo están siendo educadas",
+        "Solo están siendo educadas y haciendo lo que hace cualquiera cuando un desconocido le pone algo en la mano — no significa nada",
+        "Les pica y están siendo amables al respecto — ofréceles un pañuelo y pasa la demo al body butter",
         "Esta es una señal de compra fuerte — tocar el área tratada y sonreír indica que les gusta el resultado y están imaginando tener el producto",
-        "Tienen una comezón y están siendo amables al respecto",
-        "Están verificando si tuvieron una reacción alérgica"
+        "Están comprobando si han tenido una reacción alérgica a los minerales, así que tranquilízalas sobre los ingredientes antes de nada"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Touching the treated area + smiling is one of the best buying signals in cosmetics sales. The touch shows they're experiencing the result physically, and the smile is genuine positive emotion. When you see this, STOP TALKING and ask for the sale. Saying more can only talk them out of it. The body has already decided — your job is to close.",
       explanationEs:
@@ -725,18 +725,18 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "Una clienta dice: '{currency}60 es mucho para un exfoliante.' ¿Cuál es la MEJOR técnica de reencuadre de valor?",
       options: [
-        "It's actually the cheapest scrub on the market",
+        "It's actually the cheapest scrub on the market for this quality — nothing in a pharmacy comes close for the same money",
+        "Quality costs money, cheap products don't work — you have probably already spent that much on things that did nothing",
         "This jar lasts 8-12 months at one use a week — that's under {currency}2 per treatment. One facial at a spa costs {currency}80+",
-        "Quality costs money, cheap products don't work",
-        "I'll give you a discount if you buy right now"
+        "I'll give you a discount if you buy right now — say yes in the next minute and I will take it down a rung for you"
       ],
       optionsEs: [
-        "Es el scrub más barato del mercado",
+        "Es el exfoliante más barato del mercado para esta calidad — nada de farmacia se le acerca por el mismo dinero",
+        "La calidad cuesta dinero, lo barato no funciona — seguro que ya te has gastado eso mismo en cosas que no hicieron nada",
         "Este frasco dura 8-12 meses con un uso a la semana — eso es menos de {currency}2 por tratamiento. Un facial en un spa cuesta {currency}80+",
-        "La calidad cuesta dinero, los productos baratos no funcionan",
-        "Te doy descuento si compras ahora mismo"
+        "Te hago un descuento si compras ahora mismo — dime que sí en el próximo minuto y te bajo un escalón"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The cost-per-use calculation is devastatingly effective. {currency}60 sounds like a lot for 'a scrub' — but under {currency}2 per treatment sounds like a bargain, and it is the honest number: one teaspoon a week, a jar that lasts 8-12 months. The spa comparison ({currency}80+ for one facial) positions your product as a money-saver. Always calculate cost-per-use in advance.",
       explanationEs:
@@ -748,18 +748,18 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "¿Cuándo deberías ofrecer el Exfoliante del Mar Muerto como venta individual de {currency}60 en vez de dentro de un paquete?",
       options: [
-        "Always push the bundle first — never sell standalone",
-        "Offer standalone when the customer shows budget hesitation or low engagement — use it as the entry point to build trust before upselling",
-        "Only sell standalone at the end of the day",
-        "Always sell standalone — bundles confuse customers"
+        "Always push the bundle first — never sell standalone, because a single scrub caps the ticket before it has even started",
+        "Only sell standalone at the end of the day when you are clearing what is left on the table and the trio has stopped moving",
+        "Always sell standalone — bundles confuse customers, and a single clear price is easier to say yes to than three offers",
+        "Offer standalone when the customer shows budget hesitation or low engagement — use it as the entry point to build trust before upselling"
       ],
       optionsEs: [
-        "Siempre empuja el paquete primero — nunca vendas independiente",
-        "Ofrece independiente cuando la cliente muestra duda por presupuesto o bajo compromiso — úsalo como punto de entrada para construir confianza antes de vender más",
-        "Solo vende independiente al final del día",
-        "Siempre vende independiente — los paquetes confunden a las clientes"
+        "Empuja siempre el paquete primero, nunca vendas individual, porque un solo exfoliante limita el ticket antes de empezar",
+        "Vende individual solo al final del día, cuando liquidas lo que queda en la mesa y el trío ya no se mueve",
+        "Vende siempre individual — los paquetes confunden a las clientas, y un precio único es más fácil de aceptar que tres ofertas",
+        "Ofrece independiente cuando la cliente muestra duda por presupuesto o bajo compromiso — úsalo como punto de entrada para construir confianza antes de vender más"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "The scrub at {currency}60 is your 'foot in the door' product. When someone is hesitant about higher prices or seems skeptical, the scrub builds trust through its tangible demo. Once they buy and love it, they become a warm lead for the syringe and peeling. Pushing bundles on cold prospects often results in NO sale. Read the customer — low engagement gets the {currency}60 single, high engagement gets the {currency}120 Buy 2 Get 1 pitch.",
       explanationEs:
@@ -790,18 +790,18 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "¿Cuáles son los 3 pasos del sistema de pulido del Kit de Uñas Francesas?",
       options: [
-        "Wash, dry, polish",
         "File smooth (remove ridges), polish white tip, buff to shine — all with one 3-sided buffer",
-        "Apply base coat, apply color, apply top coat",
-        "Soak, scrub, moisturize"
+        "Wash the hands, dry them thoroughly, then polish with the buffer until the nail shines",
+        "Apply base coat, apply the colour, then seal it with a top coat and wait for the whole thing to dry",
+        "Soak the fingertips, scrub away the dead skin, then moisturise the cuticles with the oil"
       ],
       optionsEs: [
-        "Lavar, secar, pulir",
         "Limar suave (eliminar estrías), pulir punta blanca, dar brillo — todo con un pulidor de 3 lados",
-        "Aplicar base, aplicar color, aplicar capa superior",
-        "Remojar, exfoliar, hidratar"
+        "Lavar las manos, secarlas bien y después pulir con el pulidor hasta que la uña brille",
+        "Aplicar la base, aplicar el color y sellarlo con una capa superior, y esperar a que seque todo",
+        "Remojar las yemas, exfoliar la piel muerta y después hidratar las cutículas con el aceite"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The 3-sided buffer is the genius of this kit. Side 1 (usually gray) files and removes ridges. Side 2 (white) creates the French white tip effect. Side 3 (pink/shine) buffs to a brilliant glossy finish. No nail polish, no drying time, no skills needed. Understanding each side lets you demo with confidence and explain why this beats traditional nail polish.",
       explanationEs:
@@ -813,16 +813,16 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "Una cliente dice: 'Soy terrible haciéndome las uñas — siempre las arruino.' ¿Cómo conviertes esto en una venta?",
       options: [
-        "You'll get better with practice, just keep trying",
+        "You'll get better with practice, just keep trying — everybody is bad at this for the first few months and then it clicks",
         "That's exactly why this kit was invented — zero liquid polish, zero drying time, zero skills. If you can rub a pen on paper, you can do this. Let me show you on ONE nail.",
-        "Then you should go to a salon instead",
-        "Don't worry, most people are bad at nails"
+        "Then you should go to a salon instead — pay the professional, sit for the hour, and let someone else deal with the mess",
+        "Don't worry, most people are bad at nails — it is honestly the hardest thing to do on yourself and nobody gets it right"
       ],
       optionsEs: [
-        "Mejorarás con práctica, solo sigue intentando",
+        "Mejorarás con la práctica, sigue intentándolo — todo el mundo es malo los primeros meses y luego le coge el truco",
         "Exactamente por eso se inventó este kit — cero esmalte líquido, cero tiempo de secado, cero habilidad. Si puedes frotar un lápiz en papel, puedes hacer esto. Déjame mostrarte en UNA uña.",
-        "Entonces deberías ir a un salón en su lugar",
-        "No te preocupes, la mayoría es mala con las uñas"
+        "Entonces mejor ve a un salón — paga a la profesional, siéntate la hora y que se encargue otra persona del lío",
+        "No te preocupes, casi todo el mundo es malo con las uñas — es lo más difícil de hacerse una misma y nadie lo clava"
       ],
       correctIndex: 1,
       explanation:
@@ -836,18 +836,18 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "El Kit de Uñas Francesas incluye garantía de por vida. ¿Cómo deberías presentar esto para maximizar su impacto de ventas?",
       options: [
-        "Mention it quickly at the end as an afterthought",
+        "Mention it quickly at the end as an afterthought, once the price is agreed, so it feels like a small bonus rather than a sales point",
+        "Don't mention it — warranties sound like something will go wrong, and planting that idea makes the customer doubt the product",
         "Use it as a trust anchor: 'This company has been around 30 years and still honors lifetime warranties — that's how confident they are. Your {currency}60 is protected forever.'",
-        "Don't mention it — warranties sound like something will go wrong",
-        "Say the warranty is only valid if they buy today"
+        "Say the warranty is only valid if they buy today, so the guarantee doubles as the urgency you need to close"
       ],
       optionsEs: [
-        "Mencionarla rápido al final como algo secundario",
+        "Mencionarla rápido al final, ya con el precio cerrado, para que parezca un pequeño extra y no un argumento de venta",
+        "No la menciones — las garantías suenan a que algo va a fallar, y sembrar esa idea hace que la clienta dude del producto",
         "Úsala como ancla de confianza: 'Esta empresa lleva 30 años y aún honra garantías de por vida — así de confiados están. Tus {currency}60 están protegidos para siempre.'",
-        "No la menciones — las garantías suenan a que algo saldrá mal",
-        "Di que la garantía solo es válida si compran hoy"
+        "Di que la garantía solo vale si compran hoy, así la garantía te sirve además como urgencia para cerrar"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The lifetime warranty is a MASSIVE trust signal — but only if you present it with conviction. '30 years and still honoring' proves longevity. 'Protected forever' reframes {currency}60 as a protected investment, not an expense. It removes ALL risk from the purchase decision. When customers feel there's zero risk, they buy. The warranty isn't a footnote — it's one of your strongest closing tools.",
       explanationEs:
@@ -859,18 +859,18 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "Una clienta compra la jeringa por {currency}300. ¿Cuándo es el MEJOR momento para ofrecer el Kit de Uñas Francesas como complemento?",
       options: [
-        "Before you tell them the syringe price, so they feel better about spending",
+        "Before you tell them the syringe price, so they feel better about spending once they hear the two numbers side by side",
+        "After they've paid and are walking away — hand them a flyer so they can think about it and come back another day",
         "Right AFTER they agree to the syringe but BEFORE they pay — they're in 'buying mode' and the nail kit feels like a small add-on to a big purchase",
-        "After they've paid and are walking away — hand them a flyer",
-        "Don't offer it — they'll feel like you're being greedy"
+        "Don't offer it — they'll feel like you're being greedy and it can sour a sale you have already closed"
       ],
       optionsEs: [
-        "Antes de decirles el precio de la jeringa, para que se sientan mejor gastando",
+        "Antes de decirles el precio de la jeringa, para que se sientan mejor al oír las dos cifras juntas",
+        "Después de que pagan y se van — dales un folleto para que lo piensen y vuelvan otro día",
         "Justo DESPUÉS de que aceptan la jeringa pero ANTES de que paguen — están en 'modo de compra' y el kit de uñas se siente como un pequeño complemento a una compra grande",
-        "Después de que pagan y se van — dales un volante",
-        "No lo ofrezcas — sentirán que eres codicioso"
+        "No lo ofrezcas — pensarán que eres codicioso y puede estropear una venta que ya tenías cerrada"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The 'hot state' add-on is one of the most powerful sales techniques. When someone has just said YES to a {currency}300 purchase, their buying resistance is at its lowest. {currency}60 for a nail kit feels trivial compared to {currency}300. They're already holding their wallet, already trusting you, already excited. The psychological cost of saying yes AGAIN is near zero. Strike while the iron is hot — literally between 'yes' and payment.",
       explanationEs:
@@ -882,18 +882,18 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "La amiga de una cliente dice: 'No compres eso, mejor compra esmalte normal.' ¿Cómo manejas a la amiga sin crear conflicto?",
       options: [
-        "Ignore the friend and keep pitching to the buyer",
-        "'Great point! Regular polish is {currency}10 but chips in 2 days. This lasts 2 weeks, never chips, needs zero drying time, and saves {currency}200+ yearly on salon visits. Your friend is smart — she should try it too!'",
-        "Tell the friend to mind her own business",
-        "Offer a discount if the friend stops talking"
+        "Ignore the friend and keep pitching to the buyer — every second you spend on the friend is a second the buyer spends cooling off",
+        "Tell the friend to mind her own business — it is not her hands, not her money, and she is only slowing the whole thing down",
+        "Offer a discount if the friend stops talking — buy the silence with the voucher price and close before she can raise another objection",
+        "'Great point! Regular polish is {currency}10 but chips in 2 days. This lasts 2 weeks, never chips, needs zero drying time, and saves {currency}200+ yearly on salon visits. Your friend is smart — she should try it too!'"
       ],
       optionsEs: [
-        "Ignorar a la amiga y seguir pitch a la compradora",
-        "¡Buen punto! El esmalte normal cuesta {currency}10 pero se desconcha en 2 días. Esto dura 2 semanas, nunca se desconcha, no necesita tiempo de secado, y ahorra {currency}200+ al año en visitas al salón. ¡Tu amiga es inteligente — ella también debería probarlo!",
-        "Decirle a la amiga que se ocupe de sus asuntos",
-        "Ofrecer descuento si la amiga deja de hablar"
+        "Ignorar a la amiga y seguir con la compradora — cada segundo que le dedicas a la amiga es un segundo en que la compradora se enfría",
+        "Decirle a la amiga que se meta en sus asuntos — no son sus manos ni su dinero, y solo está retrasando todo",
+        "Ofrecer un descuento si la amiga deja de hablar — cómprale el silencio con el precio del cupón y cierra antes de que saque otra objeción",
+        "¡Buen punto! El esmalte normal cuesta {currency}10 pero se desconcha en 2 días. Esto dura 2 semanas, nunca se desconcha, no necesita tiempo de secado, y ahorra {currency}200+ al año en visitas al salón. ¡Tu amiga es inteligente — ella también debería probarlo!"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "This response is brilliant because it validates the friend's input ('great point!'), educates with facts (2 days vs 2 weeks, {currency}200+ savings), and converts the friend into a prospect ('she should try it too'). You're not arguing — you're agreeing AND upgrading. Turning skeptics into potential second sales is a master-level street skill. Never fight the friend — recruit them.",
       explanationEs:
@@ -905,18 +905,18 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "Una cliente pregunta: '¿Cuánto dura el efecto de manicura francesa?' ¿Cuál es la respuesta HONESTA pero convincente?",
       options: [
-        "Forever — it's permanent once applied",
+        "Forever — it's permanent once applied, so you only ever have to do this to each nail one single time",
+        "It washes off the next day so you need to reapply daily, which is why the kit is designed to be so quick to use",
         "Each application lasts about 1-2 weeks depending on nail growth and hand washing frequency. The kit pays for itself in one month vs salon visits",
-        "It washes off the next day so you need to reapply daily",
-        "Nobody knows — it varies too much to say"
+        "Nobody knows — it varies too much from person to person to give a number, so try it and see how it goes for you"
       ],
       optionsEs: [
-        "Para siempre — es permanente una vez aplicado",
+        "Para siempre — es permanente una vez aplicado, así que solo tienes que hacérselo a cada uña una única vez",
+        "Se quita al día siguiente, así que hay que repetirlo a diario, por eso el kit está pensado para ser tan rápido",
         "Cada aplicación dura unas 1-2 semanas dependiendo del crecimiento de uñas y frecuencia de lavado de manos. El kit se paga solo en un mes vs visitas al salón",
-        "Se lava al día siguiente así que necesitas reaplicar diario",
-        "Nadie lo sabe — varía demasiado para decir"
+        "Nadie lo sabe — varía demasiado de una persona a otra para dar una cifra, así que pruébalo y ya verás"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Honesty builds repeat customers. 1-2 weeks is realistic — nails grow, tips wear. But the 'pays for itself in one month' reframes the entire value proposition. At {currency}60 vs {currency}25-40 per salon visit, the math is undeniable. A customer who trusts your honesty becomes a customer for life. A customer who discovers you exaggerated stops buying entirely.",
       explanationEs:
@@ -928,18 +928,18 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "¿Qué tipo de cliente es el MÁS FÁCIL de venderle el Kit de Uñas Francesas como regalo?",
       options: [
-        "A man walking alone who looks stressed",
         "A woman who just said 'my daughter/sister/mom would love this' or any man buying for a woman in his life",
-        "A teenager with no money",
-        "A professional nail technician"
+        "A man walking alone who looks stressed and in a hurry, because he will take the fastest option you put in front of him",
+        "A teenager with no money of her own, who will go home and ask a parent to come back and buy it for her",
+        "A professional nail technician, who already knows the value of a good buffer and will buy several for the salon"
       ],
       optionsEs: [
-        "Un hombre caminando solo que se ve estresado",
         "Una mujer que acaba de decir 'a mi hija/hermana/mamá le encantaría esto' o cualquier hombre comprando para una mujer en su vida",
-        "Una adolescente sin dinero",
-        "Una manicurista profesional"
+        "Un hombre que va solo, estresado y con prisa, porque se llevará la opción más rápida que le pongas delante",
+        "Una adolescente sin dinero propio, que irá a casa a pedirle a un padre que vuelva a comprárselo",
+        "Una manicurista profesional, que ya conoce el valor de un buen pulidor y comprará varios para el salón"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Gift selling is about recognizing the signal. When someone mentions another person in the context of your product ('my mom would love this'), they're testing the idea. Your response: 'She absolutely would — and at {currency}60 it's the perfect gift. Take two and the third is free, {currency}120 for all three.' Men buying for wives/girlfriends are also gold — they want an easy, impressive gift and don't know what to buy. The nail kit is painless, practical, and premium-looking.",
       explanationEs:
@@ -951,16 +951,16 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "Durante la demo, la uña de una cliente se ve amarillenta después del primer paso del pulidor. ¿Qué significa esto y cómo lo manejas?",
       options: [
-        "The product is defective and stained their nail",
+        "The product is defective and stained their nail — apologise, stop the demo, and offer to do the other hand with a fresh buffer",
         "The yellowing is actually staining from old nail polish being lifted — the buffer is cleaning what polish remover leaves behind. Watch this next step make it disappear",
-        "They have a fungal infection and shouldn't use the product",
-        "It's normal and will wash off with soap"
+        "They have a fungal infection and shouldn't use the product — tell them to see a pharmacist and offer them the body butter instead",
+        "It's normal and will wash off with soap and water later, so there is no need to explain it or slow the demo down"
       ],
       optionsEs: [
-        "El producto es defectuoso y manchó su uña",
+        "El producto es defectuoso y le ha manchado la uña — discúlpate, para la demo y ofrécete a hacer la otra mano con un pulidor nuevo",
         "El amarillamiento es en realidad manchado de esmalte viejo siendo levantado — el pulidor está limpiando lo que el quitaesmalte deja atrás. Mira cómo desaparece en este siguiente paso",
-        "Tienen una infección fúngica y no deberían usar el producto",
-        "Es normal y se lava con jabón"
+        "Tienen una infección por hongos y no deberían usar el producto — diles que vayan a la farmacia y ofréceles el body butter",
+        "Es normal y se quita luego con agua y jabón, así que no hace falta explicarlo ni frenar la demo"
       ],
       correctIndex: 1,
       explanation:
@@ -974,18 +974,18 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "Una clienta dice: '{currency}60 parece caro para un pulidor de uñas.' ¿Cuál es la comparación de valor CORRECTA?",
       options: [
-        "It's not expensive, you just don't understand quality",
-        "One salon French manicure costs {currency}25-40 and lasts 1-2 weeks. This kit gives you 50+ manicures for {currency}60 — barely more than {currency}1 each. You save over {currency}1,200 per year",
-        "Other nail kits cost {currency}100+ so this is actually cheap",
-        "If you think {currency}60 is expensive, you can't afford nice things"
+        "It's not expensive, you just don't understand quality yet — once you have used a professional buffer you will never go back",
+        "Other nail kits cost {currency}100+ in department stores, so at our price this is actually the cheap option on the street",
+        "If you think {currency}60 is expensive, you can't afford nice things — this is what a decent pair of shoes costs and it lasts far longer",
+        "One salon French manicure costs {currency}25-40 and lasts 1-2 weeks. This kit gives you 50+ manicures for {currency}60 — barely more than {currency}1 each. You save over {currency}1,200 per year"
       ],
       optionsEs: [
-        "No es caro, simplemente no entiendes calidad",
-        "Una manicura francesa en salón cuesta {currency}25-40 y dura 1-2 semanas. Este kit te da 50+ manicuras por {currency}60 — apenas más de {currency}1 cada una. Ahorras más de {currency}1,200 al año",
-        "Otros kits de uñas cuestan {currency}100+ así que esto es barato",
-        "Si piensas que {currency}60 es caro, no puedes permitirte cosas bonitas"
+        "No es caro, es que todavía no entiendes de calidad — cuando uses un pulidor profesional no vuelves atrás",
+        "Otros kits de uñas cuestan {currency}100+ en grandes almacenes, así que a nuestro precio este es la opción barata de la calle",
+        "Si te parece caro {currency}60 no puedes permitirte cosas bonitas — es lo que cuestan unos zapatos decentes y esto dura mucho más",
+        "Una manicura francesa en salón cuesta {currency}25-40 y dura 1-2 semanas. Este kit te da 50+ manicuras por {currency}60 — apenas más de {currency}1 cada una. Ahorras más de {currency}1,200 al año"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "The {currency}1,200/year savings number is a 'jaw-dropper' that reframes {currency}60 as pocket change. '50+ manicures' makes the product feel abundant, not scarce. The math is simple and verifiable — {currency}60 across 50 manicures really is about {currency}1 each. When you can quantify value this clearly, price objections dissolve. Always know your numbers.",
       explanationEs:
@@ -997,18 +997,18 @@ const quizNailKitPro: GeneralQuiz = {
       questionEs:
         "Una clienta parece interesada pero dudosa en gastar {currency}60. ¿Cuál es la MEJOR técnica de cierre para este producto en concreto?",
       options: [
-        "Lower the price immediately to the {currency}30 floor",
+        "Lower the price immediately to the {currency}30 floor so the number stops being the thing she is arguing with",
+        "Tell her to come back tomorrow with more money, and note down which shade of buffer she liked so it is ready when she returns",
         "The 'one nail' micro-commitment: 'Let me do just ONE nail. If you don't absolutely love how it looks, no pressure at all. But when you see it, you'll want all ten done.'",
-        "Tell her to come back tomorrow with more money",
-        "Show her a video of someone else using it"
+        "Show her a video of someone else using it at home so she can see how simple the three steps are before she commits"
       ],
       optionsEs: [
-        "Bajar el precio de inmediato al mínimo de {currency}30",
+        "Bajar el precio de inmediato al mínimo de {currency}30 para que la cifra deje de ser lo que la frena",
+        "Decirle que vuelva mañana con más dinero, y apuntar qué pulidor le gustó para tenerlo listo cuando regrese",
         "El micro-compromiso de 'una uña': 'Déjame hacer solo UNA uña. Si no te encanta cómo se ve, ninguna presión. Pero cuando la veas, querrás las diez hechas.'",
-        "Decirle que regrese mañana con más dinero",
-        "Mostrarle un video de alguien más usándolo"
+        "Enseñarle un vídeo de otra persona usándolo en casa para que vea lo simples que son los tres pasos antes de decidirse"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The 'one nail' close is perfect for the nail kit because it's low-risk (one nail, not all ten), creates an immediate visual result, and triggers the 'completion desire' — once one nail looks amazing, the contrast with the other nine becomes unbearable. The customer will ASK to do the rest. You're not pushing — you're pulling. The micro-commitment strategy works because it requires almost zero commitment while delivering maximum proof.",
       explanationEs:
@@ -1039,18 +1039,18 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Estoy con un presupuesto muy ajustado ahora mismo.' ¿Qué respuesta es MÁS probable que cierre la venta?",
       options: [
-        "I understand — this isn't for everyone",
-        "I get it. Here's the thing — the budget option IS the Peeling. One {currency}100 bottle is a whole year of treatments and replaces {currency}500+ in salon visits. It's actually saving you money",
-        "How much do you have? I'll take whatever you can give",
-        "Stop making excuses and invest in yourself"
+        "I understand — this isn't for everyone, and I would rather you spent your money on something you actually need this week",
+        "How much do you have? I'll take whatever you can give — tell me the number in your pocket and I will make the price fit it",
+        "Stop making excuses and invest in yourself — everybody says they are on a tight budget and then spends the same money on dinner",
+        "I get it. Here's the thing — the budget option IS the Peeling. One {currency}100 bottle is a whole year of treatments and replaces {currency}500+ in salon visits. It's actually saving you money"
       ],
       optionsEs: [
-        "Entiendo — esto no es para todos",
-        "Te entiendo. El caso es que la opción económica ES el Peeling. Un frasco de {currency}100 es un año entero de tratamientos y sustituye {currency}500+ en visitas al salón. De hecho te está ahorrando dinero",
-        "¿Cuánto tienes? Aceptaré lo que puedas dar",
-        "Deja de poner excusas e invierte en ti misma"
+        "Te entiendo — esto no es para todo el mundo, y prefiero que te gastes el dinero en algo que de verdad necesites esta semana",
+        "¿Cuánto llevas encima? Acepto lo que me puedas dar — dime la cifra que tienes en el bolsillo y ajusto el precio a eso",
+        "Deja de poner excusas e invierte en ti misma — todo el mundo dice que va justa de dinero y luego se lo gasta igual en una cena",
+        "Te entiendo. El caso es que la opción económica ES el Peeling. Un frasco de {currency}100 es un año entero de tratamientos y sustituye {currency}500+ en visitas al salón. De hecho te está ahorrando dinero"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "This response validates their concern ('I get it') then completely reframes the purchase from 'expense' to 'savings.' The 'budget option IS the Peeling' is a powerful mental flip — and it points them at the product whose promo rung genuinely is {currency}100, so you are not quoting a floor price you should be holding back. When someone feels broke, offering them a way to SAVE money while still getting the product bypasses the budget objection entirely. You're not asking them to spend — you're showing them how to save.",
       explanationEs:
@@ -1062,18 +1062,18 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Déjame pensarlo y regreso mañana.' ¿Qué respuesta es la MEJOR?",
       options: [
-        "Okay, I'll be here tomorrow — no problem!",
-        "Absolutely, sleep on it. Just so you know — this is the last day at this price. I have 2 units left at {currency}300. Want me to hold one for you with a small deposit?",
-        "People who say that never come back — are you really interested or just being nice?",
-        "You'll forget about it by tomorrow — just buy it now"
+        "Okay, I'll be here tomorrow — no problem! Come by whenever you like and we can pick up exactly where we left off",
+        "People who say that never come back — are you really interested or just being nice? Tell me straight and I will not waste your time",
+        "You'll forget about it by tomorrow — just buy it now while you can still remember how your face looked in the mirror",
+        "Absolutely, sleep on it. Just so you know — this is the last day at this price. I have 2 units left at {currency}300. Want me to hold one for you with a small deposit?"
       ],
       optionsEs: [
-        "Okay, aquí estaré mañana — ¡no hay problema!",
-        "Absolutamente, piénsalo. Solo para que sepas — este es el último día a este precio. Me quedan 2 unidades a {currency}300. ¿Quieres que te reserve una con un pequeño depósito?",
-        "La gente que dice eso nunca regresa — ¿realmente te interesa o solo eres amable?",
-        "Lo olvidarás para mañana — solo cómpralo ahora"
+        "Vale, mañana estaré aquí — ¡sin problema! Pásate cuando quieras y seguimos justo donde lo dejamos",
+        "La gente que dice eso no vuelve nunca — ¿te interesa de verdad o solo estás siendo amable? Dímelo claro y no te hago perder el tiempo",
+        "Mañana ya se te habrá olvidado — cómpralo ahora que todavía recuerdas cómo te has visto en el espejo",
+        "Absolutamente, piénsalo. Solo para que sepas — este es el último día a este precio. Me quedan 2 unidades a {currency}300. ¿Quieres que te reserve una con un pequeño depósito?"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "This response respects their need to think (non-pushy) while creating genuine urgency ('last day,' '2 units left'). The deposit offer is the secret weapon — it requires a small commitment now that makes them far more likely to return. Even a {currency}10 deposit dramatically increases return rates. Never let a 'maybe' walk away without some form of commitment — a deposit, a phone number, or at minimum a business card.",
       explanationEs:
@@ -1085,18 +1085,18 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: '¡Mi esposo me matará si gasto {currency}140 en crema!' ¿Cuál es la respuesta MÁS INTELIGENTE?",
       options: [
-        "Your husband doesn't need to know — I can give you a plain bag",
         "How much did your husband spend on his last [watch/hobby/tool]? This is YOUR face. And look at this result — don't YOU deserve to feel this confident every day?",
-        "Then don't tell him the real price — say it was {currency}20",
-        "He's being controlling, you should do what you want"
+        "Your husband doesn't need to know — I can give you a plain bag and leave the receipt out of it so nobody asks any questions",
+        "Then don't tell him the real price — say it was {currency}20 and he will never think about it again after the first week",
+        "He's being controlling, you should do what you want with your own money and not have to justify a purchase like this"
       ],
       optionsEs: [
-        "Tu esposo no necesita saber — te doy una bolsa sin marca",
         "¿Cuánto gastó tu esposo en su último [reloj/hobby/herramienta]? Esta es TU cara. Y mira este resultado — ¿TÚ no mereces sentirte así de segura todos los días?",
-        "Entonces no le digas el precio real — di que costó {currency}20",
-        "Está siendo controlador, deberías hacer lo que quieras"
+        "Tu marido no tiene por qué enterarse — te doy una bolsa sin marca y dejo el recibo fuera para que nadie pregunte",
+        "Pues no le digas el precio real — dile que fueron {currency}20 y no volverá a pensar en ello pasada la primera semana",
+        "Está siendo controlador, deberías hacer lo que quieras con tu dinero y no tener que justificar una compra así"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "This response does three things: (1) The 'what did HE spend' question creates instant perspective — men routinely spend more on hobbies without guilt. (2) 'YOUR face' reframes it as self-care, not vanity. (3) The mirror call-back ('look at this result') reconnects them to the emotional high of the demo. Never encourage lying to a partner — that creates bad energy and potential returns. Empowerment beats deception every time.",
       explanationEs:
@@ -1108,16 +1108,16 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Ya me estafó un vendedor de calle antes — ¿cómo sé que tú no eres una estafa?' ¿Cuál es la MEJOR respuesta?",
       options: [
-        "I'm not a scammer, I promise — here's my word",
+        "I'm not a scammer, I promise — here's my word, and you can see for yourself that I have been standing on this same corner all week",
         "I completely understand your caution. Look — we have a physical address, a 30-year-old company, lifetime warranty, and you see the result on your own face right now. A scammer can't show you real results in a mirror.",
-        "Those other guys were fake, we're the real deal",
-        "If you don't trust me, don't buy — your loss"
+        "Those other guys were fake, we're the real deal — there is a whole difference between them and a proper brand with a shop behind it",
+        "If you don't trust me, don't buy — your loss, but do not come back next week asking for the same price when you change your mind"
       ],
       optionsEs: [
-        "No soy un estafador, te lo prometo — palabra",
+        "No soy un estafador, te lo prometo — y puedes comprobar tú misma que llevo toda la semana en esta misma esquina",
         "Entiendo completamente tu precaución. Mira — tenemos una dirección física, una empresa de 30 años, garantía de por vida, y ves el resultado en tu propia cara ahora mismo. Un estafador no puede mostrarte resultados reales en un espejo.",
-        "Esos otros eran falsos, nosotros somos los verdaderos",
-        "Si no confías en mí, no compres — es tu pérdida"
+        "Esos otros eran falsos, nosotros somos los de verdad — hay mucha diferencia entre ellos y una marca con una tienda detrás",
+        "Si no confías en mí, no compres — tú te lo pierdes, pero no vuelvas la semana que viene pidiendo el mismo precio"
       ],
       correctIndex: 1,
       explanation:
@@ -1131,16 +1131,16 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: '¿Esto funcionará en mi piel oscura? Me preocupa que los productos me aclaren el tono.' ¿Qué respuesta es la MEJOR?",
       options: [
-        "This will definitely lighten your skin — that's the whole point",
+        "This will definitely lighten your skin — that's the whole point of the treatment, and most customers ask for exactly that effect",
         "Hyaluronic acid doesn't change skin color at all — it hydrates and plumps ALL skin types equally. The 'Botox effect' works the same on dark, medium, or light skin because it works from within, not on the surface",
-        "Dark skin doesn't wrinkle so you don't need this",
-        "It works better on dark skin actually — you'll see faster results"
+        "Dark skin doesn't wrinkle so you don't need this — you would be better off with the scrub or the body butter instead",
+        "It works better on dark skin actually — you'll see faster results than most people do, usually within the first week of using it"
       ],
       optionsEs: [
-        "Esto definitivamente te aclarará la piel — ese es el punto",
+        "Esto te aclarará la piel sin duda — ese es justo el objetivo del tratamiento, y la mayoría de clientas pide precisamente ese efecto",
         "El ácido hialurónico no cambia el color de piel para nada — hidrata y rellena TODOS los tipos de piel por igual. El efecto 'Botox' funciona igual en piel oscura, media o clara porque trabaja desde adentro, no en la superficie",
-        "La piel oscura no se arruga así que no necesitas esto",
-        "Funciona mejor en piel oscura en realidad — verás resultados más rápido"
+        "La piel oscura no se arruga, así que no necesitas esto — te vendría mejor el exfoliante o el body butter",
+        "En realidad funciona mejor en piel oscura — verás resultados más rápido que la mayoría, normalmente en la primera semana"
       ],
       correctIndex: 1,
       explanation:
@@ -1154,18 +1154,18 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Puedo conseguir exactamente esto mismo en Amazon por la mitad de precio.' ¿Cómo manejas esto?",
       options: [
-        "Amazon products are all fake counterfeits",
+        "Amazon products are all fake counterfeits — anything at half our price is watered down or expired stock, so honestly I would rather you bought nothing at all than bought that",
+        "Go ahead and buy it on Amazon then — if it turns out to be the wrong thing you can always send it back, and you know where to find me when you want the real one",
         "You might find something with a similar label — but what you won't get is this demo on YOUR face, this instant result you can see right now, and my personal guarantee. Online you buy blind. Here, you buy after proof. That's worth the difference.",
-        "Go ahead and buy it on Amazon then",
-        "Amazon doesn't have our special formula"
+        "Amazon doesn't have our special formula — whatever they list under a similar name comes from a different factory, so it is not really the same product and the price is not really a comparison"
       ],
       optionsEs: [
-        "Los productos de Amazon son todos falsificaciones",
+        "Los productos de Amazon son todos falsificaciones — cualquier cosa a mitad de nuestro precio está aguada o caducada, así que sinceramente prefiero que no compres nada antes que comprar eso",
+        "Adelante, cómpralo en Amazon entonces — si resulta no ser lo que buscas siempre puedes devolverlo, y ya sabes dónde encontrarme cuando quieras el de verdad",
         "Quizás encuentres algo con una etiqueta similar — pero lo que no conseguirás es esta demo en TU cara, este resultado instantáneo que ves ahora mismo, y mi garantía personal. En línea compras a ciegas. Aquí, compras después de la prueba. Eso vale la diferencia.",
-        "Adelante, cómpralo en Amazon entonces",
-        "Amazon no tiene nuestra fórmula especial"
+        "Amazon no tiene nuestra fórmula especial — lo que venden con un nombre parecido sale de otra fábrica, así que no es el mismo producto y el precio no es una comparación de verdad"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "You can't win a price war with Amazon — so don't fight it. Instead, highlight what Amazon CAN'T offer: the in-person demo, the immediate visible result, the personal guarantee, the human connection. 'Buy blind vs buy after proof' is a powerful frame shift. People don't just buy products — they buy confidence in the purchase. Your physical presence, expertise, and the live demo are the premium they're paying for.",
       explanationEs:
@@ -1177,18 +1177,18 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'La demo se vio bien pero no vi una gran diferencia.' ¿Cuál es la MEJOR respuesta?",
       options: [
-        "You must not have been looking closely — the difference is huge",
         "I appreciate your honesty. The one-eye demo shows about 30% of the full result because we use a tiny amount for the demo. With the full kit and 2 weeks of use, the difference is dramatic. But I understand — want me to show you the peeling kit instead? It gives instant glow",
-        "Most people see a huge difference, maybe your skin is just different",
-        "Give it time — you'll see results in a month"
+        "You must not have been looking closely — the difference is huge, look again in the mirror and compare the two sides properly this time",
+        "Most people see a huge difference, maybe your skin is just different — some people need two or three applications before anything shows up at all",
+        "Give it time — you'll see results in a month once the product has built up, so buy it now and judge it properly at home"
       ],
       optionsEs: [
-        "No debiste haber mirado de cerca — la diferencia es enorme",
         "Aprecio tu honestidad. La demo de un ojo muestra aproximadamente 30% del resultado completo porque usamos una cantidad mínima para la demo. Con el kit completo y 2 semanas de uso, la diferencia es dramática. Pero entiendo — ¿quieres que te muestre el kit de peeling en su lugar? Da brillo instantáneo",
-        "La mayoría ve una gran diferencia, quizás tu piel es simplemente diferente",
-        "Dale tiempo — verás resultados en un mes"
+        "No debiste mirar de cerca — la diferencia es enorme, mírate otra vez en el espejo y compara bien los dos lados esta vez",
+        "La mayoría ve una gran diferencia, quizá tu piel es distinta — hay quien necesita dos o tres aplicaciones antes de que se vea algo",
+        "Dale tiempo — verás resultados en un mes cuando el producto se acumule, así que llévatelo ahora y lo juzgas bien en casa"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "This is a MASTER-LEVEL response. First, you validate their honesty (builds trust). Then you explain WHY the demo was subtle (tiny amount used, 30% result) without making them feel wrong. Then you PIVOT to an alternative product (the peeling) that gives INSTANT gratification. Not every product is right for every person. Knowing when to pivot shows confidence and expertise — and can save a sale that would otherwise be lost.",
       explanationEs:
@@ -1200,18 +1200,18 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Mi amiga dice que no debería comprar de vendedores de calle.' Su amiga está justo a su lado. ¿Qué haces?",
       options: [
-        "Ignore the friend and talk only to the buyer",
+        "Ignore the friend and talk only to the buyer — she is the one holding the money, and if you engage the friend you just give her a second chance to talk her out of it",
+        "Tell the friend she's being negative and unfair, and point out that she has not even tried the product yet so she is in no position to give advice about it",
         "Include the friend: 'Smart friend! I always tell people — never buy without trying first. Here, let me show YOU both on your hands. See the difference yourself — then YOU can tell her if it's worth it.' Turn the skeptic into your demo participant.",
-        "Tell the friend she's being negative and unfair",
-        "Offer a discount to overcome the friend's objection"
+        "Offer a discount to overcome the friend's objection — drop straight to the voucher price so the deal becomes too good for either of them to keep arguing about"
       ],
       optionsEs: [
-        "Ignorar a la amiga y hablar solo a la compradora",
+        "Ignorar a la amiga y hablar solo con la compradora — es ella quien tiene el dinero, y si entras al trapo con la amiga le das una segunda oportunidad de convencerla de que no",
+        "Decirle a la amiga que está siendo negativa e injusta, y señalar que ni siquiera ha probado el producto así que no está en posición de dar consejos sobre él",
         "Incluir a la amiga: '¡Amiga inteligente! Siempre digo a la gente — nunca compren sin probar primero. Aquí, déjenme mostrarles a AMBAS en sus manos. Vean la diferencia ustedes mismas — luego TÚ le puedes decir si vale la pena.' Convierte a la escéptica en tu participante de demo.",
-        "Decirle a la amiga que está siendo negativa e injusta",
-        "Ofrecer descuento para superar la objeción de la amiga"
+        "Ofrecer un descuento para superar la objeción de la amiga — baja directa al precio con cupón para que el trato sea demasiado bueno como para que sigan discutiéndolo"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "This is the 'convert the gatekeeper' technique. Instead of seeing the friend as an obstacle, you see her as a second potential customer. By complimenting her ('smart friend!') and including her in the demo, you: (1) Disarm her negativity, (2) Let her experience the product directly, (3) Potentially create TWO sales instead of one. The best way to silence a skeptic is to make them a believer through their own experience.",
       explanationEs:
@@ -1223,16 +1223,16 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Ya tengo montones de productos de cuidado de la piel en casa que apenas uso.' ¿Cuál es la MEJOR respuesta?",
       options: [
-        "Those other products are probably why you don't see results — ours is different",
+        "Those other products are probably why you don't see results — ours is different, and mixing brands is exactly what stops any of them from working",
         "I hear that all the time. Here's the difference — those products didn't come with ME showing you exactly how to use them and what results to expect. Let me give you my card. Use your products for 2 more weeks. When they don't deliver what I just showed you, text me and I'll be here.",
-        "You should throw all those away and start fresh with our line",
-        "Then you don't need anything — have a nice day"
+        "You should throw all those away and start fresh with our line — a half-used shelf of products is worth less than one that actually works",
+        "Then you don't need anything — have a nice day, and come back when you have actually finished the ones you already own"
       ],
       optionsEs: [
-        "Esos otros productos son probablemente por qué no ves resultados — el nuestro es diferente",
+        "Esos otros productos son probablemente la razón de que no veas resultados — el nuestro es distinto, y mezclar marcas es justo lo que impide que ninguno funcione",
         "Eso lo escucho todo el tiempo. Aquí está la diferencia — esos productos no vinieron conmigo mostrándote exactamente cómo usarlos y qué resultados esperar. Déjame darte mi tarjeta. Usa tus productos por 2 semanas más. Cuando no entreguen lo que acabo de mostrarte, escríbeme y estaré aquí.",
-        "Deberías tirar todos esos y empezar fresco con nuestra línea",
-        "Entonces no necesitas nada — que tengas buen día"
+        "Deberías tirarlos todos y empezar de cero con nuestra línea — un estante de productos a medias vale menos que uno que de verdad funcione",
+        "Entonces no necesitas nada — que tengas buen día, y vuelve cuando hayas terminado de verdad los que ya tienes"
       ],
       correctIndex: 1,
       explanation:
@@ -1246,16 +1246,16 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'Necesito revisar el saldo de mi cuenta bancaria primero.' ¿Cuál es la respuesta MÁS efectiva?",
       options: [
-        "Go check and come back — I'll hold the price for 10 minutes",
+        "Go check and come back — I'll hold the price for 10 minutes, and if you are not back by then I will have to put it out on the table again for the next customer",
         "No problem at all. While you're checking — if the {currency}140 is there, you know what to do. If it's a stretch today, I can do the {currency}100 emergency price for you. If even that's too much, the Dead Sea Scrub at {currency}60 gives you a great glow and you can upgrade later. Three options, no pressure — what feels right?",
-        "Don't worry about your balance — just use your credit card",
-        "If you need to check your balance, you probably can't afford this"
+        "Don't worry about your balance — just use your credit card, nobody checks their account before buying something this small and you can move the money across later tonight",
+        "If you need to check your balance, you probably can't afford this — come back another day when you have set the money aside and we will start the whole thing again"
       ],
       optionsEs: [
-        "Ve a revisar y regresa — te guardo el precio por 10 minutos",
+        "Ve a mirar y vuelve — te guardo el precio 10 minutos, y si no has vuelto para entonces tendré que sacarlo otra vez a la mesa para la siguiente clienta",
         "Ningún problema. Mientras revisas — si los {currency}140 están ahí, ya sabes qué hacer. Si es un estirón hoy, puedo hacerte el precio de emergencia de {currency}100. Si incluso eso es mucho, el Exfoliante del Mar Muerto a {currency}60 te da un brillo estupendo y puedes subir de nivel después. Tres opciones, sin presión — ¿qué se siente bien?",
-        "No te preocupes por tu saldo — solo usa tu tarjeta de crédito",
-        "Si necesitas revisar tu saldo, probablemente no puedes permitirte esto"
+        "No te preocupes por tu saldo — usa la tarjeta de crédito, nadie mira su cuenta antes de comprar algo tan pequeño y ya moverás el dinero esta noche",
+        "Si necesitas mirar el saldo, probablemente no te lo puedes permitir — vuelve otro día cuando hayas apartado el dinero y empezamos otra vez desde el principio"
       ],
       correctIndex: 1,
       explanation:
@@ -1288,18 +1288,18 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Una cliente se INCLINA hacia ti mientras demuestras el producto. ¿Qué señala este lenguaje corporal?",
       options: [
-        "They're trying to smell the product",
-        "This is a strong POSITIVE signal — leaning in indicates interest, engagement, and that they're entering your 'personal space' because they want to be closer to the product",
-        "They're about to fall over",
-        "They want you to stop talking"
+        "They're trying to smell the product and check whether the fragrance is too strong for them, which usually means they are about to say it is not their scent",
+        "They're about to fall over because they have been standing for too long, so you should offer them a seat before you carry on with the demo",
+        "They want you to stop talking and get to the point, so you should cut the demo short and go straight to the price before you lose them",
+        "This is a strong POSITIVE signal — leaning in indicates interest, engagement, and that they're entering your 'personal space' because they want to be closer to the product"
       ],
       optionsEs: [
-        "Están tratando de oler el producto",
-        "Esta es una señal POSITIVA fuerte — inclinarse indica interés, compromiso, y que están entrando a tu 'espacio personal' porque quieren estar más cerca del producto",
-        "Están a punto de caerse",
-        "Quieren que dejes de hablar"
+        "Están intentando oler el producto y comprobar si el aroma es demasiado fuerte, lo que suele significar que van a decir que no es su olor",
+        "Están a punto de caerse porque llevan demasiado rato de pie, así que ofréceles una silla antes de seguir con la demo",
+        "Quieren que dejes de hablar y vayas al grano, así que acorta la demo y ve directa al precio antes de perderlas",
+        "Esta es una señal POSITIVA fuerte — inclinarse indica interés, compromiso, y que están entrando a tu 'espacio personal' porque quieren estar más cerca del producto"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Leaning in is one of the BEST buying signals. People physically lean toward what they want and away from what they don't. When a customer enters your personal bubble voluntarily, they're subconsciously saying 'I'm interested.' This is your cue to continue building value and move toward closing. Never lean BACK when they lean in — match their engagement energy.",
       explanationEs:
@@ -1311,18 +1311,18 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Una cliente cruza los brazos mientras explicas el precio. ¿Qué significa esto GENERALMENTE, y cómo deberías responder?",
       options: [
-        "They're cold — offer them your jacket",
-        "Crossed arms typically indicate a defensive or resistant mental state. DON'T push harder — instead, ask an open question like 'What concerns do you have?' to uncover the real objection and address it",
-        "They're comfortable and ready to buy — close immediately",
-        "They want you to talk faster and finish"
+        "They're cold — offer them your jacket and move the demo somewhere out of the wind before you carry on with the price",
+        "They're comfortable and ready to buy — close immediately, name the price again and put the product straight into their hands",
+        "They want you to talk faster and finish, so skip the rest of the ladder and go straight to your best price",
+        "Crossed arms typically indicate a defensive or resistant mental state. DON'T push harder — instead, ask an open question like 'What concerns do you have?' to uncover the real objection and address it"
       ],
       optionsEs: [
-        "Tienen frío — ofréceles tu chamarra",
-        "Brazos cruzados típicamente indican un estado mental defensivo o resistente. NO empujes más fuerte — en su lugar, haz una pregunta abierta como '¿Qué inquietudes tienes?' para descubrir la objeción real y abordarla",
-        "Están cómodas y listas para comprar — cierra inmediatamente",
-        "Quieren que hables más rápido y termines"
+        "Tienen frío — ofréceles tu chaqueta y mueve la demo a un sitio sin viento antes de seguir con el precio",
+        "Están cómodas y listas para comprar — cierra ya, repite el precio y ponles el producto directamente en las manos",
+        "Quieren que hables más rápido y acabes, así que sáltate el resto de la escalera y ve directa a tu mejor precio",
+        "Brazos cruzados típicamente indican un estado mental defensivo o resistente. NO empujes más fuerte — en su lugar, haz una pregunta abierta como '¿Qué inquietudes tienes?' para descubrir la objeción real y abordarla"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Crossed arms are the classic 'barrier signal' — a physical wall between you and the customer. It often means resistance, skepticism, or discomfort. Pushing harder against a wall just creates more resistance. The smart move is to soften your approach, ask questions, and uncover what's really bothering them. Once the real concern is addressed, you'll often see the arms uncross — that's when you know you've reconnected.",
       explanationEs:
@@ -1334,18 +1334,18 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Una cliente empieza a tocarse la cara y cuello mientras mira el espejo después de tu demo. ¿Qué deberías hacer?",
       options: [
-        "Keep talking about the science and ingredients",
-        "STOP talking — this is a peak buying signal. Touching the treated area means they're feeling the result and imagining the product as theirs. Ask for the sale NOW: 'Would you like to take this home today?'",
-        "Ask if they have an itch or irritation",
-        "Start explaining the price ladder"
+        "Keep talking about the science and ingredients — the more she understands about the formula, the more confident she will feel about the price",
+        "Ask if they have an itch or irritation, apologise, and offer to wipe the product off before it causes any reaction",
+        "Start explaining the price ladder from the top so she can see exactly how far the Europe price is from what she would pay here",
+        "STOP talking — this is a peak buying signal. Touching the treated area means they're feeling the result and imagining the product as theirs. Ask for the sale NOW: 'Would you like to take this home today?'"
       ],
       optionsEs: [
-        "Seguir hablando sobre la ciencia e ingredientes",
-        "DEJA de hablar — esta es una señal de compra máxima. Tocar el área tratada significa que están sintiendo el resultado e imaginando el producto como suyo. ¡Pide la venta AHORA: '¿Te gustaría llevarte esto a casa hoy?'",
-        "Preguntar si tienen comezón o irritación",
-        "Empezar a explicar la escalera de precios"
+        "Seguir hablando de la ciencia y los ingredientes — cuanto más entienda de la fórmula, más segura se sentirá con el precio",
+        "Preguntar si les pica o se han irritado, disculparte y ofrecerte a retirar el producto antes de que cause alguna reacción",
+        "Empezar a explicar la escalera de precios desde arriba para que vea lo lejos que está el precio de Europa de lo que pagaría aquí",
+        "DEJA de hablar — esta es una señal de compra máxima. Tocar el área tratada significa que están sintiendo el resultado e imaginando el producto como suyo. ¡Pide la venta AHORA: '¿Te gustaría llevarte esto a casa hoy?'"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "When a customer touches the area you just treated, they're having a SENSORY buying moment. Their brain is processing the physical result and creating desire. Talking interrupts this emotional process. The best salespeople know when to SHUT UP. Silence creates space for desire to grow. After 3-5 seconds of their touch, deliver your closing question. The combination of physical sensation + silence + direct close is devastatingly effective.",
       explanationEs:
@@ -1357,18 +1357,18 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Una cliente da un PASO ATRÁS de ti durante el pitch. ¿Qué significa esto y qué deberías hacer?",
       options: [
+        "They want you to demonstrate from a distance so they can see the whole product at once — hold it up higher and carry on",
         "They want more personal space — you're being too pushy or close. Step back yourself, soften your tone, and ask a question to re-engage",
-        "They want you to demonstrate from a distance",
-        "They're making room so other people can see",
-        "They're stretching their legs"
+        "They're making room so other people can see the demo — that is a compliment, so raise your voice and play to the small crowd",
+        "They're stretching their legs after standing still for a while, so give them a moment and then pick the demo back up"
       ],
       optionsEs: [
+        "Quieren que hagas la demo desde lejos para ver el producto entero — levántalo más alto y continúa",
         "Quieren más espacio personal — estás siendo demasiado insistente o cercano. Retrocede tú también, suaviza tu tono, y haz una pregunta para volver a enganchar",
-        "Quieren que demuestres desde una distancia",
-        "Están haciendo espacio para que otras personas vean",
-        "Están estirando las piernas"
+        "Están haciendo sitio para que otras personas vean la demo — eso es un halago, así que sube la voz y juega con el corrillo",
+        "Están estirando las piernas después de un rato de pie, así que dales un momento y retoma la demo"
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
         "Stepping back is a retreat signal — the customer feels pressured, uncomfortable, or invaded. The WORST thing you can do is step forward to close the gap — that feels like pursuit. Instead, mirror their retreat by stepping back yourself. This non-threatening response signals respect. Then soften your voice, slow your pace, and ask an engaging question to rebuild comfort. Reading and responding to spatial cues separates professionals from amateurs.",
       explanationEs:
@@ -1380,16 +1380,16 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Notas que el tono de voz de una cliente cambia de plano/dudoso a más alto y emocionado cuando mencionas el precio de {currency}140. ¿Qué indica esto?",
       options: [
-        "They think {currency}140 is too expensive and are getting angry",
+        "They think {currency}140 is too expensive and are getting angry — the pitch in the voice is irritation, so drop a rung fast",
         "Vocal tone rising with excitement is a POSITIVE buying signal — it suggests the price is within their acceptable range and they're emotionally engaging with the purchase possibility",
-        "They have a sore throat and need water",
-        "They want you to lower the price more"
+        "They have a sore throat and need water — offer them a bottle and give the voice change no further weight",
+        "They want you to lower the price more and the excitement is really anticipation of the next discount you are about to give"
       ],
       optionsEs: [
-        "Piensan que {currency}140 es demasiado caro y se están enojando",
+        "Piensan que {currency}140 es demasiado caro y se están enfadando — ese tono agudo es irritación, así que baja un escalón rápido",
         "El tono de voz subiendo con emoción es una señal de compra POSITIVA — sugiere que el precio está dentro de su rango aceptable y se están comprometiendo emocionalmente con la posibilidad de compra",
-        "Tienen dolor de garganta y necesitan agua",
-        "Quieren que bajes el precio más"
+        "Tienen dolor de garganta y necesitan agua — ofréceles una botella y no le des más importancia al cambio de voz",
+        "Quieren que bajes más el precio y esa emoción es en realidad la expectativa del siguiente descuento que vas a dar"
       ],
       correctIndex: 1,
       explanation:
@@ -1403,18 +1403,18 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Una cliente empieza a reflejar tus gestos — cuando te tocas la cara, ellas se tocan la suya; cuando sonríes, ellas sonríen. ¿Qué está pasando?",
       options: [
-        "They're making fun of you",
+        "They're making fun of you and copying your gestures to entertain whoever they came with, so wrap the demo up quickly",
+        "They have a nervous tic and are uncomfortable being this close to a stranger, so give them more space and speak more softly",
         "Mirroring is a subconscious sign of rapport and trust building. It means they're syncing with you emotionally and are highly likely to buy if you ask for the sale",
-        "They have a nervous tic",
-        "They want to be your friend, not a customer"
+        "They want to be your friend, not a customer — they are enjoying the chat but they have no intention of spending anything today"
       ],
       optionsEs: [
-        "Se están burlando de ti",
+        "Se están burlando de ti y copian tus gestos para entretener a quien la acompaña, así que cierra la demo rápido",
+        "Tienen un tic nervioso y están incómodas tan cerca de una desconocida, así que dales más espacio y baja la voz",
         "El reflejo es una señal subconsciente de rapport y construcción de confianza. Significa que se están sincronizando contigo emocionalmente y es muy probable que compren si pides la venta",
-        "Tienen un tic nervioso",
-        "Quieren ser tu amiga, no tu clienta"
+        "Quieren ser tu amiga, no tu clienta — están disfrutando de la charla pero no piensan gastar nada hoy"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Mirroring is a well-documented psychological phenomenon. When someone unconsciously copies your body language, it means their brain has entered a state of rapport with you. This 'neural syncing' is the foundation of trust. In sales, it's one of the strongest indicators that a customer is ready to follow your guidance. When you see mirroring, you've successfully built a connection. The next step is a confident close — they trust you enough to say yes.",
       explanationEs:
@@ -1426,18 +1426,18 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Los ojos de una cliente siguen moviéndose por todos lados en lugar de enfocarse en ti o el producto. ¿Qué deberías hacer?",
       options: [
-        "Wave your hand in front of their face to get attention",
-        "They're distracted or uncomfortable. Pause, let silence settle for 3 seconds, then ask a direct question: 'What would make this perfect for you?' to pull their attention back",
-        "Talk louder to force their attention",
-        "Ignore it and keep pitching — they'll catch up"
+        "Wave your hand in front of their face to get attention back, then start the most impressive part of the demo again",
+        "Talk louder to force their attention back onto you — energy wins distraction, and volume is the fastest way to raise the energy",
+        "Ignore it and keep pitching — they'll catch up, and stopping now would only draw attention to the fact that you noticed",
+        "They're distracted or uncomfortable. Pause, let silence settle for 3 seconds, then ask a direct question: 'What would make this perfect for you?' to pull their attention back"
       ],
       optionsEs: [
-        "Mover tu mano frente a su cara para llamar la atención",
-        "Están distraídas o incómodas. Pausa, deja que el silencio se asiente por 3 segundos, luego haz una pregunta directa: '¿Qué haría esto perfecto para ti?' para traer su atención de vuelta",
-        "Hablar más fuerte para forzar su atención",
-        "Ignorarlo y seguir pitchando — se pondrán al corriente"
+        "Mover la mano delante de su cara para recuperar la atención y volver a empezar por la parte más impactante de la demo",
+        "Hablar más alto para forzar su atención — la energía gana a la distracción, y el volumen es la vía rápida para subirla",
+        "Ignorarlo y seguir con el pitch — ya se pondrán al día, y parar ahora solo dejaría claro que te has dado cuenta",
+        "Están distraídas o incómodas. Pausa, deja que el silencio se asiente por 3 segundos, luego haz una pregunta directa: '¿Qué haría esto perfecto para ti?' para traer su atención de vuelta"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Darting eyes indicate distraction, overwhelm, or discomfort. Forcing attention (waving hands, talking louder) makes it worse. The 3-second silence creates a natural break that interrupts their mental distraction. Then a direct, personal question re-engages them by making the conversation ABOUT them. When attention wanders, don't chase it — create a pause, then invite it back gently. This shows confidence and respect for their mental space.",
       explanationEs:
@@ -1449,16 +1449,16 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Una cliente dice 'tal vez' y empieza a buscar a su amiga, pero sigue sosteniendo el producto. ¿Deberías empujar o retroceder?",
       options: [
-        "Push hard — they're holding the product so they want to buy",
+        "Push hard — they're holding the product so they want to buy, and if you let the moment pass they will hand it back and walk",
         "Soft push with a decision helper: 'I can see you're thinking it over. Here's what I'll do — hold this, feel how it feels in your hands. When your friend gets here, let her see the result too. Three minutes, then you decide. No pressure either way.'",
-        "Back off completely — they said maybe, respect that",
-        "Take the product out of their hands so they can't leave with it"
+        "Back off completely — they said maybe, respect that, take the product back and let them come to you if they change their mind",
+        "Take the product out of their hands so they can't leave with it, and tell them you will keep it behind the counter until they decide"
       ],
       optionsEs: [
-        "Empujar fuerte — están sosteniendo el producto así que quieren comprar",
+        "Presionar fuerte — tienen el producto en la mano así que quieren comprar, y si dejas pasar el momento te lo devuelven y se van",
         "Empujón suave con ayudante de decisión: 'Veo que lo estás pensando. Esto haré — sostén esto, siente cómo se siente en tus manos. Cuando llegue tu amiga, deja que ella también vea el resultado. Tres minutos, luego decides. Sin presión de ningún lado.'",
-        "Retroceder completamente — dijeron tal vez, respeta eso",
-        "Quitarles el producto de las manos para que no se lo puedan llevar"
+        "Retirarte del todo — han dicho tal vez, respétalo, recoge el producto y deja que vuelvan ellas si cambian de idea",
+        "Quitarles el producto de las manos para que no se lo lleven, y decirles que lo guardas detrás del mostrador hasta que decidan"
       ],
       correctIndex: 1,
       explanation:
@@ -1472,18 +1472,18 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "Una cliente sonríe educadamente pero dice 'no gracias.' Su sonrisa no llega a sus ojos. ¿Qué está pasando realmente?",
       options: [
-        "They're being friendly but genuinely not interested — move on",
         "A polite smile without eye involvement is a 'social mask' — they're uncomfortable saying no to your face. Offer a low-pressure alternative: 'Totally understand! Here, just try the hand scrub — no obligation, just so you know what we do.' This removes the pressure while keeping them engaged",
-        "They want you to try harder with a better pitch",
-        "They have something in their eye"
+        "They're being friendly but genuinely not interested — thank them, move on, and spend the time on someone who has not already made their mind up",
+        "They want you to try harder with a better pitch — start the whole presentation again from the top with more energy and they will come round",
+        "They have something in their eye or the sun is bothering them, so step to the side and start the demo again from a different angle"
       ],
       optionsEs: [
-        "Están siendo amables pero genuinamente no interesadas — sigue adelante",
         "Una sonrisa educada sin involucramiento de ojos es una 'máscara social' — se sienten incómodas diciendo no a tu cara. Ofrece una alternativa de baja presión: '¡Totalmente entendido! Aquí, solo prueba el scrub de manos — sin obligación, solo para que sepas lo que hacemos.' Esto elimina la presión mientras las mantiene comprometidas",
-        "Quieren que te esfuerces más con un mejor pitch",
-        "Tienen algo en el ojo"
+        "Están siendo amables pero de verdad no les interesa — dales las gracias, sigue adelante y dedica el tiempo a alguien que no haya decidido ya",
+        "Quieren que te esfuerces más con un mejor pitch — empieza la presentación otra vez desde el principio con más energía y acabarán cediendo",
+        "Tienen algo en el ojo o les molesta el sol, así que muévete a un lado y empieza la demo otra vez desde otro ángulo"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The 'polite no' with a fake smile is a social defense mechanism — they don't want to be rude but they're not interested in what you're currently offering. Pushing the same product harder will fail. But offering a ZERO-pressure alternative (the hand scrub demo) removes the social tension and gives them a way to engage without committing. Many 'polite no' customers become buyers when the pressure drops and they experience the product casually.",
       explanationEs:
@@ -1495,18 +1495,18 @@ const quizBodyLanguage: GeneralQuiz = {
       questionEs:
         "¿Cuándo es el MEJOR momento para pedir la venta, basado en lectura de lenguaje corporal?",
       options: [
-        "As soon as you finish explaining all the product features",
         "When you see 2-3 positive signals together: leaning in + touching the product + asking ownership questions like 'How often do I use this?'",
-        "Only when they explicitly say 'I want to buy this'",
-        "After exactly 5 minutes of conversation"
+        "As soon as you finish explaining all the product features, while everything you said is still fresh in their mind",
+        "Only when they explicitly say 'I want to buy this' — anything earlier is pressure and puts the customer on the defensive",
+        "After exactly 5 minutes of conversation, which is how long it takes for anyone to feel comfortable with a stranger"
       ],
       optionsEs: [
-        "Tan pronto como terminas de explicar todas las características del producto",
         "Cuando ves 2-3 señales positivas juntas: inclinarse hacia adelante + tocar el producto + hacer preguntas de propiedad como '¿Qué tan seguido uso esto?'",
-        "Solo cuando dicen explícitamente 'Quiero comprar esto'",
-        "Después de exactamente 5 minutos de conversación"
+        "En cuanto terminas de explicar todas las características del producto, mientras lo que has dicho sigue fresco",
+        "Solo cuando dicen explícitamente 'Quiero comprar esto' — antes es presión y pone a la clienta a la defensiva",
+        "Después de exactamente 5 minutos de conversación, que es lo que tarda cualquiera en sentirse cómodo con un desconocido"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Single body language signals can be misleading. But when MULTIPLE positive signals cluster together — especially a mix of physical (leaning in, touching), verbal (ownership language), and emotional (smiling, excited tone) — the customer is in a 'buying state.' Asking for the sale at this moment feels natural to them, not pushy. Missing this window means they'll start second-guessing. The '3-signal rule' is the most reliable closing trigger in street sales.",
       explanationEs:

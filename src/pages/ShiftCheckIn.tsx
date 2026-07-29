@@ -1,11 +1,61 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Flame, Target, ChevronDown, Sparkles } from 'lucide-react';
+import { Flame, Target, ChevronDown, Sparkles, Sunrise, Check, Minus, Plus } from 'lucide-react';
 import { useDailyFlow } from '../hooks/useDailyFlow';
+import { useLanguage } from '../contexts/LanguageContext';
 import { focusTechniques } from '../data/dailyDoses';
 
-const moods = [
+// This screen had zero translation calls — it stayed English however the
+// language toggle was set. Spanish is European, informal "tú".
+const COPY = {
+  en: {
+    greeting: 'Good morning',
+    tagline: 'Ready to make today count?',
+    mood: 'How are you feeling?',
+    goal: 'How many stops are you going for?',
+    decrease: 'Lower the stop goal',
+    increase: 'Raise the stop goal',
+    goalLabel: 'Stop goal',
+    focus: 'One thing to focus on today',
+    focusPlaceholder: 'Pick a focus',
+    openFocus: 'Choose a focus technique',
+    streakTitle: (n: number) => `${n}-day streak`,
+    streakHot: 'You are on a run. Keep it going.',
+    streakGood: 'Good consistency. Keep it up.',
+    streakStart: 'Building momentum. One more day.',
+    submit: "Let's go",
+    submitBlocked: 'Pick a mood to continue',
+    xpNote: '+5 XP for checking in',
+    doneTitle: 'Checked in · +5 XP',
+    doneSummary: (goal: number, focus: string) => `Goal: ${goal} stops. Focus: ${focus}`,
+    redirecting: 'Taking you to the dashboard…',
+  },
+  es: {
+    greeting: 'Buenos días',
+    tagline: '¿Lista para que hoy cuente?',
+    mood: '¿Cómo te sientes?',
+    goal: '¿Cuántas paradas te propones?',
+    decrease: 'Bajar el objetivo de paradas',
+    increase: 'Subir el objetivo de paradas',
+    goalLabel: 'Objetivo de paradas',
+    focus: 'Una cosa en la que centrarte hoy',
+    focusPlaceholder: 'Elige un foco',
+    openFocus: 'Elegir técnica de foco',
+    streakTitle: (n: number) => `${n} días de racha`,
+    streakHot: 'Estás en racha. Sigue así.',
+    streakGood: 'Buena constancia. Sigue.',
+    streakStart: 'Vas cogiendo ritmo. Un día más.',
+    submit: 'Vamos allá',
+    submitBlocked: 'Elige un estado para continuar',
+    xpNote: '+5 XP por registrarte',
+    doneTitle: 'Registrado · +5 XP',
+    doneSummary: (goal: number, focus: string) => `Objetivo: ${goal} paradas. Foco: ${focus}`,
+    redirecting: 'Te llevamos al panel…',
+  },
+};
+
+const MOODS = [
   { emoji: '😴', label: 'Tired', labelEs: 'Cansada', value: 1 },
   { emoji: '😊', label: 'Good', labelEs: 'Bien', value: 2 },
   { emoji: '🔥', label: 'Ready', labelEs: 'Lista', value: 3 },
@@ -16,6 +66,10 @@ const moods = [
 export default function ShiftCheckIn() {
   const navigate = useNavigate();
   const { checkIn, getCurrentStreak } = useDailyFlow();
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+  const t = COPY[isEs ? 'es' : 'en'];
+
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
   const [stopGoal, setStopGoal] = useState(20);
   const [focusTechnique, setFocusTechnique] = useState(focusTechniques[0].id);
@@ -23,318 +77,267 @@ export default function ShiftCheckIn() {
   const [submitted, setSubmitted] = useState(false);
 
   const streak = getCurrentStreak();
+  const selected = focusTechniques.find((f) => f.id === focusTechnique);
+  const focusLabel = selected ? (isEs ? selected.labelEs : selected.label) : t.focusPlaceholder;
 
   const handleSubmit = () => {
     if (selectedMood === null) return;
-    checkIn({
-      mood: selectedMood,
-      goal: stopGoal,
-      focus: focusTechnique,
-    });
+    checkIn({ mood: selectedMood, goal: stopGoal, focus: focusTechnique });
     setSubmitted(true);
-    setTimeout(() => {
-      navigate('/');
-    }, 2500);
+    setTimeout(() => navigate('/'), 2500);
   };
 
-  const selectedTechnique = focusTechniques.find((t) => t.id === focusTechnique);
-
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white px-5 py-8">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-8"
-      >
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0ABAB5]/20 to-[#0ABAB5]/5 border border-[#0ABAB5]/20 mb-4">
-          <SunriseIcon className="w-8 h-8 text-[#0ABAB5]" />
-        </div>
-        <h1 className="text-2xl font-bold mb-1">Good Morning!</h1>
-        <p className="text-[#0ABAB5] text-sm">Ready to crush it today?</p>
-      </motion.div>
+    <div className="min-h-screen bg-background px-5 py-8 pb-safe text-ink">
+      <div className="mx-auto max-w-app">
+        <motion.header
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8 text-center"
+        >
+          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-feature bg-gold text-on-gold">
+            <Sunrise className="h-8 w-8" aria-hidden="true" />
+          </div>
+          <h1 className="mb-1 text-h1 text-ink">{t.greeting}</h1>
+          <p className="text-body-small text-ink-2">{t.tagline}</p>
+        </motion.header>
 
-      <AnimatePresence mode="wait">
-        {!submitted ? (
-          <motion.div
-            key="form"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="space-y-7"
-          >
-            {/* Mood Picker */}
+        <AnimatePresence mode="wait">
+          {!submitted ? (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              key="form"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, y: -16 }}
+              className="space-y-7"
             >
-              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#0ABAB5]" />
-                How are you feeling?
-              </h2>
-              <div className="flex justify-between gap-2">
-                {moods.map((mood, index) => (
-                  <motion.button
-                    key={mood.value}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.15 + index * 0.05 }}
-                    onClick={() => setSelectedMood(mood.value)}
-                    className={`flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border transition-all duration-200 flex-1 ${
-                      selectedMood === mood.value
-                        ? 'bg-[#0ABAB5]/15 border-[#0ABAB5] shadow-[0_0_15px_rgba(10,186,181,0.2)]'
-                        : 'bg-[#141414] border-[#222] hover:border-[#333]'
-                    }`}
-                  >
-                    <span className="text-2xl">{mood.emoji}</span>
-                    <span className="text-[10px] text-gray-400 leading-tight text-center">
-                      {mood.label}
-                    </span>
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Stop Goal */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25 }}
-            >
-              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                <Target className="w-4 h-4 text-[#0ABAB5]" />
-                How many stops do you aim for today?
-              </h2>
-              <div className="bg-[#141414] border border-[#222] rounded-xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <button
-                    onClick={() => setStopGoal((prev) => Math.max(5, prev - 5))}
-                    className="w-10 h-10 rounded-lg bg-[#222] text-white font-bold text-lg hover:bg-[#333] transition-colors"
-                  >
-                    -
-                  </button>
-                  <motion.div
-                    key={stopGoal}
-                    initial={{ scale: 1.2 }}
-                    animate={{ scale: 1 }}
-                    className="text-4xl font-bold text-[#0ABAB5]"
-                  >
-                    {stopGoal}
-                  </motion.div>
-                  <button
-                    onClick={() => setStopGoal((prev) => Math.min(50, prev + 5))}
-                    className="w-10 h-10 rounded-lg bg-[#222] text-white font-bold text-lg hover:bg-[#333] transition-colors"
-                  >
-                    +
-                  </button>
-                </div>
-                <input
-                  type="range"
-                  min={5}
-                  max={50}
-                  step={5}
-                  value={stopGoal}
-                  onChange={(e) => setStopGoal(Number(e.target.value))}
-                  className="w-full accent-[#0ABAB5]"
-                />
-                <div className="flex justify-between text-[10px] text-gray-500 mt-1">
-                  <span>5</span>
-                  <span>50</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Focus Technique */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35 }}
-            >
-              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                <Flame className="w-4 h-4 text-[#0ABAB5]" />
-                One thing to focus on today
-              </h2>
-              <div className="relative">
-                <button
-                  onClick={() => setShowDropdown(!showDropdown)}
-                  className="w-full bg-[#141414] border border-[#222] rounded-xl px-4 py-3.5 text-left text-sm flex items-center justify-between hover:border-[#333] transition-colors"
-                >
-                  <span>{selectedTechnique?.label ?? 'Select a focus'}</span>
-                  <motion.div
-                    animate={{ rotate: showDropdown ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
-                  </motion.div>
-                </button>
-
-                <AnimatePresence>
-                  {showDropdown && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8, scaleY: 0.8 }}
-                      animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                      exit={{ opacity: 0, y: -8, scaleY: 0.8 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 right-0 mt-2 bg-[#1A1A1A] border border-[#333] rounded-xl overflow-hidden z-50 shadow-2xl origin-top"
-                    >
-                      {focusTechniques.map((tech) => (
-                        <button
-                          key={tech.id}
-                          onClick={() => {
-                            setFocusTechnique(tech.id);
-                            setShowDropdown(false);
-                          }}
-                          className={`w-full text-left px-4 py-3 text-sm transition-colors ${
-                            focusTechnique === tech.id
-                              ? 'bg-[#0ABAB5]/15 text-[#0ABAB5]'
-                              : 'text-gray-300 hover:bg-[#222]'
+              {/* Mood */}
+              <motion.section
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <h2 className="mb-3 flex items-center gap-2 text-overline text-ink-3">
+                  <Sparkles className="h-4 w-4 text-teal-strong" aria-hidden="true" />
+                  {t.mood}
+                </h2>
+                <div className="flex justify-between gap-2">
+                  {MOODS.map((mood, index) => {
+                    const active = selectedMood === mood.value;
+                    return (
+                      <motion.button
+                        key={mood.value}
+                        type="button"
+                        aria-pressed={active}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.15 + index * 0.04 }}
+                        onClick={() => setSelectedMood(mood.value)}
+                        className={`flex min-h-touch flex-1 flex-col items-center gap-1.5 rounded-card border px-1 py-3 transition-colors ${
+                          active ? 'border-teal bg-teal-tint' : 'border-line bg-surface'
+                        }`}
+                      >
+                        <span className="text-2xl leading-none" aria-hidden="true">
+                          {mood.emoji}
+                        </span>
+                        <span
+                          className={`text-center text-caption leading-tight ${
+                            active ? 'text-teal-strong' : 'text-ink-2'
                           }`}
                         >
-                          {tech.label}
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-
-            {/* Streak Banner */}
-            {streak > 0 && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
-                className="bg-gradient-to-r from-[#0ABAB5]/10 to-[#0ABAB5]/5 border border-[#0ABAB5]/20 rounded-xl px-4 py-3 flex items-center gap-3"
-              >
-                <span className="text-2xl">🔥</span>
-                <div>
-                  <p className="text-sm font-semibold text-[#0ABAB5]">
-                    {streak}-day streak!
-                  </p>
-                  <p className="text-xs text-gray-400">
-                    {streak >= 7
-                      ? "You're on fire! Keep the momentum going!"
-                      : streak >= 3
-                      ? 'Great consistency! Keep it up!'
-                      : 'Building momentum. One more day!'}
-                  </p>
+                          {isEs ? mood.labelEs : mood.label}
+                        </span>
+                      </motion.button>
+                    );
+                  })}
                 </div>
-              </motion.div>
-            )}
+              </motion.section>
 
-            {/* Submit Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45 }}
-            >
-              <button
-                onClick={handleSubmit}
-                disabled={selectedMood === null}
-                className={`w-full py-4 rounded-xl font-semibold text-base transition-all duration-300 ${
-                  selectedMood !== null
-                    ? 'bg-[#0ABAB5] text-black shadow-[0_0_25px_rgba(10,186,181,0.3)] hover:shadow-[0_0_35px_rgba(10,186,181,0.5)] active:scale-[0.98]'
-                    : 'bg-[#222] text-gray-500 cursor-not-allowed'
-                }`}
+              {/* Stop goal */}
+              <motion.section
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
               >
-                {selectedMood !== null ? "Let's Go!" : 'Pick a mood to continue'}
-              </button>
-              {selectedMood !== null && (
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-center text-xs text-gray-500 mt-2"
+                <h2 className="mb-3 flex items-center gap-2 text-overline text-ink-3">
+                  <Target className="h-4 w-4 text-teal-strong" aria-hidden="true" />
+                  {t.goal}
+                </h2>
+                <div className="surface-flat p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => setStopGoal((prev) => Math.max(5, prev - 5))}
+                      className="btn-icon"
+                      aria-label={t.decrease}
+                    >
+                      <Minus className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <motion.output
+                      key={stopGoal}
+                      initial={{ scale: 1.15 }}
+                      animate={{ scale: 1 }}
+                      className="text-display tabular-nums text-teal-strong"
+                    >
+                      {stopGoal}
+                    </motion.output>
+                    <button
+                      type="button"
+                      onClick={() => setStopGoal((prev) => Math.min(50, prev + 5))}
+                      className="btn-icon"
+                      aria-label={t.increase}
+                    >
+                      <Plus className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                  </div>
+                  <input
+                    type="range"
+                    min={5}
+                    max={50}
+                    step={5}
+                    value={stopGoal}
+                    onChange={(e) => setStopGoal(Number(e.target.value))}
+                    className="w-full accent-teal"
+                    aria-label={t.goalLabel}
+                  />
+                  <div className="mt-1 flex justify-between text-caption text-ink-3">
+                    <span>5</span>
+                    <span>50</span>
+                  </div>
+                </div>
+              </motion.section>
+
+              {/* Focus */}
+              <motion.section
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <h2 className="mb-3 flex items-center gap-2 text-overline text-ink-3">
+                  <Flame className="h-4 w-4 text-teal-strong" aria-hidden="true" />
+                  {t.focus}
+                </h2>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setShowDropdown((v) => !v)}
+                    aria-expanded={showDropdown}
+                    aria-label={t.openFocus}
+                    className="flex min-h-touch w-full items-center justify-between gap-3 rounded-card border border-line bg-surface px-4 py-3 text-left"
+                  >
+                    <span className="text-body-small text-ink">{focusLabel}</span>
+                    <motion.span
+                      animate={{ rotate: showDropdown ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="shrink-0"
+                    >
+                      <ChevronDown className="h-4 w-4 text-ink-2" aria-hidden="true" />
+                    </motion.span>
+                  </button>
+
+                  <AnimatePresence>
+                    {showDropdown && (
+                      <motion.ul
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.18 }}
+                        className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-card border border-line bg-surface shadow-feature"
+                      >
+                        {focusTechniques.map((tech) => {
+                          const active = focusTechnique === tech.id;
+                          return (
+                            <li key={tech.id}>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setFocusTechnique(tech.id);
+                                  setShowDropdown(false);
+                                }}
+                                className={`min-h-touch w-full px-4 py-3 text-left text-body-small ${
+                                  active ? 'bg-teal-tint text-teal-strong' : 'text-ink-2'
+                                }`}
+                              >
+                                {isEs ? tech.labelEs : tech.label}
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.section>
+
+              {/* Streak */}
+              {streak > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.35 }}
+                  className="flex items-center gap-3 rounded-card border border-coral/30 bg-coral-tint px-4 py-3"
                 >
-                  +5 XP for checking in
-                </motion.p>
+                  <Flame className="h-6 w-6 shrink-0 text-coral-strong" aria-hidden="true" />
+                  <div className="min-w-0">
+                    <p className="text-body-small font-bold text-coral-strong">
+                      {t.streakTitle(streak)}
+                    </p>
+                    <p className="text-caption text-ink-2">
+                      {streak >= 7 ? t.streakHot : streak >= 3 ? t.streakGood : t.streakStart}
+                    </p>
+                  </div>
+                </motion.div>
               )}
+
+              {/* Submit */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={selectedMood === null}
+                  className={`w-full ${
+                    selectedMood !== null ? 'btn-primary' : 'btn-quiet cursor-not-allowed opacity-60'
+                  }`}
+                >
+                  {selectedMood !== null ? t.submit : t.submitBlocked}
+                </button>
+                {selectedMood !== null && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mt-2 text-center text-caption text-ink-3"
+                  >
+                    {t.xpNote}
+                  </motion.p>
+                )}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ) : (
-          /* Success State */
-          <motion.div
-            key="success"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center justify-center py-20"
-          >
+          ) : (
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', damping: 10, stiffness: 100 }}
-              className="w-20 h-20 rounded-full bg-[#0ABAB5]/20 border-2 border-[#0ABAB5] flex items-center justify-center mb-6"
+              key="success"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex flex-col items-center justify-center py-20 text-center"
             >
               <motion.div
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', damping: 12, stiffness: 140 }}
+                className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-teal text-on-teal"
               >
-                <CheckIcon className="w-10 h-10 text-[#0ABAB5]" />
+                <Check className="h-10 w-10" aria-hidden="true" />
               </motion.div>
+              <h2 className="mb-2 text-h2 text-ink">{t.doneTitle}</h2>
+              <p className="text-body-small text-ink-2">{t.doneSummary(stopGoal, focusLabel)}</p>
+              <p className="mt-4 text-caption text-ink-3">{t.redirecting}</p>
             </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-xl font-bold mb-2"
-            >
-              Checked In! +5 XP
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-gray-400 text-sm"
-            >
-              Goal: {stopGoal} stops. Focus: {selectedTechnique?.label}
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="mt-4 text-xs text-[#0ABAB5]/60"
-            >
-              Redirecting to dashboard...
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
-  );
-}
-
-function SunriseIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 2v4M4.93 4.93l2.83 2.83M2 12h4M4.93 19.07l2.83-2.83M12 22v-4M19.07 19.07l-2.83-2.83M22 12h-4M19.07 4.93l-2.83 2.83" />
-      <path d="M17 18a5 5 0 0 0-10 0" />
-      <path d="M12 9V2" />
-    </svg>
-  );
-}
-
-function CheckIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
   );
 }

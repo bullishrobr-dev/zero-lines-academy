@@ -150,7 +150,7 @@ const hesitantTouristExercise: Exercise = {
 };
 
 // ═════════════════════════════════════════════════════════════
-// EXERCISE 2: Price Objection at €300 — Role Play
+// EXERCISE 2: Price Objection at 300 — Role Play
 // ═════════════════════════════════════════════════════════════
 const priceObjectionExercise: Exercise = {
   id: 'ex-price-objection',
@@ -287,7 +287,7 @@ const giftShopperExercise: Exercise = {
 
 // ═════════════════════════════════════════════════════════════
 // EXERCISE 4: Syringe Price Ladder Drill
-// Ladder: €500 → €300 → €210/gift → €300/2nd → €175 → €140 → €100
+// Ladder (numbers only — see src/data/pricing.ts): 500 -> 300 -> 210/gift -> 300/2nd -> 175 -> 140 -> 100
 // ═════════════════════════════════════════════════════════════
 const syringePriceDrill: Exercise = {
   id: 'ex-syringe-price-drill',
@@ -312,8 +312,8 @@ const syringePriceDrill: Exercise = {
       'El cliente asiente pero dice "Eso SÍ es caro en Europa." Te están esperando para que continúes.',
     options: [
       {
-        text: 'Drop immediately to the voucher price of {currency}100',
-        textEs: 'Bajar inmediatamente al precio de vale de {currency}100',
+        text: 'Drop immediately to the absolute minimum of {currency}100',
+        textEs: 'Bajar inmediatamente al mínimo absoluto de {currency}100',
         correct: false,
         explanation:
           'Too fast! You skipped the {locationName} base price ({currency}300), Offer Option 1 ({currency}210 + gift), Offer Option 2 ({currency}300 + 2nd syringe free), the adaptive fallback ({currency}175), AND the voucher close ({currency}140). You just gave away all your margin.',
@@ -352,7 +352,7 @@ const syringePriceDrill: Exercise = {
 
 // ═════════════════════════════════════════════════════════════
 // EXERCISE 5: Peeling Price Ladder Drill
-// Ladder: €200 → €150 → €100/scrub → €150/cream → €70 → €50
+// Ladder (numbers only — see src/data/pricing.ts): 200 -> 150 -> 100/scrub -> 150/cream -> 70 -> 50
 // ═════════════════════════════════════════════════════════════
 const peelingPriceDrill: Exercise = {
   id: 'ex-peeling-price-drill',
@@ -442,9 +442,9 @@ const matchTechniqueExercise: Exercise = {
         term: 'Europe Price Anchor',
         termEs: 'Anclaje de Precio de Europa',
         definition:
-          'Start by mentioning the high European price ({currency}500 for syringe, {currency}200 for peeling, {currency}100 for scrub/butter/nail kit) to make the {locationName} price feel like a bargain.',
+          'Start by mentioning the high European price ({currency}500 for syringe, {currency}200 for peeling, {currency}80 for scrub/butter/nail kit) to make the {locationName} price feel like a bargain.',
         definitionEs:
-          'Empieza mencionando el alto precio europeo ({currency}500 para jeringuilla, {currency}200 para peeling, {currency}100 para exfoliante/manteca/kit uñas) para que el precio de {locationName} parezca una ganga.',
+          'Empieza mencionando el alto precio europeo ({currency}500 para jeringuilla, {currency}200 para peeling, {currency}80 para exfoliante/manteca/kit de uñas) para que el precio de {locationName} parezca una ganga.',
       },
       {
         term: 'Two-Choice Close',

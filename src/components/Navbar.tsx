@@ -10,9 +10,18 @@
 // ─────────────────────────────────────────────────────────────
 
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { Home, GraduationCap, Layers, Trophy, BadgeEuro, type LucideIcon } from 'lucide-react';
+import {
+  Home,
+  GraduationCap,
+  Layers,
+  Trophy,
+  BadgeEuro,
+  BadgePoundSterling,
+  type LucideIcon,
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useLocation as useShop } from '../contexts/LocationContext';
 import { haptic } from '../utils/haptics';
 
 interface NavItem {
@@ -28,6 +37,7 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { t, language } = useLanguage();
+  const { currencyCode } = useShop();
   const isEs = language === 'es';
 
   if (HIDE_NAV_ON.includes(location.pathname)) return null;
@@ -47,6 +57,8 @@ export default function Navbar() {
 
   const logSaleLabel = isEs ? 'Vender' : 'Log sale';
   const isTracking = location.pathname === '/street-tracker';
+  /* Andorra quotes euros, Gibraltar pounds — the badge follows the shop. */
+  const SaleIcon = currencyCode === 'GBP' ? BadgePoundSterling : BadgeEuro;
 
   const renderItem = (item: NavItem) => (
     <NavLink
@@ -109,7 +121,7 @@ export default function Navbar() {
                 isTracking ? 'ring-coral-tint' : 'ring-background'
               }`}
             >
-              <BadgeEuro size={26} strokeWidth={2.2} aria-hidden="true" />
+              <SaleIcon size={26} strokeWidth={2.2} aria-hidden="true" />
             </span>
             <span className="text-caption font-semibold tracking-tight">{logSaleLabel}</span>
           </motion.button>
