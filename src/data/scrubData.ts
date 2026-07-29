@@ -23,6 +23,7 @@ export interface CheatCombo {
   nameEs: string;
   price: string;
   items: string;
+  itemsEs: string;
 }
 
 export interface QuickRefItem {
@@ -216,12 +217,12 @@ export const scrubData = {
     title: 'Cheat Combos for Sellers',
     titleEs: 'Combos Rápidos para Vendedores',
     combos: [
-      { name: 'Classic Trio', nameEs: 'Trío Clásico', price: '{currency}120', items: 'Scrub + Body Butter + Nail Kit' },
-      { name: 'Spa Trio', nameEs: 'Trío Spa', price: '{currency}120', items: 'Scrub + Body Butter + Face Cleanser' },
-      { name: 'Scent Duo', nameEs: 'Duo Aroma', price: '{currency}60', items: 'Scrub + Body Butter (Buy 1 Get 1)' },
-      { name: 'Smart Duo', nameEs: 'Duo Inteligente', price: '{currency}60', items: 'Scrub + Nail Kit (kit includes cream)' },
-      { name: "Gifter's Four", nameEs: 'Cuatro para Regalar', price: '{currency}120', items: 'Buy 2, Get 2 (Christmas special)' },
-      { name: 'Final Push', nameEs: 'Empujón Final', price: '{currency}30', items: 'Scrub only, no gifts' },
+      { name: 'Classic Trio', nameEs: 'Trío Clásico', price: '{currency}120', items: 'Scrub + Body Butter + Nail Kit', itemsEs: 'Exfoliante + Manteca Corporal + Kit de Uñas' },
+      { name: 'Spa Trio', nameEs: 'Trío Spa', price: '{currency}120', items: 'Scrub + Body Butter + Face Cleanser', itemsEs: 'Exfoliante + Manteca Corporal + Limpiador Facial' },
+      { name: 'Scent Duo', nameEs: 'Duo Aroma', price: '{currency}60', items: 'Scrub + Body Butter (Buy 1 Get 1)', itemsEs: 'Exfoliante + Manteca Corporal (Compra 1, Llévate 1)' },
+      { name: 'Smart Duo', nameEs: 'Duo Inteligente', price: '{currency}60', items: 'Scrub + Nail Kit (kit includes cream)', itemsEs: 'Exfoliante + Kit de Uñas (el kit incluye crema)' },
+      { name: "Gifter's Four", nameEs: 'Cuatro para Regalar', price: '{currency}120', items: 'Buy 2, Get 2 (Christmas special)', itemsEs: 'Compra 2, Llévate 2 (oferta de Navidad)' },
+      { name: 'Final Push', nameEs: 'Empujón Final', price: '{currency}30', items: 'Scrub only, no gifts', itemsEs: 'Solo el exfoliante, sin regalos' },
     ] as CheatCombo[],
   },
 

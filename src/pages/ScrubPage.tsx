@@ -232,7 +232,9 @@ export default function ScrubPage() {
                   <span className="block text-body-small font-semibold text-ink">
                     {t(combo.name, combo.nameEs)}
                   </span>
-                  <span className="block text-caption text-ink-2">{t(combo.items)}</span>
+                  <span className="block text-caption text-ink-2">
+                    {t(combo.items, combo.itemsEs)}
+                  </span>
                 </span>
                 <span className="shrink-0 text-h4 text-[rgb(var(--pa-strong))] tabular-nums">
                   {t(combo.price)}
