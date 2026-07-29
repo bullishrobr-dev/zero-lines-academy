@@ -696,8 +696,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "subheader",
-        text: "Script — The Port Walk-Back Close",
-        textEs: "Guion — El Cierre de Regreso al Puerto",
+        text: "Script — The Walk-Back Close",
+        textEs: "Guion — El Cierre de Vuelta al Grupo",
       },
       {
         type: "script",
