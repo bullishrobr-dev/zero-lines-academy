@@ -110,7 +110,6 @@ const COPY = {
   digestActive: { en: 'Active today', es: 'Activos hoy' },
   digestStarted: { en: 'Started training', es: 'Han empezado' },
   digestQueue: { en: 'Need a word', es: 'Necesitan charla' },
-  topPerformer: { en: 'Furthest along', es: 'Más avanzado' },
   ofCurriculum: { en: 'of the curriculum', es: 'del temario' },
   sendMessage: { en: 'Message the team', es: 'Mensaje al equipo' },
   viewQueue: { en: 'Coaching queue', es: 'Cola de coaching' },
@@ -167,6 +166,13 @@ const COPY = {
   email: { en: 'Email', es: 'Correo' },
   emailInvalid: { en: 'Enter a valid email address', es: 'Escribe un correo válido' },
   emailTaken: { en: 'That email is already registered', es: 'Ese correo ya está registrado' },
+  errNotFound: { en: 'That account no longer exists', es: 'Esa cuenta ya no existe' },
+  errSelfDelete: { en: 'You cannot delete your own account', es: 'No puedes eliminar tu propia cuenta' },
+  errLastAdmin: {
+    en: 'This is the last admin account — promote someone else first',
+    es: 'Es la última cuenta de admin — asciende antes a otra persona',
+  },
+  errGeneric: { en: 'Something went wrong', es: 'Algo ha ido mal' },
   tempPassword: { en: 'Temporary password', es: 'Contraseña temporal' },
   passwordHint: {
     en: 'Generated, not guessable. Share it once — they should change it after signing in.',
@@ -384,11 +390,30 @@ export default function ManagerDashboard() {
     [c]
   );
 
+  /* The backend answers in English; this screen is read in Spanish too. */
+  const translateError = useCallback(
+    (message?: string) => {
+      switch (message) {
+        case 'Email already registered':
+          return c('emailTaken');
+        case 'User not found':
+          return c('errNotFound');
+        case 'You cannot delete your own account':
+          return c('errSelfDelete');
+        case 'Cannot delete the last admin account':
+          return c('errLastAdmin');
+        default:
+          return message || c('errGeneric');
+      }
+    },
+    [c]
+  );
+
   const handleCreate = async (data: backend.SignupData) => {
     setError(null);
     const result = await backend.createUser(data);
     if (!result.success) {
-      setError(result.error === 'Email already registered' ? c('emailTaken') : (result.error ?? 'Error'));
+      setError(translateError(result.error));
       return false;
     }
     setAddDraft(null);
@@ -401,7 +426,7 @@ export default function ManagerDashboard() {
     setError(null);
     const ok = await backend.updateUser(id, changes);
     if (!ok) {
-      setError('User not found');
+      setError(c('errNotFound'));
       return;
     }
     setEditing(null);
@@ -416,7 +441,7 @@ export default function ManagerDashboard() {
     const result = await backend.deleteUser(emp.user.id);
     setRemoving(null);
     if (!result.success) {
-      setError(result.error ?? 'Could not remove this account');
+      setError(translateError(result.error));
       return;
     }
     setNotice(c('removed'));

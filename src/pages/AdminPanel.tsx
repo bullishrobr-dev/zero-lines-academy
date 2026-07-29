@@ -129,6 +129,13 @@ const COPY = {
   deleted: { en: 'Account deleted', es: 'Cuenta eliminada' },
   emailTaken: { en: 'That email is already registered', es: 'Ese correo ya está registrado' },
   emailInvalid: { en: 'Enter a valid email address', es: 'Escribe un correo válido' },
+  errNotFound: { en: 'That account no longer exists', es: 'Esa cuenta ya no existe' },
+  errSelfDelete: { en: 'You cannot delete your own account', es: 'No puedes eliminar tu propia cuenta' },
+  errLastAdmin: {
+    en: 'This is the last admin account — promote someone else first',
+    es: 'Es la última cuenta de admin — asciende antes a otra persona',
+  },
+  errGeneric: { en: 'Something went wrong', es: 'Algo ha ido mal' },
   shopHint: {
     en: 'The shop sets the currency this person is trained in — € in Andorra, £ in Gibraltar.',
     es: 'La tienda define la moneda con la que se forma — € en Andorra, £ en Gibraltar.',
@@ -247,11 +254,31 @@ export default function AdminPanel() {
     [c]
   );
 
+  /* The backend answers in English; sellers and managers here may be reading in
+     Spanish, so map the known refusals rather than passing them straight on. */
+  const translateError = useCallback(
+    (message?: string) => {
+      switch (message) {
+        case 'Email already registered':
+          return c('emailTaken');
+        case 'User not found':
+          return c('errNotFound');
+        case 'You cannot delete your own account':
+          return c('errSelfDelete');
+        case 'Cannot delete the last admin account':
+          return c('errLastAdmin');
+        default:
+          return message || c('errGeneric');
+      }
+    },
+    [c]
+  );
+
   const handleCreate = async (data: backend.SignupData) => {
     setError(null);
     const result = await backend.createUser(data);
     if (!result.success) {
-      setError(result.error === 'Email already registered' ? c('emailTaken') : (result.error ?? 'Error'));
+      setError(translateError(result.error));
       return false;
     }
     setAddDraft(null);
@@ -267,7 +294,7 @@ export default function AdminPanel() {
     setError(null);
     const ok = await backend.updateUser(id, changes);
     if (!ok) {
-      setError('User not found');
+      setError(c('errNotFound'));
       return;
     }
     setEditing(null);
@@ -282,7 +309,7 @@ export default function AdminPanel() {
     const result = await backend.deleteUser(target.id);
     setDeleting(null);
     if (!result.success) {
-      setError(result.error ?? 'Could not delete this account');
+      setError(translateError(result.error));
       return;
     }
     setNotice(c('deleted'));

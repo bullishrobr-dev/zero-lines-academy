@@ -338,8 +338,23 @@ export default function HomeDashboard() {
     return { icon: Sparkles, title: c.startTraining, subtitle: c.startTrainingSub, to: '/training' };
   }, [todayProgress.checkedIn, todayProgress.reflected, nextLesson, c]);
 
-  /* ── Quotes — demoted to a small footer card, still swipeable ── */
-  const [quotesList] = useState<Quote[]>(() => Array.from({ length: 5 }, () => getRandomQuote()));
+  /* ── Quotes — demoted to a small footer card, still swipeable ──
+     Drawn WITHOUT replacement. Five independent getRandomQuote() calls will
+     collide often enough at 110 quotes (~9% of loads) that the carousel dots,
+     which are keyed by quote id, produced duplicate React keys. */
+  const [quotesList] = useState<Quote[]>(() => {
+    const picked: Quote[] = [];
+    const seen = new Set<string>();
+    // Bounded: stop once we have five, or after enough tries that the pool is
+    // clearly smaller than five.
+    for (let i = 0; i < 40 && picked.length < 5; i++) {
+      const q = getRandomQuote();
+      if (seen.has(q.id)) continue;
+      seen.add(q.id);
+      picked.push(q);
+    }
+    return picked;
+  });
   const [quoteIndex, setQuoteIndex] = useState(0);
   const quote = quotesList[quoteIndex];
 
