@@ -465,7 +465,10 @@ export default function ManagerDashboard() {
 
   return (
     <div className="min-h-full bg-background pb-10">
-      <header className="sticky top-0 z-20 border-b border-line bg-surface/95 px-5 pb-3 pt-6 backdrop-blur">
+      {/* Not sticky: the app frame in Layout.tsx is `overflow-hidden`, which makes
+          every descendant's `position: sticky` silently do nothing. A header that
+          only looks pinned is worse than one that plainly scrolls. */}
+      <header className="border-b border-line bg-surface px-5 pb-3 pt-6">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-overline text-teal-strong">{c('overline')}</p>
