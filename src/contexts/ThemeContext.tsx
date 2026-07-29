@@ -56,34 +56,33 @@ function apply(theme: ResolvedTheme) {
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [preference, setPreferenceState] = useState<ThemePreference>(getStoredPreference);
-  const [resolved, setResolved] = useState<ResolvedTheme>(() =>
-    getStoredPreference() === 'system' ? systemTheme() : (getStoredPreference() as ResolvedTheme)
-  );
+  /* Only the OS signal is state. The theme actually on screen is derived from
+     it, so there is no second copy to keep in sync — and no setState fired
+     synchronously from an effect. */
+  const [systemIsDark, setSystemIsDark] = useState(() => systemTheme() === 'dark');
 
-  // Apply + persist whenever the preference changes.
+  const resolved: ResolvedTheme =
+    preference === 'system' ? (systemIsDark ? 'dark' : 'light') : preference;
+
+  // Apply to the document and persist the choice. Side effects only.
   useEffect(() => {
-    const next = preference === 'system' ? systemTheme() : preference;
-    setResolved(next);
-    apply(next);
+    apply(resolved);
     try {
       localStorage.setItem(LS_THEME_KEY, preference);
     } catch {
       // non-fatal — the theme still applies for this session
     }
-  }, [preference]);
+  }, [resolved, preference]);
 
-  // Follow the OS while the preference is 'system'.
+  // Follow the OS. Subscribing always (rather than only while on 'system')
+  // keeps `systemIsDark` fresh, so switching back to 'system' is instant.
   useEffect(() => {
-    if (preference !== 'system' || !window.matchMedia) return;
+    if (!window.matchMedia) return;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const onChange = () => {
-      const next = systemTheme();
-      setResolved(next);
-      apply(next);
-    };
+    const onChange = (e: MediaQueryListEvent) => setSystemIsDark(e.matches);
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
-  }, [preference]);
+  }, []);
 
   const setPreference = useCallback((p: ThemePreference) => setPreferenceState(p), []);
 

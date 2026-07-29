@@ -450,7 +450,7 @@ const quickRef = {
 /* ------------------------------------------------------------------ */
 /*  Icon name lookup for Pro Tips                                      */
 /* ------------------------------------------------------------------ */
-const iconMap = [
+export const ICON_NAMES = [
   'Sparkles',
   'Shield',
   'Gift',
@@ -461,7 +461,7 @@ const iconMap = [
   'Clock',
 ] as const;
 
-export type IconName = (typeof iconMap)[number];
+export type IconName = (typeof ICON_NAMES)[number];
 
 /* ------------------------------------------------------------------ */
 /*  Aggregated export                                                  */

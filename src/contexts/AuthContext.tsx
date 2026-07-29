@@ -12,7 +12,6 @@ import {
   createContext,
   useContext,
   useState,
-  useEffect,
   useCallback,
   useMemo,
   type ReactNode,
@@ -89,13 +88,16 @@ function claimDeviceFor(userId: string) {
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<SafeUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setUser(backend.getCurrentUser());
-    setIsLoading(false);
-  }, []);
+  /*
+   * Seeded synchronously. The session lives in localStorage, which is a
+   * synchronous read, so there is nothing to wait for — loading it in a mount
+   * effect just meant the route guards saw `isAuthenticated: false` on the
+   * first paint and could bounce a signed-in seller to /auth before the user
+   * landed.
+   */
+  const [user, setUser] = useState<SafeUser | null>(() => backend.getCurrentUser());
+  /** Kept on the interface for callers, but there is no async bootstrap. */
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = useCallback(async (email: string, password: string) => {
     setIsLoading(true);

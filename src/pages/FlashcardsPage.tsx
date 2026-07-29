@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Flame, RotateCcw, Trophy, Zap, Sparkles, Sun } from 'lucide-react';
 import { useFlashcards, getDueFlashcards } from '../hooks/useFlashcards';
+import { useCurrency } from '../utils/currency';
 import { useLanguage } from '../contexts/LanguageContext';
 import { type Flashcard, getCategoryById } from '../data/flashcards';
 
@@ -33,6 +34,8 @@ const RATINGS: Record<'en' | 'es', RatingButton[]> = {
 export default function FlashcardsPage() {
   const navigate = useNavigate();
   const { language } = useLanguage();
+  // Card copy carries {currency} tokens; resolve them for the seller's shop.
+  const { sub } = useCurrency();
   const isEs = language === 'es';
   const [sp] = useSearchParams();
   const catId = sp.get('category') ?? undefined;
@@ -300,7 +303,7 @@ export default function FlashcardsPage() {
                     <Zap className="h-7 w-7" aria-hidden="true" />
                   </div>
                   <h2 className="text-center text-h4 leading-relaxed text-ink">
-                    {isEs && card.questionEs ? card.questionEs : card.question}
+                    {sub(isEs && card.questionEs ? card.questionEs : card.question)}
                   </h2>
                   <p className="mt-6 text-caption text-ink-3">
                     {isEs ? 'Toca para ver la respuesta' : 'Tap to reveal the answer'}
@@ -319,7 +322,7 @@ export default function FlashcardsPage() {
                     {isEs ? 'Respuesta' : 'Answer'}
                   </p>
                   <p className="text-center text-body leading-relaxed text-ink">
-                    {isEs && card.answerEs ? card.answerEs : card.answer}
+                    {sub(isEs && card.answerEs ? card.answerEs : card.answer)}
                   </p>
                 </div>
               </div>

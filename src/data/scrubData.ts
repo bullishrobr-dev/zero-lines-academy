@@ -194,8 +194,8 @@ export const scrubData = {
       'Open the butter, flip it upside down — no spill. Point to the fact that nothing falls out.',
     demoQuote1Es:
       'Abre la crema, voltéala — no se derrama. Señala el hecho de que no cae nada.',
-    demoQuote2: `\"To complete the treatment — the Body Butter. Same minerals, ultra-rich. You see how it doesn't spill? Even if I flip it over, it doesn't fall. You only need a tiny bit — not because I'm cheap 😄 — because it's really that concentrated.\"`,
-    demoQuote2Es: `\"Para completar el tratamiento — el Body Butter. Los mismos minerales, ultra-concentrado. ¿Ves cómo no se derrama? Aunque lo voltee, no cae. Solo necesitas un poquito — no porque sea tacaño 😄 — porque es realmente tan concentrado.\"`,
+    demoQuote2: `"To complete the treatment — the Body Butter. Same minerals, ultra-rich. You see how it doesn't spill? Even if I flip it over, it doesn't fall. You only need a tiny bit — not because I'm cheap 😄 — because it's really that concentrated."`,
+    demoQuote2Es: `"Para completar el tratamiento — el Body Butter. Los mismos minerales, ultra-concentrado. ¿Ves cómo no se derrama? Aunque lo voltee, no cae. Solo necesitas un poquito — no porque sea tacaño 😄 — porque es realmente tan concentrado."`,
     closingLine: 'Let them massage it in. Then: ',
     closingLineEs: 'Déjalos masajearlo. Luego: ',
     closingQuote:
@@ -233,15 +233,15 @@ export const scrubData = {
     anchorLabel: 'Anchor',
     anchorLabelEs: 'Anclaje',
     anchorQuote: (currency: string) =>
-      `\"I won't lie — it's not cheap. Around Europe these go for ${currency}80 each.\"`,
+      `"I won't lie — it's not cheap. Around Europe these go for ${currency}80 each."`,
     anchorQuoteEs: (currency: string) =>
-      `\"No te voy a mentir — no es barato. Por Europa estos cuestan ${currency}80 cada uno.\"`,
+      `"No te voy a mentir — no es barato. Por Europa estos cuestan ${currency}80 cada uno."`,
     localLabel: 'Local Price',
     localLabelEs: 'Precio Local',
     localQuote: (currency: string, locationName: string) =>
-      `\"But here in ${locationName}, we're a tax haven — each one is ${currency}60.\"`,
+      `"But here in ${locationName}, we're a tax haven — each one is ${currency}60."`,
     localQuoteEs: (currency: string, locationName: string) =>
-      `\"Pero aquí en ${locationName}, somos un paraíso fiscal — cada uno es ${currency}60.\"`,
+      `"Pero aquí en ${locationName}, somos un paraíso fiscal — cada uno es ${currency}60."`,
     coreLabel: 'Core Offer',
     coreLabelEs: 'Oferta Principal',
     coreQuote: (currency: string) =>
