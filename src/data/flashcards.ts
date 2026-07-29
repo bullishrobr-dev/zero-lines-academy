@@ -11,8 +11,11 @@ export interface Flashcard {
 export interface CategoryInfo {
   id: string;
   name: string;
+  nameEs: string;
   description: string;
+  descriptionEs: string;
   icon: string;
+  /** Real lesson IDs from lessons.ts that this deck's cards are drawn from. */
   lessonIds: string[];
 }
 
@@ -21,41 +24,49 @@ export const categories: CategoryInfo[] = [
   {
     id: 'sales-psychology',
     name: 'Sales Psychology',
+    nameEs: 'Psicología de Ventas',
     description: 'Trigger desire, handle objections, and close with confidence.',
+    descriptionEs: 'Despierta el deseo, maneja las objeciones y cierra con confianza.',
     icon: 'Brain',
     lessonIds: [
-      'sp-1', 'sp-2', 'sp-3', 'sp-4', 'sp-5',
-      'sp-6', 'sp-7', 'sp-8', 'sp-9', 'sp-10',
+      'psych-7', 'connect-7',
+      'prod-1', 'prod-2', 'prod-5', 'prod-7',
     ],
   },
   {
     id: 'reading-connecting',
     name: 'Reading & Connecting',
+    nameEs: 'Leer y Conectar',
     description: 'Read body language, build trust, and spark attraction.',
+    descriptionEs: 'Lee el lenguaje corporal, genera confianza y despierta interés.',
     icon: 'Heart',
     lessonIds: [
-      'rc-1', 'rc-2', 'rc-3', 'rc-4', 'rc-5',
-      'rc-6', 'rc-7', 'rc-8', 'rc-9', 'rc-10',
+      'psych-5',
+      'connect-1', 'connect-4', 'connect-5', 'connect-6', 'connect-7',
+      'stop-1', 'stop-2', 'stop-3',
     ],
   },
   {
     id: 'art-of-stopping',
     name: 'Art of Stopping',
+    nameEs: 'El Arte de Parar',
     description: 'Master the approach, own the room, and stop anyone.',
+    descriptionEs: 'Domina el acercamiento, hazte dueño del espacio y para a cualquiera.',
     icon: 'Zap',
     lessonIds: [
-      'aos-1', 'aos-2', 'aos-3', 'aos-4', 'aos-5',
-      'aos-6', 'aos-7', 'aos-8', 'aos-9', 'aos-10',
+      'psych-1', 'psych-2', 'psych-3', 'psych-4',
+      'stop-1', 'stop-3', 'stop-5', 'stop-6', 'stop-7',
     ],
   },
   {
     id: 'product-mastery',
     name: 'Product Mastery',
+    nameEs: 'Dominio del Producto',
     description: 'Know every product, demo with flair, and anchor value.',
+    descriptionEs: 'Conoce cada producto, haz demos con estilo y ancla el valor.',
     icon: 'Package',
     lessonIds: [
-      'pm-1', 'pm-2', 'pm-3', 'pm-4', 'pm-5',
-      'pm-6', 'pm-7', 'pm-8', 'pm-9', 'pm-10',
+      'prod-1', 'prod-4', 'prod-5', 'prod-6', 'prod-7',
     ],
   },
 ];
@@ -67,25 +78,25 @@ export const flashcards: Flashcard[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: 'sp-1-1',
-    lessonId: 'sp-1',
+    lessonId: 'prod-1',
     categoryId: 'sales-psychology',
     question: 'What is the "Anchoring Effect" in pricing?',
-    answer: 'The first price mentioned becomes the mental reference point. Always anchor high (€500) before revealing the real price (€300).',
+    answer: 'The first price mentioned becomes the mental reference point. Always anchor high ({currency}500) before revealing the real price ({currency}300).',
     questionEs: '¿Qué es el "Efecto de Anclaje" en precios?',
-    answerEs: 'El primer precio mencionado se convierte en el punto de referencia mental. Siempre ancla alto (€500) antes de revelar el precio real (€300).',
+    answerEs: 'El primer precio mencionado se convierte en el punto de referencia mental. Siempre ancla alto ({currency}500) antes de revelar el precio real ({currency}300).',
   },
   {
     id: 'sp-1-2',
-    lessonId: 'sp-1',
+    lessonId: 'prod-1',
     categoryId: 'sales-psychology',
     question: 'What\'s the anchor price for the Syringe in Europe?',
-    answer: '€500 / £500 — then reveal the actual €300 price for the "deal."',
+    answer: '{currency}500 — then reveal the actual {currency}300 price for the "deal."',
     questionEs: '¿Cuál es el precio de anclaje para la Jeringa en Europa?',
-    answerEs: '€500 / £500 — luego revelas el precio real de €300 como la "oferta".',
+    answerEs: '{currency}500 — luego revelas el precio real de {currency}300 como la "oferta".',
   },
   {
     id: 'sp-2-1',
-    lessonId: 'sp-2',
+    lessonId: 'psych-7',
     categoryId: 'sales-psychology',
     question: 'What are the 3 Urgency Triggers for immediate buy-in?',
     answer: '1) Limited stock, 2) Today-only bonus, 3) Social proof — "Last one just sold across the street."',
@@ -94,7 +105,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-2-2',
-    lessonId: 'sp-2',
+    lessonId: 'psych-7',
     categoryId: 'sales-psychology',
     question: 'How do you create "Fear of Missing Out" (FOMO) without being pushy?',
     answer: 'State scarcity as a fact, not a threat: "This batch sold out in 2 days last week."',
@@ -103,7 +114,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-3-1',
-    lessonId: 'sp-3',
+    lessonId: 'connect-7',
     categoryId: 'sales-psychology',
     question: 'What are the 3 Buying Signals that a customer is ready to purchase?',
     answer: '1) Touching the product, 2) Asking about price, 3) "How long does it last?" — These are green lights to close.',
@@ -112,7 +123,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-3-2',
-    lessonId: 'sp-3',
+    lessonId: 'connect-7',
     categoryId: 'sales-psychology',
     question: 'What does it mean when a customer touches their face or chin while you demo?',
     answer: 'High interest signal — they\'s mentally processing ownership. Move to close immediately.',
@@ -121,25 +132,25 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-4-1',
-    lessonId: 'sp-4',
+    lessonId: 'prod-1',
     categoryId: 'sales-psychology',
-    question: 'What is "Price Psychology" — the €300 vs €299 debate?',
-    answer: 'Round numbers (€300) signal quality and luxury. Charm prices (€299) signal deals and discounts. Use €300 for premium feel.',
-    questionEs: '¿Qué es la "Psicología de Precios" — el debate de €300 vs €299?',
-    answerEs: 'Los números redondos (€300) transmiten calidad y lujo. Los precios encantados (€299) transmiten ofertas y descuentos. Usa €300 para sensación premium.',
+    question: 'What is "Price Psychology" — the {currency}300 vs {currency}299 debate?',
+    answer: 'Round numbers ({currency}300) signal quality and luxury. Charm prices ({currency}299) signal deals and discounts. Use {currency}300 for premium feel.',
+    questionEs: '¿Qué es la "Psicología de Precios" — el debate de {currency}300 vs {currency}299?',
+    answerEs: 'Los números redondos ({currency}300) transmiten calidad y lujo. Los precios encantados ({currency}299) transmiten ofertas y descuentos. Usa {currency}300 para sensación premium.',
   },
   {
     id: 'sp-4-2',
-    lessonId: 'sp-4',
+    lessonId: 'prod-5',
     categoryId: 'sales-psychology',
     question: 'When presenting the bundle price, what\'s the best framing technique?',
-    answer: 'Break it down per item: "That\'s €30 per product" instead of "€150 total" — feels smaller.',
+    answer: 'Break it down per item: "That\'s {currency}40 per product" instead of "{currency}120 total" — feels smaller.',
     questionEs: 'Al presentar el precio del paquete, ¿cuál es la mejor técnica de enmarcado?',
-    answerEs: 'Divídelo por producto: "Son €30 por producto" en vez de "€150 en total" — se siente más pequeño.',
+    answerEs: 'Divídelo por producto: "Son {currency}40 por producto" en vez de "{currency}120 en total" — se siente más pequeño.',
   },
   {
     id: 'sp-5-1',
-    lessonId: 'sp-5',
+    lessonId: 'prod-7',
     categoryId: 'sales-psychology',
     question: 'What are the 4 Fear Patterns holding customers back from buying?',
     answer: '1) Fear of regret, 2) Fear of judgment, 3) Fear of waste, 4) Fear of change. Address each with guarantees and social proof.',
@@ -148,7 +159,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-5-2',
-    lessonId: 'sp-5',
+    lessonId: 'prod-7',
     categoryId: 'sales-psychology',
     question: 'How do you dissolve the "fear of regret" objection?',
     answer: 'Offer a satisfaction guarantee: "If you don\'t love it in 7 days, I\'ll swap it for you — no hassle."',
@@ -157,7 +168,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-6-1',
-    lessonId: 'sp-6',
+    lessonId: 'psych-7',
     categoryId: 'sales-psychology',
     question: 'What is the "Yes Ladder" technique?',
     answer: 'Ask 3 small "yes" questions before the big ask. Build agreement momentum: "You like smooth skin?" → "You want results fast?" → "Shall I wrap this up?"',
@@ -166,7 +177,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-6-2',
-    lessonId: 'sp-6',
+    lessonId: 'prod-7',
     categoryId: 'sales-psychology',
     question: 'What\'s the best response to "I need to think about it"?',
     answer: '"Of course! What specifically would you like to think about?" — Isolate the real objection and handle it.',
@@ -175,7 +186,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-7-1',
-    lessonId: 'sp-7',
+    lessonId: 'psych-7',
     categoryId: 'sales-psychology',
     question: 'What is "Social Proof" and how do you use it effectively?',
     answer: 'Show that others like them already bought. Be specific: "A lady your age bought 2 just this morning."',
@@ -184,7 +195,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-7-2',
-    lessonId: 'sp-7',
+    lessonId: 'psych-7',
     categoryId: 'sales-psychology',
     question: 'What\'s the "Reciprocity Principle" in sales?',
     answer: 'Give something first (free sample, compliment, demo) — people feel obligated to give back, usually with a purchase.',
@@ -193,7 +204,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-8-1',
-    lessonId: 'sp-8',
+    lessonId: 'prod-2',
     categoryId: 'sales-psychology',
     question: 'What is the "Assumed Close" technique?',
     answer: 'Act as if they already decided to buy. Instead of "Do you want it?" ask "Would you like the bag or the box?"',
@@ -202,12 +213,12 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'sp-8-2',
-    lessonId: 'sp-8',
+    lessonId: 'prod-7',
     categoryId: 'sales-psychology',
     question: 'How do you handle the "It\'s too expensive" objection with reframing?',
-    answer: 'Reframe cost as investment: "For €2 a day over 5 months, you get salon-grade skin. A coffee costs more."',
+    answer: 'Reframe cost as investment: "For under {currency}2 a week across a whole year, you get salon-grade skin. A coffee costs more."',
     questionEs: '¿Cómo manejas la objeción "Está muy caro" con reframing?',
-    answerEs: 'Reenmarca el costo como inversión: "Por €2 al día durante 5 meses, tienes piel de salón. Un café cuesta más."',
+    answerEs: 'Reencuadra el coste como inversión: "Por menos de {currency}2 a la semana durante un año entero, tienes piel de salón. Un café cuesta más."',
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -215,7 +226,7 @@ export const flashcards: Flashcard[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: 'rc-1-1',
-    lessonId: 'rc-1',
+    lessonId: 'stop-2',
     categoryId: 'reading-connecting',
     question: 'What are the 3 Compliment Openers that always work?',
     answer: '1) "I love your energy" (personality), 2) "That color looks amazing on you" (style), 3) "You have great taste" (choice) — be specific and genuine.',
@@ -224,7 +235,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-1-2',
-    lessonId: 'rc-1',
+    lessonId: 'stop-2',
     categoryId: 'reading-connecting',
     question: 'Why should compliments be specific rather than generic?',
     answer: 'Specific compliments feel genuine and memorable. "I love how you carry yourself" hits harder than "You\'re pretty."',
@@ -233,7 +244,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-2-1',
-    lessonId: 'rc-2',
+    lessonId: 'connect-5',
     categoryId: 'reading-connecting',
     question: 'What is the "Curiosity Hook" technique for opening conversations?',
     answer: 'Say something intriguing but incomplete: "I have to ask — did anyone ever tell you that you look like..." then pause. Curiosity pulls them in.',
@@ -242,7 +253,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-2-2',
-    lessonId: 'rc-2',
+    lessonId: 'connect-1',
     categoryId: 'reading-connecting',
     question: 'What\'s the "Observation Opener" and when do you use it?',
     answer: 'Comment on something in the environment: "That drink looks dangerous" or "Great choice on the playlist." Works anywhere, anytime.',
@@ -251,7 +262,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-3-1',
-    lessonId: 'rc-3',
+    lessonId: 'stop-3',
     categoryId: 'reading-connecting',
     question: 'What are the 3 Humor Techniques for breaking tension?',
     answer: '1) Self-deprecating humor (relatable), 2) Observational ("Is it just me or..."), 3) Playful teasing — never mean, always warm.',
@@ -260,7 +271,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-3-2',
-    lessonId: 'rc-3',
+    lessonId: 'stop-3',
     categoryId: 'reading-connecting',
     question: 'What is "Callback Humor" and why is it powerful?',
     answer: 'Referencing an earlier joke or moment in the conversation. It shows you\'re paying attention and creates inside-joke intimacy.',
@@ -269,7 +280,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-4-1',
-    lessonId: 'rc-4',
+    lessonId: 'connect-7',
     categoryId: 'reading-connecting',
     question: 'What are the 5 Body Language Signals of interest?',
     answer: '1) Leaning in, 2) Mirroring your posture, 3) Playing with hair/jewelry, 4) Sustained eye contact, 5) Open palms / uncrossed arms.',
@@ -278,7 +289,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-4-2',
-    lessonId: 'rc-4',
+    lessonId: 'psych-5',
     categoryId: 'reading-connecting',
     question: 'What does "mirroring" mean in conversation and why does it work?',
     answer: 'Subtly matching their body language, tone, or energy. It builds unconscious trust and rapport — they feel "this person gets me."',
@@ -287,7 +298,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-5-1',
-    lessonId: 'rc-5',
+    lessonId: 'connect-4',
     categoryId: 'reading-connecting',
     question: 'How do you approach a group vs. an individual?',
     answer: 'Address the group first: "Hey everyone, I need a quick female opinion..." Then pivot to your target. Win the group, win the person.',
@@ -296,7 +307,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-5-2',
-    lessonId: 'rc-5',
+    lessonId: 'connect-4',
     categoryId: 'reading-connecting',
     question: 'What\'s the best approach when someone is with their partner?',
     answer: 'Acknowledge both equally first: "You two look like you have great energy — quick question..." Respect builds trust.',
@@ -305,7 +316,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-6-1',
-    lessonId: 'rc-6',
+    lessonId: 'connect-1',
     categoryId: 'reading-connecting',
     question: 'What is "Vibe Reading" and how do you practice it?',
     answer: 'Reading emotional energy in 3 seconds. Are they open (smiling, eye contact) or closed (headphones, crossed arms, rushing)? Adjust accordingly.',
@@ -314,7 +325,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-6-2',
-    lessonId: 'rc-6',
+    lessonId: 'stop-1',
     categoryId: 'reading-connecting',
     question: 'What are 3 signs someone is NOT open to conversation?',
     answer: '1) Headphones in, 2) Fast walking with purpose, 3) Phone held up as a shield — Respect the signal and move on.',
@@ -323,7 +334,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-7-1',
-    lessonId: 'rc-7',
+    lessonId: 'connect-6',
     categoryId: 'reading-connecting',
     question: 'What is "Active Listening" and how do you show it?',
     answer: 'Fully focusing on the speaker, nodding, paraphrasing: "So what you\'re saying is..." — People buy from those who truly listen.',
@@ -332,7 +343,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-7-2',
-    lessonId: 'rc-7',
+    lessonId: 'connect-6',
     categoryId: 'reading-connecting',
     question: 'What is the "Parroting Technique" for deepening conversations?',
     answer: 'Repeat the last 2-3 words they said as a question. Them: "I\'ve been so stressed at work." You: "Stressed at work?" — They\'ll open up more.',
@@ -341,7 +352,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-8-1',
-    lessonId: 'rc-8',
+    lessonId: 'connect-5',
     categoryId: 'reading-connecting',
     question: 'How do you smoothly transition from conversation to demo?',
     answer: 'Use a natural bridge: "Speaking of skincare — can I show you something cool? It takes 10 seconds." Low commitment, high curiosity.',
@@ -350,7 +361,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'rc-8-2',
-    lessonId: 'rc-8',
+    lessonId: 'stop-1',
     categoryId: 'reading-connecting',
     question: 'What is the "False Time Constraint" technique?',
     answer: '"I can only stay a minute but..." — reduces pressure on them to commit to a long conversation. They relax and open up.',
@@ -363,7 +374,7 @@ export const flashcards: Flashcard[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: 'aos-1-1',
-    lessonId: 'aos-1',
+    lessonId: 'stop-1',
     categoryId: 'art-of-stopping',
     question: 'What is the "3-Second Rule" in approaching?',
     answer: 'Approach within 3 seconds of seeing someone. The longer you wait, the more anxiety builds. 3 seconds is before doubt kicks in.',
@@ -372,7 +383,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-1-2',
-    lessonId: 'aos-1',
+    lessonId: 'psych-3',
     categoryId: 'art-of-stopping',
     question: 'Why does hesitation kill the approach?',
     answer: 'Your body language telegraphs hesitation — you look uncertain. They sense it and become guarded before you even speak.',
@@ -381,7 +392,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-2-1',
-    lessonId: 'aos-2',
+    lessonId: 'stop-7',
     categoryId: 'art-of-stopping',
     question: 'What is the "Power Pause" after stopping someone?',
     answer: 'After your opener, pause for 2 seconds before continuing. The silence commands attention and shows confidence.',
@@ -390,7 +401,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-2-2',
-    lessonId: 'aos-2',
+    lessonId: 'psych-1',
     categoryId: 'art-of-stopping',
     question: 'How do you use Eye Contact to command attention in the first 3 seconds?',
     answer: 'Hold eye contact 1 second longer than feels comfortable. Look at one eye, then the other — it creates intimacy and authority.',
@@ -399,7 +410,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-3-1',
-    lessonId: 'aos-3',
+    lessonId: 'stop-1',
     categoryId: 'art-of-stopping',
     question: 'What is "Positioning" and why does it matter?',
     answer: 'Stand at a 45-degree angle, not head-on. It feels less confrontational. Keep 1.5 arm lengths of distance initially.',
@@ -408,7 +419,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-3-2',
-    lessonId: 'aos-3',
+    lessonId: 'stop-1',
     categoryId: 'art-of-stopping',
     question: 'Why should you never approach someone from directly behind?',
     answer: 'It triggers their threat response. Always come from the front-side (10 or 2 o\'clock position) where they can see you.',
@@ -417,7 +428,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-4-1',
-    lessonId: 'aos-4',
+    lessonId: 'psych-2',
     categoryId: 'art-of-stopping',
     question: 'What is "Energy Transfer" in stopping?',
     answer: 'Your energy determines their energy. Bring high, positive, warm energy — they\'ll match it. Low energy = low response.',
@@ -426,7 +437,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-4-2',
-    lessonId: 'aos-4',
+    lessonId: 'psych-1',
     categoryId: 'art-of-stopping',
     question: 'How do you project "Warm Authority" — not aggressive, not weak?',
     answer: 'Smile with your eyes (smize), open palms, slightly slower speech, and stand tall with relaxed shoulders.',
@@ -435,7 +446,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-5-1',
-    lessonId: 'aos-5',
+    lessonId: 'stop-6',
     categoryId: 'art-of-stopping',
     question: 'What is the "Bounce Back" technique for rejection recovery?',
     answer: 'Reframe rejection as redirection: "No worries — quick question before you go..." One more question can turn it around.',
@@ -444,7 +455,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-5-2',
-    lessonId: 'aos-5',
+    lessonId: 'stop-6',
     categoryId: 'art-of-stopping',
     question: 'What are the 3 Types of "No" and how do you handle each?',
     answer: '1) Soft no (hesitant) — persist gently; 2) Firm no (polite) — one more try, then exit gracefully; 3) Hard no (rude) — smile and walk away with energy intact.',
@@ -453,7 +464,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-6-1',
-    lessonId: 'aos-6',
+    lessonId: 'stop-6',
     categoryId: 'art-of-stopping',
     question: 'What is "The Walk-Away" power move?',
     answer: 'After your pitch, start slowly packing up or turning away. Scarcity kicks in — they often stop you to ask one more question.',
@@ -462,7 +473,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-6-2',
-    lessonId: 'aos-6',
+    lessonId: 'psych-4',
     categoryId: 'art-of-stopping',
     question: 'How do you maintain confidence after 3 rejections in a row?',
     answer: 'Detach from outcome. Your job is to deliver energy and information. Their response is not your report card. Reset and go again.',
@@ -471,7 +482,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-7-1',
-    lessonId: 'aos-7',
+    lessonId: 'stop-3',
     categoryId: 'art-of-stopping',
     question: 'What is the "Pattern Interrupt" technique?',
     answer: 'Say or do something unexpected to break autopilot: "Wait — I have to tell you something..." or a playful high-five. Cuts through the noise.',
@@ -480,7 +491,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-7-2',
-    lessonId: 'aos-7',
+    lessonId: 'stop-5',
     categoryId: 'art-of-stopping',
     question: 'What\'s the best opening line for stopping someone on the street?',
     answer: '"Excuse me — can I get your opinion on something real quick?" People love giving opinions, and it feels low-pressure.',
@@ -489,7 +500,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-8-1',
-    lessonId: 'aos-8',
+    lessonId: 'stop-7',
     categoryId: 'art-of-stopping',
     question: 'What is the "Vocal Tonality" formula for approach?',
     answer: 'Volume: Loud enough to cut through noise. Pace: Slightly slower than normal (calm authority). Pitch: Lower at the end of sentences (certainty).',
@@ -498,7 +509,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'aos-8-2',
-    lessonId: 'aos-8',
+    lessonId: 'stop-7',
     categoryId: 'art-of-stopping',
     question: 'Why should you NOT use a questioning tone at the end of statements?',
     answer: 'Uptalk ("This product is amazing?") undermines authority. End statements with a downward tone to sound certain and confident.',
@@ -511,7 +522,7 @@ export const flashcards: Flashcard[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: 'pm-1-1',
-    lessonId: 'pm-1',
+    lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'How do you perform the "One-Eye Demo" with the Syringe?',
     answer: 'Apply a small drop under one eye only. Have them look in the mirror — the lifted, brighter side creates instant visual proof.',
@@ -520,7 +531,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'pm-1-2',
-    lessonId: 'pm-1',
+    lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'What\'s the key selling point of the Syringe\'s instant effect?',
     answer: 'Visible lift in 60 seconds. The contrast between the treated eye and untreated eye sells itself — no words needed.',
@@ -529,7 +540,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'pm-2-1',
-    lessonId: 'pm-2',
+    lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'How do you demo the Peeling product for maximum impact?',
     answer: 'Apply to the back of their hand, let it sit 10 seconds, then rub gently. The dead skin rolling off is visceral proof of exfoliation.',
@@ -538,16 +549,16 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'pm-2-2',
-    lessonId: 'pm-2',
+    lessonId: 'prod-1',
     categoryId: 'product-mastery',
     question: 'What\'s the anchor price for the Peeling product in Europe?',
-    answer: '€150 / £150 anchored, actual selling price around €80-100. "This sells in salons for €150 — today it\'s €80."',
+    answer: '{currency}200 is the Europe anchor, {currency}150 is the normal price here, and the 50%-off promo lands at {currency}100. "Across Europe this is {currency}200 — today it\'s {currency}100 and the Scrub comes free."',
     questionEs: '¿Cuál es el precio de anclaje para el Peeling en Europa?',
-    answerEs: '€150 / £150 anclado, precio real de venta alrededor de €80-100. "Esto se vende en salones por €150 — hoy te lo dejo en €80."',
+    answerEs: '{currency}200 es el ancla de Europa, {currency}150 es el precio normal aquí, y la promo del 50% se queda en {currency}100. "Por toda Europa esto son {currency}200 — hoy te lo dejo en {currency}100 y el Scrub va de regalo."',
   },
   {
     id: 'pm-3-1',
-    lessonId: 'pm-3',
+    lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'What is the "Scrub Feel" technique during a demo?',
     answer: 'Let them feel the scrub texture on their own skin — the physical sensation of the granules creates a tactile memory and desire.',
@@ -556,16 +567,16 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'pm-3-2',
-    lessonId: 'pm-3',
+    lessonId: 'prod-1',
     categoryId: 'product-mastery',
     question: 'What\'s the anchor price for the Body Scrub in boutiques?',
-    answer: '€80 / £80 salon anchor, your price €45. "Sephora charges €80 for a scrub half this quality."',
+    answer: '{currency}80 Europe anchor, your price {currency}60. "Sephora charges {currency}80 for a scrub half this quality — and Buy 1 Get 1 makes two of ours {currency}60."',
     questionEs: '¿Cuál es el precio de anclaje del Body Scrub en boutiques?',
-    answerEs: '€80 / £80 anclaje de salón, tu precio €45. "Sephora cobra €80 por un scrub de la mitad de calidad."',
+    answerEs: '{currency}80 es el ancla de Europa, tu precio {currency}60. "Sephora cobra {currency}80 por un scrub de la mitad de calidad — y con Compra 1 Lleva 1 los nuestros son dos por {currency}60."',
   },
   {
     id: 'pm-4-1',
-    lessonId: 'pm-4',
+    lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'How do you demo the Nail Kit for maximum wow factor?',
     answer: 'File one nail with the buffer, show the instant shine. Compare to the dull nails — the contrast is the closer.',
@@ -574,43 +585,43 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'pm-4-2',
-    lessonId: 'pm-4',
+    lessonId: 'prod-1',
     categoryId: 'product-mastery',
     question: 'What\'s the anchor price for the Nail Kit?',
-    answer: '€60 / £60 salon price, your price €35. "A manicure costs €25 and lasts a week. This kit pays for itself in 2 uses."',
+    answer: '{currency}80 Europe anchor, your price {currency}60. "A manicure costs {currency}25 and lasts a week. This kit pays for itself in 3 uses and lasts for years."',
     questionEs: '¿Cuál es el precio de anclaje del Nail Kit?',
-    answerEs: '€60 / £60 precio de salón, tu precio €35. "Una manicure cuesta €25 y dura una semana. Este kit se paga solo en 2 usos."',
+    answerEs: '{currency}80 es el ancla de Europa, tu precio {currency}60. "Una manicura cuesta {currency}25 y dura una semana. Este kit se paga solo en 3 usos y te dura años."',
   },
   {
     id: 'pm-5-1',
-    lessonId: 'pm-5',
+    lessonId: 'prod-5',
     categoryId: 'product-mastery',
     question: 'What is the "Bundle Close" technique?',
-    answer: 'Offer 3 products at a perceived deal: "One is €50, but all three is just €100 — that\'s like getting one free."',
+    answer: 'Offer 3 products at a perceived deal: "One is {currency}60, but all three is just {currency}120 — you literally get one free."',
     questionEs: '¿Qué es la técnica del "Cierre por Paquete"?',
-    answerEs: 'Ofrece 3 productos como una oferta: "Uno cuesta €50, pero los tres por solo €100 — es como llevarte uno gratis."',
+    answerEs: 'Ofrece 3 productos como una oferta: "Uno cuesta {currency}60, pero los tres por solo {currency}120 — literalmente te llevas uno gratis."',
   },
   {
     id: 'pm-5-2',
-    lessonId: 'pm-5',
+    lessonId: 'prod-7',
     categoryId: 'product-mastery',
     question: 'How do you calculate and present the "per-use" value?',
-    answer: 'Break down longevity: "This bottle lasts 3 months. That\'s €0.55 per day — less than a gum." Makes any price feel small.',
+    answer: 'Break down longevity: "This bottle lasts a full year — 52 treatments for {currency}100. That\'s under {currency}2 a week, less than a coffee." Makes any price feel small.',
     questionEs: '¿Cómo calculas y presentas el valor "por uso"?',
-    answerEs: 'Desglosa la duración: "Este bote dura 3 meses. Son €0.55 por día — menos que un chicle." Hace que cualquier precio se sienta pequeño.',
+    answerEs: 'Desglosa la duración: "Este frasco dura un año entero — 52 tratamientos por {currency}100. Son menos de {currency}2 a la semana, menos que un café." Hace que cualquier precio se sienta pequeño.',
   },
   {
     id: 'pm-6-1',
-    lessonId: 'pm-6',
+    lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'What\'s the key ingredient story for the Syringe (Hyaluronic Acid)?',
-    answer: '"This is the same ingredient in €500 dermatologist injections — but ours is needle-free and instant." Borrow authority.',
+    answer: '"This is the same ingredient in {currency}500 dermatologist injections — but ours is needle-free and instant." Borrow authority.',
     questionEs: '¿Cuál es la historia clave del ingrediente de la Jeringa (Ácido Hialurónico)?',
-    answerEs: '"Es el mismo ingrediente de las inyecciones de dermatólogo de €500 — pero el nuestro es sin agujas e instantáneo." Presta autoridad.',
+    answerEs: '"Es el mismo ingrediente de las inyecciones de dermatólogo de {currency}500 — pero el nuestro es sin agujas e instantáneo." Presta autoridad.',
   },
   {
     id: 'pm-6-2',
-    lessonId: 'pm-6',
+    lessonId: 'prod-7',
     categoryId: 'product-mastery',
     question: 'How do you handle "Is this natural/organic?" for any product?',
     answer: 'Highlight the key natural ingredient: "It\'s enriched with Dead Sea minerals and vitamin E — no parabens, dermatologist tested."',
@@ -619,7 +630,7 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'pm-7-1',
-    lessonId: 'pm-7',
+    lessonId: 'prod-4',
     categoryId: 'product-mastery',
     question: 'What\'s the "Gift Close" technique?',
     answer: 'Frame the purchase as a gift opportunity: "This set is perfect for your mom/sister too — buy 2, I\'ll give you a deal."',
@@ -628,30 +639,30 @@ export const flashcards: Flashcard[] = [
   },
   {
     id: 'pm-7-2',
-    lessonId: 'pm-7',
+    lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'What is the "Salon vs. Home" comparison for the Peeling?',
-    answer: '"A salon peel costs €100+, takes an appointment, and may irritate. This gives the same glow at home for €80, and it\'s gentler."',
+    answer: '"A salon peel costs {currency}200+, takes an appointment, and may irritate. This gives the same glow at home for {currency}100, and it\'s gentler."',
     questionEs: '¿Cuál es la comparación "Salón vs. Casa" para el Peeling?',
-    answerEs: '"Un peeling en salón cuesta €100+, necesitas cita y puede irritar. Esto da el mismo brillo en casa por €80, y es más gentil."',
+    answerEs: '"Un peeling en salón cuesta {currency}200+, necesitas cita y puede irritar. Esto da el mismo brillo en casa por {currency}100, y es más suave."',
   },
   {
     id: 'pm-8-1',
-    lessonId: 'pm-8',
+    lessonId: 'prod-4',
     categoryId: 'product-mastery',
-    question: 'How do you create urgency for the Serum specifically?',
+    question: 'How do you create urgency for the Body Butter specifically?',
     answer: '"This batch just came in yesterday — the last one sold out in 3 days. I can\'t guarantee it\'ll be here next week."',
-    questionEs: '¿Cómo creas urgencia para el Serum específicamente?',
+    questionEs: '¿Cómo creas urgencia para el Body Butter en concreto?',
     answerEs: '"Este lote acaba de llegar ayer — el anterior se agotó en 3 días. No te garantizo que haya la próxima semana."',
   },
   {
     id: 'pm-8-2',
-    lessonId: 'pm-8',
+    lessonId: 'prod-1',
     categoryId: 'product-mastery',
-    question: 'What\'s the anchor price for the Premium Serum?',
-    answer: '€200 / £200 department store anchor, your price €120. "La Mer charges €300 for a serum with the same active ingredients."',
-    questionEs: '¿Cuál es el precio de anclaje del Serum Premium?',
-    answerEs: '€200 / £200 anclaje de tienda departamental, tu precio €120. "La Mer cobra €300 por un serum con los mismos activos."',
+    question: 'What\'s the anchor price for the Body Butter?',
+    answer: '{currency}80 Europe anchor, your price {currency}60 — the same ladder as the Scrub and the Nail Kit. "A department-store butter this rich is {currency}80 all over Europe, and it mixes into every one of our deals."',
+    questionEs: '¿Cuál es el precio de anclaje del Body Butter?',
+    answerEs: '{currency}80 es el ancla de Europa, tu precio {currency}60 — la misma escalera que el Scrub y el Kit de Uñas. "Una manteca corporal así de rica cuesta {currency}80 por toda Europa, y entra en todas nuestras ofertas."',
   },
 ];
 

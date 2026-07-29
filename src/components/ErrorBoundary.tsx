@@ -1,3 +1,11 @@
+// ─────────────────────────────────────────────────────────────
+// ErrorBoundary.tsx — last line of defence
+//
+// Deliberately reads the language straight from localStorage rather than from
+// LanguageContext: this component renders precisely when something in the tree
+// below it has already failed, so it must not depend on that tree's providers.
+// ─────────────────────────────────────────────────────────────
+
 import { Component, type ReactNode } from 'react';
 import { AlertTriangle, RotateCcw } from 'lucide-react';
 
@@ -8,6 +16,31 @@ interface Props {
 interface State {
   hasError: boolean;
   error?: Error;
+}
+
+const COPY = {
+  en: {
+    title: 'Something went wrong',
+    body: "Don't worry — your progress is saved. Try reloading the app or going back home.",
+    reload: 'Reload app',
+    home: 'Go to Home',
+    footer: 'If this keeps happening, try clearing your browser data for this site.',
+  },
+  es: {
+    title: 'Algo ha salido mal',
+    body: 'Tranquilo — tu progreso está guardado. Prueba a recargar la app o volver al inicio.',
+    reload: 'Recargar app',
+    home: 'Ir al inicio',
+    footer: 'Si te sigue pasando, borra los datos del navegador para este sitio.',
+  },
+};
+
+function copy() {
+  try {
+    return localStorage.getItem('zl_language') === 'es' ? COPY.es : COPY.en;
+  } catch {
+    return COPY.en;
+  }
 }
 
 export default class ErrorBoundary extends Component<Props, State> {
@@ -35,50 +68,38 @@ export default class ErrorBoundary extends Component<Props, State> {
   };
 
   render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-[100dvh] bg-[#0A0A0A] flex flex-col items-center justify-center px-6 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mb-5">
-            <AlertTriangle className="w-8 h-8 text-red-400" />
-          </div>
-          <h1 className="text-xl font-bold text-white mb-2">
-            Something went wrong
-          </h1>
-          <p className="text-sm text-[#8A8A8A] mb-6 max-w-[280px]">
-            Don't worry — your progress is saved. Try reloading the app or going back home.
-          </p>
+    if (!this.state.hasError) return this.props.children;
 
-          {this.state.error && (
-            <div className="bg-[#1A1A1A] rounded-xl p-3 mb-6 max-w-[320px] w-full">
-              <p className="text-[11px] text-[#6B6B6B] font-mono break-all">
-                {this.state.error.message}
-              </p>
-            </div>
-          )}
+    const c = copy();
 
-          <div className="flex flex-col gap-3 w-full max-w-[280px]">
-            <button
-              onClick={this.handleReload}
-              className="flex items-center justify-center gap-2 w-full py-3.5 bg-[#0ABAB5] text-black font-semibold rounded-full text-sm active:scale-[0.97] transition-transform"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Reload App
-            </button>
-            <button
-              onClick={this.handleGoHome}
-              className="w-full py-3.5 bg-[#1A1A1A] text-white font-medium rounded-full text-sm border border-[#2A2A2A] active:scale-[0.97] transition-transform"
-            >
-              Go to Home
-            </button>
-          </div>
-
-          <p className="text-[11px] text-[#4A4A4A] mt-6">
-            If this keeps happening, try clearing your browser data for this site.
-          </p>
+    return (
+      <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-6 pt-safe text-center">
+        <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-feature bg-danger-tint">
+          <AlertTriangle className="h-8 w-8 text-danger" aria-hidden="true" />
         </div>
-      );
-    }
+        <h1 className="text-h2 text-ink">{c.title}</h1>
+        <p className="mt-2 max-w-[300px] text-body-small text-ink-2">{c.body}</p>
 
-    return this.props.children;
+        {this.state.error && (
+          <div className="surface-sunken mt-6 w-full max-w-[340px] p-3">
+            <p className="break-all font-mono text-caption text-ink-3">
+              {this.state.error.message}
+            </p>
+          </div>
+        )}
+
+        <div className="mt-6 flex w-full max-w-[300px] flex-col gap-3">
+          <button onClick={this.handleReload} className="btn-primary w-full">
+            <RotateCcw className="h-4 w-4" aria-hidden="true" />
+            {c.reload}
+          </button>
+          <button onClick={this.handleGoHome} className="btn-quiet w-full">
+            {c.home}
+          </button>
+        </div>
+
+        <p className="mt-6 max-w-[300px] text-caption text-ink-3">{c.footer}</p>
+      </div>
+    );
   }
 }

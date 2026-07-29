@@ -47,153 +47,153 @@ const quizPriceLadder: GeneralQuiz = {
   questions: [
     {
       question:
-        "You just anchored the syringe at €500. What is the NEXT price you reveal?",
+        "You just anchored the syringe at {currency}500. What is the NEXT price you reveal?",
       questionEs:
-        "Acabas de anclar la jeringa en €500. ¿Cuál es el SIGUIENTE precio que revelas?",
-      options: ["€210", "€140", "€300", "€175"],
-      optionsEs: ["€210", "€140", "€300", "€175"],
+        "Acabas de anclar la jeringa en {currency}500. ¿Cuál es el SIGUIENTE precio que revelas?",
+      options: ["{currency}210", "{currency}140", "{currency}300", "{currency}175"],
+      optionsEs: ["{currency}210", "{currency}140", "{currency}300", "{currency}175"],
       correctIndex: 2,
       explanation:
-        "After the €500 Europe anchor, you reveal the Andorra base price of €300. This makes the customer feel they are already getting a €200 discount before any negotiation begins. The gap between €500 and €300 sets up the entire price ladder.",
+        "After the {currency}500 Europe anchor, you reveal the {locationName} base price of {currency}300. This makes the customer feel they are already getting a {currency}200 discount before any negotiation begins. The gap between {currency}500 and {currency}300 sets up the entire price ladder.",
       explanationEs:
-        "Después del anclaje de €500 de Europa, revelas el precio base de Andorra de €300. Esto hace que la cliente sienta que ya está obteniendo un descuento de €200 antes de que comience cualquier negociación. La brecha entre €500 y €300 prepara toda la escalera de precios."
+        "Después del anclaje de {currency}500 de Europa, revelas el precio base de {locationName} de {currency}300. Esto hace que la cliente sienta que ya está obteniendo un descuento de {currency}200 antes de que comience cualquier negociación. La brecha entre {currency}500 y {currency}300 prepara toda la escalera de precios."
     },
     {
       question:
-        "A customer is interested at €210 but still hesitates. What is the NEXT step down?",
+        "A customer is interested at {currency}210 but still hesitates. What is the NEXT step down?",
       questionEs:
-        "Una cliente está interesada en €210 pero aún duda. ¿Cuál es el SIGUIENTE paso hacia abajo?",
-      options: ["€100", "€140", "€175", "€300"],
-      optionsEs: ["€100", "€140", "€175", "€300"],
+        "Una cliente está interesada en {currency}210 pero aún duda. ¿Cuál es el SIGUIENTE paso hacia abajo?",
+      options: ["{currency}100", "{currency}140", "{currency}175", "{currency}300"],
+      optionsEs: ["{currency}100", "{currency}140", "{currency}175", "{currency}300"],
       correctIndex: 2,
       explanation:
-        "The syringe price ladder is: €500 → €300 → €210 → €175 → €140 → €100. From €210, the next step down is €175. Each step should feel like a special deal you're creating just for them.",
+        "The syringe price ladder is: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. From {currency}210, the next step down is {currency}175. Each step should feel like a special deal you're creating just for them.",
       explanationEs:
-        "La escalera de precios de la jeringa es: €500 → €300 → €210 → €175 → €140 → €100. Desde €210, el siguiente paso hacia abajo es €175. Cada paso debe sentirse como una oferta especial que estás creando solo para ella."
+        "La escalera de precios de la jeringa es: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. Desde {currency}210, el siguiente paso hacia abajo es {currency}175. Cada paso debe sentirse como una oferta especial que estás creando solo para ella."
     },
     {
       question:
-        "What is the price IMMEDIATELY BEFORE €140 on the syringe ladder?",
+        "What is the price IMMEDIATELY BEFORE {currency}140 on the syringe ladder?",
       questionEs:
-        "¿Cuál es el precio INMEDIATAMENTE ANTES de €140 en la escalera de la jeringa?",
-      options: ["€100", "€175", "€210", "€300"],
-      optionsEs: ["€100", "€175", "€210", "€300"],
+        "¿Cuál es el precio INMEDIATAMENTE ANTES de {currency}140 en la escalera de la jeringa?",
+      options: ["{currency}100", "{currency}175", "{currency}210", "{currency}300"],
+      optionsEs: ["{currency}100", "{currency}175", "{currency}210", "{currency}300"],
       correctIndex: 1,
       explanation:
-        "The syringe ladder steps down: €500 → €300 → €210 → €175 → €140 → €100. The price immediately before €140 is €175. You must know the ladder backwards too — when a customer asks 'Can't you do better than €175?' you drop to €140 with a reason like a voucher or bundle.",
+        "The syringe ladder steps down: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. The price immediately before {currency}140 is {currency}175. You must know the ladder backwards too — when a customer asks 'Can't you do better than {currency}175?' you drop to {currency}140 with a reason like a voucher or bundle.",
       explanationEs:
-        "La escalera de la jeringa baja: €500 → €300 → €210 → €175 → €140 → €100. El precio inmediatamente antes de €140 es €175. Debes conocer la escalera al revés también — cuando una cliente pregunta '¿No puedes hacer mejor que €175?' bajas a €140 con una razón como un vale o paquete."
+        "La escalera de la jeringa baja: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. El precio inmediatamente antes de {currency}140 es {currency}175. Debes conocer la escalera al revés también — cuando una cliente pregunta '¿No puedes hacer mejor que {currency}175?' bajas a {currency}140 con una razón como un vale o paquete."
     },
     {
       question:
         "What is the FINAL minimum price for the syringe when nothing else works?",
       questionEs:
         "¿Cuál es el precio mínimo FINAL de la jeringa cuando nada más funciona?",
-      options: ["€140", "€175", "€100", "€210"],
-      optionsEs: ["€140", "€175", "€100", "€210"],
+      options: ["{currency}140", "{currency}175", "{currency}100", "{currency}210"],
+      optionsEs: ["{currency}140", "{currency}175", "{currency}100", "{currency}210"],
       correctIndex: 2,
       explanation:
-        "€100 is the floor price for the syringe. You only reach this after walking the full ladder and using every tool: gift removal, voucher mention, bundle framing. Never jump straight to €100 — the journey down the ladder builds perceived value at each step.",
+        "{currency}100 is the floor price for the syringe. You only reach this after walking the full ladder and using every tool: gift removal, voucher mention, bundle framing. Never jump straight to {currency}100 — the journey down the ladder builds perceived value at each step.",
       explanationEs:
-        "€100 es el precio piso de la jeringa. Solo llegas aquí después de recorrer toda la escalera y usar cada herramienta: remover regalo, mencionar vale, enmarcar paquete. Nunca saltes directo a €100 — el recorrido por la escalera construye valor percibido en cada paso."
+        "{currency}100 es el precio piso de la jeringa. Solo llegas aquí después de recorrer toda la escalera y usar cada herramienta: remover regalo, mencionar vale, enmarcar paquete. Nunca saltes directo a {currency}100 — el recorrido por la escalera construye valor percibido en cada paso."
     },
     {
       question:
-        "The facial peeling opens at €200. What is the NEXT price drop?",
+        "The facial peeling opens at {currency}200. What is the NEXT price drop?",
       questionEs:
-        "El peeling facial abre en €200. ¿Cuál es el SIGUIENTE descenso de precio?",
-      options: ["€70", "€100", "€150", "€50"],
-      optionsEs: ["€70", "€100", "€150", "€50"],
+        "El peeling facial abre en {currency}200. ¿Cuál es el SIGUIENTE descenso de precio?",
+      options: ["{currency}70", "{currency}100", "{currency}150", "{currency}50"],
+      optionsEs: ["{currency}70", "{currency}100", "{currency}150", "{currency}50"],
       correctIndex: 2,
       explanation:
-        "The peeling price ladder is: €200 → €150 → €100 → €70 → €50. After the €200 anchor, you drop to €150 (the 'Andorra price'). Each step feels like an exclusive deal, but you're simply following the ladder.",
+        "The peeling price ladder is: {currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50. After the {currency}200 anchor, you drop to {currency}150 (the '{locationName} price'). Each step feels like an exclusive deal, but you're simply following the ladder.",
       explanationEs:
-        "La escalera de precios del peeling es: €200 → €150 → €100 → €70 → €50. Después del anclaje de €200, bajas a €150 (el 'precio de Andorra'). Cada paso se siente como una oferta exclusiva, pero simplemente estás siguiendo la escalera."
+        "La escalera de precios del peeling es: {currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50. Después del anclaje de {currency}200, bajas a {currency}150 (el 'precio de {locationName}'). Cada paso se siente como una oferta exclusiva, pero simplemente estás siguiendo la escalera."
     },
     {
       question:
-        "You offered the peeling at €100. The customer asks for a better deal. What is your next price?",
+        "You offered the peeling at {currency}100. The customer asks for a better deal. What is your next price?",
       questionEs:
-        "Ofreciste el peeling en €100. La cliente pide un mejor precio. ¿Cuál es tu siguiente precio?",
-      options: ["€50", "€150", "€35", "€70"],
-      optionsEs: ["€50", "€150", "€35", "€70"],
+        "Ofreciste el peeling en {currency}100. La cliente pide un mejor precio. ¿Cuál es tu siguiente precio?",
+      options: ["{currency}50", "{currency}150", "{currency}35", "{currency}70"],
+      optionsEs: ["{currency}50", "{currency}150", "{currency}35", "{currency}70"],
       correctIndex: 3,
       explanation:
-        "The peeling ladder is: €200 → €150 → €100 → €70 → €50. From €100, the next step down is €70. This is typically framed as 'removing the gift' or a 'special today-only' price. Know every rung so you never hesitate.",
+        "The peeling ladder is: {currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50. From {currency}100, the next step down is {currency}70. This is typically framed as 'removing the gift' or a 'special today-only' price. Know every rung so you never hesitate.",
       explanationEs:
-        "La escalera del peeling es: €200 → €150 → €100 → €70 → €50. Desde €100, el siguiente paso hacia abajo es €70. Esto típicamente se enmarca como 'quitar el regalo' o un precio 'especial solo por hoy'. Conoce cada peldaño para nunca dudar."
+        "La escalera del peeling es: {currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50. Desde {currency}100, el siguiente paso hacia abajo es {currency}70. Esto típicamente se enmarca como 'quitar el regalo' o un precio 'especial solo por hoy'. Conoce cada peldaño para nunca dudar."
     },
     {
       question:
         "What is the SCRUB price when sold ALONE (not in a combo)?",
       questionEs:
         "¿Cuál es el precio del SCRUB cuando se vende SOLO (no en combo)?",
-      options: ["€50", "€25", "€35", "€45"],
-      optionsEs: ["€50", "€25", "€35", "€45"],
+      options: ["{currency}50", "{currency}30", "{currency}60", "{currency}80"],
+      optionsEs: ["{currency}50", "{currency}30", "{currency}60", "{currency}80"],
       correctIndex: 2,
       explanation:
-        "The Dead Sea salt scrub has a single fixed price: €35. There is no ladder — it is an impulse-buy price point designed to be an easy add-on or entry-level sale. Many customers who hesitate at the syringe will say yes to a €35 scrub.",
+        "A single Dead Sea salt scrub is {currency}60 — the same base price as the Body Butter and the Nail Kit, because all three share one ladder: {currency}80 Europe anchor, {currency}60 base, {currency}30 absolute floor. {currency}30 is the walking-away rung, not your opening number, so quote {currency}60 first and let Buy 1 Get 1 ({currency}60 for two) do the work.",
       explanationEs:
-        "El scrub de sal del Mar Muerto tiene un precio único fijo: €35. No hay escalera — es un punto de precio de compra por impulso diseñado para ser una venta adicional fácil o de entrada. Muchas clientes que dudan con la jeringa dirán sí a un scrub de €35."
+        "Un Exfoliante de sal del Mar Muerto individual son {currency}60 — el mismo precio base que el Body Butter y el Kit de Uñas, porque los tres comparten una escalera: {currency}80 de ancla europea, {currency}60 de base, {currency}30 de mínimo absoluto. Los {currency}30 son el escalón de 'se está yendo', no tu número de salida, así que di {currency}60 primero y deja que el Compra 1 Lleva 1 ({currency}60 por dos) haga el trabajo."
     },
     {
       question:
-        "A customer buys both the Scrub (€35) and the Peeling (at €50). What combo do you offer and at what price?",
+        "A customer wants the Peeling AND the Dead Sea Scrub. What do you quote, and why is it not a sum?",
       questionEs:
-        "Una cliente compra el Scrub (€35) y el Peeling (en €50). ¿Qué combo ofreces y a qué precio?",
+        "Una clienta quiere el Peeling Y el Exfoliante del Mar Muerto. ¿Qué le dices, y por qué no es una suma?",
       options: [
-        "Scrub + Peeling = €85",
-        "Scrub + Peeling = €100",
-        "Scrub + Peeling = €75",
-        "Scrub + Peeling = €50"
+        "{currency}160 — the Peeling base plus a full-price Scrub added on top",
+        "{currency}100 — Offer 1 on the Peeling, with the Scrub included as the gift",
+        "{currency}210 — the two products at their separate Europe anchor prices",
+        "{currency}50 — the Peeling voucher price, and the Scrub goes in free with it"
       ],
       optionsEs: [
-        "Scrub + Peeling = €85",
-        "Scrub + Peeling = €100",
-        "Scrub + Peeling = €75",
-        "Scrub + Peeling = €50"
+        "{currency}160 — la base del Peeling más un Exfoliante a precio completo encima",
+        "{currency}100 — la Oferta 1 del Peeling, con el Exfoliante incluido de regalo",
+        "{currency}210 — los dos productos a sus precios ancla de Europa por separado",
+        "{currency}50 — el precio con cupón del Peeling, y el Exfoliante entra gratis con él"
       ],
       correctIndex: 1,
       explanation:
-        "The Scrub + Peeling combo is ALWAYS €100. Even though the scrub alone is €35 and the peeling floor is €50 (total €85), the combo is positioned at €100 as a premium bundle. This is a key combo price you must memorize — do not calculate it, state it with confidence.",
+        "You never add these two up. Offer 1 on the Peeling IS the combo: {currency}100 for the Peeling with the Dead Sea Scrub as its gift. Since the Scrub on its own is {currency}60, the customer walks away with {currency}160 of product for {currency}100 — a saving you can state out loud because it is real. The {currency}50 rung is the voucher close and it applies to the single Peeling only, never with a gift attached.",
       explanationEs:
-        "El combo de Scrub + Peeling es SIEMPRE €100. Aunque el scrub solo es €35 y el piso del peeling es €50 (total €85), el combo se posiciona en €100 como un paquete premium. Este es un precio de combo clave que debes memorizar — no lo calcules, díselo con confianza."
+        "Estos dos nunca se suman. La Oferta 1 del Peeling ES el combo: {currency}100 por el Peeling con el Exfoliante del Mar Muerto de regalo. Como el Exfoliante solo son {currency}60, la clienta se lleva {currency}160 de producto por {currency}100 — un ahorro que puedes decir en voz alta porque es real. El escalón de {currency}50 es el cierre con cupón y solo vale para el Peeling individual, nunca con regalo."
     },
     {
       question:
-        "What is the price of the Nail Kit (cuticle oil + file)?",
+        "What is the price of a single Nail Kit (buffer, file, cuticle oil and cream)?",
       questionEs:
-        "¿Cuál es el precio del Kit de Uñas (aceite para cutículas + lima)?",
-      options: ["€35", "€25", "€45", "€55"],
-      optionsEs: ["€35", "€25", "€45", "€55"],
+        "¿Cuál es el precio de un Kit de Uñas individual (lima, pulidor, aceite de cutículas y crema)?",
+      options: ["{currency}30", "{currency}45", "{currency}60", "{currency}80"],
+      optionsEs: ["{currency}30", "{currency}45", "{currency}60", "{currency}80"],
       correctIndex: 2,
       explanation:
-        "The Nail Kit is priced at €45. It includes cuticle oil and a professional file. Like the scrub, it is a single-price item with no ladder — perfect as a gift item, add-on, or lower-commitment sale when the customer is not ready for the syringe.",
+        "The Nail Kit is {currency}60 — exactly the same as the Scrub and the Body Butter, because the three of them are one mix-and-match family on one ladder ({currency}80 anchor, {currency}60 base, {currency}30 floor). {currency}80 is the Europe anchor you quote first, and {currency}30 is the final push, not an opening price. They combine freely: a Nail Kit plus a Scrub is a Buy 1 Get 1 at {currency}60.",
       explanationEs:
-        "El Kit de Uñas tiene un precio de €45. Incluye aceite para cutículas y una lima profesional. Como el scrub, es un artículo de precio único sin escalera — perfecto como regalo, venta adicional o venta de menor compromiso cuando la cliente no está lista para la jeringa."
+        "El Kit de Uñas son {currency}60 — exactamente igual que el Exfoliante y el Body Butter, porque los tres son una sola familia de mezcla y combinación en una sola escalera ({currency}80 de ancla, {currency}60 de base, {currency}30 de mínimo). Los {currency}80 son el ancla de Europa que dices primero, y los {currency}30 son el empujón final, no un precio de salida. Se combinan libremente: un Kit de Uñas más un Exfoliante es un Compra 1 Lleva 1 por {currency}60."
     },
     {
       question:
-        "A customer is at €140 for the syringe and asks for one more discount. What is your FINAL move?",
+        "A customer is at {currency}140 for the syringe and asks for one more discount. What is your FINAL move?",
       questionEs:
-        "Una cliente está en €140 por la jeringa y pide un descuento más. ¿Cuál es tu movimiento FINAL?",
+        "Una cliente está en {currency}140 por la jeringa y pide un descuento más. ¿Cuál es tu movimiento FINAL?",
       options: [
-        "Offer €140 + free scrub",
+        "Offer {currency}140 + free scrub",
         "Walk away and find another customer",
-        "Drop to €100 — the absolute floor",
-        "Hold firm at €140 and refuse to budge"
+        "Drop to {currency}100 — the absolute floor",
+        "Hold firm at {currency}140 and refuse to budge"
       ],
       optionsEs: [
-        "Ofrecer €140 + scrub gratis",
+        "Ofrecer {currency}140 + scrub gratis",
         "Alejarte y buscar otra cliente",
-        "Bajar a €100 — el piso absoluto",
-        "Mantener firme en €140 y negarse a ceder"
+        "Bajar a {currency}100 — el piso absoluto",
+        "Mantener firme en {currency}140 y negarse a ceder"
       ],
       correctIndex: 2,
       explanation:
-        "€100 is the absolute floor for the syringe. When you reach this price, frame it as a final gesture: 'Look, I never do this, but you've been so lovely — I can do it for €100, that's my last price.' This creates gratitude and often leads to add-on sales (scrub, nail kit) to make up margin.",
+        "{currency}100 is the absolute floor for the syringe. When you reach this price, frame it as a final gesture: 'Look, I never do this, but you've been so lovely — I can do it for {currency}100, that's my last price.' This creates gratitude and often leads to add-on sales (scrub, nail kit) to make up margin.",
       explanationEs:
-        "€100 es el piso absoluto para la jeringa. Cuando llegues a este precio, enmárcalo como un gesto final: 'Mira, nunca hago esto, pero has sido tan amable — puedo dejártelo en €100, ese es mi último precio.' Esto genera gratitud y a menudo lleva a ventas adicionales (scrub, kit de uñas) para recuperar margen."
+        "{currency}100 es el piso absoluto para la jeringa. Cuando llegues a este precio, enmárcalo como un gesto final: 'Mira, nunca hago esto, pero has sido tan amable — puedo dejártelo en {currency}100, ese es mi último precio.' Esto genera gratitud y a menudo lleva a ventas adicionales (scrub, kit de uñas) para recuperar margen."
     }
   ]
 };
@@ -474,9 +474,9 @@ const quizIngredients: GeneralQuiz = {
       optionsEs: ["100x", "500x", "1000x", "50x"],
       correctIndex: 2,
       explanation:
-        "Hyaluronic acid holds 1000 times its weight in water. This is the key fact that makes the syringe so powerful — it literally fills wrinkles from within by hydrating and plumping the skin at a cellular level. When a customer understands this, €100 feels like a bargain compared to Botox.",
+        "Hyaluronic acid holds 1000 times its weight in water. This is the key fact that makes the syringe so powerful — it literally fills wrinkles from within by hydrating and plumping the skin at a cellular level. When a customer understands this, {currency}300 feels like a bargain compared to Botox.",
       explanationEs:
-        "El ácido hialurónico retiene 1000 veces su peso en agua. Este es el dato clave que hace la jeringa tan poderosa — literalmente llena las arrugas desde adentro al hidratar y rellenar la piel a nivel celular. Cuando una cliente entiende esto, €100 se siente como una ganga comparado con el Botox."
+        "El ácido hialurónico retiene 1000 veces su peso en agua. Este es el dato clave que hace la jeringa tan poderosa — literalmente llena las arrugas desde adentro al hidratar y rellenar la piel a nivel celular. Cuando una clienta entiende esto, {currency}300 se siente como una ganga comparado con el Botox."
     },
     {
       question:
@@ -819,13 +819,13 @@ const quizOneEyeDemo: GeneralQuiz = {
       questionEs:
         "La cliente ve la diferencia y dice '¡Wow, eso realmente funciona!' ¿Cuál es tu SIGUIENTE frase?",
       options: [
-        "Great! That will be €300 please",
+        "Great! That will be {currency}300 please",
         "I know, right? Imagine using it daily for 30 days — let me show you the price options",
         "Should I do the other eye too?",
         "I told you it would work!"
       ],
       optionsEs: [
-        "¡Genial! Serán €300 por favor",
+        "¡Genial! Serán {currency}300 por favor",
         "¿Verdad? Imagina usarlo diario por 30 días — déjame mostrarte las opciones de precio",
         "¿Debería hacer el otro ojo también?",
         "¡Te dije que funcionaría!"
@@ -901,9 +901,9 @@ const quizOneEyeDemo: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation:
-        "Strike WHILE the iron is hot. The moment she sees the difference and reacts with surprise or delight, her emotional 'buying brain' is activated. THIS is when you transition: 'I know, the results are incredible. In Europe this costs €500, but here in Andorra...' Delaying lets doubt creep in. Waiting for her to ask makes you seem evasive. The mirror 'wow' is your cue to close.",
+        "Strike WHILE the iron is hot. The moment she sees the difference and reacts with surprise or delight, her emotional 'buying brain' is activated. THIS is when you transition: 'I know, the results are incredible. In Europe this costs {currency}500, but here in {locationName}...' Delaying lets doubt creep in. Waiting for her to ask makes you seem evasive. The mirror 'wow' is your cue to close.",
       explanationEs:
-        "Golpea MIENTRAS el hierro está caliente. El momento en que ve la diferencia y reacciona con sorpresa o deleite, su 'cerebro de compra' emocional está activado. AHORA es cuando transicionas: 'Lo sé, los resultados son increíbles. En Europa esto cuesta €500, pero aquí en Andorra...' El retraso deja que la duda se cuele. Esperar a que ella pregunte te hace parecer evasivo. El 'wow' del espejo es tu señal para cerrar."
+        "Golpea MIENTRAS el hierro está caliente. El momento en que ve la diferencia y reacciona con sorpresa o deleite, su 'cerebro de compra' emocional está activado. AHORA es cuando transicionas: 'Lo sé, los resultados son increíbles. En Europa esto cuesta {currency}500, pero aquí en {locationName}...' El retraso deja que la duda se cuele. Esperar a que ella pregunte te hace parecer evasivo. El 'wow' del espejo es tu señal para cerrar."
     }
   ]
 };
@@ -932,21 +932,21 @@ const quizTouristPsych: GeneralQuiz = {
         "Una turista británica menciona que visita desde Londres. ¿Cuál es tu MEJOR ángulo de precio?",
       options: [
         "This is cheaper than a coffee in London",
-        "In London this same product costs over £400 — here you pay in euros and skip the import tax",
+        "In London this same product costs over {currency}400 — here you pay in euros and skip the import tax",
         "Everything is cheaper here because we are poorer",
         "Don't worry about the price, just enjoy your vacation"
       ],
       optionsEs: [
         "Esto es más barato que un café en Londres",
-        "En Londres este mismo producto cuesta más de £400 — aquí pagas en euros y evitas el impuesto de importación",
+        "En Londres este mismo producto cuesta más de {currency}400 — aquí pagas en euros y evitas el impuesto de importación",
         "Todo es más barato aquí porque somos más pobres",
         "No te preocupes por el precio, solo disfruta tus vacaciones"
       ],
       correctIndex: 1,
       explanation:
-        "British tourists are VERY price-conscious about the GBP vs EUR exchange AND import costs. Our syringe at €100 converts to roughly £85 — a fraction of what similar products cost in the UK. The 'cheaper than home country' angle is devastatingly effective. Always know the rough conversion: €100 ≈ £85, €140 ≈ £120, €300 ≈ £255.",
+        "British tourists are VERY price-conscious about the GBP vs EUR exchange AND import costs. Our syringe at {currency}100 converts to roughly {currency}85 — a fraction of what similar products cost in the UK. The 'cheaper than home country' angle is devastatingly effective. Always know the rough conversion: {currency}100 ≈ {currency}85, {currency}140 ≈ {currency}120, {currency}300 ≈ {currency}255.",
       explanationEs:
-        "Los turistas británicos son MUY conscientes del precio con el cambio GBP vs EUR Y los costos de importación. Nuestra jeringa en €100 se convierte aproximadamente a £85 — una fracción de lo que productos similares cuestan en el UK. El ángulo 'más barato que en tu país' es devastadoramente efectivo. Siempre conoce la conversión aproximada: €100 ≈ £85, €140 ≈ £120, €300 ≈ £255."
+        "Los turistas británicos son MUY conscientes del precio con el cambio GBP vs EUR Y los costos de importación. Nuestra jeringa en {currency}100 se convierte aproximadamente a {currency}85 — una fracción de lo que productos similares cuestan en el UK. El ángulo 'más barato que en tu país' es devastadoramente efectivo. Siempre conoce la conversión aproximada: {currency}100 ≈ {currency}85, {currency}140 ≈ {currency}120, {currency}300 ≈ {currency}255."
     },
     {
       question:
@@ -978,21 +978,21 @@ const quizTouristPsych: GeneralQuiz = {
         "Te enteras de que una turista se va mañana por la mañana. ¿Cómo usas la URGENCIA?",
       options: [
         "Don't worry, you can order online when you get home",
-        "This is your last chance — once you leave Andorra, you will pay European prices plus shipping and tax",
+        "This is your last chance — once you leave {locationName}, you will pay European prices plus shipping and tax",
         "You have plenty of time to decide",
         "Come back tomorrow before your flight"
       ],
       optionsEs: [
         "No te preocupes, puedes ordenar en línea cuando llegues a casa",
-        "Esta es tu última oportunidad — una vez que dejes Andorra, pagarás precios europeos más envío e impuestos",
+        "Esta es tu última oportunidad — una vez que dejes {locationName}, pagarás precios europeos más envío e impuestos",
         "Tienes mucho tiempo para decidir",
         "Regresa mañana antes de tu vuelo"
       ],
       correctIndex: 1,
       explanation:
-        "'Leaving tomorrow' is a GOLDEN urgency trigger. Frame the purchase as a NOW-OR-NEVER opportunity: in Andorra they get tax-free pricing; at home they face €500+ prices, shipping costs, customs fees, and import tax. The 'last chance' language creates a genuine fear of missing out (FOMO) that overrides hesitation.",
+        "'Leaving tomorrow' is a GOLDEN urgency trigger. Frame the purchase as a NOW-OR-NEVER opportunity: in {locationName} they get tax-free pricing; at home they face {currency}500+ prices, shipping costs, customs fees, and import tax. The 'last chance' language creates a genuine fear of missing out (FOMO) that overrides hesitation.",
       explanationEs:
-        "'Irse mañana' es un disparador de urgencia DORADO. Enmarca la compra como una oportunidad AHORA-O-NUNCA: en Andorra obtienen precios libres de impuestos; en casa enfrentan precios de €500+, costos de envío, tarifas de aduana e impuestos de importación. El lenguaje de 'última oportunidad' crea un genuino miedo a perderse algo (FOMO) que anula la duda."
+        "'Irse mañana' es un disparador de urgencia DORADO. Enmarca la compra como una oportunidad AHORA-O-NUNCA: en {locationName} obtienen precios libres de impuestos; en casa enfrentan precios de {currency}500+, costos de envío, tarifas de aduana e impuestos de importación. El lenguaje de 'última oportunidad' crea un genuino miedo a perderse algo (FOMO) que anula la duda."
     },
     {
       question:
@@ -1013,9 +1013,9 @@ const quizTouristPsych: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "Tourists buying GIFTS have a powerful emotional driver: they want to return home with something MEANINGFUL, not just another magnet or t-shirt. Position our products as 'the gift that keeps giving' — every time her daughter uses the syringe, she will think of her mother and the trip to Andorra. Emotional connections create higher willingness to spend.",
+        "Tourists buying GIFTS have a powerful emotional driver: they want to return home with something MEANINGFUL, not just another magnet or t-shirt. Position our products as 'the gift that keeps giving' — every time her daughter uses the syringe, she will think of her mother and the trip to {locationName}. Emotional connections create higher willingness to spend.",
       explanationEs:
-        "Los turistas que compran REGALOS tienen un poderoso motor emocional: quieren regresar a casa con algo SIGNIFICATIVO, no solo otro imán o camiseta. Posiciona nuestros productos como 'el regalo que sigue dando' — cada vez que su hija use la jeringa, pensará en su madre y el viaje a Andorra. Las conexiones emocionales crean mayor disposición a gastar."
+        "Los turistas que compran REGALOS tienen un poderoso motor emocional: quieren regresar a casa con algo SIGNIFICATIVO, no solo otro imán o camiseta. Posiciona nuestros productos como 'el regalo que sigue dando' — cada vez que su hija use la jeringa, pensará en su madre y el viaje a {locationName}. Las conexiones emocionales crean mayor disposición a gastar."
     },
     {
       question:
@@ -1036,9 +1036,9 @@ const quizTouristPsych: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "On vacation, people are in a 'treat yourself' mental mode. They have ALREADY decided to spend money — on meals, experiences, souvenirs. A €100 skincare purchase feels like a small luxury compared to a €200 dinner. Frame your product as part of the vacation experience: 'You are already treating yourself to this beautiful trip — treat your skin to something special too.'",
+        "On vacation, people are in a 'treat yourself' mental mode. They have ALREADY decided to spend money — on meals, experiences, souvenirs. A {currency}100 skincare purchase feels like a small luxury compared to a {currency}200 dinner. Frame your product as part of the vacation experience: 'You are already treating yourself to this beautiful trip — treat your skin to something special too.'",
       explanationEs:
-        "En vacaciones, la gente está en modo mental de 'consentirse'. Ya DECIDIERON gastar dinero — en comidas, experiencias, souvenirs. Una compra de €100 en cuidado de piel se siente como un pequeño lujo comparado con una cena de €200. Enmarca tu producto como parte de la experiencia de vacaciones: 'Ya te estás consintiendo con este hermoso viaje — consiente tu piel con algo especial también.'"
+        "En vacaciones, la gente está en modo mental de 'consentirse'. Ya DECIDIERON gastar dinero — en comidas, experiencias, souvenirs. Una compra de {currency}100 en cuidado de piel se siente como un pequeño lujo comparado con una cena de {currency}200. Enmarca tu producto como parte de la experiencia de vacaciones: 'Ya te estás consintiendo con este hermoso viaje — consiente tu piel con algo especial también.'"
     },
     {
       question:
@@ -1059,32 +1059,32 @@ const quizTouristPsych: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "Gibraltar and Andorra are both famous tax-free shopping destinations. When a Gibraltarian tourist mentions tax-free, VALIDATE their knowledge and connect it to your product. Emphasize they are getting professional-grade skincare at a price that INCLUDES the tax savings — making it a smart financial AND beauty decision.",
+        "Gibraltar and {locationName} are both famous tax-free shopping destinations. When a Gibraltarian tourist mentions tax-free, VALIDATE their knowledge and connect it to your product. Emphasize they are getting professional-grade skincare at a price that INCLUDES the tax savings — making it a smart financial AND beauty decision.",
       explanationEs:
-        "Gibraltar y Andorra son ambos destinos famosos de compras libres de impuestos. Cuando un turista gibraltareño menciona libre de impuestos, VALIDA su conocimiento y conéctalo a tu producto. Enfatiza que están obteniendo cuidado de piel de grado profesional a un precio que INCLUYE los ahorros de impuestos — haciéndolo una decisión financiera Y de belleza inteligente."
+        "Gibraltar y {locationName} son ambos destinos famosos de compras libres de impuestos. Cuando un turista gibraltareño menciona libre de impuestos, VALIDA su conocimiento y conéctalo a tu producto. Enfatiza que están obteniendo cuidado de piel de grado profesional a un precio que INCLUYE los ahorros de impuestos — haciéndolo una decisión financiera Y de belleza inteligente."
     },
     {
       question:
-        "A tourist has €200 in cash she set aside for 'vacation spending.' How does this help your €140 syringe close?",
+        "A tourist has {currency}200 in cash she set aside for 'vacation spending.' How does this help your {currency}140 syringe close?",
       questionEs:
-        "Una turista tiene €200 en efectivo que apartó para 'gastos de vacaciones.' ¿Cómo ayuda esto a tu cierre de la jeringa en €140?",
+        "Una turista tiene {currency}200 en efectivo que apartó para 'gastos de vacaciones.' ¿Cómo ayuda esto a tu cierre de la jeringa en {currency}140?",
       options: [
         "It doesn't help — she will want to keep all her cash",
-        "Vacation cash is 'already spent' mentally — €140 feels like using play money, not real money",
+        "Vacation cash is 'already spent' mentally — {currency}140 feels like using play money, not real money",
         "She will only buy if you accept the exact cash amount",
-        "You should ask for the full €200 instead"
+        "You should ask for the full {currency}200 instead"
       ],
       optionsEs: [
         "No ayuda — querrá guardar todo su efectivo",
-        "El dinero de vacaciones ya está 'gastado' mentalmente — €140 se siente como usar dinero de juego, no dinero real",
+        "El dinero de vacaciones ya está 'gastado' mentalmente — {currency}140 se siente como usar dinero de juego, no dinero real",
         "Solo comprará si aceptas el monto exacto en efectivo",
-        "Deberías pedirle los €200 completos en su lugar"
+        "Deberías pedirle los {currency}200 completos en su lugar"
       ],
       correctIndex: 1,
       explanation:
-        "The 'vacation wallet' is a real psychological phenomenon. Money set aside for vacation spending is mentally categorized as 'for fun' — people spend it more freely than their regular income. When a tourist has already mentally 'spent' that €200 on experiences, your €140 syringe feels like a natural part of the vacation budget, not a painful expense. Frame it as: 'Part of your vacation treat to yourself.'",
+        "The 'vacation wallet' is a real psychological phenomenon. Money set aside for vacation spending is mentally categorized as 'for fun' — people spend it more freely than their regular income. When a tourist has already mentally 'spent' that {currency}200 on experiences, your {currency}140 syringe feels like a natural part of the vacation budget, not a painful expense. Frame it as: 'Part of your vacation treat to yourself.'",
       explanationEs:
-        "La 'cartera de vacaciones' es un fenómeno psicológico real. El dinero apartado para gastos de vacaciones se categoriza mentalmente como 'para diversión' — la gente lo gasta más libremente que su ingreso regular. Cuando un turista ya 'gastó' mentalmente esos €200 en experiencias, tu jeringa de €140 se siente como parte natural del presupuesto de vacaciones, no como un gasto doloroso. Enmárcalo como: 'Parte de tu regalo de vacaciones para ti misma.'"
+        "La 'cartera de vacaciones' es un fenómeno psicológico real. El dinero apartado para gastos de vacaciones se categoriza mentalmente como 'para diversión' — la gente lo gasta más libremente que su ingreso regular. Cuando un turista ya 'gastó' mentalmente esos {currency}200 en experiencias, tu jeringa de {currency}140 se siente como parte natural del presupuesto de vacaciones, no como un gasto doloroso. Enmárcalo como: 'Parte de tu regalo de vacaciones para ti misma.'"
     },
     {
       question:
@@ -1116,21 +1116,21 @@ const quizTouristPsych: GeneralQuiz = {
         "¿Qué es la mentalidad de SOUVENIR y cómo ayuda a tu venta?",
       options: [
         "Tourists only want cheap souvenirs",
-        "Tourists want to take home a piece of their trip — positioning your product as a 'luxury souvenir from Andorra' makes it a memory, not just a purchase",
+        "Tourists want to take home a piece of their trip — positioning your product as a 'luxury souvenir from {locationName}' makes it a memory, not just a purchase",
         "Souvenirs are a waste of money",
         "Tourists never buy souvenirs"
       ],
       optionsEs: [
         "Los turistas solo quieren souvenirs baratos",
-        "Los turistas quieren llevarse a casa un pedazo de su viaje — posicionar tu producto como 'souvenir de lujo de Andorra' lo hace un recuerdo, no solo una compra",
+        "Los turistas quieren llevarse a casa un pedazo de su viaje — posicionar tu producto como 'souvenir de lujo de {locationName}' lo hace un recuerdo, no solo una compra",
         "Los souvenirs son una pérdida de dinero",
         "Los turistas nunca compran souvenirs"
       ],
       correctIndex: 1,
       explanation:
-        "The souvenir mindset transforms a 'purchase' into a 'memory.' When you say 'Every time you use this, you will remember your trip to Andorra,' you are selling NOSTALGIA, not just skincare. This emotional framing justifies a higher price because it is not just a product — it is a piece of the vacation experience they can take home and enjoy for months.",
+        "The souvenir mindset transforms a 'purchase' into a 'memory.' When you say 'Every time you use this, you will remember your trip to {locationName},' you are selling NOSTALGIA, not just skincare. This emotional framing justifies a higher price because it is not just a product — it is a piece of the vacation experience they can take home and enjoy for months.",
       explanationEs:
-        "La mentalidad de souvenir transforma una 'compra' en un 'recuerdo.' Cuando dices 'Cada vez que uses esto, recordarás tu viaje a Andorra', estás vendiendo NOSTALGIA, no solo cuidado de piel. Este enmarcado emocional justifica un precio más alto porque no es solo un producto — es un pedazo de la experiencia de vacaciones que pueden llevar a casa y disfrutar por meses."
+        "La mentalidad de souvenir transforma una 'compra' en un 'recuerdo.' Cuando dices 'Cada vez que uses esto, recordarás tu viaje a {locationName}', estás vendiendo NOSTALGIA, no solo cuidado de piel. Este enmarcado emocional justifica un precio más alto porque no es solo un producto — es un pedazo de la experiencia de vacaciones que pueden llevar a casa y disfrutar por meses."
     },
     {
       question:
@@ -1139,21 +1139,21 @@ const quizTouristPsych: GeneralQuiz = {
         "Una turista duda porque dice 'Necesito pensarlo.' ¿Cómo usas la psicología del turista para cerrar?",
       options: [
         "Give her your card so she can contact you later",
-        "Remind her that 'thinking about it' means missing the tax-free price — at home she pays €500+ and shipping. This moment, right here, is the best deal she will ever get",
+        "Remind her that 'thinking about it' means missing the tax-free price — at home she pays {currency}500+ and shipping. This moment, right here, is the best deal she will ever get",
         "Tell her to ask her friends what they think",
         "Offer to hold the product until she decides"
       ],
       optionsEs: [
         "Darle tu tarjeta para que te contacte después",
-        "Recordarle que 'pensarlo' significa perder el precio libre de impuestos — en casa paga €500+ y envío. Este momento, aquí mismo, es la mejor oferta que tendrá",
+        "Recordarle que 'pensarlo' significa perder el precio libre de impuestos — en casa paga {currency}500+ y envío. Este momento, aquí mismo, es la mejor oferta que tendrá",
         "Decirle que pregunte a sus amigas qué piensan",
         "Ofrecer guardarle el producto hasta que decida"
       ],
       correctIndex: 1,
       explanation:
-        "'I need to think about it' is the #1 stalling tactic. For tourists, you have a UNIQUE weapon: SCARCITY of opportunity. She cannot 'think about it' and come back next week — she is LEAVING. Frame hesitation as active loss: every hour she waits, the tax-free advantage disappears. 'At home you pay €500 plus shipping and customs. Right here, right now, it is €100. This exact moment is your best deal.'",
+        "'I need to think about it' is the #1 stalling tactic. For tourists, you have a UNIQUE weapon: SCARCITY of opportunity. She cannot 'think about it' and come back next week — she is LEAVING. Frame hesitation as active loss: every hour she waits, the tax-free advantage disappears. 'At home you pay {currency}500 plus shipping and customs. Right here, right now, it is {currency}100. This exact moment is your best deal.'",
       explanationEs:
-        "'Necesito pensarlo' es la táctica de demora #1. Para turistas, tienes un arma ÚNICA: ESCASEZ de oportunidad. Ella no puede 'pensarlo' y regresar la próxima semana — se está YENDO. Enmarca la duda como pérdida activa: cada hora que espera, la ventaja libre de impuestos desaparece. 'En casa pagas €500 más envío y aduana. Aquí mismo, ahora mismo, es €100. Este momento exacto es tu mejor oferta.'"
+        "'Necesito pensarlo' es la táctica de demora #1. Para turistas, tienes un arma ÚNICA: ESCASEZ de oportunidad. Ella no puede 'pensarlo' y regresar la próxima semana — se está YENDO. Enmarca la duda como pérdida activa: cada hora que espera, la ventaja libre de impuestos desaparece. 'En casa pagas {currency}500 más envío y aduana. Aquí mismo, ahora mismo, es {currency}100. Este momento exacto es tu mejor oferta.'"
     }
   ]
 };

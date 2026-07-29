@@ -1,79 +1,198 @@
-import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
-import { motion, AnimatePresence } from "framer-motion";
-import { useLeaderboard, type Timeframe } from "../hooks/useLeaderboard";
-import PeerShoutout from "../components/PeerShoutout";
+// ─────────────────────────────────────────────────────────────────────────────
+// LeaderboardPage — Andorra vs Gibraltar, without lying about it.
+//
+// The board is built from the real account roster. This device can only measure
+// the signed-in seller's XP, so every other figure is shown as "awaiting sync"
+// instead of an invented number. Everything on screen is either real or is
+// labelled as missing. See `hooks/useLeaderboard.ts` for the TODO(backend).
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ChevronLeft,
+  Megaphone,
+  Crown,
+  CloudOff,
+  Info,
+  Trophy,
+  Users,
+} from 'lucide-react';
+import { useAuthContext } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useLeaderboard, type Timeframe, type LeaderboardEntry } from '../hooks/useLeaderboard';
+import PeerShoutout from '../components/PeerShoutout';
 
 interface LeaderboardPageProps {
   currentUserId?: string;
   onNavigateHome?: () => void;
 }
 
-const TIMEFRAME_TABS: { label: string; value: Timeframe }[] = [
-  { label: "This Week", value: "week" },
-  { label: "This Month", value: "month" },
-  { label: "All Time", value: "allTime" },
-];
+// ── Copy ────────────────────────────────────────────────────────────────────
+// Local dictionary: `data/translations.ts` is another agent's file, so these
+// strings live with the screen that uses them (the same pattern CheatSheetsPage
+// and ProfilePage already follow). Spanish is European, informal "tú".
 
-function getRankStyle(rank: number): { bg: string; text: string; glow?: boolean } {
-  if (rank === 1) return { bg: "bg-amber-500", text: "text-amber-500", glow: true };
-  if (rank === 2) return { bg: "bg-gray-300", text: "text-gray-300", glow: true };
-  if (rank === 3) return { bg: "bg-amber-600", text: "text-amber-600", glow: true };
-  return { bg: "bg-[#1A1A1A]", text: "text-[#888]" };
+const COPY = {
+  en: {
+    title: 'Leaderboard',
+    subtitle: 'Andorra 🇦🇩 vs Gibraltar 🇬🇮',
+    back: 'Back to home',
+    shoutout: 'Send a shout-out to a teammate',
+    week: 'This week',
+    month: 'This month',
+    allTime: 'All time',
+    storeRace: 'Store race',
+    synced: 'synced',
+    of: 'of',
+    noFigures: 'No figures yet',
+    leadsBy: 'leads by',
+    xp: 'XP',
+    tied: 'Level on the figures that have synced',
+    deviceOnly:
+      'Counted on this device only. Your teammates’ XP arrives when the shops are connected to a server — until then it shows as awaiting sync, not as a number we made up.',
+    leading: 'Leading here',
+    youOnly: 'Only your figures have synced so far',
+    rankings: 'Rankings',
+    awaiting: 'Awaiting sync',
+    awaitingNote: 'No figures on this device yet',
+    neverSynced: 'Never synced',
+    yourRank: 'YOUR RANK',
+    unranked: 'Earn XP to appear on the board',
+    beat: 'Beat',
+    you: 'You',
+    loading: 'Loading the roster…',
+    emptyTitle: 'Nobody on the roster yet',
+    emptyBody: 'Ask your manager to add the team, then the race can start.',
+    teammates: 'teammates',
+    teammate: 'teammate',
+  },
+  es: {
+    title: 'Clasificación',
+    subtitle: 'Andorra 🇦🇩 vs Gibraltar 🇬🇮',
+    back: 'Volver al inicio',
+    shoutout: 'Envía un reconocimiento a un compañero',
+    week: 'Esta semana',
+    month: 'Este mes',
+    allTime: 'Histórico',
+    storeRace: 'Carrera entre tiendas',
+    synced: 'sincronizados',
+    of: 'de',
+    noFigures: 'Aún sin datos',
+    leadsBy: 'lidera por',
+    xp: 'XP',
+    tied: 'Empate con los datos sincronizados',
+    deviceOnly:
+      'Contado solo en este móvil. El XP de tus compañeros llegará cuando las tiendas estén conectadas a un servidor — hasta entonces aparece como pendiente de sincronizar, no como un número inventado.',
+    leading: 'Va en cabeza aquí',
+    youOnly: 'Por ahora solo se han sincronizado tus datos',
+    rankings: 'Clasificación',
+    awaiting: 'Pendiente de sincronizar',
+    awaitingNote: 'Aún sin datos en este móvil',
+    neverSynced: 'Nunca sincronizado',
+    yourRank: 'TU PUESTO',
+    unranked: 'Gana XP para entrar en la clasificación',
+    beat: 'Supera a',
+    you: 'Tú',
+    loading: 'Cargando la plantilla…',
+    emptyTitle: 'Todavía no hay nadie en la plantilla',
+    emptyBody: 'Pide a tu responsable que añada al equipo y empezará la carrera.',
+    teammates: 'compañeros',
+    teammate: 'compañero',
+  },
+};
+
+// ── Rank presentation ───────────────────────────────────────────────────────
+// Gold is the achievement colour, so first place owns it. Coloured fills always
+// take their dark `on-*` ink — never white.
+
+function rankFill(rank: number): string {
+  if (rank === 1) return 'bg-gold text-on-gold';
+  if (rank === 2) return 'bg-teal text-on-teal';
+  if (rank === 3) return 'bg-coral text-on-coral';
+  return 'bg-surface-sunken text-ink-2 border border-line';
 }
 
 function RankBadge({ rank }: { rank: number }) {
-  const style = getRankStyle(rank);
-  if (rank <= 3) {
-    return (
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", damping: 12, stiffness: 200 }}
-        className={`w-8 h-8 rounded-full ${style.bg} flex items-center justify-center ${
-          style.glow ? "shadow-lg" : ""
-        }`}
-        style={
-          rank === 1
-            ? { boxShadow: "0 0 12px rgba(245,158,11,0.4)" }
-            : rank === 2
-            ? { boxShadow: "0 0 12px rgba(209,213,219,0.3)" }
-            : { boxShadow: "0 0 12px rgba(217,119,6,0.3)" }
-        }
-      >
-        <span className="text-xs font-bold text-black">
-          {rank === 1 ? "1st" : rank === 2 ? "2nd" : "3rd"}
-        </span>
-      </motion.div>
-    );
-  }
   return (
-    <div className="w-8 h-8 rounded-full bg-[#1A1A1A] flex items-center justify-center">
-      <span className="text-xs font-bold text-[#888]">{rank}</span>
+    <motion.div
+      initial={{ scale: 0.6, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ type: 'spring', damping: 14, stiffness: 220 }}
+      className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center text-caption font-bold ${rankFill(
+        rank
+      )}`}
+    >
+      {rank}
+    </motion.div>
+  );
+}
+
+// ── Store race ──────────────────────────────────────────────────────────────
+
+const STORE_BAR: Record<string, string> = {
+  andorra: 'bg-teal',
+  gibraltar: 'bg-violet',
+};
+
+function StoreRow({
+  flag,
+  name,
+  knownXP,
+  syncedCount,
+  rosterCount,
+  share,
+  isLeading,
+  storeId,
+  t,
+  delay,
+}: {
+  flag: string;
+  name: string;
+  knownXP: number;
+  syncedCount: number;
+  rosterCount: number;
+  share: number;
+  isLeading: boolean;
+  storeId: string;
+  t: (typeof COPY)['en'];
+  delay: number;
+}) {
+  return (
+    <div>
+      <div className="flex items-center justify-between gap-2 mb-1.5">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-lg leading-none" aria-hidden="true">
+            {flag}
+          </span>
+          <span className="text-body-small font-semibold text-ink truncate">{name}</span>
+          {isLeading && knownXP > 0 && (
+            <Crown className="w-4 h-4 shrink-0 text-gold-strong" aria-hidden="true" />
+          )}
+        </div>
+        <span className="text-caption font-bold text-ink tabular-nums shrink-0">
+          {syncedCount > 0 ? `${knownXP.toLocaleString()} ${t.xp}` : t.noFigures}
+        </span>
+      </div>
+
+      <div className="h-3 rounded-full bg-surface-sunken overflow-hidden">
+        <motion.div
+          className={`h-full rounded-full ${STORE_BAR[storeId] ?? 'bg-teal'}`}
+          initial={{ width: 0 }}
+          animate={{ width: `${share}%` }}
+          transition={{ duration: 0.9, ease: 'easeOut', delay }}
+        />
+      </div>
+
+      <p className="mt-1 text-caption text-ink-3">
+        {syncedCount} {t.of} {rosterCount} {t.synced}
+      </p>
     </div>
   );
 }
 
-function WeeklyChange({ change }: { change: number }) {
-  if (change > 0) {
-    return (
-      <span className="flex items-center gap-0.5 text-xs font-medium text-emerald-400">
-        <span>↑</span>
-        <span>+{change}</span>
-      </span>
-    );
-  }
-  if (change < 0) {
-    return (
-      <span className="flex items-center gap-0.5 text-xs font-medium text-red-400">
-        <span>↓</span>
-        <span>{change}</span>
-      </span>
-    );
-  }
-  return <span className="text-xs text-[#555]">—</span>;
-}
+// ── Page ────────────────────────────────────────────────────────────────────
 
 export default function LeaderboardPage({
   currentUserId: currentUserIdProp,
@@ -81,368 +200,392 @@ export default function LeaderboardPage({
 }: LeaderboardPageProps) {
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  const { language } = useLanguage();
+  const t = COPY[language === 'es' ? 'es' : 'en'];
+
   // Was hardcoded to "u7", so every seller on every device was identified as
   // the same fictional person ("Anna Roca") and saw an identical "your rank".
   const currentUserId = currentUserIdProp ?? user?.id ?? '';
   const goHome = onNavigateHome ?? (() => navigate('/home'));
-  const { entries, getLeaderboard, getStoreStats, getUserRank, addShoutout } = useLeaderboard();
-  const [timeframe, setTimeframe] = useState<Timeframe>("week");
+
+  const [timeframe, setTimeframe] = useState<Timeframe>('week');
   const [showShoutout, setShowShoutout] = useState(false);
 
-  const leaderboard = useMemo(() => getLeaderboard(timeframe), [getLeaderboard, timeframe]);
-  const storeStats = useMemo(() => getStoreStats(), [getStoreStats]);
-  const userRank = useMemo(
-    () => getUserRank(currentUserId, timeframe),
-    [getUserRank, currentUserId, timeframe]
-  );
+  const { entries, ranked, awaitingSync, standings, isLoading, getUserRank, addShoutout } =
+    useLeaderboard(currentUserId, timeframe);
 
-  const totalStoreXP = storeStats.andorra + storeStats.gibraltar;
-  const andorraPct = totalStoreXP > 0 ? (storeStats.andorra / totalStoreXP) * 100 : 50;
-  const gibraltarPct = totalStoreXP > 0 ? (storeStats.gibraltar / totalStoreXP) * 100 : 50;
+  const tabs: { label: string; value: Timeframe }[] = [
+    { label: t.week, value: 'week' },
+    { label: t.month, value: 'month' },
+    { label: t.allTime, value: 'allTime' },
+  ];
 
-  // Find user entry and the person ahead
+  const userRank = getUserRank(currentUserId);
   const userEntry = entries.find((e) => e.id === currentUserId);
-  const personAhead = leaderboard[userRank - 2]; // 0-indexed, so -2 for person ahead
-  const xpGap = personAhead
-    ? (timeframe === "week"
-        ? personAhead.xpThisWeek
-        : timeframe === "month"
-        ? personAhead.xpThisMonth
-        : personAhead.xpAllTime) -
-      (timeframe === "week"
-        ? (userEntry?.xpThisWeek ?? 0)
-        : timeframe === "month"
-        ? (userEntry?.xpThisMonth ?? 0)
-        : (userEntry?.xpAllTime ?? 0))
+
+  // rank is 1-based; the person ahead is at index rank-2. Guarded, because
+  // an unranked user used to produce `leaderboard[-2]`.
+  const personAhead =
+    userRank !== null && userRank > 1 ? (ranked[userRank - 2] as LeaderboardEntry | undefined) : undefined;
+  const xpGap =
+    personAhead && userEntry?.xp != null ? Math.max(0, (personAhead.xp ?? 0) - userEntry.xp) : 0;
+
+  const totalKnownXP = standings.reduce((sum, s) => sum + s.knownXP, 0);
+  const leadingStore = useMemo(() => {
+    const [a, b] = standings;
+    if (!a || !b || a.knownXP === b.knownXP) return null;
+    return a.knownXP > b.knownXP ? a : b;
+  }, [standings]);
+  const gap = leadingStore
+    ? Math.abs((standings[0]?.knownXP ?? 0) - (standings[1]?.knownXP ?? 0))
     : 0;
+
+  const podium = ranked.slice(0, 3);
 
   const handleShoutoutSubmit = (to: string, message: string, reaction: string) => {
     addShoutout(currentUserId, to, message, reaction);
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white max-w-[430px] mx-auto relative">
-      {/* Header */}
-      <div className="sticky top-0 z-30 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#1A1A1A]">
-        <div className="flex items-center px-4 py-3 gap-3">
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={goHome}
-            className="w-9 h-9 rounded-full bg-[#1A1A1A] flex items-center justify-center text-[#AAA] hover:text-white transition-colors"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </motion.button>
-          <div className="flex-1">
-            <h1 className="text-base font-bold">Leaderboard</h1>
-            <p className="text-[10px] text-[#888]">Andorra 🇦🇩 vs Gibraltar 🇬🇮</p>
-          </div>
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setShowShoutout(true)}
-            className="w-9 h-9 rounded-full bg-[#1A1A1A] flex items-center justify-center text-lg"
-          >
-            👏
-          </motion.button>
-        </div>
-
-        {/* Tabs */}
-        <div className="flex px-4 pb-3 gap-1">
-          {TIMEFRAME_TABS.map((tab) => (
-            <motion.button
-              key={tab.value}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setTimeframe(tab.value)}
-              className={`flex-1 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                timeframe === tab.value
-                  ? "bg-[#0ABAB5] text-black"
-                  : "bg-[#1A1A1A] text-[#888] hover:text-white"
-              }`}
+    <div className="min-h-screen bg-background text-ink">
+      <div className="mx-auto max-w-app">
+        {/* ── Header ── */}
+        <header className="sticky top-0 z-30 bg-background/95 backdrop-blur-md border-b border-line">
+          <div className="flex items-center gap-3 px-4 py-3">
+            <button
+              type="button"
+              onClick={goHome}
+              className="btn-icon shrink-0"
+              aria-label={t.back}
             >
-              {tab.label}
-            </motion.button>
-          ))}
-        </div>
-      </div>
-
-      {/* Store vs Store Header */}
-      <div className="px-4 py-4">
-        <div className="bg-[#111] border border-[#1A1A1A] rounded-2xl p-4">
-          <div className="flex justify-between items-center mb-3">
-            <div className="flex items-center gap-2">
-              <span className="text-xl">🇦🇩</span>
-              <div>
-                <p className="text-xs font-semibold text-white">Andorra</p>
-                <p className="text-[10px] text-[#0ABAB5]">{storeStats.andorra.toLocaleString()} XP</p>
-              </div>
+              <ChevronLeft className="w-5 h-5" aria-hidden="true" />
+            </button>
+            <div className="flex-1 min-w-0">
+              <h1 className="text-h4 text-ink truncate">{t.title}</h1>
+              <p className="text-caption text-ink-3 truncate">{t.subtitle}</p>
             </div>
-            <span className="text-[10px] font-bold text-[#444] uppercase tracking-wider">VS</span>
-            <div className="flex items-center gap-2 text-right">
-              <div>
-                <p className="text-xs font-semibold text-white">Gibraltar</p>
-                <p className="text-[10px] text-[#0ABAB5]">{storeStats.gibraltar.toLocaleString()} XP</p>
-              </div>
-              <span className="text-xl">🇬🇮</span>
-            </div>
-          </div>
-
-          {/* Animated bar race */}
-          <div className="relative h-4 bg-[#1A1A1A] rounded-full overflow-hidden flex">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${andorraPct}%` }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="h-full bg-[#0ABAB5] rounded-full relative"
+            <button
+              type="button"
+              onClick={() => setShowShoutout(true)}
+              className="btn-icon shrink-0"
+              aria-label={t.shoutout}
             >
-              {andorraPct > gibraltarPct && (
-                <motion.div
-                  className="absolute right-1 top-1/2 -translate-y-1/2 text-[8px]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  👑
-                </motion.div>
-              )}
-            </motion.div>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${gibraltarPct}%` }}
-              transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
-              className="h-full rounded-full relative"
-              style={{ backgroundColor: "#2A4B7C" }}
-            >
-              {gibraltarPct > andorraPct && (
-                <motion.div
-                  className="absolute right-1 top-1/2 -translate-y-1/2 text-[8px]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  👑
-                </motion.div>
-              )}
-            </motion.div>
+              <Megaphone className="w-5 h-5" aria-hidden="true" />
+            </button>
           </div>
 
-          {/* Winning indicator */}
-          <div className="flex justify-center mt-2">
-            <span className="text-[10px] text-[#888]">
-              {storeStats.andorra > storeStats.gibraltar
-                ? "🇦🇩 Andorra leads by " + (storeStats.andorra - storeStats.gibraltar).toLocaleString() + " XP"
-                : storeStats.gibraltar > storeStats.andorra
-                ? "🇬🇮 Gibraltar leads by " + (storeStats.gibraltar - storeStats.andorra).toLocaleString() + " XP"
-                : "It's a tie!"}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Top 3 Podium */}
-      <div className="px-4 pb-4">
-        <div className="flex items-end justify-center gap-3 h-36">
-          {leaderboard.slice(0, 3).map((entry, idx) => {
-            const heights = ["h-20", "h-28", "h-24"]; // 2nd, 1st, 3rd
-            const positions = [0, 1, 2]; // visual order: 2nd, 1st, 3rd
-            const actualRank = positions[idx] + 1;
-            const heightClass = heights[idx];
-            const style = getRankStyle(actualRank);
-
-            return (
-              <motion.div
-                key={entry.id}
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                transition={{ delay: idx * 0.15, duration: 0.5, type: "spring" }}
-                className="flex flex-col items-center gap-2 flex-1"
-              >
-                {/* Avatar */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.3 + idx * 0.15, type: "spring" }}
-                  className={`relative w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold ${style.bg} ${
-                    actualRank === 1 ? "ring-2 ring-amber-500/50" : ""
-                  }`}
-                >
-                  <span className={actualRank <= 3 ? "text-black" : "text-white"}>
-                    {entry.initials}
-                  </span>
-                  {actualRank === 1 && (
-                    <motion.span
-                      initial={{ scale: 0, rotate: -30 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ delay: 0.6, type: "spring" }}
-                      className="absolute -top-1 -right-1 text-lg"
-                    >
-                      👑
-                    </motion.span>
-                  )}
-                </motion.div>
-
-                {/* Name */}
-                <p className="text-[10px] font-medium text-white text-center truncate w-full">
-                  {entry.name.split(" ")[0]}
-                </p>
-
-                {/* Bar */}
-                <motion.div
-                  initial={{ height: 0 }}
-                  animate={{ height: "auto" }}
-                  transition={{ delay: 0.2 + idx * 0.15, duration: 0.5 }}
-                  className={`w-full ${heightClass} rounded-t-xl ${style.bg} flex items-end justify-center pb-2 min-h-[60px]`}
-                  style={
-                    actualRank === 1
-                      ? { boxShadow: "0 0 20px rgba(245,158,11,0.2)" }
-                      : undefined
-                  }
-                >
-                  <span className="text-[10px] font-bold text-black">
-                    {timeframe === "week"
-                      ? entry.xpThisWeek
-                      : timeframe === "month"
-                      ? entry.xpThisMonth
-                      : entry.xpAllTime}
-                  </span>
-                </motion.div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Individual Rankings List */}
-      <div className="px-4 pb-32">
-        <h3 className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-3">
-          Rankings
-        </h3>
-        <div className="space-y-2">
-          <AnimatePresence mode="popLayout">
-            {leaderboard.map((entry, index) => {
-              const rank = index + 1;
-              const isCurrentUser = entry.id === currentUserId;
-              const xpValue =
-                timeframe === "week"
-                  ? entry.xpThisWeek
-                  : timeframe === "month"
-                  ? entry.xpThisMonth
-                  : entry.xpAllTime;
-
+          {/* Timeframe */}
+          <div className="flex gap-1.5 px-4 pb-3" role="tablist" aria-label={t.title}>
+            {tabs.map((tab) => {
+              const active = timeframe === tab.value;
               return (
-                <motion.div
-                  key={entry.id}
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ delay: index * 0.03 }}
-                  className={`flex items-center gap-3 p-3 rounded-xl border transition-colors ${
-                    isCurrentUser
-                      ? "border-[#0ABAB5]/40 bg-[#0ABAB5]/5"
-                      : "border-[#1A1A1A] bg-[#111]"
+                <button
+                  key={tab.value}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setTimeframe(tab.value)}
+                  className={`flex-1 min-h-touch rounded-chip text-caption font-semibold transition-colors ${
+                    active
+                      ? 'bg-teal text-on-teal'
+                      : 'bg-surface-sunken text-ink-2 border border-line'
                   }`}
                 >
-                  {/* Rank */}
-                  <RankBadge rank={rank} />
-
-                  {/* Avatar */}
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold ${
-                      isCurrentUser ? "bg-[#0ABAB5] text-black" : "bg-[#1A1A1A] text-[#0ABAB5]"
-                    }`}
-                  >
-                    {entry.initials}
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <p className="text-sm font-medium text-white truncate">{entry.name}</p>
-                      <span className="text-xs">{entry.flag}</span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <WeeklyChange change={entry.weeklyChange} />
-                    </div>
-                  </div>
-
-                  {/* XP */}
-                  <div className="text-right">
-                    <p className="text-sm font-bold text-[#0ABAB5]">{xpValue.toLocaleString()}</p>
-                    <p className="text-[10px] text-[#666]">XP</p>
-                  </div>
-                </motion.div>
+                  {tab.label}
+                </button>
               );
             })}
-          </AnimatePresence>
-        </div>
+          </div>
+        </header>
+
+        <main className="px-4 pt-4 pb-40 space-y-5">
+          {isLoading ? (
+            <div className="surface-flat p-8 flex flex-col items-center gap-3">
+              <div className="h-7 w-7 animate-spin rounded-full border-2 border-teal border-t-transparent" />
+              <p className="text-body-small text-ink-2">{t.loading}</p>
+            </div>
+          ) : entries.length === 0 ? (
+            <div className="surface-flat p-8 text-center">
+              <Users className="mx-auto mb-3 h-8 w-8 text-ink-3" aria-hidden="true" />
+              <h2 className="text-h4 text-ink mb-1">{t.emptyTitle}</h2>
+              <p className="text-body-small text-ink-2">{t.emptyBody}</p>
+            </div>
+          ) : (
+            <>
+              {/* ── Andorra vs Gibraltar ── */}
+              <section className="surface-raised p-4" aria-label={t.storeRace}>
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-overline text-ink-3">{t.storeRace}</h2>
+                  <span className="text-caption text-ink-3">{t[timeframe]}</span>
+                </div>
+
+                <div className="space-y-3.5">
+                  {standings.map((s, i) => (
+                    <StoreRow
+                      key={s.store}
+                      storeId={s.store}
+                      flag={s.flag}
+                      name={s.name}
+                      knownXP={s.knownXP}
+                      syncedCount={s.syncedCount}
+                      rosterCount={s.rosterCount}
+                      share={totalKnownXP > 0 ? (s.knownXP / totalKnownXP) * 100 : 0}
+                      isLeading={leadingStore?.store === s.store}
+                      t={t}
+                      delay={0.1 + i * 0.12}
+                    />
+                  ))}
+                </div>
+
+                {totalKnownXP > 0 && (
+                  <p className="mt-3.5 text-center text-caption text-ink-2">
+                    {leadingStore
+                      ? `${leadingStore.flag} ${leadingStore.name} ${t.leadsBy} ${gap.toLocaleString()} ${t.xp}`
+                      : t.tied}
+                  </p>
+                )}
+
+                {/* The honest bit, on screen and not in a tooltip. */}
+                <div className="mt-3 flex items-start gap-2 rounded-chip bg-surface-sunken p-3">
+                  <Info className="mt-0.5 h-4 w-4 shrink-0 text-ink-3" aria-hidden="true" />
+                  <p className="text-caption text-ink-2">{t.deviceOnly}</p>
+                </div>
+              </section>
+
+              {/* ── Podium / solo card ── */}
+              {podium.length >= 2 ? (
+                <section className="px-1" aria-label={t.rankings}>
+                  <div className="flex items-end justify-center gap-3">
+                    {podium.map((entry, idx) => {
+                      const rank = idx + 1;
+                      const heights = ['h-24', 'h-20', 'h-16'];
+                      return (
+                        <motion.div
+                          key={entry.id}
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: idx * 0.1 }}
+                          className="flex flex-1 flex-col items-center gap-2"
+                        >
+                          <div
+                            className={`relative flex h-12 w-12 items-center justify-center rounded-full text-body-small font-bold ${rankFill(
+                              rank
+                            )}`}
+                          >
+                            {entry.initials}
+                            {rank === 1 && (
+                              <Crown
+                                className="absolute -top-2 -right-1 h-5 w-5 text-gold-strong"
+                                aria-hidden="true"
+                              />
+                            )}
+                          </div>
+                          <p className="w-full truncate text-center text-caption font-medium text-ink">
+                            {entry.isYou ? t.you : entry.name.split(' ')[0]}
+                          </p>
+                          <motion.div
+                            initial={{ height: 0 }}
+                            animate={{ height: 'auto' }}
+                            transition={{ delay: 0.15 + idx * 0.1 }}
+                            className={`flex w-full ${heights[idx]} items-end justify-center rounded-t-card pb-2 ${rankFill(
+                              rank
+                            )}`}
+                          >
+                            <span className="text-caption font-bold tabular-nums">
+                              {(entry.xp ?? 0).toLocaleString()}
+                            </span>
+                          </motion.div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </section>
+              ) : (
+                podium.length === 1 && (
+                  <section className="surface-feature feature-gold p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gold text-on-gold">
+                        <Trophy className="h-6 w-6" aria-hidden="true" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-overline text-gold-strong">{t.leading}</p>
+                        <p className="truncate text-h4 text-ink">
+                          {podium[0].isYou ? t.you : podium[0].name}
+                        </p>
+                        <p className="text-caption text-ink-2">{t.youOnly}</p>
+                      </div>
+                      <div className="shrink-0 text-right">
+                        <p className="text-h3 tabular-nums text-ink">
+                          {(podium[0].xp ?? 0).toLocaleString()}
+                        </p>
+                        <p className="text-caption text-ink-3">{t.xp}</p>
+                      </div>
+                    </div>
+                  </section>
+                )
+              )}
+
+              {/* ── Ranked list ── */}
+              {ranked.length > 0 && (
+                <section>
+                  <h2 className="mb-2 text-overline text-ink-3">{t.rankings}</h2>
+                  <ul className="space-y-2">
+                    {ranked.map((entry, index) => {
+                      const rank = index + 1;
+                      return (
+                        <motion.li
+                          key={entry.id}
+                          layout
+                          initial={{ opacity: 0, y: 12 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: Math.min(index * 0.04, 0.3) }}
+                          className={`flex items-center gap-3 rounded-card border p-3 ${
+                            entry.isYou
+                              ? 'border-teal/45 bg-teal-tint'
+                              : 'border-line bg-surface'
+                          }`}
+                        >
+                          <RankBadge rank={rank} />
+                          <div
+                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-caption font-bold ${
+                              entry.isYou
+                                ? 'bg-teal text-on-teal'
+                                : 'bg-surface-sunken text-ink-2 border border-line'
+                            }`}
+                          >
+                            {entry.initials}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5">
+                              <p className="truncate text-body-small font-semibold text-ink">
+                                {entry.name}
+                              </p>
+                              <span className="shrink-0 text-caption" aria-hidden="true">
+                                {entry.flag}
+                              </span>
+                            </div>
+                            {entry.isYou && (
+                              <p className="text-caption text-teal-strong">{t.you}</p>
+                            )}
+                          </div>
+                          <div className="shrink-0 text-right">
+                            <p className="text-body-small font-bold tabular-nums text-ink">
+                              {(entry.xp ?? 0).toLocaleString()}
+                            </p>
+                            <p className="text-caption text-ink-3">{t.xp}</p>
+                          </div>
+                        </motion.li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              )}
+
+              {/* ── Awaiting sync ── */}
+              {awaitingSync.length > 0 && (
+                <section>
+                  <div className="mb-2 flex items-center gap-2">
+                    <CloudOff className="h-4 w-4 text-ink-3" aria-hidden="true" />
+                    <h2 className="text-overline text-ink-3">
+                      {t.awaiting} · {awaitingSync.length}{' '}
+                      {awaitingSync.length === 1 ? t.teammate : t.teammates}
+                    </h2>
+                  </div>
+                  <ul className="space-y-2">
+                    {awaitingSync.map((entry) => (
+                      <li
+                        key={entry.id}
+                        className="flex items-center gap-3 rounded-card border border-dashed border-line bg-surface-sunken p-3"
+                      >
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-caption font-bold text-ink-3">
+                          {entry.initials}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-1.5">
+                            <p className="truncate text-body-small font-medium text-ink-2">
+                              {entry.name}
+                            </p>
+                            <span className="shrink-0 text-caption" aria-hidden="true">
+                              {entry.flag}
+                            </span>
+                          </div>
+                          <p className="text-caption text-ink-3">{t.awaitingNote}</p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <p className="text-body-small font-bold text-ink-3" aria-label={t.neverSynced}>
+                            —
+                          </p>
+                          <p className="text-caption text-ink-3">{t.xp}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </>
+          )}
+        </main>
       </div>
 
-      {/* Your Rank Card — Sticky Bottom */}
+      {/* ── Your rank — sticky ── */}
       {userEntry && (
         <motion.div
-          initial={{ y: 100 }}
-          animate={{ y: 0 }}
-          transition={{ type: "spring", damping: 20, stiffness: 200, delay: 0.5 }}
+          initial={{ y: 80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: 'spring', damping: 22, stiffness: 220, delay: 0.35 }}
           className="fixed bottom-0 left-0 right-0 z-20 flex justify-center"
         >
-          <div className="w-full max-w-[430px] bg-[#0A0A0A]/98 backdrop-blur-lg border-t border-[#0ABAB5]/30 px-4 py-3">
+          <div className="w-full max-w-app border-t border-line bg-surface/98 px-4 py-3 pb-safe backdrop-blur-lg shadow-nav">
             <div className="flex items-center gap-3">
-              {/* Your rank */}
-              <div className="flex flex-col items-center">
-                <span className="text-lg font-bold text-[#0ABAB5]">#{userRank}</span>
-                <span className="text-[9px] text-[#888]">YOUR RANK</span>
+              <div className="flex shrink-0 flex-col items-center">
+                <span className="text-h4 tabular-nums text-teal-strong">
+                  {userRank !== null ? `#${userRank}` : '—'}
+                </span>
+                <span className="text-caption text-ink-3">{t.yourRank}</span>
               </div>
 
-              {/* Divider */}
-              <div className="w-px h-10 bg-[#1A1A1A]" />
+              <div className="h-10 w-px shrink-0 bg-line" />
 
-              {/* Avatar + Name */}
-              <div className="flex items-center gap-2 flex-1">
-                <div className="w-9 h-9 rounded-full bg-[#0ABAB5] flex items-center justify-center text-xs font-bold text-black">
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal text-caption font-bold text-on-teal">
                   {userEntry.initials}
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-white">{userEntry.name}</p>
-                  <p className="text-[10px] text-[#888]">
-                    {timeframe === "week"
-                      ? userEntry.xpThisWeek.toLocaleString()
-                      : timeframe === "month"
-                      ? userEntry.xpThisMonth.toLocaleString()
-                      : userEntry.xpAllTime.toLocaleString()}{" "}
-                    XP
+                <div className="min-w-0">
+                  <p className="truncate text-body-small font-semibold text-ink">
+                    {userEntry.name}
+                  </p>
+                  <p className="text-caption text-ink-2 tabular-nums">
+                    {userEntry.xp !== null
+                      ? `${userEntry.xp.toLocaleString()} ${t.xp}`
+                      : t.unranked}
                   </p>
                 </div>
               </div>
 
-              {/* XP to next */}
-              {personAhead && xpGap > 0 && (
-                <div className="text-right">
-                  <p className="text-[10px] text-[#888]">Beat {personAhead.name.split(" ")[0]}</p>
-                  <p className="text-xs font-semibold text-amber-400">+{xpGap} XP</p>
+              {personAhead && xpGap > 0 ? (
+                <div className="shrink-0 text-right">
+                  <p className="text-caption text-ink-3">
+                    {t.beat} {personAhead.name.split(' ')[0]}
+                  </p>
+                  <p className="text-caption font-bold text-gold-strong">+{xpGap} {t.xp}</p>
                 </div>
-              )}
-              {userRank === 1 && (
-                <div className="text-right">
-                  <span className="text-lg">👑</span>
-                </div>
+              ) : (
+                userRank === 1 && (
+                  <Crown className="h-6 w-6 shrink-0 text-gold-strong" aria-hidden="true" />
+                )
               )}
             </div>
           </div>
         </motion.div>
       )}
 
-      {/* Peer Shoutout Modal */}
+      {/* ── Shout-out sheet ── */}
       <AnimatePresence>
         {showShoutout && (
           <PeerShoutout
-            employees={entries.map((e) => ({
-              id: e.id,
-              name: e.name,
-              initials: e.initials,
-              flag: e.flag,
-            }))}
-            currentUserId={currentUserId}
+            teammates={entries
+              .filter((e) => e.id !== currentUserId)
+              .map((e) => ({ id: e.id, name: e.name, initials: e.initials, flag: e.flag }))}
             onSubmit={handleShoutoutSubmit}
             onClose={() => setShowShoutout(false)}
           />

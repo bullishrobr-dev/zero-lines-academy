@@ -80,7 +80,7 @@ export function getComboOffersData(currency: string): ComboOfferData[] {
     {
       title: 'Single Scrub',
       titleEs: 'Scrub Individual',
-      price: `${currency}35`,
+      price: `${currency}30`,
       subtitle: 'Final push — the graceful exit',
       subtitleEs: 'Empujón final — la salida elegante',
       items: ['Dead Sea Scrub only', 'No gifts, no extras', 'Opens the door for future purchase'],
@@ -221,7 +221,7 @@ export const scrubData = {
       { name: 'Scent Duo', nameEs: 'Duo Aroma', price: '{currency}60', items: 'Scrub + Body Butter (Buy 1 Get 1)' },
       { name: 'Smart Duo', nameEs: 'Duo Inteligente', price: '{currency}60', items: 'Scrub + Nail Kit (kit includes cream)' },
       { name: "Gifter's Four", nameEs: 'Cuatro para Regalar', price: '{currency}120', items: 'Buy 2, Get 2 (Christmas special)' },
-      { name: 'Final Push', nameEs: 'Empujón Final', price: '{currency}35', items: 'Scrub only, no gifts' },
+      { name: 'Final Push', nameEs: 'Empujón Final', price: '{currency}30', items: 'Scrub only, no gifts' },
     ] as CheatCombo[],
   },
 
@@ -232,9 +232,9 @@ export const scrubData = {
     anchorLabel: 'Anchor',
     anchorLabelEs: 'Anclaje',
     anchorQuote: (currency: string) =>
-      `\"I won't lie — it's not cheap. Around Europe these go for ${currency}100 each.\"`,
+      `\"I won't lie — it's not cheap. Around Europe these go for ${currency}80 each.\"`,
     anchorQuoteEs: (currency: string) =>
-      `\"No te voy a mentir — no es barato. Por Europa estos cuestan ${currency}100 cada uno.\"`,
+      `\"No te voy a mentir — no es barato. Por Europa estos cuestan ${currency}80 cada uno.\"`,
     localLabel: 'Local Price',
     localLabelEs: 'Precio Local',
     localQuote: (currency: string, locationName: string) =>
@@ -298,10 +298,10 @@ export const scrubData = {
       },
       {
         iconName: 'Sparkles',
-        title: '{currency}35 Scrub is your final push',
-        titleEs: 'El Scrub a {currency}35 es tu empujón final',
-        text: 'When nothing else works, the single Scrub at {currency}35 creates a customer today and a bigger sale tomorrow. No gifts, no extras — just the hero product in their hands.',
-        textEs: 'Cuando nada más funciona, el Scrub individual a {currency}35 crea un cliente hoy y una venta mayor mañana. Sin regalos, sin extras — solo el producto estrella en sus manos.',
+        title: '{currency}30 Scrub is your final push',
+        titleEs: 'El Scrub a {currency}30 es tu empujón final',
+        text: 'When nothing else works, the single Scrub at {currency}30 creates a customer today and a bigger sale tomorrow. No gifts, no extras — just the hero product in their hands.',
+        textEs: 'Cuando nada más funciona, el Scrub individual a {currency}30 crea un cliente hoy y una venta mayor mañana. Sin regalos, sin extras — solo el producto estrella en sus manos.',
       },
       {
         iconName: 'Moon',
@@ -320,8 +320,8 @@ export const scrubData = {
     grid: {
       europeLabel: 'Europe:',
       europeLabelEs: 'Europa:',
-      europeValue: '{currency}100 each',
-      europeValueEs: '{currency}100 cada uno',
+      europeValue: '{currency}80 each',
+      europeValueEs: '{currency}80 cada uno',
       localLabel: '{locationName}:',
       localLabelEs: '{locationName}:',
       localValue: '{currency}60 each',
@@ -332,8 +332,8 @@ export const scrubData = {
       coreValueEs: '{currency}120/3 (C2L1)',
       floorLabel: 'Floor:',
       floorLabelEs: 'Mínimo:',
-      floorValue: '{currency}35 Scrub',
-      floorValueEs: 'Scrub {currency}35',
+      floorValue: '{currency}30 Scrub',
+      floorValueEs: 'Scrub {currency}30',
     },
   },
 };

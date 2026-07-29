@@ -268,8 +268,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"I\'m going to show you something incredible. This peeling gel removes dead skin cells you didn\'t even know you had. Watch — rub gently... see that white residue? That\'s years of buildup, gone in seconds."',
-        textEs: '"Voy a mostrarte algo increíble. Este gel exfoliante elimina células muertas que ni siquiera sabías que tenías. Mira — frota suavemente... ¿ves ese residuo blanco? Son años de acumulación, eliminados en segundos."',
+        text: '"I\'m going to show you something incredible. The Peeling separates dead skin you didn\'t even know you had. Watch — roll it gently, don\'t rub... see those grey bits? That\'s years of buildup, gone in seconds."',
+        textEs: '"Voy a enseñarte algo increíble. El Peeling separa la piel muerta que ni siquiera sabías que tenías. Mira — enróllalo suavemente, no lo frotes... ¿ves esas bolitas grises? Son años de acumulación, fuera en segundos."',
       },
       {
         type: 'tip',
@@ -350,18 +350,18 @@ export const dailyDoses: DailyDose[] = [
         type: 'technique',
         text: 'Never lead with the price. Anchor HIGH first. Compare your product to luxury alternatives that cost 3x more. Then your price feels like a steal.',
         textEs: 'Nunca empieces con el precio. Ancla ALTO primero. Compara tu producto con alternativas de lujo que cuestan 3 veces más. Entonces tu precio se siente como una ganga.',
-        highlight: 'A £50 cream feels cheap after a £200 cream.',
-        highlightEs: 'Una crema de £50 se siente barata después de una de £200.',
+        highlight: '{currency}300 feels cheap the second after you said {currency}500.',
+        highlightEs: '{currency}300 se siente barato justo después de haber dicho {currency}500.',
       },
       {
         type: 'script',
-        text: '"A similar serum at La Mer would cost you £280. Our formula uses the same active ingredients — hyaluronic acid, retinol, vitamin C — and it\'s £49. That\'s why we sell out every single day."',
-        textEs: '"Un suero similar en La Mer te costaría £280. Nuestra fórmula usa los mismos ingredientes activos — ácido hialurónico, retinol, vitamina C — y cuesta £49. Por eso se agota todos los días."',
+        text: '"Across Europe this same treatment goes for {currency}500 — it\'s the one that works instantly and lasts. Here we\'re a tax-free shop, so it\'s {currency}300. That\'s why we sell out every single day."',
+        textEs: '"Por toda Europa este mismo tratamiento cuesta {currency}500 — es el que funciona al instante y dura. Aquí estamos libres de impuestos, así que son {currency}300. Por eso se agota todos los días."',
       },
       {
         type: 'tip',
-        text: 'Use the phrase "investment" not "cost." Say "Your skin is an investment" not "This cream costs £49." Language shapes perception.',
-        textEs: 'Usa la frase "inversión" no "costo." Di "Tu piel es una inversión" no "Esta crema cuesta £49." El lenguaje moldea la percepción.',
+        text: 'Use the phrase "investment" not "cost." Say "Your skin is an investment" not "This syringe costs {currency}300." Language shapes perception.',
+        textEs: 'Usa la palabra "inversión", no "coste". Di "Tu piel es una inversión", no "Esta jeringa cuesta {currency}300". El lenguaje moldea la percepción.',
       },
     ],
     practicePrompt: 'Today, always anchor with a luxury comparison before stating your price. Track: does this increase your close rate?',
@@ -377,20 +377,20 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'technique',
-        text: 'Cross-selling isn\'t pushy if it\'s HELPFUL. The key: suggest products that COMPLEMENT what they already want. A serum buyer needs the matching cream.',
-        textEs: 'Las ventas cruzadas no son agresivas si son ÚTILES. La clave: sugiere productos que COMPLEMENTEN lo que ya quieren. Una compradora de suero necesita la crema complementaria.',
+        text: 'Cross-selling isn\'t pushy if it\'s HELPFUL. The key: suggest products that COMPLEMENT what they already want. A Scrub buyer needs the matching Body Butter.',
+        textEs: 'La venta cruzada no es agresiva si es ÚTIL. La clave: sugiere productos que COMPLEMENTEN lo que ya quieren. Quien se lleva el Scrub necesita el Body Butter que va con él.',
         highlight: 'Help them complete their routine. Don\'t just add products.',
         highlightEs: 'Ayúdalas a completar su rutina. No solo agregues productos.',
       },
       {
         type: 'script',
-        text: '"Since you\'re getting the serum, you\'ll want the day cream too. They\'re designed to work together — the serum repairs at night, the cream protects during the day. Together they\'re £20 less than buying separately."',
-        textEs: '"Como te llevas el suero, también querrás la crema de día. Están diseñados para trabajar juntos — el suero repara de noche, la crema protege de día. Juntos son £20 menos que comprarlos separados."',
+        text: '"Since you\'re taking the Scrub, you\'ll want the Body Butter too. They\'re designed to work together — the Scrub lifts the dead skin, the Butter locks the moisture back in. And Buy 1 Get 1 means both of them are {currency}60 — the price of one."',
+        textEs: '"Como te llevas el Scrub, también vas a querer el Body Butter. Están hechos para funcionar juntos — el Scrub levanta la piel muerta y el Butter le devuelve la hidratación. Y con Compra 1 Lleva 1 los dos te salen {currency}60 — el precio de uno."',
       },
       {
         type: 'tip',
-        text: 'Bundle pricing is your friend. Always frame the combo as saving money, not spending more. "You\'ll save £15" beats "It\'s only £15 more."',
-        textEs: 'Los precios de paquete son tu aliado. Siempre presenta el combo como ahorrar dinero, no gastar más. "Ahorrarás £15" supera a "Es solo £15 más."',
+        text: 'Bundle pricing is your friend. Always frame the combo as saving money, not spending more. Three products at {currency}120 instead of {currency}180 — say "you save {currency}60", never "it\'s {currency}60 more."',
+        textEs: 'El precio de paquete es tu aliado. Presenta siempre el combo como ahorro, no como gasto extra. Tres productos por {currency}120 en vez de {currency}180 — di "ahorras {currency}60", nunca "son {currency}60 más".'
       },
     ],
     practicePrompt: 'Set a cross-sell goal today: for every product sold, suggest ONE complementary item. Track your success rate.',
@@ -413,13 +413,13 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"I want to set you up with the full system. The peeling cleanser prepares your skin, the serum repairs deep down, and the day cream locks in the results. Three steps, five minutes a day, results you can see in a week."',
-        textEs: '"Quiero prepararte con el sistema completo. El limpiador exfoliante prepara tu piel, el suero repara en profundidad, y la crema de día bloquea los resultados. Tres pasos, cinco minutos al día, resultados visibles en una semana."',
+        text: '"I want to set you up with the full system. The Scrub lifts the dead skin, the Body Butter feeds it back, and the Nail Kit finishes your hands. Three products, {currency}120 with Buy 2 Get 1 — five minutes a week, results you can see the first time."',
+        textEs: '"Quiero dejarte el sistema completo. El Scrub levanta la piel muerta, el Body Butter se la devuelve, y el Kit de Uñas remata tus manos. Tres productos, {currency}120 con Compra 2 Lleva 1 — cinco minutos a la semana, resultados que ves desde el primer uso."',
       },
       {
         type: 'tip',
-        text: 'When presenting the combo, use your hands to show "steps." Finger 1 = cleanse, Finger 2 = treat, Finger 3 = protect. Visual structure increases perceived value.',
-        textEs: 'Al presentar el combo, usa tus manos para mostrar "pasos." Dedo 1 = limpiar, Dedo 2 = tratar, Dedo 3 = proteger. La estructura visual aumenta el valor percibido.',
+        text: 'When presenting the combo, use your hands to show "steps." Finger 1 = Scrub, Finger 2 = Body Butter, Finger 3 = Nail Kit. Visual structure increases perceived value.',
+        textEs: 'Al presentar el combo, usa las manos para marcar los "pasos". Dedo 1 = Scrub, Dedo 2 = Body Butter, Dedo 3 = Kit de Uñas. La estructura visual aumenta el valor percibido.',
       },
     ],
     practicePrompt: 'Aim to present the full combo to 3 people today. Even if they don\'t buy all 3, track how many buy 2+ items.',
@@ -444,17 +444,17 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"I completely understand. Here\'s how I think about it: this bottle lasts 3 months. That\'s 90 days of treatments for £49. That\'s 54p per day — less than a coffee. And unlike coffee, this actually makes you look younger."',
-        textEs: '"Lo entiendo completamente. Así es como lo pienso: este bote dura 3 meses. Son 90 días de tratamiento por £49. Eso es 54p por día — menos que un café. Y a diferencia del café, esto realmente te hace ver más joven."',
+        text: '"I completely understand. Here\'s how I think about it: this bottle lasts a full year — 52 treatments for {currency}100. That\'s under {currency}2 a week, less than one coffee. And unlike coffee, this actually makes you look younger."',
+        textEs: '"Te entiendo perfectamente. Yo lo veo así: este frasco dura un año entero — 52 tratamientos por {currency}100. Son menos de {currency}2 a la semana, menos que un café. Y a diferencia del café, esto sí te hace ver más joven."',
       },
       {
         type: 'technique',
-        text: 'The COST-PER-DAY REFRAME: Break any price into daily cost. £49 = 54p/day. £99 = £1.10/day. Compare to something they buy daily. It shrinks the price in their mind.',
-        textEs: 'El REFRAME DE COSTO POR DÍA: Divide cualquier precio en costo diario. £49 = 54p/día. £99 = £1.10/día. Compara con algo que compran diariamente. Reduce el precio en su mente.',
+        text: 'The COST-PER-WEEK REFRAME: break any price into what it costs while it lasts. The Peeling at {currency}100 lasts a year — under {currency}2 a week. The Syringe at {currency}300 lasts a year too — under {currency}6 a week. Compare it to something they buy every week. It shrinks the price in their mind.',
+        textEs: 'EL REENCUADRE DE COSTE POR SEMANA: divide cualquier precio entre el tiempo que dura. El Peeling a {currency}100 dura un año — menos de {currency}2 a la semana. La Jeringa a {currency}300 también dura un año — menos de {currency}6 a la semana. Compáralo con algo que compren cada semana. Encoge el precio en su cabeza.',
       },
     ],
-    practicePrompt: 'When you hear "too expensive" today, use the cost-per-day reframe. Track your conversion rate on this specific objection.',
-    practicePromptEs: 'Cuando escuches "demasiado caro" hoy, usa el reframe de costo por día. Registra tu tasa de conversión en esta objeción específica.',
+    practicePrompt: 'When you hear "too expensive" today, use the cost-per-week reframe. Track your conversion rate on this specific objection.',
+    practicePromptEs: 'Cuando escuches "demasiado caro" hoy, usa el reencuadre de coste por semana. Registra tu tasa de conversión en esa objeción concreta.',
     xpReward: 20,
   },
   {
@@ -502,8 +502,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"That\'s totally fair! Here\'s what I suggest: let me give you our card and write down exactly what we discussed. When you talk to him, you can say \'I tried it, I loved it, and it\'s £49 for a 3-month supply.\' Most husbands just want to know it\'s a good deal!"',
-        textEs: '"¡Totalmente justo! Te sugiero: déjame darte nuestra tarjeta y anotar exactamente de qué hablamos. Cuando le hables, puedes decir \'Lo probé, me encantó, y cuesta £49 para 3 meses.\' ¡La mayoría de los maridos solo quieren saber que es una buena oferta!"',
+        text: '"That\'s totally fair! Here\'s what I suggest: let me give you our card and write down exactly what we discussed. When you talk to him, you can say \'I tried it, I loved it, and it\'s {currency}100 and the bottle lasts a whole year.\' Most husbands just want to know it\'s a good deal!"',
+        textEs: '"¡Totalmente justo! Te sugiero: déjame darte nuestra tarjeta y anotar exactamente de qué hablamos. Cuando le hables, puedes decir \'Lo probé, me encantó, y son {currency}100 y el frasco dura un año entero.\' ¡La mayoría de los maridos solo quieren saber que es un buen trato!"',
       },
       {
         type: 'tip',
@@ -531,8 +531,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"Perfect, looking is free! Actually, since you\'re just looking, let me show you something cool — have you ever seen a peeling gel that removes dead skin in seconds? It\'s really satisfying to watch."',
-        textEs: '"Perfecto, ¡mirar es gratis! De hecho, como solo estás mirando, déjame mostrarte algo genial — ¿has visto un gel exfoliante que elimina piel muerta en segundos? Es muy satisfactorio de ver."',
+        text: '"Perfect, looking is free! Actually, since you\'re just looking, let me show you something cool — have you ever seen the Peeling roll dead skin off your hand in seconds? It\'s really satisfying to watch."',
+        textEs: '"Perfecto, ¡mirar es gratis! De hecho, como solo estás mirando, déjame mostrarte algo genial — ¿has visto cómo el Peeling saca la piel muerta de la mano en segundos? Es muy satisfactorio de ver."',
       },
       {
         type: 'technique',
@@ -560,8 +560,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"I totally get budgets. Let me ask you this: how much do you spend on skincare in a year? £200? £300? This one product replaces three others. So you\'re actually SAVING money while getting better results."',
-        textEs: '"Entiendo totalmente los presupuestos. Déjame preguntarte: ¿cuánto gastas en cuidado de la piel al año? ¿£200? ¿£300? Este producto reemplaza a otros tres. Así que en realidad estás AHORRANDO dinero mientras obtienes mejores resultados."',
+        text: '"I totally get budgets. Let me ask you this: how much do you spend on skincare in a year? {currency}200? {currency}300? This one product replaces three others. So you\'re actually SAVING money while getting better results."',
+        textEs: '"Entiendo totalmente los presupuestos. Déjame preguntarte: ¿cuánto gastas en cuidado de la piel al año? ¿{currency}200? ¿{currency}300? Este producto reemplaza a otros tres. Así que en realidad estás AHORRANDO dinero mientras obtienes mejores resultados."',
       },
       {
         type: 'technique',
@@ -589,8 +589,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"Just so you know — today we have a gift with purchase while supplies last. It\'s the travel-size serum, and we only have about 10 left. I don\'t want you to miss out!"',
-        textEs: '"Para que sepas — hoy tenemos un regalo con compra mientras duren las existencias. Es el suero de viaje, y solo nos quedan unos 10. ¡No quiero que te lo pierdas!"',
+        text: '"Just so you know — today we have a gift with purchase while supplies last. It\'s the Dead Sea Body Scrub, and we only have about 10 left. I don\'t want you to miss out!"',
+        textEs: '"Para que sepas — hoy tenemos un regalo con compra mientras duren las existencias. Es el Exfoliante del Mar Muerto, y solo nos quedan unos 10. ¡No quiero que te lo pierdas!"',
       },
       {
         type: 'tip',
@@ -618,8 +618,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"Tell you what — I really want you to try this. I\'m going to give you a £10 voucher for today only. That brings it down to £39. That\'s my absolute best offer, and it\'s only because I know you\'ll love it."',
-        textEs: '"Mira — realmente quiero que pruebes esto. Te voy a dar un vale de £10 solo por hoy. Eso lo reduce a £39. Es mi mejor oferta absoluta, y es solo porque sé que te encantará."',
+        text: '"Tell you what — I really want you to try this. I\'m going to use my one voucher on you, today only. That takes it from {currency}175 down to {currency}140. That\'s my absolute best offer, and it\'s only because I know you\'ll love it."',
+        textEs: '"Mira — de verdad quiero que lo pruebes. Voy a usar mi único cupón contigo, solo por hoy. Eso lo baja de {currency}175 a {currency}140. Es mi mejor oferta absoluta, y es solo porque sé que te va a encantar."',
       },
       {
         type: 'tip',
@@ -678,8 +678,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"Sir, 30 seconds. This scrub removes dead skin in one use. Your face will feel smoother than it has in years. It\'s £29. Want to try it?"',
-        textEs: '"Señor, 30 segundos. Este exfoliante elimina piel muerta en un uso. Su rostro se sentirá más suave que en años. Cuesta £29. ¿Quiere probarlo?"',
+        text: '"Sir, 30 seconds. This Scrub removes dead skin in one use. Your hands will feel smoother than they have in years. It\'s {currency}60, or {currency}60 for two if you take a Body Butter with it. Want to try it?"',
+        textEs: '"Señor, 30 segundos. Este Scrub quita la piel muerta en un solo uso. Tus manos van a quedar más suaves que en años. Son {currency}60, o {currency}60 por dos si te llevas un Body Butter también. ¿Lo pruebas?"',
       },
       {
         type: 'tip',
@@ -794,8 +794,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: 'After presenting the combo: "So — the full set is £99. That\'s the serum, the cream, the peeling gel, and today I\'ll add the travel kit as a gift." [STOP. SMILE. WAIT.]',
-        textEs: 'Después de presentar el combo: "Entonces — el set completo es £99. Es el suero, la crema, el gel exfoliante, y hoy agregaré el kit de viaje como regalo." [PARA. SONRÍE. ESPERA.]',
+        text: 'After presenting the combo: "So — the full set is {currency}120. That\'s the Scrub, the Body Butter, and the Nail Kit goes in free." [STOP. SMILE. WAIT.]',
+        textEs: 'Después de presentar el combo: "Entonces — el set completo son {currency}120. Es el Scrub, el Body Butter, y el Kit de Uñas entra gratis." [PARA. SONRÍE. ESPERA.]',
       },
       {
         type: 'mindset',

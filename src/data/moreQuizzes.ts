@@ -89,45 +89,45 @@ const quizSyringeDeep: GeneralQuiz = {
       questionEs:
         "¿Cuál de estas es la escalera de precios CORRECTA para la Jeringa de Ácido Hialurónico?",
       options: [
-        "€500 → €350 → €250 → €175 → €120",
-        "€500 → €300 → €210 → €175 → €140 → €100",
-        "€400 → €280 → €200 → €150 → €100 → €80",
-        "€600 → €400 → €300 → €200 → €150 → €120"
+        "{currency}500 → {currency}350 → {currency}250 → {currency}175 → {currency}120",
+        "{currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100",
+        "{currency}400 → {currency}280 → {currency}200 → {currency}150 → {currency}100 → {currency}80",
+        "{currency}600 → {currency}400 → {currency}300 → {currency}200 → {currency}150 → {currency}120"
       ],
       optionsEs: [
-        "€500 → €350 → €250 → €175 → €120",
-        "€500 → €300 → €210 → €175 → €140 → €100",
-        "€400 → €280 → €200 → €150 → €100 → €80",
-        "€600 → €400 → €300 → €200 → €150 → €120"
+        "{currency}500 → {currency}350 → {currency}250 → {currency}175 → {currency}120",
+        "{currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100",
+        "{currency}400 → {currency}280 → {currency}200 → {currency}150 → {currency}100 → {currency}80",
+        "{currency}600 → {currency}400 → {currency}300 → {currency}200 → {currency}150 → {currency}120"
       ],
       correctIndex: 1,
       explanation:
-        "The price ladder is: €500 (retail anchor) → €300 (street 'intro' price) → €210 (volume discount for 2) → €175 (volume for 3) → €140 (today's special) → €100 (emergency price / best friend). Each drop creates a 'yes ladder' moment. The €500 anchor makes everything below it feel like a bargain.",
+        "The price ladder is: {currency}500 (Europe anchor) → {currency}300 (local base price) → {currency}210 (Offer 1: 30% off plus a free gift) → {currency}175 (the same single syringe with the gift taken away) → {currency}140 (the 20% voucher close) → {currency}100 (absolute floor). Every rung is ONE syringe — the only multi-unit deal is Offer 2, which keeps the price at {currency}300 and adds a second syringe free. Each drop creates a 'yes ladder' moment, and the {currency}500 anchor makes everything below it feel like a bargain.",
       explanationEs:
-        "La escalera de precios es: €500 (anclaje de retail) → €300 (precio 'intro' de calle) → €210 (descuento por volumen de 2) → €175 (volumen de 3) → €140 (especial de hoy) → €100 (precio de emergencia / mejor amiga). Cada bajada crea un momento de 'escalera de sí'. El anclaje de €500 hace que todo lo de abajo parezca una ganga."
+        "La escalera de precios es: {currency}500 (ancla de Europa) → {currency}300 (precio base local) → {currency}210 (Oferta 1: 30% de descuento más regalo) → {currency}175 (la misma jeringa individual, sin el regalo) → {currency}140 (el cierre con cupón del 20%) → {currency}100 (mínimo absoluto). Cada escalón es UNA jeringa — el único trato de varias unidades es la Oferta 2, que mantiene el precio en {currency}300 y añade una segunda jeringa gratis. Cada bajada crea un momento de 'escalera de sí', y el ancla de {currency}500 hace que todo lo de abajo parezca una ganga."
     },
     {
       question:
-        "When should you use the emergency price of €100 for the syringe?",
+        "When should you use the emergency price of {currency}100 for the syringe?",
       questionEs:
-        "¿Cuándo deberías usar el precio de emergencia de €100 para la jeringa?",
+        "¿Cuándo deberías usar el precio de emergencia de {currency}100 para la jeringa?",
       options: [
         "Immediately, to every customer who shows interest",
         "Only after the customer has rejected at least 2 higher prices and is genuinely walking away",
-        "When the customer says they have less than €100",
+        "When the customer says they have less than {currency}100",
         "At the end of the day to clear remaining stock"
       ],
       optionsEs: [
         "Inmediatamente, a toda cliente que muestre interés",
         "Solo después de que la cliente haya rechazado al menos 2 precios más altos y realmente se esté yendo",
-        "Cuando la cliente dice que tiene menos de €100",
+        "Cuando la cliente dice que tiene menos de {currency}100",
         "Al final del día para liquidar stock restante"
       ],
       correctIndex: 1,
       explanation:
-        "The €100 price is your 'nuclear option.' Using it too early destroys your profit margin and trains customers to hold out for the lowest price. The correct sequence: anchor high, drop gradually, read the customer's commitment level. Only pull €100 when the customer has mentally said 'yes' but the price is the only barrier — and even then, make it feel like you're breaking the rules for them.",
+        "The {currency}100 price is your 'nuclear option.' Using it too early destroys your profit margin and trains customers to hold out for the lowest price. The correct sequence: anchor high, drop gradually, read the customer's commitment level. Only pull {currency}100 when the customer has mentally said 'yes' but the price is the only barrier — and even then, make it feel like you're breaking the rules for them.",
       explanationEs:
-        "El precio de €100 es tu 'opción nuclear.' Usarlo demasiado temprano destruye tu margen de ganancia y enseña a las clientes a esperar el precio más bajo. La secuencia correcta: ancla alto, baja gradualmente, lee el nivel de compromiso de la cliente. Solo saca los €100 cuando la cliente haya dicho mentalmente 'sí' pero el precio sea la única barrera — e incluso entonces, hazlo sentir como si estuvieras rompiendo las reglas por ella."
+        "El precio de {currency}100 es tu 'opción nuclear.' Usarlo demasiado temprano destruye tu margen de ganancia y enseña a las clientes a esperar el precio más bajo. La secuencia correcta: ancla alto, baja gradualmente, lee el nivel de compromiso de la cliente. Solo saca los {currency}100 cuando la cliente haya dicho mentalmente 'sí' pero el precio sea la única barrera — e incluso entonces, hazlo sentir como si estuvieras rompiendo las reglas por ella."
     },
     {
       question:
@@ -200,26 +200,26 @@ const quizSyringeDeep: GeneralQuiz = {
     },
     {
       question:
-        "A customer says, '€300 is way too much for a cream!' How do you reframe the price using the 'cost per use' technique?",
+        "A customer says, '{currency}300 is way too much for a cream!' How do you reframe the price using the 'cost per use' technique?",
       questionEs:
-        "Una cliente dice: '¡€300 es demasiado para una crema!' ¿Cómo reenmaras el precio usando la técnica de 'costo por uso'?",
+        "Una cliente dice: '¡{currency}300 es demasiado para una crema!' ¿Cómo reenmaras el precio usando la técnica de 'costo por uso'?",
       options: [
         "It's actually cheap compared to a facelift",
-        "One syringe lasts 3-4 months with daily use — that's about €2.50 per day, less than a coffee",
+        "One syringe lasts a full year — 52 weekly treatments for {currency}300. That is under {currency}6 a week, less than one coffee",
         "You're not paying for cream, you're paying for confidence",
-        "If you buy 3 it works out to €175 each which is a bargain"
+        "If you buy three of them the price per syringe drops to {currency}175, which is a bargain"
       ],
       optionsEs: [
         "Es barato comparado con un lifting",
-        "Una jeringa dura 3-4 meses con uso diario — eso es unos €2.50 al día, menos que un café",
+        "Una jeringa dura un año entero — 52 tratamientos semanales por {currency}300. Son menos de {currency}6 a la semana, menos que un café",
         "No estás pagando por crema, estás pagando por confianza",
-        "Si compras 3 sale a €175 cada una, lo cual es una ganga"
+        "Si compras tres, el precio por jeringa baja a {currency}175, lo cual es una ganga"
       ],
       correctIndex: 1,
       explanation:
-        "The 'cost per use' reframing is one of the most powerful price techniques in street sales. Breaking €300 down to €2.50/day makes it feel affordable and daily-essential. The coffee comparison creates an instant mental benchmark everyone understands. Always calculate this in advance and have it ready. It turns a 'big purchase' into a 'small daily investment in yourself.'",
+        "The 'cost per use' reframing is one of the most powerful price techniques in street sales. Breaking {currency}300 down to under {currency}6 a week makes it feel affordable and routine. The coffee comparison creates an instant mental benchmark everyone understands. Note the trap in the last option: {currency}175 is a single-syringe rung on the ladder, not a per-unit price for three — quoting it that way is a promise you cannot keep. Always calculate the real numbers in advance.",
       explanationEs:
-        "El reencuadre de 'costo por uso' es una de las técnicas de precio más poderosas en ventas de calle. Desglosar €300 a €2.50/día lo hace sentir asequible y esencial diariamente. La comparación con el café crea un punto de referencia mental instantáneo que todos entienden. Siempre calcula esto de antemano y tenlo listo. Convierte una 'compra grande' en una 'pequeña inversión diaria en ti misma.'"
+        "El reencuadre de 'coste por uso' es una de las técnicas de precio más poderosas en la venta de calle. Desglosar {currency}300 a menos de {currency}6 por semana lo hace sentir asequible y rutinario. La comparación con el café crea un punto de referencia mental instantáneo que todos entienden. Fíjate en la trampa de la última opción: {currency}175 es un escalón de jeringa individual, no un precio por unidad si compras tres — prometerlo así es una promesa que no puedes cumplir. Calcula siempre los números reales de antemano."
     },
     {
       question:
@@ -246,26 +246,26 @@ const quizSyringeDeep: GeneralQuiz = {
     },
     {
       question:
-        "You have a customer who is ready to buy at €210 (for 2 syringes). What do you say to try upgrading them to 3 at €175 each?",
+        "A customer is ready to take Offer 1 — one syringe at {currency}210 with a free gift. How do you move her up to Offer 2, {currency}300 with a second syringe free?",
       questionEs:
-        "Tienes una cliente lista para comprar a €210 (por 2 jeringas). ¿Qué dices para intentar upgradearla a 3 a €175 cada una?",
+        "Una cliente está lista para llevarse la Oferta 1 — una jeringa a {currency}210 con regalo. ¿Cómo la subes a la Oferta 2, {currency}300 con una segunda jeringa gratis?",
       options: [
-        "For just €55 more, you get a third full syringe — that's the best value and you'll have enough for a full 6-month transformation",
-        "You should get 3 because it's cheaper per unit",
-        "If you don't get 3 now you'll regret it later",
-        "The 2-pack is a bad deal, 3 is much smarter"
+        "For just {currency}90 more you get a whole second syringe free — enough for the forehead and upper lip too, not only the eyes. That is the full-face version of what you just saw",
+        "You should take the second one because it works out cheaper per syringe that way",
+        "If you don't take the second one now you are going to regret it later",
+        "The single syringe is a bad deal, the two-syringe offer is much smarter"
       ],
       optionsEs: [
-        "Por solo €55 más, obtienes una tercera jeringa completa — es el mejor valor y tendrás suficiente para una transformación completa de 6 meses",
-        "Deberías llevar 3 porque es más barato por unidad",
-        "Si no compras 3 ahora te arrepentirás después",
-        "El paquete de 2 es mal negocio, 3 es mucho más inteligente"
+        "Por solo {currency}90 más te llevas una segunda jeringa entera gratis — suficiente para la frente y el labio superior también, no solo los ojos. Es la versión de cara completa de lo que acabas de ver",
+        "Deberías llevarte la segunda porque así sale más barata cada jeringa",
+        "Si no te llevas la segunda ahora te vas a arrepentir después",
+        "La jeringa sola es mal negocio, la oferta de dos es mucho más inteligente"
       ],
       correctIndex: 0,
       explanation:
-        "The upgrade pitch uses the 'just a little more' framing — €55 more sounds small compared to €175. The '6-month transformation' gives her a vision of long-term results, and 'best value' appeals to smart-shopper psychology. Notice this doesn't insult the 2-pack she already agreed to. You're building on her 'yes,' not criticizing it. This upsell technique increases your average ticket significantly.",
+        "The upgrade pitch uses the 'just a little more' framing — {currency}90 is the real gap between Offer 1 ({currency}210) and Offer 2 ({currency}300), and it sounds small next to what she has already agreed to spend. Naming the extra treatment areas gives her a concrete picture instead of an abstract discount. Notice it doesn't insult Offer 1 — you're building on her 'yes,' not criticising it. This upsell technique increases your average ticket significantly.",
       explanationEs:
-        "El pitch de upgrade usa el encuadre de 'solo un poco más' — €55 más suena pequeño comparado con €175. La 'transformación de 6 meses' le da una visión de resultados a largo plazo, y 'mejor valor' apela a la psicología de compradora inteligente. Nota que esto no insulta el paquete de 2 que ya aceptó. Estás construyendo sobre su 'sí,' no criticándolo. Esta técnica de venta adicional aumenta significativamente tu ticket promedio."
+        "El pitch de mejora usa el encuadre de 'solo un poco más' — {currency}90 es la diferencia real entre la Oferta 1 ({currency}210) y la Oferta 2 ({currency}300), y suena pequeña al lado de lo que ya ha aceptado gastar. Nombrar las zonas extra le da una imagen concreta en vez de un descuento abstracto. Fíjate en que no menosprecia la Oferta 1 — estás construyendo sobre su 'sí', no criticándolo. Esta técnica de venta adicional aumenta bastante tu ticket medio."
     }
   ]
 };
@@ -315,22 +315,22 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "¿Cuál es la escalera de precios CORRECTA para el Kit de Peeling Glicólico?",
       options: [
-        "€500 → €300 → €200 → €150 → €100 → €70",
-        "€200 → €150 → €100 → €70 → €50",
-        "€300 → €250 → €180 → €120 → €80 → €60",
-        "€400 → €280 → €200 → €150 → €100 → €75"
+        "{currency}500 → {currency}300 → {currency}200 → {currency}150 → {currency}100 → {currency}70",
+        "{currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50",
+        "{currency}300 → {currency}250 → {currency}180 → {currency}120 → {currency}80 → {currency}60",
+        "{currency}400 → {currency}280 → {currency}200 → {currency}150 → {currency}100 → {currency}75"
       ],
       optionsEs: [
-        "€500 → €300 → €200 → €150 → €100 → €70",
-        "€200 → €150 → €100 → €70 → €50",
-        "€300 → €250 → €180 → €120 → €80 → €60",
-        "€400 → €280 → €200 → €150 → €100 → €75"
+        "{currency}500 → {currency}300 → {currency}200 → {currency}150 → {currency}100 → {currency}70",
+        "{currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50",
+        "{currency}300 → {currency}250 → {currency}180 → {currency}120 → {currency}80 → {currency}60",
+        "{currency}400 → {currency}280 → {currency}200 → {currency}150 → {currency}100 → {currency}75"
       ],
       correctIndex: 1,
       explanation:
-        "The Glycolic Peeling Kit ladder is: €200 (retail) → €150 (intro) → €100 (for 2) → €70 (for 3) → €50 (emergency/best price). Notice it's roughly 1/3 the price of the syringe — this positioning matters when bundling. The lower entry point makes it an easier upsell after the syringe sale or a great standalone for budget-conscious customers.",
+        "The Glycolic Peeling Kit ladder is: {currency}200 (Europe anchor) → {currency}150 (local base) → {currency}100 (Offer 1: 50% off plus the Dead Sea Scrub as a gift) → {currency}70 (the Scrub taken out and its value given back as credit) → {currency}50 (voucher close, and the absolute floor). Every rung is one bottle. Notice it's roughly 1/3 the price of the syringe — this positioning matters when bundling. The lower entry point makes it an easier upsell after the syringe sale or a great standalone for budget-conscious customers.",
       explanationEs:
-        "La escalera del Kit de Peeling Glicólico es: €200 (retail) → €150 (intro) → €100 (por 2) → €70 (por 3) → €50 (emergencia/mejor precio). Nota que es aproximadamente 1/3 del precio de la jeringa — este posicionamiento importa al empaquetar. El punto de entrada más bajo lo hace una venta adicional más fácil después de la venta de la jeringa o una excelente opción independiente para clientes conscientes del presupuesto."
+        "La escalera del Kit de Peeling Glicólico es: {currency}200 (ancla de Europa) → {currency}150 (base local) → {currency}100 (Oferta 1: 50% de descuento más el Exfoliante del Mar Muerto de regalo) → {currency}70 (se saca el Exfoliante y se devuelve su valor como crédito) → {currency}50 (cierre con cupón, y mínimo absoluto). Cada escalón es un frasco. Fíjate en que es aproximadamente 1/3 del precio de la jeringa — este posicionamiento importa al empaquetar. El punto de entrada más bajo lo hace una venta adicional más fácil después de la venta de la jeringa o una excelente opción independiente para clientes conscientes del presupuesto."
     },
     {
       question:
@@ -426,19 +426,19 @@ const quizPeelingMastery: GeneralQuiz = {
     },
     {
       question:
-        "A customer says, 'I can get glycolic acid products at the pharmacy for €15.' How do you respond?",
+        "A customer says, 'I can get glycolic acid products at the pharmacy for {currency}15.' How do you respond?",
       questionEs:
-        "Una cliente dice: 'Puedo conseguir productos con ácido glicólico en la farmacia por €15.' ¿Cómo respondes?",
+        "Una cliente dice: 'Puedo conseguir productos con ácido glicólico en la farmacia por {currency}15.' ¿Cómo respondes?",
       options: [
         "Those are fake, only ours is real",
         "Pharmacy products use 3-5% glycolic acid — our professional formula is 15-20% concentration. It's like comparing a toy car to a real engine",
-        "€15 products are for poor people, you deserve better",
+        "{currency}15 products are for poor people, you deserve better",
         "The pharmacy ones don't work at all, don't waste your money"
       ],
       optionsEs: [
         "Esos son falsos, solo el nuestro es real",
         "Los productos de farmacia usan 3-5% de ácido glicólico — nuestra fórmula profesional es 15-20% de concentración. Es como comparar un carrito de juguete con un motor real",
-        "Los productos de €15 son para gente pobre, tú mereces mejor",
+        "Los productos de {currency}15 son para gente pobre, tú mereces mejor",
         "Los de farmacia no funcionan para nada, no desperdicies tu dinero"
       ],
       correctIndex: 1,
@@ -476,22 +476,22 @@ const quizPeelingMastery: GeneralQuiz = {
       questionEs:
         "¿Cuál es la MEJOR oferta de empaquetado que combina el Scrub de Minerales del Mar Muerto con el Kit de Peeling Glicólico?",
       options: [
-        "Buy any product and get the other 50% off",
-        "Scrub + Peeling together for €100 — save €35 compared to buying separately",
-        "Buy 2 scrubs get 1 peeling free",
+        "Buy either product and the other one is half price on the spot",
+        "The Peeling at {currency}100 with the Dead Sea Scrub included as the gift — the Scrub alone is {currency}60, so it costs them nothing",
+        "Buy two Scrubs and the Peeling goes in free on top",
         "The bundle doesn't save money but you get a free bag"
       ],
       optionsEs: [
-        "Compra cualquier producto y lleva el otro con 50% de descuento",
-        "Scrub + Peeling juntos por €100 — ahorras €35 comparado con comprar por separado",
-        "Compra 2 scrubs y lleva 1 peeling gratis",
+        "Compra cualquiera de los dos y el otro te sale a mitad de precio en el momento",
+        "El Peeling a {currency}100 con el Exfoliante del Mar Muerto incluido de regalo — el Exfoliante solo son {currency}60, así que no les cuesta nada",
+        "Compra dos Exfoliantes y el Peeling entra gratis encima",
         "El paquete no ahorra dinero pero llevas bolsa gratis"
       ],
       correctIndex: 1,
       explanation:
-        "The Scrub + Peeling combo at €100 is a proven street winner. The scrub at €35 plus peeling at €65 (or €100 for 2) would normally total more. At €100 bundled, it feels like a complete skincare ritual — scrub first to cleanse, then peel to renew. This bundle works as both a standalone sale AND an upsell after someone buys the scrub. Always know your bundle math before hitting the street.",
+        "You do not invent a bundle for these two — Offer 1 already is one. The Peeling at {currency}100 comes with the Dead Sea Scrub as its gift, and the Scrub on its own is {currency}60. So the customer pays {currency}100 for a {currency}160 pair, and you can say that out loud because it is true. It feels like a complete ritual — scrub first to cleanse, then peel to renew. Always know your bundle math before hitting the street; a saving you cannot show on your fingers is a saving the customer will not believe.",
       explanationEs:
-        "El combo de Scrub + Peeling a €100 es un ganador probado en la calle. El scrub a €35 más peeling a €65 (o €100 por 2) normalmente sumaría más. A €100 empaquetado, se siente como un ritual completo de cuidado de piel — scrub primero para limpiar, luego peeling para renovar. Este paquete funciona como venta independiente Y como venta adicional después de que alguien compra el scrub. Siempre conoce tus números de empaquetado antes de salir a la calle."
+        "No hace falta inventar un paquete para estos dos — la Oferta 1 ya lo es. El Peeling a {currency}100 lleva el Exfoliante del Mar Muerto como regalo, y el Exfoliante solo son {currency}60. Así que la clienta paga {currency}100 por un par que vale {currency}160, y puedes decirlo en voz alta porque es cierto. Se siente como un ritual completo — primero exfoliar, luego renovar. Conoce siempre las cuentas de tus paquetes antes de salir a la calle; un ahorro que no puedes contar con los dedos es un ahorro que la clienta no se va a creer."
     },
     {
       question:
@@ -527,9 +527,9 @@ const quizScrubExpert: GeneralQuiz = {
   title: "Dead Sea Scrub Expert",
   titleEs: "Experto en Scrub del Mar Muerto",
   description:
-    "Master the Dead Sea Minerals Scrub — the easiest entry-point sale. Learn the feel-based demo, mineral benefits, combo selling, and how to turn a €35 scrub into a €100+ bundle.",
+    "Master the Dead Sea Minerals Scrub — the easiest entry-point sale. Learn the feel-based demo, mineral benefits, combo selling, and how to turn a {currency}60 scrub into a {currency}120 trio.",
   descriptionEs:
-    "Domina el Scrub de Minerales del Mar Muerto — la venta de entrada más fácil. Aprende la demo basada en sensación, beneficios de minerales, venta combinada, y cómo convertir un scrub de €35 en un paquete de €100+.",
+    "Domina el Exfoliante de Minerales del Mar Muerto — la venta de entrada más fácil. Aprende la demo basada en la sensación, los beneficios de los minerales, la venta combinada, y cómo convertir un exfoliante de {currency}60 en un trío de {currency}120.",
   icon: "Waves",
   category: "Product Mastery",
   categoryEs: "Dominio de Producto",
@@ -629,26 +629,26 @@ const quizScrubExpert: GeneralQuiz = {
     },
     {
       question:
-        "A customer buys the scrub for €35. What is the BEST next step to increase the sale?",
+        "A customer buys the scrub for {currency}60. What is the BEST next step to increase the sale?",
       questionEs:
-        "Una cliente compra el scrub por €35. ¿Cuál es el MEJOR siguiente paso para aumentar la venta?",
+        "Una clienta compra el exfoliante por {currency}60. ¿Cuál es el MEJOR siguiente paso para aumentar la venta?",
       options: [
         "Thank them and move to the next customer quickly",
-        "Ask: 'Do you want the glow version too?' and offer the Scrub + Peeling bundle for €100 — just €65 more for a complete facial renewal system",
+        "Ask: 'Do you want the glow version too?' and move her to the Peeling at {currency}100 with the Scrub included as its gift — just {currency}40 more for a complete facial renewal system",
         "Give them a discount coupon for next time",
         "Tell them they should have bought more while they were thinking about it"
       ],
       optionsEs: [
         "Agradecer y pasar rápido al siguiente cliente",
-        "Preguntar: '¿Quieres la versión glow también?' y ofrecer el paquete Scrub + Peeling por €100 — solo €65 más por un sistema completo de renovación facial",
+        "Preguntar: '¿Quieres la versión glow también?' y pasarla al Peeling a {currency}100 con el Exfoliante incluido de regalo — solo {currency}40 más por un sistema completo de renovación facial",
         "Darles un cupón de descuento para la próxima vez",
         "Decirles que deberían haber comprado más mientras lo estaban pensando"
       ],
       correctIndex: 1,
       explanation:
-        "The 'glow version' transition is smooth because it builds on what they already bought. They've already said YES once, making a second yes easier. The €100 bundle positions the upsell as a smart addition, not a hard sell. 'Just €65 more' uses the contrast principle — €65 sounds small next to the €100 total. The key: they already trust you (they bought), so the upsell feels like a recommendation from a friend.",
+        "The 'glow version' transition is smooth because it builds on what they already bought. They've already said YES once, making a second yes easier. Moving them to the {currency}100 Peeling — which carries the Scrub as its gift — positions the upsell as a smart addition, not a hard sell. 'Just {currency}40 more' uses the contrast principle, and it is the real gap between {currency}60 and {currency}100, so it survives the customer doing the sum in her head. The key: they already trust you (they bought), so the upsell feels like a recommendation from a friend.",
       explanationEs:
-        "La transición a la 'versión glow' es suave porque construye sobre lo que ya compraron. Ya dijeron SÍ una vez, haciendo un segundo sí más fácil. El paquete de €100 posiciona la venta adicional como una adición inteligente, no una venta forzada. 'Solo €65 más' usa el principio de contraste — €65 suena pequeño junto al total de €100. La clave: ya confían en ti (compraron), entonces la venta adicional se siente como una recomendación de un amigo."
+        "La transición a la 'versión glow' es suave porque construye sobre lo que ya compraron. Ya dijeron SÍ una vez, así que el segundo sí es más fácil. Pasarla al Peeling de {currency}100 — que ya lleva el Exfoliante de regalo — posiciona la venta adicional como una mejora inteligente, no como una venta forzada. 'Solo {currency}40 más' usa el principio de contraste, y es la diferencia real entre {currency}60 y {currency}100, así que aguanta si la clienta hace la cuenta de cabeza. La clave: ya confían en ti (han comprado), así que la venta adicional se siente como la recomendación de un amigo."
     },
     {
       question:
@@ -721,32 +721,32 @@ const quizScrubExpert: GeneralQuiz = {
     },
     {
       question:
-        "A customer says, '€35 is a lot for a scrub.' What is the BEST value reframing technique?",
+        "A customer says, '{currency}60 is a lot for a scrub.' What is the BEST value reframing technique?",
       questionEs:
-        "Una cliente dice: '€35 es mucho para un scrub.' ¿Cuál es la MEJOR técnica de reencuadre de valor?",
+        "Una clienta dice: '{currency}60 es mucho para un exfoliante.' ¿Cuál es la MEJOR técnica de reencuadre de valor?",
       options: [
         "It's actually the cheapest scrub on the market",
-        "This jar lasts 2-3 months with twice-weekly use — that's less than €3 per treatment. One facial at a spa costs €80+",
+        "This jar lasts 8-12 months at one use a week — that's under {currency}2 per treatment. One facial at a spa costs {currency}80+",
         "Quality costs money, cheap products don't work",
         "I'll give you a discount if you buy right now"
       ],
       optionsEs: [
         "Es el scrub más barato del mercado",
-        "Este tarro dura 2-3 meses con uso dos veces por semana — eso es menos de €3 por tratamiento. Un facial en un spa cuesta €80+",
+        "Este frasco dura 8-12 meses con un uso a la semana — eso es menos de {currency}2 por tratamiento. Un facial en un spa cuesta {currency}80+",
         "La calidad cuesta dinero, los productos baratos no funcionan",
         "Te doy descuento si compras ahora mismo"
       ],
       correctIndex: 1,
       explanation:
-        "The cost-per-use calculation is devastatingly effective. €35 sounds like a lot for 'a scrub' — but €3 per treatment sounds like a bargain. The spa comparison (€80+ for one facial) positions your product as a money-saver. Always calculate cost-per-use in advance. This technique transforms the product from 'expensive scrub' to 'affordable luxury treatment at home.'",
+        "The cost-per-use calculation is devastatingly effective. {currency}60 sounds like a lot for 'a scrub' — but under {currency}2 per treatment sounds like a bargain, and it is the honest number: one teaspoon a week, a jar that lasts 8-12 months. The spa comparison ({currency}80+ for one facial) positions your product as a money-saver. Always calculate cost-per-use in advance.",
       explanationEs:
-        "El cálculo de costo por uso es devastadoramente efectivo. €35 suena como mucho para 'un scrub' — pero €3 por tratamiento suena como una ganga. La comparación con spa (€80+ por un facial) posiciona tu producto como un ahorrador. Siempre calcula el costo por uso de antemano. Esta técnica transforma el producto de 'scrub caro' a 'tratamiento de lujo asequible en casa.'"
+        "El cálculo de coste por uso es devastadoramente efectivo. {currency}60 suena a mucho para 'un exfoliante' — pero menos de {currency}2 por tratamiento suena a ganga, y es el número honesto: una cucharadita a la semana, un frasco que dura 8-12 meses. La comparación con el spa ({currency}80+ por un facial) posiciona tu producto como un ahorro. Calcula siempre el coste por uso de antemano."
     },
     {
       question:
-        "When should you offer the Dead Sea Scrub as a standalone €35 sale versus part of a bundle?",
+        "When should you offer the Dead Sea Scrub as a standalone {currency}60 sale versus part of a bundle?",
       questionEs:
-        "¿Cuándo deberías ofrecer el Scrub del Mar Muerto como venta independiente de €35 versus parte de un paquete?",
+        "¿Cuándo deberías ofrecer el Exfoliante del Mar Muerto como venta individual de {currency}60 en vez de dentro de un paquete?",
       options: [
         "Always push the bundle first — never sell standalone",
         "Offer standalone when the customer shows budget hesitation or low engagement — use it as the entry point to build trust before upselling",
@@ -761,9 +761,9 @@ const quizScrubExpert: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "The scrub at €35 is your 'foot in the door' product. When someone is hesitant about higher prices or seems skeptical, the scrub builds trust through its tangible demo. Once they buy and love it, they become a warm lead for the syringe and peeling. Pushing bundles on cold prospects often results in NO sale. Read the customer — low engagement gets the €35 entry, high engagement gets the bundle pitch.",
+        "The scrub at {currency}60 is your 'foot in the door' product. When someone is hesitant about higher prices or seems skeptical, the scrub builds trust through its tangible demo. Once they buy and love it, they become a warm lead for the syringe and peeling. Pushing bundles on cold prospects often results in NO sale. Read the customer — low engagement gets the {currency}60 single, high engagement gets the {currency}120 Buy 2 Get 1 pitch.",
       explanationEs:
-        "El scrub a €35 es tu producto 'pie en la puerta.' Cuando alguien duda de precios más altos o parece escéptico, el scrub construye confianza a través de su demo tangible. Una vez que compran y les encanta, se convierten en un prospecto caliente para la jeringa y el peeling. Empujar paquetes a prospectos fríos a menudo resulta en NINGUNA venta. Lee a la cliente — bajo compromiso recibe la entrada de €35, alto compromiso recibe el pitch del paquete."
+        "El exfoliante a {currency}60 es tu producto 'pie en la puerta'. Cuando alguien duda de precios más altos o parece escéptico, el scrub construye confianza a través de su demo tangible. Una vez que compran y les encanta, se convierten en un prospecto caliente para la jeringa y el peeling. Empujar paquetes a prospectos fríos a menudo resulta en NINGUNA venta. Lee a la cliente — poco enganche se lleva el individual de {currency}60, mucho enganche recibe el pitch del Compra 2 Lleva 1 de {currency}120."
     }
   ]
 };
@@ -837,27 +837,27 @@ const quizNailKitPro: GeneralQuiz = {
         "El Kit de Uñas Francesas incluye garantía de por vida. ¿Cómo deberías presentar esto para maximizar su impacto de ventas?",
       options: [
         "Mention it quickly at the end as an afterthought",
-        "Use it as a trust anchor: 'This company has been around 30 years and still honors lifetime warranties — that's how confident they are. Your €45 is protected forever.'",
+        "Use it as a trust anchor: 'This company has been around 30 years and still honors lifetime warranties — that's how confident they are. Your {currency}60 is protected forever.'",
         "Don't mention it — warranties sound like something will go wrong",
         "Say the warranty is only valid if they buy today"
       ],
       optionsEs: [
         "Mencionarla rápido al final como algo secundario",
-        "Úsala como ancla de confianza: 'Esta empresa lleva 30 años y aún honra garantías de por vida — así de confiados están. Tus €45 están protegidos para siempre.'",
+        "Úsala como ancla de confianza: 'Esta empresa lleva 30 años y aún honra garantías de por vida — así de confiados están. Tus {currency}60 están protegidos para siempre.'",
         "No la menciones — las garantías suenan a que algo saldrá mal",
         "Di que la garantía solo es válida si compran hoy"
       ],
       correctIndex: 1,
       explanation:
-        "The lifetime warranty is a MASSIVE trust signal — but only if you present it with conviction. '30 years and still honoring' proves longevity. 'Protected forever' reframes €45 as a protected investment, not an expense. It removes ALL risk from the purchase decision. When customers feel there's zero risk, they buy. The warranty isn't a footnote — it's one of your strongest closing tools.",
+        "The lifetime warranty is a MASSIVE trust signal — but only if you present it with conviction. '30 years and still honoring' proves longevity. 'Protected forever' reframes {currency}60 as a protected investment, not an expense. It removes ALL risk from the purchase decision. When customers feel there's zero risk, they buy. The warranty isn't a footnote — it's one of your strongest closing tools.",
       explanationEs:
-        "La garantía de por vida es una señal de confianza ENORME — pero solo si la presentas con convicción. '30 años y aún honrando' prueba longevidad. 'Protegidos para siempre' reencuadra €45 como una inversión protegida, no un gasto. Elimina TODO riesgo de la decisión de compra. Cuando los clientes sienten que hay cero riesgo, compran. La garantía no es una nota al pie — es una de tus herramientas de cierre más fuertes."
+        "La garantía de por vida es una señal de confianza ENORME — pero solo si la presentas con convicción. '30 años y aún honrando' prueba longevidad. 'Protegidos para siempre' reencuadra {currency}60 como una inversión protegida, no un gasto. Elimina TODO riesgo de la decisión de compra. Cuando los clientes sienten que hay cero riesgo, compran. La garantía no es una nota al pie — es una de tus herramientas de cierre más fuertes."
     },
     {
       question:
-        "A customer buys the syringe for €140. When is the BEST time to offer the French Nail Kit as an add-on?",
+        "A customer buys the syringe for {currency}300. When is the BEST time to offer the French Nail Kit as an add-on?",
       questionEs:
-        "Una cliente compra la jeringa por €140. ¿Cuándo es el MEJOR momento para ofrecer el Kit de Uñas Francesas como complemento?",
+        "Una clienta compra la jeringa por {currency}300. ¿Cuándo es el MEJOR momento para ofrecer el Kit de Uñas Francesas como complemento?",
       options: [
         "Before you tell them the syringe price, so they feel better about spending",
         "Right AFTER they agree to the syringe but BEFORE they pay — they're in 'buying mode' and the nail kit feels like a small add-on to a big purchase",
@@ -872,9 +872,9 @@ const quizNailKitPro: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "The 'hot state' add-on is one of the most powerful sales techniques. When someone has just said YES to a €140 purchase, their buying resistance is at its lowest. €45 for a nail kit feels trivial compared to €140. They're already holding their wallet, already trusting you, already excited. The psychological cost of saying yes AGAIN is near zero. Strike while the iron is hot — literally between 'yes' and payment.",
+        "The 'hot state' add-on is one of the most powerful sales techniques. When someone has just said YES to a {currency}300 purchase, their buying resistance is at its lowest. {currency}60 for a nail kit feels trivial compared to {currency}300. They're already holding their wallet, already trusting you, already excited. The psychological cost of saying yes AGAIN is near zero. Strike while the iron is hot — literally between 'yes' and payment.",
       explanationEs:
-        "El complemento en 'estado caliente' es una de las técnicas de venta más poderosas. Cuando alguien acaba de decir SÍ a una compra de €140, su resistencia a comprar está en su punto más bajo. €45 por un kit de uñas se siente trivial comparado con €140. Ya tienen su billetera, ya confían en ti, ya están emocionados. El costo psicológico de decir sí OTRA VEZ es casi cero. Golpea mientras el hierro está caliente — literalmente entre el 'sí' y el pago."
+        "El complemento en 'estado caliente' es una de las técnicas de venta más poderosas. Cuando alguien acaba de decir SÍ a una compra de {currency}300, su resistencia a comprar está en su punto más bajo. {currency}60 por un kit de uñas se siente trivial comparado con {currency}300. Ya tienen su billetera, ya confían en ti, ya están emocionados. El costo psicológico de decir sí OTRA VEZ es casi cero. Golpea mientras el hierro está caliente — literalmente entre el 'sí' y el pago."
     },
     {
       question:
@@ -883,21 +883,21 @@ const quizNailKitPro: GeneralQuiz = {
         "La amiga de una cliente dice: 'No compres eso, mejor compra esmalte normal.' ¿Cómo manejas a la amiga sin crear conflicto?",
       options: [
         "Ignore the friend and keep pitching to the buyer",
-        "'Great point! Regular polish is €10 but chips in 2 days. This lasts 2 weeks, never chips, needs zero drying time, and saves €200+ yearly on salon visits. Your friend is smart — she should try it too!'",
+        "'Great point! Regular polish is {currency}10 but chips in 2 days. This lasts 2 weeks, never chips, needs zero drying time, and saves {currency}200+ yearly on salon visits. Your friend is smart — she should try it too!'",
         "Tell the friend to mind her own business",
         "Offer a discount if the friend stops talking"
       ],
       optionsEs: [
         "Ignorar a la amiga y seguir pitch a la compradora",
-        "¡Buen punto! El esmalte normal cuesta €10 pero se desconcha en 2 días. Esto dura 2 semanas, nunca se desconcha, no necesita tiempo de secado, y ahorra €200+ al año en visitas al salón. ¡Tu amiga es inteligente — ella también debería probarlo!",
+        "¡Buen punto! El esmalte normal cuesta {currency}10 pero se desconcha en 2 días. Esto dura 2 semanas, nunca se desconcha, no necesita tiempo de secado, y ahorra {currency}200+ al año en visitas al salón. ¡Tu amiga es inteligente — ella también debería probarlo!",
         "Decirle a la amiga que se ocupe de sus asuntos",
         "Ofrecer descuento si la amiga deja de hablar"
       ],
       correctIndex: 1,
       explanation:
-        "This response is brilliant because it validates the friend's input ('great point!'), educates with facts (2 days vs 2 weeks, €200+ savings), and converts the friend into a prospect ('she should try it too'). You're not arguing — you're agreeing AND upgrading. Turning skeptics into potential second sales is a master-level street skill. Never fight the friend — recruit them.",
+        "This response is brilliant because it validates the friend's input ('great point!'), educates with facts (2 days vs 2 weeks, {currency}200+ savings), and converts the friend into a prospect ('she should try it too'). You're not arguing — you're agreeing AND upgrading. Turning skeptics into potential second sales is a master-level street skill. Never fight the friend — recruit them.",
       explanationEs:
-        "Esta respuesta es brillante porque valida el aporte de la amiga ('¡buen punto!'), educa con hechos (2 días vs 2 semanas, ahorro de €200+), y convierte a la amiga en prospecto ('ella también debería probarlo'). No estás discutiendo — estás acordando Y mejorando. Convertir escépticos en potenciales segundas ventas es una habilidad de nivel maestro en la calle. Nunca pelees con la amiga — reclútala."
+        "Esta respuesta es brillante porque valida el aporte de la amiga ('¡buen punto!'), educa con hechos (2 días vs 2 semanas, ahorro de {currency}200+), y convierte a la amiga en prospecto ('ella también debería probarlo'). No estás discutiendo — estás acordando Y mejorando. Convertir escépticos en potenciales segundas ventas es una habilidad de nivel maestro en la calle. Nunca pelees con la amiga — reclútala."
     },
     {
       question:
@@ -918,9 +918,9 @@ const quizNailKitPro: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "Honesty builds repeat customers. 1-2 weeks is realistic — nails grow, tips wear. But the 'pays for itself in one month' reframes the entire value proposition. At €45 vs €25-40 per salon visit, the math is undeniable. A customer who trusts your honesty becomes a customer for life. A customer who discovers you exaggerated stops buying entirely.",
+        "Honesty builds repeat customers. 1-2 weeks is realistic — nails grow, tips wear. But the 'pays for itself in one month' reframes the entire value proposition. At {currency}60 vs {currency}25-40 per salon visit, the math is undeniable. A customer who trusts your honesty becomes a customer for life. A customer who discovers you exaggerated stops buying entirely.",
       explanationEs:
-        "La honestidad construye clientes recurrentes. 1-2 semanas es realista — las uñas crecen, las puntas se desgastan. Pero 'se paga solo en un mes' reencuadra toda la propuesta de valor. A €45 vs €25-40 por visita al salón, la matemática es innegable. Una cliente que confía en tu honestidad se convierte en cliente de por vida. Una cliente que descubre que exageraste deja de comprar por completo."
+        "La honestidad construye clientes recurrentes. 1-2 semanas es realista — las uñas crecen, las puntas se desgastan. Pero 'se paga solo en un mes' reencuadra toda la propuesta de valor. A {currency}60 frente a {currency}25-40 por visita al salón, la cuenta es innegable. Una cliente que confía en tu honestidad se convierte en cliente de por vida. Una cliente que descubre que exageraste deja de comprar por completo."
     },
     {
       question:
@@ -941,9 +941,9 @@ const quizNailKitPro: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "Gift selling is about recognizing the signal. When someone mentions another person in the context of your product ('my mom would love this'), they're testing the idea. Your response: 'She absolutely would — and at €45 it's the perfect gift that looks like €100.' Men buying for wives/girlfriends are also gold — they want an easy, impressive gift and don't know what to buy. The nail kit is painless, practical, and premium-looking.",
+        "Gift selling is about recognizing the signal. When someone mentions another person in the context of your product ('my mom would love this'), they're testing the idea. Your response: 'She absolutely would — and at {currency}60 it's the perfect gift. Take two and the third is free, {currency}120 for all three.' Men buying for wives/girlfriends are also gold — they want an easy, impressive gift and don't know what to buy. The nail kit is painless, practical, and premium-looking.",
       explanationEs:
-        "Vender regalos se trata de reconocer la señal. Cuando alguien menciona a otra persona en el contexto de tu producto ('a mi mamá le encantaría esto'), están probando la idea. Tu respuesta: 'A ella definitivamente le encantaría — y a €45 es el regalo perfecto que parece de €100.' Los hombres comprando para esposas/novias también son oro — quieren un regalo fácil e impresionante y no saben qué comprar. El kit de uñas es indoloro, práctico y se ve premium."
+        "Vender regalos se trata de reconocer la señal. Cuando alguien menciona a otra persona en el contexto de tu producto ('a mi mamá le encantaría esto'), están probando la idea. Tu respuesta: 'Le encantaría, seguro — y a {currency}60 es el regalo perfecto. Llévate dos y el tercero es gratis, {currency}120 los tres.' Los hombres comprando para esposas/novias también son oro — quieren un regalo fácil e impresionante y no saben qué comprar. El kit de uñas es indoloro, práctico y se ve premium."
     },
     {
       question:
@@ -970,40 +970,40 @@ const quizNailKitPro: GeneralQuiz = {
     },
     {
       question:
-        "A customer says, '€45 seems expensive for a nail buffer.' What is the CORRECT value comparison to use?",
+        "A customer says, '{currency}60 seems expensive for a nail buffer.' What is the CORRECT value comparison to use?",
       questionEs:
-        "Una cliente dice: '€45 parece caro para un pulidor de uñas.' ¿Cuál es la comparación de valor CORRECTA para usar?",
+        "Una clienta dice: '{currency}60 parece caro para un pulidor de uñas.' ¿Cuál es la comparación de valor CORRECTA?",
       options: [
         "It's not expensive, you just don't understand quality",
-        "One salon French manicure costs €25-40 and lasts 1-2 weeks. This kit gives you 50+ manicures for €45 — that's less than €1 per manicure. You save over €1,200 per year",
-        "Other nail kits cost €100+ so this is actually cheap",
-        "If you think €45 is expensive, you can't afford nice things"
+        "One salon French manicure costs {currency}25-40 and lasts 1-2 weeks. This kit gives you 50+ manicures for {currency}60 — barely more than {currency}1 each. You save over {currency}1,200 per year",
+        "Other nail kits cost {currency}100+ so this is actually cheap",
+        "If you think {currency}60 is expensive, you can't afford nice things"
       ],
       optionsEs: [
         "No es caro, simplemente no entiendes calidad",
-        "Una manicura francesa en salón cuesta €25-40 y dura 1-2 semanas. Este kit te da 50+ manicuras por €45 — eso es menos de €1 por manicura. Ahorras más de €1,200 al año",
-        "Otros kits de uñas cuestan €100+ así que esto es barato",
-        "Si piensas que €45 es caro, no puedes permitirte cosas bonitas"
+        "Una manicura francesa en salón cuesta {currency}25-40 y dura 1-2 semanas. Este kit te da 50+ manicuras por {currency}60 — apenas más de {currency}1 cada una. Ahorras más de {currency}1,200 al año",
+        "Otros kits de uñas cuestan {currency}100+ así que esto es barato",
+        "Si piensas que {currency}60 es caro, no puedes permitirte cosas bonitas"
       ],
       correctIndex: 1,
       explanation:
-        "The €1,200/year savings number is a ' jaw-dropper' that reframes €45 as pocket change. '50+ manicures' makes the product feel abundant, not scarce. The math is simple and verifiable. When you can quantify value this clearly, price objections dissolve. Always know your numbers — 'less than €1 per manicure' is a phrase that closes sales.",
+        "The {currency}1,200/year savings number is a 'jaw-dropper' that reframes {currency}60 as pocket change. '50+ manicures' makes the product feel abundant, not scarce. The math is simple and verifiable — {currency}60 across 50 manicures really is about {currency}1 each. When you can quantify value this clearly, price objections dissolve. Always know your numbers.",
       explanationEs:
-        "El número de ahorro de €1,200/año es un 'dejador de boca abierta' que reencuadra €45 como calderilla. '50+ manicuras' hace que el producto se sienta abundante, no escaso. La matemática es simple y verificable. Cuando puedes cuantificar el valor tan claramente, las objeciones de precio se disuelven. Siempre conoce tus números — 'menos de €1 por manicura' es una frase que cierra ventas."
+        "La cifra de ahorro de {currency}1,200 al año deja con la boca abierta y reencuadra {currency}60 como calderilla. '50+ manicuras' hace que el producto se sienta abundante, no escaso. La cuenta es simple y comprobable — {currency}60 entre 50 manicuras sale a cerca de {currency}1 cada una. Cuando cuantificas el valor así de claro, las objeciones de precio se disuelven. Conoce siempre tus números."
     },
     {
       question:
-        "A customer seems interested but hesitant to spend €45. What is the BEST closing technique for this specific product?",
+        "A customer seems interested but hesitant to spend {currency}60. What is the BEST closing technique for this specific product?",
       questionEs:
-        "Una cliente parece interesada pero dudosa en gastar €45. ¿Cuál es la MEJOR técnica de cierre para este producto específico?",
+        "Una clienta parece interesada pero dudosa en gastar {currency}60. ¿Cuál es la MEJOR técnica de cierre para este producto en concreto?",
       options: [
-        "Lower the price immediately to €35",
+        "Lower the price immediately to the {currency}30 floor",
         "The 'one nail' micro-commitment: 'Let me do just ONE nail. If you don't absolutely love how it looks, no pressure at all. But when you see it, you'll want all ten done.'",
         "Tell her to come back tomorrow with more money",
         "Show her a video of someone else using it"
       ],
       optionsEs: [
-        "Bajar el precio inmediatamente a €35",
+        "Bajar el precio de inmediato al mínimo de {currency}30",
         "El micro-compromiso de 'una uña': 'Déjame hacer solo UNA uña. Si no te encanta cómo se ve, ninguna presión. Pero cuando la veas, querrás las diez hechas.'",
         "Decirle que regrese mañana con más dinero",
         "Mostrarle un video de alguien más usándolo"
@@ -1040,21 +1040,21 @@ const quizObjectionsChampion: GeneralQuiz = {
         "Cliente: 'Estoy con un presupuesto muy ajustado ahora mismo.' ¿Qué respuesta es MÁS probable que cierre la venta?",
       options: [
         "I understand — this isn't for everyone",
-        "I get it. Here's the thing — the budget option IS the syringe. One €100 kit replaces €500+ in salon treatments. It's actually saving you money",
+        "I get it. Here's the thing — the budget option IS the Peeling. One {currency}100 bottle is a whole year of treatments and replaces {currency}500+ in salon visits. It's actually saving you money",
         "How much do you have? I'll take whatever you can give",
         "Stop making excuses and invest in yourself"
       ],
       optionsEs: [
         "Entiendo — esto no es para todos",
-        "Lo entiendo. El caso es — la opción económica ES la jeringa. Un kit de €100 reemplaza €500+ en tratamientos de salón. De hecho te está ahorrando dinero",
+        "Te entiendo. El caso es que la opción económica ES el Peeling. Un frasco de {currency}100 es un año entero de tratamientos y sustituye {currency}500+ en visitas al salón. De hecho te está ahorrando dinero",
         "¿Cuánto tienes? Aceptaré lo que puedas dar",
         "Deja de poner excusas e invierte en ti misma"
       ],
       correctIndex: 1,
       explanation:
-        "This response validates their concern ('I get it') then completely reframes the purchase from 'expense' to 'savings.' The 'budget option IS the syringe' is a powerful mental flip. When someone feels broke, offering them a way to SAVE money while still getting the product bypasses the budget objection entirely. You're not asking them to spend — you're showing them how to save.",
+        "This response validates their concern ('I get it') then completely reframes the purchase from 'expense' to 'savings.' The 'budget option IS the Peeling' is a powerful mental flip — and it points them at the product whose promo rung genuinely is {currency}100, so you are not quoting a floor price you should be holding back. When someone feels broke, offering them a way to SAVE money while still getting the product bypasses the budget objection entirely. You're not asking them to spend — you're showing them how to save.",
       explanationEs:
-        "Esta respuesta valida su preocupación ('lo entiendo') y luego reencuadra completamente la compra de 'gasto' a 'ahorro.' La 'opción económica ES la jeringa' es un giro mental poderoso. Cuando alguien se siente sin dinero, ofrecerles una forma de AHORRAR dinero mientras obtienen el producto evade la objeción de presupuesto por completo. No les estás pidiendo que gasten — les estás mostrando cómo ahorrar."
+        "Esta respuesta valida su preocupación ('te entiendo') y luego reencuadra la compra de 'gasto' a 'ahorro'. Lo de 'la opción económica ES el Peeling' es un giro mental potente — y le apunta al producto cuyo escalón de promoción es de verdad {currency}100, así que no sueltas un precio mínimo que deberías guardarte. Cuando alguien se siente sin dinero, ofrecerles una forma de AHORRAR dinero mientras obtienen el producto evade la objeción de presupuesto por completo. No les estás pidiendo que gasten — les estás mostrando cómo ahorrar."
     },
     {
       question:
@@ -1063,37 +1063,37 @@ const quizObjectionsChampion: GeneralQuiz = {
         "Cliente: 'Déjame pensarlo y regreso mañana.' ¿Qué respuesta es la MEJOR?",
       options: [
         "Okay, I'll be here tomorrow — no problem!",
-        "Absolutely, sleep on it. Just so you know — this is the last day at this price. I have 2 units left at €140. Want me to hold one for you with a small deposit?",
+        "Absolutely, sleep on it. Just so you know — this is the last day at this price. I have 2 units left at {currency}300. Want me to hold one for you with a small deposit?",
         "People who say that never come back — are you really interested or just being nice?",
         "You'll forget about it by tomorrow — just buy it now"
       ],
       optionsEs: [
         "Okay, aquí estaré mañana — ¡no hay problema!",
-        "Absolutamente, piénsalo. Solo para que sepas — este es el último día a este precio. Me quedan 2 unidades a €140. ¿Quieres que te reserve una con un pequeño depósito?",
+        "Absolutamente, piénsalo. Solo para que sepas — este es el último día a este precio. Me quedan 2 unidades a {currency}300. ¿Quieres que te reserve una con un pequeño depósito?",
         "La gente que dice eso nunca regresa — ¿realmente te interesa o solo eres amable?",
         "Lo olvidarás para mañana — solo cómpralo ahora"
       ],
       correctIndex: 1,
       explanation:
-        "This response respects their need to think (non-pushy) while creating genuine urgency ('last day,' '2 units left'). The deposit offer is the secret weapon — it requires a small commitment now that makes them far more likely to return. Even a €10 deposit dramatically increases return rates. Never let a 'maybe' walk away without some form of commitment — a deposit, a phone number, or at minimum a business card.",
+        "This response respects their need to think (non-pushy) while creating genuine urgency ('last day,' '2 units left'). The deposit offer is the secret weapon — it requires a small commitment now that makes them far more likely to return. Even a {currency}10 deposit dramatically increases return rates. Never let a 'maybe' walk away without some form of commitment — a deposit, a phone number, or at minimum a business card.",
       explanationEs:
-        "Esta respuesta respeta su necesidad de pensar (no agresiva) mientras crea urgencia genuina ('último día,' '2 unidades'). La oferta de depósito es el arma secreta — requiere un pequeño compromiso ahora que hace mucho más probable que regresen. Incluso un depósito de €10 aumenta dramáticamente las tasas de retorno. Nunca dejes que un 'tal vez' se vaya sin alguna forma de compromiso — un depósito, un número de teléfono, o al mínimo una tarjeta de presentación."
+        "Esta respuesta respeta su necesidad de pensar (no agresiva) mientras crea urgencia genuina ('último día,' '2 unidades'). La oferta de depósito es el arma secreta — requiere un pequeño compromiso ahora que hace mucho más probable que regresen. Incluso un depósito de {currency}10 aumenta dramáticamente las tasas de retorno. Nunca dejes que un 'tal vez' se vaya sin alguna forma de compromiso — un depósito, un número de teléfono, o al mínimo una tarjeta de presentación."
     },
     {
       question:
-        "Customer: 'My husband will kill me if I spend €140 on cream!' What is the SMARTEST response?",
+        "Customer: 'My husband will kill me if I spend {currency}140 on cream!' What is the SMARTEST response?",
       questionEs:
-        "Cliente: '¡Mi esposo me matará si gasto €140 en crema!' ¿Cuál es la respuesta MÁS INTELIGENTE?",
+        "Cliente: '¡Mi esposo me matará si gasto {currency}140 en crema!' ¿Cuál es la respuesta MÁS INTELIGENTE?",
       options: [
         "Your husband doesn't need to know — I can give you a plain bag",
         "How much did your husband spend on his last [watch/hobby/tool]? This is YOUR face. And look at this result — don't YOU deserve to feel this confident every day?",
-        "Then don't tell him the real price — say it was €20",
+        "Then don't tell him the real price — say it was {currency}20",
         "He's being controlling, you should do what you want"
       ],
       optionsEs: [
         "Tu esposo no necesita saber — te doy una bolsa sin marca",
         "¿Cuánto gastó tu esposo en su último [reloj/hobby/herramienta]? Esta es TU cara. Y mira este resultado — ¿TÚ no mereces sentirte así de segura todos los días?",
-        "Entonces no le digas el precio real — di que costó €20",
+        "Entonces no le digas el precio real — di que costó {currency}20",
         "Está siendo controlador, deberías hacer lo que quieras"
       ],
       correctIndex: 1,
@@ -1247,21 +1247,21 @@ const quizObjectionsChampion: GeneralQuiz = {
         "Cliente: 'Necesito revisar el saldo de mi cuenta bancaria primero.' ¿Cuál es la respuesta MÁS efectiva?",
       options: [
         "Go check and come back — I'll hold the price for 10 minutes",
-        "No problem at all. While you're checking — if the €140 is there, you know what to do. If it's a stretch today, I can do the €100 emergency price for you. If even that's too much, the Dead Sea Scrub at €35 gives you a great glow and you can upgrade later. Three options, no pressure — what feels right?",
+        "No problem at all. While you're checking — if the {currency}140 is there, you know what to do. If it's a stretch today, I can do the {currency}100 emergency price for you. If even that's too much, the Dead Sea Scrub at {currency}60 gives you a great glow and you can upgrade later. Three options, no pressure — what feels right?",
         "Don't worry about your balance — just use your credit card",
         "If you need to check your balance, you probably can't afford this"
       ],
       optionsEs: [
         "Ve a revisar y regresa — te guardo el precio por 10 minutos",
-        "Ningún problema. Mientras revisas — si los €140 están ahí, ya sabes qué hacer. Si es un estirón hoy, puedo hacerte el precio de emergencia de €100. Si incluso eso es mucho, el Scrub del Mar Muerto a €35 te da un gran brillo y puedes mejorar después. Tres opciones, sin presión — ¿qué se siente bien?",
+        "Ningún problema. Mientras revisas — si los {currency}140 están ahí, ya sabes qué hacer. Si es un estirón hoy, puedo hacerte el precio de emergencia de {currency}100. Si incluso eso es mucho, el Exfoliante del Mar Muerto a {currency}60 te da un brillo estupendo y puedes subir de nivel después. Tres opciones, sin presión — ¿qué se siente bien?",
         "No te preocupes por tu saldo — solo usa tu tarjeta de crédito",
         "Si necesitas revisar tu saldo, probablemente no puedes permitirte esto"
       ],
       correctIndex: 1,
       explanation:
-        "The 'three options, no pressure' close is devastatingly effective. Instead of a binary yes/no, you give three price points that let them choose their comfort level. This puts THEM in control while guiding them toward a sale. The scrub at €35 becomes the 'safety net' option that almost always results in at least a small sale. And once they experience ANY product, they become a future customer for the full line. Flexibility wins more sales than rigidity.",
+        "The 'three options, no pressure' close is devastatingly effective. Instead of a binary yes/no, you give three price points that let them choose their comfort level. This puts THEM in control while guiding them toward a sale. The scrub at {currency}60 becomes the 'safety net' option that almost always results in at least a small sale. And once they experience ANY product, they become a future customer for the full line. Flexibility wins more sales than rigidity.",
       explanationEs:
-        "El cierre de 'tres opciones, sin presión' es devastadoramente efectivo. En lugar de un sí/no binario, das tres puntos de precio que les permiten elegir su nivel de comodidad. Esto les pone a ELLOS en control mientras los guías hacia una venta. El scrub a €35 se convierte en la opción de 'red de seguridad' que casi siempre resulta en al menos una venta pequeña. Y una vez que experimentan CUALQUIER producto, se convierten en un cliente futuro para la línea completa. La flexibilidad gana más ventas que la rigidez."
+        "El cierre de 'tres opciones, sin presión' es devastadoramente efectivo. En lugar de un sí/no binario, das tres puntos de precio que les permiten elegir su nivel de comodidad. Esto les pone a ELLOS en control mientras los guías hacia una venta. El exfoliante a {currency}60 se convierte en la opción de 'red de seguridad' que casi siempre resulta en al menos una venta pequeña. Y una vez que experimentan CUALQUIER producto, se convierten en un cliente futuro para la línea completa. La flexibilidad gana más ventas que la rigidez."
     }
   ]
 };
@@ -1376,17 +1376,17 @@ const quizBodyLanguage: GeneralQuiz = {
     },
     {
       question:
-        "You notice a customer's voice tone changes from flat/hesitant to higher and more excited when you mention the €140 price point. What does this indicate?",
+        "You notice a customer's voice tone changes from flat/hesitant to higher and more excited when you mention the {currency}140 price point. What does this indicate?",
       questionEs:
-        "Notas que el tono de voz de una cliente cambia de plano/dudoso a más alto y emocionado cuando mencionas el precio de €140. ¿Qué indica esto?",
+        "Notas que el tono de voz de una cliente cambia de plano/dudoso a más alto y emocionado cuando mencionas el precio de {currency}140. ¿Qué indica esto?",
       options: [
-        "They think €140 is too expensive and are getting angry",
+        "They think {currency}140 is too expensive and are getting angry",
         "Vocal tone rising with excitement is a POSITIVE buying signal — it suggests the price is within their acceptable range and they're emotionally engaging with the purchase possibility",
         "They have a sore throat and need water",
         "They want you to lower the price more"
       ],
       optionsEs: [
-        "Piensan que €140 es demasiado caro y se están enojando",
+        "Piensan que {currency}140 es demasiado caro y se están enojando",
         "El tono de voz subiendo con emoción es una señal de compra POSITIVA — sugiere que el precio está dentro de su rango aceptable y se están comprometiendo emocionalmente con la posibilidad de compra",
         "Tienen dolor de garganta y necesitan agua",
         "Quieren que bajes el precio más"

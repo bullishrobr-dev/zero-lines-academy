@@ -1,3 +1,20 @@
+// ─────────────────────────────────────────────────────────────
+// Layout.tsx — app shell
+//
+// Two things were quietly costing every user:
+//
+//  1. Bottom padding was stacked three deep — `pb-24` on <main>, `pb-20` on the
+//     inner motion div, plus each page's own `pb-24`/`pb-20`. That is 176-240px
+//     of dead space at the end of every single screen. There is now exactly one
+//     source of truth for it, right here, sized to the floating nav pill plus
+//     the iPhone home indicator.
+//
+//  2. `/hero-glow.png` is 1.13 MB and lived inside `hidden md:block`.
+//     `display:none` does not stop the download, so every phone on a shop's
+//     4G paid for an image it could never see. It is gone; the ambient wash is
+//     now a CSS gradient that costs nothing.
+// ─────────────────────────────────────────────────────────────
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useEffect, type ReactNode } from 'react';
@@ -9,9 +26,9 @@ interface LayoutProps {
 }
 
 const pageVariants = {
-  initial: { opacity: 0, x: 30 },
+  initial: { opacity: 0, x: 24 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -30 },
+  exit: { opacity: 0, x: -24 },
 };
 
 const pageTransition = {
@@ -20,9 +37,17 @@ const pageTransition = {
   duration: 0.3,
 };
 
+/* Routes where Navbar renders nothing, so no bottom clearance is needed. */
+const NAVLESS_ROUTES = ['/', '/auth', '/first-day'];
+
+/* The single source of bottom padding in the app:
+   nav pill (60px) + its 12px lift + 24px breathing room + the home indicator. */
+const CONTENT_BOTTOM_PADDING = 'pb-[calc(6rem+env(safe-area-inset-bottom,0px))]';
+
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const isOnboarding = location.pathname === '/';
+  const hasNav = !NAVLESS_ROUTES.includes(location.pathname);
 
   // Reset scroll on route change
   useEffect(() => {
@@ -33,34 +58,35 @@ export default function Layout({ children }: LayoutProps) {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-[100dvh] w-full bg-[#0A0A0A] flex justify-center relative overflow-hidden">
-      {/* Desktop glow background */}
-      <div className="hidden md:block fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-20">
-          <img
-            src="/hero-glow.png"
-            alt=""
-            className="w-full h-full object-contain"
-            aria-hidden="true"
-          />
-        </div>
-      </div>
+    <div className="relative flex min-h-[100dvh] w-full justify-center overflow-hidden bg-background">
+      {/* Ambient wash behind the phone frame on wide screens. Pure CSS — the
+          1.13 MB PNG that used to do this job downloaded on phones too. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 hidden md:block"
+        style={{
+          background:
+            'radial-gradient(60% 55% at 50% 30%, rgb(var(--teal) / 0.14) 0%, transparent 70%), radial-gradient(45% 45% at 85% 85%, rgb(var(--coral) / 0.10) 0%, transparent 70%)',
+        }}
+      />
 
-      {/* Offline / Online indicator */}
+      {/* Offline / online indicator */}
       <OfflineBanner />
 
-      {/* Mobile frame */}
+      {/* Phone frame. `pt-safe` keeps content clear of the notch now that the
+          PWA status bar style is `default`. */}
       <div
         className={
           isOnboarding
-            ? 'w-full max-w-[430px] relative z-10 flex flex-col min-h-[100dvh]'
-            : 'w-full max-w-[430px] relative z-10 flex flex-col min-h-[100dvh] border-x border-[#1A1A1A] md:rounded-[24px] md:border md:shadow-2xl overflow-hidden bg-[#0A0A0A]'
+            ? 'relative z-10 flex min-h-[100dvh] w-full max-w-app flex-col pt-safe'
+            : 'relative z-10 flex min-h-[100dvh] w-full max-w-app flex-col overflow-hidden border-line bg-background pt-safe md:rounded-feature md:border md:shadow-feature'
         }
       >
-        {/* Main content area */}
         <main
           id="main-content"
-          className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar relative pb-24"
+          className={`no-scrollbar relative flex-1 overflow-y-auto overflow-x-hidden ${
+            hasNav ? CONTENT_BOTTOM_PADDING : ''
+          }`}
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -70,14 +96,13 @@ export default function Layout({ children }: LayoutProps) {
               animate="animate"
               exit="exit"
               transition={pageTransition}
-              className="min-h-full pb-20"
+              className="min-h-full"
             >
               {children}
             </motion.div>
           </AnimatePresence>
         </main>
 
-        {/* Bottom nav */}
         <Navbar />
       </div>
     </div>

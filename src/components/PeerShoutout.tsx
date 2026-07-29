@@ -1,182 +1,249 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+// ─────────────────────────────────────────────────────────────────────────────
+// PeerShoutout — recognise a teammate.
+//
+// The sender is whoever is signed in (LeaderboardPage reads it from
+// useAuthContext), and the list handed to this sheet has already had that
+// person removed — so shouting yourself out is impossible by construction. The
+// hook rejects `from === to` as well, in case another caller forgets.
+//
+// It also no longer claims delivery. With no server the message is queued on
+// this device, and the success state says so.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Megaphone, Check, X } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+
+export interface ShoutoutTeammate {
+  id: string;
+  name: string;
+  initials: string;
+  flag: string;
+}
 
 export interface PeerShoutoutProps {
-  employees: { id: string; name: string; initials: string; flag: string }[];
-  currentUserId: string;
+  /** Everyone the signed-in seller may recognise — never includes themselves. */
+  teammates: ShoutoutTeammate[];
   onSubmit: (to: string, message: string, reaction: string) => void;
   onClose: () => void;
 }
 
-const QUICK_REACTIONS = [
-  { emoji: "🔥", label: "Great stop" },
-  { emoji: "💪", label: "Amazing energy" },
-  { emoji: "🎯", label: "Nailed the close" },
-  { emoji: "⭐", label: "Team player" },
-];
+const COPY = {
+  en: {
+    title: 'Shout out a teammate',
+    subtitle: 'Recognise great work on the door',
+    select: 'Who was great today?',
+    message: 'What did they do well?',
+    placeholder: 'She turned a hard no into a demo…',
+    reaction: 'Quick reaction',
+    send: 'Send shout-out',
+    later: 'Maybe later',
+    close: 'Close',
+    sentTitle: 'Shout-out queued',
+    sentBody: 'It reaches them once the shops are connected to a server.',
+    empty: 'There is nobody else on the roster yet.',
+    reactions: ['Great stop', 'Amazing energy', 'Nailed the close', 'Team player'],
+  },
+  es: {
+    title: 'Reconoce a un compañero',
+    subtitle: 'Valora el buen trabajo en la puerta',
+    select: '¿Quién ha estado genial hoy?',
+    message: '¿Qué ha hecho bien?',
+    placeholder: 'Convirtió un no rotundo en una demo…',
+    reaction: 'Reacción rápida',
+    send: 'Enviar reconocimiento',
+    later: 'Ahora no',
+    close: 'Cerrar',
+    sentTitle: 'Reconocimiento en cola',
+    sentBody: 'Le llegará cuando las tiendas estén conectadas a un servidor.',
+    empty: 'Aún no hay nadie más en la plantilla.',
+    reactions: ['Gran parada', 'Energía increíble', 'Cierre perfecto', 'Buen compañero'],
+  },
+} as const;
 
-export default function PeerShoutout({
-  employees,
-  currentUserId,
-  onSubmit,
-  onClose,
-}: PeerShoutoutProps) {
-  const [selectedTeammate, setSelectedTeammate] = useState("");
-  const [message, setMessage] = useState("");
-  const [selectedReaction, setSelectedReaction] = useState("");
+const REACTION_EMOJI = ['🔥', '💪', '🎯', '⭐'];
+
+export default function PeerShoutout({ teammates, onSubmit, onClose }: PeerShoutoutProps) {
+  const { language } = useLanguage();
+  const t = COPY[language === 'es' ? 'es' : 'en'];
+
+  const [selectedTeammate, setSelectedTeammate] = useState('');
+  const [message, setMessage] = useState('');
+  const [selectedReaction, setSelectedReaction] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const teammates = employees.filter((e) => e.id !== currentUserId);
+  const canSubmit = selectedTeammate !== '' && message.trim().length > 0;
 
   const handleSubmit = () => {
-    if (!selectedTeammate || !message.trim()) return;
+    if (!canSubmit) return;
     onSubmit(selectedTeammate, message.trim(), selectedReaction);
     setSubmitted(true);
-    setTimeout(() => {
-      onClose();
-    }, 2000);
+    setTimeout(onClose, 2000);
   };
-
-  const canSubmit = selectedTeammate && message.trim().length > 0;
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-ink/50 backdrop-blur-sm sm:items-center"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={t.title}
     >
       <motion.div
         initial={{ y: 400, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 400, opacity: 0 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="w-full max-w-[430px] rounded-t-3xl bg-[#0A0A0A] border border-[#1A1A1A] p-5 shadow-2xl"
+        transition={{ type: 'spring', damping: 26, stiffness: 300 }}
+        className="max-h-[88vh] w-full max-w-app overflow-y-auto rounded-t-feature border border-line bg-surface p-5 pb-safe shadow-feature sm:rounded-feature"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Handle bar */}
-        <div className="flex justify-center mb-4">
-          <div className="w-10 h-1 rounded-full bg-[#2A2A2A]" />
+        <div className="mb-4 flex justify-center">
+          <div className="h-1 w-10 rounded-full bg-line-strong/50" />
         </div>
 
         <AnimatePresence mode="wait">
           {submitted ? (
             <motion.div
               key="success"
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="flex flex-col items-center py-10"
+              className="flex flex-col items-center py-10 text-center"
             >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", damping: 12, stiffness: 200 }}
-                className="w-20 h-20 rounded-full bg-[#0ABAB5]/20 flex items-center justify-center mb-4"
-              >
-                <span className="text-4xl">🎉</span>
-              </motion.div>
-              <h3 className="text-xl font-bold text-white mb-1">Shoutout Sent!</h3>
-              <p className="text-[#888] text-sm text-center">
-                You both earned <span className="text-[#0ABAB5] font-semibold">+5 XP</span>
-              </p>
+              <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-teal text-on-teal">
+                <Check className="h-9 w-9" aria-hidden="true" />
+              </div>
+              <h3 className="mb-1 text-h3 text-ink">{t.sentTitle}</h3>
+              <p className="max-w-[280px] text-body-small text-ink-2">{t.sentBody}</p>
             </motion.div>
           ) : (
-            <motion.div
-              key="form"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
+            <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               {/* Header */}
-              <div className="flex items-center gap-3 mb-5">
-                <span className="text-3xl">👏</span>
-                <div>
-                  <h3 className="text-lg font-bold text-white">Shoutout a Teammate</h3>
-                  <p className="text-xs text-[#888]">Recognize great work, earn 5 XP each</p>
+              <div className="mb-5 flex items-start gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral text-on-coral">
+                  <Megaphone className="h-5 w-5" aria-hidden="true" />
                 </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-h4 text-ink">{t.title}</h3>
+                  <p className="text-caption text-ink-2">{t.subtitle}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="btn-icon shrink-0"
+                  aria-label={t.close}
+                >
+                  <X className="h-5 w-5" aria-hidden="true" />
+                </button>
               </div>
 
-              {/* Teammate Select */}
-              <label className="block text-sm font-medium text-[#AAA] mb-2">
-                Select teammate
-              </label>
-              <div className="grid grid-cols-2 gap-2 mb-4">
-                {teammates.map((teammate) => (
-                  <motion.button
-                    key={teammate.id}
-                    whileTap={{ scale: 0.96 }}
-                    onClick={() => setSelectedTeammate(teammate.id)}
-                    className={`flex items-center gap-2 p-3 rounded-xl border transition-colors ${
-                      selectedTeammate === teammate.id
-                        ? "border-[#0ABAB5] bg-[#0ABAB5]/10"
-                        : "border-[#1A1A1A] bg-[#111] hover:border-[#2A2A2A]"
+              {teammates.length === 0 ? (
+                <p className="rounded-card bg-surface-sunken p-4 text-center text-body-small text-ink-2">
+                  {t.empty}
+                </p>
+              ) : (
+                <>
+                  {/* Teammate */}
+                  <p className="mb-2 text-overline text-ink-3">{t.select}</p>
+                  <div className="mb-5 grid grid-cols-2 gap-2">
+                    {teammates.map((mate) => {
+                      const active = selectedTeammate === mate.id;
+                      return (
+                        <button
+                          key={mate.id}
+                          type="button"
+                          aria-pressed={active}
+                          onClick={() => setSelectedTeammate(mate.id)}
+                          className={`flex min-h-touch items-center gap-2 rounded-card border p-2.5 text-left transition-colors ${
+                            active
+                              ? 'border-teal bg-teal-tint'
+                              : 'border-line bg-surface-sunken'
+                          }`}
+                        >
+                          <div
+                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-caption font-bold ${
+                              active ? 'bg-teal text-on-teal' : 'border border-line bg-surface text-ink-2'
+                            }`}
+                          >
+                            {mate.initials}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="truncate text-caption font-semibold text-ink">{mate.name}</p>
+                            <p className="text-caption text-ink-3" aria-hidden="true">
+                              {mate.flag}
+                            </p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Message */}
+                  <label htmlFor="shoutout-message" className="mb-2 block text-overline text-ink-3">
+                    {t.message}
+                  </label>
+                  <textarea
+                    id="shoutout-message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder={t.placeholder}
+                    rows={3}
+                    className="mb-5 w-full resize-none rounded-card border border-line-strong bg-surface-sunken p-3 text-body-small text-ink placeholder:text-ink-3 focus:border-teal-strong"
+                  />
+
+                  {/* Reactions */}
+                  <p className="mb-2 text-overline text-ink-3">{t.reaction}</p>
+                  <div className="mb-6 flex gap-2">
+                    {t.reactions.map((label, i) => {
+                      const active = selectedReaction === label;
+                      return (
+                        <button
+                          key={label}
+                          type="button"
+                          aria-pressed={active}
+                          onClick={() => setSelectedReaction(label)}
+                          className={`flex min-h-touch flex-1 flex-col items-center justify-center gap-0.5 rounded-card border px-1 py-2 transition-colors ${
+                            active ? 'border-teal bg-teal-tint' : 'border-line bg-surface-sunken'
+                          }`}
+                        >
+                          <span className="text-lg leading-none" aria-hidden="true">
+                            {REACTION_EMOJI[i]}
+                          </span>
+                          <span
+                            className={`text-center text-caption leading-tight ${
+                              active ? 'text-teal-strong' : 'text-ink-2'
+                            }`}
+                          >
+                            {label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Submit */}
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={!canSubmit}
+                    className={`w-full ${
+                      canSubmit ? 'btn-primary' : 'btn-quiet cursor-not-allowed opacity-60'
                     }`}
                   >
-                    <div className="w-8 h-8 rounded-full bg-[#1A1A1A] flex items-center justify-center text-xs font-bold text-[#0ABAB5]">
-                      {teammate.initials}
-                    </div>
-                    <div className="text-left">
-                      <p className="text-xs font-medium text-white truncate">{teammate.name}</p>
-                      <p className="text-[10px] text-[#888]">{teammate.flag}</p>
-                    </div>
-                  </motion.button>
-                ))}
-              </div>
+                    {t.send}
+                  </button>
+                </>
+              )}
 
-              {/* Message */}
-              <label className="block text-sm font-medium text-[#AAA] mb-2">
-                What did they do great today?
-              </label>
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="They absolutely crushed that difficult customer..."
-                className="w-full h-20 p-3 rounded-xl bg-[#111] border border-[#1A1A1A] text-white text-sm placeholder-[#555] focus:outline-none focus:border-[#0ABAB5] resize-none mb-4"
-              />
-
-              {/* Quick Reactions */}
-              <label className="block text-sm font-medium text-[#AAA] mb-2">
-                Quick reaction
-              </label>
-              <div className="flex gap-2 mb-5">
-                {QUICK_REACTIONS.map((reaction) => (
-                  <motion.button
-                    key={reaction.label}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setSelectedReaction(reaction.label)}
-                    className={`flex-1 flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl border text-xs transition-colors ${
-                      selectedReaction === reaction.label
-                        ? "border-[#0ABAB5] bg-[#0ABAB5]/10 text-[#0ABAB5]"
-                        : "border-[#1A1A1A] bg-[#111] text-[#888] hover:border-[#2A2A2A]"
-                    }`}
-                  >
-                    <span className="text-lg">{reaction.emoji}</span>
-                    <span className="text-[10px] text-center leading-tight">{reaction.label}</span>
-                  </motion.button>
-                ))}
-              </div>
-
-              {/* Submit */}
-              <motion.button
-                whileTap={{ scale: 0.97 }}
-                onClick={handleSubmit}
-                disabled={!canSubmit}
-                className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-colors ${
-                  canSubmit
-                    ? "bg-[#0ABAB5] text-black hover:bg-[#0ABAB5]/90"
-                    : "bg-[#1A1A1A] text-[#555] cursor-not-allowed"
-                }`}
-              >
-                Send Shoutout (+5 XP)
-              </motion.button>
-
-              {/* Dismiss */}
               <button
+                type="button"
                 onClick={onClose}
-                className="w-full mt-2 py-2 text-xs text-[#666] hover:text-[#AAA] transition-colors"
+                className="mt-2 min-h-touch w-full text-caption text-ink-3"
               >
-                Maybe later
+                {t.later}
               </button>
             </motion.div>
           )}

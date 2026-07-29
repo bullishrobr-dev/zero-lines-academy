@@ -154,12 +154,12 @@ const hesitantTouristExercise: Exercise = {
 // ═════════════════════════════════════════════════════════════
 const priceObjectionExercise: Exercise = {
   id: 'ex-price-objection',
-  title: 'Price Objection at €300',
-  titleEs: 'Objeción de Precio a €300',
+  title: 'Price Objection at {currency}300',
+  titleEs: 'Objeción de Precio a {currency}300',
   description:
-    'The customer loves the demo but says €300 is too much. Practice navigating the price ladder.',
+    'The customer loves the demo but says {currency}300 is too much. Practice navigating the price ladder.',
   descriptionEs:
-    'Al cliente le encanta la demo pero dice que €300 es demasiado. Practica navegar la escalera de precios.',
+    'Al cliente le encanta la demo pero dice que {currency}300 es demasiado. Practica navegar la escalera de precios.',
   type: 'roleplay',
   icon: 'Banknote',
   xpReward: 30,
@@ -172,9 +172,9 @@ const priceObjectionExercise: Exercise = {
     customerProfileEs:
       'Una mujer francesa de unos 50 años, bien vestida. Le asombró la demo de la jeringuilla — sus ojos se iluminaron cuando vio el resultado. Pero ahora duda.',
     scenario:
-      'Marie says: "Wow, the result is incredible... but €300? That is a lot of money. I was not planning to spend that much today." She starts to hand the product back. What do you do?',
+      'Marie says: "Wow, the result is incredible... but {currency}300? That is a lot of money. I was not planning to spend that much today." She starts to hand the product back. What do you do?',
     scenarioEs:
-      'Marie dice: "Wow, el resultado es increíble... pero ¿€300? Eso es mucho dinero. No planeaba gastar tanto hoy." Empieza a devolverte el producto. ¿Qué haces?',
+      'Marie dice: "Wow, el resultado es increíble... pero ¿{currency}300? Eso es mucho dinero. No planeaba gastar tanto hoy." Empieza a devolverte el producto. ¿Qué haces?',
     responses: [
       {
         text: '"Okay, I understand. Maybe next time!" (You take the product back)',
@@ -186,18 +186,18 @@ const priceObjectionExercise: Exercise = {
         score: 0,
       },
       {
-        text: '"I completely understand — €300 does sound like a lot. But let me ask you this: how much would you expect to pay in a salon in Paris for this exact same treatment? [She says €400-500] Exactly. And this gives you multiple treatments at home. But let me check something for you..." (You pause, then offer) "I can do €210 today — that is 30% off — and I will include a free gift of your choice: cream, cleanser, or peeling. How does that sound?"',
+        text: '"I completely understand — {currency}300 does sound like a lot. But let me ask you this: how much would you expect to pay in a salon in Paris for this exact same treatment? [She says {currency}400-500] Exactly. And this gives you multiple treatments at home. But let me check something for you..." (You pause, then offer) "I can do {currency}210 today — that is 30% off — and I will include a free gift of your choice: cream, cleanser, or peeling. How does that sound?"',
         textEs:
-          '"Lo entiendo completamente — €300 suena a mucho. Pero déjeme preguntarle: ¿cuánto esperaría pagar en un salón en París por este mismo tratamiento exacto? [Ella dice €400-500] Exacto. Y esto le da tratamientos múltiples en casa. Pero déjeme comprobar algo para usted..." (Pausas, luego ofreces) "Puedo hacer €210 hoy — eso es 30% descuento — e incluiré un regalo gratis a su elección: crema, limpiador o peeling. ¿Qué le parece?"',
+          '"Lo entiendo completamente — {currency}300 suena a mucho. Pero déjeme preguntarle: ¿cuánto esperaría pagar en un salón en París por este mismo tratamiento exacto? [Ella dice {currency}400-500] Exacto. Y esto le da tratamientos múltiples en casa. Pero déjeme comprobar algo para usted..." (Pausas, luego ofreces) "Puedo hacer {currency}210 hoy — eso es 30% descuento — e incluiré un regalo gratis a su elección: crema, limpiador o peeling. ¿Qué le parece?"',
         feedback:
-          'EXCELLENT! This is master-level selling. You: 1) Validated her concern, 2) Reframed the price by asking about salon costs (she answers HERSELF that it should cost more), 3) Offered Option 1 at €210 (30% off) with a free gift instead of just dropping the price. You moved down the ladder correctly: €300 → €210 + gift.',
+          'EXCELLENT! This is master-level selling. You: 1) Validated her concern, 2) Reframed the price by asking about salon costs (she answers HERSELF that it should cost more), 3) Offered Option 1 at {currency}210 (30% off) with a free gift instead of just dropping the price. You moved down the ladder correctly: {currency}300 → {currency}210 + gift.',
         feedbackEs:
-          '¡EXCELENTE! Esto es venta a nivel maestro. Tú: 1) Validaste su preocupación, 2) Reformulaste el precio preguntando sobre costes de salón (ella misma responde que debería costar más), 3) Ofreciste la Opción 1 a €210 (30% descuento) con regalo gratis en lugar de solo bajar el precio. Bajaste la escalera correctamente: €300 → €210 + regalo.',
+          '¡EXCELENTE! Esto es venta a nivel maestro. Tú: 1) Validaste su preocupación, 2) Reformulaste el precio preguntando sobre costes de salón (ella misma responde que debería costar más), 3) Ofreciste la Opción 1 a {currency}210 (30% descuento) con regalo gratis en lugar de solo bajar el precio. Bajaste la escalera correctamente: {currency}300 → {currency}210 + regalo.',
         score: 100,
       },
       {
-        text: '"No no no — €300 is actually very cheap! You are getting a great deal!"',
-        textEs: '"No no no — ¡€300 es realmente muy barato! ¡Está consiguiendo una ganga!"',
+        text: '"No no no — {currency}300 is actually very cheap! You are getting a great deal!"',
+        textEs: '"No no no — ¡{currency}300 es realmente muy barato! ¡Está consiguiendo una ganga!"',
         feedback:
           'Telling a customer their objection is wrong triggers defensiveness. She said it is "a lot of money" — and for her, it IS. Arguing about it makes you the enemy. Instead, reframe the value or add more to the offer.',
         feedbackEs:
@@ -205,12 +205,12 @@ const priceObjectionExercise: Exercise = {
         score: 10,
       },
       {
-        text: '"I hear you. What if I can do it for €175? Just for you, today only."',
-        textEs: '"Le entiendo. ¿Y si puedo hacerlo por €175? Solo para usted, solo hoy."',
+        text: '"I hear you. What if I can do it for {currency}175? Just for you, today only."',
+        textEs: '"Le entiendo. ¿Y si puedo hacerlo por {currency}175? Solo para usted, solo hoy."',
         feedback:
-          'You dropped from €300 to €175 without trying Offer Option 1 (€210 + gift) or Option 2 (€300 + 2nd syringe free). You skipped two whole steps on the price ladder! Always work the ladder: €300 → €210/gift → €300/2nd syringe → €175 → €140 → €100.',
+          'You dropped from {currency}300 to {currency}175 without trying Offer Option 1 ({currency}210 + gift) or Option 2 ({currency}300 + 2nd syringe free). You skipped two whole steps on the price ladder! Always work the ladder: {currency}300 → {currency}210/gift → {currency}300/2nd syringe → {currency}175 → {currency}140 → {currency}100.',
         feedbackEs:
-          'Bajaste de €300 a €175 sin probar la Opción de Oferta 1 (€210 + regalo) u Opción 2 (€300 + 2ª jeringuilla gratis). ¡Te saltaste dos pasos enteros en la escalera de precios! Siempre trabaja la escalera: €300 → €210/regalo → €300/2ª jeringuilla → €175 → €140 → €100.',
+          'Bajaste de {currency}300 a {currency}175 sin probar la Opción de Oferta 1 ({currency}210 + regalo) u Opción 2 ({currency}300 + 2ª jeringuilla gratis). ¡Te saltaste dos pasos enteros en la escalera de precios! Siempre trabaja la escalera: {currency}300 → {currency}210/regalo → {currency}300/2ª jeringuilla → {currency}175 → {currency}140 → {currency}100.',
         score: 30,
       },
     ],
@@ -240,9 +240,9 @@ const giftShopperExercise: Exercise = {
     customerProfileEs:
       'Una mujer española de unos 30 años, mirando todos los productos con expresión confundida. Sigue yendo de un lado a otro entre el exfoliante, la manteca corporal y el kit de uñas.',
     scenario:
-      'Clara approaches you and says: "I need to buy Christmas gifts for my sister, my mom, and my best friend — three people. I want to spend around €120 total. What do you recommend?"',
+      'Clara approaches you and says: "I need to buy Christmas gifts for my sister, my mom, and my best friend — three people. I want to spend around {currency}120 total. What do you recommend?"',
     scenarioEs:
-      'Clara se te acerca y dice: "Necesito comprar regalos de Navidad para mi hermana, mi madre y mi mejor amiga — tres personas. Quiero gastar alrededor de €120 en total. ¿Qué recomiendas?"',
+      'Clara se te acerca y dice: "Necesito comprar regalos de Navidad para mi hermana, mi madre y mi mejor amiga — tres personas. Quiero gastar alrededor de {currency}120 en total. ¿Qué recomiendas?"',
     responses: [
       {
         text: '"Everything is good, just pick whatever you want!"',
@@ -254,31 +254,31 @@ const giftShopperExercise: Exercise = {
         score: 0,
       },
       {
-        text: '"Perfect — I have exactly what you need. Our Buy 2, Get 1 Free deal on Scrub and Body Butter: you pick any 3 products for €120. One for your sister, one for your mom, one for your friend — and you stay right on budget. Plus I will include free gift bags for all three. Which scents would you like?"',
+        text: '"Perfect — I have exactly what you need. Our Buy 2, Get 1 Free deal on Scrub and Body Butter: you pick any 3 products for {currency}120. One for your sister, one for your mom, one for your friend — and you stay right on budget. Plus I will include free gift bags for all three. Which scents would you like?"',
         textEs:
-          '"Perfecto — tengo exactamente lo que necesita. Nuestra oferta Compra 2, Lleva 1 Gratis en Exfoliante y Manteca Corporal: elige 3 productos por €120. Uno para su hermana, uno para su madre, uno para su amiga — y se mantiene justo en el presupuesto. Además incluiré bolsas de regalo gratis para los tres. ¿Qué aromas le gustarían?"',
+          '"Perfecto — tengo exactamente lo que necesita. Nuestra oferta Compra 2, Lleva 1 Gratis en Exfoliante y Manteca Corporal: elige 3 productos por {currency}120. Uno para su hermana, uno para su madre, uno para su amiga — y se mantiene justo en el presupuesto. Además incluiré bolsas de regalo gratis para los tres. ¿Qué aromas le gustarían?"',
         feedback:
-          'PERFECT! You: 1) Showed confidence ("exactly what you need"), 2) Matched her €120 budget perfectly with Buy 2 Get 1 (€120/3), 3) Made it personal (one for each person), 4) Added free gift bags (perceived value), 5) Asked a follow-up question ("which scents") to move toward closing. This is consultative selling at its finest.',
+          'PERFECT! You: 1) Showed confidence ("exactly what you need"), 2) Matched her {currency}120 budget perfectly with Buy 2 Get 1 ({currency}120/3), 3) Made it personal (one for each person), 4) Added free gift bags (perceived value), 5) Asked a follow-up question ("which scents") to move toward closing. This is consultative selling at its finest.',
         feedbackEs:
-          '¡PERFECTO! Tú: 1) Mostraste confianza ("exactamente lo que necesita"), 2) Coincidiste con su presupuesto de €120 perfectamente con Compra 2 Lleva 1 (€120/3), 3) Lo hiciste personal (uno para cada persona), 4) Añadiste bolsas de regalo gratis (valor percibido), 5) Hiciste una pregunta de seguimiento ("qué aromas") para avanzar hacia el cierre. Esto es venta consultiva en su máxima expresión.',
+          '¡PERFECTO! Tú: 1) Mostraste confianza ("exactamente lo que necesita"), 2) Coincidiste con su presupuesto de {currency}120 perfectamente con Compra 2 Lleva 1 ({currency}120/3), 3) Lo hiciste personal (uno para cada persona), 4) Añadiste bolsas de regalo gratis (valor percibido), 5) Hiciste una pregunta de seguimiento ("qué aromas") para avanzar hacia el cierre. Esto es venta consultiva en su máxima expresión.',
         score: 100,
       },
       {
-        text: '"Get three Nail Kits at €60 each — €180 total. One for everyone!"',
-        textEs: '"¡Lleve tres Kits de Uñas a €60 cada uno — €180 en total! ¡Uno para cada una!"',
+        text: '"Get three Nail Kits at {currency}60 each — {currency}180 total. One for everyone!"',
+        textEs: '"¡Lleve tres Kits de Uñas a {currency}60 cada uno — {currency}180 en total! ¡Uno para cada una!"',
         feedback:
-          'You exceeded her €120 budget by €60 without even acknowledging it! She said €120 total. Always respect the customer\'s stated budget and work within it. Three Nail Kits on Buy 2 Get 1 would be €120/3 — that would have worked.',
+          'You exceeded her {currency}120 budget by {currency}60 without even acknowledging it! She said {currency}120 total. Always respect the customer\'s stated budget and work within it. Three Nail Kits on Buy 2 Get 1 would be {currency}120/3 — that would have worked.',
         feedbackEs:
-          '¡Excediste su presupuesto de €120 en €60 sin siquiera reconocerlo! Ella dijo €120 en total. Respeta siempre el presupuesto indicado del cliente y trabaja dentro de él. Tres Kits de Uñas en Compra 2 Lleva 1 serían €120/3 — eso habría funcionado.',
+          '¡Excediste su presupuesto de {currency}120 en {currency}60 sin siquiera reconocerlo! Ella dijo {currency}120 en total. Respeta siempre el presupuesto indicado del cliente y trabaja dentro de él. Tres Kits de Uñas en Compra 2 Lleva 1 serían {currency}120/3 — eso habría funcionado.',
         score: 20,
       },
       {
-        text: '"The scrub is really popular. Your mom and sister would both love it. Two scrubs for €60 — done!"',
-        textEs: '"El exfoliante es muy popular. A su madre y hermana les encantaría. Dos exfoliantes por €60 — ¡listo!"',
+        text: '"The scrub is really popular. Your mom and sister would both love it. Two scrubs for {currency}60 — done!"',
+        textEs: '"El exfoliante es muy popular. A su madre y hermana les encantaría. Dos exfoliantes por {currency}60 — ¡listo!"',
         feedback:
-          'Decent but missed a huge opportunity. She needs THREE gifts for €120. You sold two scrubs for €60 when you could have sold 3 products for €120 with Buy 2 Get 1. Also, you did not create any emotional connection. Functional but not great.',
+          'Decent but missed a huge opportunity. She needs THREE gifts for {currency}120. You sold two scrubs for {currency}60 when you could have sold 3 products for {currency}120 with Buy 2 Get 1. Also, you did not create any emotional connection. Functional but not great.',
         feedbackEs:
-          'Decente pero perdió una gran oportunidad. Ella necesita TRES regalos por €120. Vendiste dos exfoliantes por €60 cuando podrías haber vendido 3 productos por €120 con Compra 2 Lleva 1. Además, no creaste ninguna conexión emocional. Funcional pero no genial.',
+          'Decente pero perdió una gran oportunidad. Ella necesita TRES regalos por {currency}120. Vendiste dos exfoliantes por {currency}60 cuando podrías haber vendido 3 productos por {currency}120 con Compra 2 Lleva 1. Además, no creaste ninguna conexión emocional. Funcional pero no genial.',
         score: 40,
       },
     ],
@@ -305,30 +305,30 @@ const syringePriceDrill: Exercise = {
   content: {
     product: 'Hyaluronic Acid Syringe',
     productEs: 'Jeringuilla de Ácido Hialurónico',
-    currentPrice: 'Europe price: €500',
+    currentPrice: 'Europe price: {currency}500',
     customerReaction:
       'Customer nods but says "That IS expensive in Europe." They are waiting for you to continue.',
     customerReactionEs:
       'El cliente asiente pero dice "Eso SÍ es caro en Europa." Te están esperando para que continúes.',
     options: [
       {
-        text: 'Drop immediately to the voucher price of €100',
-        textEs: 'Bajar inmediatamente al precio de vale de €100',
+        text: 'Drop immediately to the voucher price of {currency}100',
+        textEs: 'Bajar inmediatamente al precio de vale de {currency}100',
         correct: false,
         explanation:
-          'Too fast! You skipped the Andorra base price (€300), Offer Option 1 (€210 + gift), Offer Option 2 (€300 + 2nd syringe free), the adaptive fallback (€175), AND the voucher close (€140). You just gave away all your margin.',
+          'Too fast! You skipped the {locationName} base price ({currency}300), Offer Option 1 ({currency}210 + gift), Offer Option 2 ({currency}300 + 2nd syringe free), the adaptive fallback ({currency}175), AND the voucher close ({currency}140). You just gave away all your margin.',
         explanationEs:
-          '¡Demasiado rápido! Te saltaste el precio base de Andorra (€300), la Opción de Oferta 1 (€210 + regalo), la Opción de Oferta 2 (€300 + 2ª jeringuilla gratis), la reserva adaptativa (€175) Y el cierre con vale (€140). Acabas de regalar todo tu margen.',
+          '¡Demasiado rápido! Te saltaste el precio base de {locationName} ({currency}300), la Opción de Oferta 1 ({currency}210 + regalo), la Opción de Oferta 2 ({currency}300 + 2ª jeringuilla gratis), la reserva adaptativa ({currency}175) Y el cierre con vale ({currency}140). Acabas de regalar todo tu margen.',
       },
       {
-        text: 'Reveal the Andorra price: "Here in Andorra, it is only €300 — a fraction of what you would pay in Paris."',
+        text: 'Reveal the {locationName} price: "Here in {locationName}, it is only {currency}300 — a fraction of what you would pay in Paris."',
         textEs:
-          'Revelar el precio de Andorra: "Aquí en Andorra, es solo €300 — una fracción de lo que pagaría en París."',
+          'Revelar el precio de {locationName}: "Aquí en {locationName}, es solo {currency}300 — una fracción de lo que pagaría en París."',
         correct: true,
         explanation:
-          'Correct! The flow is: Europe anchor (€500) → Andorra base (€300) → Offer Option 1 (€210 + gift) or Option 2 (€300 + 2nd syringe) → adaptive (€175) → voucher (€140) → minimum (€100). You are on step 2.',
+          'Correct! The flow is: Europe anchor ({currency}500) → {locationName} base ({currency}300) → Offer Option 1 ({currency}210 + gift) or Option 2 ({currency}300 + 2nd syringe) → adaptive ({currency}175) → voucher ({currency}140) → minimum ({currency}100). You are on step 2.',
         explanationEs:
-          '¡Correcto! El flujo es: Anclaje de Europa (€500) → Base de Andorra (€300) → Opción de Oferta 1 (€210 + regalo) u Opción 2 (€300 + 2ª jeringuilla) → adaptativo (€175) → vale (€140) → mínimo (€100). Estás en el paso 2.',
+          '¡Correcto! El flujo es: Anclaje de Europa ({currency}500) → Base de {locationName} ({currency}300) → Opción de Oferta 1 ({currency}210 + regalo) u Opción 2 ({currency}300 + 2ª jeringuilla) → adaptativo ({currency}175) → vale ({currency}140) → mínimo ({currency}100). Estás en el paso 2.',
       },
       {
         text: 'Tell them the product is out of stock',
@@ -338,13 +338,13 @@ const syringePriceDrill: Exercise = {
         explanationEs: '¿Por qué mentirías sobre el stock? Están interesados y comprometidos. Esto no tiene sentido.',
       },
       {
-        text: 'Immediately push the two-for-one offer without mentioning €300',
-        textEs: 'Empujar inmediatamente la oferta de dos por uno sin mencionar €300',
+        text: 'Immediately push the two-for-one offer without mentioning {currency}300',
+        textEs: 'Empujar inmediatamente la oferta de dos por uno sin mencionar {currency}300',
         correct: false,
         explanation:
-          'You skipped a step! The customer needs to hear the €300 Andorra base price first to appreciate the value of the €300 + 2nd syringe free offer. Without the anchor, the offer has no context.',
+          'You skipped a step! The customer needs to hear the {currency}300 {locationName} base price first to appreciate the value of the {currency}300 + 2nd syringe free offer. Without the anchor, the offer has no context.',
         explanationEs:
-          '¡Te saltaste un paso! El cliente necesita oír el precio base de Andorra de €300 primero para apreciar el valor de la oferta de €300 + 2ª jeringuilla gratis. Sin el anclaje, la oferta no tiene contexto.',
+          '¡Te saltaste un paso! El cliente necesita oír el precio base de {locationName} de {currency}300 primero para apreciar el valor de la oferta de {currency}300 + 2ª jeringuilla gratis. Sin el anclaje, la oferta no tiene contexto.',
       },
     ],
   },
@@ -368,47 +368,47 @@ const peelingPriceDrill: Exercise = {
   content: {
     product: 'Glycolic Peeling',
     productEs: 'Peeling Glucólico',
-    currentPrice: 'Andorra base: €150',
+    currentPrice: '{locationName} base: {currency}150',
     customerReaction:
-      'Customer says "Hmm, €150 is still quite a lot. I like the idea of the peeling but..." She trails off, looking uncertain.',
+      'Customer says "Hmm, {currency}150 is still quite a lot. I like the idea of the peeling but..." She trails off, looking uncertain.',
     customerReactionEs:
-      'La cliente dice "Hmm, €150 es todavía bastante. Me gusta la idea del peeling pero..." Se queda en silencio, pareciendo insegura.',
+      'La cliente dice "Hmm, {currency}150 es todavía bastante. Me gusta la idea del peeling pero..." Se queda en silencio, pareciendo insegura.',
     options: [
       {
-        text: 'Offer Option 1: "I can do €100 for the peeling — that is 50% off the Europe price of €200 — and I will include a free Dead Sea Body Scrub gift."',
-        textEs: 'Ofrecer Opción 1: "Puedo hacer €100 por el peeling — eso es 50% descuento del precio europeo de €200 — e incluiré un regalo gratis de Exfoliante Corporal del Mar Muerto."',
+        text: 'Offer Option 1: "I can do {currency}100 for the peeling — that is 50% off the Europe price of {currency}200 — and I will include a free Dead Sea Body Scrub gift."',
+        textEs: 'Ofrecer Opción 1: "Puedo hacer {currency}100 por el peeling — eso es 50% descuento del precio europeo de {currency}200 — e incluiré un regalo gratis de Exfoliante Corporal del Mar Muerto."',
         correct: true,
         explanation:
-          'Correct! After the Andorra base (€150), Offer Option 1 is €100 (50% off the €200 Europe price) + free Dead Sea Body Scrub gift. This is a powerful value presentation that drops the price AND adds value.',
+          'Correct! After the {locationName} base ({currency}150), Offer Option 1 is {currency}100 (50% off the {currency}200 Europe price) + free Dead Sea Body Scrub gift. This is a powerful value presentation that drops the price AND adds value.',
         explanationEs:
-          '¡Correcto! Después de la base de Andorra (€150), la Opción de Oferta 1 es €100 (50% descuento del precio europeo de €200) + regalo gratis de Exfoliante Corporal del Mar Muerto. Esta es una presentación de valor poderosa que baja el precio Y añade valor.',
+          '¡Correcto! Después de la base de {locationName} ({currency}150), la Opción de Oferta 1 es {currency}100 (50% descuento del precio europeo de {currency}200) + regalo gratis de Exfoliante Corporal del Mar Muerto. Esta es una presentación de valor poderosa que baja el precio Y añade valor.',
       },
       {
-        text: 'Immediately drop to the voucher price of €50',
-        textEs: 'Bajar inmediatamente al precio de vale de €50',
+        text: 'Immediately drop to the voucher price of {currency}50',
+        textEs: 'Bajar inmediatamente al precio de vale de {currency}50',
         correct: false,
         explanation:
-          'Too fast! You skipped Offer Option 1 (€100 + scrub gift), Offer Option 2 (€150 + Day & Night Cream free), AND the adaptive fallback (€70). Work the ladder step by step.',
+          'Too fast! You skipped Offer Option 1 ({currency}100 + scrub gift), Offer Option 2 ({currency}150 + Day & Night Cream free), AND the adaptive fallback ({currency}70). Work the ladder step by step.',
         explanationEs:
-          '¡Demasiado rápido! Te saltaste la Opción de Oferta 1 (€100 + regalo exfoliante), la Opción de Oferta 2 (€150 + Crema Día y Noche gratis) Y la reserva adaptativa (€70). Trabaja la escalera paso a paso.',
+          '¡Demasiado rápido! Te saltaste la Opción de Oferta 1 ({currency}100 + regalo exfoliante), la Opción de Oferta 2 ({currency}150 + Crema Día y Noche gratis) Y la reserva adaptativa ({currency}70). Trabaja la escalera paso a paso.',
       },
       {
-        text: 'Tell them €150 is the lowest you can go',
-        textEs: 'Decirles que €150 es lo más bajo que puedes bajar',
+        text: 'Tell them {currency}150 is the lowest you can go',
+        textEs: 'Decirles que {currency}150 es lo más bajo que puedes bajar',
         correct: false,
         explanation:
-          'Wrong! You have more tools in your toolbox. Offer Option 1 (€100 + scrub), Option 2 (€150 + cream), adaptive (€70), and voucher close (€50) are all still available. Never claim a price is your lowest when it is not.',
+          'Wrong! You have more tools in your toolbox. Offer Option 1 ({currency}100 + scrub), Option 2 ({currency}150 + cream), adaptive ({currency}70), and voucher close ({currency}50) are all still available. Never claim a price is your lowest when it is not.',
         explanationEs:
-          '¡Incorrecto! Tienes más herramientas en tu caja de herramientas. La Opción de Oferta 1 (€100 + exfoliante), Opción 2 (€150 + crema), adaptativo (€70) y cierre con vale (€50) todavía están disponibles. Nunca digas que un precio es tu mínimo cuando no lo es.',
+          '¡Incorrecto! Tienes más herramientas en tu caja de herramientas. La Opción de Oferta 1 ({currency}100 + exfoliante), Opción 2 ({currency}150 + crema), adaptativo ({currency}70) y cierre con vale ({currency}50) todavía están disponibles. Nunca digas que un precio es tu mínimo cuando no lo es.',
       },
       {
-        text: 'Offer Option 2: "At €150 I will include our Day & Night Cream completely free — that is a €60 value on top of your peeling."',
-        textEs: 'Ofrecer Opción 2: "A €150 incluiré nuestra Crema Día y Noche completamente gratis — eso es un valor de €60 además de su peeling."',
+        text: 'Offer Option 2: "At {currency}150 I will include our Day & Night Cream completely free — that is a {currency}60 value on top of your peeling."',
+        textEs: 'Ofrecer Opción 2: "A {currency}150 incluiré nuestra Crema Día y Noche completamente gratis — eso es un valor de {currency}60 además de su peeling."',
         correct: false,
         explanation:
-          'Option 2 maintains the €150 price by adding the Day & Night Cream free. But the customer already signaled hesitation at €150 — she needs a price DROP, not just added value. Option 1 (€100 + scrub) would be the better first move here.',
+          'Option 2 maintains the {currency}150 price by adding the Day & Night Cream free. But the customer already signaled hesitation at {currency}150 — she needs a price DROP, not just added value. Option 1 ({currency}100 + scrub) would be the better first move here.',
         explanationEs:
-          'La Opción 2 mantiene el precio de €150 añadiendo la Crema Día y Noche gratis. Pero la cliente ya mostró duda en €150 — necesita una BAJADA de precio, no solo valor añadido. La Opción 1 (€100 + exfoliante) sería el mejor primer movimiento aquí.',
+          'La Opción 2 mantiene el precio de {currency}150 añadiendo la Crema Día y Noche gratis. Pero la cliente ya mostró duda en {currency}150 — necesita una BAJADA de precio, no solo valor añadido. La Opción 1 ({currency}100 + exfoliante) sería el mejor primer movimiento aquí.',
       },
     ],
   },
@@ -442,25 +442,25 @@ const matchTechniqueExercise: Exercise = {
         term: 'Europe Price Anchor',
         termEs: 'Anclaje de Precio de Europa',
         definition:
-          'Start by mentioning the high European price (€500 for syringe, €200 for peeling, €100 for scrub/butter/nail kit) to make the Andorra price feel like a bargain.',
+          'Start by mentioning the high European price ({currency}500 for syringe, {currency}200 for peeling, {currency}100 for scrub/butter/nail kit) to make the {locationName} price feel like a bargain.',
         definitionEs:
-          'Empieza mencionando el alto precio europeo (€500 para jeringuilla, €200 para peeling, €100 para exfoliante/manteca/kit uñas) para que el precio de Andorra parezca una ganga.',
+          'Empieza mencionando el alto precio europeo ({currency}500 para jeringuilla, {currency}200 para peeling, {currency}100 para exfoliante/manteca/kit uñas) para que el precio de {locationName} parezca una ganga.',
       },
       {
         term: 'Two-Choice Close',
         termEs: 'Cierre de Dos Opciones',
         definition:
-          'Present two positive options that both lead to a sale, such as "one syringe at €210 with gift, or two syringes at €300 with the second free."',
+          'Present two positive options that both lead to a sale, such as "one syringe at {currency}210 with gift, or two syringes at {currency}300 with the second free."',
         definitionEs:
-          'Presenta dos opciones positivas que ambas llevan a una venta, como "una jeringuilla a €210 con regalo, o dos jeringuillas a €300 con la segunda gratis."',
+          'Presenta dos opciones positivas que ambas llevan a una venta, como "una jeringuilla a {currency}210 con regalo, o dos jeringuillas a {currency}300 con la segunda gratis."',
       },
       {
         term: 'Voucher Close',
         termEs: 'Cierre con Vale',
         definition:
-          'Your last-resort minimum price (€100 for syringe, €50 for peeling, €30 for scrub/nail kit) used only when the customer is genuinely walking away.',
+          'Your last-resort minimum price ({currency}100 for syringe, {currency}50 for peeling, {currency}30 for scrub/nail kit) used only when the customer is genuinely walking away.',
         definitionEs:
-          'Tu precio mínimo de último recurso (€100 para jeringuilla, €50 para peeling, €30 para exfoliante/kit uñas) usado solo cuando el cliente realmente se está yendo.',
+          'Tu precio mínimo de último recurso ({currency}100 para jeringuilla, {currency}50 para peeling, {currency}30 para exfoliante/kit uñas) usado solo cuando el cliente realmente se está yendo.',
       },
       {
         term: 'Assumptive Close',
@@ -521,9 +521,9 @@ const orderPitchExercise: Exercise = {
         correctOrder: 1,
       },
       {
-        text: 'Anchor the value with the Europe price: "In Paris or London, this treatment costs €500 per session."',
+        text: 'Anchor the value with the Europe price: "In Paris or London, this treatment costs {currency}500 per session."',
         textEs:
-          'Anclar el valor con el precio de Europa: "En París o Londres, este tratamiento cuesta €500 por sesión."',
+          'Anclar el valor con el precio de Europa: "En París o Londres, este tratamiento cuesta {currency}500 por sesión."',
         correctOrder: 2,
       },
       {
@@ -532,14 +532,14 @@ const orderPitchExercise: Exercise = {
         correctOrder: 3,
       },
       {
-        text: 'Reveal the Andorra price: "Here, it is just €300 — and you get multiple treatments."',
+        text: 'Reveal the {locationName} price: "Here, it is just {currency}300 — and you get multiple treatments."',
         textEs:
-          'Revelar el precio de Andorra: "Aquí, es solo €300 — y obtiene tratamientos múltiples."',
+          'Revelar el precio de {locationName}: "Aquí, es solo {currency}300 — y obtiene tratamientos múltiples."',
         correctOrder: 4,
       },
       {
-        text: 'If they hesitate, offer Option 1 (€210 + free gift) or Option 2 (€300 + 2nd syringe free).',
-        textEs: 'Si dudan, ofrecer Opción 1 (€210 + regalo gratis) u Opción 2 (€300 + 2ª jeringuilla gratis).',
+        text: 'If they hesitate, offer Option 1 ({currency}210 + free gift) or Option 2 ({currency}300 + 2nd syringe free).',
+        textEs: 'Si dudan, ofrecer Opción 1 ({currency}210 + regalo gratis) u Opción 2 ({currency}300 + 2ª jeringuilla gratis).',
         correctOrder: 5,
       },
       {
@@ -680,8 +680,8 @@ const theDoubterExercise: Exercise = {
         score: 0,
       },
       {
-        text: '"But it is only €300! That is nothing for what you get — and you clearly can afford it with that bag!"',
-        textEs: '"¡Pero son solo €300! Eso no es nada por lo que obtiene — ¡y claramente puede permitírselo con ese bolso!"',
+        text: '"But it is only {currency}300! That is nothing for what you get — and you clearly can afford it with that bag!"',
+        textEs: '"¡Pero son solo {currency}300! Eso no es nada por lo que obtiene — ¡y claramente puede permitírselo con ese bolso!"',
         feedback:
           'You are arguing about price AND making assumptions about her wealth. Her objection is NOT about price — it is about needing the product when she already has a premium cream. Address the right objection! Also, commenting on her bag is invasive.',
         feedbackEs:

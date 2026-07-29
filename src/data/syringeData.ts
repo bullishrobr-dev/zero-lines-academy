@@ -233,7 +233,7 @@ export const syringeData = {
     promoScript:
       '"Right now, we have an incredible promotion: take it for 30% off, which makes it {currency}210, and you\'ll also get a small gift \u2014 you can choose between a Day Cream, Night Cream, Cleanser, or Peeling."',
     promoScriptEs:
-      '"Ahora mismo, tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con 30% de descuento, lo que lo deja en {currency}210, y tambi\u00e9n recibir\u00e1s un peque\u00f1o regalo \u2014 puedes elegir entre una Crema de D\u00eda, Crema de Noche, Limpiador, o Exfoliante."',
+      '"Ahora mismo, tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con 30% de descuento, lo que lo deja en {currency}210, y tambi\u00e9n recibir\u00e1s un peque\u00f1o regalo \u2014 puedes elegir entre una Crema de D\u00eda, Crema de Noche, Limpiador, o Peeling."',
 
     noGiftLabel: 'Remove Gift',
     noGiftLabelEs: 'Sin Regalo',
