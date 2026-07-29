@@ -24,6 +24,26 @@ import {
   Waves,
   Scissors,
   ArrowRight,
+  Drama,
+  ShieldQuestion,
+  AlertTriangle,
+  XCircle,
+  PartyPopper,
+  Sword,
+  Timer,
+  Baby,
+  Video,
+  Frown,
+  RefreshCw,
+  Wallet,
+  Clock,
+  Heart,
+  Shield,
+  Palette,
+  Leaf,
+  ShoppingCart,
+  RotateCcw,
+  CreditCard,
   type LucideIcon,
 } from 'lucide-react';
 import { createElement, useMemo } from 'react';
@@ -31,7 +51,14 @@ import { categories, getLessonsForCategory, type Category } from '../data/lesson
 import { useLanguage } from '../contexts/LanguageContext';
 import { LESSON_TIERS, TIER_NAMES } from '../data/lessonTiers';
 
-const iconMap: Record<string, LucideIcon> = { Brain, Users, Hand, Sparkles };
+const iconMap: Record<string, LucideIcon> = {
+  Brain, Users, Hand, Sparkles,
+  // Icons used by the Scenarios and Objections lessons. Without these,
+  // 19 of the 20 fell back to a generic sparkle.
+  Drama, ShieldQuestion, AlertTriangle, XCircle, PartyPopper, Sword, Eye, Timer,
+  Baby, Video, Frown, RefreshCw, Wallet, Clock, Heart, Shield, Palette, Leaf,
+  ShoppingCart, RotateCcw, CreditCard,
+};
 
 /** The icon is data-driven, so it is resolved and instantiated in one step —
  *  binding it to a capitalised local first would be a component created during
@@ -60,7 +87,7 @@ function categoryTagline(category: Category, isEs: boolean): string {
   return category.subtitle;
 }
 
-type Hue = 'teal' | 'violet' | 'coral' | 'gold';
+type Hue = 'teal' | 'violet' | 'coral' | 'gold' | 'warning' | 'success';
 
 /* Same assignment as TrainingHub — four paths, four worlds. */
 const CATEGORY_HUE: Record<string, Hue> = {
@@ -68,12 +95,30 @@ const CATEGORY_HUE: Record<string, Hue> = {
   connecting: 'violet',
   stopping: 'coral',
   products: 'gold',
+  scenarios: 'warning',
+  objections: 'success',
 };
 
 const HUE: Record<
   Hue,
   { wash: string; chip: string; ink: string; bar: string; fill: string; onFill: string }
 > = {
+  warning: {
+    wash: 'hero-dawn',
+    chip: 'bg-warning-tint',
+    ink: 'text-warning',
+    bar: 'bg-warning',
+    fill: 'bg-warning',
+    onFill: 'text-on-warning',
+  },
+  success: {
+    wash: 'hero-day',
+    chip: 'bg-success-tint',
+    ink: 'text-success',
+    bar: 'bg-success',
+    fill: 'bg-success',
+    onFill: 'text-on-success',
+  },
   teal: {
     wash: 'hero-day',
     chip: 'bg-teal-tint',

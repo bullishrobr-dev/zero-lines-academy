@@ -32,7 +32,7 @@ const LS_QUIZZES = 'zl_backend_quiz_results';
  * behind the lesson routes; importing it here would pull it into the initial
  * bundle for every user.
  */
-export const TOTAL_LESSON_COUNT = 31;
+export const TOTAL_LESSON_COUNT = 51;
 
 // ── Helpers ──
 function loadJSON<T>(key: string, fallback: T): T {

@@ -56,6 +56,7 @@ import {
   TIER_NAMES,
   isTierUnlocked,
   UNLOCK_THRESHOLD,
+  isLessonTiered,
 } from '../data/lessonTiers';
 
 /* ── Language helpers ────────────────────────────────────────────────────── */
@@ -535,15 +536,23 @@ export default function LessonView() {
                 {t('locked')}
               </span>
             ) : (
-              tierInfo && (
-                <span className="rounded-full bg-surface-sunken px-2.5 py-1 text-caption font-semibold text-ink-2">
-                  <span className="tabular-nums">
-                    {tierInfo.tierNum}/{tierInfo.totalTiers}
+              // Untiered lessons (Scenarios, Objections) are always-open
+              // practice material, so a "1/6 · First Day" chip would be a lie.
+              (isLessonTiered(lesson.id) ? (
+                tierInfo && (
+                  <span className="rounded-full bg-surface-sunken px-2.5 py-1 text-caption font-semibold text-ink-2">
+                    <span className="tabular-nums">
+                      {tierInfo.tierNum}/{tierInfo.totalTiers}
+                    </span>
+                    {' · '}
+                    {tierInfo.tierName}
                   </span>
-                  {' · '}
-                  {tierInfo.tierName}
+                )
+              ) : (
+                <span className="rounded-full bg-surface-sunken px-2.5 py-1 text-caption font-semibold text-ink-2">
+                  {isEs ? 'Práctica' : 'Practice'}
                 </span>
-              )
+              ))
             )}
           </div>
 

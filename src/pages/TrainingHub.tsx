@@ -14,7 +14,10 @@
 
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Brain, Users, Hand, Sparkles, ChevronLeft, Lock, ArrowRight, type LucideIcon } from 'lucide-react';
+import {
+  Brain, Users, Hand, Sparkles, Drama, ShieldQuestion, AlertTriangle, XCircle, PartyPopper, Sword, Eye, Timer, Baby, Video, Frown, RefreshCw, Wallet, Clock, Heart, Shield, Palette, Leaf, ShoppingCart, RotateCcw, CreditCard,
+  ChevronLeft, Lock, ArrowRight, type LucideIcon,
+} from 'lucide-react';
 import { useMemo } from 'react';
 import { categories, getLessonsForCategory } from '../data/lessons';
 import { useProgress } from '../hooks/useProgress';
@@ -24,13 +27,20 @@ import { TIER_NAMES, getTierCompletion, isTierUnlocked } from '../data/lessonTie
 
 /* ─── Helpers ─── */
 
-const iconMap: Record<string, LucideIcon> = { Brain, Users, Hand, Sparkles };
+const iconMap: Record<string, LucideIcon> = {
+  Brain, Users, Hand, Sparkles,
+  // Icons used by the Scenarios and Objections lessons. Without these,
+  // 19 of the 20 fell back to a generic sparkle.
+  Drama, ShieldQuestion, AlertTriangle, XCircle, PartyPopper, Sword, Eye, Timer,
+  Baby, Video, Frown, RefreshCw, Wallet, Clock, Heart, Shield, Palette, Leaf,
+  ShoppingCart, RotateCcw, CreditCard,
+};
 
 function getIcon(name: string): LucideIcon {
   return iconMap[name] || Sparkles;
 }
 
-type Hue = 'teal' | 'violet' | 'coral' | 'gold';
+type Hue = 'teal' | 'violet' | 'coral' | 'gold' | 'warning' | 'success';
 
 /* One hue per category — see also CategoryHub, which mirrors this map. */
 const categoryMeta: Record<
@@ -59,7 +69,25 @@ const categoryMeta: Record<
   },
 };
 
+/* Categories with no translation-key entry above still need a hue. */
+const EXTRA_CATEGORY_HUE: Record<string, Hue> = {
+  scenarios: 'warning',
+  objections: 'success',
+};
+
 const HUE: Record<Hue, { surface: string; chip: string; ink: string; bar: string }> = {
+  warning: {
+    surface: 'feature-warning',
+    chip: 'bg-warning-tint',
+    ink: 'text-warning',
+    bar: 'bg-warning',
+  },
+  success: {
+    surface: 'feature-success',
+    chip: 'bg-success-tint',
+    ink: 'text-success',
+    bar: 'bg-success',
+  },
   teal: { surface: '', chip: 'bg-teal-tint', ink: 'text-teal-strong', bar: 'bg-teal' },
   violet: {
     surface: 'feature-violet',
@@ -210,7 +238,7 @@ export default function TrainingHub() {
       >
         {categoryData.map((cat, i) => {
           const CatIcon = getIcon(cat.icon);
-          const hue = HUE[cat.meta?.hue ?? 'teal'];
+          const hue = HUE[cat.meta?.hue ?? EXTRA_CATEGORY_HUE[cat.id] ?? 'teal'];
           return (
             <motion.button
               key={cat.id}
@@ -228,12 +256,12 @@ export default function TrainingHub() {
               <span className="min-w-0 flex-1">
                 <span className="flex items-center gap-2">
                   <span className="min-w-0 flex-1 text-h3 text-ink">
-                    {cat.meta ? t(cat.meta.titleKey) : cat.title}
+                    {cat.meta ? t(cat.meta.titleKey) : (isEs && cat.titleEs) || cat.title}
                   </span>
                   <ArrowRight size={20} className={`shrink-0 ${hue.ink}`} aria-hidden="true" />
                 </span>
                 <span className="mt-0.5 block text-body-small text-ink-2">
-                  {cat.meta ? t(cat.meta.descKey) : cat.subtitle}
+                  {cat.meta ? t(cat.meta.descKey) : (isEs && cat.subtitleEs) || cat.subtitle}
                 </span>
 
                 <span className="mb-1.5 mt-4 flex items-center justify-between gap-2">

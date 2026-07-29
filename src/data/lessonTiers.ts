@@ -72,6 +72,19 @@ export const UNLOCK_THRESHOLD = 80; // % completion needed to unlock next tier
 
 // ── Helpers ──
 
+/**
+ * Whether a lesson sits on the gated tier path at all.
+ *
+ * Scenarios and Objections deliberately are not: they are reference material a
+ * seller dips into mid-shift, not a seventh and eighth step of the ladder.
+ * Adding them to LESSON_TIERS as tier 1 would have taken that tier from 5 to 25
+ * lessons, so someone who finished the real tier 1 would sit at 20% and never
+ * unlock tier 2.
+ */
+export function isLessonTiered(lessonId: string): boolean {
+  return LESSON_TIERS[lessonId] !== undefined;
+}
+
 export function getTierForLesson(lessonId: string): number {
   return LESSON_TIERS[lessonId] ?? 1;
 }

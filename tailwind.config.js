@@ -62,7 +62,9 @@ export default {
 
         /* ── Status ── */
         success: { DEFAULT: token('success'), tint: token('success-tint') },
+        'on-success': token('on-success'),
         warning: { DEFAULT: token('warning'), tint: token('warning-tint') },
+        'on-warning': token('on-warning'),
         danger: { DEFAULT: token('danger'), tint: token('danger-tint') },
 
         /* ── shadcn/ui compatibility ── */
