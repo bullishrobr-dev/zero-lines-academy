@@ -7,12 +7,17 @@ export type UserLocation = 'andorra' | 'gibraltar';
 
 export interface User {
   id: string;
-  email: string;
+  /**
+   * What the person types to sign in. Replaced email: sellers on a shop floor
+   * do not all have a work address, and a short username is far quicker to
+   * type on a phone between customers.
+   */
+  username: string;
   name: string;
-  password: string; // plain text for mock — real app would hash
   role: UserRole;
   location: UserLocation;
-  managerId?: string;
+  /** Username of their manager, if any. */
+  managerUsername?: string;
   createdAt: string;
 }
 

@@ -19,7 +19,8 @@ import {
 import * as backend from '../backend/mockBackend';
 import type { User } from '../backend/types';
 
-export type SafeUser = Omit<User, 'password'>;
+/** The roster no longer stores passwords on the user object at all. */
+export type SafeUser = User;
 
 interface AuthContextType {
   user: SafeUser | null;
@@ -27,8 +28,7 @@ interface AuthContextType {
   isAdmin: boolean;
   isManager: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  signup: (data: backend.SignupData) => Promise<{ success: boolean; error?: string }>;
+  login: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   refreshUser: () => void;
 }
@@ -99,9 +99,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   /** Kept on the interface for callers, but there is no async bootstrap. */
   const [isLoading, setIsLoading] = useState(false);
 
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (username: string, password: string) => {
     setIsLoading(true);
-    const result = await backend.login(email, password);
+    const result = await backend.login(username, password);
     setIsLoading(false);
     if (result.success && result.user) {
       claimDeviceFor(result.user.id);
@@ -111,17 +111,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { success: false, error: result.error };
   }, []);
 
-  const signup = useCallback(async (data: backend.SignupData) => {
-    setIsLoading(true);
-    const result = await backend.signup(data);
-    setIsLoading(false);
-    if (result.success && result.user) {
-      claimDeviceFor(result.user.id);
-      setUser(result.user);
-      return { success: true };
-    }
-    return { success: false, error: result.error };
-  }, []);
 
   const logout = useCallback(() => {
     backend.logout();
@@ -141,11 +130,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isManager: user?.role === 'manager' || user?.role === 'admin',
       isLoading,
       login,
-      signup,
       logout,
       refreshUser,
     }),
-    [user, isLoading, login, signup, logout, refreshUser]
+    [user, isLoading, login, logout, refreshUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

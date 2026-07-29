@@ -176,7 +176,7 @@ export function useLeaderboard(
   currentUserId: string,
   timeframe: Timeframe = 'week'
 ): UseLeaderboardReturn {
-  const [roster, setRoster] = useState<Omit<User, 'password'>[]>([]);
+  const [roster, setRoster] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [shoutouts, setShoutouts] = useState<Shoutout[]>(() =>
     loadJSON<Shoutout[]>(STORAGE_KEY_SHOUTOUTS, [])
