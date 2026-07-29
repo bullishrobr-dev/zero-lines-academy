@@ -32,6 +32,8 @@ interface SlideData {
   titleKey: TranslationKey;
   descKey: TranslationKey;
   image: string;
+  /** Where to hold the crop — these are tall portraits in a wide hero. */
+  focus: string;
   alt: { en: string; es: string };
 }
 
@@ -41,9 +43,12 @@ const slides: SlideData[] = [
     titleKey: 'onboardingTitle1',
     descKey: 'onboardingDesc1',
     image: '/onboarding-1.webp',
+    // Held low so the wordmark printed in the photograph does not sit directly
+    // under the wordmark we overlay.
+    focus: '50% 88%',
     alt: {
-      en: 'The Zero Lines wordmark on a black jar, surrounded by dark green leaves.',
-      es: 'El logotipo de Zero Lines en un tarro negro, rodeado de hojas verde oscuro.',
+      en: 'Dark green botanical leaves lit from the side, the Zero Lines house style.',
+      es: 'Hojas botánicas verde oscuro iluminadas de lado, el estilo de Zero Lines.',
     },
   },
   {
@@ -51,6 +56,7 @@ const slides: SlideData[] = [
     titleKey: 'onboardingTitle2',
     descKey: 'onboardingDesc2',
     image: '/onboarding-2.webp',
+    focus: '50% 32%',
     alt: {
       en: "A woman's face split down the middle: deeply lined skin on one side, smooth skin on the other.",
       es: 'El rostro de una mujer dividido por la mitad: piel muy marcada en un lado, piel lisa en el otro.',
@@ -61,6 +67,7 @@ const slides: SlideData[] = [
     titleKey: 'onboardingTitle3',
     descKey: 'onboardingDesc3',
     image: '/onboarding-3.webp',
+    focus: '50% 42%',
     alt: {
       en: 'A seller demonstrating a product to a smiling customer across a Zero Lines counter.',
       es: 'Una vendedora mostrando un producto a una clienta sonriente en un mostrador de Zero Lines.',
@@ -164,7 +171,7 @@ export default function OnboardingPage() {
       onPointerUp={(e) => swipe(pointerStart.current - e.clientX)}
     >
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <div className="relative h-[44vh] min-h-[260px] w-full shrink-0 overflow-hidden">
+      <div className="relative h-[48vh] min-h-[280px] w-full shrink-0 overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.img
             key={current}
@@ -178,6 +185,7 @@ export default function OnboardingPage() {
             loading={current === 0 ? 'eager' : 'lazy'}
             decoding="async"
             draggable={false}
+            style={{ objectPosition: slide.focus }}
             className="absolute inset-0 h-full w-full object-cover"
           />
         </AnimatePresence>
@@ -211,18 +219,19 @@ export default function OnboardingPage() {
 
           {/* Half the sellers are Spanish-first and the language control
               otherwise sits behind sign-in, three screens away. */}
-          <div className="absolute right-2 top-2 flex items-center rounded-full bg-black/45 p-0.5 backdrop-blur-sm">
+          <div className="absolute right-2 top-2 flex items-center rounded-full bg-black/40 p-0.5 backdrop-blur-sm">
             {(['en', 'es'] as const).map((lang) => (
               <button
                 key={lang}
                 type="button"
                 onClick={() => setLanguage(lang)}
                 aria-pressed={language === lang}
-                className={`min-h-[36px] rounded-full px-3 text-caption font-semibold transition-colors ${
+                aria-label={lang === 'en' ? t('authEnglish') : t('authSpanish')}
+                className={`min-h-[34px] rounded-full px-2.5 text-caption font-semibold transition-colors ${
                   language === lang ? 'bg-teal text-on-teal' : 'text-white/85'
                 }`}
               >
-                {lang === 'en' ? t('authEnglish') : t('authSpanish')}
+                {lang === 'en' ? 'EN' : 'ES'}
               </button>
             ))}
           </div>
@@ -231,26 +240,37 @@ export default function OnboardingPage() {
 
       {/* ── Copy ─────────────────────────────────────────────────────────── */}
       <div className="relative z-10 flex flex-1 flex-col px-6">
-        <AnimatePresence mode="wait">
-          <motion.div key={current} variants={textContainerVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.p variants={overlineVariants} className="text-overline text-teal-strong">
-              {t(slide.overlineKey)}
-            </motion.p>
-            <motion.h1
-              variants={titleVariants}
-              className="mt-3 font-brand text-display font-bold tracking-[-0.015em] text-ink"
+        {/* The wrapper owns the space so the CTA never jumps while a slide
+            swaps out underneath it. */}
+        <div className="flex flex-1 items-center py-3">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              variants={textContainerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="w-full"
             >
-              {t(slide.titleKey)}
-            </motion.h1>
-            <motion.p variants={descVariants} className="mt-4 text-body text-ink-2">
-              {t(slide.descKey)}
-            </motion.p>
-          </motion.div>
-        </AnimatePresence>
+              <motion.p variants={overlineVariants} className="text-overline text-teal-strong">
+                {t(slide.overlineKey)}
+              </motion.p>
+              <motion.h1
+                variants={titleVariants}
+                className="mt-3 font-brand text-display font-bold tracking-[-0.015em] text-ink"
+              >
+                {t(slide.titleKey)}
+              </motion.h1>
+              <motion.p variants={descVariants} className="mt-4 text-body text-ink-2">
+                {t(slide.descKey)}
+              </motion.p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-        <div className="mt-auto">
+        <div>
           {/* Pagination — the dot is 8px, the target around it is 44px. */}
-          <div className="flex justify-center gap-1 pt-8">
+          <div className="flex justify-center gap-1 pt-2">
             {slides.map((s, i) => (
               <button
                 key={s.image}

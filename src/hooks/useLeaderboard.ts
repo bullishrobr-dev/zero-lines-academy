@@ -252,10 +252,13 @@ export function useLeaderboard(
     });
   }, [roster, currentUserId, timeframe]);
 
+  // Zero XP is a known figure, but it is not a placing. Ranking someone #1 with
+  // 0 XP and putting a crown on it is the same species of lie as inventing the
+  // number in the first place — you have to actually be ahead of somebody.
   const ranked = useMemo(
     () =>
       entries
-        .filter((e): e is LeaderboardEntry & { xp: number } => e.xp !== null)
+        .filter((e): e is LeaderboardEntry & { xp: number } => e.xp !== null && e.xp > 0)
         .sort((a, b) => b.xp - a.xp || a.name.localeCompare(b.name)),
     [entries]
   );

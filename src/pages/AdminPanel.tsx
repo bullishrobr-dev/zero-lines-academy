@@ -592,9 +592,11 @@ function FilterRow({
   onChange: (key: string) => void;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <span className="w-16 shrink-0 text-caption text-ink-3">{label}</span>
-      <div className="no-scrollbar flex flex-1 gap-2 overflow-x-auto">
+    <div className="flex items-start gap-2">
+      <span className="w-14 shrink-0 pt-2 text-caption text-ink-3">{label}</span>
+      {/* Wraps rather than scrolling sideways — a half-clipped "Sellers" pill at
+          390px reads as a rendering bug, not as an affordance. */}
+      <div className="flex flex-1 flex-wrap gap-2">
         {options.map((opt) => {
           const active = value === opt.key;
           return (

@@ -942,9 +942,18 @@ export default function ProfilePage() {
 
       {/* ── Artefact detail ── */}
       <Dialog open={detailAchievement !== undefined} onOpenChange={(open) => !open && setDetailId(null)}>
-        <DialogContent className="rounded-feature border-line bg-surface">
+        <DialogContent showCloseButton={false} className="rounded-feature border-line bg-surface">
+          {/* Radix ships a 16px close affordance; this one meets the 44px minimum. */}
+          <button
+            type="button"
+            onClick={() => setDetailId(null)}
+            aria-label={t('close')}
+            className="btn-icon absolute right-3 top-3"
+          >
+            <X size={18} aria-hidden />
+          </button>
           {detailAchievement && (
-            <div className="flex flex-col items-center gap-3 text-center">
+            <div className="flex flex-col items-center gap-3 pt-6 text-center">
               <Artefact
                 achievement={detailAchievement}
                 unlocked={unlockedIds.includes(detailAchievement.id)}

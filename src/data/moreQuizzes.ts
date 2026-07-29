@@ -1208,7 +1208,7 @@ const quizObjectionsChampion: GeneralQuiz = {
       optionsEs: [
         "Ignorar a la amiga y hablar solo con la compradora — es ella quien tiene el dinero, y si entras al trapo con la amiga le das una segunda oportunidad de convencerla de que no",
         "Decirle a la amiga que está siendo negativa e injusta, y señalar que ni siquiera ha probado el producto así que no está en posición de dar consejos sobre él",
-        "Incluir a la amiga: '¡Amiga inteligente! Siempre digo a la gente — nunca compren sin probar primero. Aquí, déjenme mostrarles a AMBAS en sus manos. Vean la diferencia ustedes mismas — luego TÚ le puedes decir si vale la pena.' Convierte a la escéptica en tu participante de demo.",
+        "Incluir a la amiga: '¡Amiga inteligente! Siempre digo a la gente — nunca compren sin probar primero. Aquí, dejadme enseñároslo a LAS DOS en las manos. Ved vosotras mismas la diferencia — luego TÚ le dices si vale la pena.' Convierte a la escéptica en tu participante de demo.",
         "Ofrecer un descuento para superar la objeción de la amiga — baja directa al precio con cupón para que el trato sea demasiado bueno como para que sigan discutiéndolo"
       ],
       correctIndex: 2,

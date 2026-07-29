@@ -366,7 +366,7 @@ export default function CategoryHub() {
                 <span className="shrink-0">
                   {isCompleted ? (
                     <span
-                      className={`flex h-9 w-9 items-center justify-center rounded-full ${hue.fill} ${hue.onFill}`}
+                      className={`relative flex h-9 w-9 items-center justify-center rounded-full ${hue.fill} ${hue.onFill}`}
                     >
                       <Check size={18} strokeWidth={3} aria-hidden="true" />
                       <span className="sr-only">{t('completed')}</span>

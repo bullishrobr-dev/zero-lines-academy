@@ -490,12 +490,20 @@ export default function ManagerDashboard() {
           </div>
         )}
 
-        {/* Stats — two columns, not four 93px slivers. */}
+        {/* Stats — two columns, not four 93px slivers. "Furthest along" and
+            "Behind" are only meaningful once somebody has actually trained:
+            with an empty progress store the backend names an arbitrary top
+            performer and marks the whole team as at risk. */}
         <div className="grid grid-cols-2 gap-3">
           <StatTile icon={Users} value={String(stats.total)} label={c('statTeam')} accent="teal" />
           <StatTile icon={TrendingUp} value={`${stats.avgProgress}%`} label={c('statAvg')} accent="violet" />
-          <StatTile icon={Award} value={stats.top} label={c('statTop')} accent="gold" />
-          <StatTile icon={AlertTriangle} value={String(stats.atRisk)} label={c('statRisk')} accent="coral" />
+          <StatTile icon={Award} value={hasTrainingData ? stats.top : '—'} label={c('statTop')} accent="gold" />
+          <StatTile
+            icon={AlertTriangle}
+            value={hasTrainingData ? String(stats.atRisk) : '—'}
+            label={c('statRisk')}
+            accent="coral"
+          />
         </div>
 
         {/* Today */}
@@ -544,13 +552,21 @@ export default function ManagerDashboard() {
             </div>
           )}
 
-          <div className="mt-3 flex gap-2">
-            <button type="button" onClick={() => setShowTeamMessage(true)} className="btn-quiet flex-1 px-3 text-caption">
-              <Megaphone size={15} aria-hidden />
+          <div className="mt-3 space-y-2">
+            <button
+              type="button"
+              onClick={() => setShowTeamMessage(true)}
+              className="btn-quiet w-full justify-start px-4 text-body-small"
+            >
+              <Megaphone size={16} aria-hidden />
               {c('sendMessage')}
             </button>
-            <button type="button" onClick={() => setShowQueue(true)} className="btn-quiet flex-1 px-3 text-caption">
-              <Clock size={15} aria-hidden />
+            <button
+              type="button"
+              onClick={() => setShowQueue(true)}
+              className="btn-quiet w-full justify-start px-4 text-body-small"
+            >
+              <Clock size={16} aria-hidden />
               {c('viewQueue')}
             </button>
           </div>
@@ -784,7 +800,7 @@ function StatTile({
       </div>
       <div className="min-w-0">
         <p className="truncate text-h3 text-ink">{value}</p>
-        <p className="truncate text-caption text-ink-3">{label}</p>
+        <p className="text-caption leading-4 text-ink-3">{label}</p>
       </div>
     </div>
   );

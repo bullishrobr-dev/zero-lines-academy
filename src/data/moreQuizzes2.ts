@@ -420,7 +420,7 @@ const quizComplimentStop: GeneralQuiz = {
       explanation:
         "The eye-rolling friend is a GATEKEEPER — if she is against you, she will poison the sale. Win her over by including her: 'And you ladies too, your skin looks amazing — are you all on vacation together?' A group compliment neutralizes the skeptic and turns a potential obstacle into an audience. Once the group is engaged, the original target becomes more comfortable.",
       explanationEs:
-        "La amiga de ojos en blanco es una GUARDAESPALDAS — si está en contra, envenenará la venta. Gánatela incluyéndola: 'Y ustedes también, su piel se ve increíble — ¿están todas de vacaciones juntas?' Un cumplido grupal neutraliza a la escéptica y convierte un obstáculo potencial en audiencia. Una vez que el grupo está comprometido, la objetivo original se siente más cómoda."
+        "La amiga de ojos en blanco es una GUARDAESPALDAS — si está en contra, envenenará la venta. Gánatela incluyéndola: 'Y vosotras también, tenéis una piel increíble — ¿estáis todas de vacaciones juntas?' Un cumplido grupal neutraliza a la escéptica y convierte un obstáculo potencial en audiencia. Una vez que el grupo está comprometido, la objetivo original se siente más cómoda."
     },
     {
       question:

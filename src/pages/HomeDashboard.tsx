@@ -427,7 +427,7 @@ export default function HomeDashboard() {
 
             {/* Streak flame */}
             <div
-              className={`flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 ${
+              className={`relative flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 ${
                 currentStreak > 0
                   ? 'bg-coral text-on-coral'
                   : 'border border-line bg-surface text-ink-2'

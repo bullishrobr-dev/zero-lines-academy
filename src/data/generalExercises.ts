@@ -188,7 +188,7 @@ const priceObjectionExercise: Exercise = {
       {
         text: '"I completely understand — {currency}300 does sound like a lot. But let me ask you this: how much would you expect to pay in a salon in Paris for this exact same treatment? [She says {currency}400-500] Exactly. And this gives you multiple treatments at home. But let me check something for you..." (You pause, then offer) "I can do {currency}210 today — that is 30% off — and I will include a free gift of your choice: cream, cleanser, or peeling. How does that sound?"',
         textEs:
-          '"Lo entiendo completamente — {currency}300 suena a mucho. Pero déjeme preguntarle: ¿cuánto esperaría pagar en un salón en París por este mismo tratamiento exacto? [Ella dice {currency}400-500] Exacto. Y esto le da tratamientos múltiples en casa. Pero déjeme comprobar algo para usted..." (Pausas, luego ofreces) "Puedo hacer {currency}210 hoy — eso es 30% descuento — e incluiré un regalo gratis a su elección: crema, limpiador o peeling. ¿Qué le parece?"',
+          '"Lo entiendo completamente — {currency}300 suena a mucho. Pero déjame preguntarte: ¿cuánto esperarías pagar en un salón de París por este mismísimo tratamiento? [Ella dice {currency}400-500] Exacto. Y esto te da tratamientos múltiples en casa. Pero déjeme comprobar algo para usted..." (Pausas, luego ofreces) "Puedo hacer {currency}210 hoy — eso es 30% descuento — e incluiré un regalo gratis a su elección: crema, limpiador o peeling. ¿Qué le parece?"',
         feedback:
           'EXCELLENT! This is master-level selling. You: 1) Validated her concern, 2) Reframed the price by asking about salon costs (she answers HERSELF that it should cost more), 3) Offered Option 1 at {currency}210 (30% off) with a free gift instead of just dropping the price. You moved down the ladder correctly: {currency}300 → {currency}210 + gift.',
         feedbackEs:
@@ -197,7 +197,7 @@ const priceObjectionExercise: Exercise = {
       },
       {
         text: '"No no no — {currency}300 is actually very cheap! You are getting a great deal!"',
-        textEs: '"No no no — ¡{currency}300 es realmente muy barato! ¡Está consiguiendo una ganga!"',
+        textEs: '"No no no — ¡{currency}300 es realmente muy barato! ¡Te estás llevando una ganga!"',
         feedback:
           'Telling a customer their objection is wrong triggers defensiveness. She said it is "a lot of money" — and for her, it IS. Arguing about it makes you the enemy. Instead, reframe the value or add more to the offer.',
         feedbackEs:
@@ -206,7 +206,7 @@ const priceObjectionExercise: Exercise = {
       },
       {
         text: '"I hear you. What if I can do it for {currency}175? Just for you, today only."',
-        textEs: '"Le entiendo. ¿Y si puedo hacerlo por {currency}175? Solo para usted, solo hoy."',
+        textEs: '"Te entiendo. ¿Y si te lo hago por {currency}175? Solo para ti, solo hoy."',
         feedback:
           'You dropped from {currency}300 to {currency}175 without trying Offer Option 1 ({currency}210 + gift) or Option 2 ({currency}300 + 2nd syringe free). You skipped two whole steps on the price ladder! Always work the ladder: {currency}300 → {currency}210/gift → {currency}300/2nd syringe → {currency}175 → {currency}140 → {currency}100.',
         feedbackEs:
@@ -265,7 +265,7 @@ const giftShopperExercise: Exercise = {
       },
       {
         text: '"Get three Nail Kits at {currency}60 each — {currency}180 total. One for everyone!"',
-        textEs: '"¡Lleve tres Kits de Uñas a {currency}60 cada uno — {currency}180 en total! ¡Uno para cada una!"',
+        textEs: '"¡Llévate tres Kits de Uñas a {currency}60 cada uno — {currency}180 en total! ¡Uno para cada una!"',
         feedback:
           'You exceeded her {currency}120 budget by {currency}60 without even acknowledging it! She said {currency}120 total. Always respect the customer\'s stated budget and work within it. Three Nail Kits on Buy 2 Get 1 would be {currency}120/3 — that would have worked.',
         feedbackEs:
@@ -468,7 +468,7 @@ const matchTechniqueExercise: Exercise = {
         definition:
           'Act as if the sale is already made and move to the next step: "I will set this aside for you — do you want the gift bag?"',
         definitionEs:
-          'Actúa como si la venta ya estuviera hecha y pasa al siguiente paso: "Voy a apartar esto para usted — ¿quiere la bolsa de regalo?"',
+          'Actúa como si la venta ya estuviera hecha y pasa al siguiente paso: "Te lo voy apartando — ¿te lo pongo en bolsa de regalo?"',
       },
       {
         term: 'Social Proof',
@@ -534,7 +534,7 @@ const orderPitchExercise: Exercise = {
       {
         text: 'Reveal the {locationName} price: "Here, it is just {currency}300 — and you get multiple treatments."',
         textEs:
-          'Revelar el precio de {locationName}: "Aquí, es solo {currency}300 — y obtiene tratamientos múltiples."',
+          'Revelar el precio de {locationName}: "Aquí son solo {currency}300 — y te llevas varios tratamientos."',
         correctOrder: 4,
       },
       {
@@ -595,7 +595,7 @@ const skepticalHusbandExercise: Exercise = {
       {
         text: '"Sir, I completely understand your skepticism — there are a lot of gimmicks out there. Here is what I suggest: let me do the demo on YOUR hand too. That way YOU can see there is no makeup — just your own skin, 60 seconds apart. What do you say?"',
         textEs:
-          '"Señor, entiendo completamente su escepticismo — hay muchos trucos por ahí. Esto es lo que sugiero: déjeme hacer la demo en SU mano también. Así USTED puede ver que no hay maquillaje — solo su propia piel, con 60 segundos de diferencia. ¿Qué dice?"',
+          '"Señor, entiendo completamente su escepticismo — hay muchos trucos por ahí. Esto es lo que sugiero: déjame hacerte la demo en TU mano también. Así TÚ ves que no hay maquillaje — solo tu propia piel, con 60 segundos de diferencia. ¿Qué dice?"',
         feedback:
           'BRILLIANT! You: 1) Validated his skepticism (not defensive), 2) Agreed there are gimmicks (builds rapport), 3) Offered proof on HIS skin (undeniable evidence), 4) Made it a challenge he cannot refuse. Once he sees the result on his own hand, he becomes your ally, not your enemy.',
         feedbackEs:
@@ -681,7 +681,7 @@ const theDoubterExercise: Exercise = {
       },
       {
         text: '"But it is only {currency}300! That is nothing for what you get — and you clearly can afford it with that bag!"',
-        textEs: '"¡Pero son solo {currency}300! Eso no es nada por lo que obtiene — ¡y claramente puede permitírselo con ese bolso!"',
+        textEs: '"¡Pero son solo {currency}300! Eso no es nada por lo que te llevas — ¡y con ese bolso está claro que te lo puedes permitir!"',
         feedback:
           'You are arguing about price AND making assumptions about her wealth. Her objection is NOT about price — it is about needing the product when she already has a premium cream. Address the right objection! Also, commenting on her bag is invasive.',
         feedbackEs:

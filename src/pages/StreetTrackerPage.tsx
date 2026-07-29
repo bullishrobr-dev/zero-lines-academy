@@ -402,16 +402,18 @@ const StreetTrackerPage: React.FC = () => {
             <StatCard
               label={t.sales}
               value={summary.sales}
-              ink="text-gold-strong"
-              tint="bg-gold-tint"
+              ink="text-coral-strong"
+              tint="bg-coral-tint"
               icon={<Coins className="h-3.5 w-3.5" aria-hidden="true" />}
               delay={0.1}
             />
+            {/* Gold is the achievement colour, so the money wears it. Revenue
+                used to render in coral, which reads as an alert, not a win. */}
             <StatCard
               label={t.revenue}
               value={money(summary.revenue)}
-              ink="text-coral-strong"
-              tint="bg-coral-tint"
+              ink="text-gold-strong"
+              tint="bg-gold-tint"
               icon={<span className="text-caption font-bold">{currency}</span>}
               delay={0.15}
             />

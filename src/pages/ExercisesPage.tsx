@@ -268,7 +268,7 @@ export default function ExercisesPage() {
   const { language, t } = useLanguage();
   const { tx } = useCopy();
   const sub = useSub();
-  const { recordQuizScore, getQuizScore } = useProgress();
+  const { recordExerciseScore, getExerciseScore } = useProgress();
   const [view, setView] = useState<View>('hub');
   const [activeTab, setActiveTab] = useState<Tab>('all');
   const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
@@ -292,9 +292,9 @@ export default function ExercisesPage() {
   const finishExercise = useCallback(
     (award: Award) => {
       if (!activeExerciseId) return;
-      /* useProgress has no exercise-specific recorder; recordQuizScore is the
-         one API that persists a score + XP award (and logs it to the feed). */
-      recordQuizScore(activeExerciseId, award.percent, award.xp);
+      /* Exercises are recorded separately from quizzes so they do not skew
+         the quiz accuracy and "quizzes passed" figures on the profile. */
+      recordExerciseScore(activeExerciseId, award.percent, award.xp);
       setResult(award);
       setView('results');
       if (award.xp > 0) {
@@ -305,7 +305,7 @@ export default function ExercisesPage() {
         haptic('light');
       }
     },
-    [activeExerciseId, recordQuizScore]
+    [activeExerciseId, recordExerciseScore]
   );
 
   const resetAll = useCallback(() => {
@@ -348,9 +348,9 @@ export default function ExercisesPage() {
 
   /* ─── Hub ─── */
   if (view === 'hub') {
-    /* getQuizScore returns the best score as a percentage. */
+    /* getExerciseScore returns the best score as a percentage. */
     const doneScores = generalExercises
-      .map((e) => getQuizScore(e.id))
+      .map((e) => getExerciseScore(e.id))
       .filter((v): v is number => v !== undefined);
     const doneCount = doneScores.length;
     const avgScore = doneCount
@@ -409,7 +409,7 @@ export default function ExercisesPage() {
         <div className="px-4 mt-4 space-y-3">
           {filtered.map((ex, i) => {
             const Icon = typeIcon[ex.type] ?? Puzzle;
-            const best = getQuizScore(ex.id);
+            const best = getExerciseScore(ex.id);
             const isDone = best !== undefined;
             return (
               <motion.div

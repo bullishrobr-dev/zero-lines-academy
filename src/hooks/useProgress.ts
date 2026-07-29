@@ -3,7 +3,7 @@
 // Manages lessons, XP, streaks, quizzes, daily challenges
 // ─────────────────────────────────────────────────────────────
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { categories, getLessonsForCategory } from '@/data/lessons';
 import {
   getTierForLesson,
@@ -22,6 +22,10 @@ const LS_USER_NAME = 'zl_user_name';
 const LS_DAILY_CHALLENGE = 'zl_daily_challenge';
 const LS_ACTIVITY_LOG = 'zl_activity_log';
 const LS_TIER_PROGRESS = 'zl_tier_progress';
+/** Highest XP already paid out per quiz, so retakes cannot farm XP. */
+const LS_QUIZ_XP_AWARDED = 'zl_quiz_xp_awarded';
+/** Exercise results, kept out of quizScores so accuracy stats stay meaningful. */
+const LS_EXERCISE_SCORES = 'zl_exercise_scores';
 
 // ── Types ──
 export interface StreakData {
@@ -68,6 +72,9 @@ export interface UseProgressReturn extends ProgressState {
   getBestStreak: () => number;
   /** @param scorePercent 0-100 correctness. @param xpEarned XP to award. */
   recordQuizScore: (quizId: string, scorePercent: number, xpEarned?: number) => void;
+  /** Exercises are tracked separately so they do not skew quiz accuracy stats. */
+  recordExerciseScore: (exerciseId: string, scorePercent: number, xpEarned?: number) => void;
+  getExerciseScore: (exerciseId: string) => number | null;
   getQuizScore: (quizId: string) => number | undefined;
   setUserName: (name: string) => void;
   getUserName: () => string;
@@ -139,30 +146,39 @@ function hasStreakExpired(s: StreakData, today: string, yesterday: string): bool
 
 // ── Hook ──
 export function useProgress(): UseProgressReturn {
-  const [lessonProgress, setLessonProgress] = useState<Record<string, boolean>>({});
-  const [quizScores, setQuizScores] = useState<Record<string, number>>({});
-  const [streak, setStreak] = useState<StreakData>({ current: 0, best: 0, lastActiveDate: null });
-  const [totalXP, setTotalXP] = useState<number>(0);
-  const [userName, setUserNameState] = useState<string>('');
-  const [dailyChallenge, setDailyChallenge] = useState<DailyChallengeData>({ completed: false, date: null });
-  const [activityLog, setActivityLog] = useState<ActivityItem[]>([]);
-  const [tierProgress, setTierProgress] = useState<Record<string, boolean>>({});
-  const initialized = useRef(false);
-
-  // Load from localStorage on mount
-  useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
-
-    setLessonProgress(loadJSON<Record<string, boolean>>(LS_LESSON_PROGRESS, {}));
-    setQuizScores(loadJSON<Record<string, number>>(LS_QUIZ_SCORES, {}));
-    setStreak(loadJSON<StreakData>(LS_STREAK, { current: 0, best: 0, lastActiveDate: null }));
-    setTotalXP(loadJSON<number>(LS_XP, 0));
-    setUserNameState(loadJSON<string>(LS_USER_NAME, ''));
-    setDailyChallenge(loadJSON<DailyChallengeData>(LS_DAILY_CHALLENGE, { completed: false, date: null }));
-    setActivityLog(loadJSON<ActivityItem[]>(LS_ACTIVITY_LOG, []));
-    setTierProgress(loadJSON<Record<string, boolean>>(LS_TIER_PROGRESS, {}));
-  }, []);
+  /*
+   * State is seeded with lazy initialisers rather than loaded in a mount
+   * effect. localStorage is synchronous, so there is nothing to wait for, and
+   * reading it during the first render means no flash of empty progress — and
+   * no setState-in-effect.
+   *
+   * The initialisers are pure reads. A lapsed streak is NOT written back here;
+   * `getCurrentStreak()` derives 0 for an expired streak, and `updateStreak()`
+   * rewrites the record on the next real activity.
+   */
+  const [lessonProgress, setLessonProgress] = useState<Record<string, boolean>>(() =>
+    loadJSON<Record<string, boolean>>(LS_LESSON_PROGRESS, {})
+  );
+  const [quizScores, setQuizScores] = useState<Record<string, number>>(() =>
+    loadJSON<Record<string, number>>(LS_QUIZ_SCORES, {})
+  );
+  const [exerciseScores, setExerciseScores] = useState<Record<string, number>>(() =>
+    loadJSON<Record<string, number>>(LS_EXERCISE_SCORES, {})
+  );
+  const [streak, setStreak] = useState<StreakData>(() =>
+    loadJSON<StreakData>(LS_STREAK, { current: 0, best: 0, lastActiveDate: null })
+  );
+  const [totalXP, setTotalXP] = useState<number>(() => loadJSON<number>(LS_XP, 0));
+  const [userName, setUserNameState] = useState<string>(() => loadJSON<string>(LS_USER_NAME, ''));
+  const [dailyChallenge, setDailyChallenge] = useState<DailyChallengeData>(() =>
+    loadJSON<DailyChallengeData>(LS_DAILY_CHALLENGE, { completed: false, date: null })
+  );
+  const [activityLog, setActivityLog] = useState<ActivityItem[]>(() =>
+    loadJSON<ActivityItem[]>(LS_ACTIVITY_LOG, [])
+  );
+  const [tierProgress, setTierProgress] = useState<Record<string, boolean>>(() =>
+    loadJSON<Record<string, boolean>>(LS_TIER_PROGRESS, {})
+  );
 
   // ── Streak Logic ──
   const updateStreak = useCallback((): StreakData => {
@@ -301,16 +317,6 @@ export function useProgress(): UseProgressReturn {
     return hasStreakExpired(streak, getToday(), getYesterday()) ? 0 : streak.current;
   }, [streak]);
 
-  // Reconcile a lapsed streak once, as a side effect — never during render.
-  useEffect(() => {
-    if (!streak.lastActiveDate) return;
-    if (!hasStreakExpired(streak, getToday(), getYesterday())) return;
-    // Clear lastActiveDate too, otherwise this condition stays true forever.
-    const reset: StreakData = { current: 0, best: streak.best, lastActiveDate: null };
-    setStreak(reset);
-    saveJSON(LS_STREAK, reset);
-  }, [streak]);
-
   const getBestStreak = useCallback((): number => streak.best, [streak.best]);
 
   /**
@@ -335,9 +341,17 @@ export function useProgress(): UseProgressReturn {
       return updated;
     });
 
-    if (xpEarned > 0) {
+    // Pay out only what this quiz has not already paid. Retaking a quiz you
+    // have aced would otherwise award full XP again every time, so XP — and
+    // therefore levels and the leaderboard — could be farmed by replaying.
+    // Improving on a previous attempt still earns the difference.
+    const alreadyAwarded = loadJSON<Record<string, number>>(LS_QUIZ_XP_AWARDED, {});
+    const owed = Math.max(0, Math.round(xpEarned) - (alreadyAwarded[quizId] ?? 0));
+    if (owed > 0) {
+      alreadyAwarded[quizId] = Math.round(xpEarned);
+      saveJSON(LS_QUIZ_XP_AWARDED, alreadyAwarded);
       setTotalXP((xpPrev) => {
-        const newXP = xpPrev + xpEarned;
+        const newXP = xpPrev + owed;
         saveJSON(LS_XP, newXP);
         return newXP;
       });
@@ -350,15 +364,67 @@ export function useProgress(): UseProgressReturn {
         id: `quiz-${quizId}-${Date.now()}`,
         type: 'quiz',
         title: pct === 100 ? 'Quiz Perfect Score!' : 'Quiz Completed',
-        detail: xpEarned > 0 ? `${pct}% · +${xpEarned} XP` : `${pct}%`,
-        xpEarned,
+        detail: owed > 0 ? `${pct}% · +${owed} XP` : `${pct}%`,
+        xpEarned: owed,
         timestamp: new Date().toISOString(),
       };
       const updatedLog = [newItem, ...log].slice(0, 100);
       saveJSON(LS_ACTIVITY_LOG, updatedLog);
       return updatedLog;
     });
-  }, []);
+  }, [updateStreak]);
+
+  /**
+   * Exercises are recorded separately from quizzes. They used to share the
+   * quizScores map, which inflated "quizzes passed" and skewed the accuracy
+   * figure on the profile with rows that were not quizzes.
+   */
+  const recordExerciseScore = useCallback(
+    (exerciseId: string, scorePercent: number, xpEarned = 0) => {
+      const pct = Math.max(0, Math.min(100, Math.round(scorePercent)));
+
+      setExerciseScores((prev) => {
+        const updated = { ...prev, [exerciseId]: Math.max(prev[exerciseId] ?? 0, pct) };
+        saveJSON(LS_EXERCISE_SCORES, updated);
+        return updated;
+      });
+
+      // Same anti-farming rule as quizzes.
+      const key = `ex:${exerciseId}`;
+      const alreadyAwarded = loadJSON<Record<string, number>>(LS_QUIZ_XP_AWARDED, {});
+      const owed = Math.max(0, Math.round(xpEarned) - (alreadyAwarded[key] ?? 0));
+      if (owed > 0) {
+        alreadyAwarded[key] = Math.round(xpEarned);
+        saveJSON(LS_QUIZ_XP_AWARDED, alreadyAwarded);
+        setTotalXP((xpPrev) => {
+          const newXP = xpPrev + owed;
+          saveJSON(LS_XP, newXP);
+          return newXP;
+        });
+      }
+      updateStreak();
+
+      setActivityLog((log) => {
+        const newItem: ActivityItem = {
+          id: `exercise-${exerciseId}-${Date.now()}`,
+          type: 'quiz',
+          title: pct === 100 ? 'Exercise Mastered!' : 'Exercise Completed',
+          detail: owed > 0 ? `${pct}% · +${owed} XP` : `${pct}%`,
+          xpEarned: owed,
+          timestamp: new Date().toISOString(),
+        };
+        const updatedLog = [newItem, ...log].slice(0, 100);
+        saveJSON(LS_ACTIVITY_LOG, updatedLog);
+        return updatedLog;
+      });
+    },
+    [updateStreak]
+  );
+
+  const getExerciseScore = useCallback(
+    (exerciseId: string): number | null => exerciseScores[exerciseId] ?? null,
+    [exerciseScores]
+  );
 
   const getQuizScore = useCallback(
     (quizId: string): number | undefined => {
@@ -494,6 +560,8 @@ export function useProgress(): UseProgressReturn {
     getCurrentStreak,
     getBestStreak,
     recordQuizScore,
+    recordExerciseScore,
+    getExerciseScore,
     getQuizScore,
     setUserName: setUserNameWrapper,
     getUserName,

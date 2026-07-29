@@ -319,11 +319,13 @@ export default function AuthPage() {
                 aria-pressed={mode === m}
                 className={tabClass(mode === m)}
               >
+                {/* Deliberately not a framer `layoutId` thumb: a layoutId
+                    inside this page hijacked Layout's page transition and left
+                    the whole screen stuck at its exit opacity when arriving
+                    from onboarding — i.e. a blank front door. */}
                 {mode === m && (
-                  <motion.span
-                    layoutId="auth-tab"
+                  <span
                     className="absolute inset-0 rounded-full bg-surface shadow-raised"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     aria-hidden="true"
                   />
                 )}

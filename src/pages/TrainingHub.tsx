@@ -168,10 +168,16 @@ export default function TrainingHub() {
                       {tier.completion}%
                     </span>
                   ) : (
-                    <>
-                      <Lock size={15} className="text-ink-3" aria-hidden="true" />
-                      <span className="sr-only">{t('statusLocked')}</span>
-                    </>
+                    /* The label rides on the icon rather than a visually-hidden
+                       span: `sr-only` is absolutely positioned, and with no
+                       positioned ancestor inside the rail it anchored to <main>
+                       and stretched the page's scroll width by 545px. */
+                    <Lock
+                      size={15}
+                      className="text-ink-3"
+                      role="img"
+                      aria-label={t('statusLocked')}
+                    />
                   )}
                 </div>
                 <p

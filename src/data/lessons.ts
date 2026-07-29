@@ -173,7 +173,7 @@ export const lessons: Record<string, Lesson> = {
       itemsEs: [
           'S — STYLE (ESTILO): ¿Qué traen puesto? Observa la calidad de la tela, los logos de marca, el corte y la coordinación. ¿Van vestidos de forma casual (modo turista), elegante (modo compras) o práctica (esquí/paseo)? Una mujer con un abrigo de {currency}2,000 es una prospecto muy diferente a una con ropa de excursionismo.',
           'C — CARRY (CARGA): ¿Qué bolsas traen? Bolsas de compras de tiendas de lujo (Louis Vuitton, Chanel, boutiques locales de esquí) indican estado de ánimo de compra Y poder adquisitivo. Una persona sin bolsas podría estar empezando su día de compras — momento perfecto.',
-          'A — ACCESSORIES (ACCESORIOS): Reloj, joyería, lentes de sol, bolso. Un reloj Rolex o Cartier indica alto poder adquisitivo. Las joyas de fantasía indican a alguien consciente del presupuesto. La calidad de los accesorios a menudo revela más que la ropa.',
+          'A — ACCESSORIES (ACCESORIOS): Reloj, joyería, gafas de sol, bolso. Un reloj Rolex o Cartier indica alto poder adquisitivo. Las joyas de fantasía indican a alguien consciente del presupuesto. La calidad de los accesorios a menudo revela más que la ropa.',
           'N — NETWORK (RED): ¿Con quién están? Los viajeros solos toman decisiones rápidas. Las parejas requieren un enfoque diferente (ve la lección de Dinámica de Pareja). Los grupos son sociales — la energía y el humor funcionan mejor. Las familias con niños pequeños son más difíciles de detener, pero pueden ser grandes compradores cuando se les involucra.',
           'P — PACE & POSTURE (RITMO Y POSTURA): ¿Qué tan rápido caminan? ¿Están viendo escaparates (despacio, mirando alrededor) o comprando con destino (rápido, con propósito)? Una postura relajada significa receptividad. Una postura tensa significa que van con prisa o están estresados.',
         ],
@@ -854,7 +854,7 @@ export const lessons: Record<string, Lesson> = {
       itemsEs: [
           'INCLÚYELO DESDE EL PRINCIPIO: No esperes hasta el cierre. Desde el momento en que están dentro, haz contacto visual con él. Pregúntale su opinión. "Señor, ¿ve lo que digo sobre el área del ojo? ¿Sabe cómo ella a veces dice que se ve cansada incluso después de dormir bien?" Esto lo convierte en experto sobre SU pareja, no solo en observador de tu venta.',
           'APELA A SU LÓGICA: Los hombres a menudo responden a beneficios prácticos. "Esto dura todo un año — una jeringa, 52 tratamientos. Eso es menos de {currency}6 por semana por este resultado." La lógica desactiva el escepticismo.',
-          'HÁZLO EL HÉROE: Presenta la compra como algo que ÉL puede darle. "Imagínela despertando cada mañana viéndose así de fresca — y ella sabrá que es gracias a usted." A los hombres les encanta ser la fuente de la felicidad de su pareja.',
+          'HÁZLO EL HÉROE: Presenta la compra como algo que ÉL puede darle. "Imagínatela despertando cada mañana viéndose así de fresca — y ella sabrá que es gracias a ti." A los hombres les encanta ser la fuente de la felicidad de su pareja.',
           'EL HUMOR DESARMA: Una broma ligera dirigida a él rompe la tensión. "Señor, no se preocupe — no le cambiamos la cara, solo hacemos que sus ojos se vean como si hubiera dormido doce horas." El humor lo hace sonreír, y un hombre que sonríe no veta.',
         ],
     },
@@ -2518,17 +2518,17 @@ export const lessons: Record<string, Lesson> = {
       ],
       itemsEs: [
           'PASO 1 — BAJA LA VOZ: Baja ligeramente tu volumen. Esto señala que lo que estás a punto de decir es exclusivo, tal vez incluso un poco secreto. Los anuncios en voz alta se sienten públicos y por tanto menos especiales.',
-          'PASO 2 — LA PREPARACIÓN: \'Está bien, está bien... escucha, acabo de revisar algo, y puedo hacer una pequeña oferta loca para ti. Pero no puedes ser codicioso, ¿okay?\' Esto enmarca la oferta como algo que TÚ estás haciendo por ELLOS, no como un descuento estándar.',
+          'PASO 2 — LA PREPARACIÓN: \'Está bien, está bien... escucha, acabo de revisar algo, y puedo hacer una pequeña oferta loca para ti. Pero no puedes ser codicioso, ¿vale?\' Esto enmarca la oferta como algo que TÚ estás haciendo por ELLOS, no como un descuento estándar.',
           'PASO 3 — LA LIMITACIÓN: \'No puedo hacer esto en la opción grande — solo en la individual.\' Las limitaciones aumentan el valor percibido. Si pudieras hacerlo en todo, no sería especial. Limitarlo lo hace sentir real.',
           'PASO 4 — EL PRECIO: \'Entonces recuerda que te dije que sin el regalo es {currency}175? Si usas este pequeño voucher de descuento del 20%, lo baja a {currency}140. Pero esto es de una sola vez — la próxima vez, vuelve a lo normal.\'',
-          'PASO 5 — LAS DOS PROMESAS: \'Solo me prometes dos cosas, ¿okay? Una: que realmente lo usarás. Dos: si estás feliz, le contarás a tus amigos sobre nosotros.\' Esto crea compromiso y siembra una semilla de referido.',
+          'PASO 5 — LAS DOS PROMESAS: \'Solo me prometes dos cosas, ¿vale? Una: que realmente lo usarás. Dos: si estás feliz, le contarás a tus amigos sobre nosotros.\' Esto crea compromiso y siembra una semilla de referido.',
           'PASO 6 — EL PUENTE DE WHATSAPP: \'¿Usas WhatsApp, verdad? Perfecto. Tendrás mi número y email — solo avísame si necesitas algo.\' Transforma la transacción en relación.',
         ],
     },
     {
             type: 'script',
       text: '\'Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can\'t be greedy, okay? I can\'t do this on the double syringe, only on the single one. So remember I told you it\'s {currency}175 without the gift? If you use this small 20% voucher, I can bring it down to {currency}140. But this is a one-time thing — next time, it goes back to normal. You just promise me two things: you\'ll actually use it, and if you love it, you\'ll tell your friends. Deal?\'',
-      textEs: '\'Está bien, está bien... escucha, acabo de revisar, y puedo hacer algo un poco loco para ti. Pero no puedes ser codicioso, ¿okay? No puedo hacer esto en la jeringa doble, solo en la individual. Entonces recuerda que te dije que es {currency}175 sin el regalo? Si usas este pequeño voucher del 20%, puedo dejarlo en {currency}140. Pero esto es de una sola vez — la próxima vez, vuelve a lo normal. Solo me prometes dos cosas: que realmente lo usarás, y si te encanta, le contarás a tus amigos. ¿Trato?\'',
+      textEs: '\'Está bien, está bien... escucha, acabo de revisar, y puedo hacer algo un poco loco para ti. Pero no puedes ser codicioso, ¿vale? No puedo hacer esto en la jeringa doble, solo en la individual. Entonces recuerda que te dije que es {currency}175 sin el regalo? Si usas este pequeño voucher del 20%, puedo dejarlo en {currency}140. Pero esto es de una sola vez — la próxima vez, vuelve a lo normal. Solo me prometes dos cosas: que realmente lo usarás, y si te encanta, le contarás a tus amigos. ¿Trato?\'',
     },
     {
             type: 'divider'
@@ -2547,7 +2547,7 @@ export const lessons: Record<string, Lesson> = {
         'THE RELATIONSHIP VERSION: \'I want you to be a happy customer who comes back. So here\'s what I\'ll do — {currency}140 on the single one, and you have my WhatsApp for anything you need later.\' Long-term focus.'
       ],
       itemsEs: [
-          'LA VERSIÓN AMIGABLE: \'Okay, voy a hacer algo que probablemente no debería... pero pareces tan encantador, y realmente quiero que tengas esto. ¡Solo no le digas a mi jefe!\' Juguetona, conspirativa.',
+          'LA VERSIÓN AMIGABLE: \'Vale, voy a hacer algo que probablemente no debería... pero pareces tan encantador, y realmente quiero que tengas esto. ¡Solo no le digas a mi jefe!\' Juguetona, conspirativa.',
           'LA VERSIÓN PROFESIONAL: \'Tengo algo de flexibilidad en el artículo individual. Déjame ver qué puedo hacer... Está bien, con nuestro voucher promocional, puedo dejar la jeringa individual en {currency}140. Esta es la mejor tarifa disponible.\' Medida, creíble.',
           'LA VERSIÓN URGENTE: \'Solo me queda un voucher hoy, y honestamente, lo he estado guardando para alguien que realmente aprecie el producto. Ese eres tú. {currency}140, solo esta vez.\' Escasez + personalización.',
           'LA VERSIÓN DE RELACIÓN: \'Quiero que seas un cliente feliz que regrese. Así que esto es lo que haré — {currency}140 en la individual, y tendrás mi WhatsApp para cualquier cosa que necesites después.\' Enfoque a largo plazo.',
@@ -3202,7 +3202,7 @@ export const lessons: Record<string, Lesson> = {
           '"ME SIENTO CULPABLE GASTANDO DINERO EN MÍ" → "Escucho esto todo el tiempo. Pero escucha — trabajas duro, cuidas de todos los demás, ¿cuándo fue la última vez que hiciste algo solo para TI? Esto no es egoísta. Es cuidado personal. Y te lo mereces." (Reenfoque emocional — culpa en merecimiento.)',
           '"LA ÚLTIMA VEZ COMPRÉ ALGO Y NUNCA LO USÉ" → "Lo entiendo totalmente. Por eso pido dos promesas: que realmente lo usarás, y que les dirás a tus amigas si te encanta. La mayoría de mis clientes me escriben dentro de una semana diciendo que están obsesionadas. Creo que tú también lo estarás." (Responsabilidad + prueba social.)',
           '"NO SOY DEL TIPO QUE COMPRA COSAS DE LUJO" → "¿Sabes qué? Los mejores clientes son los que usualmente no se dan gustos. Porque cuando lo hacen, realmente lo aprecian. Esto no se trata de ser fancy — se trata de sentirte bien cuando te ves en el espejo. Todos merecen eso." (Democratiza el lujo.)',
-          '"MI PRODUCTO EN CASA FUNCIONA BIEN" → "¡Eso es genial! Esto no reemplaza lo que funciona — lo hace funcionar MEJOR. Piénsalo así: tienes un buen carro, pero ¿no preferirías manejar en una carretera recién pavimentada? Esta es la carretera. Tu crema es el carro. Juntos, perfección." (Complementa, no compitas.)',
+          '"MI PRODUCTO EN CASA FUNCIONA BIEN" → "¡Eso es genial! Esto no reemplaza lo que funciona — lo hace funcionar MEJOR. Piénsalo así: tienes un buen coche, pero ¿no preferirías conducir por una carretera recién asfaltada? Esta es la carretera. Tu crema es el coche. Juntos, perfección." (Complementa, no compitas.)',
         ],
     },
     {
@@ -3365,7 +3365,7 @@ export const lessons: Record<string, Lesson> = {
         'MONTH 3 — THE RETURNING CUSTOMER: \'Hi [Name]! Missing {locationName} yet? When you\'re planning your next trip, let me know — I have some new products I think you\'ll love. Plus, I\'ll have a little surprise waiting for you!\' (Creates anticipation for return visit.)'
       ],
       itemsEs: [
-          'DÍA 1 — EL CHECK-IN: "¡Hola [Nombre]! Espero que estés disfrutando {locationName}. Solo quería checar — ¿ya probaste el [producto]? ¿Alguna pregunta? ¡Aquí estoy si me necesitas!" (Muestra que te importa, abre el diálogo.)',
+          'DÍA 1 — EL CHECK-IN: "¡Hola [Nombre]! Espero que estés disfrutando {locationName}. Solo quería comprobar — ¿ya probaste el [producto]? ¿Alguna pregunta? ¡Aquí estoy si me necesitas!" (Muestra que te importa, abre el diálogo.)',
           'DÍA 3 — EL TIP: "¡Hola [Nombre]! Tip pro para el [producto]: úsalo en la noche antes de dormir para que tenga tiempo de hacer su magia mientras duermes. ¡Dime cómo te va!" (Agrega valor, mantiene la conexión viva.)',
           'DÍA 7 — EL CHECK DE ENCANTO: "¡Hola [Nombre]! Ya hace una semana — ¿cómo te está gustando el [producto]? ¿La gente ha notado la diferencia? ¡Apuesto a que sí!" (Los anima a reflexionar sobre resultados y compartir sentimientos positivos.)',
           'DÍA 14 — EL EMPUJÓN DE REORDEN: "¡Hola [Nombre]! Si se te está acabando algo o quieres agarrar otro antes de tu próximo viaje, solo avísame. ¡Puedo guardarte algo!" (Planta la semilla de reorden sin presión.)',
@@ -3748,7 +3748,7 @@ export const lessons: Record<string, Lesson> = {
       itemsEs: [
           'PRE-TURNO (30 min antes): Abastece tu cuerpo. Come una comida ligera rica en proteinas — no carbohidratos pesados que te hagan sentir lento. Hidratate. Escucha musica que te motive. Haz 2 minutos de jumping jacks o shadow boxing para despertar tu sistema nervioso.',
           'HORA DE APERTURA (alerta maxima): Usala sabiamente. Tus primeras detenciones marcan el tono para todo el dia. Sonrie a CADA persona que pase, incluso si no las detienes. Esto genera momentum.',
-          'MEDIA MANANA (primer bajon): Aqui es cuando la rotacion de 4 minutos te salva. Usa tu tiempo adentro para recargarte — no revisando tu celular, sino tomando 5 respiraciones profundas, bebiendo agua y celebrando cualquier pequena victoria hasta ahora.',
+          'MEDIA MANANA (primer bajon): Aqui es cuando la rotacion de 4 minutos te salva. Usa tu tiempo adentro para recargarte — no mirando el móvil, sino tomando 5 respiraciones profundas, bebiendo agua y celebrando cualquier pequena victoria hasta ahora.',
           'PERIODO DE COMIDA: Come ligero. Una comida pesada matara tu tarde. Ensaladas, proteina, fruta. Evita la trampa de la pasta y el pan.',
           'BAJON DE LA TARDE (la zona de peligro 2-4pm): Aqui es donde las ventas se ganan o se pierden. Parate mas derecho. Muevete mas rapido. Habla mas fuerte. Eleva conscientemente cada accion fisica — tu cerebro sigue a tu cuerpo.',
           'HORA DE PODER (ultimos 90 minutos): Termina fuerte. El empuje final del dia a menudo tiene a los mejores clientes — ya terminaron de comprar y estan listos para ser vendidos. Pon todo lo que te queda.',
@@ -4021,7 +4021,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'tip',
       text: 'Record yourself pitching on your phone. Listen back. Most people are shocked at how uncertain they sound. Do this weekly and track your improvement. Within a month, you\'ll hear the transformation.',
-      textEs: 'Grabate haciendo tu presentacion en tu celular. Escuchate de vuelta. La mayoria de la gente se sorprende de lo inseguro que suena. Haz esto semanalmente y rastrea tu mejora. Dentro de un mes, escucharas la transformacion.',
+      textEs: 'Grabate haciendo tu presentacion con el móvil. Escuchate de vuelta. La mayoria de la gente se sorprende de lo inseguro que suena. Haz esto semanalmente y rastrea tu mejora. Dentro de un mes, escucharas la transformacion.',
     },
     {
             type: 'quote',
@@ -5502,7 +5502,7 @@ export const lessons: Record<string, Lesson> = {
           'FOCO EN UÑAS: \'Me encanta que mantengas tus uñas naturales — ¡se ven tan saludables! Hablando de uñas, tengo algo que te va a encantar...\'',
           'ESTILO: \'Esa chaqueta es increíble — claramente conoces de calidad. Hablando de calidad, déjame mostrarte algo asombroso...\'',
           'ENERGÍA: \'¡Tienes una sonrisa tan cálida! Se nota que estás teniendo un gran día. ¿Puedo hacerlo aún mejor con un regalito rápido?\'',
-          'CUMPLIDO A PAREJA: \'¡Ustedes dos se ven como si estuvieran teniendo las mejores vacaciones! Tengo algo que hará tu viaje a {locationName} aún más memorable...\'',
+          'CUMPLIDO A PAREJA: \'¡Vosotros dos parecéis estar teniendo las mejores vacaciones! Tengo algo que hará tu viaje a {locationName} aún más memorable...\'',
           'COMPLEMENTO DE BOLSA: \'Esa bolsa es impresionante — ¿es [brand]? Claramente aprecias las cosas finas. Déjame mostrarte mi hallazgo de lujo favorito aquí...\'',
           'CONFIANZA: \'Me encanta tu confianza — ¡caminas como si la calle fuera tuya! Pregunta rápida: ¿alguna vez se te reseca la piel por el aire de la montaña?\'',
           'FOCO EN OJOS: \'¡Tienes unos ojos hermosos! Déjame mostrarte algo que los hace ver aún más increíbles...\'',
@@ -5696,7 +5696,7 @@ export const lessons: Record<string, Lesson> = {
         'EL RETO: \'Dos minutos. Si no te encanta, me puedes decir que soy terrible en mi trabajo. ¿Trato?\'',
         'EL DRAMÁTICO: \'¡ALTO! ¡No me hagas perseguirte! ... Ok, no te voy a perseguir porque sería raro. Pero en serio, dos segundos.\'',
         'EL TOQUE DE REALIDAD: \'Sé que estás pensando \'otro más.\' Yo pienso lo mismo cuando camino por esta calle en mi día libre.\'',
-        'EL GANCHO DE CURIOSIDAD: \'¿Te puedo preguntar algo? ¿Qué te hizo voltear aquí ahorita? ... ¡Exacto! Tus instintos son buenos. Ven a ver por qué.\''
+        'EL GANCHO DE CURIOSIDAD: \'¿Te puedo preguntar algo? ¿Qué te ha hecho girarte ahora mismo? ... ¡Exacto! Tus instintos son buenos. Ven a ver por qué.\''
       ]
     },
     {
@@ -6634,7 +6634,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'This is uncomfortable but incredibly valuable. Ask a teammate to record a few of your stops on your phone. Then watch the footage. You\'ll notice things you never knew you did:',
-      textEs: 'Esto es incómodo pero increíblemente valioso. Pídele a un compañero que te grabe algunas de tus paradas en tu celular. Luego mira el video. Notarás cosas que nunca supiste que hacías:',
+      textEs: 'Esto es incómodo pero increíblemente valioso. Pídele a un compañero que te grabe algunas de tus paradas con el móvil. Luego mira el video. Notarás cosas que nunca supiste que hacías:',
     },
     {
             type: 'bullets',

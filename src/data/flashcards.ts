@@ -330,7 +330,7 @@ export const flashcards: Flashcard[] = [
     question: 'What are 3 signs someone is NOT open to conversation?',
     answer: '1) Headphones in, 2) Fast walking with purpose, 3) Phone held up as a shield — Respect the signal and move on.',
     questionEs: '¿Cuáles son 3 señales de que alguien NO está abierto a conversar?',
-    answerEs: '1) Trae audífonos puestos, 2) Camina rápido con propósito, 3) El celular levantado como escudo — Respeta la señal y sigue adelante.',
+    answerEs: '1) Trae audífonos puestos, 2) Camina rápido con propósito, 3) El móvil levantado como escudo — Respeta la señal y sigue adelante.',
   },
   {
     id: 'rc-7-1',
