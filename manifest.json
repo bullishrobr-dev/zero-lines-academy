@@ -1,55 +1,48 @@
 {
   "name": "Zero Lines Academy",
-  "short_name": "ZeroLines",
-  "description": "Sales training academy for street professionals",
+  "short_name": "Zero Lines",
+  "description": "Sales training for the Zero Lines street team in Andorra and Gibraltar",
   "start_url": "./",
-  "display": "standalone",
-  "background_color": "#0A0A0A",
-  "theme_color": "#0A0A0A",
-  "orientation": "portrait",
   "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAF7F5",
+  "theme_color": "#FAF7F5",
   "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "business"],
   "icons": [
     {
-      "src": "./logo-blue.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "./logo-blue.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "./logo-blue.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "./logo-blue.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "./logo-blue.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
-      "src": "./logo-blue.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "./logo-blue.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
-      "src": "./logo-blue.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cheat Sheets",
+      "short_name": "Cheats",
+      "description": "Price ladders and scripts for a live sale",
+      "url": "./#/cheat-sheets"
+    },
+    {
+      "name": "Log a sale",
+      "short_name": "Log sale",
+      "description": "Track stops, brings and sales",
+      "url": "./#/street-tracker"
     }
   ]
 }
