@@ -190,12 +190,27 @@ const COPY = {
     es: 'Su historial se borra con el perfil — XP, lecciones y resultados. Esto no se puede deshacer.',
   },
   removeAuthNote: {
-    en: 'The login itself is deleted from the Supabase dashboard, under Authentication → Users.',
-    es: 'El acceso en sí se borra desde el panel de Supabase, en Authentication → Users.',
+    en: 'Their login goes too, so the username is free to use again.',
+    es: 'Su acceso también se borra, así que el usuario queda libre otra vez.',
   },
   removeConfirm: { en: 'Remove from the team', es: 'Sacar del equipo' },
   removingNow: { en: 'Removing…', es: 'Sacando…' },
   errRemove: { en: 'They were not removed', es: 'No se ha podido sacar' },
+
+  /* ── Reset a password ── */
+  resetTitle: { en: 'New password', es: 'Contraseña nueva' },
+  resetLead: {
+    en: 'For when someone has forgotten theirs. Their old password stops working straight away.',
+    es: 'Para cuando alguien la ha olvidado. La anterior deja de funcionar al instante.',
+  },
+  resetNote: {
+    en: 'They will be asked to choose their own the next time they sign in.',
+    es: 'La próxima vez que entre, se le pedirá que elija la suya.',
+  },
+  resetAction: { en: 'Generate a new password', es: 'Generar contraseña nueva' },
+  resetting: { en: 'Generating…', es: 'Generando…' },
+  resetDone: { en: 'Password changed', es: 'Contraseña cambiada' },
+  errReset: { en: 'The password was not changed', es: 'No se ha cambiado la contraseña' },
 } as const;
 
 type CopyKey = keyof typeof COPY;
@@ -266,6 +281,7 @@ export default function AdminPanel() {
   const [locFilter, setLocFilter] = useState<UserLocation | 'all'>('all');
   const [adding, setAdding] = useState(false);
   const [removing, setRemoving] = useState<User | null>(null);
+  const [resetting, setResetting] = useState<User | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -486,16 +502,30 @@ export default function AdminPanel() {
                   )}
                 </div>
 
-                {!isSelf && (
-                  <button
-                    type="button"
-                    onClick={() => setRemoving(u)}
-                    aria-label={`${c('removeTitle')} — ${u.name}`}
-                    className="btn-icon shrink-0"
-                  >
-                    <UserMinus size={16} aria-hidden />
-                  </button>
-                )}
+                <div className="flex shrink-0 flex-col gap-1.5">
+                  {/* Resetting your own password is a normal thing to want, so
+                      this one is offered for everybody including the admin. */}
+                  {backend.isDatabaseConfigured && (
+                    <button
+                      type="button"
+                      onClick={() => setResetting(u)}
+                      aria-label={`${c('resetTitle')} — ${u.name}`}
+                      className="btn-icon"
+                    >
+                      <KeyRound size={16} aria-hidden />
+                    </button>
+                  )}
+                  {!isSelf && (
+                    <button
+                      type="button"
+                      onClick={() => setRemoving(u)}
+                      aria-label={`${c('removeTitle')} — ${u.name}`}
+                      className="btn-icon"
+                    >
+                      <UserMinus size={16} aria-hidden />
+                    </button>
+                  )}
+                </div>
               </motion.div>
             );
           })}
@@ -534,6 +564,10 @@ export default function AdminPanel() {
           onCreated={refreshRoster}
           onClose={() => setAdding(false)}
         />
+      )}
+
+      {resetting && (
+        <ResetPasswordSheet person={resetting} c={c} onClose={() => setResetting(null)} />
       )}
 
       {removing &&
@@ -1152,6 +1186,120 @@ function DeleteFromDatabaseSheet({
         >
           <UserMinus size={16} aria-hidden />
           {busy ? c('removingNow') : c('removeConfirm')}
+        </button>
+        <button type="button" onClick={onClose} className="btn-quiet w-full">
+          {c('cancel')}
+        </button>
+      </div>
+    </Sheet>
+  );
+}
+
+/**
+ * One button, one new password. Sellers forget passwords — that is not an
+ * incident, it is a Tuesday — and the fix should not involve a database
+ * dashboard.
+ *
+ * The new one is temporary by design: the database re-arms their "choose your
+ * own" flag, so the first thing they do after signing in is replace it. That
+ * matters because this password gets read out over the phone.
+ */
+function ResetPasswordSheet({
+  person,
+  c,
+  onClose,
+}: {
+  person: User;
+  c: (key: CopyKey) => string;
+  onClose: () => void;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [issued, setIssued] = useState<string | null>(null);
+
+  const reset = async () => {
+    if (busy) return;
+    setBusy(true);
+    setError(null);
+    const password = generatePassword();
+    const result = await db
+      .setPassword(person.id, password)
+      .catch((err: unknown) => ({ success: false as const, error: errorText(err, c('errUnknown')) }));
+    setBusy(false);
+    if (!result.success) {
+      setError(result.error);
+      return;
+    }
+    setIssued(password);
+  };
+
+  if (issued) {
+    return (
+      <Sheet title={c('resetDone')} subtitle={person.name} onClose={onClose} closeLabel={c('close')}>
+        <div className="space-y-4">
+          <section className="surface-feature feature-gold p-4">
+            <p className="text-overline text-gold-strong">{c('theirLogin')}</p>
+            <dl className="mt-2">
+              <dt className="text-caption text-ink-3">{c('username')}</dt>
+              <dd className="break-all font-mono text-body-small text-ink">{person.username}</dd>
+              <dt className="mt-2 text-caption text-ink-3">{c('theirPassword')}</dt>
+              <dd className="break-all font-mono text-h3 text-ink">{issued}</dd>
+            </dl>
+            <p className="mt-2 flex items-start gap-2 text-caption leading-5 text-ink-2">
+              <AlertTriangle size={14} className="mt-0.5 shrink-0 text-gold-strong" aria-hidden />
+              {c('passwordWarning')}
+            </p>
+            <div className="mt-3 space-y-2">
+              <CopyRow
+                value={issued}
+                label={c('copyPassword')}
+                copiedLabel={c('copied')}
+                variant="teal"
+              />
+              <CopyRow
+                value={`${person.username} / ${issued}`}
+                label={c('copyLogin')}
+                copiedLabel={c('copied')}
+              />
+            </div>
+          </section>
+
+          <p className="text-caption leading-5 text-ink-3">{c('resetNote')}</p>
+
+          <button type="button" onClick={onClose} className="btn-primary w-full">
+            {c('done')}
+          </button>
+        </div>
+      </Sheet>
+    );
+  }
+
+  return (
+    <Sheet
+      title={c('resetTitle')}
+      subtitle={person.name}
+      description={c('resetLead')}
+      onClose={onClose}
+      closeLabel={c('close')}
+    >
+      <div className="space-y-3">
+        <p className="text-caption leading-5 text-ink-3">{c('resetNote')}</p>
+
+        {error && (
+          <div className="rounded-card border border-danger/40 bg-danger-tint p-3">
+            <p className="text-caption font-semibold text-danger">{c('errReset')}</p>
+            <p className="mt-1 text-caption leading-5 text-ink-2">{error}</p>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={reset}
+          disabled={busy}
+          className="btn-primary w-full disabled:opacity-50"
+        >
+          <KeyRound size={16} aria-hidden />
+          {busy ? c('resetting') : c('resetAction')}
         </button>
         <button type="button" onClick={onClose} className="btn-quiet w-full">
           {c('cancel')}

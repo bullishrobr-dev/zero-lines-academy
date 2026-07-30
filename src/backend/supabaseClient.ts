@@ -70,6 +70,7 @@ export interface ProfileRow {
   role: 'admin' | 'manager' | 'employee';
   location: 'andorra' | 'gibraltar';
   manager_id: string | null;
+  must_change_password: boolean | null;
   created_at: string;
 }
 

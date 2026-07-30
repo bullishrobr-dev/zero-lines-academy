@@ -35,6 +35,7 @@ import {
   Check,
   ChevronRight,
   Flame,
+  KeyRound,
   Languages,
   Lock,
   LogOut,
@@ -53,6 +54,7 @@ import {
   Zap,
   type LucideIcon,
 } from 'lucide-react';
+import { isDatabaseConfigured } from '@/backend/supabaseClient';
 import { useProgress } from '@/hooks/useProgress';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -99,8 +101,13 @@ const COPY = {
   joined: { en: 'Joined', es: 'Desde' },
   username: { en: 'Username', es: 'Usuario' },
   usernameNote: {
-    en: 'Your name and username come from the team file. Your manager changes them.',
-    es: 'Tu nombre y tu usuario vienen del archivo del equipo. Los cambia tu responsable.',
+    en: 'Your name and username are set by your manager.',
+    es: 'Tu nombre y tu usuario los pone tu responsable.',
+  },
+  changePassword: { en: 'Change your password', es: 'Cambiar tu contraseña' },
+  changePasswordDesc: {
+    en: 'Pick a new one. Takes a moment.',
+    es: 'Elige una nueva. Es un momento.',
   },
   signOut: { en: 'Sign out', es: 'Cerrar sesión' },
   shareStats: { en: 'Share my stats', es: 'Compartir mis datos' },
@@ -708,6 +715,16 @@ export default function ProfilePage() {
                 title={c('adminPanel')}
                 subtitle={c('adminPanelDesc')}
                 onClick={() => navigate('/admin')}
+              />
+            )}
+            {/* Only offered where there is somewhere to save it to. */}
+            {isDatabaseConfigured && (
+              <NavRow
+                icon={KeyRound}
+                accent="gold"
+                title={c('changePassword')}
+                subtitle={c('changePasswordDesc')}
+                onClick={() => navigate('/set-password')}
               />
             )}
           </div>

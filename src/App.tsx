@@ -33,6 +33,7 @@ const ShiftCheckIn      = lazy(() => import('./pages/ShiftCheckIn'));
 const EndOfShift        = lazy(() => import('./pages/EndOfShift'));
 const LeaderboardPage   = lazy(() => import('./pages/LeaderboardPage'));
 const StreetTrackerPage = lazy(() => import('./pages/StreetTrackerPage'));
+const SetPasswordPage   = lazy(() => import('./pages/SetPasswordPage'));
 
 /* ── Route guards ──
    Every route used to be reachable by anyone: a plain seller could open
@@ -40,7 +41,7 @@ const StreetTrackerPage = lazy(() => import('./pages/StreetTrackerPage'));
    colleagues' email addresses and scores. ───────────────────────────────── */
 
 function RequireAuth({ children }: { children: ReactElement }) {
-  const { isAuthenticated, isLoading } = useAuthContext();
+  const { isAuthenticated, isLoading, user } = useAuthContext();
   const routerLocation = useRouterLocation();
 
   if (isLoading) return <LoadingScreen />;
@@ -48,17 +49,29 @@ function RequireAuth({ children }: { children: ReactElement }) {
     // Remember where they were headed so sign-in can return them there.
     return <Navigate to="/auth" replace state={{ from: routerLocation.pathname }} />;
   }
+  /* Somebody else picked the password they are using — their account was just
+     made, or an admin reset it. Nothing else opens until they replace it. */
+  if (user?.mustChangePassword) return <Navigate to="/set-password" replace />;
   return children;
 }
 
 function RequireRole({ children, role }: { children: ReactElement; role: 'manager' | 'admin' }) {
-  const { isAuthenticated, isAdmin, isManager, isLoading } = useAuthContext();
+  const { isAuthenticated, isAdmin, isManager, isLoading, user } = useAuthContext();
 
   if (isLoading) return <LoadingScreen />;
   if (!isAuthenticated) return <Navigate to="/auth" replace />;
+  if (user?.mustChangePassword) return <Navigate to="/set-password" replace />;
 
   const allowed = role === 'admin' ? isAdmin : isManager;
   if (!allowed) return <Navigate to="/home" replace />;
+  return children;
+}
+
+/** Signed in, but deliberately reachable while a password still needs changing. */
+function RequireSignedIn({ children }: { children: ReactElement }) {
+  const { isAuthenticated, isLoading } = useAuthContext();
+  if (isLoading) return <LoadingScreen />;
+  if (!isAuthenticated) return <Navigate to="/auth" replace />;
   return children;
 }
 
@@ -90,6 +103,12 @@ export default function App() {
                     <Route path="/auth" element={<AuthRoute />} />
 
                     {/* ── Signed-in ── */}
+                    {/* Not RequireAuth: this is the one place a person on a
+                        borrowed password is allowed to be. */}
+                    <Route
+                      path="/set-password"
+                      element={<RequireSignedIn><SetPasswordPage /></RequireSignedIn>}
+                    />
                     <Route path="/home" element={<RequireAuth><HomeDashboard /></RequireAuth>} />
                     <Route path="/training" element={<RequireAuth><TrainingHub /></RequireAuth>} />
                     <Route path="/category/:id" element={<RequireAuth><CategoryHub /></RequireAuth>} />

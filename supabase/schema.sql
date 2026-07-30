@@ -29,6 +29,12 @@ create table if not exists public.profiles (
   created_at  timestamptz not null default now()
 );
 
+-- True while somebody is still on a password another person chose for them.
+-- Set when an account is made and again after an admin resets it; cleared the
+-- moment they pick their own. The app will not let them past it.
+alter table public.profiles
+  add column if not exists must_change_password boolean not null default false;
+
 -- ── Progress ────────────────────────────────────────────────────────────────
 create table if not exists public.progress (
   user_id      uuid not null references public.profiles(id) on delete cascade,
@@ -119,6 +125,8 @@ drop policy if exists "admin manages profiles" on public.profiles;
 create policy "read team profiles" on public.profiles
   for select to authenticated using (true);
 
+-- You may edit your own row — but see guard_profile_self_edit() below, which is
+-- what stops "edit your own row" meaning "make yourself an admin".
 create policy "update own profile" on public.profiles
   for update to authenticated using (id = auth.uid()) with check (id = auth.uid());
 
@@ -221,6 +229,39 @@ with (security_invoker = true) as
   order by coalesce(s.xp, 0) desc;
 
 -- ═════════════════════════════════════════════════════════════════════════════
+--  WHAT "EDIT YOUR OWN PROFILE" IS ALLOWED TO MEAN
+--
+--  The policy above lets you update your own row, which you need — clearing
+--  must_change_password is exactly that. But a policy cannot restrict which
+--  *columns* you touch, so on its own it also lets any seller set their own
+--  role to 'admin' with one request. This trigger is the actual boundary.
+-- ═════════════════════════════════════════════════════════════════════════════
+
+create or replace function public.guard_profile_self_edit()
+returns trigger language plpgsql set search_path = public as $fn$
+begin
+  -- admin_create_user() sets this for the length of its own transaction, so it
+  -- can put a new seller on a team without being blocked here.
+  if coalesce(current_setting('zl.provisioning', true), '') = 'on' then return new; end if;
+  if public.is_admin() then return new; end if;
+
+  if new.id         is distinct from old.id
+     or new.username   is distinct from old.username
+     or new.role       is distinct from old.role
+     or new.location   is distinct from old.location
+     or new.manager_id is distinct from old.manager_id then
+    raise exception 'Only an admin may change that' using errcode = '42501';
+  end if;
+  return new;
+end;
+$fn$;
+
+drop trigger if exists profiles_guard_self_edit on public.profiles;
+create trigger profiles_guard_self_edit
+  before update on public.profiles
+  for each row execute function public.guard_profile_self_edit();
+
+-- ═════════════════════════════════════════════════════════════════════════════
 --  ADDING PEOPLE, FROM INSIDE THE APP
 --
 --  Sellers have no email address, so the app invents one on a domain that does
@@ -300,8 +341,13 @@ begin
           'email', now(), now(), now());
 
   -- handle_new_user() has already written the profile and stats rows from the
-  -- metadata above; this only adds the team link, which it cannot know.
-  update public.profiles set manager_id = v_manager_id where id = v_id;
+  -- metadata above; this adds the team link, which it cannot know, and marks
+  -- the password as borrowed until they choose their own.
+  perform set_config('zl.provisioning', 'on', true);
+  update public.profiles
+     set manager_id = v_manager_id, must_change_password = true
+   where id = v_id;
+
   return v_id;
 end;
 $fn$;
@@ -326,6 +372,11 @@ begin
      set encrypted_password = extensions.crypt(p_password, extensions.gen_salt('bf', 10)),
          updated_at = now()
    where id = p_user_id;
+
+  -- A password that has been read out over the phone is not a password. Ask
+  -- them to pick their own the next time they sign in.
+  perform set_config('zl.provisioning', 'on', true);
+  update public.profiles set must_change_password = true where id = p_user_id;
 end;
 $fn$;
 

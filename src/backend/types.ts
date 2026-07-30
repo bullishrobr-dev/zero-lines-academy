@@ -18,6 +18,12 @@ export interface User {
   location: UserLocation;
   /** Username of their manager, if any. */
   managerUsername?: string;
+  /**
+   * True while the person is still on the password somebody else chose for
+   * them. Set when an account is made and again after an admin resets it, and
+   * cleared the moment they pick their own. The app will not let them past it.
+   */
+  mustChangePassword?: boolean;
   createdAt: string;
 }
 
