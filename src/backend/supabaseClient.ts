@@ -21,8 +21,23 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 /** Supabase → Project Settings → Data API → Project URL */
 export const SUPABASE_URL = 'https://cwlrmwajxbtjhqnbeghe.supabase.co';
 
-/** Supabase → Project Settings → API Keys → publishable (`sb_publishable_…`) */
-export const SUPABASE_ANON_KEY = 'sb_publishable_2V2SwnHqEZUBrWOOdCT0Fg_UAoeteDO';
+/**
+ * Supabase → Project Settings → API Keys → anon / public.
+ *
+ * This is the long-standing JWT form rather than the newer `sb_publishable_…`
+ * one. Both are public keys and both are meant to ship in the browser; this one
+ * is accepted by every version of the API, which is worth more here than being
+ * current.
+ */
+export const SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3bHJtd2FqeGJ0amhxbmJlZ2hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3MjY3NDAsImV4cCI6MjA5NTMwMjc0MH0.HZdmEK7LUr-Qa8i9i5xaN2nRAtmPmQLfyXikceCGyN4';
+
+/**
+ * Bumped by hand on every deploy. It is printed on the sign-in screen, so
+ * "which build is this phone actually running?" is a question anyone can answer
+ * by looking — rather than a guess about service worker caches.
+ */
+export const BUILD_STAMP = 'build 4';
 
 /**
  * Sellers sign in with a username, not an email — most shop staff have no work

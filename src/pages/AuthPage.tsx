@@ -19,6 +19,7 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { isDatabaseConfigured, BUILD_STAMP } from '../backend/supabaseClient';
 
 const COPY = {
   en: {
@@ -36,6 +37,8 @@ const COPY = {
     askManager: 'Ask your manager to set one up for you.',
     missing: 'Enter your username and password.',
     language: 'Language',
+    connected: 'Team database',
+    deviceOnly: 'This device only',
   },
   es: {
     welcome: 'Bienvenido de nuevo',
@@ -52,6 +55,8 @@ const COPY = {
     askManager: 'Pídele a tu responsable que te cree una.',
     missing: 'Escribe tu usuario y tu contraseña.',
     language: 'Idioma',
+    connected: 'Base de datos del equipo',
+    deviceOnly: 'Solo este dispositivo',
   },
 } as const;
 
@@ -218,6 +223,13 @@ export default function AuthPage() {
 
           <p className="mt-5 text-center text-body-small text-ink-3">
             {c.noAccount} <span className="text-ink-2">{c.askManager}</span>
+          </p>
+
+          {/* Which build, and what it is talking to. Both are invisible
+              otherwise, and both are the first thing worth knowing when
+              somebody says "it does not work". */}
+          <p className="mt-3 text-center text-caption text-ink-3">
+            {isDatabaseConfigured ? c.connected : c.deviceOnly} · {BUILD_STAMP}
           </p>
         </motion.div>
 
