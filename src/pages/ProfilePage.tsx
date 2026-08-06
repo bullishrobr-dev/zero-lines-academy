@@ -1,5 +1,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// ProfilePage.tsx — the seller's own screen.
+// ProfilePage.tsx — the seller's trophy cabinet.
+//
+// Everything that is a *control* now lives in SettingsPage.tsx, reached by the
+// gear in the header: the account facts, the theme/language/reminder switches,
+// change-your-password, sign out, and reset. What is left is only the things a
+// seller is proud of — their level, their artefacts, their categories, what
+// they did this week — plus the shortcuts out of here. The daily challenge card
+// went entirely: it is the same card HomeDashboard already leads with.
 //
 // Rebuilt on the Counter Light design system. Notable changes:
 //  • Levels/achievements moved to src/data/gamification.ts (two badges there
@@ -7,27 +14,18 @@
 //  • Achievements are collectible artefacts now: champagne foil when owned,
 //    embossed silhouette when not, with a real unlock moment (ConfettiCelebration
 //    + XPToast, both of which existed in the repo and were rendered nowhere).
-//  • The shop is presented as the read-only fact it is. The old code showed a
-//    "Locked" badge next to a toggle that only appeared when signed OUT. The
-//    name is the same kind of fact now: it comes from the committed roster in
-//    src/data/accounts.ts, so there is nothing here that could save an edit.
-//  • "Share my stats" copies this seller's own numbers as plain text. Progress
-//    never leaves the device that earned it — there is no server — so pasting
-//    it into WhatsApp is the honest version of a team view.
+//  • The shop is presented as the read-only fact it is: the name comes from the
+//    committed roster in src/data/accounts.ts, so there is nothing on this
+//    screen that could save an edit to it.
 //  • 43 hardcoded English strings replaced: the 26 Profile/Achievement keys that
 //    already existed in translations.ts were never wired up, and this file never
 //    even destructured `t`.
-//  • The hand-rolled language modal (no focus trap, no Escape, white-on-teal at
-//    2.41:1) is now a Radix AlertDialog with dark ink on the teal fill.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  AlertTriangle,
-  AtSign,
-  Bell,
   BookOpen,
   Brain,
   Briefcase,
@@ -35,46 +33,23 @@ import {
   Check,
   ChevronRight,
   Flame,
-  KeyRound,
-  Languages,
   Lock,
-  LogOut,
   MapPin,
-  Monitor,
-  Moon,
-  Palette,
-  RotateCcw,
-  Share2,
+  Settings,
   Shield,
   Sparkles,
-  Sun,
   Target,
   Trophy,
   X,
   Zap,
   type LucideIcon,
 } from 'lucide-react';
-import { isDatabaseConfigured } from '@/backend/supabaseClient';
 import { useProgress } from '@/hooks/useProgress';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useTheme, type ThemePreference } from '@/contexts/ThemeContext';
 import { useCurrency } from '@/utils/currency';
-import { useLocation as useShop } from '@/contexts/LocationContext';
-import DailyChallengeCard from '@/components/DailyChallengeCard';
 import ConfettiCelebration from '@/components/ConfettiCelebration';
 import XPToast from '@/components/XPToast';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { categories, getLesson } from '@/data/lessons';
 import {
@@ -89,46 +64,7 @@ import {
 /* Strings with no key in src/data/translations.ts. Same pattern the rest of the
    app uses — that file is owned elsewhere, so new copy lives with its screen. */
 const COPY = {
-  yourAccount: { en: 'Your account', es: 'Tu cuenta' },
   yourShop: { en: 'Your shop', es: 'Tu tienda' },
-  shopExplainer: {
-    en: 'Your manager assigns your shop. It decides the prices and the currency you are trained on, so only they can change it.',
-    es: 'Tu responsable asigna tu tienda. Define los precios y la moneda con los que te formas, así que solo puede cambiarla él.',
-  },
-  role: { en: 'Role', es: 'Puesto' },
-  roleAdmin: { en: 'Administrator', es: 'Administrador' },
-  roleManager: { en: 'Manager', es: 'Responsable' },
-  roleSeller: { en: 'Salesperson', es: 'Vendedor' },
-  joined: { en: 'Joined', es: 'Desde' },
-  username: { en: 'Username', es: 'Usuario' },
-  usernameNote: {
-    en: 'Your name and username are set by your manager.',
-    es: 'Tu nombre y tu usuario los pone tu responsable.',
-  },
-  viewingShop: { en: 'Viewing as', es: 'Viendo como' },
-  viewingShopNote: {
-    en: 'You run both shops, so you are not tied to either. Switch to see exactly what a seller there sees.',
-    es: 'Diriges las dos tiendas, así que no estás fijado a ninguna. Cambia para ver justo lo que ve un vendedor de allí.',
-  },
-  changePassword: { en: 'Change your password', es: 'Cambiar tu contraseña' },
-  changePasswordDesc: {
-    en: 'Pick a new one. Takes a moment.',
-    es: 'Elige una nueva. Es un momento.',
-  },
-  signOut: { en: 'Sign out', es: 'Cerrar sesión' },
-  shareStats: { en: 'Share my stats', es: 'Compartir mis datos' },
-  shareCopied: { en: 'Copied — now paste it', es: 'Copiado — ahora pégalo' },
-  shareHint: {
-    en: 'Copies your numbers as plain text. Your progress stays on this phone, so this is how your manager gets to see it.',
-    es: 'Copia tus números en texto plano. Tu progreso se queda en este móvil, así que así es como lo ve tu responsable.',
-  },
-  shareLevel: { en: 'Level', es: 'Nivel' },
-  shareXP: { en: 'XP', es: 'XP' },
-  shareLessons: { en: 'Lessons completed', es: 'Lecciones completadas' },
-  shareQuizzes: { en: 'Quizzes passed', es: 'Tests superados' },
-  shareStreak: { en: 'Current streak', es: 'Racha actual' },
-  shareDays: { en: 'days', es: 'días' },
-  shareAccuracy: { en: 'Accuracy', es: 'Precisión' },
   tools: { en: 'Shortcuts', es: 'Accesos' },
   firstDay: { en: 'First Day Track', es: 'Ruta del Primer Día' },
   firstDayDesc: { en: 'Quick-start guide for new hires', es: 'Guía rápida para los nuevos' },
@@ -136,22 +72,6 @@ const COPY = {
   managerDashDesc: { en: "See your team's progress", es: 'Mira el progreso de tu equipo' },
   adminPanel: { en: 'Admin panel', es: 'Panel de administración' },
   adminPanelDesc: { en: 'Manage people and shops', es: 'Gestiona personas y tiendas' },
-  appearance: { en: 'Appearance', es: 'Apariencia' },
-  themeLight: { en: 'Light', es: 'Claro' },
-  themeDark: { en: 'Dark', es: 'Oscuro' },
-  themeSystem: { en: 'System', es: 'Sistema' },
-  themeHint: {
-    en: 'System follows your phone. Dark is easier on the eyes on a late shift.',
-    es: 'Sistema sigue tu móvil. Oscuro se agradece en el turno de noche.',
-  },
-  language: { en: 'Language', es: 'Idioma' },
-  langConfirmTitle: { en: 'Switch to English?', es: '¿Cambiar a español?' },
-  langConfirmBody: {
-    en: 'The app reloads and everything is shown in English. Your progress is kept.',
-    es: 'La app se recarga y todo se muestra en español. Tu progreso se mantiene.',
-  },
-  confirm: { en: 'Switch', es: 'Cambiar' },
-  dangerZone: { en: 'Careful', es: 'Con cuidado' },
   artefacts: { en: 'artefacts', es: 'piezas' },
   howToUnlock: { en: 'How to earn it', es: 'Cómo conseguirlo' },
   unlockedTitle: { en: 'Artefact unlocked', es: 'Pieza desbloqueada' },
@@ -195,7 +115,6 @@ const CATEGORY_ACCENT: Record<string, AccentToken> = {
 };
 
 const SNAPSHOT_KEY = 'zl_profile_seen';
-const REMINDER_KEY = 'zl_daily_reminder';
 
 interface Snapshot {
   xp: number;
@@ -303,28 +222,14 @@ function Artefact({
 export default function ProfilePage() {
   const navigate = useNavigate();
   const progress = useProgress();
-  const { language, setLanguage, t } = useLanguage();
-  const { preference, setPreference } = useTheme();
+  const { language, t } = useLanguage();
   const { currency, locationName } = useCurrency();
-  const { location: shopLocation, setLocation, isLocked } = useShop();
   const authCtx = useAuthContext();
   const authUser = authCtx.user;
 
   const isEs = language === 'es';
   const c = useCallback((key: CopyKey) => (isEs ? COPY[key].es : COPY[key].en), [isEs]);
   const locale = isEs ? 'es-ES' : 'en-GB';
-
-  const [pendingLang, setPendingLang] = useState<'en' | 'es' | null>(null);
-  const [statsCopied, setStatsCopied] = useState(false);
-  const copyTimer = useRef<number | undefined>(undefined);
-  useEffect(() => () => window.clearTimeout(copyTimer.current), []);
-  const [reminderEnabled, setReminderEnabled] = useState(() => {
-    try {
-      return localStorage.getItem(REMINDER_KEY) === '1';
-    } catch {
-      return false;
-    }
-  });
 
   // Celebrations
   const [detailId, setDetailId] = useState<string | null>(null);
@@ -376,72 +281,6 @@ export default function ProfilePage() {
     });
   }, [xp, level.level, unlockedKey, hydrated]);
 
-  /* The honest stand-in for a server-side team view: this seller's own numbers,
-     as plain text they can paste into WhatsApp. Every figure comes from the
-     progress hook — nothing here is estimated or rounded up. */
-  const buildStatsSummary = () =>
-    [
-      `Zero Lines Academy — ${displayName}${authUser ? ` (${authUser.username})` : ''}`,
-      `${c('shareLevel')} ${level.level} · ${levelName}`,
-      `${c('shareXP')}: ${xp}`,
-      `${c('shareLessons')}: ${lessonsCompleted}`,
-      `${c('shareQuizzes')}: ${quizzesPassed}`,
-      `${c('shareStreak')}: ${currentStreak} ${c('shareDays')}`,
-      `${c('shareAccuracy')}: ${accuracy}%`,
-    ].join('\n');
-
-  const handleShareStats = async () => {
-    const summary = buildStatsSummary();
-    let ok = true;
-    try {
-      await navigator.clipboard.writeText(summary);
-    } catch {
-      // The Clipboard API needs a secure context, which a shop tablet is not
-      // always on. A copy button that silently does nothing is worse than none.
-      try {
-        const ta = document.createElement('textarea');
-        ta.value = summary;
-        ta.setAttribute('readonly', '');
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        ok = document.execCommand('copy');
-        document.body.removeChild(ta);
-      } catch {
-        ok = false;
-      }
-    }
-    if (!ok) return;
-    setStatsCopied(true);
-    window.clearTimeout(copyTimer.current);
-    copyTimer.current = window.setTimeout(() => setStatsCopied(false), 2400);
-  };
-
-  const handleReset = () => {
-    progress.resetProgress();
-    writeSnapshot({ xp: 0, level: 1, unlocked: [] });
-    setDismissedUnlocks([]);
-    setLevelToastDone(true);
-    setConfettiDone(true);
-  };
-
-  const toggleReminder = () => {
-    setReminderEnabled((prev) => {
-      const next = !prev;
-      try {
-        localStorage.setItem(REMINDER_KEY, next ? '1' : '0');
-      } catch {
-        // preference simply will not survive a reload
-      }
-      return next;
-    });
-  };
-
-  const roleLabel =
-    authUser?.role === 'admin' ? c('roleAdmin') : authUser?.role === 'manager' ? c('roleManager') : c('roleSeller');
-
-  const joined = formatDate(authUser?.createdAt, locale);
   const detailAchievement = detailId ? getAchievement(detailId) : undefined;
   const unlockedNow = celebratingId ? getAchievement(celebratingId) : undefined;
 
@@ -483,6 +322,16 @@ export default function ProfilePage() {
               </span>
             </div>
           </div>
+
+          {/* Everything that is a control now lives one tap away. */}
+          <button
+            type="button"
+            onClick={() => navigate('/settings')}
+            aria-label={t('profileSettings')}
+            className="btn-icon shrink-0"
+          >
+            <Settings size={18} aria-hidden />
+          </button>
         </div>
 
         {/* Level progress */}
@@ -525,15 +374,6 @@ export default function ProfilePage() {
       </header>
 
       <div className="space-y-8 px-5 pt-6">
-        {/* ── Today ── */}
-        <section>
-          <SectionHeading icon={Sparkles} title={t('homeDailyChallenge')} />
-          <DailyChallengeCard
-            isCompleted={progress.isDailyChallengeCompleted()}
-            onComplete={progress.completeDailyChallenge}
-          />
-        </section>
-
         {/* ── Numbers ── */}
         <section>
           <SectionHeading icon={Zap} title={c('progressTitle')} />
@@ -562,13 +402,6 @@ export default function ProfilePage() {
                 </div>
               ))}
             </div>
-
-            {/* Progress never leaves this phone, so sending it is a copy-paste. */}
-            <button type="button" onClick={handleShareStats} className="btn-secondary mt-4 w-full">
-              {statsCopied ? <Check size={16} aria-hidden /> : <Share2 size={16} aria-hidden />}
-              <span aria-live="polite">{statsCopied ? c('shareCopied') : c('shareStats')}</span>
-            </button>
-            <p className="mt-2 text-caption leading-5 text-ink-3">{c('shareHint')}</p>
           </div>
         </section>
 
@@ -746,286 +579,11 @@ export default function ProfilePage() {
                 onClick={() => navigate('/admin')}
               />
             )}
-            {/* Only offered where there is somewhere to save it to. */}
-            {isDatabaseConfigured && (
-              <NavRow
-                icon={KeyRound}
-                accent="gold"
-                title={c('changePassword')}
-                subtitle={c('changePasswordDesc')}
-                onClick={() => navigate('/set-password')}
-              />
-            )}
-          </div>
-        </section>
-
-        {/* ── Account ── */}
-        {authUser && (
-          <section>
-            <SectionHeading icon={Briefcase} title={c('yourAccount')} />
-            <div className="surface-raised divide-y divide-line">
-              <FactRow
-                icon={AtSign}
-                label={c('username')}
-                value={authUser.username}
-                note={c('usernameNote')}
-                mono
-              />
-              <FactRow icon={Briefcase} label={c('role')} value={roleLabel} />
-              {/* An admin belongs to no single shop, so instead of stating one
-                  they get to switch — which is the only way to check that a
-                  Gibraltar seller is really being shown £. */}
-              {isLocked ? (
-                <FactRow
-                  icon={MapPin}
-                  label={c('yourShop')}
-                  value={`${locationName} · ${currency}`}
-                  note={c('shopExplainer')}
-                />
-              ) : (
-                <div className="p-4">
-                  <p id="shop-label" className="text-body-small font-semibold text-ink">
-                    {c('viewingShop')}
-                  </p>
-                  <p className="mt-0.5 text-caption leading-5 text-ink-3">{c('viewingShopNote')}</p>
-                  <div
-                    role="group"
-                    aria-labelledby="shop-label"
-                    className="mt-3 grid grid-cols-2 gap-2 rounded-full bg-surface-sunken p-1"
-                  >
-                    {(['andorra', 'gibraltar'] as const).map((loc) => (
-                      <button
-                        key={loc}
-                        type="button"
-                        onClick={() => setLocation(loc)}
-                        aria-pressed={shopLocation === loc}
-                        className={`min-h-touch rounded-full text-body-small font-semibold transition-colors ${
-                          shopLocation === loc ? 'bg-teal text-on-teal' : 'text-ink-2'
-                        }`}
-                      >
-                        {loc === 'andorra' ? 'Andorra · €' : 'Gibraltar · £'}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {/* The roster does not record join dates, so this row simply is not
-                  there rather than printing an empty or invalid one. */}
-              {joined && <FactRow icon={Calendar} label={c('joined')} value={joined} />}
-            </div>
-          </section>
-        )}
-
-        {/* ── Settings ── */}
-        <section>
-          <SectionHeading icon={Palette} title={t('profileSettings')} />
-          <div className="surface-raised divide-y divide-line">
-            {/* Appearance */}
-            <div className="p-4">
-              <p id="theme-label" className="text-body-small font-semibold text-ink">
-                {c('appearance')}
-              </p>
-              <div
-                role="group"
-                aria-labelledby="theme-label"
-                className="mt-3 grid grid-cols-3 gap-2 rounded-full bg-surface-sunken p-1"
-              >
-                {(
-                  [
-                    { key: 'light', label: c('themeLight'), icon: Sun },
-                    { key: 'dark', label: c('themeDark'), icon: Moon },
-                    { key: 'system', label: c('themeSystem'), icon: Monitor },
-                  ] as { key: ThemePreference; label: string; icon: LucideIcon }[]
-                ).map((opt) => {
-                  const active = preference === opt.key;
-                  const Icon = opt.icon;
-                  return (
-                    <button
-                      key={opt.key}
-                      type="button"
-                      onClick={() => setPreference(opt.key)}
-                      aria-pressed={active}
-                      className={[
-                        'flex min-h-touch items-center justify-center gap-1.5 rounded-full px-2 text-caption font-semibold transition-colors',
-                        active ? 'bg-teal text-on-teal' : 'text-ink-2',
-                      ].join(' ')}
-                    >
-                      <Icon size={15} aria-hidden />
-                      {opt.label}
-                    </button>
-                  );
-                })}
-              </div>
-              <p className="mt-2 text-caption text-ink-3">{c('themeHint')}</p>
-            </div>
-
-            {/* Language */}
-            <div className="p-4">
-              <p id="lang-label" className="text-body-small font-semibold text-ink">
-                {c('language')}
-              </p>
-              <div
-                role="group"
-                aria-labelledby="lang-label"
-                className="mt-3 grid grid-cols-2 gap-2 rounded-full bg-surface-sunken p-1"
-              >
-                {(
-                  [
-                    { key: 'en', label: t('authEnglish') },
-                    { key: 'es', label: t('authSpanish') },
-                  ] as { key: 'en' | 'es'; label: string }[]
-                ).map((opt) => {
-                  const active = language === opt.key;
-                  return (
-                    <button
-                      key={opt.key}
-                      type="button"
-                      onClick={() => !active && setPendingLang(opt.key)}
-                      aria-pressed={active}
-                      className={[
-                        'flex min-h-touch items-center justify-center gap-1.5 rounded-full px-3 text-caption font-semibold transition-colors',
-                        active ? 'bg-teal text-on-teal' : 'text-ink-2',
-                      ].join(' ')}
-                    >
-                      <Languages size={15} aria-hidden />
-                      {opt.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Daily reminder */}
-            <div className="flex items-center justify-between gap-3 p-4">
-              <div className="flex min-w-0 items-center gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-chip bg-surface-sunken">
-                  <Bell size={16} className="text-ink-2" aria-hidden />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-body-small font-semibold text-ink">{t('profileDailyReminder')}</p>
-                  <p className="text-caption text-ink-3">{t('profileRemindMe')}</p>
-                </div>
-              </div>
-              {/* 56x32 track inside a 56x44 hit area — the switch itself was
-                  below the 44px touch minimum. */}
-              <button
-                type="button"
-                role="switch"
-                aria-checked={reminderEnabled}
-                aria-label={t('profileDailyReminder')}
-                onClick={toggleReminder}
-                className="flex h-touch w-14 shrink-0 items-center justify-center"
-              >
-                <span
-                  className={`relative block h-8 w-14 rounded-full border transition-colors ${
-                    reminderEnabled ? 'border-teal bg-teal' : 'border-line-strong bg-surface-sunken'
-                  }`}
-                >
-                  <span
-                    className={`absolute top-1 block h-6 w-6 rounded-full bg-surface shadow-raised transition-transform ${
-                      reminderEnabled ? 'translate-x-7' : 'translate-x-1'
-                    }`}
-                  />
-                </span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Careful zone ── */}
-        <section>
-          <SectionHeading icon={AlertTriangle} title={c('dangerZone')} />
-          <div className="space-y-3">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <button
-                  type="button"
-                  className="flex min-h-touch w-full items-center justify-between gap-3 rounded-card border border-danger/30 bg-danger-tint px-4 py-3 text-left"
-                >
-                  <span className="flex items-center gap-3">
-                    <RotateCcw size={16} className="shrink-0 text-danger" aria-hidden />
-                    <span>
-                      <span className="block text-body-small font-semibold text-ink">
-                        {t('profileResetProgress')}
-                      </span>
-                      <span className="block text-caption text-ink-2">{t('profileResetDesc')}</span>
-                    </span>
-                  </span>
-                  <ChevronRight size={16} className="shrink-0 text-ink-3" aria-hidden />
-                </button>
-              </AlertDialogTrigger>
-              <AlertDialogContent className="rounded-feature border-line bg-surface">
-                <AlertDialogHeader>
-                  <AlertDialogTitle className="flex items-center gap-2 text-h4 text-ink">
-                    <AlertTriangle size={18} className="text-danger" aria-hidden />
-                    {t('profileResetTitle')}
-                  </AlertDialogTitle>
-                  <AlertDialogDescription className="text-body-small text-ink-2">
-                    {t('profileResetWarning')}
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel className="btn-quiet min-h-touch border-line">
-                    {t('profileCancel')}
-                  </AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={handleReset}
-                    className="min-h-touch rounded-full bg-danger px-6 font-semibold text-destructive-foreground"
-                  >
-                    {t('profileResetEverything')}
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-
-            {authUser && (
-              <button
-                type="button"
-                onClick={() => {
-                  authCtx.logout();
-                  navigate('/auth', { replace: true });
-                }}
-                className="btn-quiet w-full"
-              >
-                <LogOut size={16} aria-hidden />
-                {c('signOut')}
-              </button>
-            )}
           </div>
         </section>
 
         <div className="pb-safe" />
       </div>
-
-      {/* ── Language confirmation (Radix: focus-trapped, Escape closes) ── */}
-      <AlertDialog open={pendingLang !== null} onOpenChange={(open) => !open && setPendingLang(null)}>
-        <AlertDialogContent className="rounded-feature border-line bg-surface">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-h4 text-ink">
-              {pendingLang === 'es' ? COPY.langConfirmTitle.es : COPY.langConfirmTitle.en}
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-body-small text-ink-2">
-              {pendingLang === 'es' ? COPY.langConfirmBody.es : COPY.langConfirmBody.en}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="btn-quiet min-h-touch border-line">
-              {pendingLang === 'es' ? 'Cancelar' : 'Cancel'}
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                if (!pendingLang) return;
-                setLanguage(pendingLang);
-                setPendingLang(null);
-                setTimeout(() => window.location.reload(), 120);
-              }}
-              className="btn-secondary min-h-touch"
-            >
-              {pendingLang === 'es' ? COPY.confirm.es : COPY.confirm.en}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
 
       {/* ── Artefact detail ── */}
       <Dialog open={detailAchievement !== undefined} onOpenChange={(open) => !open && setDetailId(null)}>
@@ -1110,7 +668,8 @@ export default function ProfilePage() {
   );
 }
 
-/* ── Rows ── */
+/* ── Rows ──
+   FactRow moved to SettingsPage.tsx with the account facts it printed. */
 
 function NavRow({
   icon: Icon,
@@ -1141,32 +700,5 @@ function NavRow({
       </div>
       <ChevronRight size={18} className="shrink-0 text-ink-3" aria-hidden />
     </button>
-  );
-}
-
-function FactRow({
-  icon: Icon,
-  label,
-  value,
-  note,
-  mono = false,
-}: {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-  note?: string;
-  mono?: boolean;
-}) {
-  return (
-    <div className="flex items-start gap-3 p-4">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-chip bg-surface-sunken">
-        <Icon size={16} className="text-ink-2" aria-hidden />
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className="text-caption text-ink-3">{label}</p>
-        <p className={`break-words text-body-small text-ink ${mono ? 'font-mono' : ''}`}>{value}</p>
-        {note && <p className="mt-1 text-caption leading-5 text-ink-3">{note}</p>}
-      </div>
-    </div>
   );
 }

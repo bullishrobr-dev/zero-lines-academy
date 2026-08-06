@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import LoadingScreen from './components/LoadingScreen';
 import ErrorBoundary from './components/ErrorBoundary';
 import PwaPrompts from './components/PwaPrompts';
+import ShiftNudges from './components/ShiftNudges';
 import OnboardingPage from './pages/OnboardingPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -36,6 +37,7 @@ const EndOfShift        = lazy(() => import('./pages/EndOfShift'));
 const LeaderboardPage   = lazy(() => import('./pages/LeaderboardPage'));
 const StreetTrackerPage = lazy(() => import('./pages/StreetTrackerPage'));
 const SetPasswordPage   = lazy(() => import('./pages/SetPasswordPage'));
+const SettingsPage      = lazy(() => import('./pages/SettingsPage'));
 
 /* ── Route guards ──
    Every route used to be reachable by anyone: a plain seller could open
@@ -129,6 +131,7 @@ export default function App() {
                     <Route path="/quizzes" element={<RequireAuth><QuizzesPage /></RequireAuth>} />
                     <Route path="/cheat-sheets" element={<RequireAuth><CheatSheetsPage /></RequireAuth>} />
                     <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+                    <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
                     <Route path="/first-day" element={<RequireAuth><FirstDayTrack /></RequireAuth>} />
                     <Route path="/flashcards" element={<RequireAuth><FlashcardsPage /></RequireAuth>} />
                     <Route path="/flashcard-decks" element={<RequireAuth><FlashcardDeckPage /></RequireAuth>} />
@@ -152,6 +155,7 @@ export default function App() {
                   </Routes>
                 </Suspense>
                 <PwaPrompts />
+                <ShiftNudges />
               </Layout>
             </ErrorBoundary>
           </LocationProvider>

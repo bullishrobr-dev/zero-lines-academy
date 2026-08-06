@@ -14,6 +14,15 @@ export interface StreetSession {
   amount?: number;
   note?: string;
   timestamp: number;
+  /**
+   * How a stop ended. Undefined means the encounter is still OPEN — that person
+   * is in front of the seller right now, and the journal shows a live card until
+   * it is resolved. This is what turns a counter into a journal: the app learns
+   * about the people who did NOT buy, which the till can never see.
+   */
+  outcome?: 'sold' | 'walked';
+  /** Chip id from encounterChips.ts — why they walked, or what closed it. */
+  reason?: string;
 }
 
 export interface DailySummary {

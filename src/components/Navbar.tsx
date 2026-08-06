@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────
 // Navbar.tsx — floating bottom navigation pill
 //
-// Phone-first. Four destinations plus one raised centre action ("Log a sale"),
+// Phone-first. Four destinations plus one raised centre action ("Journal"),
 // which is the only entry point in the whole app to /street-tracker.
 //
 // The old bar sat flush on the bottom edge with no safe-area padding, so on a
@@ -15,13 +15,11 @@ import {
   GraduationCap,
   Layers,
   Trophy,
-  BadgeEuro,
-  BadgePoundSterling,
+  NotebookPen,
   type LucideIcon,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useLocation as useShop } from '../contexts/LocationContext';
 import { haptic } from '../utils/haptics';
 
 interface NavItem {
@@ -37,7 +35,6 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { t, language } = useLanguage();
-  const { currencyCode } = useShop();
   const isEs = language === 'es';
 
   if (HIDE_NAV_ON.includes(location.pathname)) return null;
@@ -55,10 +52,10 @@ export default function Navbar() {
     { to: '/profile', label: t('navProfile'), icon: Trophy },
   ];
 
-  const logSaleLabel = isEs ? 'Vender' : 'Log sale';
+  // The centre action is the journal, not a till. It is where a seller records
+  // who came in, who bought, and why the others walked.
+  const journalLabel = isEs ? 'Diario' : 'Journal';
   const isTracking = location.pathname === '/street-tracker';
-  /* Andorra quotes euros, Gibraltar pounds — the badge follows the shop. */
-  const SaleIcon = currencyCode === 'GBP' ? BadgePoundSterling : BadgeEuro;
 
   const renderItem = (item: NavItem) => (
     <NavLink
@@ -104,7 +101,7 @@ export default function Navbar() {
         <div className="relative flex items-stretch gap-1 rounded-full border border-line bg-surface/85 px-2 py-2 shadow-feature backdrop-blur-xl">
           {leftItems.map(renderItem)}
 
-          {/* ── Raised centre action — the app's only link to /street-tracker ── */}
+          {/* ── Raised centre action — the app's only link to the journal ── */}
           <motion.button
             type="button"
             whileTap={{ scale: 0.94 }}
@@ -121,9 +118,9 @@ export default function Navbar() {
                 isTracking ? 'ring-coral-tint' : 'ring-background'
               }`}
             >
-              <SaleIcon size={26} strokeWidth={2.2} aria-hidden="true" />
+              <NotebookPen size={26} strokeWidth={2.2} aria-hidden="true" />
             </span>
-            <span className="text-caption font-semibold tracking-tight">{logSaleLabel}</span>
+            <span className="text-caption font-semibold tracking-tight">{journalLabel}</span>
           </motion.button>
 
           {rightItems.map(renderItem)}

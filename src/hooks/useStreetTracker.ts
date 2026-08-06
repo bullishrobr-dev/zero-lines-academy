@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { XP_VALUES, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
 import type { StreetSession, DailySummary, XPAward } from '../types/streetTracker';
 import { useAuthContext } from '../contexts/AuthContext';
@@ -137,9 +137,55 @@ export function useStreetTracker() {
     [syncing, userId]
   );
 
+  /**
+   * The encounter still open — someone is in the shop right now and the seller
+   * has not said how it went. Only ever one at a time: tapping "brought someone
+   * in" again resolves nothing, so the newest open stop is the live one.
+   */
+  const openEncounter = useMemo((): StreetSession | null => {
+    const todayKey = getTodayKey();
+    const open = sessions
+      .filter((s) => s.date === todayKey && s.type === 'stop' && !s.outcome)
+      .sort((a, b) => b.timestamp - a.timestamp);
+    return open[0] ?? null;
+  }, [sessions]);
+
+  /**
+   * Close an open encounter.
+   *
+   * Deliberately LOCAL ONLY. The counts a manager needs — stops, sales,
+   * conversion — already reach the server through logActivity. The *reason*
+   * someone walked is the seller's own note on their own game, and the moment
+   * it feels like it is being reported upward they will stop answering honestly
+   * (or tap the same tile every time), which destroys the only data here that
+   * the till cannot already produce. Their notes are theirs.
+   */
+  const resolveEncounter = useCallback(
+    (encounterId: string, outcome: 'sold' | 'walked', reason?: string): void => {
+      setSessions((prev) =>
+        prev.map((s) => (s.id === encounterId ? { ...s, outcome, reason } : s))
+      );
+    },
+    []
+  );
+
   const getTodayLogs = useCallback((): StreetSession[] => {
     const todayKey = getTodayKey();
     return sessions.filter((s) => s.date === todayKey).sort((a, b) => b.timestamp - a.timestamp);
+  }, [sessions]);
+
+  /** Today's walk-away reasons, most frequent first — the coaching signal. */
+  const getTodayReasons = useCallback((): { id: string; count: number }[] => {
+    const todayKey = getTodayKey();
+    const counts = new Map<string, number>();
+    for (const s of sessions) {
+      if (s.date !== todayKey || s.outcome !== 'walked' || !s.reason) continue;
+      if (s.reason === 'none') continue; // "they just left" is not a lesson
+      counts.set(s.reason, (counts.get(s.reason) ?? 0) + 1);
+    }
+    return [...counts.entries()]
+      .map(([id, count]) => ({ id, count }))
+      .sort((a, b) => b.count - a.count);
   }, [sessions]);
 
   const getDailySummary = useCallback(
@@ -193,6 +239,9 @@ export function useStreetTracker() {
     xpAwards,
     logActivity,
     getTodayLogs,
+    getTodayReasons,
+    openEncounter,
+    resolveEncounter,
     getDailySummary,
     getWeekSummary,
     getPersonalBest,

@@ -1,19 +1,22 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Flame, DoorOpen, Coins, Trophy, DoorClosed } from 'lucide-react';
 import { useStreetTracker } from '../hooks/useStreetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import QuickLogButtons from '../components/QuickLogButtons';
+import EncounterCard from '../components/EncounterCard';
 import SaleLogModal from '../components/SaleLogModal';
 import BetweenShiftsCard from '../components/BetweenShiftsCard';
 import { PRODUCTS } from '../types/streetTracker';
+import { walkReason, chipLabel } from '../data/encounterChips';
 import type { StreetSession, DailySummary } from '../types/streetTracker';
 
 const COPY = {
   en: {
-    title: 'Street Tracker',
-    subtitle: 'Log it the second it happens',
+    title: 'My Journal',
+    subtitle: 'Two taps. Then back out there.',
     todayStats: "Today's performance",
     stops: 'Brought in',
     sales: 'Sales',
@@ -34,10 +37,13 @@ const COPY = {
     hrsAgo: 'h ago',
     xpToday: 'XP today',
     dayStreak: 'day streak',
+    beatYouToday: 'What beat you today',
+    beatYouTimes: 'times',
+    beatYouCta: 'Your line for it →',
   },
   es: {
-    title: 'Tracker de Calle',
-    subtitle: 'Regístralo en el momento',
+    title: 'Mi Diario',
+    subtitle: 'Dos toques. Y vuelves a la calle.',
     todayStats: 'Rendimiento de hoy',
     stops: 'Metidos dentro',
     sales: 'Ventas',
@@ -58,6 +64,9 @@ const COPY = {
     hrsAgo: 'h',
     xpToday: 'XP hoy',
     dayStreak: 'días de racha',
+    beatYouToday: 'Lo que te frenó hoy',
+    beatYouTimes: 'veces',
+    beatYouCta: 'Tu respuesta →',
   },
 };
 
@@ -263,12 +272,56 @@ const PersonalBest: React.FC<{ label: string; value: string | number; delay?: nu
   </motion.div>
 );
 
+/**
+ * "Let me think about it beat you 5 times today — here is your line for it."
+ *
+ * Only shown once a reason has actually come up twice, so it stays a signal
+ * rather than wallpaper, and it links straight into the objection lesson that
+ * answers it.
+ */
+const TopObjection: React.FC<{
+  reasons: { id: string; count: number }[];
+  t: Copy;
+  isEs: boolean;
+}> = ({ reasons, t, isEs }) => {
+  const navigate = useNavigate();
+  const top = reasons[0];
+  if (!top || top.count < 2) return null;
+  const chip = walkReason(top.id);
+  if (!chip) return null;
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="surface-feature feature-warning p-4"
+    >
+      <p className="text-overline text-ink-3">{t.beatYouToday}</p>
+      <p className="mt-1 text-body-small text-ink">
+        <b>{chipLabel(chip, isEs)}</b> · {top.count} {t.beatYouTimes}
+      </p>
+      {chip.lessonId && (
+        <button
+          type="button"
+          onClick={() => navigate(`/lesson/${chip.lessonId}`)}
+          className="btn-quiet mt-2 min-h-touch w-full text-body-small"
+        >
+          {t.beatYouCta}
+        </button>
+      )}
+    </motion.section>
+  );
+};
+
 // ── Page ────────────────────────────────────────────────────────────────────
 
 const StreetTrackerPage: React.FC = () => {
   const {
     logActivity,
+    openEncounter,
+    resolveEncounter,
     getTodayLogs,
+    getTodayReasons,
     getDailySummary,
     getWeekSummary,
     getPersonalBest,
@@ -289,6 +342,8 @@ const StreetTrackerPage: React.FC = () => {
   );
 
   const [showSaleModal, setShowSaleModal] = useState(false);
+  /* Which closer chip the encounter card captured, passed into the sale entry. */
+  const [pendingCloser, setPendingCloser] = useState<string | undefined>(undefined);
 
   // A state initializer must be PURE — React may call it twice, and under
   // StrictMode it does. This one wrote to localStorage, so the visit counter
@@ -361,6 +416,28 @@ const StreetTrackerPage: React.FC = () => {
       </header>
 
       <div className="mx-auto max-w-app space-y-5 px-4 pt-4">
+        {/* The live encounter — someone is in the shop right now. A visible
+            loose end is what brings the phone back out. */}
+        <AnimatePresence>
+          {openEncounter && (
+            <EncounterCard
+              key={openEncounter.id}
+              encounter={openEncounter}
+              onWalked={(reason) => resolveEncounter(openEncounter.id, 'walked', reason)}
+              onSold={(reason) => {
+                resolveEncounter(openEncounter.id, 'sold', reason);
+                setPendingCloser(reason);
+                setShowSaleModal(true);
+              }}
+            />
+          )}
+        </AnimatePresence>
+
+        {/* The payoff for tapping a chip: today's most common objection, and a
+            one-tap route to the lesson that answers it. Without this the journal
+            is write-only, which is how journals die. */}
+        <TopObjection reasons={getTodayReasons()} t={t} isEs={isEs} />
+
         <AnimatePresence>
           {showBetweenShifts && (
             <BetweenShiftsCard
@@ -449,9 +526,11 @@ const StreetTrackerPage: React.FC = () => {
       <SaleLogModal
         isOpen={showSaleModal}
         onClose={() => setShowSaleModal(false)}
-        onSubmit={(productId, amount, note) =>
-          logActivity('sale', productId, amount, note || undefined)
-        }
+        onSubmit={(productId, amount, note) => {
+          const entry = logActivity('sale', productId, amount, note || undefined);
+          if (pendingCloser) resolveEncounter(entry.id, 'sold', pendingCloser);
+          setPendingCloser(undefined);
+        }}
       />
     </div>
   );
