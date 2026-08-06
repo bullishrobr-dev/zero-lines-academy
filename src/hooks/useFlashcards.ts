@@ -45,6 +45,34 @@ const INTERVAL_GOOD = 7;
 const INTERVAL_EASY = 14;
 
 /**
+ * A card is "mastered" once it survives to a three-week gap and still comes
+ * back. It used to also require rating it "Easy" twice in a row — but rating a
+ * card "Good" (you recalled it fine) reset that counter to zero, so honest
+ * study could push mastery toward zero forever. Reaching a long interval is the
+ * real signal; how you got there is not.
+ */
+const MASTERY_INTERVAL = 21;
+
+/**
+ * How many brand-new cards enter the queue on a given day. Without this, day one
+ * of a 68-card deck showed all 68 as due at once — a wall no one clears, so they
+ * bounce off. Cards already in rotation are never capped; you always clear what
+ * you have seen before.
+ */
+const MAX_NEW_PER_DAY = 15;
+
+/**
+ * Spread a due date so a whole day's cards don't all land back on the exact same
+ * future day. With no jitter, every card first seen today returns together on
+ * day 7, then day ~14, forever — permanent, self-inflicted clustering.
+ */
+function fuzzInterval(interval: number): number {
+  if (interval < 4) return interval; // keep short relearning gaps tight
+  const factor = 1 + (Math.random() * 2 - 1) * 0.12; // ±12%
+  return Math.round(interval * factor);
+}
+
+/**
  * The review log grew forever — one entry per rating, kept in localStorage and
  * re-serialised on every single review. A seller doing 40 cards a day filled
  * the 5 MB quota inside a season, at which point every write started throwing.
@@ -176,12 +204,13 @@ function applyReview(
         consecutiveEasy = consecutiveEasy + 1;
         break;
     }
-    interval = Math.min(interval, 365);
   }
 
-  // At least one day out, always. Otherwise the card is still due today and
-  // the review session can never finish.
-  interval = Math.max(1, interval);
+  // Jitter longer intervals so a day's cards don't all fall due together again,
+  // then clamp: at least one day out (or the card stays due today and the
+  // session never ends), at most a year.
+  interval = fuzzInterval(interval);
+  interval = Math.max(1, Math.min(interval, 365));
 
   const progress: Record<string, CardProgress> = {
     ...state.progress,
@@ -218,6 +247,23 @@ function applyReview(
 /** Category ids come from the data file, so a renamed deck can't be missed. */
 function categoryIds(): string[] {
   return categories.map((c) => c.id);
+}
+
+/**
+ * The cards to study now: everything already in rotation whose day has come
+ * (never capped — you clear what you started), plus a bounded trickle of new
+ * cards so a big deck can't dump all of itself on day one. Shared by the hook
+ * and the standalone helpers so the session and the badge always agree.
+ */
+function selectDueCards(progress: Record<string, CardProgress>, today: string): Flashcard[] {
+  const reviewedDue: Flashcard[] = [];
+  const fresh: Flashcard[] = [];
+  for (const card of flashcards) {
+    const prog = progress[card.id];
+    if (!prog) fresh.push(card);
+    else if (isBeforeOrEqual(prog.nextReviewDate, today)) reviewedDue.push(card);
+  }
+  return [...reviewedDue, ...fresh.slice(0, MAX_NEW_PER_DAY)];
 }
 
 // ── Hook ────────────────────────────────────────────────────────────────────
@@ -257,12 +303,7 @@ export function useFlashcards(): UseFlashcardsReturn {
   // ── Derived ─────────────────────────────────────────────────────────────
 
   const dueCards = useMemo(
-    () =>
-      flashcards.filter((card) => {
-        const prog = state.progress[card.id];
-        if (!prog) return true; // never reviewed
-        return isBeforeOrEqual(prog.nextReviewDate, today);
-      }),
+    () => selectDueCards(state.progress, today),
     [state.progress, today]
   );
 
@@ -270,7 +311,7 @@ export function useFlashcards(): UseFlashcardsReturn {
     const total = flashcards.length;
     if (total === 0) return 0;
     const mastered = Object.values(state.progress).filter(
-      (p) => p.consecutiveEasy >= 2 && p.interval >= INTERVAL_EASY
+      (p) => p.interval >= MASTERY_INTERVAL
     ).length;
     return Math.round((mastered / total) * 100);
   }, [state.progress]);
@@ -281,7 +322,7 @@ export function useFlashcards(): UseFlashcardsReturn {
       const catCards = flashcards.filter((f) => f.categoryId === cat);
       const mastered = catCards.filter((c) => {
         const p = state.progress[c.id];
-        return p && p.consecutiveEasy >= 2 && p.interval >= INTERVAL_EASY;
+        return p && p.interval >= MASTERY_INTERVAL;
       }).length;
       map[cat] = catCards.length === 0 ? 0 : Math.round((mastered / catCards.length) * 100);
     }
@@ -354,12 +395,7 @@ export function useFlashcards(): UseFlashcardsReturn {
 
 export function getDueFlashcards(): Flashcard[] {
   const state = loadState();
-  const today = getTodayStr();
-  return flashcards.filter((card) => {
-    const prog = state.progress[card.id];
-    if (!prog) return true;
-    return isBeforeOrEqual(prog.nextReviewDate, today);
-  });
+  return selectDueCards(state.progress, getTodayStr());
 }
 
 export function getDueCount(): number {

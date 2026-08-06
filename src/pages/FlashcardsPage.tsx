@@ -55,7 +55,7 @@ export default function FlashcardsPage() {
    * the deps are only the route's own parameters, so a review never rebuilds
    * the queue underneath the person holding the phone.
    */
-  const cards = useMemo<Flashcard[]>(() => {
+  const baseCards = useMemo<Flashcard[]>(() => {
     const due = getDueFlashcards();
     const scoped = catId ? due.filter((c) => c.categoryId === catId) : due;
     return limited ? scoped.slice(0, 5) : scoped;
@@ -65,6 +65,16 @@ export default function FlashcardsPage() {
   const [flip, setFlip] = useState(false);
   const [stats, setStats] = useState({ again: 0, hard: 0, good: 0, easy: 0 });
   const [key, setKey] = useState(0);
+
+  /*
+   * A card rated "Again" comes back before the session ends — the single most
+   * useful moment in retrieval practice is being re-tested right after seeing
+   * the answer. The scheduler still books it for tomorrow too; this is the
+   * in-session relearning step on top. Appending keeps the base deck a stable
+   * snapshot, so the queue never rebuilds under the person holding the phone.
+   */
+  const [againQueue, setAgainQueue] = useState<Flashcard[]>([]);
+  const cards = useMemo<Flashcard[]>(() => [...baseCards, ...againQueue], [baseCards, againQueue]);
 
   const card = cards[idx];
   const done = cards.length === 0 || idx >= cards.length;
@@ -95,6 +105,8 @@ export default function FlashcardsPage() {
       if (!card) return;
       reviewCard(card.id, r);
       setStats((p) => ({ ...p, [r]: p[r] + 1 }));
+      // "Again" means "show me this one more time this session."
+      if (r === 'again') setAgainQueue((q) => [...q, card]);
       setFlip(false);
       setTimeout(() => {
         setIdx((p) => p + 1);
@@ -108,6 +120,7 @@ export default function FlashcardsPage() {
     setIdx(0);
     setFlip(false);
     setStats({ again: 0, hard: 0, good: 0, easy: 0 });
+    setAgainQueue([]);
     setKey((k) => k + 1);
   }, []);
 
