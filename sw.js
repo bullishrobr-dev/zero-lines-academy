@@ -12,7 +12,7 @@
  * Bump CACHE_VERSION on any change to this file to evict old caches.
  */
 
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const CACHE_NAME = `zero-lines-${CACHE_VERSION}`;
 
 // Relative so the app still works when deployed under a sub-path
