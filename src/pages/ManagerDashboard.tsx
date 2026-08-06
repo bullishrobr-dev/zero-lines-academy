@@ -110,7 +110,6 @@ const COPY = {
   quizAvg: { en: 'Quiz avg', es: 'Media test' },
   streetWeek: { en: 'Street · last 7 days', es: 'Calle · últimos 7 días' },
   streetStops: { en: 'stops', es: 'paradas' },
-  streetBrings: { en: 'brings', es: 'entradas' },
   streetSales: { en: 'sales', es: 'ventas' },
   streetConv: { en: 'conv.', es: 'conv.' },
   lastActive: { en: 'Last active', es: 'Última actividad' },
@@ -711,9 +710,6 @@ function EmployeeCard({
             <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-caption text-ink-3">
               <span>
                 <b className="text-ink-2">{emp.street.stops}</b> {c('streetStops')}
-              </span>
-              <span>
-                <b className="text-ink-2">{emp.street.brings}</b> {c('streetBrings')}
               </span>
               <span>
                 <b className="text-ink-2">{emp.street.sales}</b> {c('streetSales')}

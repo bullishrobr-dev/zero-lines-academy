@@ -1,30 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Hand, DoorOpen, Coins } from 'lucide-react';
+import { DoorOpen, Coins } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface QuickLogButtonsProps {
   onLogStop: () => void;
-  onLogBring: () => void;
   onLogSale: () => void;
 }
 
+/**
+ * Two buttons, not three. A "stop" is a person who is now INSIDE the shop —
+ * pavement approaches are no longer counted, because that measured effort
+ * rather than result and could never be counted honestly mid-shift.
+ */
 const COPY = {
   en: {
-    stop: 'I stopped someone',
-    bring: 'Brought them inside',
+    stop: 'I brought someone in',
     sale: 'I made a sale',
     stopShort: 'Stop',
-    bringShort: 'Bring',
     saleShort: 'Sale',
   },
   es: {
-    stop: 'He parado a alguien',
-    bring: 'Lo he metido dentro',
+    stop: 'He metido a alguien',
     sale: 'He hecho una venta',
     stopShort: 'Parada',
-    bringShort: 'Adentro',
     saleShort: 'Venta',
   },
 };
@@ -81,7 +81,7 @@ const LogButton: React.FC<{
   </motion.button>
 );
 
-const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogBring, onLogSale }) => {
+const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogSale }) => {
   const { language } = useLanguage();
   const t = COPY[language === 'es' ? 'es' : 'en'];
 
@@ -103,21 +103,9 @@ const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogBring
             }}
             label={t.stop}
             short={t.stopShort}
-            xp="+2 XP"
+            xp="+5 XP"
             fill="bg-teal text-on-teal"
             ink="text-teal-strong"
-            icon={<Hand className="h-7 w-7" aria-hidden="true" />}
-          />
-          <LogButton
-            onClick={() => {
-              burst('violet', '#7A54D6');
-              onLogBring();
-            }}
-            label={t.bring}
-            short={t.bringShort}
-            xp="+5 XP"
-            fill="bg-violet-tint text-violet-strong border border-violet/30"
-            ink="text-violet-strong"
             icon={<DoorOpen className="h-7 w-7" aria-hidden="true" />}
           />
           <LogButton

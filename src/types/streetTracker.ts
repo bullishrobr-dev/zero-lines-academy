@@ -1,7 +1,15 @@
+/**
+ * A "STOP" is someone who is now INSIDE the shop, in front of you — not someone
+ * halted on the pavement. Counting pavement approaches was dropped: it measured
+ * effort rather than result, and nobody could count it honestly anyway.
+ *
+ * So the funnel is two steps: STOP → SALE, and conversion is sales ÷ stops —
+ * of the people you got inside, how many bought.
+ */
 export interface StreetSession {
   id: string;
   date: string;
-  type: 'stop' | 'bring' | 'sale';
+  type: 'stop' | 'sale';
   productId?: string;
   amount?: number;
   note?: string;
@@ -11,9 +19,9 @@ export interface StreetSession {
 export interface DailySummary {
   date: string;
   stops: number;
-  brings: number;
   sales: number;
   revenue: number;
+  /** sales ÷ stops, as a percentage. */
   conversionRate: number;
 }
 
@@ -24,8 +32,9 @@ export interface XPAward {
 }
 
 export const XP_VALUES = {
-  stop: 2,
-  bring: 5,
+  // A stop is now "they are inside the shop", which is real work — worth more
+  // than the old pavement-approach stop it replaces.
+  stop: 5,
   sale: 10,
 } as const;
 

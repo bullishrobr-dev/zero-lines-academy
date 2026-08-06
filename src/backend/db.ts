@@ -139,13 +139,18 @@ export async function getMyTeam(managerId: string): Promise<User[]> {
 
 // ── Team progress — what the manager dashboard reads ─────────────────────────
 
-/** A seller's street funnel over a recent window — what the manager coaches on. */
+/**
+ * A seller's street funnel over a recent window — what the manager coaches on.
+ *
+ * A "stop" is a person brought INSIDE the shop, so conversion is sales ÷ stops:
+ * of the people you got in front of you, how many bought. Pavement approaches
+ * are no longer counted at all.
+ */
 export interface StreetFunnel {
   stops: number;
-  brings: number;
   sales: number;
   revenue: number;
-  /** brings ÷ stops, as a percentage. The number that says who to help. */
+  /** sales ÷ stops, as a percentage. The number that says who to help. */
   conversion: number;
 }
 
@@ -207,11 +212,12 @@ export async function getTeamProgress(
     .gte('occurred_at', sevenDaysAgo);
   const streetByUser = new Map<string, StreetFunnel>();
   for (const row of (saleRows as
-    | { user_id: string; kind: 'stop' | 'bring' | 'sale'; amount: number | null }[]
+    | { user_id: string; kind: string; amount: number | null }[]
     | null) ?? []) {
-    const f = streetByUser.get(row.user_id) ?? { stops: 0, brings: 0, sales: 0, revenue: 0, conversion: 0 };
+    const f = streetByUser.get(row.user_id) ?? { stops: 0, sales: 0, revenue: 0, conversion: 0 };
+    // 'bring' is a legacy kind from when the funnel had three steps; those rows
+    // are ignored rather than folded in, so a mixed old day cannot double-count.
     if (row.kind === 'stop') f.stops += 1;
-    else if (row.kind === 'bring') f.brings += 1;
     else if (row.kind === 'sale') {
       f.sales += 1;
       f.revenue += row.amount ?? 0;
@@ -223,8 +229,8 @@ export async function getTeamProgress(
     const s = statsById.get(p.id);
     const scores = quizByUser.get(p.id) ?? [];
     const completedLessons = s?.lessons_done ?? 0;
-    const street = streetByUser.get(p.id) ?? { stops: 0, brings: 0, sales: 0, revenue: 0, conversion: 0 };
-    street.conversion = street.stops > 0 ? Math.round((street.brings / street.stops) * 100) : 0;
+    const street = streetByUser.get(p.id) ?? { stops: 0, sales: 0, revenue: 0, conversion: 0 };
+    street.conversion = street.stops > 0 ? Math.round((street.sales / street.stops) * 100) : 0;
     const hasData =
       (!!s && (s.xp > 0 || s.lessons_done > 0 || !!s.last_active_date)) ||
       street.stops > 0 ||
@@ -247,7 +253,7 @@ export async function getTeamProgress(
  *  seller, and the manager's team read picks it up. */
 export async function recordSale(
   userId: string,
-  kind: 'stop' | 'bring' | 'sale',
+  kind: 'stop' | 'sale',
   productId?: string,
   amount?: number
 ): Promise<void> {

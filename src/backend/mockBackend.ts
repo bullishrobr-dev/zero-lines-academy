@@ -246,7 +246,7 @@ export interface EmployeeProgress {
   street: db.StreetFunnel;
 }
 
-const NO_STREET: db.StreetFunnel = { stops: 0, brings: 0, sales: 0, revenue: 0, conversion: 0 };
+const NO_STREET: db.StreetFunnel = { stops: 0, sales: 0, revenue: 0, conversion: 0 };
 
 export async function getTeamProgress(managerId: string): Promise<EmployeeProgress[]> {
   if (isDatabaseConfigured) return db.getTeamProgress(managerId, TOTAL_LESSON_COUNT);

@@ -74,13 +74,14 @@ function saveXPAwards(awards: XPAward[]): void {
 function aggregateDay(sessions: StreetSession[], key: string): DailySummary {
   const daySessions = sessions.filter((s) => s.date === key);
   const stops = daySessions.filter((s) => s.type === 'stop').length;
-  const brings = daySessions.filter((s) => s.type === 'bring').length;
   const sales = daySessions.filter((s) => s.type === 'sale').length;
   const revenue = daySessions
     .filter((s) => s.type === 'sale')
     .reduce((sum, s) => sum + (s.amount || 0), 0);
-  const conversionRate = stops > 0 ? Math.round((brings / stops) * 100) : 0;
-  return { date: key, stops, brings, sales, revenue, conversionRate };
+  // Of the people you got inside, how many bought. That is the number worth
+  // coaching on; it used to be brings ÷ pavement-stops, which measured effort.
+  const conversionRate = stops > 0 ? Math.round((sales / stops) * 100) : 0;
+  return { date: key, stops, sales, revenue, conversionRate };
 }
 
 export function useStreetTracker() {
@@ -101,7 +102,7 @@ export function useStreetTracker() {
 
   const logActivity = useCallback(
     (
-      type: 'stop' | 'bring' | 'sale',
+      type: 'stop' | 'sale',
       productId?: string,
       amount?: number,
       note?: string
@@ -125,12 +126,7 @@ export function useStreetTracker() {
       }
 
       const award: XPAward = {
-        activity:
-          type === 'stop'
-            ? 'Stopped someone'
-            : type === 'bring'
-              ? 'Brought them inside'
-              : 'Made a sale',
+        activity: type === 'stop' ? 'Brought someone in' : 'Made a sale',
         points: XP_VALUES[type],
         timestamp: Date.now(),
       };

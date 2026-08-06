@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Flame, Hand, DoorOpen, Coins, Trophy, DoorClosed } from 'lucide-react';
+import { Zap, Flame, DoorOpen, Coins, Trophy, DoorClosed } from 'lucide-react';
 import { useStreetTracker } from '../hooks/useStreetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
@@ -15,17 +15,14 @@ const COPY = {
     title: 'Street Tracker',
     subtitle: 'Log it the second it happens',
     todayStats: "Today's performance",
-    stops: 'Stops',
-    brings: 'Brings',
+    stops: 'Brought in',
     sales: 'Sales',
     revenue: 'Revenue',
-    stop: 'Stop',
-    bring: 'Bring',
+    stop: 'Brought someone in',
     sale: 'Sale',
     conversionRate: 'Conversion rate',
     personalBests: 'Personal bests',
-    bestStops: 'Best stops',
-    bestBrings: 'Best brings',
+    bestStops: 'Most brought in',
     bestSales: 'Best sales',
     bestRevenue: 'Best revenue',
     weekTrend: '7-day trend',
@@ -42,17 +39,14 @@ const COPY = {
     title: 'Tracker de Calle',
     subtitle: 'Regístralo en el momento',
     todayStats: 'Rendimiento de hoy',
-    stops: 'Paradas',
-    brings: 'Adentro',
+    stops: 'Metidos dentro',
     sales: 'Ventas',
     revenue: 'Ingresos',
-    stop: 'Parada',
-    bring: 'Adentro',
+    stop: 'He metido a alguien',
     sale: 'Venta',
     conversionRate: 'Tasa de conversión',
     personalBests: 'Mejores marcas',
-    bestStops: 'Mejores paradas',
-    bestBrings: 'Mejores adentro',
+    bestStops: 'Máximo metidos',
     bestSales: 'Mejores ventas',
     bestRevenue: 'Mejores ingresos',
     weekTrend: 'Tendencia 7 días',
@@ -92,8 +86,7 @@ function weekdayLabel(key: string, isEs: boolean): string {
 // Tints rather than solid fills: there is no `on-violet` ink token, and a
 // coloured fill without its matching ink is exactly how contrast gets lost.
 const ACTIVITY_STYLE = {
-  stop: { fill: 'bg-teal-tint text-teal-strong', ink: 'text-teal-strong', xp: '+2' },
-  bring: { fill: 'bg-violet-tint text-violet-strong', ink: 'text-violet-strong', xp: '+5' },
+  stop: { fill: 'bg-teal-tint text-teal-strong', ink: 'text-teal-strong', xp: '+5' },
   sale: { fill: 'bg-gold-tint text-gold-strong', ink: 'text-gold-strong', xp: '+10' },
 } as const;
 
@@ -106,8 +99,8 @@ const ActivityRow: React.FC<{ session: StreetSession; t: Copy; isEs: boolean; mo
   const product = PRODUCTS.find((p) => p.id === session.productId);
   const productName = product ? (isEs ? product.nameEs : product.name) : '';
   const style = ACTIVITY_STYLE[session.type];
-  const Icon = session.type === 'stop' ? Hand : session.type === 'bring' ? DoorOpen : Coins;
-  const label = session.type === 'stop' ? t.stop : session.type === 'bring' ? t.bring : t.sale;
+  const Icon = session.type === 'stop' ? DoorOpen : Coins;
+  const label = session.type === 'stop' ? t.stop : t.sale;
 
   return (
     <motion.li
@@ -208,14 +201,14 @@ const ConversionGauge: React.FC<{ rate: number; label: string }> = ({ rate, labe
 };
 
 const WeekChart: React.FC<{ data: DailySummary[]; t: Copy; isEs: boolean }> = ({ data, t, isEs }) => {
-  const maxVal = Math.max(...data.map((d) => d.stops + d.brings + d.sales), 1);
+  const maxVal = Math.max(...data.map((d) => d.stops + d.sales), 1);
 
   return (
     <div className="surface-flat p-4">
       <h3 className="mb-3 text-overline text-ink-3">{t.weekTrend}</h3>
       <div className="flex h-28 items-end justify-between gap-1.5">
         {data.map((day, i) => {
-          const total = day.stops + day.brings + day.sales;
+          const total = day.stops + day.sales;
           const pct = total === 0 ? 0 : (total / maxVal) * 100;
           return (
             <div key={day.date} className="flex flex-1 flex-col items-center gap-1.5">
@@ -334,7 +327,6 @@ const StreetTrackerPage: React.FC = () => {
   const streak = useMemo(() => getStreak(), [getStreak]);
 
   const bestStops = useMemo(() => getPersonalBest('stops'), [getPersonalBest]);
-  const bestBrings = useMemo(() => getPersonalBest('brings'), [getPersonalBest]);
   const bestSales = useMemo(() => getPersonalBest('sales'), [getPersonalBest]);
   const bestRevenue = useMemo(() => getPersonalBest('revenue'), [getPersonalBest]);
 
@@ -389,13 +381,6 @@ const StreetTrackerPage: React.FC = () => {
               value={summary.stops}
               ink="text-teal-strong"
               tint="bg-teal-tint"
-              icon={<Hand className="h-3.5 w-3.5" aria-hidden="true" />}
-            />
-            <StatCard
-              label={t.brings}
-              value={summary.brings}
-              ink="text-violet-strong"
-              tint="bg-violet-tint"
               icon={<DoorOpen className="h-3.5 w-3.5" aria-hidden="true" />}
               delay={0.05}
             />
@@ -427,7 +412,6 @@ const StreetTrackerPage: React.FC = () => {
           <h2 className="mb-2 text-overline text-ink-3">{t.personalBests}</h2>
           <div className="grid grid-cols-2 gap-2">
             <PersonalBest label={t.bestStops} value={bestStops} />
-            <PersonalBest label={t.bestBrings} value={bestBrings} delay={0.05} />
             <PersonalBest label={t.bestSales} value={bestSales} delay={0.1} />
             <PersonalBest label={t.bestRevenue} value={money(bestRevenue)} delay={0.15} />
           </div>
@@ -459,7 +443,6 @@ const StreetTrackerPage: React.FC = () => {
 
       <QuickLogButtons
         onLogStop={() => logActivity('stop')}
-        onLogBring={() => logActivity('bring')}
         onLogSale={() => setShowSaleModal(true)}
       />
 
