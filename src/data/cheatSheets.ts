@@ -409,6 +409,21 @@ export interface ScriptCard {
   text: string;
   textEs: string;
   product?: ProductKey;
+  /**
+   * The walk-away reason from encounterChips.ts that this line answers.
+   * Named `answers` rather than `reason` because Phrase.reason already means
+   * something else entirely (why the phrase works).
+   *
+   * It is the same vocabulary the journal uses, so a seller who tapped "Muy
+   * caro" on the last customer can open the cheat sheet, tap the same tile, and
+   * get the line they should have said. Two features, one set of words.
+   *
+   * Deliberately not exhaustive: `trust`, `skin` and `online` have objection
+   * LESSONS but no scripted line yet, and inventing sales copy for a real shop
+   * is not mine to do. The page links to the lesson and says so plainly rather
+   * than showing an empty panel.
+   */
+  answers?: string;
 }
 
 export const SCRIPTS: ScriptCard[] = [
@@ -549,6 +564,7 @@ export const SCRIPTS: ScriptCard[] = [
   // ── Objections ──
   {
     id: 'r1',
+    answers: 'think',
     category: 'objection',
     title: '"I need to think about it"',
     titleEs: '"Necesito pensármelo"',
@@ -557,6 +573,7 @@ export const SCRIPTS: ScriptCard[] = [
   },
   {
     id: 'r2',
+    answers: 'price',
     category: 'objection',
     product: 'syringe',
     title: '"It is too expensive"',
@@ -566,6 +583,7 @@ export const SCRIPTS: ScriptCard[] = [
   },
   {
     id: 'r2b',
+    answers: 'price',
     category: 'objection',
     product: 'peeling',
     title: '"It is too expensive"',
@@ -575,6 +593,7 @@ export const SCRIPTS: ScriptCard[] = [
   },
   {
     id: 'r2c',
+    answers: 'price',
     category: 'objection',
     product: 'scrub',
     title: '"It is too expensive"',
@@ -584,6 +603,7 @@ export const SCRIPTS: ScriptCard[] = [
   },
   {
     id: 'r2d',
+    answers: 'price',
     category: 'objection',
     product: 'nailkit',
     title: '"It is too expensive"',
@@ -601,6 +621,7 @@ export const SCRIPTS: ScriptCard[] = [
   },
   {
     id: 'r4',
+    answers: 'looking',
     category: 'objection',
     title: '"I am just looking"',
     titleEs: '"Solo estoy mirando"',
@@ -609,6 +630,7 @@ export const SCRIPTS: ScriptCard[] = [
   },
   {
     id: 'r5',
+    answers: 'partner',
     category: 'objection',
     title: '"I need to ask my partner"',
     titleEs: '"Tengo que preguntarle a mi pareja"',
@@ -617,6 +639,7 @@ export const SCRIPTS: ScriptCard[] = [
   },
   {
     id: 'r6',
+    answers: 'time',
     category: 'objection',
     title: '"I do not have time"',
     titleEs: '"No tengo tiempo"',
@@ -818,6 +841,8 @@ export interface EmergencyLine {
   headEs?: string;
   text: string;
   textEs: string;
+  /** Walk-away reason this answers — same vocabulary as ScriptCard.answers. */
+  answers?: string;
 }
 
 const EMERGENCY_OPENERS: EmergencyLine[] = [
@@ -849,6 +874,7 @@ const EMERGENCY_CLOSES: EmergencyLine[] = [
 const EMERGENCY_KILLERS: EmergencyLine[] = [
   {
     id: 'ek1',
+    answers: 'price',
     head: `"Too expensive"`,
     headEs: `"Muy caro"`,
     text: `"Compared to what? A single Botox session in Europe is {currency}${SYR_A} and wears off. This is {currency}${SYR_PROMO.price} today and lasts months."`,
@@ -856,6 +882,7 @@ const EMERGENCY_KILLERS: EmergencyLine[] = [
   },
   {
     id: 'ek2',
+    answers: 'think',
     head: `"I need to think"`,
     headEs: `"Tengo que pensármelo"`,
     text: `"I get it. But this price is literally today only — tomorrow it is back to {currency}${SYR_B}."`,
@@ -863,6 +890,7 @@ const EMERGENCY_KILLERS: EmergencyLine[] = [
   },
   {
     id: 'ek3',
+    answers: 'looking',
     head: `"Just looking"`,
     headEs: `"Solo estoy mirando"`,
     text: `"Perfect! Looking is free. But trying is what changes your mind. Two minutes?"`,

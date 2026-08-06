@@ -12,7 +12,31 @@ independently described the same underlying problem in their own vocabulary.
 
 ## Progress log
 
-Shipped since this plan was written (builds 8–17):
+Shipped since this plan was written (builds 8–21):
+
+**Builds 18–21 (the journal, the shift, the two screens sellers actually open):**
+- **The journal** — Log-a-sale became a journal that works during the shift: a
+  live encounter card, sold/walked in one tap, and a why-they-walked chip. The
+  funnel is two steps now (brought in → sold), because a pavement "stop" was
+  never countable honestly.
+- **Shift nudges** — 54 bilingual prompts, one every ~35 minutes during shop
+  hours, as a phone notification where the platform allows it and always as an
+  in-app card. Never while an encounter is open.
+- **Profile and Settings split.** Profile is the trophy cabinet; everything
+  configurable moved to /settings.
+- **A docked bottom bar** instead of a floating pill, and one CSS variable
+  (`--nav-h`) that the four things reserving space for it all read.
+- **Onboarding facelift**, and the three photographs on it now load at all —
+  they were absolute paths under a sub-path deployment, so the first screen
+  anyone saw was three broken-image icons.
+- **Stage 6 — Cheat Sheets rebuilt.** It opened on a tab that rendered every
+  section at once: 13,691px, 16.2 phone screens, on the screen you hold with a
+  customer in front of you. Now nothing renders until asked for — landing is
+  844px (1.0 screens), no section is over 2.3 — and the fastest path is
+  **"They said…"**, which uses the same nine walk-away reasons as the journal,
+  so the objection you tapped last time is the tile you tap to get the line.
+  The three reasons with a lesson but no scripted line say so and link to the
+  lesson rather than showing an invented one.
 
 **Builds 13–17 (data integrity, coaching, reliability):**
 - **Two-way record sync** — a new phone no longer shows "XP but 0 lessons";
@@ -54,8 +78,12 @@ live signed-in-as-a-seller impersonation test is pending a stable connector.
 
 Still open below: unifying the XP ledger and moving scoring server-side
 (Stage 2), the missing "bring"/close/counter content (Stage 4), the spoken rep
-(Stage 5), the Cheat Sheets rebuild (Stage 6), and the reward curve for veterans
-(Stage 7).
+(Stage 5), and the reward curve for veterans (Stage 7).
+
+Two of those need the owner, not me: the missing close/counter content, and the
+scripted answers for "been scammed", "wrong for my skin" and "cheaper online" —
+those three have objection lessons but no line to say, and writing sales copy
+for a real shop is his call.
 
 ## The one sentence version
 
