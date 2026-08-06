@@ -84,12 +84,23 @@ rather than polish.
   category at 0%**, because XP syncs from the server and the lesson map does
   not.
 
-**Spanish that points at the wrong lesson**
+**Every lesson quiz can be passed without reading anything**
 
-Seven Spanish lesson titles name a completely different lesson than their
-English counterparts — "Building Instant Rapport" is titled "Building Instant
-*Speed*" in Spanish. A Spanish-first seller cannot navigate their own
-curriculum.
+Across all 93 lesson quiz questions the correct answer is **B in 84.9% of
+them**. Option D is never correct anywhere in the app, and 19 of the 31 lessons
+have all three answers at B. Tapping B every time passes every lesson quiz,
+banks full XP, and marks the lesson complete. (The 160 general quiz questions
+are properly balanced — this is only the per-lesson ones.)
+
+Fixing it means redistributing the correct answer across 93 questions and
+rewriting any explanation that refers to a position. It is mechanical, but it
+has to be done carefully rather than with a script.
+
+**The Spanish lesson quizzes are not in Spanish**
+
+Not one of the 93 lesson quiz questions has a Spanish version. A Spanish seller
+opening a quiz gets "PREGUNTA 1 DE 3" above an English question and four English
+options. This is the largest single translation gap left.
 
 ---
 

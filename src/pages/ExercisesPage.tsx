@@ -348,10 +348,13 @@ export default function ExercisesPage() {
 
   /* ─── Hub ─── */
   if (view === 'hub') {
-    /* getExerciseScore returns the best score as a percentage. */
+    /* getExerciseScore returns the best score as a percentage, or null for
+       "never attempted" — which is not undefined, so filtering on undefined
+       kept every null and reported all ten exercises as already done, on a
+       brand-new account, with no score next to them. */
     const doneScores = generalExercises
       .map((e) => getExerciseScore(e.id))
-      .filter((v): v is number => v !== undefined);
+      .filter((v): v is number => v !== null && v !== undefined);
     const doneCount = doneScores.length;
     const avgScore = doneCount
       ? Math.round(doneScores.reduce((a, b) => a + b, 0) / doneCount)
@@ -410,7 +413,7 @@ export default function ExercisesPage() {
           {filtered.map((ex, i) => {
             const Icon = typeIcon[ex.type] ?? Puzzle;
             const best = getExerciseScore(ex.id);
-            const isDone = best !== undefined;
+            const isDone = best !== null && best !== undefined;
             return (
               <motion.div
                 key={ex.id}

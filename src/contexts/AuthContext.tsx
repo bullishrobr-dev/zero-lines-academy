@@ -151,10 +151,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  /*
+   * `isLoading` means "we are still working out who is signed in", and every
+   * route guard blocks on it. Signing in used to raise it too — which unmounted
+   * the sign-in screen mid-request and remounted it empty, destroying the error
+   * message it had just been handed along with both typed fields.
+   *
+   * A seller who mistyped their password saw a flicker and a blank form. No
+   * message, ever, for any failure. AuthPage tracks its own in-flight state, so
+   * this must not touch the global one.
+   */
   const login = useCallback(async (username: string, password: string) => {
-    setIsLoading(true);
     const result = await backend.login(username, password);
-    setIsLoading(false);
     if (result.success && result.user) {
       claimDeviceFor(result.user.id);
       setUser(result.user);

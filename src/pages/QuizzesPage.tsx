@@ -473,11 +473,15 @@ export default function QuizzesPage() {
             <p className="text-h2 text-gold-strong" data-testid="quiz-xp-earned">
               +{result.xp} XP
             </p>
-            <p className="text-caption text-ink-3 mt-1">
-              {result.bonus > 0
-                ? `${result.base} ${tx('xpBase')} + ${result.bonus} ${tx('xpPerfectBonus')} · ${tx('quizSaved')}`
-                : `${tx('xpEarned')} · ${tx('quizSaved')}`}
-            </p>
+            {/* Zero XP used to print "XP earned · saved to your profile" and
+                "No XP this time" one under the other. */}
+            {result.xp > 0 && (
+              <p className="text-caption text-ink-3 mt-1">
+                {result.bonus > 0
+                  ? `${result.base} ${tx('xpBase')} + ${result.bonus} ${tx('xpPerfectBonus')} · ${tx('quizSaved')}`
+                  : `${tx('xpEarned')} · ${tx('quizSaved')}`}
+              </p>
+            )}
             {result.xp === 0 && <p className="text-caption text-ink-2 mt-2">{tx('xpNone')}</p>}
             {result.xp > 0 && !isPerfect && (
               <p className="text-caption text-ink-2 mt-2">{tx('xpMore')}</p>
