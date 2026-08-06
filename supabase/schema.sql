@@ -140,8 +140,18 @@ drop policy if exists "staff read progress" on public.progress;
 create policy "own progress" on public.progress
   for all to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
 
+-- Staff read their OWN team, not every seller in both shops. is_staff() alone
+-- let a Gibraltar manager read every Andorra seller's record.
+create or replace function public.can_read_progress_of(p_user_id uuid)
+returns boolean language sql security definer set search_path = public as $$
+  select p_user_id = auth.uid()
+      or public.is_admin()
+      or exists (select 1 from public.profiles t
+                  where t.id = p_user_id and t.manager_id = auth.uid());
+$$;
+
 create policy "staff read progress" on public.progress
-  for select to authenticated using (public.is_staff());
+  for select to authenticated using (public.can_read_progress_of(user_id));
 
 drop policy if exists "own quiz results"       on public.quiz_results;
 drop policy if exists "staff read quiz results" on public.quiz_results;
@@ -150,7 +160,7 @@ create policy "own quiz results" on public.quiz_results
   for all to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
 
 create policy "staff read quiz results" on public.quiz_results
-  for select to authenticated using (public.is_staff());
+  for select to authenticated using (public.can_read_progress_of(user_id));
 
 drop policy if exists "own sales"       on public.sales;
 drop policy if exists "staff read sales" on public.sales;
@@ -159,7 +169,7 @@ create policy "own sales" on public.sales
   for all to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
 
 create policy "staff read sales" on public.sales
-  for select to authenticated using (public.is_staff());
+  for select to authenticated using (public.can_read_progress_of(user_id));
 
 -- ── stats — everyone reads (that IS the leaderboard), you write only your own
 drop policy if exists "read all stats" on public.stats;
@@ -175,9 +185,15 @@ create policy "own stats" on public.stats
 --  AUTOMATION
 -- ═════════════════════════════════════════════════════════════════════════════
 
--- When a login is created, create the matching profile and stats row from the
--- metadata the app passes in. Without this you would have a login with nobody
--- attached to it.
+-- When a login is created, create the matching profile and stats row.
+--
+-- This function used to take the new account's role from the sign-up request's
+-- own metadata. The public API key ships in a public repository, so one POST to
+-- /auth/v1/signup carrying {"role":"admin"} made the sender an admin over both
+-- shops. Row Level Security could not help: the escalation happened inside a
+-- SECURITY DEFINER trigger. Nobody gets to pick their own rank — everyone
+-- starts as an employee, and admin_create_user() sets the real role afterwards,
+-- having already checked who is asking.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -185,13 +201,15 @@ security definer
 set search_path = public
 as $$
 begin
-  insert into public.profiles (id, username, name, role, location)
+  insert into public.profiles (id, username, name, role, location, must_change_password)
   values (
     new.id,
     coalesce(new.raw_user_meta_data->>'username', split_part(new.email, '@', 1)),
     coalesce(new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)),
-    coalesce(new.raw_user_meta_data->>'role', 'employee'),
-    coalesce(new.raw_user_meta_data->>'location', 'andorra')
+    'employee',
+    case when new.raw_user_meta_data->>'location' in ('andorra', 'gibraltar')
+         then new.raw_user_meta_data->>'location' else 'andorra' end,
+    true
   )
   on conflict (id) do nothing;
 
@@ -204,6 +222,24 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+-- The second lock. Nothing creates a login except admin_create_user(), which
+-- raises this flag for its own transaction. Self-signup is refused whatever
+-- address it arrives with — including one at zerolines.local.
+create or replace function public.block_self_signup()
+returns trigger language plpgsql set search_path = public as $$
+begin
+  if coalesce(current_setting('zl.provisioning', true), '') <> 'on' then
+    raise exception 'Accounts are created by an admin inside the app' using errcode = '42501';
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists zl_block_self_signup on auth.users;
+create trigger zl_block_self_signup
+  before insert on auth.users
+  for each row execute function public.block_self_signup();
 
 -- ═════════════════════════════════════════════════════════════════════════════
 --  LEADERBOARD
@@ -240,21 +276,51 @@ with (security_invoker = true) as
 create or replace function public.guard_profile_self_edit()
 returns trigger language plpgsql set search_path = public as $fn$
 begin
-  -- admin_create_user() sets this for the length of its own transaction, so it
-  -- can put a new seller on a team without being blocked here.
-  if coalesce(current_setting('zl.provisioning', true), '') = 'on' then return new; end if;
+  -- is_admin() is asked first on purpose: a provisioning flag left switched on
+  -- must never outrank the real question of who is asking.
   if public.is_admin() then return new; end if;
+  -- admin_create_user() raises this for the length of its own transaction, so
+  -- it can put a new seller on a team without being blocked here.
+  if coalesce(current_setting('zl.provisioning', true), '') = 'on' then return new; end if;
 
-  if new.id         is distinct from old.id
+  if new.id            is distinct from old.id
      or new.username   is distinct from old.username
      or new.role       is distinct from old.role
      or new.location   is distinct from old.location
-     or new.manager_id is distinct from old.manager_id then
+     or new.manager_id is distinct from old.manager_id
+     -- name: otherwise a seller renames themselves to a colleague on the board.
+     or new.name       is distinct from old.name
+     -- must_change_password: otherwise one request clears the "choose your own
+     -- password" gate without any password ever being changed.
+     or new.must_change_password is distinct from old.must_change_password then
     raise exception 'Only an admin may change that' using errcode = '42501';
   end if;
   return new;
 end;
 $fn$;
+
+-- Changing your own password and clearing that flag are one operation, so the
+-- flag cannot be cleared on its own. See guard_profile_self_edit() above.
+create or replace function public.set_own_password(p_password text)
+returns void language plpgsql security definer set search_path = public, extensions as $fn$
+begin
+  if auth.uid() is null then
+    raise exception 'Sign in first' using errcode = '42501'; end if;
+  if length(p_password) < 8 then
+    raise exception 'Password must be at least 8 characters' using errcode = '22023'; end if;
+
+  update auth.users
+     set encrypted_password = extensions.crypt(p_password, extensions.gen_salt('bf', 10)),
+         updated_at = now()
+   where id = auth.uid();
+
+  perform set_config('zl.provisioning', 'on', true);
+  update public.profiles set must_change_password = false where id = auth.uid();
+end;
+$fn$;
+
+revoke all on function public.set_own_password(text) from public, anon;
+grant execute on function public.set_own_password(text) to authenticated;
 
 drop trigger if exists profiles_guard_self_edit on public.profiles;
 create trigger profiles_guard_self_edit
