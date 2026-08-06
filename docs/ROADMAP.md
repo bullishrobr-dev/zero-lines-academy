@@ -12,7 +12,25 @@ independently described the same underlying problem in their own vocabulary.
 
 ## Progress log
 
-Shipped since this plan was written (builds 8–12):
+Shipped since this plan was written (builds 8–17):
+
+**Builds 13–17 (data integrity, coaching, reliability):**
+- **Two-way record sync** — a new phone no longer shows "XP but 0 lessons";
+  tiers stop re-locking; a finished lesson can't be re-earned. Tested, 12 cases.
+- **Manager dashboard reads the database** and shows each seller's last-7-days
+  **street funnel** (stops → brings → sales → conversion), scoped to their team.
+- **Street tracker persists to the database**, so stops/brings/sales survive a
+  lost phone and reach the manager.
+- **XP survives a dropped connection** — flush on reconnect and on
+  backgrounding, and the "server has this" marker only advances after the write
+  confirms.
+- **Reduce Motion respected** app-wide; crash screen no longer shows sellers a
+  raw JS error; activity log names each action correctly in both languages.
+
+Still to verify: the sales row-level-security was confirmed at creation, but a
+live signed-in-as-a-seller impersonation test is pending a stable connector.
+
+**Builds 8–12:**
 
 - **Stage 1** — the VAT-refund guarantee and every customs / "nothing to
   declare" / €300-allowance claim are removed, both languages. The daily-dose,
