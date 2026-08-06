@@ -43,6 +43,7 @@ import { useMemo, useState, useCallback, useRef } from 'react';
 import { getLesson, getCategory } from '../data/lessons';
 import { getRandomQuote, type Quote } from '../data/quotes';
 import { useProgress } from '../hooks/useProgress';
+import BiggestLeak from '../components/BiggestLeak';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuthContext } from '../contexts/AuthContext';
 import DailyChallengeCard from '../components/DailyChallengeCard';
@@ -570,6 +571,12 @@ export default function HomeDashboard() {
               onClick={() => navigate('/exercises')}
             />
           </div>
+        </motion.section>
+
+        {/* ── The journal, read back. Renders nothing until there is a real
+             pattern to point at — see the note in BiggestLeak.tsx. ── */}
+        <motion.section variants={itemVariants}>
+          <BiggestLeak />
         </motion.section>
 
         {/* ── Daily challenge — the achievement that matters today.

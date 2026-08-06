@@ -34,7 +34,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useMemo, useState, type ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, ArrowRight, BookOpen, ChevronDown, Eye, Lightbulb, MessageCircle,
@@ -118,9 +118,18 @@ export default function CheatSheetsPage() {
   const navigate = useNavigate();
   const isEs = language === 'es';
 
-  const [section, setSection] = useState<Section>('home');
+  /* `?said=price` opens straight on that objection's answers. It is how the
+     "biggest leak" card on Home hands off — the seller taps one button and the
+     lines are already on screen, rather than landing here and hunting. Read
+     once as the initial state so tapping Back inside the page still works. */
+  const [params] = useSearchParams();
+  const deepLinked = params.get('said');
+
+  const [section, setSection] = useState<Section>(deepLinked ? 'said' : 'home');
   const [search, setSearch] = useState('');
-  const [reason, setReason] = useState<string | null>(null);
+  const [reason, setReason] = useState<string | null>(
+    deepLinked && WALK_REASONS.some((r) => r.id === deepLinked) ? deepLinked : null,
+  );
   const [scriptFilter, setScriptFilter] = useState('opening');
 
   const q = search.toLowerCase().trim();

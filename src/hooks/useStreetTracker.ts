@@ -174,19 +174,37 @@ export function useStreetTracker() {
     return sessions.filter((s) => s.date === todayKey).sort((a, b) => b.timestamp - a.timestamp);
   }, [sessions]);
 
-  /** Today's walk-away reasons, most frequent first — the coaching signal. */
-  const getTodayReasons = useCallback((): { id: string; count: number }[] => {
-    const todayKey = getTodayKey();
-    const counts = new Map<string, number>();
-    for (const s of sessions) {
-      if (s.date !== todayKey || s.outcome !== 'walked' || !s.reason) continue;
-      if (s.reason === 'none') continue; // "they just left" is not a lesson
-      counts.set(s.reason, (counts.get(s.reason) ?? 0) + 1);
-    }
-    return [...counts.entries()]
-      .map(([id, count]) => ({ id, count }))
-      .sort((a, b) => b.count - a.count);
-  }, [sessions]);
+  /**
+   * Walk-away reasons over the last `days` days, most frequent first — the
+   * coaching signal, and the only thing in this product the till cannot produce.
+   *
+   * `days = 1` is today. A week is the window worth acting on: one bad
+   * afternoon of "let me think" is noise, five of them across a week is a hole
+   * in someone's close, and that is a different conversation.
+   */
+  const getRecentReasons = useCallback(
+    (days = 1): { id: string; count: number }[] => {
+      const window = new Set<string>();
+      for (let i = 0; i < days; i++) window.add(daysAgoKey(i));
+
+      const counts = new Map<string, number>();
+      for (const s of sessions) {
+        if (!window.has(s.date) || s.outcome !== 'walked' || !s.reason) continue;
+        if (s.reason === 'none') continue; // "they just left" is not a lesson
+        counts.set(s.reason, (counts.get(s.reason) ?? 0) + 1);
+      }
+      return [...counts.entries()]
+        .map(([id, count]) => ({ id, count }))
+        .sort((a, b) => b.count - a.count);
+    },
+    [sessions],
+  );
+
+  /** Today only. Kept as its own name because the journal reads it that way. */
+  const getTodayReasons = useCallback(
+    (): { id: string; count: number }[] => getRecentReasons(1),
+    [getRecentReasons],
+  );
 
   const getDailySummary = useCallback(
     (date: string): DailySummary => aggregateDay(sessions, date),
@@ -240,6 +258,7 @@ export function useStreetTracker() {
     logActivity,
     getTodayLogs,
     getTodayReasons,
+    getRecentReasons,
     openEncounter,
     resolveEncounter,
     getDailySummary,
