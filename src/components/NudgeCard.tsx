@@ -39,7 +39,7 @@ export default function NudgeCard({ nudge, onDismiss }: Props) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
           role="status"
-          className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[calc(env(safe-area-inset-bottom)+5.5rem)]"
+          className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[calc(var(--nav-h)+0.75rem+env(safe-area-inset-bottom,0px))]"
         >
           <div className="surface-feature feature-gold pointer-events-auto w-full max-w-app p-4 shadow-lg">
             <div className="flex items-start gap-3">

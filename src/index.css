@@ -95,6 +95,17 @@
     --shadow-raised: 0 1px 2px rgb(20 12 8 / 0.06), 0 8px 24px -8px rgb(20 12 8 / 0.12);
     --shadow-feature: 0 2px 4px rgb(20 12 8 / 0.05), 0 16px 40px -12px rgb(20 12 8 / 0.18);
     --shadow-nav: 0 -1px 2px rgb(20 12 8 / 0.04), 0 -8px 32px -8px rgb(20 12 8 / 0.14);
+
+    /* ── The docked bottom bar ──
+       Height of the footer in Navbar.tsx, EXCLUDING the home-indicator strip
+       that the bar also fills from inside its own background. Four separate
+       places have to sit clear of that bar — the page bottom padding in
+       Layout.tsx, the journal's quick-log bar, the shift-nudge card and the
+       PWA prompts — and when they were four hand-tuned rem values they drifted
+       apart, leaving strips of scrolling content visible between them. They all
+       read this instead, and Navbar.tsx sets its own height FROM it, so the bar
+       cannot be a different size from what everything else has reserved. */
+    --nav-h: 75px;
   }
 
   .dark {

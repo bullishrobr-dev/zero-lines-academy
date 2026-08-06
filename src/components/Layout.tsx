@@ -40,9 +40,12 @@ const pageTransition = {
 /* Routes where Navbar renders nothing, so no bottom clearance is needed. */
 const NAVLESS_ROUTES = ['/', '/auth', '/first-day'];
 
-/* The single source of bottom padding in the app:
-   nav pill (60px) + its 12px lift + 24px breathing room + the home indicator. */
-const CONTENT_BOTTOM_PADDING = 'pb-[calc(6rem+env(safe-area-inset-bottom,0px))]';
+/* The single source of bottom padding in the app: the height of the docked
+   footer, plus the home-indicator inset the footer also covers, plus 20px of
+   air so the last line of a page does not sit against the hairline. `--nav-h`
+   is defined in src/index.css and the footer sets its own height from it. */
+const CONTENT_BOTTOM_PADDING =
+  'pb-[calc(var(--nav-h)+1.25rem+env(safe-area-inset-bottom,0px))]';
 
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
@@ -75,11 +78,16 @@ export default function Layout({ children }: LayoutProps) {
       <OfflineBanner />
 
       {/* Phone frame. `pt-safe` keeps content clear of the notch now that the
-          PWA status bar style is `default`. */}
+          PWA status bar style is `default`.
+
+          Onboarding is the exception: its hero photograph is meant to run to
+          the very top of the screen, and a safe-area gutter here put a strip of
+          flat background above it with a visible seam. That route insets its own
+          controls instead — see the language switch in OnboardingPage.tsx. */}
       <div
         className={
           isOnboarding
-            ? 'relative z-10 flex min-h-[100dvh] w-full max-w-app flex-col pt-safe'
+            ? 'relative z-10 flex min-h-[100dvh] w-full max-w-app flex-col'
             : 'relative z-10 flex min-h-[100dvh] w-full max-w-app flex-col overflow-hidden border-line bg-background pt-safe md:rounded-feature md:border md:shadow-feature'
         }
       >

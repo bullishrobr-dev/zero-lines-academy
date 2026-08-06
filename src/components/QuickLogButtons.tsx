@@ -86,13 +86,15 @@ const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogSale 
   const t = COPY[language === 'es' ? 'es' : 'en'];
 
   return (
-    // Sits ABOVE the floating nav pill, not on top of it. At `bottom-0` the
-    // nav's own container covered these three buttons and swallowed every tap —
-    // on the one screen where tapping them fast is the entire point.
-    // 6.5rem clears the pill (60px + 12px lift) and its raised centre action.
+    // Docked directly on top of the bottom bar, sharing its edge, so the two
+    // read as one solid block at the foot of the screen. At `bottom-0` the nav
+    // covered these buttons and swallowed every tap — on the one screen where
+    // tapping them fast is the entire point — and at any value above --nav-h a
+    // strip of scrolling page showed through the gap between the two bars.
+    // Opaque, not translucent: nothing should pass behind either of them.
     <div
-      className="fixed left-0 right-0 z-40 border-t border-line bg-surface/95 backdrop-blur-lg shadow-nav"
-      style={{ bottom: 'calc(6.5rem + env(safe-area-inset-bottom, 0px))' }}
+      className="fixed left-0 right-0 z-40 border-t border-line bg-surface shadow-nav"
+      style={{ bottom: 'calc(var(--nav-h) + env(safe-area-inset-bottom, 0px))' }}
     >
       <div className="mx-auto max-w-app px-4 py-2.5">
         <div className="flex items-start justify-around">

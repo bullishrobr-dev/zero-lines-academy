@@ -219,7 +219,7 @@ function Banner({
   return (
     <div
       role="status"
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[calc(env(safe-area-inset-bottom)+5.5rem)]"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[calc(var(--nav-h)+0.75rem+env(safe-area-inset-bottom,0px))]"
     >
       <div className="pointer-events-auto flex w-full max-w-app items-center gap-3 rounded-feature border border-line bg-surface-raised p-3 shadow-lg">
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-chip bg-teal-tint text-teal-strong">

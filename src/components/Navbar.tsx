@@ -1,12 +1,28 @@
 // ─────────────────────────────────────────────────────────────
-// Navbar.tsx — floating bottom navigation pill
+// Navbar.tsx — the docked bottom bar
 //
-// Phone-first. Four destinations plus one raised centre action ("Journal"),
-// which is the only entry point in the whole app to /street-tracker.
+// Phone-first. Four destinations plus one centre action ("Journal"), which is
+// the only entry point in the whole app to /street-tracker.
 //
-// The old bar sat flush on the bottom edge with no safe-area padding, so on a
-// notched iPhone installed as a PWA the labels rendered under the home
-// indicator. The wrapper now carries `pb-safe` and the pill floats above it.
+// ── WHY THIS IS A BAR AND NOT A FLOATING PILL ────────────────
+// It used to be a translucent rounded pill lifted 12px off the bottom edge with
+// `bg-surface/85 backdrop-blur-xl`. Two problems, both visible on a real phone:
+// the page kept scrolling through the gap underneath it, so the bar read as a
+// loose object drifting over the content rather than as the edge of the app;
+// and on iOS, where the browser toolbar animates in and out on scroll, a lifted
+// bar appears to bob up and down.
+//
+// It is now a proper footer: full width of the app frame, flush to the bottom
+// edge, opaque, with a hairline on top and the upward `shadow-nav`. Nothing
+// passes behind it. `pb-safe` on the row keeps the labels clear of the iPhone
+// home indicator, and the bar's own background fills that strip so the bottom
+// edge of the screen is never bare.
+//
+// The centre action sits INSIDE the bar rather than being raised above it. A
+// raised button needs a ring in the page's background colour to separate it
+// from the bar, and that ring sits on top of scrolling content — which is the
+// exact "floating over the page" look this rewrite removes. Its coral fill and
+// larger footprint carry the emphasis instead.
 // ─────────────────────────────────────────────────────────────
 
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -57,13 +73,15 @@ export default function Navbar() {
   const journalLabel = isEs ? 'Diario' : 'Journal';
   const isTracking = location.pathname === '/street-tracker';
 
+  /* Every slot is `justify-end`, so the five labels sit on one baseline even
+     though the centre icon is a taller coral disc. */
   const renderItem = (item: NavItem) => (
     <NavLink
       key={item.to}
       to={item.to}
       onClick={() => haptic('light')}
       className={({ isActive }) =>
-        `relative flex-1 min-w-touch min-h-touch flex flex-col items-center justify-center gap-1 rounded-full select-none transition-colors duration-200 ${
+        `relative flex-1 min-w-touch flex flex-col items-center justify-end gap-1 rounded-card px-1 py-1 select-none transition-colors duration-200 ${
           isActive ? 'text-teal-strong' : 'text-ink-3'
         }`
       }
@@ -73,7 +91,7 @@ export default function Navbar() {
           {isActive && (
             <motion.span
               layoutId="nav-indicator"
-              className="absolute inset-0 rounded-full bg-teal-tint"
+              className="absolute inset-0 rounded-card bg-teal-tint"
               transition={{ type: 'spring', stiffness: 420, damping: 34 }}
               aria-hidden="true"
             />
@@ -84,7 +102,9 @@ export default function Navbar() {
             className="relative z-10"
             aria-hidden="true"
           />
-          <span className="relative z-10 text-caption font-semibold tracking-tight">
+          {/* 11px below 360px: five Spanish labels ("Formación", "Tarjetas")
+              collide at the 13px caption size on a 320px screen. */}
+          <span className="relative z-10 text-[11px] min-[360px]:text-[13px] font-semibold leading-4 tracking-tight">
             {item.label}
           </span>
         </>
@@ -95,13 +115,25 @@ export default function Navbar() {
   return (
     <nav
       aria-label={isEs ? 'Navegación principal' : 'Main navigation'}
-      className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-safe pointer-events-none"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center"
     >
-      <div className="w-full max-w-app px-3 pb-3 pointer-events-auto">
-        <div className="relative flex items-stretch gap-1 rounded-full border border-line bg-surface/85 px-2 py-2 shadow-feature backdrop-blur-xl">
+      {/* Constrained to the app frame so the bar lines up with the phone-width
+          column on a desktop screen instead of spanning the whole window. */}
+      {/* The height comes from --nav-h (src/index.css) rather than from the
+          content, so the four things that reserve space for this bar cannot end
+          up reserving the wrong amount. The safe-area strip is added on top and
+          filled by this element's own background, which is what keeps the very
+          bottom edge of the screen from going bare on a notched iPhone. */}
+      <div
+        className="pointer-events-auto w-full max-w-app border-t border-line bg-surface shadow-nav"
+        style={{ height: 'calc(var(--nav-h) + env(safe-area-inset-bottom, 0px))' }}
+      >
+        {/* pb-safe alone is 0px on a device with no home indicator, which would
+            leave the labels sitting on the very edge — hence the 6px floor. */}
+        <div className="flex h-full items-end gap-0.5 px-1.5 pt-1 pb-[calc(0.375rem+env(safe-area-inset-bottom,0px))]">
           {leftItems.map(renderItem)}
 
-          {/* ── Raised centre action — the app's only link to the journal ── */}
+          {/* ── Centre action — the app's only link to the journal ── */}
           <motion.button
             type="button"
             whileTap={{ scale: 0.94 }}
@@ -109,18 +141,21 @@ export default function Navbar() {
               haptic('medium');
               navigate('/street-tracker');
             }}
-            className={`relative flex-1 min-w-touch min-h-touch flex flex-col items-center justify-end rounded-full transition-colors ${
+            aria-current={isTracking ? 'page' : undefined}
+            className={`relative flex-1 min-w-touch flex flex-col items-center justify-end gap-1 rounded-card px-1 py-1 transition-colors ${
               isTracking ? 'text-coral-strong' : 'text-ink-3'
             }`}
           >
             <span
-              className={`absolute -top-7 flex h-14 w-14 items-center justify-center rounded-full bg-coral text-on-coral shadow-feature ring-4 ${
-                isTracking ? 'ring-coral-tint' : 'ring-background'
+              className={`flex h-9 w-9 items-center justify-center rounded-full text-on-coral shadow-raised transition-colors ${
+                isTracking ? 'bg-coral-strong' : 'bg-coral'
               }`}
             >
-              <NotebookPen size={26} strokeWidth={2.2} aria-hidden="true" />
+              <NotebookPen size={20} strokeWidth={2.2} aria-hidden="true" />
             </span>
-            <span className="text-caption font-semibold tracking-tight">{journalLabel}</span>
+            <span className="text-[11px] min-[360px]:text-[13px] font-semibold leading-4 tracking-tight">
+              {journalLabel}
+            </span>
           </motion.button>
 
           {rightItems.map(renderItem)}

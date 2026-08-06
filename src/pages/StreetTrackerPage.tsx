@@ -386,8 +386,9 @@ const StreetTrackerPage: React.FC = () => {
   const bestRevenue = useMemo(() => getPersonalBest('revenue'), [getPersonalBest]);
 
   return (
-    // Clearance for the fixed quick-log bar. Layout already adds the nav pill's
-    // own padding to <main>, so this only has to cover the bar itself.
+    // Clearance for the docked quick-log bar. Layout already reserves the
+    // bottom bar's own height on <main>, so this only covers the ~101px the
+    // quick-log bar adds on top of it, plus air.
     <div className="relative min-h-screen bg-background pb-32 text-ink">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-line bg-background/95 backdrop-blur-md">
