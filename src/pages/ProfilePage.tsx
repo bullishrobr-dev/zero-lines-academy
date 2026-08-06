@@ -164,6 +164,11 @@ const COPY = {
   activityQuiz: { en: 'Quiz completed', es: 'Cuestionario completado' },
   activityQuizPerfect: { en: 'Perfect quiz score', es: 'Cuestionario perfecto' },
   activityChallenge: { en: 'Daily challenge done', es: 'Reto diario hecho' },
+  activityDose: { en: 'Daily dose read', es: 'Dosis diaria leída' },
+  activityCheckin: { en: 'Shift check-in', es: 'Registro de turno' },
+  activityEndshift: { en: 'Shift reflection', es: 'Reflexión de turno' },
+  activityExercise: { en: 'Exercise completed', es: 'Ejercicio completado' },
+  activityExerciseMastered: { en: 'Exercise mastered', es: 'Ejercicio dominado' },
   progressTitle: { en: 'Your numbers', es: 'Tus números' },
   nothingYet: { en: 'Nothing here yet', es: 'Aún no hay nada' },
 } as const;
@@ -659,14 +664,31 @@ export default function ProfilePage() {
                   const accent =
                     item.type === 'lesson' ? ACCENT.violet : item.type === 'quiz' ? ACCENT.gold : ACCENT.teal;
                   const Icon = item.type === 'lesson' ? BookOpen : item.type === 'quiz' ? Brain : Flame;
+                  // The daily-habit rewards all carry type 'challenge'; tell
+                  // them apart by the title they were logged with, the same way
+                  // a perfect quiz is told from an ordinary one above.
+                  const challengeLabel = item.title.includes('dose')
+                    ? c('activityDose')
+                    : item.title.includes('check-in')
+                      ? c('activityCheckin')
+                      : item.title.includes('End-of-shift')
+                        ? c('activityEndshift')
+                        : c('activityChallenge');
+                  // Exercises are logged with type 'quiz' but their own titles,
+                  // so a seller sees "Exercise completed", not "Quiz completed".
+                  const quizLabel = item.title.includes('Exercise')
+                    ? item.title.includes('Mastered')
+                      ? c('activityExerciseMastered')
+                      : c('activityExercise')
+                    : item.title.includes('Perfect')
+                      ? c('activityQuizPerfect')
+                      : c('activityQuiz');
                   const title =
                     item.type === 'lesson'
                       ? c('activityLesson')
                       : item.type === 'quiz'
-                        ? item.title.includes('Perfect')
-                          ? c('activityQuizPerfect')
-                          : c('activityQuiz')
-                        : c('activityChallenge');
+                        ? quizLabel
+                        : challengeLabel;
                   const lesson = item.type === 'lesson' && item.detail ? getLesson(item.detail) : undefined;
                   const detail = lesson ? (isEs ? lesson.titleEs : lesson.title) : item.detail;
                   const when = formatDate(item.timestamp, locale, true);
