@@ -109,7 +109,11 @@ const ALL_CHALLENGES: Challenge[] = [
 ];
 
 function getDailySeed(): number {
-  const today = new Date().toISOString().split('T')[0];
+  // LOCAL date, not toISOString() (which is UTC). Completion is tracked by local
+  // day, so a UTC seed served yesterday's challenge between midnight and ~02:00
+  // local — and that stale challenge could be completed again for more XP.
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
   let hash = 0;
   for (let i = 0; i < today.length; i++) {
     hash = ((hash << 5) - hash + today.charCodeAt(i)) | 0;
@@ -124,7 +128,7 @@ function getTodaysChallenge(): Challenge {
 
 interface DailyChallengeCardProps {
   isCompleted: boolean;
-  onComplete: () => void;
+  onComplete: (xpReward: number) => void;
 }
 
 export default function DailyChallengeCard({
@@ -139,7 +143,9 @@ export default function DailyChallengeCard({
   const handleComplete = () => {
     if (isCompleted || justCompleted) return;
     setJustCompleted(true);
-    onComplete();
+    // Pay exactly what the card promised (challenges are worth 20–30), not a
+    // flat 20 the caller used to hardcode.
+    onComplete(challenge.xpReward);
   };
 
   const isDone = isCompleted || justCompleted;

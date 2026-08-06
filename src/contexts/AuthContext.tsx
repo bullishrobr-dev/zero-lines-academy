@@ -70,6 +70,7 @@ const PER_USER_KEYS = [
   'zl_quiz_xp_awarded',
   'zl_exercise_scores',
   'zl_shoutouts',
+  'zl_daily_xp_awarded',
 ];
 
 /**

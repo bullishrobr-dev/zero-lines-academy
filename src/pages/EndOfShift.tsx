@@ -14,6 +14,7 @@ import {
   Plus,
 } from 'lucide-react';
 import { useDailyFlow } from '../hooks/useDailyFlow';
+import { useProgress } from '../hooks/useProgress';
 import { useLanguage } from '../contexts/LanguageContext';
 import { focusTechniques } from '../data/dailyDoses';
 
@@ -141,6 +142,7 @@ function CounterField({
 export default function EndOfShift() {
   const navigate = useNavigate();
   const { endOfShift, getCurrentStreak, todayState } = useDailyFlow();
+  const { awardXP } = useProgress();
   const { language } = useLanguage();
   const isEs = language === 'es';
   const t = COPY[isEs ? 'es' : 'en'];
@@ -176,6 +178,8 @@ export default function EndOfShift() {
       triedFocus,
       energyRating,
     });
+    // The +10 XP the screen promises now goes into the real total, once a day.
+    awardXP('endshift', 10, 'End-of-shift reflection');
     setSubmitted(true);
     setTimeout(() => navigate('/'), 3500);
   };

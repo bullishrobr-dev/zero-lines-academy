@@ -393,28 +393,36 @@ export default function HomeDashboard() {
   const dismissToast = useCallback(() => setToast(null), []);
   const stopCelebrating = useCallback(() => setCelebrate(false), []);
 
-  const handleDailyChallengeComplete = useCallback(() => {
-    // Streak advances only if today has not already been counted.
-    const streakAfter =
-      progress.lastActiveDate === todayKey() ? currentStreak : currentStreak + 1;
-    const milestone = STREAK_MILESTONES.includes(streakAfter);
+  const handleDailyChallengeComplete = useCallback(
+    (xpReward: number) => {
+      // Streak advances only if today has not already been counted.
+      const streakAfter =
+        progress.lastActiveDate === todayKey() ? currentStreak : currentStreak + 1;
+      const milestone = STREAK_MILESTONES.includes(streakAfter);
 
-    haptic(milestone ? 'heavy' : 'medium');
-    if (milestone) window.setTimeout(() => haptic('heavy'), 120);
+      haptic(milestone ? 'heavy' : 'medium');
+      if (milestone) window.setTimeout(() => haptic('heavy'), 120);
 
-    setCelebrate(true);
-    setToast({
-      amount: 20,
-      message: milestone ? `${streakAfter} ${c.streakMilestone}` : c.challengeDone,
-    });
-    progress.completeDailyChallenge();
-  }, [progress, currentStreak, c]);
+      setCelebrate(true);
+      setToast({
+        amount: xpReward,
+        message: milestone ? `${streakAfter} ${c.streakMilestone}` : c.challengeDone,
+      });
+      progress.completeDailyChallenge(xpReward);
+    },
+    [progress, currentStreak, c]
+  );
 
   const handleDoseComplete = useCallback(
     (xp: number) => {
-      setToast({ amount: xp, message: c.doseDone });
+      // Actually pay the XP into the real total — it used to only show a toast.
+      // awardXP is a no-op if today's dose was already claimed, so re-opening
+      // the dose does not toast a reward that was not given.
+      if (progress.awardXP('dose', xp, 'Daily dose')) {
+        setToast({ amount: xp, message: c.doseDone });
+      }
     },
-    [c]
+    [progress, c]
   );
 
   return (

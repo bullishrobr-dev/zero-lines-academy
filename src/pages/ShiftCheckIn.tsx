@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Flame, Target, ChevronDown, Sparkles, Sunrise, Check, Minus, Plus } from 'lucide-react';
 import { useDailyFlow } from '../hooks/useDailyFlow';
+import { useProgress } from '../hooks/useProgress';
 import { useLanguage } from '../contexts/LanguageContext';
 import { focusTechniques } from '../data/dailyDoses';
 
@@ -66,6 +67,7 @@ const MOODS = [
 export default function ShiftCheckIn() {
   const navigate = useNavigate();
   const { checkIn, getCurrentStreak } = useDailyFlow();
+  const { awardXP } = useProgress();
   const { language } = useLanguage();
   const isEs = language === 'es';
   const t = COPY[isEs ? 'es' : 'en'];
@@ -83,6 +85,8 @@ export default function ShiftCheckIn() {
   const handleSubmit = () => {
     if (selectedMood === null) return;
     checkIn({ mood: selectedMood, goal: stopGoal, focus: focusTechnique });
+    // The +5 XP the screen promises now goes into the real total, once a day.
+    awardXP('checkin', 5, 'Shift check-in');
     setSubmitted(true);
     setTimeout(() => navigate('/'), 2500);
   };

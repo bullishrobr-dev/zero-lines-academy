@@ -52,6 +52,12 @@ const LS_TIER_PROGRESS = 'zl_tier_progress';
 const LS_QUIZ_XP_AWARDED = 'zl_quiz_xp_awarded';
 /** Exercise results, kept out of quizScores so accuracy stats stay meaningful. */
 const LS_EXERCISE_SCORES = 'zl_exercise_scores';
+/**
+ * Which once-a-day rewards have already paid out — keyed `<kind>:<local-date>`.
+ * The daily dose, check-in, end-of-shift reflection and daily challenge each pay
+ * once per day; this is what stops a second tap paying twice.
+ */
+const LS_DAILY_XP_AWARDED = 'zl_daily_xp_awarded';
 
 // ── Types ──
 export interface StreakData {
@@ -104,7 +110,13 @@ export interface UseProgressReturn extends ProgressState {
   getQuizScore: (quizId: string) => number | undefined;
   setUserName: (name: string) => void;
   getUserName: () => string;
-  completeDailyChallenge: () => void;
+  /**
+   * Pay a once-a-day reward into the real XP total. `kind` is the surface
+   * ('dose', 'checkin', 'endshift', 'challenge'); returns false if today's
+   * reward for that surface was already claimed.
+   */
+  awardXP: (kind: string, amount: number, title: string) => boolean;
+  completeDailyChallenge: (xpReward?: number) => void;
   isDailyChallengeCompleted: () => boolean;
   resetProgress: () => void;
   getActivityLog: () => ActivityItem[];
@@ -675,35 +687,59 @@ export function useProgress(): UseProgressReturn {
 
   const getUserName = useCallback((): string => userName, [userName]);
 
-  const completeDailyChallenge = useCallback(() => {
-    const today = getToday();
-    setDailyChallenge({ completed: true, date: today });
-    saveJSON(LS_DAILY_CHALLENGE, { completed: true, date: today });
+  /**
+   * The one entry point for the once-a-day rewards (dose, check-in, end-of-shift
+   * reflection, daily challenge). Adds real XP — the kind that counts toward the
+   * leaderboard — advances the streak, and writes the activity log, but only the
+   * first time a given `kind` is claimed on a given local day. A second tap is a
+   * no-op and returns false, so the screens can promise XP honestly without
+   * anyone being able to farm it.
+   *
+   * Before this, these surfaces showed "+15 XP" toasts and paid nothing into the
+   * real total; the XP lived only in a separate daily-flow counter that the
+   * leaderboard never saw.
+   */
+  const awardXP = useCallback(
+    (kind: string, amount: number, title: string): boolean => {
+      if (amount <= 0) return false;
+      const key = `${kind}:${getToday()}`;
+      const paid = loadJSON<Record<string, boolean>>(LS_DAILY_XP_AWARDED, {});
+      if (paid[key]) return false;
+      paid[key] = true;
+      saveJSON(LS_DAILY_XP_AWARDED, paid);
 
-    // Award XP
-    setTotalXP((prev) => {
-      const newXP = prev + 20;
-      saveJSON(LS_XP, newXP);
-      return newXP;
-    });
+      setTotalXP((prev) => {
+        const newXP = prev + amount;
+        saveJSON(LS_XP, newXP);
+        return newXP;
+      });
+      updateStreak();
+      setActivityLog((log) => {
+        const newItem: ActivityItem = {
+          id: `${kind}-${Date.now()}`,
+          type: 'challenge',
+          title,
+          xpEarned: amount,
+          timestamp: new Date().toISOString(),
+        };
+        const updatedLog = [newItem, ...log].slice(0, 100);
+        saveJSON(LS_ACTIVITY_LOG, updatedLog);
+        return updatedLog;
+      });
+      return true;
+    },
+    [updateStreak]
+  );
 
-    // Update streak
-    updateStreak();
-
-    // Log activity
-    setActivityLog((log) => {
-      const newItem: ActivityItem = {
-        id: `challenge-${Date.now()}`,
-        type: 'challenge',
-        title: 'Daily Challenge Completed',
-        xpEarned: 20,
-        timestamp: new Date().toISOString(),
-      };
-      const updatedLog = [newItem, ...log].slice(0, 100);
-      saveJSON(LS_ACTIVITY_LOG, updatedLog);
-      return updatedLog;
-    });
-  }, [updateStreak]);
+  const completeDailyChallenge = useCallback(
+    (xpReward = 20) => {
+      const today = getToday();
+      setDailyChallenge({ completed: true, date: today });
+      saveJSON(LS_DAILY_CHALLENGE, { completed: true, date: today });
+      awardXP('challenge', xpReward, 'Daily Challenge Completed');
+    },
+    [awardXP]
+  );
 
   const isDailyChallengeCompleted = useCallback((): boolean => {
     const today = getToday();
@@ -805,6 +841,7 @@ export function useProgress(): UseProgressReturn {
     getQuizScore,
     setUserName: setUserNameWrapper,
     getUserName,
+    awardXP,
     completeDailyChallenge,
     isDailyChallengeCompleted,
     resetProgress,
