@@ -234,6 +234,89 @@ export function decideStatsMerge(deviceXP: number, serverXP: number | null): Sta
   return 'none';
 }
 
+export interface DeviceRecords {
+  lessonProgress: Record<string, boolean>;
+  quizScores: Record<string, number>;
+  exerciseScores: Record<string, number>;
+  /** XP already paid, keyed by quiz id — exercises under `ex:<id>`. */
+  xpAwarded: Record<string, number>;
+}
+
+export interface RecordsReconcile {
+  merged: DeviceRecords;
+  /** True when the device learned anything — i.e. the merged maps must be saved. */
+  changed: boolean;
+  /** Lesson completions only this device knows; push them up. */
+  pushLessons: string[];
+  /** Quiz/exercise rows where this device holds a better score or a bigger paid total. */
+  pushResults: db.ServerRecords['results'];
+}
+
+/**
+ * Two-way union of the completion records, pure so it can be tested on its own.
+ *
+ * The stats row syncs totals, but totals are not the map: a new phone adopted
+ * "1,840 XP" and still showed zero lessons, tiers re-locked, and redoing a
+ * lesson paid XP again. Direction of truth: for every lesson, done anywhere is
+ * done; for every score and every paid-XP ledger entry, the larger side wins.
+ * Nothing here ever forgets — a wipe is handled by sign-out, not by sync.
+ */
+export function reconcileRecords(device: DeviceRecords, server: db.ServerRecords): RecordsReconcile {
+  const merged: DeviceRecords = {
+    lessonProgress: { ...device.lessonProgress },
+    quizScores: { ...device.quizScores },
+    exerciseScores: { ...device.exerciseScores },
+    xpAwarded: { ...device.xpAwarded },
+  };
+  let changed = false;
+
+  const serverLessons = new Set(server.lessons);
+  for (const id of server.lessons) {
+    if (!merged.lessonProgress[id]) {
+      merged.lessonProgress[id] = true;
+      changed = true;
+    }
+  }
+  const pushLessons = Object.keys(device.lessonProgress).filter(
+    (id) => device.lessonProgress[id] && !serverLessons.has(id)
+  );
+
+  const serverById = new Map(server.results.map((r) => [r.quizId, r]));
+  for (const r of server.results) {
+    const scoreMap = r.kind === 'exercise' ? merged.exerciseScores : merged.quizScores;
+    const ledgerKey = r.kind === 'exercise' ? `ex:${r.quizId}` : r.quizId;
+    if (r.bestScore > (scoreMap[r.quizId] ?? 0)) {
+      scoreMap[r.quizId] = r.bestScore;
+      changed = true;
+    }
+    if (r.xpAwarded > (merged.xpAwarded[ledgerKey] ?? 0)) {
+      merged.xpAwarded[ledgerKey] = r.xpAwarded;
+      changed = true;
+    }
+  }
+
+  const pushResults: db.ServerRecords['results'] = [];
+  const collect = (map: Record<string, number>, kind: 'quiz' | 'exercise') => {
+    for (const [id, best] of Object.entries(map)) {
+      const ledgerKey = kind === 'exercise' ? `ex:${id}` : id;
+      const paid = device.xpAwarded[ledgerKey] ?? 0;
+      const remote = serverById.get(id);
+      if (!remote || best > remote.bestScore || paid > remote.xpAwarded) {
+        pushResults.push({
+          quizId: id,
+          kind,
+          bestScore: Math.max(best, remote?.bestScore ?? 0),
+          xpAwarded: Math.max(paid, remote?.xpAwarded ?? 0),
+        });
+      }
+    }
+  };
+  collect(device.quizScores, 'quiz');
+  collect(device.exerciseScores, 'exercise');
+
+  return { merged, changed, pushLessons, pushResults };
+}
+
 // ── Hook ──
 export function useProgress(): UseProgressReturn {
   /*
@@ -325,6 +408,45 @@ export function useProgress(): UseProgressReturn {
     });
   }, [syncing, userId]);
 
+  /**
+   * Bring the completion *records* into line, both ways: adopt what the server
+   * has so this phone stops showing "XP but no lessons", and send up anything
+   * only this device knows. Totals are handled by the merge above; this is the
+   * map behind them.
+   */
+  const reconcileServerRecords = useCallback(async () => {
+    if (!syncing) return;
+    const server = await db.pullRecords(userId).catch(() => null);
+    if (!server) return; // offline — the next screen retries via the mount pull
+
+    const device: DeviceRecords = {
+      lessonProgress: loadJSON<Record<string, boolean>>(LS_LESSON_PROGRESS, {}),
+      quizScores: loadJSON<Record<string, number>>(LS_QUIZ_SCORES, {}),
+      exerciseScores: loadJSON<Record<string, number>>(LS_EXERCISE_SCORES, {}),
+      xpAwarded: loadJSON<Record<string, number>>(LS_QUIZ_XP_AWARDED, {}),
+    };
+    const { merged, changed, pushLessons, pushResults } = reconcileRecords(device, server);
+
+    if (changed) {
+      saveJSON(LS_LESSON_PROGRESS, merged.lessonProgress);
+      saveJSON(LS_QUIZ_SCORES, merged.quizScores);
+      saveJSON(LS_EXERCISE_SCORES, merged.exerciseScores);
+      saveJSON(LS_QUIZ_XP_AWARDED, merged.xpAwarded);
+      setLessonProgress(merged.lessonProgress);
+      setQuizScores(merged.quizScores);
+      setExerciseScores(merged.exerciseScores);
+    }
+
+    // Send up whatever was only on this phone. Best-effort; the totals push
+    // still guards the leaderboard even if one of these fails.
+    for (const lessonId of pushLessons) {
+      void db.recordLessonComplete(userId, lessonId).catch(() => {});
+    }
+    for (const r of pushResults) {
+      void db.recordQuiz(userId, r.quizId, r.kind, r.bestScore, r.xpAwarded).catch(() => {});
+    }
+  }, [syncing, userId]);
+
   // ── On mount: reconcile with the server, in whichever direction is right ──
   useEffect(() => {
     if (!syncing) return;
@@ -358,12 +480,17 @@ export function useProgress(): UseProgressReturn {
           };
           saveJSON(LS_STREAK, adopted);
           setStreak(adopted);
-          return;
+        } else {
+          serverXPRef.current = server?.xp ?? 0;
+          if (decision === 'push') pushStatsToServer();
+          // 'none' — the two agree. No request, in either direction.
         }
 
-        serverXPRef.current = server?.xp ?? 0;
-        if (decision === 'push') pushStatsToServer();
-        // 'none' — the two agree. No request, in either direction.
+        // Whatever the totals decided, reconcile the underlying records so the
+        // new phone shows the right lessons as done (not "1,840 XP · 0 lessons"),
+        // tiers do not re-lock, and a finished lesson cannot be re-earned. This
+        // runs in every direction, so an offline-earned lesson also travels up.
+        void reconcileServerRecords();
       })
       .catch(() => {
         // No connection, or the row is not readable. `pulledRef` stays false,
@@ -374,7 +501,7 @@ export function useProgress(): UseProgressReturn {
     return () => {
       cancelled = true;
     };
-  }, [syncing, userId, pushStatsToServer]);
+  }, [syncing, userId, pushStatsToServer, reconcileServerRecords]);
 
   // ── After any change: one debounced push ──
   const settledRef = useRef(false);

@@ -393,6 +393,44 @@ export async function pullStats(userId: string): Promise<StatsSnapshot | null> {
   };
 }
 
+export interface ServerRecords {
+  /** Lesson ids with a completion row. */
+  lessons: string[];
+  /** One row per quiz or exercise: best score and total XP already paid. */
+  results: { quizId: string; kind: 'quiz' | 'exercise'; bestScore: number; xpAwarded: number }[];
+}
+
+/**
+ * Everything the server remembers this person finishing. The stats row only
+ * carries totals; these are the rows behind them, and they are what lets a new
+ * phone show the right lessons as done instead of "1,840 XP · 0 lessons".
+ * Null means the read failed (offline) — which is different from empty.
+ */
+export async function pullRecords(userId: string): Promise<ServerRecords | null> {
+  const sb = getSupabase();
+  if (!sb) return null;
+
+  const [prog, quiz] = await Promise.all([
+    sb.from('progress').select('lesson_id').eq('user_id', userId),
+    sb.from('quiz_results').select('quiz_id,kind,best_score,xp_awarded').eq('user_id', userId),
+  ]);
+  if (prog.error || quiz.error) return null;
+
+  return {
+    lessons: ((prog.data as { lesson_id: string }[] | null) ?? []).map((r) => r.lesson_id),
+    results: (
+      (quiz.data as
+        | { quiz_id: string; kind: 'quiz' | 'exercise'; best_score: number; xp_awarded: number }[]
+        | null) ?? []
+    ).map((r) => ({
+      quizId: r.quiz_id,
+      kind: r.kind === 'exercise' ? 'exercise' : 'quiz',
+      bestScore: r.best_score,
+      xpAwarded: r.xp_awarded,
+    })),
+  };
+}
+
 export async function recordLessonComplete(userId: string, lessonId: string): Promise<void> {
   await getSupabase()
     ?.from('progress')
