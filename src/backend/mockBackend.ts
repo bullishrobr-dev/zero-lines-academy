@@ -183,6 +183,7 @@ function resolveTeam(users: User[], manager: User): User[] {
 }
 
 export async function getMyTeam(managerId: string): Promise<User[]> {
+  if (isDatabaseConfigured) return db.getMyTeam(managerId);
   const users = allUsers();
   const manager = users.find((u) => u.id === managerId);
   if (!manager) return [];
@@ -190,6 +191,9 @@ export async function getMyTeam(managerId: string): Promise<User[]> {
 }
 
 export async function getEmployeesByLocation(location: UserLocation): Promise<User[]> {
+  if (isDatabaseConfigured) {
+    return (await db.getUsers()).filter((u) => u.role === 'employee' && u.location === location);
+  }
   return allUsers().filter((u) => u.role === 'employee' && u.location === location);
 }
 
@@ -241,6 +245,8 @@ export interface EmployeeProgress {
 }
 
 export async function getTeamProgress(managerId: string): Promise<EmployeeProgress[]> {
+  if (isDatabaseConfigured) return db.getTeamProgress(managerId, TOTAL_LESSON_COUNT);
+
   const users = allUsers();
   const manager = users.find((u) => u.id === managerId);
   if (!manager) return [];

@@ -104,10 +104,113 @@ export async function getUsers(): Promise<User[]> {
   return rows.map((r) => toUser(r, r.manager_id ? byId.get(r.manager_id) : undefined));
 }
 
+/**
+ * A manager's team: the sellers who report to them, plus any seller at their
+ * own shop who has not been assigned to a manager yet. Same rule as the roster
+ * fallback in mockBackend, so a manager sees the same faces either way.
+ */
+async function resolveTeamProfiles(managerId: string): Promise<ProfileRow[]> {
+  const sb = getSupabase();
+  if (!sb) return [];
+
+  const { data: mgr } = await sb
+    .from('profiles')
+    .select('location')
+    .eq('id', managerId)
+    .maybeSingle();
+  const location = (mgr as { location: string | null } | null)?.location ?? null;
+
+  const { data, error } = await sb
+    .from('profiles')
+    .select('*')
+    .eq('role', 'employee')
+    .order('name');
+  if (error || !data) return [];
+
+  return (data as ProfileRow[]).filter(
+    (p) => p.manager_id === managerId || (p.manager_id === null && p.location === location)
+  );
+}
+
 export async function getMyTeam(managerId: string): Promise<User[]> {
-  return (await getUsers()).filter((u) => u.role === 'employee' && u.managerUsername);
-  // Filtering by manager happens in getTeamProgress, which has the ids.
-  void managerId;
+  const rows = await resolveTeamProfiles(managerId);
+  return rows.map((r) => toUser(r));
+}
+
+// ── Team progress — what the manager dashboard reads ─────────────────────────
+
+export interface TeamMemberProgress {
+  user: User;
+  progress: number;
+  streak: number;
+  avgScore: number;
+  lastActive: string;
+  completedLessons: number;
+  totalLessons: number;
+  hasData: boolean;
+}
+
+/**
+ * Every team member's figures, read from `stats` (globally readable, and what
+ * each seller pushes) and `quiz_results` (their average score, where policy
+ * allows). `hasData` is false for someone who has not started, so the screen
+ * can say "nothing yet" rather than draw a real-looking zero.
+ */
+export async function getTeamProgress(
+  managerId: string,
+  totalLessons: number
+): Promise<TeamMemberProgress[]> {
+  const sb = getSupabase();
+  if (!sb) return [];
+
+  const team = await resolveTeamProfiles(managerId);
+  if (team.length === 0) return [];
+  const ids = team.map((p) => p.id);
+
+  const { data: statsRows } = await sb.from('stats').select('*').in('user_id', ids);
+  const statsById = new Map(
+    ((statsRows as StatsSnapshotRow[] | null) ?? []).map((s) => [s.user_id, s])
+  );
+
+  // Average quiz score, for the direct reports whose results this manager may
+  // read. Missing rows simply leave avgScore at 0.
+  const { data: quizRows } = await sb
+    .from('quiz_results')
+    .select('user_id,best_score')
+    .in('user_id', ids);
+  const quizByUser = new Map<string, number[]>();
+  for (const q of (quizRows as { user_id: string; best_score: number }[] | null) ?? []) {
+    const list = quizByUser.get(q.user_id) ?? [];
+    list.push(q.best_score);
+    quizByUser.set(q.user_id, list);
+  }
+
+  return team.map((p) => {
+    const s = statsById.get(p.id);
+    const scores = quizByUser.get(p.id) ?? [];
+    const completedLessons = s?.lessons_done ?? 0;
+    const hasData = !!s && (s.xp > 0 || s.lessons_done > 0 || !!s.last_active_date);
+    return {
+      user: toUser(p),
+      progress: totalLessons ? Math.round((completedLessons / totalLessons) * 100) : 0,
+      streak: s?.current_streak ?? 0,
+      avgScore: scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0,
+      lastActive: s?.last_active_date ?? '',
+      completedLessons,
+      totalLessons,
+      hasData,
+    };
+  });
+}
+
+interface StatsSnapshotRow {
+  user_id: string;
+  xp: number;
+  current_streak: number;
+  best_streak: number;
+  last_active_date: string | null;
+  lessons_done: number;
+  quizzes_passed: number;
 }
 
 // ── Creating a person ───────────────────────────────────────────────────────
