@@ -398,14 +398,22 @@ export function useProgress(): UseProgressReturn {
       lessonsDone: Math.max(device.lessonsDone, serverCountsRef.current.lessonsDone),
       quizzesPassed: Math.max(device.quizzesPassed, serverCountsRef.current.quizzesPassed),
     };
-    serverXPRef.current = snapshot.xp;
-    serverCountsRef.current = {
-      lessonsDone: snapshot.lessonsDone,
-      quizzesPassed: snapshot.quizzesPassed,
-    };
-    void db.pushStats(userId, snapshot).catch(() => {
-      // Offline. The next change tries again; nothing is lost locally.
-    });
+    // Advance the "server holds this" marker only AFTER the write is confirmed.
+    // Advancing before the await meant a push that failed offline still read as
+    // succeeded, so the retry guard could skip re-sending it.
+    void db
+      .pushStats(userId, snapshot)
+      .then(() => {
+        serverXPRef.current = snapshot.xp;
+        serverCountsRef.current = {
+          lessonsDone: snapshot.lessonsDone,
+          quizzesPassed: snapshot.quizzesPassed,
+        };
+      })
+      .catch(() => {
+        // Offline. Refs are untouched, so the next change — or the flush on
+        // reconnect / backgrounding below — tries the same push again.
+      });
   }, [syncing, userId]);
 
   /**
@@ -519,6 +527,29 @@ export function useProgress(): UseProgressReturn {
     const timer = window.setTimeout(pushStatsToServer, PUSH_DEBOUNCE_MS);
     return () => window.clearTimeout(timer);
   }, [totalXP, streak, lessonProgress, quizScores, syncing, pushStatsToServer]);
+
+  // ── Flush on reconnect and when leaving ──
+  // The debounced push above waits 1.5s. On the street a seller earns XP and
+  // locks the phone or loses signal well inside that window, and the write never
+  // fires. Push immediately when the connection returns and when the tab is
+  // backgrounded or closed. (pagehide is best-effort — an in-flight fetch can be
+  // cut off on unload — but visibilitychange fires while the page is still alive,
+  // which is when most "put the phone away" moments happen.)
+  useEffect(() => {
+    if (!syncing) return;
+    const flush = () => pushStatsToServer();
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') flush();
+    };
+    window.addEventListener('online', flush);
+    window.addEventListener('pagehide', flush);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      window.removeEventListener('online', flush);
+      window.removeEventListener('pagehide', flush);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, [syncing, pushStatsToServer]);
 
   // ── Streak Logic ──
   const updateStreak = useCallback((): StreakData => {
