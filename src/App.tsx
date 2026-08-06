@@ -1,5 +1,6 @@
 import { lazy, Suspense, type ReactElement } from 'react';
 import { Routes, Route, Navigate, useLocation as useRouterLocation } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import Layout from './components/Layout';
 import LoadingScreen from './components/LoadingScreen';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -90,8 +91,13 @@ function AuthRoute() {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
+    // "user" makes every Framer animation honour the phone's Reduce Motion
+    // setting — the page-slide, the tap-scale, the card reveals — instead of
+    // only the confetti. Someone who gets motion sick, or just turned it off,
+    // now gets a still app.
+    <MotionConfig reducedMotion="user">
+      <ThemeProvider>
+        <LanguageProvider>
         <AuthProvider>
           {/* LocationProvider reads the signed-in user, so it must sit inside AuthProvider. */}
           <LocationProvider>
@@ -151,6 +157,7 @@ export default function App() {
           </LocationProvider>
         </AuthProvider>
       </LanguageProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </MotionConfig>
   );
 }
