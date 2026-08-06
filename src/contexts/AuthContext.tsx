@@ -58,7 +58,24 @@ const PER_USER_KEYS = [
   'zl_streak_defense',
   'zl_continue_learning',
   'zl_location',
+  /*
+   * These three were missing, and their absence was worse than it looks.
+   *
+   * zl_quiz_xp_awarded is the ledger of how much XP each quiz has already paid
+   * out. Left behind on a shared shop tablet, the next seller aces the same
+   * quiz and is paid `max(0, 60 - 60)` — nothing. Silently, on every quiz the
+   * previous person had done, with no way back short of clearing site data.
+   * zl_exercise_scores does the same for exercises.
+   */
+  'zl_quiz_xp_awarded',
+  'zl_exercise_scores',
+  'zl_shoutouts',
 ];
+
+/**
+ * Every `zl_*` key any hook writes on the signed-in person's behalf must appear
+ * in the list above. If you add one, add it here too.
+ */
 
 const LS_LAST_USER = 'zl_last_user_id';
 

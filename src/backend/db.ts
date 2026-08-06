@@ -186,31 +186,23 @@ export async function setPassword(userId: string, password: string) {
 /**
  * The signed-in person choosing their own password.
  *
- * This one goes through the auth server rather than a database function: it is
- * the account's own owner changing their own credential, which is exactly what
- * `updateUser` is for, and it re-issues their session as a side effect.
+ * Setting the password and clearing the "you are on a borrowed password" flag
+ * are one operation in the database, deliberately. When they were two, the flag
+ * was an ordinary column on a row you are allowed to edit — so anyone could
+ * clear it with a single request and skip the screen entirely, without ever
+ * changing their password.
  */
 export async function changeOwnPassword(password: string) {
   const sb = getSupabase();
   if (!sb) return { success: false as const, error: 'Database not configured' };
 
-  const { data, error } = await sb.auth.updateUser({ password });
+  const { error } = await sb.rpc('set_own_password', { p_password: password });
   if (error) {
-    if (error.status === 0 || /fetch|network/i.test(error.message)) {
+    if (/fetch|network/i.test(error.message)) {
       return { success: false as const, error: 'Cannot reach the server. Check your signal and try again.' };
     }
-    return { success: false as const, error: error.message };
+    return { success: false as const, error: friendly(error.message) };
   }
-  if (!data.user) return { success: false as const, error: 'Could not change the password' };
-
-  /*
-   * The password has already changed by this point, so a failure here must not
-   * be reported as one — telling someone their password did not change when it
-   * did is how people get locked out. Worst case the flag stays set and they
-   * are asked again next time, which is the safe way round.
-   */
-  await sb.from('profiles').update({ must_change_password: false }).eq('id', data.user.id);
-
   return { success: true as const };
 }
 

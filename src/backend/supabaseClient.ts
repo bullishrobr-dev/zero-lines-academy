@@ -37,7 +37,7 @@ export const SUPABASE_ANON_KEY =
  * "which build is this phone actually running?" is a question anyone can answer
  * by looking — rather than a guess about service worker caches.
  */
-export const BUILD_STAMP = 'build 5';
+export const BUILD_STAMP = 'build 6';
 
 /**
  * Sellers sign in with a username, not an email — most shop staff have no work
@@ -83,7 +83,8 @@ export interface ProfileRow {
   username: string;
   name: string;
   role: 'admin' | 'manager' | 'employee';
-  location: 'andorra' | 'gibraltar';
+  /** Null for an admin, who is tied to neither shop. */
+  location: 'andorra' | 'gibraltar' | null;
   manager_id: string | null;
   must_change_password: boolean | null;
   created_at: string;
