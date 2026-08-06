@@ -1,1 +1,0 @@
-import{g as o}from"./index-CKQvrobu.js";function l(){const{currency:r,locationName:a,taxHavenText:c}=o();return{replacePlaceholders:e=>e&&e.replace(/\{\{currency\}\}/g,r).replace(/\{\{location\}\}/g,a).replace(/\{\{taxHavenText\}\}/g,c),currency:r,location:a,taxHavenText:c}}export{l as u};
