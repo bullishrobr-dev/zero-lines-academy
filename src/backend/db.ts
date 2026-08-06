@@ -139,6 +139,16 @@ export async function getMyTeam(managerId: string): Promise<User[]> {
 
 // ── Team progress — what the manager dashboard reads ─────────────────────────
 
+/** A seller's street funnel over a recent window — what the manager coaches on. */
+export interface StreetFunnel {
+  stops: number;
+  brings: number;
+  sales: number;
+  revenue: number;
+  /** brings ÷ stops, as a percentage. The number that says who to help. */
+  conversion: number;
+}
+
 export interface TeamMemberProgress {
   user: User;
   progress: number;
@@ -148,6 +158,8 @@ export interface TeamMemberProgress {
   completedLessons: number;
   totalLessons: number;
   hasData: boolean;
+  /** Last 7 days on the street. Zeroed when nothing was logged. */
+  street: StreetFunnel;
 }
 
 /**
@@ -185,11 +197,38 @@ export async function getTeamProgress(
     quizByUser.set(q.user_id, list);
   }
 
+  // Street funnel over the last 7 days. `staff read sales` is scoped to the
+  // manager's own team, so this returns only what they are allowed to coach on.
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+  const { data: saleRows } = await sb
+    .from('sales')
+    .select('user_id,kind,amount,occurred_at')
+    .in('user_id', ids)
+    .gte('occurred_at', sevenDaysAgo);
+  const streetByUser = new Map<string, StreetFunnel>();
+  for (const row of (saleRows as
+    | { user_id: string; kind: 'stop' | 'bring' | 'sale'; amount: number | null }[]
+    | null) ?? []) {
+    const f = streetByUser.get(row.user_id) ?? { stops: 0, brings: 0, sales: 0, revenue: 0, conversion: 0 };
+    if (row.kind === 'stop') f.stops += 1;
+    else if (row.kind === 'bring') f.brings += 1;
+    else if (row.kind === 'sale') {
+      f.sales += 1;
+      f.revenue += row.amount ?? 0;
+    }
+    streetByUser.set(row.user_id, f);
+  }
+
   return team.map((p) => {
     const s = statsById.get(p.id);
     const scores = quizByUser.get(p.id) ?? [];
     const completedLessons = s?.lessons_done ?? 0;
-    const hasData = !!s && (s.xp > 0 || s.lessons_done > 0 || !!s.last_active_date);
+    const street = streetByUser.get(p.id) ?? { stops: 0, brings: 0, sales: 0, revenue: 0, conversion: 0 };
+    street.conversion = street.stops > 0 ? Math.round((street.brings / street.stops) * 100) : 0;
+    const hasData =
+      (!!s && (s.xp > 0 || s.lessons_done > 0 || !!s.last_active_date)) ||
+      street.stops > 0 ||
+      street.sales > 0;
     return {
       user: toUser(p),
       progress: totalLessons ? Math.round((completedLessons / totalLessons) * 100) : 0,
@@ -199,8 +238,27 @@ export async function getTeamProgress(
       completedLessons,
       totalLessons,
       hasData,
+      street,
     };
   });
+}
+
+/** Log one street action. Fire-and-forget from the tracker; RLS ties it to the
+ *  seller, and the manager's team read picks it up. */
+export async function recordSale(
+  userId: string,
+  kind: 'stop' | 'bring' | 'sale',
+  productId?: string,
+  amount?: number
+): Promise<void> {
+  await getSupabase()
+    ?.from('sales')
+    .insert({
+      user_id: userId,
+      kind,
+      product_id: productId ?? null,
+      amount: amount ?? null,
+    });
 }
 
 interface StatsSnapshotRow {

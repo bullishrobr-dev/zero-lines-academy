@@ -108,6 +108,11 @@ const COPY = {
   progress: { en: 'Progress', es: 'Progreso' },
   lessons: { en: 'Lessons', es: 'Lecciones' },
   quizAvg: { en: 'Quiz avg', es: 'Media test' },
+  streetWeek: { en: 'Street · last 7 days', es: 'Calle · últimos 7 días' },
+  streetStops: { en: 'stops', es: 'paradas' },
+  streetBrings: { en: 'brings', es: 'entradas' },
+  streetSales: { en: 'sales', es: 'ventas' },
+  streetConv: { en: 'conv.', es: 'conv.' },
   lastActive: { en: 'Last active', es: 'Última actividad' },
   statusOnTrack: { en: 'On track', es: 'En buen camino' },
   statusNeedsPush: { en: 'Needs a push', es: 'Necesita empuje' },
@@ -641,7 +646,12 @@ function EmployeeCard({
   onNote: () => void;
   onRemove: () => void;
 }) {
-  const status = emp.hasData ? getStatus(emp) : null;
+  // Training and street are separate signals: a seller can be pounding the
+  // street with no lessons done, or the reverse. Show each only when it is real,
+  // and "no data" only when neither is.
+  const hasTraining = emp.completedLessons > 0 || emp.avgScore > 0;
+  const hasStreet = emp.street.stops > 0 || emp.street.sales > 0;
+  const status = hasTraining ? getStatus(emp) : null;
   return (
     <div className="surface-raised overflow-hidden">
       <button type="button" onClick={onOpen} className="w-full p-4 text-left">
@@ -657,7 +667,7 @@ function EmployeeCard({
           </span>
         </div>
 
-        {status ? (
+        {status && (
           <>
             <div className="mt-3 flex items-center gap-1.5">
               <span className={`h-2 w-2 shrink-0 rounded-full ${status.dot}`} aria-hidden />
@@ -693,8 +703,30 @@ function EmployeeCard({
               </span>
             </div>
           </>
-        ) : (
-          /* No bar at all — a 0% bar is a measurement, and there is none. */
+        )}
+
+        {hasStreet && (
+          <div className={`${status ? 'mt-3 border-t border-line pt-3' : 'mt-3'}`}>
+            <p className="text-overline text-ink-3">{c('streetWeek')}</p>
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-caption text-ink-3">
+              <span>
+                <b className="text-ink-2">{emp.street.stops}</b> {c('streetStops')}
+              </span>
+              <span>
+                <b className="text-ink-2">{emp.street.brings}</b> {c('streetBrings')}
+              </span>
+              <span>
+                <b className="text-ink-2">{emp.street.sales}</b> {c('streetSales')}
+              </span>
+              <span className="text-teal-strong">
+                <b>{emp.street.conversion}%</b> {c('streetConv')}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* No bar at all — a 0% bar is a measurement, and there is none. */}
+        {!status && !hasStreet && (
           <div className="mt-3">
             <NoDataLine label={c('noData')} />
           </div>

@@ -8,6 +8,8 @@
 
 import { Component, type ReactNode } from 'react';
 import { AlertTriangle, RotateCcw } from 'lucide-react';
+// A plain constant, no provider dependency — safe to import even here.
+import { BUILD_STAMP } from '../backend/supabaseClient';
 
 interface Props {
   children: ReactNode;
@@ -80,13 +82,10 @@ export default class ErrorBoundary extends Component<Props, State> {
         <h1 className="text-h2 text-ink">{c.title}</h1>
         <p className="mt-2 max-w-[300px] text-body-small text-ink-2">{c.body}</p>
 
-        {this.state.error && (
-          <div className="surface-sunken mt-6 w-full max-w-[340px] p-3">
-            <p className="break-all font-mono text-caption text-ink-3">
-              {this.state.error.message}
-            </p>
-          </div>
-        )}
+        {/* The raw JavaScript message ("Cannot read properties of undefined…")
+            means nothing to a seller and only looks alarming. It stays in the
+            console for anyone debugging; here we show only the build, which is
+            what support would ask for. */}
 
         <div className="mt-6 flex w-full max-w-[300px] flex-col gap-3">
           <button onClick={this.handleReload} className="btn-primary w-full">
@@ -99,6 +98,7 @@ export default class ErrorBoundary extends Component<Props, State> {
         </div>
 
         <p className="mt-6 max-w-[300px] text-caption text-ink-3">{c.footer}</p>
+        <p className="mt-2 font-mono text-caption text-ink-3/70">{BUILD_STAMP}</p>
       </div>
     );
   }

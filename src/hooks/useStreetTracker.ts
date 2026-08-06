@@ -1,6 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
 import { XP_VALUES, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
 import type { StreetSession, DailySummary, XPAward } from '../types/streetTracker';
+import { useAuthContext } from '../contexts/AuthContext';
+import { isDatabaseConfigured } from '../backend/supabaseClient';
+import * as db from '../backend/db';
 
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -84,6 +87,10 @@ export function useStreetTracker() {
   const [sessions, setSessions] = useState<StreetSession[]>(loadSessions);
   const [xpAwards, setXpAwards] = useState<XPAward[]>(loadXPAwards);
 
+  const { user } = useAuthContext();
+  const userId = user?.id ?? '';
+  const syncing = isDatabaseConfigured && userId !== '';
+
   useEffect(() => {
     saveSessions(sessions);
   }, [sessions]);
@@ -110,6 +117,13 @@ export function useStreetTracker() {
       };
       setSessions((prev) => [...prev, entry]);
 
+      // Mirror the action to the server, so it survives a lost phone and the
+      // manager can see the team's funnel. Fire-and-forget: the local log above
+      // is the source of truth on the device either way.
+      if (syncing) {
+        void db.recordSale(userId, type, productId, amount).catch(() => {});
+      }
+
       const award: XPAward = {
         activity:
           type === 'stop'
@@ -124,7 +138,7 @@ export function useStreetTracker() {
 
       return entry;
     },
-    []
+    [syncing, userId]
   );
 
   const getTodayLogs = useCallback((): StreetSession[] => {

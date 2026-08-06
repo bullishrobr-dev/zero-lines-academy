@@ -242,7 +242,11 @@ export interface EmployeeProgress {
    * must say so rather than render zeros as if they were measured.
    */
   hasData: boolean;
+  /** Last 7 days on the street. All zeros on the roster fallback (no server). */
+  street: db.StreetFunnel;
 }
+
+const NO_STREET: db.StreetFunnel = { stops: 0, brings: 0, sales: 0, revenue: 0, conversion: 0 };
 
 export async function getTeamProgress(managerId: string): Promise<EmployeeProgress[]> {
   if (isDatabaseConfigured) return db.getTeamProgress(managerId, TOTAL_LESSON_COUNT);
@@ -276,6 +280,7 @@ export async function getTeamProgress(managerId: string): Promise<EmployeeProgre
       completedLessons,
       totalLessons: TOTAL_LESSON_COUNT,
       hasData,
+      street: NO_STREET,
     };
   });
 }
