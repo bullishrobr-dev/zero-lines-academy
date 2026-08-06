@@ -12,7 +12,7 @@
  * Bump CACHE_VERSION on any change to this file to evict old caches.
  */
 
-const CACHE_VERSION = 'v10';
+const CACHE_VERSION = 'v11';
 const CACHE_NAME = `zero-lines-${CACHE_VERSION}`;
 
 // Relative so the app still works when deployed under a sub-path
@@ -20,12 +20,17 @@ const CACHE_NAME = `zero-lines-${CACHE_VERSION}`;
 const PRECACHE = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
+  // Deliberately NOT skipWaiting() here. A new worker that activates while the
+  // old page is still open swaps the fingerprinted assets underneath it, so the
+  // running app asks for a chunk that no longer exists and throws. Instead the
+  // new worker waits, the app notices it, and the seller taps "refresh" when
+  // they are ready — see src/components/PwaPrompts.tsx. The SKIP_WAITING message
+  // below is what that tap sends.
   event.waitUntil(
     caches
       .open(CACHE_NAME)
       // addAll() rejects the whole install if any single entry 404s.
       .then((cache) => Promise.allSettled(PRECACHE.map((u) => cache.add(u))))
-      .then(() => self.skipWaiting())
   );
 });
 

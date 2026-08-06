@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation as useRouterLocation } from 'react
 import Layout from './components/Layout';
 import LoadingScreen from './components/LoadingScreen';
 import ErrorBoundary from './components/ErrorBoundary';
+import PwaPrompts from './components/PwaPrompts';
 import OnboardingPage from './pages/OnboardingPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -144,6 +145,7 @@ export default function App() {
                     <Route path="*" element={<Navigate to="/home" replace />} />
                   </Routes>
                 </Suspense>
+                <PwaPrompts />
               </Layout>
             </ErrorBoundary>
           </LocationProvider>
