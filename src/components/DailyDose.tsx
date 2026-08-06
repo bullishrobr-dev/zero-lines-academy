@@ -38,6 +38,20 @@ const COPY = {
   },
 } as const;
 
+/* The five dose categories are a fixed set (data/dailyDoses.ts), so they are
+   translated here rather than carrying a categoryEs on every dose. In English
+   the label is the value itself. */
+const CATEGORY_ES: Record<string, string> = {
+  Stopping: 'Parar',
+  Product: 'Producto',
+  Closing: 'Cierre',
+  Advanced: 'Avanzado',
+  Mindset: 'Mentalidad',
+};
+
+const catLabel = (category: string, isEs: boolean) =>
+  isEs ? (CATEGORY_ES[category] ?? category) : category;
+
 type BlockType = 'tip' | 'script' | 'technique' | 'mindset';
 
 /* One accent per block type, all from the token set. */
@@ -84,7 +98,7 @@ export function DailyDoseCard({ onOpen }: DailyDoseCardProps) {
       {/* Header row */}
       <div className="mb-2 flex items-center gap-2">
         <span className="rounded-full bg-teal-tint px-2.5 py-1 text-overline text-teal-strong">
-          {dose.category}
+          {catLabel(dose.category, language === 'es')}
         </span>
         <span className="flex items-center gap-1 text-caption text-ink-3">
           <Clock className="h-3.5 w-3.5" aria-hidden="true" />
@@ -189,7 +203,7 @@ export function DailyDoseModal({ isOpen, onClose, onCompleted }: DailyDoseModalP
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <span className="inline-block rounded-full bg-teal-tint px-2.5 py-1 text-overline text-teal-strong">
-                    {c.day} {dose.day} · {dose.category}
+                    {c.day} {dose.day} · {catLabel(dose.category, isEs)}
                   </span>
                   <h2 className="mt-2 text-h2 text-ink">{isEs ? dose.titleEs : dose.title}</h2>
                 </div>

@@ -11,6 +11,7 @@
 
 import { scenarioLessons } from './scenarioLessons';
 import { objectionLessons } from './objectionLessons';
+import { LESSON_QUIZZES } from './lessonQuizzes';
 
 export type SectionType =
   | 'header'
@@ -42,9 +43,12 @@ export interface ContentSection {
 
 export interface QuizQuestion {
   question: string;
+  questionEs?: string;
   options: string[];
+  optionsEs?: string[];
   correctIndex: number;
   explanation: string;
+  explanationEs?: string;
 }
 
 export interface Lesson {
@@ -6790,6 +6794,16 @@ export const lessons: Record<string, Lesson> = {
   ...scenarioLessons,
   ...objectionLessons,
 };
+
+// The lesson quizzes are maintained in their own file — bilingual, and with the
+// correct answer's position spread evenly across the four slots. Inline, every
+// answer was option B (84.9%) and also the longest option, so the quiz could be
+// passed by always tapping the long B. Overlay them onto the lessons that carry
+// one; a lesson with no override keeps whatever it declared.
+for (const [id, quiz] of Object.entries(LESSON_QUIZZES)) {
+  const lesson = lessons[id];
+  if (lesson) lesson.quiz = quiz;
+}
 
 // ── Helper functions ──
 export function getCategory(id: string): Category | undefined {
