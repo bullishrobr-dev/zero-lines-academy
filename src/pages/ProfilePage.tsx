@@ -60,6 +60,7 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme, type ThemePreference } from '@/contexts/ThemeContext';
 import { useCurrency } from '@/utils/currency';
+import { useLocation as useShop } from '@/contexts/LocationContext';
 import DailyChallengeCard from '@/components/DailyChallengeCard';
 import ConfettiCelebration from '@/components/ConfettiCelebration';
 import XPToast from '@/components/XPToast';
@@ -103,6 +104,11 @@ const COPY = {
   usernameNote: {
     en: 'Your name and username are set by your manager.',
     es: 'Tu nombre y tu usuario los pone tu responsable.',
+  },
+  viewingShop: { en: 'Viewing as', es: 'Viendo como' },
+  viewingShopNote: {
+    en: 'You run both shops, so you are not tied to either. Switch to see exactly what a seller there sees.',
+    es: 'Diriges las dos tiendas, así que no estás fijado a ninguna. Cambia para ver justo lo que ve un vendedor de allí.',
   },
   changePassword: { en: 'Change your password', es: 'Cambiar tu contraseña' },
   changePasswordDesc: {
@@ -295,6 +301,7 @@ export default function ProfilePage() {
   const { language, setLanguage, t } = useLanguage();
   const { preference, setPreference } = useTheme();
   const { currency, locationName } = useCurrency();
+  const { location: shopLocation, setLocation, isLocked } = useShop();
   const authCtx = useAuthContext();
   const authUser = authCtx.user;
 
@@ -743,12 +750,43 @@ export default function ProfilePage() {
                 mono
               />
               <FactRow icon={Briefcase} label={c('role')} value={roleLabel} />
-              <FactRow
-                icon={MapPin}
-                label={c('yourShop')}
-                value={`${locationName} · ${currency}`}
-                note={c('shopExplainer')}
-              />
+              {/* An admin belongs to no single shop, so instead of stating one
+                  they get to switch — which is the only way to check that a
+                  Gibraltar seller is really being shown £. */}
+              {isLocked ? (
+                <FactRow
+                  icon={MapPin}
+                  label={c('yourShop')}
+                  value={`${locationName} · ${currency}`}
+                  note={c('shopExplainer')}
+                />
+              ) : (
+                <div className="p-4">
+                  <p id="shop-label" className="text-body-small font-semibold text-ink">
+                    {c('viewingShop')}
+                  </p>
+                  <p className="mt-0.5 text-caption leading-5 text-ink-3">{c('viewingShopNote')}</p>
+                  <div
+                    role="group"
+                    aria-labelledby="shop-label"
+                    className="mt-3 grid grid-cols-2 gap-2 rounded-full bg-surface-sunken p-1"
+                  >
+                    {(['andorra', 'gibraltar'] as const).map((loc) => (
+                      <button
+                        key={loc}
+                        type="button"
+                        onClick={() => setLocation(loc)}
+                        aria-pressed={shopLocation === loc}
+                        className={`min-h-touch rounded-full text-body-small font-semibold transition-colors ${
+                          shopLocation === loc ? 'bg-teal text-on-teal' : 'text-ink-2'
+                        }`}
+                      >
+                        {loc === 'andorra' ? 'Andorra · €' : 'Gibraltar · £'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
               {/* The roster does not record join dates, so this row simply is not
                   there rather than printing an empty or invalid one. */}
               {joined && <FactRow icon={Calendar} label={c('joined')} value={joined} />}

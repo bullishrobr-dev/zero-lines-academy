@@ -15,7 +15,13 @@ export interface User {
   username: string;
   name: string;
   role: UserRole;
-  location: UserLocation;
+  /**
+   * Which shop they work at — and which currency they are taught in.
+   *
+   * Null for an admin, who runs both shops and is deliberately tied to
+   * neither, so they can switch between them to see what each seller sees.
+   */
+  location: UserLocation | null;
   /** Username of their manager, if any. */
   managerUsername?: string;
   /**

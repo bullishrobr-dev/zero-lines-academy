@@ -193,6 +193,7 @@ const COPY = {
     en: 'Their login goes too, so the username is free to use again.',
     es: 'Su acceso también se borra, así que el usuario queda libre otra vez.',
   },
+  bothShops: { en: 'Both shops', es: 'Las dos tiendas' },
   removeConfirm: { en: 'Remove from the team', es: 'Sacar del equipo' },
   removingNow: { en: 'Removing…', es: 'Sacando…' },
   errRemove: { en: 'They were not removed', es: 'No se ha podido sacar' },
@@ -492,7 +493,7 @@ export default function AdminPanel() {
                     </span>
                     <span className="inline-flex items-center gap-1 rounded-full bg-surface-sunken px-2 py-0.5 text-caption capitalize text-ink-2">
                       <MapPin size={11} aria-hidden />
-                      {u.location}
+                      {u.location ?? c('bothShops')}
                     </span>
                   </div>
                   {u.role === 'employee' && (
@@ -1092,7 +1093,14 @@ function AddPersonSheet({
             <option value="">{c('noManager')}</option>
             {managers.map((m) => (
               <option key={m.id} value={m.username}>
-                {m.name} — {m.location === 'andorra' ? 'Andorra' : 'Gibraltar'}
+                {/* An admin runs both shops and belongs to neither, so naming
+                    one of them here would be a lie. */}
+                {m.name} —{' '}
+                {m.location === 'andorra'
+                  ? 'Andorra'
+                  : m.location === 'gibraltar'
+                    ? 'Gibraltar'
+                    : c('bothShops')}
               </option>
             ))}
           </select>

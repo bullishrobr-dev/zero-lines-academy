@@ -540,7 +540,9 @@ export default function ManagerDashboard() {
           c={c}
           managerUsername={user.username}
           managerId={user.id}
-          defaultLocation={user.location}
+          // An admin has no shop of their own, so the form starts on Andorra
+          // and they choose; a manager's own shop is right for them.
+          defaultLocation={user.location ?? 'andorra'}
           onCreated={refreshTeam}
           onClose={() => setAdding(false)}
         />

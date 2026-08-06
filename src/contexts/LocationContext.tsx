@@ -82,9 +82,16 @@ export function LocationProvider({ children }: { children: ReactNode }) {
   const { user } = useAuthContext();
   const [guestLocation, setGuestLocation] = useState<Location>(getStoredLocation);
 
-  // A signed-in seller's shop always wins over anything cached in this browser.
+  /*
+   * A signed-in seller's shop always wins over anything cached in this browser.
+   *
+   * The admin is the exception: they run both shops, so they are not tied to
+   * either and can switch freely to see what each seller sees — prices in the
+   * right currency, the right tax wording. Their account carries no shop at all
+   * (see supabase/schema.sql), which is what leaves them unlocked here.
+   */
   const location: Location = user?.location ?? guestLocation;
-  const isLocked = !!user;
+  const isLocked = !!user?.location;
 
   // Mirror to localStorage so a full reload paints the right currency before
   // the auth record has loaded, instead of flashing the wrong symbol.
@@ -98,7 +105,7 @@ export function LocationProvider({ children }: { children: ReactNode }) {
 
   const setLocation = useCallback(
     (loc: Location) => {
-      if (user) return; // assigned by the account; see the interface comment
+      if (user?.location) return; // assigned by the account; see the interface comment
       setGuestLocation(loc);
     },
     [user]
