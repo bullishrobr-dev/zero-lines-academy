@@ -10,6 +10,35 @@ independently described the same underlying problem in their own vocabulary.
 
 ---
 
+## Progress log
+
+Shipped since this plan was written (builds 8–12):
+
+- **Stage 1** — the VAT-refund guarantee and every customs / "nothing to
+  declare" / €300-allowance claim are removed, both languages. The daily-dose,
+  check-in and end-of-shift screens no longer promise XP they don't pay.
+- **Stage 1** — all 93 lesson quizzes are fully bilingual, and rebuilt so the
+  answer isn't guessable by position (was 85% "B") or length (was 85% longest).
+- **Stage 2 (partial)** — daily habits now pay **real** XP through one
+  farm-proof path, so they count toward the leaderboard. The four separate XP
+  economies aren't fully unified yet, and scoring is still client-side.
+- **Stage 3** — the manager dashboard reads the database: a real team, real
+  figures from the stats each seller pushes.
+- **Stage 5 (partial)** — the flashcard scheduler got its relearning step,
+  interval fuzz, new-card cap, and a reachable definition of "mastered".
+- **Stage 6 (partial)** — a proper update prompt and an add-to-home-screen
+  prompt; the service worker no longer swaps assets under a running page. Admin
+  is no longer tied to a shop and can switch to see each seller's view. The
+  sign-in screen shows the build and whether it's talking to the database.
+- **Security** — closed a public admin-signup hole, made the password gate real,
+  scoped manager reads to their own team, and fixed a shared-tablet bug that was
+  silently zeroing the next seller's quiz XP.
+
+Still open below: unifying the XP ledger and moving scoring server-side
+(Stage 2), the missing "bring"/close/counter content (Stage 4), the spoken rep
+(Stage 5), the Cheat Sheets rebuild (Stage 6), and the reward curve for veterans
+(Stage 7).
+
 ## The one sentence version
 
 **The app measures taps, not selling.** Everything below follows from that.
