@@ -23,6 +23,284 @@
 import type { Lesson } from './lessons';
 
 export const closingLessons: Record<string, Lesson> = {
+  /*
+   * The frame for everything else in this category, and the reason it sits
+   * first.
+   *
+   * The app taught technique for a year without ever telling a new starter what
+   * KIND of selling this is, so they read it as pharmacy retail and behaved
+   * accordingly — quiet, careful, one price, apologising for the number. Two
+   * independent tone audits found the same thing from opposite ends of the
+   * content: lessons that filed ordinary street theatre ("two left", "just for
+   * you") under lying, next to lessons that taught scarcity as a principle.
+   *
+   * This is the positive statement of the thing those fixes were clearing space
+   * for. It is the owner's own description of the trade — "a little bit of a
+   * bargain, a little bit of a market" — turned into a mechanism a seller can
+   * actually do differently tomorrow: a reason on every rung, make them ask
+   * twice, the conspiracy rung, let them win, stop at yes.
+   *
+   * The one hard rule in it is section 7, and it is deliberately framed as
+   * money rather than manners, because that is what it is: a promise the shop
+   * must honour and a claim about somebody's body are the two things that land
+   * back on the shop after the seller has clocked off. Everything else is fair
+   * game and the lesson says so, loudly, first.
+   */
+  'close-market': {
+    id: 'close-market',
+    categoryId: 'closing',
+    title: "It's a Market, Not a Pharmacy",
+    titleEs: 'Esto es un Mercado, No una Farmacia',
+    subtitle: 'The haggle is the product — and both of you already know it',
+    subtitleEs: 'El regateo es el producto — y los dos lo sabéis ya',
+    duration: '6 min',
+    icon: 'Sparkles',
+    order: 1,
+    xpReward: 120,
+    sections: [
+      {
+        type: 'header',
+        text: "It's a market, not a pharmacy",
+        textEs: 'Esto es un mercado, no una farmacia',
+      },
+      {
+        type: 'paragraph',
+        text: `Nobody has told you this yet, so I will. Go outside and look at where you actually work. There is no white coat, no appointment, no little sticker with a fixed price on it. There is a chair, a table, a bit of product and a person with good energy stopping strangers in the street. That is a market stall. Behind a counter you wait to be asked and nobody touches anything until they have paid. On a stall you talk first, you put it in their hand, and the number is the start of the conversation instead of the end of it.`,
+        textEs: `Nadie te lo ha dicho todavía, así que te lo digo yo. Sal fuera y mira dónde trabajas de verdad. No hay bata blanca, no hay cita previa, no hay una etiqueta con un precio fijo. Hay una silla, una mesa, un poco de producto y una persona con buena energía parando a desconocidos en la calle. Eso es un puesto de mercado. Detrás de un mostrador esperas a que te pregunten y nadie toca nada hasta que ha pagado. En un puesto hablas tú primero, se lo pones en la mano, y el número es el principio de la conversación, no el final.`,
+      },
+      {
+        type: 'keypoint',
+        text: `If you walked in here thinking pharmacy — quiet voice, careful words, one price — you are going to have a very slow week. And here is the bit that costs you money: the customer copies you. Stiff seller, stiff customer. You play, they play back. Your energy sets the temperature of the whole thing before a single number leaves your mouth.`,
+        textEs: `Si has entrado aquí pensando en una farmacia — voz bajita, palabras con cuidado, un solo precio — te espera una semana muy lenta. Y esto es lo que te cuesta dinero: el cliente te copia. Vendedor tieso, cliente tieso. Si tú juegas, ellos juegan. Tu energía marca la temperatura de todo antes de que salga un solo número de tu boca.`,
+      },
+      {
+        type: 'script',
+        text: `"Come here one second — you're going to like this, I promise. Give me your hand."`,
+        textEs: `"Ven un segundo — esto te va a gustar, te lo prometo. Dame la mano."`,
+      },
+
+      {
+        type: 'subheader',
+        text: "They already know the first price isn't the last price",
+        textEs: 'Ya saben que el primer precio no es el último',
+      },
+      {
+        type: 'paragraph',
+        text: `This is what new sellers get wrong about haggling. They think it is something they are pulling on somebody. It isn't. This person walked up to a stall in the street — they have known how this works since they were a kid. So when they say "is that your best price?" they are not catching you out, they are joining in. If they honestly thought {currency}60 was carved in stone they would have said no thanks and kept walking. Instead they are standing there asking you a question. That is not resistance, that is the game starting. They know it is a performance. They enjoy it anyway — the same way you enjoy a haggle on holiday.`,
+        textEs: `Esto es lo que los vendedores nuevos entienden mal del regateo. Se creen que se lo están colando a alguien. Y no. Esta persona se ha acercado a un puesto en la calle — sabe cómo funciona esto desde pequeña. Así que cuando te dice "¿es tu mejor precio?" no te está pillando, se está apuntando. Si de verdad pensara que los {currency}60 están grabados en piedra, habría dicho "no, gracias" y habría seguido andando. En vez de eso está ahí parada haciéndote una pregunta. Eso no es resistencia, es que empieza el juego. Saben que es una función. Y aun así les gusta — igual que a ti te gusta regatear cuando estás de viaje.`,
+      },
+      {
+        type: 'script',
+        text: `"Ha — of course that's not my best price. What do you think this is, a supermarket? Come on, talk to me."`,
+        textEs: `"Ja — claro que no es mi mejor precio. ¿Qué te crees, que esto es un supermercado? Venga, habla conmigo."`,
+      },
+
+      {
+        type: 'subheader',
+        text: "Say the number and don't flinch",
+        textEs: 'Di el número y no te encojas',
+      },
+      {
+        type: 'keypoint',
+        text: `Say it warm, say it flat, then shut up. Do not wince. Do not say "it's only". Do not say "I know it's a bit pricey, but". The second you flinch at your own number you have told them the number is wrong — and now they are not haggling with you, they are rescuing you, downwards. Serious and careful is what you do when you do not believe your own price.`,
+        textEs: `Dilo con calor, dilo plano, y luego cállate. No hagas una mueca. No digas "son solo". No digas "ya sé que es un poco caro, pero". En cuanto te encoges con tu propio número, les has dicho que el número está mal — y ahora no están regateando contigo, te están rescatando, hacia abajo. Serio y prudente es lo que haces cuando no te crees tu propio precio.`,
+      },
+      {
+        type: 'paragraph',
+        text: `Your body says the same thing. Small and apologetic, and {currency}60 sounds like a lot of money. Easy, open, having a good day, and {currency}60 sounds like nothing at all.`,
+        textEs: `Tu cuerpo dice lo mismo. Pequeño y disculpándote, y {currency}60 suenan a mucho dinero. Suelto, abierto, pasándotelo bien, y {currency}60 no suenan a nada.`,
+      },
+      {
+        type: 'script',
+        text: `If they go tense on the number: "Relax, I'm not a dentist. It's hand cream."`,
+        textEs: `Si se tensan con el número: "Tranquila, que no soy dentista. Es crema de manos."`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'Every rung needs a reason',
+        textEs: 'Cada escalón necesita un motivo',
+      },
+      {
+        type: 'paragraph',
+        text: `The ladder is a performance, and a performance needs a reason. If the price just falls, it was never a price. {currency}60 to {currency}30 in twenty seconds is not a discount, it is an announcement that you were making the numbers up. So every rung gets three things: a pause, a face, and a reason. Look at the product. Look at the door. Suck your teeth. Breathe out like it actually hurts. Then give the reason — and the reason is always about them, never about the product. The product never gets cheaper. The product stays brilliant. What changed is that today, for this one person, you have decided to do something.`,
+        textEs: `La escalera es una función, y una función necesita un motivo. Si el precio simplemente cae, nunca fue un precio. De {currency}60 a {currency}30 en veinte segundos no es un descuento, es anunciar que te estabas inventando los números. Así que cada escalón lleva tres cosas: una pausa, una cara y un motivo. Mira el producto. Mira a la puerta. Chasquea la lengua. Suelta el aire como si te doliera de verdad. Y luego da el motivo — y el motivo siempre es por ellos, nunca por el producto. El producto nunca baja de categoría. El producto sigue siendo buenísimo. Lo que ha cambiado es que hoy, por esta persona, has decidido hacer algo.`,
+      },
+      {
+        type: 'script',
+        text: `"My last customer only took one. Let me do something nice for you."`,
+        textEs: `"Mi última clienta se llevó solo uno. Déjame hacerte algo bonito."`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'And make them ask twice before you move once',
+        textEs: 'Y que te lo pidan dos veces antes de moverte una',
+      },
+      {
+        type: 'paragraph',
+        text: `First "ooh, that's a bit expensive" and the nervous seller jumps straight to the floor to feel safe. That is the most expensive habit in this shop. You have handed over {currency}30 nobody asked you for, and you have taught them the numbers move when they push — so they push again, and now your floor is not a floor. Get to your last price in ten seconds and they will not believe it is your last price. They are right not to.`,
+        textEs: `Al primer "uy, es un poco caro" el vendedor nervioso salta directo al suelo para sentirse seguro. Es la costumbre más cara de esta tienda. Has regalado {currency}30 que nadie te había pedido, y les has enseñado que los números se mueven si empujan — así que empujan otra vez, y ahora tu suelo ya no es un suelo. Llega a tu último precio en diez segundos y no se van a creer que es tu último precio. Y hacen bien.`,
+      },
+      {
+        type: 'script',
+        text: `When they push early: "Whoa, whoa, whoa. I've known you thirty seconds and you're already trying to rob me."`,
+        textEs: `Cuando empujan pronto: "Eh, eh, eh. Hace treinta segundos que te conozco y ya me estás robando."`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'The little conspiracy',
+        textEs: 'La pequeña conspiración',
+      },
+      {
+        type: 'paragraph',
+        text: `The strongest rung on the ladder is not the cheapest one. It is the one that arrives with a secret. Voice down. Quick look at the door. Lean in a bit. Now it is the two of you on the same side — against the price list, against my boss, against everyone else walking in here today who is going to pay full. They are not buying a cheaper thing, they are buying a moment where somebody bent something just for them. And it survives the walk home: when they tell their friend about it tonight, they tell them the story. They never remember the number.`,
+        textEs: `El escalón más fuerte de la escalera no es el más barato. Es el que llega con un secreto. Baja la voz. Mirada rápida a la puerta. Acércate un poco. Ahora sois los dos del mismo lado — contra la lista de precios, contra mi jefe, contra todos los demás que entren hoy y paguen el precio entero. No están comprando algo más barato, están comprando un momento en el que alguien dobló algo solo por ellos. Y eso les dura hasta casa: cuando esta noche se lo cuenten a una amiga, le cuentan la historia. Del número no se acuerdan nunca.`,
+      },
+      {
+        type: 'script',
+        text: `"You really love it, don't you — you haven't stopped touching your hands. Alright: {currency}30 for the one. But zip it, this stays between us."`,
+        textEs: `"Te encanta de verdad, ¿eh? No paras de tocarte las manos. Venga: {currency}30 por uno. Pero chitón, que esto queda entre nosotros."`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'Let them win',
+        textEs: 'Déjales ganar',
+      },
+      {
+        type: 'paragraph',
+        text: `Nobody at a market wants the lowest price. They want the story: "I got him down." So build them the moment where they get you. Ask for their number and make them say it out loud. Hold, hold, hold — then collapse all at once, hands in the air, like they have genuinely beaten something out of you. It costs you exactly the same as caving at the start and it feels completely different to the person paying. Nobody brags to their mates about a discount that was just sitting there.`,
+        textEs: `Nadie en un mercado quiere el precio más bajo. Quieren la historia: "le he tirado el precio". Así que constrúyeles el momento en el que te ganan. Pídeles su número y haz que lo digan en voz alta. Aguanta, aguanta, aguanta — y luego derrúmbate de golpe, manos arriba, como si de verdad te hubieran sacado algo. Te cuesta exactamente lo mismo que ceder al principio y se siente completamente distinto para quien paga. Nadie presume delante de sus amigas de un descuento que ya estaba ahí puesto.`,
+      },
+      {
+        type: 'keypoint',
+        text: `One rule: when you go, go. Half a surrender is worse than none — they can smell it, and they will keep pushing.`,
+        textEs: `Una regla: cuando cedas, cede. Media rendición es peor que ninguna — lo huelen, y siguen empujando.`,
+      },
+      {
+        type: 'script',
+        text: `"Go on then, give me your number… Ooof. You're a hard one, you." … "Fine. FINE. You've killed me. Take it. But you're not telling anybody what you paid, alright?"`,
+        textEs: `"Venga, dime tu número… Buf. Menuda eres tú." … "Vale. VALE. Me has matado. Llévatelo. Pero no le dices a nadie lo que has pagado, ¿eh?"`,
+      },
+
+      { type: 'divider' },
+      {
+        type: 'header',
+        text: 'Where the game stops — and it is about money, not manners',
+        textEs: 'Dónde se acaba el juego — y es por dinero, no por modales',
+      },
+      {
+        type: 'paragraph',
+        text: `Everything above is fair game. All of it. The price theatre, "just for you", "my last customer", "between us", how much you personally love the stuff — that is the market, do the lot, that is why people stop here instead of walking into a chemist.`,
+        textEs: `Todo lo de arriba vale. Todo. El teatro del precio, "solo para ti", "mi última clienta", "que quede entre nosotros", lo mucho que te gusta a ti el producto — eso es el mercado, hazlo todo, por eso la gente para aquí en vez de entrar en una farmacia.`,
+      },
+      {
+        type: 'keypoint',
+        text: `Two things sit outside the game, and not because anybody is offended — because they land back on the shop after you have clocked off. ONE: never promise anything the shop has to do once they are out that door. Money back, sort it at the border, come back next year and we'll swap it. You will not be there. The shop will, and somebody else has to have that argument. TWO: never tell anybody what it does to their body — what it treats, what it is safe with, what a doctor reckons about it. That is the one that turns a delighted customer into a real problem. Sell the shine, the look, the feeling, the price. Not medicine, and not promises with a date on them.`,
+        textEs: `Dos cosas se quedan fuera del juego, y no porque nadie se ofenda — porque caen sobre la tienda cuando tú ya te has ido a casa. UNA: no prometas nunca nada que la tienda tenga que cumplir cuando ya han salido por esa puerta. Devolver el dinero, arreglarlo en la frontera, vuelve el año que viene y te lo cambiamos. Tú no vas a estar. La tienda sí, y otra persona tiene que tener esa discusión. DOS: no le digas nunca a nadie lo que le hace a su cuerpo — qué cura, con qué es seguro, qué opina un médico. Esa es la que convierte a una clienta encantada en un problema de verdad. Vende el brillo, el aspecto, la sensación, el precio. Ni medicina, ni promesas con fecha.`,
+      },
+      {
+        type: 'script',
+        text: `"Look, I'm not a doctor — I'm a stall on a corner with very good hand cream. But look at that shine on you."`,
+        textEs: `"Mira, no soy médico — soy un puesto en una esquina con una crema de manos buenísima. Pero mírate qué brillo."`,
+      },
+
+      {
+        type: 'tip',
+        text: `The second they say yes, the haggle is over. Stop selling. Stop dropping. Do not sweeten it, do not throw in one more thing, do not get nervous and fill the silence with another gift nobody asked for — that is you still playing a game that ended a minute ago, and all it does is make them wonder what else was on the table. Switch straight into lovely: quick, easy, ask about their trip, go and get the machine. The theatre was for getting to yes. After yes, you are just a nice person taking their money.`,
+        textEs: `En cuanto dicen que sí, se acabó el regateo. Deja de vender. Deja de bajar. No lo endulces, no metas una cosa más, no te pongas nervioso y llenes el silencio con otro regalo que nadie te ha pedido — eso eres tú jugando todavía a un juego que se acabó hace un minuto, y lo único que consigue es que se pregunten qué más había encima de la mesa. Pasa directo a modo encantador: rápido, fácil, pregúntales por el viaje, ve a por el datáfono. El teatro era para llegar al sí. Después del sí, solo eres una persona simpática cobrándoles.`,
+      },
+    ],
+    quiz: [
+      {
+        question: 'A customer asks "is that your best price?" What is actually happening?',
+        questionEs: 'Un cliente pregunta "¿es tu mejor precio?" ¿Qué está pasando de verdad?',
+        options: [
+          'Resistance — they are about to walk away',
+          'Them joining in — the game has started',
+          'A sign you priced it too high for them',
+          'A cue to go straight to your floor price',
+        ],
+        optionsEs: [
+          'Resistencia — están a punto de irse',
+          'Se están apuntando — empieza el juego',
+          'Señal de que les has pedido demasiado',
+          'Que vayas directo a tu precio mínimo',
+        ],
+        correctIndex: 1,
+        explanation:
+          'If they thought the price was fixed they would have said no thanks and kept walking. Standing there asking is the haggle starting.',
+        explanationEs:
+          'Si pensaran que el precio es fijo, habrían dicho "no, gracias" y habrían seguido andando. Que se queden preguntando es que empieza el regateo.',
+      },
+      {
+        question: 'Why does dropping from {currency}60 to {currency}30 in twenty seconds cost you?',
+        questionEs: '¿Por qué te cuesta caro bajar de {currency}60 a {currency}30 en veinte segundos?',
+        options: [
+          'It teaches them pushing moves the numbers',
+          'It breaks the minimum margin the shop sets',
+          'It makes the product look like poor quality',
+          'It leaves you nothing to give away later',
+        ],
+        optionsEs: [
+          'Les enseñas que empujar mueve los números',
+          'Te saltas el margen mínimo que fija la tienda',
+          'Hace que el producto parezca de mala calidad',
+          'Te quedas sin nada que regalar más adelante',
+        ],
+        correctIndex: 0,
+        explanation:
+          'You handed over money nobody asked for, and taught them the numbers move when they push — so they push again, and your floor stops being a floor.',
+        explanationEs:
+          'Has regalado dinero que nadie te pidió y les has enseñado que los números se mueven si empujan — así que empujan otra vez, y tu suelo deja de ser un suelo.',
+      },
+      {
+        question: 'Which is the strongest rung on the ladder?',
+        questionEs: '¿Cuál es el escalón más fuerte de la escalera?',
+        options: [
+          'The cheapest one, because it removes every objection',
+          'The first one, because it anchors everything after',
+          'The one that arrives like a secret, just for them',
+          'Whichever one matches their budget most closely',
+        ],
+        optionsEs: [
+          'El más barato, porque quita todas las objeciones',
+          'El primero, porque ancla todo lo que viene después',
+          'El que llega como un secreto, solo para ellos',
+          'El que más se ajuste a lo que pueden gastarse',
+        ],
+        correctIndex: 2,
+        explanation:
+          'They are not buying a cheaper thing. They are buying a moment where somebody bent something just for them — and that is the bit they tell their friend about tonight.',
+        explanationEs:
+          'No están comprando algo más barato. Están comprando un momento en el que alguien dobló algo solo por ellos — y eso es lo que le cuentan esta noche a una amiga.',
+      },
+      {
+        question: 'They say yes. What is the next thing you do?',
+        questionEs: 'Dicen que sí. ¿Qué es lo siguiente que haces?',
+        options: [
+          'Throw in one more gift to lock it in',
+          'Confirm the price out loud so there is no confusion',
+          'Ask if they want to add a second product',
+          'Stop selling and go and get the card machine',
+        ],
+        optionsEs: [
+          'Meter un regalo más para asegurarlo',
+          'Confirmar el precio en voz alta para que no haya líos',
+          'Preguntar si quieren añadir un segundo producto',
+          'Dejar de vender e ir a por el datáfono',
+        ],
+        correctIndex: 3,
+        explanation:
+          'The theatre was for getting to yes. Carrying on after it just makes them wonder what else was on the table.',
+        explanationEs:
+          'El teatro era para llegar al sí. Seguir después solo hace que se pregunten qué más había encima de la mesa.',
+      },
+    ],
+  },
+
   'close-1': {
     id: 'close-1',
     categoryId: 'closing',
@@ -32,7 +310,7 @@ export const closingLessons: Record<string, Lesson> = {
     subtitleEs: 'Los cinco metros de la acera a la silla',
     duration: '5 min',
     icon: 'DoorOpen',
-    order: 1,
+    order: 2,
     xpReward: 120,
     sections: [
       {
@@ -294,7 +572,7 @@ export const closingLessons: Record<string, Lesson> = {
     subtitleEs: 'El momento en que la mayoría se calla, y no debería',
     duration: '4 min',
     icon: 'Coins',
-    order: 2,
+    order: 3,
     xpReward: 120,
     sections: [
       {
@@ -449,7 +727,7 @@ export const closingLessons: Record<string, Lesson> = {
     subtitleEs: 'Los noventa segundos entre el sí y el pago',
     duration: '4 min',
     icon: 'CreditCard',
-    order: 3,
+    order: 4,
     xpReward: 120,
     sections: [
       {
