@@ -355,8 +355,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"Across Europe this same treatment goes for {currency}500 — it\'s the one that works instantly and lasts. Here we\'re a tax-free shop, so it\'s {currency}300. That\'s why we sell out every single day."',
-        textEs: '"Por toda Europa este mismo tratamiento cuesta {currency}500 — es el que funciona al instante y dura. Aquí estamos libres de impuestos, así que son {currency}300. Por eso se agota todos los días."',
+        text: '"Across Europe this same treatment goes for {currency}500 — it\'s the one that works instantly and lasts. Here it\'s {currency}300. That\'s why we sell out every single day."',
+        textEs: '"Por toda Europa este mismo tratamiento cuesta {currency}500 — es el que funciona al instante y dura. Aquí son {currency}300. Por eso se agota todos los días."',
       },
       {
         type: 'tip',

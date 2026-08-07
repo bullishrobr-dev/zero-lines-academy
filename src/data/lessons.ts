@@ -258,7 +258,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'GREEN (Stop Immediately)', text: 'Carrying luxury shopping bags, window-shopping slowly, well-dressed, good grooming, with a partner, smiling and chatting, looking at displays, no phone in hand. These people are in buying mode. Approach with confidence.' },
       leftEs: { label: 'VERDE (Detente de Inmediato)', text: 'Cargando bolsas de compras de lujo, viendo escaparates despacio, bien vestidos, buena presentación, con una pareja, sonriendo y platicando, mirando los exhibidores, sin teléfono en la mano. Estas personas están en modo de compra. Acércate con confianza.' },
-      right: { label: 'RED (Low Priority)', text: 'Walking fast with purpose, on phone call, pushing stroller with fussy baby, wearing headphones, carrying heavy bags (tired), frowning, checking watch repeatedly. These people are unlikely to stop. Let them pass or use a very light touch.' }
+      right: { label: 'RED (Low Priority)', text: 'Walking fast with purpose, on phone call, pushing stroller with fussy baby, wearing headphones, carrying heavy bags (tired), frowning, checking watch repeatedly. These people are unlikely to stop. Let them pass or use a very light touch.' },
+      rightEs: { label: 'ROJO (Baja Prioridad)', text: 'Andando rápido y con rumbo, hablando por teléfono, empujando un carrito con un bebé inquieto, con auriculares puestos, cargando bolsas pesadas (cansados), con el ceño fruncido, mirando el reloj una y otra vez. Es poco probable que estas personas paren. Déjalas pasar o usa un toque muy suave.' }
     },
     {
             type: 'keypoint',
@@ -437,7 +438,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'SPANISH TOURISTS: Often day-trippers or weekend visitors. Shopping-focused, price-conscious but will spend for genuine value. Love the tax-haven angle. Respond well to energy and warmth.',
+        'SPANISH TOURISTS: Often day-trippers or weekend visitors. Shopping-focused, price-conscious but will spend for genuine value. Love the price-gap angle. Respond well to energy and warmth.',
         'FRENCH TOURISTS: Sophisticated about skincare (French beauty culture). Appreciate product knowledge and quality. Less impressed by hype, more by substance. May seem reserved initially — don\'t mistake this for disinterest.',
         'BRITISH TOURISTS: Direct communicators. Appreciate humor and straightforwardness. Often generous spenders once convinced. May need more product education (less familiar with some skincare categories).',
         'EASTERN EUROPEAN TOURISTS: Often big spenders in luxury categories. Strong responders to premium positioning. Appreciate exclusivity and status signaling. Direct and decisive when interested.',
@@ -445,7 +446,7 @@ export const lessons: Record<string, Lesson> = {
         'SOUTH AMERICAN TOURISTS: Warm, social, relationship-oriented. Respond to emotional connection and personal attention. Often generous gift-buyers. Family-oriented purchasing (buying for multiple people).'
       ],
       itemsEs: [
-          'TURISTAS ESPAÑOLES: A menudo excursionistas de un día o visitantes de fin de semana. Enfocados en compras, conscientes del precio pero gastarán por valor genuino. Aman el ángulo del paraíso fiscal. Responden bien a la energía y calidez.',
+          'TURISTAS ESPAÑOLES: A menudo excursionistas de un día o visitantes de fin de semana. Enfocados en compras, conscientes del precio pero gastarán por valor genuino. Aman el ángulo de la diferencia de precio. Responden bien a la energía y calidez.',
           'TURISTAS FRANCESES: Sofisticados en cuidado de la piel (cultura de belleza francesa). Aprecian el conocimiento de productos y la calidad. Menos impresionados por el hype, más por la sustancia. Pueden parecer reservados al principio — no confundas esto con desinterés.',
           'TURISTAS BRITÁNICOS: Comunicadores directos. Aprecian el humor y la franqueza. A menudo gastan generosamente una vez convencidos. Pueden necesitar más educación sobre productos (menos familiarizados con algunas categorías de cuidado de la piel).',
           'TURISTAS DEL ESTE DE EUROPA: A menudo grandes gastadores en categorías de lujo. Responden fuertemente al posicionamiento premium. Aprecian la exclusividad y las señales de estatus. Directos y decisivos cuando están interesados.',
@@ -455,8 +456,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'The tax-haven pricing is your universal equalizer. Even budget-conscious tourists perk up when they realize they\'re getting a {currency}500 product for {currency}300. Lead with the Europe price, then deliver the {locationName} advantage as a gift — not a discount.',
-      textEs: 'El precio de paraíso fiscal es tu ecualizador universal. Incluso los turistas conscientes del presupuesto se animan cuando se dan cuenta de que están obteniendo un producto de {currency}500 por {currency}300. Empieza con el precio de Europa, luego entrega la ventaja de {locationName} como un regalo — no como un descuento.',
+      text: 'The price gap is your universal equalizer. Even budget-conscious tourists perk up when they realize they\'re getting a {currency}500 product for {currency}300. Lead with the Europe price, then deliver the {locationName} price as a gift — not a discount.',
+      textEs: 'La diferencia de precio es tu ecualizador universal. Incluso los turistas conscientes del presupuesto se animan cuando se dan cuenta de que están obteniendo un producto de {currency}500 por {currency}300. Empieza con el precio de Europa, luego entrega el precio de {locationName} como un regalo — no como un descuento.',
     },
     {
             type: 'divider'
@@ -605,22 +606,22 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Spanish tourists often arrive in groups — families, couples, friends. They\'re typically shopping-oriented, respond well to high energy, and appreciate genuine warmth. The tax-haven angle resonates strongly because Spanish VAT is high.',
-      textEs: 'Los turistas españoles a menudo llegan en grupos — familias, parejas, amigos. Típicamente están orientados a las compras, responden bien a la energía alta y aprecian la calidez genuina. El ángulo del paraíso fiscal resuena fuertemente porque el IVA español es alto.',
+      text: 'Spanish tourists often arrive in groups — families, couples, friends. They\'re typically shopping-oriented, respond well to high energy, and appreciate genuine warmth. The price gap between Europe and {locationName} resonates strongly with them.',
+      textEs: 'Los turistas españoles a menudo llegan en grupos — familias, parejas, amigos. Típicamente están orientados a las compras, responden bien a la energía alta y aprecian la calidez genuina. La diferencia de precio entre Europa y {locationName} les resuena con fuerza.',
     },
     {
             type: 'bullets',
       items: [
         'COMMUNICATION STYLE: Warm, expressive, relationship-oriented. They appreciate personal connection before business. Ask about their trip, their day, their plans.',
         'DECISION-MAKING: Often consensus-based (especially in groups). The group dynamic matters — get everyone involved.',
-        'PRICE SENSITIVITY: Value-conscious but will spend for quality. The tax-haven savings narrative works brilliantly — frame it as \'smart shopping.\'',
+        'PRICE SENSITIVITY: Value-conscious but will spend for quality. The price-gap narrative works brilliantly — frame it as \'smart shopping.\'',
         'KEY PHRASES: \'Hola!\' (always greet warmly), \'Ahorras mucho aquí en {locationName}\' (You save a lot here in {locationName}), \'Es de muy buena calidad\' (It\'s very good quality), \'Regalo perfecto\' (Perfect gift).',
         'APPROACH: High energy, warm smile, personal questions. Show enthusiasm. Spanish customers often mirror your energy — bring it.'
       ],
       itemsEs: [
           'ESTILO DE COMUNICACIÓN: Cálido, expresivo, orientado a las relaciones. Aprecian la conexión personal antes de los negocios. Pregúntales sobre su viaje, su día, sus planes.',
           'TOMA DE DECISIONES: A menudo basada en consenso (especialmente en grupos). La dinámica de grupo importa — involucra a todos.',
-          'SENSIBILIDAD AL PRECIO: Conscientes del valor pero gastarán por calidad. La narrativa de ahorro del paraíso fiscal funciona brillantemente — preséntalo como "compras inteligentes".',
+          'SENSIBILIDAD AL PRECIO: Conscientes del valor pero gastarán por calidad. La narrativa de la diferencia de precio funciona brillantemente — preséntalo como "compras inteligentes".',
           'FRASES CLAVE: "¡Hola!" (siempre saluda cálidamente), "Ahorras mucho aquí en {locationName}" (Ahorras mucho aquí en {locationName}), "Es de muy buena calidad" (Es de muy buena calidad), "Regalo perfecto" (Regalo perfecto).',
           'ENFOQUE: Alta energía, sonrisa cálida, preguntas personales. Muestra entusiasmo. Los clientes españoles a menudo reflejan tu energía — llévala.',
         ],
@@ -683,19 +684,20 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'COMMUNICATION STYLE: Direct, humorous, appreciates authenticity. Don\'t be too \'salesy.\' Be a real person having a real conversation.',
         'DECISION-MAKING: Usually couple-based. The partner\'s opinion matters heavily. Involve them with humor and direct questions.',
-        'PRICE SENSITIVITY: Reasonably price-aware but responsive to genuine value. The tax-haven angle works well. They love a \'bargain\' but hate feeling \'sold to.\'',
+        'PRICE SENSITIVITY: Reasonably price-aware but responsive to genuine value. The price-gap angle works well. They love a \'bargain\' but hate feeling \'sold to.\'',
         'APPROACH: Friendly, slightly cheeky, direct. \'I know you weren\'t planning to stop, but I promise this is worth two minutes of your time.\' British customers respect honesty and humor.'
       ],
       itemsEs: [
           'ESTILO DE COMUNICACIÓN: Directo, humorístico, aprecia la autenticidad. No seas demasiado "vendedor". Sé una persona real teniendo una conversación real.',
           'TOMA DE DECISIONES: Generalmente en pareja. La opinión de la pareja importa mucho. Involúcralos con humor y preguntas directas.',
-          'SENSIBILIDAD AL PRECIO: Razonablemente conscientes del precio pero responden al valor genuino. El ángulo del paraíso fiscal funciona bien. Aman una "ganga" pero odian sentirse "vendidos".',
+          'SENSIBILIDAD AL PRECIO: Razonablemente conscientes del precio pero responden al valor genuino. El ángulo de la diferencia de precio funciona bien. Aman una "ganga" pero odian sentirse "vendidos".',
           'ENFOQUE: Amigable, ligeramente atrevido, directo. "Sé que no planeabas detenerte, pero te prometo que esto vale dos minutos de tu tiempo." Los clientes británicos respetan la honestidad y el humor.',
         ],
     },
     {
             type: 'script',
-      text: '\'I know, I know — you\'re thinking \'not another salesperson.\' But I promise you, this is actually worth stopping for. Two minutes, and if you don\'t love it, you can tell me I\'m terrible at my job. Fair deal?\' This disarms skepticism with humor and directness.'
+      text: '\'I know, I know — you\'re thinking \'not another salesperson.\' But I promise you, this is actually worth stopping for. Two minutes, and if you don\'t love it, you can tell me I\'m terrible at my job. Fair deal?\' This disarms skepticism with humor and directness.',
+      textEs: '\'Ya lo sé, ya lo sé — estás pensando "otro vendedor no, por favor". Pero te prometo que esto sí merece la pena. Dos minutos, y si no te encanta, me dices que soy malísimo en mi trabajo. ¿Trato justo?\' Esto desarma el escepticismo con humor y franqueza.'
     },
     {
             type: 'divider'
@@ -812,15 +814,15 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'French tourists appreciate expertise, product knowledge, and space to consider. They\'re often knowledgeable about skincare and respond to substance over hype. Pressure backfires.',
     },
     {
-      question: 'Why does the tax-haven savings narrative work especially well with Spanish tourists?',
+      question: 'Why does the price-gap narrative work especially well with Spanish tourists?',
       options: [
-        'They don\'t care about quality',
-        'Spanish VAT is high, so the savings feel significant and smart',
-        'They only buy cheap products',
+        'They don\'t care about quality, only about the lowest price',
+        'They\'re value-conscious — {currency}500 at {currency}300 feels smart',
+        'They only buy cheap products and avoid premium brands',
         'They don\'t understand luxury pricing'
       ],
       correctIndex: 1,
-      explanation: 'Spanish VAT is relatively high, so the tax-haven savings feel significant. Spanish tourists respond well to value framing — \'smart shopping\' in {locationName}.',
+      explanation: 'Spanish tourists are value-conscious, so hearing {currency}500 in Europe and {currency}300 here makes the buy feel significant. They respond well to value framing — \'smart shopping\' in {locationName}.',
     },
     {
       question: 'What should you do when uncertain about someone\'s cultural background?',
@@ -1305,7 +1307,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Closed Questions (Weak)', text: '\'Do you use cream?\' — Yes/No answer. Ends conversation. Reveals nothing. \'Do you like it?\' — \'It\'s nice.\' Dead end. \'Have you been to {locationName} before?\' — \'Yes.\' Nothing to work with.' },
       leftEs: { label: 'Preguntas Cerradas (Débiles)', text: '\'¿Usas crema?\' — Respuesta sí/no. Termina la conversación. No revela nada. \'¿Te gusta?\' — \'Está bonito.\' Callejón sin salida. \'¿Has estado en {locationName} antes?\' — \'Sí.\' Nada con qué trabajar.' },
-      right: { label: 'Open Questions (Powerful)', text: '\'What do you use on your skin?\' — Reveals routine, spending, and concerns. \'What do you think of the result?\' — Gets them talking about feelings. \'What brings you to {locationName}?\' — Opens connection opportunities.' }
+      right: { label: 'Open Questions (Powerful)', text: '\'What do you use on your skin?\' — Reveals routine, spending, and concerns. \'What do you think of the result?\' — Gets them talking about feelings. \'What brings you to {locationName}?\' — Opens connection opportunities.' },
+      rightEs: { label: 'Preguntas Abiertas (Potentes)', text: '\'¿Qué usas para la piel?\' — Revela rutina, gasto y preocupaciones. \'¿Qué te parece el resultado?\' — Les hace hablar de lo que sienten. \'¿Qué te trae por {locationName}?\' — Abre oportunidades de conexión.' }
     },
     {
             type: 'tip',
@@ -1658,7 +1661,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Genuine Buying Signal', text: 'They ask specific questions about usage, logistics, or value. Their questions are about OWNING the product. They\'re problem-solving for purchase.' },
       leftEs: { label: 'Señal de Compra Genuina', text: 'Hacen preguntas específicas sobre uso, logística o valor. Sus preguntas son sobre POSEER el producto. Están resolviendo problemas para la compra.' },
-      right: { label: 'Polite Interest (Not Ready)', text: 'They say \'It\'s nice\' or \'I\'ll think about it.\' Their questions are general. No specifics about owning. They\'re being polite, not buying.' }
+      right: { label: 'Polite Interest (Not Ready)', text: 'They say \'It\'s nice\' or \'I\'ll think about it.\' Their questions are general. No specifics about owning. They\'re being polite, not buying.' },
+      rightEs: { label: 'Interés Educado (No Está Listo)', text: 'Dicen \'está bien\' o \'me lo pensaré\'. Sus preguntas son generales. Nada concreto sobre llevárselo. Están siendo educados, no comprando.' }
     },
     {
             type: 'quote',
@@ -1977,21 +1981,21 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'Across Europe, this treatment goes for around {currency}500. It\'s expensive because it works instantly and lasts long-term. But here in {locationName} — you know how special it is here — we\'re a tax haven, so instead of {currency}500, we charge only {currency}300.\' The customer doesn\'t hear \'{currency}300 product.\' They hear \'{currency}500 product for {currency}300.\' That\'s a {currency}200 win.',
-      textEs: '\'En toda Europa, este tratamiento cuesta alrededor de {currency}500. Es caro porque funciona al instante y dura a largo plazo. Pero aquí en {locationName} — ya sabes lo especial que es este lugar — somos un paraíso fiscal, así que en vez de {currency}500, cobramos solo {currency}300.\' El cliente no escucha \'producto de {currency}300.\' Escucha \'producto de {currency}500 por {currency}300.\' Eso es un ahorro de {currency}200.',
+      text: '\'Across Europe, this treatment goes for around {currency}500. It\'s expensive because it works instantly and lasts long-term. But here in {locationName} — you know how special it is here — instead of {currency}500, we charge only {currency}300.\' The customer doesn\'t hear \'{currency}300 product.\' They hear \'{currency}500 product for {currency}300.\' That\'s a {currency}200 win.',
+      textEs: '\'En toda Europa, este tratamiento cuesta alrededor de {currency}500. Es caro porque funciona al instante y dura a largo plazo. Pero aquí en {locationName} — ya sabes lo especial que es este lugar — en vez de {currency}500, cobramos solo {currency}300.\' El cliente no escucha \'producto de {currency}300.\' Escucha \'producto de {currency}500 por {currency}300.\' Eso es un ahorro de {currency}200.',
     },
     {
             type: 'bullets',
       items: [
         'STEP 1 — ESTABLISH EUROPE PRICE: \'Around Europe this goes for {currency}200\' (Peeling) or \'{currency}500\' (Syringe) or \'{currency}80 each\' (Scrub/Butter/Nail Kit). This is the anchor.',
         'STEP 2 — EXPLAIN WHY IT\'S EXPENSIVE: Brief justification — \'because it works,\' \'because it\'s proven,\' \'dermatologist recommended.\' This validates the high anchor.',
-        'STEP 3 — DELIVER THE TAX-HAVEN ADVANTAGE: \'But here in {locationName}, because we\'re a tax haven...\' This is the magic phrase. It\'s TRUE. It\'s verifiable. It frames the lower price as a location advantage, not a product discount.',
+        'STEP 3 — PIVOT TO {locationName}: \'But here in {locationName}...\' That is the whole bridge — no apology, no excuse. The comparison you\'re setting up is TRUE and the customer can check it: it frames the lower price as what this costs here, not as a product discount.',
         'STEP 4 — STATE THE LOCAL PRICE: \'...it\'s only {currency}300.\' After hearing {currency}500, {currency}300 doesn\'t just sound lower. It sounds like a completely different category of purchase.'
       ],
       itemsEs: [
           'PASO 1 — ESTABLECE EL PRECIO DE EUROPA: \'En Europa esto cuesta alrededor de {currency}200\' (Peeling) o \'{currency}500\' (Jeringa) o \'{currency}80 cada uno\' (Exfoliante/Body Butter/Kit de Uñas). Esta es el ancla.',
           'PASO 2 — EXPLICA POR QUÉ ES CARO: Justificación breve — \'porque funciona,\' \'porque está comprobado,\' \'recomendado por dermatólogos.\' Esto valida el ancla alto.',
-          'PASO 3 — ENTREGA LA VENTAJA DEL PARAÍSO FISCAL: \'Pero aquí en {locationName}, porque somos un paraíso fiscal...\' Esta es la frase mágica. Es VERDAD. Es verificable. Enmarca el precio más bajo como una ventaja de ubicación, no como un descuento del producto.',
+          'PASO 3 — PASA A {locationName}: \'Pero aquí en {locationName}...\' Ese es todo el puente — sin disculpas, sin excusas. La comparación que estás montando es VERDAD y el cliente puede comprobarla: enmarca el precio más bajo como lo que cuesta aquí, no como un descuento del producto.',
           'PASO 4 — DI EL PRECIO LOCAL: \'...es solo {currency}300.\' Después de escuchar {currency}500, {currency}300 no solo suena más bajo. Suena como una categoría de compra completamente diferente.',
         ],
     },
@@ -2000,31 +2004,31 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'When to Mention the Tax Haven',
-      textEs: 'Cuándo Mencionar el Paraíso Fiscal',
+      text: 'When to Deliver the Price Gap',
+      textEs: 'Cuándo Dar la Diferencia de Precio',
     },
     {
             type: 'paragraph',
-      text: 'The tax-haven angle is your credibility booster. It explains WHY the price is lower without devaluing the product. But timing matters:',
-      textEs: 'El ángulo del paraíso fiscal es tu potenciador de credibilidad. Explica POR QUÉ el precio es más bajo sin devaluar el producto. Pero el momento importa:',
+      text: 'The price gap is your credibility booster. It shows what this costs elsewhere without devaluing the product. But timing matters:',
+      textEs: 'La diferencia de precio es tu potenciador de credibilidad. Enseña lo que esto cuesta en otros sitios sin devaluar el producto. Pero el momento importa:',
     },
     {
             type: 'bullets',
       items: [
-        'BEST: Right after the Europe price, before stating the {locationName} price. \'Around Europe it\'s {currency}500... but here in {locationName}, because we\'re a tax haven, it\'s {currency}300.\' The tax haven explains the discount before they question product quality.',
-        'GOOD: During the initial stop. \'Come try this — prices are amazing because {locationName} is a tax haven!\' Sets expectation early.',
-        'LESS EFFECTIVE: After they\'ve already heard the price. If you say \'It\'s {currency}300\' first, then mention the tax haven, it feels like an excuse, not an explanation.'
+        'BEST: Immediately after the Europe price, with no pause in between. \'Around Europe it\'s {currency}500... but here in {locationName}, it\'s {currency}300.\' The two numbers land together, before they question product quality.',
+        'GOOD: During the initial stop. \'Come try this — the prices here in {locationName} are amazing!\' Sets expectation early.',
+        'LESS EFFECTIVE: After they\'ve already heard the price. If you say \'It\'s {currency}300\' first, then bring up the Europe price, it feels like an excuse, not a comparison.'
       ],
       itemsEs: [
-          'MEJOR: Justo después del precio de Europa, antes de decir el precio de {locationName}. \'En Europa cuesta {currency}500... pero aquí en {locationName}, porque somos un paraíso fiscal, es {currency}300.\' El paraíso fiscal explica el descuento antes de que cuestionen la calidad del producto.',
-          'BUENO: Durante la parada inicial. \'¡Ven a probar esto — los precios son increíbles porque {locationName} es un paraíso fiscal!\' Establece la expectativa desde el principio.',
-          'MENOS EFECTIVO: Después de que ya escucharon el precio. Si dices \'Es {currency}300\' primero, y luego mencionas el paraíso fiscal, se siente como una excusa, no como una explicación.',
+          'MEJOR: Justo después del precio de Europa, sin pausa entre medias. \'En Europa cuesta {currency}500... pero aquí en {locationName}, cuesta {currency}300.\' Los dos números caen juntos, antes de que cuestionen la calidad del producto.',
+          'BUENO: Durante la parada inicial. \'¡Ven a probar esto — los precios aquí en {locationName} son increíbles!\' Establece la expectativa desde el principio.',
+          'MENOS EFECTIVO: Después de que ya escucharon el precio. Si dices \'Es {currency}300\' primero, y luego sacas el precio de Europa, se siente como una excusa, no como una comparación.',
         ],
     },
     {
             type: 'tip',
-      text: 'Never apologize for the price. Never say \'I know it\'s expensive\' or \'It\'s a lot, but...\' These phrases undermine the anchor. State the Europe price confidently, explain the tax-haven advantage matter-of-factly, and let the contrast do the work.',
-      textEs: 'Nunca te disculpes por el precio. Nunca digas \'Sé que es caro\' o \'Es mucho, pero...\' Estas frases debilitan el ancla. Di el precio de Europa con confianza, explica la ventaja del paraíso fiscal con naturalidad, y deja que el contraste haga el trabajo.',
+      text: 'Never apologize for the price. Never say \'I know it\'s expensive\' or \'It\'s a lot, but...\' These phrases undermine the anchor. State the Europe price confidently, give the {locationName} price matter-of-factly, and let the contrast do the work.',
+      textEs: 'Nunca te disculpes por el precio. Nunca digas \'Sé que es caro\' o \'Es mucho, pero...\' Estas frases debilitan el ancla. Di el precio de Europa con confianza, da el precio de {locationName} con naturalidad, y deja que el contraste haga el trabajo.',
     },
     {
             type: 'divider'
@@ -2055,7 +2059,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Weak Anchoring', text: '\'This peeling is {currency}100. It\'s a good deal.\' No contrast. No frame. The customer evaluates {currency}100 against their general sense of what skincare should cost.' },
       leftEs: { label: 'Anclaje Débil', text: '\'Este peeling cuesta {currency}100. Es buen precio.\' Sin contraste. Sin marco. El cliente evalúa {currency}100 contra su idea general de lo que debería costar el cuidado de la piel.' },
-      right: { label: 'Strong Anchoring', text: '\'Around Europe this goes for {currency}200. But here in {locationName}, because we\'re a tax haven, it\'s only {currency}100 — that\'s 50% off the Europe price just for being here.\' The customer evaluates {currency}100 against {currency}200. It feels like a {currency}100 win.' }
+      right: { label: 'Strong Anchoring', text: '\'Around Europe this goes for {currency}200. But here in {locationName}, it\'s only {currency}100 — that\'s 50% off the Europe price just for being here.\' The customer evaluates {currency}100 against {currency}200. It feels like a {currency}100 win.' },
+      rightEs: { label: 'Anclaje Fuerte', text: '\'Por Europa esto cuesta {currency}200. Pero aquí en {locationName}, son solo {currency}100 — un 50% menos que el precio de Europa solo por estar aquí.\' El cliente evalúa {currency}100 contra {currency}200. Se siente como ganar {currency}100.' }
     },
     {
             type: 'quote',
@@ -2078,21 +2083,21 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'The first price heard becomes the mental anchor. When a customer hears {currency}500 first, {currency}300 feels like a bargain. If they hear {currency}300 first, they evaluate it against their general sense of skincare pricing, which is less favorable.',
     },
     {
-      question: 'What is the role of the \'tax haven\' phrase in price anchoring?',
+      question: 'What is the role of the price comparison in price anchoring?',
       options: [
-        'It makes the shop sound special',
-        'It explains WHY the price is lower without devaluing the product quality',
+        'It makes the shop sound special, exclusive and hard to find anywhere',
+        'It gives a real reference point without devaluing the product',
         'It confuses the customer',
         'It justifies high prices'
       ],
       correctIndex: 1,
-      explanation: 'The tax-haven phrase explains the price difference as a location advantage (true and verifiable) rather than implying the product itself is discounted or lower quality. It maintains value perception.',
+      explanation: 'The Europe price is a real number the customer can check, so the difference reads as a comparison rather than implying the product itself is discounted or lower quality. It maintains value perception.',
     },
     {
       question: 'Which of these is a price anchoring mistake?',
       options: [
         'Starting with the Europe price',
-        'Mentioning the tax-haven advantage',
+        'Giving the Europe price and the {locationName} price side by side',
         'Starting with the low price or apologizing for the cost',
         'Using the contrast principle'
       ],
@@ -2404,7 +2409,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Descale (Drop Price)', text: 'Use when: Customer shows price shock, mentions budget constraints, seems genuinely interested but can\'t afford the price, is comparing to a cheaper alternative. Remove gifts gradually to find their price point.' },
       leftEs: { label: 'Reducir (Bajar Precio)', text: 'Úsalo cuando: El cliente muestra sorpresa por el precio, menciona restricciones de presupuesto, parece genuinamente interesado pero no puede pagar el precio, está comparando con una alternativa más barata. Quita regalos gradualmente para encontrar su punto de precio.' },
-      right: { label: 'Upscale (Add Value)', text: 'Use when: Customer shows no price sensitivity, carries luxury bags, expresses love for the product, is buying gifts for multiple people. Add a cream, add a second syringe, create a bundle. They\'re willing to spend — help them.' }
+      right: { label: 'Upscale (Add Value)', text: 'Use when: Customer shows no price sensitivity, carries luxury bags, expresses love for the product, is buying gifts for multiple people. Add a cream, add a second syringe, create a bundle. They\'re willing to spend — help them.' },
+      rightEs: { label: 'Subir (Añadir Valor)', text: 'Úsalo cuando: el cliente no muestra sensibilidad al precio, lleva bolsas de lujo, dice que le encanta el producto, está comprando regalos para varias personas. Añade una crema, añade una segunda jeringa, monta un pack. Están dispuestos a gastar — ayúdales.' }
     },
     {
             type: 'divider'
@@ -2630,7 +2636,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Use the Voucher Close', text: 'Customer loves the product but hesitates on price. They\'ve seen the demo, they\'re engaged, but need a final nudge. They say \'I need to think about it.\' You sense genuine interest held back by budget.' },
       leftEs: { label: 'Usa el Cierre con Voucher', text: 'El cliente ama el producto pero duda con el precio. Han visto la demostración, están comprometidos, pero necesitan un empujón final. Dicen \'Necesito pensarlo.\' Sientes interés genuino frenado por el presupuesto.' },
-      right: { label: 'Don\'t Use the Voucher Close', text: 'Customer shows no interest in the product. They haven\'t engaged with the demo. Price isn\'t the issue — the product is. Using the voucher close here devalues the product for no reason. Save it for the right moment.' }
+      right: { label: 'Don\'t Use the Voucher Close', text: 'Customer shows no interest in the product. They haven\'t engaged with the demo. Price isn\'t the issue — the product is. Using the voucher close here devalues the product for no reason. Save it for the right moment.' },
+      rightEs: { label: 'No Uses el Cierre del Cupón', text: 'El cliente no muestra ningún interés en el producto. No ha entrado en la demo. El problema no es el precio — es el producto. Usar aquí el cierre del cupón devalúa el producto sin ningún motivo. Guárdalo para el momento adecuado.' }
     },
     {
             type: 'tip',
@@ -3011,7 +3018,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Younger Customers (20s-30s)', text: 'Lead with: Peeling (prevention + glow) or Nail Kit (affordable + fun). Frame as: Self-care ritual, Instagram-worthy results, smart prevention. Avoid: Heavy anti-aging language. They don\'t relate to \'wrinkles\' yet.' },
       leftEs: { label: 'Clientes Jóvenes (20-30s)', text: 'Empieza con: Peeling (prevención + brillo) o Kit de Uñas (asequible + divertido). Enmarca como: Ritual de cuidado personal, resultados dignos de Instagram, prevención inteligente. Evita: Lenguaje fuerte anti-edad. Todavía no se identifican con "arrugas".' },
-      right: { label: 'Mature Customers (40s+)', text: 'Lead with: Syringe (visible anti-aging) or Peeling (restores radiance). Frame as: Investment in yourself, proven results, dermatologist-recommended. Emphasize: The visible difference in the mirror. They know their skin and notice changes.' }
+      right: { label: 'Mature Customers (40s+)', text: 'Lead with: Syringe (visible anti-aging) or Peeling (restores radiance). Frame as: Investment in yourself, proven results, dermatologist-recommended. Emphasize: The visible difference in the mirror. They know their skin and notice changes.' },
+      rightEs: { label: 'Clientes Maduras (40+)', text: 'Empieza con: Jeringa (antiedad visible) o Peeling (devuelve la luminosidad). Enfócalo como: inversión en ti misma, resultados probados, recomendado por dermatólogos. Enfatiza: la diferencia visible en el espejo. Conocen su piel y notan los cambios.' }
     },
     {
             type: 'divider'
@@ -3029,7 +3037,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'SPANISH: Peeling or Scrub (value-conscious, respond to tax-haven savings). Emphasize: \'Smart shopping in {locationName}.\'',
+        'SPANISH: Peeling or Scrub (value-conscious, respond to the price gap). Emphasize: \'Smart shopping in {locationName}.\'',
         'FRENCH: Syringe or Peeling (skincare-savvy, appreciate quality and science). Emphasize: Ingredients, dermatologist recommendation, European quality.',
         'BRITISH: Scrub or Nail Kit (love sensory experiences, appreciate humor, gift-buyers). Emphasize: Fun demo, Christmas gifts, bargain pricing.',
         'EASTERN EUROPEAN: Syringe (premium positioning, visible results, status). Emphasize: #1 best-seller, luxury treatment, European prestige.',
@@ -3037,7 +3045,7 @@ export const lessons: Record<string, Lesson> = {
         'GERMAN/DUTCH: Peeling or Scrub (practical, quality-focused). Emphasize: Value per use, long-lasting, dermatologist-approved.'
       ],
       itemsEs: [
-          'ESPAÑOLES: Peeling o Exfoliante (conscientes del valor, responden a ahorros de paraíso fiscal). Enfatiza: "Compras inteligentes en {locationName}".',
+          'ESPAÑOLES: Peeling o Exfoliante (conscientes del valor, responden a la diferencia de precio). Enfatiza: "Compras inteligentes en {locationName}".',
           'FRANCESES: Jeringa o Peeling (conocedores de cuidado de la piel, aprecian calidad y ciencia). Enfatiza: Ingredientes, recomendación de dermatólogo, calidad europea.',
           'BRITÁNICOS: Exfoliante o Kit de Uñas (aman experiencias sensoriales, aprecian el humor, compradores de regalos). Enfatiza: Demo divertida, regalos de Navidad, precios de ganga.',
           'EUROPEOS DEL ESTE: Jeringa (posicionamiento premium, resultados visibles, estatus). Enfatiza: #1 más vendido, tratamiento de lujo, prestigio europeo.',
@@ -3214,13 +3222,13 @@ export const lessons: Record<string, Lesson> = {
       items: [
         '\'I NEED TO ASK MY HUSBAND/WIFE\' → \'Of course! But can I ask — do you love it? Because if YOU love it, let\'s get his opinion. Sir, come see what I just showed your wife!\' (Involve the partner immediately — don\'t let them leave.)',
         '\'I\'LL THINK ABOUT IT AND COME BACK\' → \'I totally understand. But honestly? Most people who say they\'ll come back don\'t. Not because they don\'t love it — because life gets busy. And this offer is only here today. If you know you love it, why wait?\' (Gentle urgency + truth.)',
-        '\'I NEED TO COMPARE PRICES\' → \'Smart shopping! But here\'s the thing — you can\'t compare this to anything else because there\'s nothing like it. And the price you see here only exists in {locationName}. Once you cross that border, it\'s {currency}500. This is a now-or-never price.\' (Tax-haven urgency.)',
+        '\'I NEED TO COMPARE PRICES\' → \'Smart shopping! But here\'s the thing — you can\'t compare this to anything else because there\'s nothing like it. And the price you see here only exists in {locationName}. Once you cross that border, it\'s {currency}500. This is a now-or-never price.\' (Location-based urgency.)',
         '\'I DON\'T HAVE TIME RIGHT NOW\' → \'I totally get it — you\'re busy. How about this: 60 seconds. Not even 2. I\'ll do the demo on one hand. If you don\'t feel the difference immediately, you walk away. Deal?\' (Time-bound offer removes the barrier.)'
       ],
       itemsEs: [
           '"NECESITO PREGUNTARLE A MI ESPOSO/ESPOSA" → "¡Por supuesto! Pero permíteme preguntar — ¿te encanta? Porque si A TI te encanta, vamos a obtener su opinión. ¡Señor, venga a ver lo que acabo de mostrarle a su esposa!" (Involucra a la pareja inmediatamente — no dejes que se vayan.)',
           '"LO VOY A PENSAR Y REGRESO" → "Lo entiendo totalmente. Pero, ¿honestamente? La mayoría de la gente que dice que regresará no lo hace. No porque no les encante — porque la vida se pone ocupada. Y esta oferta solo está aquí hoy. Si sabes que te encanta, ¿por qué esperar?" (Urgencia suave + verdad.)',
-          '"NECESITO COMPARAR PRECIOS" → "¡Compra inteligente! Pero aquí está la cosa — no puedes comparar esto con nada más porque no hay nada como esto. Y el precio que ves aquí solo existe en {locationName}. Una vez que cruces esa frontera, son {currency}500. Este es un precio de ahora o nunca." (Urgencia de paraíso fiscal.)',
+          '"NECESITO COMPARAR PRECIOS" → "¡Compra inteligente! Pero aquí está la cosa — no puedes comparar esto con nada más porque no hay nada como esto. Y el precio que ves aquí solo existe en {locationName}. Una vez que cruces esa frontera, son {currency}500. Este es un precio de ahora o nunca." (Urgencia por ubicación.)',
           '"NO TENGO TIEMPO AHORA" → "Lo entiendo totalmente — estás ocupada. ¿Qué tal esto? 60 segundos. Ni siquiera 2. Te hago la demostración en una mano. Si no sientes la diferencia inmediatamente, te vas. ¿Trato?" (La oferta con límite de tiempo elimina la barrera.)',
         ],
     },
@@ -3848,7 +3856,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Some days you just don\'t have it. You didn\'t sleep well. You\'re fighting with your partner. You\'re hungover. Here\'s the truth: your body can trick your brain. Research shows that acting energetic actually creates energy. Stand tall → feel more confident. Smile → feel happier. Speak loudly → feel more alert.'
+      text: 'Some days you just don\'t have it. You didn\'t sleep well. You\'re fighting with your partner. You\'re hungover. Here\'s the truth: your body can trick your brain. Research shows that acting energetic actually creates energy. Stand tall → feel more confident. Smile → feel happier. Speak loudly → feel more alert.',
+      textEs: 'Hay días en los que simplemente no lo tienes. No has dormido bien. Estás discutiendo con tu pareja. Vas con resaca. La verdad es esta: tu cuerpo puede engañar a tu cerebro. Los estudios demuestran que actuar con energía crea energía de verdad. Ponte recto → te sientes más seguro. Sonríe → te sientes más contento. Habla alto → te sientes más despierto.'
     },
     {
             type: 'script',
@@ -4212,7 +4221,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Amateur Mindset', text: '\'I\'m terrible. 20 people said no today. I suck at this. Maybe I\'m not cut out for sales.\' Each rejection feels personal and builds a story of failure.' },
       leftEs: { label: 'Mentalidad de Aficionado', text: '\'Soy terrible. 20 personas dijeron que no hoy. Soy malisimo en esto. Quizas no sirvo para ventas.\' Cada rechazo se siente personal y construye una historia de fracaso.' },
-      right: { label: 'Pro Mindset', text: '\'20 rejections today means I\'m 20% closer to my next close. My ratio holds at 1 in 15. Two more stops and I\'ll likely hit a sale.\' Each rejection is data confirming the ratio.' }
+      right: { label: 'Pro Mindset', text: '\'20 rejections today means I\'m 20% closer to my next close. My ratio holds at 1 in 15. Two more stops and I\'ll likely hit a sale.\' Each rejection is data confirming the ratio.' },
+      rightEs: { label: 'Mentalidad Profesional', text: '\'20 rechazos hoy significan que estoy un 20% más cerca de mi próximo cierre. Mi ratio se mantiene en 1 de cada 15. Dos paradas más y probablemente cierro una venta.\' Cada rechazo es un dato que confirma el ratio.' }
     },
     {
             type: 'divider'
@@ -4468,7 +4478,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'High Energy / Excitement', text: 'Best for: Groups, holiday shoppers, first sales of the day, younger customers, high-traffic periods. Creates urgency and fun. Risks: Can overwhelm introverts or analytical buyers. Can feel pushy if overdone.' },
       leftEs: { label: 'Alta Energía / Entusiasmo', text: 'Ideal para: Grupos, compradores de temporada, primeras ventas del día, clientes jóvenes, períodos de alto tráfico. Crea urgencia y diversión. Riesgos: Puede abrumar a compradores introvertidos o analíticos. Puede sentirse agresivo si se exagera.' },
-      right: { label: 'Calm / Warm Energy', text: 'Best for: Couples, older customers, serious buyers, afternoon lulls, luxury positioning. Creates trust and sophistication. Risks: Can feel low-energy if you\'re not genuinely present. Requires excellent listening skills.' }
+      right: { label: 'Calm / Warm Energy', text: 'Best for: Couples, older customers, serious buyers, afternoon lulls, luxury positioning. Creates trust and sophistication. Risks: Can feel low-energy if you\'re not genuinely present. Requires excellent listening skills.' },
+      rightEs: { label: 'Energía Tranquila / Cercana', text: 'Mejor para: parejas, clientes mayores, compradores serios, las horas muertas de la tarde, posicionamiento de lujo. Genera confianza y sofisticación. Riesgos: puede parecer falta de energía si no estás de verdad presente. Requiere una escucha excelente.' }
     },
     {
             type: 'tip',
@@ -4880,13 +4891,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'THE TAX HAVEN ADVANTAGE: \'Around Europe this is {currency}500, but here in {locationName}, because we\'re a tax haven, it\'s only {currency}300.\' The scarcity of the tax-haven pricing creates urgency — they can\'t get this price at home.',
+        'THE PRICE GAP: \'Around Europe this is {currency}500, but here in {locationName}, it\'s only {currency}300.\' The scarcity of that {currency}300 price creates urgency — they can\'t get it at home.',
         'SEASONAL OFFERS: \'This Christmas offer ends soon, and I\'d hate for you to miss it.\' Time-limited scarcity pushes decision-making.',
         'LIMITED STOCK: \'I only have two samples left\' or \'These sell out every weekend.\' Physical scarcity increases perceived value.',
         'THE VOUCHER CLOSE: \'I can only do this once, just for you.\' Personal scarcity — a unique opportunity that won\'t repeat.'
       ],
       itemsEs: [
-          'LA VENTAJA DEL PARAÍSO FISCAL: \'En toda Europa esto cuesta {currency}500, pero aquí en {locationName}, porque somos un paraíso fiscal, cuesta solo {currency}300.\' La escasez del precio de paraíso fiscal crea urgencia — no pueden obtener este precio en su país.',
+          'LA DIFERENCIA DE PRECIO: \'En toda Europa esto cuesta {currency}500, pero aquí en {locationName}, cuesta solo {currency}300.\' La escasez de ese precio de {currency}300 crea urgencia — no pueden conseguirlo en su país.',
           'OFERTAS DE TEMPORADA: \'Esta oferta de Navidad termina pronto, y odiaría que te la pierdas.\' La escasez de tiempo limitado empuja la toma de decisiones.',
           'STOCK LIMITADO: \'Solo me quedan dos muestras\' o \'Estos se agotan cada fin de semana.\' La escasez física aumenta el valor percibido.',
           'EL CIERRE CON CUPÓN: \'Solo puedo hacer esto una vez, solo para ti.\' Escasez personal — una oportunidad única que no se repetirá.',
@@ -4896,7 +4907,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Weak Scarcity', text: '\'You should buy this while you\'re here.\' Vague, generic, no specific reason to act now. Customers ignore it.' },
       leftEs: { label: 'Escasez Débil', text: '\'Deberías comprar esto mientras estás aquí.\' Vago, genérico, sin razón específica para actuar ahora. Los clientes lo ignoran.' },
-      right: { label: 'Strong Scarcity', text: '\'This price only exists in {locationName}. When you cross the border, it goes back to {currency}500. That\'s a {currency}200 savings you only get today, right here.\' Specific, verifiable, personal.' }
+      right: { label: 'Strong Scarcity', text: '\'This price only exists in {locationName}. When you cross the border, it goes back to {currency}500. That\'s a {currency}200 savings you only get today, right here.\' Specific, verifiable, personal.' },
+      rightEs: { label: 'Escasez Fuerte', text: '\'Este precio solo existe en {locationName}. En cuanto cruzas la frontera, vuelve a {currency}500. Son {currency}200 de ahorro que solo consigues hoy, aquí mismo.\' Concreto, comprobable, personal.' }
     },
     {
             type: 'divider'
@@ -5044,15 +5056,15 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'Reciprocity is the principle that people feel obliged to give back when they receive something. A free hand massage is a gift that creates a psychological pull to reciprocate by listening to your pitch or making a purchase.',
     },
     {
-      question: 'How does the tax-haven pricing activate the scarcity principle?',
+      question: 'How does the {locationName} price activate the scarcity principle?',
       options: [
-        'It makes the product seem rare',
-        'It creates a unique price advantage that only exists in {locationName} and cannot be replicated elsewhere',
+        'It makes the product seem rare and hard to find in any other shop',
+        'It is a price that only exists in {locationName}, nowhere else',
         'It makes customers feel special',
         'It creates time pressure'
       ],
       correctIndex: 1,
-      explanation: 'The tax-haven pricing creates genuine scarcity — the {currency}300 price only exists in {locationName}. Customers cannot get this price at home, making the opportunity geographically limited and rare.',
+      explanation: 'The {currency}300 price only exists in {locationName} — back home the same product is {currency}500. Customers cannot get this price once they cross the border, making the opportunity geographically limited and rare.',
     },
     {
       question: 'Why is getting a small \'yes\' early in the interaction powerful?',
@@ -5456,7 +5468,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Slow Walkers (Window Shoppers)', text: 'Approach early (2.5-3 metres). They have time. Use a warm, extended opener. Build rapport before the pitch. They respond to connection.' },
       leftEs: { label: 'Caminantes Lentos (Curiosos de Escaparates)', text: 'Acércate temprano (2.5-3 metros). Tienen tiempo. Usa un abridor cálido y extendido. Construye rapport antes del pitch. Responden a la conexión.' },
-      right: { label: 'Fast Walkers (Purposeful)', text: 'Hit at exactly 2 metres with a fast, intriguing opener. \'Two seconds — you have to see this!\' They need energy and intrigue to break stride. You have 3 words to hook them.' }
+      right: { label: 'Fast Walkers (Purposeful)', text: 'Hit at exactly 2 metres with a fast, intriguing opener. \'Two seconds — you have to see this!\' They need energy and intrigue to break stride. You have 3 words to hook them.' },
+      rightEs: { label: 'Los Que Van Rápido (Con Rumbo)', text: 'Entra justo a los 2 metros con una apertura rápida e intrigante. \'¡Dos segundos — tienes que ver esto!\' Necesitan energía e intriga para romper el paso. Tienes 3 palabras para engancharlos.' }
     },
     {
             type: 'tip',
@@ -5972,14 +5985,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'TIME-BASED URGENCY: \'We\'re closing in 30 minutes\' or \'This offer ends today.\' Real, verifiable time limits. The customer knows these are true and acts accordingly.',
         'QUANTITY-BASED URGENCY: \'I only have two samples left\' or \'We sold out of this scent last weekend.\' Limited availability creates competition instinct.',
-        'LOCATION-BASED URGENCY: \'This price only exists in {locationName}. Once you cross the border, it\'s back to {currency}500.\' The tax-haven advantage IS genuine scarcity.',
+        'LOCATION-BASED URGENCY: \'This price only exists in {locationName}. Once you cross the border, it\'s back to {currency}500.\' That price gap IS genuine scarcity.',
         'SEASONAL URGENCY: \'Christmas is two weeks away and these are our most popular gifts. I\'d hate for you to miss out.\' Seasonal relevance creates natural deadlines.',
         'EXPERIENTIAL URGENCY: \'You\'ve already felt the difference. You know it works. This result is waiting for you — why wait?\' The demo itself creates urgency because they\'ve experienced the value.'
       ],
       itemsEs: [
         'URGENCIA POR TIEMPO: \'Cerramos en 30 minutos\' o \'Esta oferta termina hoy.\' Límites de tiempo reales y verificables. El cliente sabe que son ciertos y actúa en consecuencia.',
         'URGENCIA POR CANTIDAD: \'Solo me quedan dos muestras\' o \'Se agotó este aroma el fin de semana pasado.\' La disponibilidad limitada crea instinto de competencia.',
-        'URGENCIA POR UBICACIÓN: \'Este precio solo existe en {locationName}. Una vez que cruces la frontera, vuelve a {currency}500.\' La ventaja del paraíso fiscal ES escasez genuina.',
+        'URGENCIA POR UBICACIÓN: \'Este precio solo existe en {locationName}. Una vez que cruces la frontera, vuelve a {currency}500.\' Esa diferencia de precio ES escasez genuina.',
         'URGENCIA POR TEMPORADA: \'La Navidad está en dos semanas y estos son nuestros regalos más populares. Odiaría que te lo pierdas.\' La relevancia de temporada crea plazos naturales.',
         'URGENCIA POR EXPERIENCIA: \'Ya sentiste la diferencia. Sabes que funciona. Este resultado te está esperando — ¿por qué esperar?\' La demo misma crea urgencia porque han experimentado el valor.'
       ]
@@ -6083,7 +6096,7 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'Ethical urgency highlights real, verifiable limitations (actual closing time, real stock levels). Pushy pressure invents false scarcity. Customers detect fake urgency and trust evaporates.',
     },
     {
-      question: 'Which type of urgency is the tax-haven pricing advantage?',
+      question: 'Which type of urgency is the {locationName} price gap?',
       options: [
         'Time-based urgency',
         'Location-based urgency',
@@ -6091,7 +6104,7 @@ export const lessons: Record<string, Lesson> = {
         'Seasonal urgency'
       ],
       correctIndex: 1,
-      explanation: 'The tax-haven pricing is location-based urgency. The {currency}300 price only exists in {locationName}. Once the customer crosses the border, the price goes back to {currency}500. This is genuine, verifiable scarcity.',
+      explanation: 'The price gap is location-based urgency. The {currency}300 price only exists in {locationName}. Once the customer crosses the border, the price goes back to {currency}500. This is genuine, verifiable scarcity.',
     },
     {
       question: 'Why does urgency help customers who genuinely want your product?',
@@ -6658,7 +6671,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'High-Energy Approach', text: '\'HEY! Oh my gosh, you have to see this! Come here, come here — two minutes, I promise you\'ll freak out!\' Works brilliantly for some. Exhausting and off-putting for others. Use when the situation matches your natural enthusiasm.' },
       leftEs: { label: 'Enfoque de Alta Energía', text: '\'¡HEY! ¡Dios mío, tienes que ver esto! ¡Ven aquí, ven aquí, dos minutos, te prometo que te vas a alucinar!\' Funciona brillantemente para algunos. Agotador y repelente para otros. Úsalo cuando la situación coincida con tu entusiasmo natural.' },
-      right: { label: 'Calm Approach', text: '\'Excuse me — I know you\'re busy, but I have something that might surprise you. Just two minutes, and if you don\'t love it, no hard feelings.\' Warm, respectful, confident. Some customers prefer this 100% of the time.' }
+      right: { label: 'Calm Approach', text: '\'Excuse me — I know you\'re busy, but I have something that might surprise you. Just two minutes, and if you don\'t love it, no hard feelings.\' Warm, respectful, confident. Some customers prefer this 100% of the time.' },
+      rightEs: { label: 'Acercamiento Tranquilo', text: '\'Perdona — sé que vas liado, pero tengo algo que a lo mejor te sorprende. Solo dos minutos, y si no te encanta, no pasa nada.\' Cálido, respetuoso, seguro. Hay clientes que prefieren esto el 100% de las veces.' }
     },
     {
             type: 'divider'

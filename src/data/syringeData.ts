@@ -219,12 +219,12 @@ export const syringeData = {
 
     locationLabel: '{locationName} Price',
     locationLabelEs: 'Precio {locationName}',
-    locationDescription: 'Tax haven advantage \u2014 our standard price',
-    locationDescriptionEs: 'Ventaja de para\u00edso fiscal \u2014 nuestro precio est\u00e1ndar',
+    locationDescription: 'Our standard price',
+    locationDescriptionEs: 'Nuestro precio est\u00e1ndar',
     locationScript:
-      '"But here in {locationName} \u2014 you know how special it is here \u2014 we\'re a tax haven, so instead of {currency}500, we charge only {currency}300."',
+      '"But here in {locationName} \u2014 you know how special it is here \u2014 instead of {currency}500, we charge only {currency}300."',
     locationScriptEs:
-      '"Pero aqu\u00ed en {locationName} \u2014 sabes lo especial que es aqu\u00ed \u2014 somos un para\u00edso fiscal, as\u00ed que en lugar de {currency}500, cobramos solo {currency}300."',
+      '"Pero aqu\u00ed en {locationName} \u2014 sabes lo especial que es aqu\u00ed \u2014 en lugar de {currency}500, cobramos solo {currency}300."',
 
     promoLabel: '30% Off + Gift',
     promoLabelEs: '30% Descuento + Regalo',

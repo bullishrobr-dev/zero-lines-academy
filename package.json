@@ -13,7 +13,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "check:content": "node scripts/check-no-tax-claims.mjs && node scripts/check-spanish-parity.mjs && node scripts/check-quiz-integrity.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",

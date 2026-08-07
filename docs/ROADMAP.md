@@ -12,9 +12,9 @@ independently described the same underlying problem in their own vocabulary.
 
 ## Progress log
 
-Shipped since this plan was written (builds 8–23):
+Shipped since this plan was written (builds 8–24):
 
-**Builds 18–23 (the journal, the shift, and the sale itself):**
+**Builds 18–24 (the journal, the shift, the sale itself, and what we say):**
 - **The journal** — Log-a-sale became a journal that works during the shift: a
   live encounter card, sold/walked in one tap, and a why-they-walked chip. The
   funnel is two steps now (brought in → sold), because a pavement "stop" was
@@ -29,6 +29,25 @@ Shipped since this plan was written (builds 8–23):
 - **Onboarding facelift**, and the three photographs on it now load at all —
   they were absolute paths under a sub-path deployment, so the first screen
   anyone saw was three broken-image icons.
+- **Every tax claim removed, both languages.** The owner's instruction was that
+  sellers do not mention tax-free or tax haven at all. There were **121** of
+  them across ten content files, not the one line that started this: a causal
+  clause running through the lessons ("but here in {locationName}, *because
+  we're a tax haven*, it's {currency}300"), four quiz questions built entirely
+  on the premise, a tourist quiz whose correct answer was "you save the VAT",
+  and a `taxHavenText` field on every shop record wired to a template
+  placeholder no content ever used. The replacement was already in the app: the
+  price ladders have always framed it as Europe price against the price here,
+  with no tax explanation, because the two numbers are the argument and they are
+  the part a customer can check. No substitute reason was invented anywhere.
+- **The comparison cards were half English.** Twelve lessons had a `right`
+  column with no `rightEs`, so a Spanish-speaking seller read one side in their
+  language and the other in English. All 14 gaps filled.
+- **`npm run check:content`, wired into CI.** Three guards: no tax claim (or the
+  earlier VAT-refund and customs claims) in any seller-facing string; every
+  lesson string has a Spanish twin; and the quiz answer cannot be found by
+  position or by length. Sellers read this copy aloud to real customers, so a
+  claim that creeps back gets said in a shop before anyone spots it in a diff.
 - **Stage 4 — the missing sale, written down.** The academy taught stopping
   (7 lessons) and products (8), with a hole where the money changes hands. A
   new category, **Bring, Close, Collect**, fills it from the owner's own method

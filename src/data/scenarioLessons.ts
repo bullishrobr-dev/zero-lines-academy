@@ -641,15 +641,15 @@ export const scenarioLessons: Record<string, Lesson> = {
         type: "numbered",
         items: [
           "HOOK IN 5 SECONDS: Day-trippers are in sensory overload. Your opener must be IMMEDIATE and VISUAL. Hold up the syringe: \"Excuse me! 60 seconds to look 10 years younger — want to try?\" Movement + direct question stops them.",
-          "MENTION THE TAX-FREE ADVANTAGE IMMEDIATELY: Day-trippers are PRIMED to shop tax-free. \"{locationName} is tax-free — you're already saving 20% compared to home.\" This creates instant value context.",
-          "SPEED-UP THE DEMO: Normal demo = 3 minutes. Group demo = 90 seconds. Skip the long explanation. Apply → count loudly → show result → price → close. \"That's {currency}300 tax-free, we take all cards, I can have you out of here in 2 minutes.\"",
+          "LEAD WITH THE EUROPE PRICE IMMEDIATELY: Day-trippers are PRIMED to compare prices. \"In Europe this is {currency}500 — here in {locationName} it's {currency}300.\" This creates instant value context.",
+          "SPEED-UP THE DEMO: Normal demo = 3 minutes. Group demo = 90 seconds. Skip the long explanation. Apply → count loudly → show result → price → close. \"That's {currency}300, we take all cards, I can have you out of here in 2 minutes.\"",
           "USE THE TIME PRESSURE AS URGENCY: \"Your group leaves in a couple of hours — you want to walk back looking like you just came from a spa, right?\" Frame it as making the MOST of their limited time.",
           "GIVE THEM A REASON TO RETURN: Hand them your card and say \"If you love it, find me next time you're in {locationName}. Mention this and I'll give you the friend discount.\" Day-trippers come back on the same route more often than you think.",
         ],
         itemsEs: [
           "ENGANCHA EN 5 SEGUNDOS: Los excursionistas van en sobrecarga sensorial. Tu apertura debe ser INMEDIATA y VISUAL. Levanta la jeringa: \"¡Perdona! 60 segundos para verte 10 años más joven — ¿quieres probar?\" Movimiento + pregunta directa los detiene.",
-          "MENCIONA LA VENTAJA LIBRE DE IMPUESTOS INMEDIATAMENTE: Los excursionistas vienen PREPARADOS para comprar libre de impuestos. \"{locationName} es libre de impuestos — ya estás ahorrando un 20% comparado con tu país.\" Esto crea contexto de valor instantáneo.",
-          "ACELERA LA DEMO: Demo normal = 3 minutos. Demo de grupo = 90 segundos. Salta la explicación larga. Aplica → cuenta en voz alta → muestra resultado → precio → cierra. \"Son {currency}300 libres de impuestos, aceptamos todas las tarjetas, y te tengo fuera de aquí en 2 minutos.\"",
+          "EMPIEZA POR EL PRECIO DE EUROPA INMEDIATAMENTE: Los excursionistas vienen PREPARADOS para comparar precios. \"En Europa esto cuesta {currency}500 — aquí en {locationName} son {currency}300.\" Esto crea contexto de valor instantáneo.",
+          "ACELERA LA DEMO: Demo normal = 3 minutos. Demo de grupo = 90 segundos. Salta la explicación larga. Aplica → cuenta en voz alta → muestra resultado → precio → cierra. \"Son {currency}300, aceptamos todas las tarjetas, y te tengo fuera de aquí en 2 minutos.\"",
           "USA LA PRESIÓN DE TIEMPO COMO URGENCIA: \"Tu grupo se va en un par de horas — querrás volver con cara de haber salido de un spa, ¿verdad?\" Enmarca como aprovechar al MÁXIMO su tiempo limitado.",
           "DALES UNA RAZÓN PARA REGRESAR: Dale tu tarjeta y di \"Si te encanta, búscame la próxima vez que estés en {locationName}. Menciónalo y te hago el descuento de amiga.\" Los excursionistas repiten la misma ruta más de lo que crees.",
         ],
@@ -681,8 +681,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Excuse me! 60 seconds, one wrinkle, completely gone — want to see?\" [Hold up syringe, make eye contact, smile] \"I'm right here, 2 minutes of your time, tax-free {locationName} prices.\"",
-        textEs: "TÚ: \"¡Perdona! 60 segundos, una arruga, desaparecida del todo — ¿quieres verlo?\" [Levanta la jeringa, haz contacto visual, sonríe] \"Estoy aquí mismo, 2 minutos de tu tiempo, precios libres de impuestos de {locationName}.\"",
+        text: "YOU: \"Excuse me! 60 seconds, one wrinkle, completely gone — want to see?\" [Hold up syringe, make eye contact, smile] \"I'm right here, 2 minutes of your time, {locationName} prices.\"",
+        textEs: "TÚ: \"¡Perdona! 60 segundos, una arruga, desaparecida del todo — ¿quieres verlo?\" [Levanta la jeringa, haz contacto visual, sonríe] \"Estoy aquí mismo, 2 minutos de tu tiempo, precios de {locationName}.\"",
       },
       {
         type: "subheader",
@@ -691,8 +691,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Watch this — I'm putting it right here on this line. Now we count to 60. 60, 55, 50...\" [Keep counting, build energy] \"...10, 5, DONE! Look!\" [Hand mirror] \"That line was there a minute ago. Now? Gone. {currency}300, tax-free, I take all cards. Want me to wrap one up before your group heads off?\"",
-        textEs: "TÚ: \"Mira esto — lo pongo aquí mismo, en esta línea. Ahora contamos hasta 60. 60, 55, 50...\" [Sigue contando, construye energía] \"...10, 5, ¡LISTO! ¡Mira!\" [Entrega el espejo] \"Esa línea estaba ahí hace un minuto. ¿Ahora? Desaparecida. {currency}300, libre de impuestos, acepto todas las tarjetas. ¿Te envuelvo una antes de que se vaya tu grupo?\"",
+        text: "YOU: \"Watch this — I'm putting it right here on this line. Now we count to 60. 60, 55, 50...\" [Keep counting, build energy] \"...10, 5, DONE! Look!\" [Hand mirror] \"That line was there a minute ago. Now? Gone. {currency}300, I take all cards. Want me to wrap one up before your group heads off?\"",
+        textEs: "TÚ: \"Mira esto — lo pongo aquí mismo, en esta línea. Ahora contamos hasta 60. 60, 55, 50...\" [Sigue contando, construye energía] \"...10, 5, ¡LISTO! ¡Mira!\" [Entrega el espejo] \"Esa línea estaba ahí hace un minuto. ¿Ahora? Desaparecida. {currency}300, acepto todas las tarjetas. ¿Te envuelvo una antes de que se vaya tu grupo?\"",
       },
       {
         type: "subheader",
@@ -701,8 +701,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Picture this: you get back to your group and your friends go 'WHAT did you do in {locationName}?!' This is the kind of souvenir that keeps giving — every time you look in the mirror for the next 3 months. {currency}300 tax-free. All cards accepted. 30 seconds and you're done.\"",
-        textEs: "TÚ: \"Imagínate: vuelves con tu grupo y tus amigas te dicen '¿¿QUÉ te has hecho en {locationName}??' Este es el tipo de souvenir que no para de dar — cada vez que te mires al espejo durante los próximos 3 meses. {currency}300 libre de impuestos. Acepto todas las tarjetas. 30 segundos y listo.\"",
+        text: "YOU: \"Picture this: you get back to your group and your friends go 'WHAT did you do in {locationName}?!' This is the kind of souvenir that keeps giving — every time you look in the mirror for the next 3 months. {currency}300. All cards accepted. 30 seconds and you're done.\"",
+        textEs: "TÚ: \"Imagínate: vuelves con tu grupo y tus amigas te dicen '¿¿QUÉ te has hecho en {locationName}??' Este es el tipo de souvenir que no para de dar — cada vez que te mires al espejo durante los próximos 3 meses. {currency}300. Acepto todas las tarjetas. 30 segundos y listo.\"",
       },
       {
         type: "subheader",
@@ -878,14 +878,14 @@ export const scenarioLessons: Record<string, Lesson> = {
         items: [
           "SAY YES — WITH CONDITIONS: Recording is FREE MARKETING. But set boundaries: \"Absolutely! Just make sure you get my good side, and tag us so people know where to find us!\"",
           "PERFORM FOR THE CAMERA: Once that phone is out, you're not just demoing — you're performing. Speak clearly, enunciate, smile, make eye contact with the camera occasionally. This video could reach thousands.",
-          "GET YOUR BRAND IN FRAME: Make sure your store name, location, or product packaging is visible in the shot. Say the location out loud: \"Welcome to Zero Lines in {locationName} — tax-free shopping at its best!\"",
+          "GET YOUR BRAND IN FRAME: Make sure your store name, location, or product packaging is visible in the shot. Say the location out loud: \"Welcome to Zero Lines in {locationName} — 60-second results, watch this!\"",
           "OFFER A DISCOUNT FOR POSTING: \"If you post that and tag us, I'll give you 10% off today AND a free sample!\" User-generated content is worth 100x more than anything you post yourself.",
           "ASK FOR THE VIDEO: \"Can you send me a copy? I'd love to share it on our page too!\" This gives you content for your own social media and builds a relationship with the customer.",
         ],
         itemsEs: [
           "DI SÍ — CON CONDICIONES: Grabar es MARKETING GRATIS. Pero establece límites: \"¡Absolutamente! Solo asegúrate de captar mi buen lado, y etiquétanos para que la gente sepa dónde encontrarnos!\"",
           "ACTÚA PARA LA CÁMARA: Una vez que el móvil sale, no solo estás haciendo demo — estás actuando. Habla claro, enuncia, sonríe, haz contacto visual con la cámara ocasionalmente. Este video podría llegar a miles.",
-          "METE TU MARCA EN EL CUADRO: Asegúrate de que el nombre de tu tienda, ubicación, o empaque del producto sea visible en la toma. Di la ubicación en voz alta: \"¡Bienvenidos a Zero Lines en {locationName} — compras libres de impuestos en su máxima expresión!\"",
+          "METE TU MARCA EN EL CUADRO: Asegúrate de que el nombre de tu tienda, ubicación, o empaque del producto sea visible en la toma. Di la ubicación en voz alta: \"¡Bienvenidos a Zero Lines en {locationName} — resultados en 60 segundos, mira esto!\"",
           "OFRECE DESCUENTO POR PUBLICAR: \"¡Si publicas eso y nos etiquetas, te doy 10% de descuento hoy Y una muestra gratis!\" El contenido generado por usuarios vale 100 veces más que cualquier cosa que publiques tú mismo.",
           "PIDE EL VIDEO: \"¿Puedes enviarme una copia? ¡Me encantaría compartirlo en nuestra página también!\" Esto te da contenido para tus propias redes sociales y construye una relación con el cliente.",
         ],
@@ -927,8 +927,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"For sure! Here, let me hold the product up to the camera so everyone can see the name. This is the Hyaluronic Syringe from Zero Lines — we sell this right here in {locationName}, completely tax-free. Watch what it does to this line in 60 seconds. Ready?\" [Direct, professional, brand-forward]",
-        textEs: "TÚ: \"¡Claro! Mira, déjame sostener el producto frente a la cámara para que todos vean el nombre. Esta es la Jeringa Hialurónica de Zero Lines — lo vendemos aquí mismo, en {locationName}, completamente libre de impuestos. Mira lo que le hace a esta línea en 60 segundos. ¿Lista?\" [Directo, profesional, marca al frente]",
+        text: "YOU: \"For sure! Here, let me hold the product up to the camera so everyone can see the name. This is the Hyaluronic Syringe from Zero Lines — we sell this right here in {locationName}. Watch what it does to this line in 60 seconds. Ready?\" [Direct, professional, brand-forward]",
+        textEs: "TÚ: \"¡Claro! Mira, déjame sostener el producto frente a la cámara para que todos vean el nombre. Esta es la Jeringa Hialurónica de Zero Lines — lo vendemos aquí mismo, en {locationName}. Mira lo que le hace a esta línea en 60 segundos. ¿Lista?\" [Directo, profesional, marca al frente]",
       },
       {
         type: "subheader",
@@ -947,8 +947,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Totally fine if you don't want me on camera — but can I ask a favor? Film just your hand or just the product. Say 'Zero Lines {locationName}, tax-free, 60-second results.' That way your followers know where to come, and you still get amazing content!\"",
-        textEs: "TÚ: \"Totalmente bien si no me quieres en cámara — pero ¿puedo pedirte un favor? Filma solo tu mano o solo el producto. Di 'Zero Lines {locationName}, libre de impuestos, resultados en 60 segundos.' Así tus seguidores saben dónde venir, ¡y tú sigues obteniendo contenido increíble!\"",
+        text: "YOU: \"Totally fine if you don't want me on camera — but can I ask a favor? Film just your hand or just the product. Say 'Zero Lines {locationName}, 60-second results.' That way your followers know where to come, and you still get amazing content!\"",
+        textEs: "TÚ: \"Totalmente bien si no me quieres en cámara — pero ¿puedo pedirte un favor? Filma solo tu mano o solo el producto. Di 'Zero Lines {locationName}, resultados en 60 segundos.' Así tus seguidores saben dónde venir, ¡y tú sigues obteniendo contenido increíble!\"",
       },
       {
         type: "subheader",
@@ -1055,8 +1055,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Let me put this in terms you'll appreciate. One syringe: {currency}300. One facial at a spa: {currency}80. This replaces 8-10 facials. That's {currency}800 worth of treatments for {currency}300. And it's tax-free here — in any store back home, this is {currency}500. I'm not selling you a cream; I'm offering you more than 60% off what those treatments would cost you.\"",
-        textEs: "TÚ: \"Déjame ponértelo en términos que vas a apreciar. Una jeringa: {currency}300. Un facial en un spa: {currency}80. Esto sustituye 8-10 faciales. Son {currency}800 en tratamientos por {currency}300. Y aquí es libre de impuestos — en cualquier tienda de tu país esto cuesta {currency}500. No te estoy vendiendo una crema; te estoy ofreciendo más de un 60% menos de lo que te costarían esos tratamientos.\"",
+        text: "YOU: \"Let me put this in terms you'll appreciate. One syringe: {currency}300. One facial at a spa: {currency}80. This replaces 8-10 facials. That's {currency}800 worth of treatments for {currency}300. And in any store back home, this is {currency}500. I'm not selling you a cream; I'm offering you more than 60% off what those treatments would cost you.\"",
+        textEs: "TÚ: \"Déjame ponértelo en términos que vas a apreciar. Una jeringa: {currency}300. Un facial en un spa: {currency}80. Esto sustituye 8-10 faciales. Son {currency}800 en tratamientos por {currency}300. Y en cualquier tienda de tu país esto cuesta {currency}500. No te estoy vendiendo una crema; te estoy ofreciendo más de un 60% menos de lo que te costarían esos tratamientos.\"",
       },
       {
         type: "subheader",

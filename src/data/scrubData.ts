@@ -239,9 +239,9 @@ export const scrubData = {
     localLabel: 'Local Price',
     localLabelEs: 'Precio Local',
     localQuote: (currency: string, locationName: string) =>
-      `"But here in ${locationName}, we're a tax haven — each one is ${currency}60."`,
+      `"But here in ${locationName}, each one is ${currency}60."`,
     localQuoteEs: (currency: string, locationName: string) =>
-      `"Pero aquí en ${locationName}, somos un paraíso fiscal — cada uno es ${currency}60."`,
+      `"Pero aquí en ${locationName}, cada uno es ${currency}60."`,
     coreLabel: 'Core Offer',
     coreLabelEs: 'Oferta Principal',
     coreQuote: (currency: string) =>

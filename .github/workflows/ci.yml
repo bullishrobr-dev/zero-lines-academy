@@ -26,3 +26,9 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # Content rules that matter more than they look. Sellers read this copy
+      # aloud to real customers, so a claim that creeps back in gets said out
+      # loud in a shop before anyone notices it in a diff.
+      - name: Content rules
+        run: npm run check:content

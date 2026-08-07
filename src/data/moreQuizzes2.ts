@@ -910,16 +910,16 @@ const quizOneEyeDemo: GeneralQuiz = {
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // QUIZ 5: TOURIST PSYCHOLOGY
-// Selling to tourists: tax-free, urgency, gift appeal, currency differences
+// Selling to tourists: the price gap against home, urgency, gift appeal, vacation mindset
 // ═══════════════════════════════════════════════════════════════════════════════
 const quizTouristPsych: GeneralQuiz = {
   id: "quiz-tourist-psych",
   title: "Tourist Psychology",
   titleEs: "Psicología del Turista",
   description:
-    "Master the psychology of selling to tourists — tax-free angles, vacation mindset, urgency triggers, gift appeal, and currency advantages that make the sale irresistible.",
+    "Master the psychology of selling to tourists — the price gap against what they pay at home, vacation mindset, urgency triggers and gift appeal that make the sale irresistible.",
   descriptionEs:
-    "Domina la psicología de vender a turistas — ángulo libre de impuestos, mentalidad de vacaciones, disparadores de urgencia, atractivo de regalo y ventajas de moneda que hacen la venta irresistible.",
+    "Domina la psicología de vender a turistas — la diferencia de precio con lo que pagan en su país, mentalidad de vacaciones, disparadores de urgencia y atractivo de regalo que hacen la venta irresistible.",
   icon: "Brain",
   category: "Sales Psychology",
   categoryEs: "Psicología de Ventas",
@@ -931,22 +931,22 @@ const quizTouristPsych: GeneralQuiz = {
       questionEs:
         "Una turista británica menciona que visita desde Londres. ¿Cuál es tu MEJOR ángulo de precio?",
       options: [
-        "In London this same treatment is over {currency}400 in a clinic — here it is {currency}300, tax-free",
+        "In a London clinic this same treatment is over {currency}400 — here it is {currency}300 for exactly the same thing",
         "This is cheaper than a coffee in London, so really you are not spending anything by the standards of where you live",
         "Everything is cheaper here because we are poorer than the UK, so your money simply stretches further while you are on holiday",
         "Don't worry about the price, just enjoy your vacation — you are only here once and you can work out the cost when you get home"
       ],
       optionsEs: [
-        "En Londres este mismo tratamiento cuesta más de {currency}400 en clínica — aquí son {currency}300, libre de impuestos",
+        "En una clínica de Londres este mismo tratamiento pasa de {currency}400 — aquí son {currency}300 por exactamente lo mismo",
         "Esto es más barato que un café en Londres, así que en realidad no estás gastando nada para lo que se paga donde vives",
         "Aquí todo es más barato porque somos más pobres que el Reino Unido, así que tu dinero cunde más mientras estás de vacaciones",
         "No te preocupes por el precio, disfruta de las vacaciones — solo estás aquí una vez y ya harás cuentas al volver a casa"
       ],
       correctIndex: 0,
       explanation:
-        "Compare the price to what she would pay AT HOME, and let the tax-free shop do the rest — that argument is true in both of our shops. Never talk about which currency she is paying in or quote an exchange rate: you take the local currency, the amounts on your price list are the same numbers in either shop, and a seller who improvises a conversion is a seller who gets it wrong in front of the customer. Stick to what you can prove: clinic price at home, our price here.",
+        "Compare the price to what she would pay AT HOME, and let the two numbers do the rest — that argument is true in both of our shops. Never talk about which currency she is paying in or quote an exchange rate: you take the local currency, the amounts on your price list are the same numbers in either shop, and a seller who improvises a conversion is a seller who gets it wrong in front of the customer. Stick to what you can prove: clinic price at home, our price here.",
       explanationEs:
-        "Compara el precio con lo que pagaría EN SU PAÍS y deja que la tienda libre de impuestos haga el resto — ese argumento es cierto en nuestras dos tiendas. Nunca hables de en qué moneda paga ni improvises un tipo de cambio: tú cobras en la moneda local, las cifras de tu lista de precios son las mismas en las dos tiendas, y quien improvisa una conversión se equivoca delante de la clienta. Quédate con lo que puedes demostrar: el precio de clínica en su país, nuestro precio aquí."
+        "Compara el precio con lo que pagaría EN SU PAÍS y deja que las dos cifras hagan el resto — ese argumento es cierto en nuestras dos tiendas. Nunca hables de en qué moneda paga ni improvises un tipo de cambio: tú cobras en la moneda local, las cifras de tu lista de precios son las mismas en las dos tiendas, y quien improvisa una conversión se equivoca delante de la clienta. Quédate con lo que puedes demostrar: el precio de clínica en su país, nuestro precio aquí."
     },
     {
       question:
@@ -954,22 +954,22 @@ const quizTouristPsych: GeneralQuiz = {
       questionEs:
         "Un turista dice 'Pero puedo comprar cuidado de piel más barato en casa.' ¿Cuál es tu respuesta MÁS FUERTE?",
       options: [
-        "These are exclusive Dead Sea products you cannot find in regular stores — plus here it is tax-free",
+        "These are exclusive Dead Sea products you cannot find in regular stores — cheaper here than a clinic at home",
         "No you can't, we are the cheapest anywhere on this coast — check the shops at home and you will come straight back",
         "Okay, well thanks for your time — if you change your mind while you are here we are open every day until eight",
-        "Everything in your country is overpriced because of the taxes, which is exactly why people do their shopping on trips like this"
+        "Everything at home is overpriced anyway, which is exactly why people do all of their shopping on trips like this"
       ],
       optionsEs: [
-        "Estos son productos exclusivos del Mar Muerto que no encuentras en tiendas regulares — además aquí es libre de impuestos",
+        "Son productos exclusivos del Mar Muerto que no hay en tiendas normales — y aquí cuestan menos que en una clínica",
         "No puedes, somos los más baratos de toda la zona — mira las tiendas de tu país y volverás corriendo",
         "Bueno, gracias por tu tiempo — si cambias de idea mientras estés aquí abrimos todos los días hasta las ocho",
-        "En tu país todo está inflado por los impuestos, que es justo por lo que la gente hace las compras en viajes como este"
+        "En tu país todo está inflado de todas formas, que es justo por lo que la gente hace las compras en viajes como este"
       ],
       correctIndex: 0,
       explanation:
-        "Two powerful triggers in one response: EXCLUSIVITY ('you cannot find these') and TAX ADVANTAGE ('tax-free'). Tourists love taking home something UNIQUE they cannot get at home — it becomes a travel souvenir AND a beauty investment. The tax-free angle adds a rational justification to the emotional purchase.",
+        "Two powerful triggers in one response: EXCLUSIVITY ('you cannot find these') and the PRICE GAP (what a clinic at home charges versus what she pays here). Tourists love taking home something UNIQUE they cannot get at home — it becomes a travel souvenir AND a beauty investment. The price gap adds a rational justification to the emotional purchase.",
       explanationEs:
-        "Dos disparadores poderosos en una respuesta: EXCLUSIVIDAD ('no puedes encontrar estos') y VENTAJA FISCAL ('libre de impuestos'). Los turistas aman llevarse algo ÚNICO que no pueden conseguir en casa — se convierte en souvenir de viaje Y inversión de belleza. El ángulo libre de impuestos añade una justificación racional a la compra emocional."
+        "Dos disparadores poderosos en una respuesta: EXCLUSIVIDAD ('no puedes encontrar estos') y DIFERENCIA DE PRECIO (lo que cobra una clínica en su país frente a lo que paga aquí). Los turistas aman llevarse algo ÚNICO que no pueden conseguir en casa — se convierte en souvenir de viaje Y inversión de belleza. La diferencia de precio añade una justificación racional a la compra emocional."
     },
     {
       question:
@@ -979,20 +979,20 @@ const quizTouristPsych: GeneralQuiz = {
       options: [
         "Don't worry, you can order online when you get home and have it delivered without carrying anything in your luggage",
         "You have plenty of time to decide — sleep on it tonight and come back in the morning before your flight",
-        "This is your last chance — once you leave {locationName}, you will pay European prices plus shipping and tax",
+        "This is your last chance — once you leave {locationName}, it is European prices plus shipping to get it at home",
         "Come back tomorrow before your flight and I will have it wrapped and waiting for you at the counter"
       ],
       optionsEs: [
         "No te preocupes, puedes pedirlo por internet al llegar a casa y te lo mandan sin cargar nada en la maleta",
         "Tienes tiempo de sobra para decidir — consúltalo esta noche y vuelve por la mañana antes del vuelo",
-        "Esta es tu última oportunidad — una vez que dejes {locationName}, pagarás precios europeos más envío e impuestos",
+        "Esta es tu última oportunidad — cuando dejes {locationName}, en casa son precios europeos más el envío",
         "Vuelve mañana antes del vuelo y te lo tendré envuelto y esperando en el mostrador"
       ],
       correctIndex: 2,
       explanation:
-        "'Leaving tomorrow' is a GOLDEN urgency trigger. Frame the purchase as a NOW-OR-NEVER opportunity: in {locationName} they get tax-free pricing; at home they face {currency}500+ prices and shipping costs. The 'last chance' language creates a genuine fear of missing out (FOMO) that overrides hesitation.",
+        "'Leaving tomorrow' is a GOLDEN urgency trigger. Frame the purchase as a NOW-OR-NEVER opportunity: in {locationName} the price is on the table in front of her; at home she faces {currency}500+ prices and shipping costs. The 'last chance' language creates a genuine fear of missing out (FOMO) that overrides hesitation.",
       explanationEs:
-        "'Irse mañana' es un disparador de urgencia DORADO. Enmarca la compra como una oportunidad AHORA-O-NUNCA: en {locationName} obtienen precios libres de impuestos; en casa enfrentan precios de {currency}500+ y costos de envío. El lenguaje de 'última oportunidad' crea un genuino miedo a perderse algo (FOMO) que anula la duda."
+        "'Irse mañana' es un disparador de urgencia DORADO. Enmarca la compra como una oportunidad AHORA-O-NUNCA: en {locationName} tiene el precio delante; en casa se enfrenta a precios de {currency}500+ y gastos de envío. El lenguaje de 'última oportunidad' crea un genuino miedo a perderse algo (FOMO) que anula la duda."
     },
     {
       question:
@@ -1042,26 +1042,26 @@ const quizTouristPsych: GeneralQuiz = {
     },
     {
       question:
-        "A tourist mentions she came here partly for the tax-free shopping. How do you respond?",
+        "A tourist mentions she came here because things cost less than at home. How do you respond?",
       questionEs:
-        "Una turista menciona que ha venido en parte por las compras libres de impuestos. ¿Cómo respondes?",
+        "Una turista menciona que ha venido porque aquí las cosas cuestan menos que en su país. ¿Cómo respondes?",
       options: [
-        "We don't really have tax-free shopping here, that's a myth — the prices are just low because the rent is cheaper than in a mall",
-        "Tax-free doesn't matter for small purchases — on something this size the saving is a couple of coins, so ignore it and sell on quality",
-        "You should buy something bigger to make it worth it — if you are going to use the tax-free advantage, use it on the most expensive thing on the table",
-        "Exactly — and our Dead Sea products are one of the best tax-free purchases you can make. Real skincare, real results, and you save the VAT"
+        "Careful, cheaper is not always better — what you save here you can lose in quality, so keep her off the subject of price",
+        "Agree, she is right — then show her exactly where: what a clinic at home charges for this, next to our price on the table",
+        "Just agree and leave it there — she has already decided we are cheap, so putting numbers on it now only sounds like a pitch",
+        "Tell her she is right about the town but not this table — our brand costs the same everywhere, so price is not the angle here"
       ],
       optionsEs: [
-        "Aquí no hay compras libres de impuestos de verdad, es un mito — los precios son bajos porque el alquiler es más barato que en un centro comercial",
-        "Lo de libre de impuestos da igual en compras pequeñas — en algo de este tamaño el ahorro son un par de monedas, así que véndelo por calidad",
-        "Deberías comprar algo más grande para que compense — si vas a aprovechar lo de libre de impuestos, hazlo con lo más caro de la mesa",
-        "Exactamente — y nuestros productos del Mar Muerto son una de las mejores compras libres de impuestos que puedes hacer. Cuidado de piel real, resultados reales, y ahorras el IVA"
+        "Cuidado, lo barato no siempre es mejor — lo que ahorras aquí lo pierdes en calidad, así que apártala del tema del precio",
+        "Dale la razón y enséñale dónde exactamente: lo que cobra una clínica en su país por esto, al lado de nuestro precio aquí",
+        "Dale la razón y déjalo ahí — ya ha decidido que somos baratos, ponerle cifras ahora solo suena a discurso de vendedor",
+        "Dile que acierta con el pueblo pero no con esta mesa — nuestra marca cuesta lo mismo en todas partes, el precio no es el ángulo"
       ],
-      correctIndex: 3,
+      correctIndex: 1,
       explanation:
-        "You work in a tax-free shop and the customer already knows it — that is a gift. When a tourist brings up tax-free, VALIDATE their knowledge and connect it straight to your product. Emphasize they are getting professional-grade skincare at a price that INCLUDES the tax savings — making it a smart financial AND beauty decision.",
+        "When a tourist tells you why she came, she is handing you her own argument — do not correct it, PROVE it. Validate what she already believes, then put the two numbers side by side on the product in front of her: the clinic price at home, and the price here. Agreeing with nothing behind it leaves her with a vague good feeling; agreeing WITH the comparison turns her reason for the trip into the reason to buy this today.",
       explanationEs:
-        "Trabajas en una tienda libre de impuestos y la clienta ya lo sabe — eso es un regalo. Cuando una turista saca el tema, VALIDA lo que sabe y conéctalo directamente con tu producto. Enfatiza que están obteniendo cuidado de piel de grado profesional a un precio que INCLUYE los ahorros de impuestos — haciéndolo una decisión financiera Y de belleza inteligente."
+        "Cuando una turista te dice por qué ha venido, te está entregando su propio argumento — no la corrijas, DEMUÉSTRALO. Valida lo que ya cree y pon las dos cifras una al lado de la otra sobre el producto que tiene delante: lo que cobra una clínica en su país y lo que cuesta aquí. Darle la razón sin nada detrás la deja con una buena sensación vaga; dársela CON la comparación convierte su motivo del viaje en el motivo para comprar esto hoy."
     },
     {
       question:
@@ -1140,20 +1140,20 @@ const quizTouristPsych: GeneralQuiz = {
       options: [
         "Give her your card so she can contact you later, and tell her the price will still be waiting whenever she decides to come back",
         "Tell her to ask her friends what they think — send her a photo of the mirror result so she has something to show them",
-        "Remind her that 'thinking about it' means missing the tax-free price — at home she pays {currency}500+ and shipping. This moment, right here, is the best deal she will ever get",
+        "Remind her that 'thinking about it' means {currency}500+ plus shipping at home — right here, right now is her best price",
         "Offer to hold the product until she decides, put her name on it, and tell her it will be behind the counter until closing time"
       ],
       optionsEs: [
         "Darle tu tarjeta para que te contacte después, y decirle que el precio seguirá esperando cuando decida volver",
         "Decirle que pregunte a sus amigas qué opinan — mándale una foto del resultado en el espejo para que tenga algo que enseñarles",
-        "Recordarle que 'pensarlo' significa perder el precio libre de impuestos — en casa paga {currency}500+ y envío. Este momento, aquí mismo, es la mejor oferta que tendrá",
+        "Recordarle que 'pensarlo' significa pagar {currency}500+ más envío en su país — aquí y ahora es el mejor precio que tendrá",
         "Ofrecerte a guardarle el producto hasta que decida, ponerle su nombre y decirle que estará tras el mostrador hasta la hora de cierre"
       ],
       correctIndex: 2,
       explanation:
-        "'I need to think about it' is the #1 stalling tactic. For tourists, you have a UNIQUE weapon: SCARCITY of opportunity. She cannot 'think about it' and come back next week — she is LEAVING. Frame hesitation as active loss: every hour she waits, the tax-free advantage disappears. 'At home you pay {currency}500 plus shipping. Right here, right now, it is {currency}100. This exact moment is your best deal.'",
+        "'I need to think about it' is the #1 stalling tactic. For tourists, you have a UNIQUE weapon: SCARCITY of opportunity. She cannot 'think about it' and come back next week — she is LEAVING. Frame hesitation as active loss: every hour she waits, that price stays behind in {locationName}. 'At home you pay {currency}500 plus shipping. Right here, right now, it is {currency}100. This exact moment is your best deal.'",
       explanationEs:
-        "'Necesito pensarlo' es la táctica de demora #1. Para turistas, tienes un arma ÚNICA: ESCASEZ de oportunidad. Ella no puede 'pensarlo' y regresar la próxima semana — se está YENDO. Enmarca la duda como pérdida activa: cada hora que espera, la ventaja libre de impuestos desaparece. 'En casa pagas {currency}500 más envío. Aquí mismo, ahora mismo, es {currency}100. Este momento exacto es tu mejor oferta.'"
+        "'Necesito pensarlo' es la táctica de demora #1. Para turistas, tienes un arma ÚNICA: ESCASEZ de oportunidad. Ella no puede 'pensarlo' y regresar la próxima semana — se está YENDO. Enmarca la duda como pérdida activa: cada hora que espera, ese precio se queda en {locationName}. 'En casa pagas {currency}500 más envío. Aquí mismo, ahora mismo, es {currency}100. Este momento exacto es tu mejor oferta.'"
     }
   ]
 };
