@@ -215,7 +215,7 @@ const resilienceQuotes: Quote[] = [
   {
     id: 'res-3',
     text: 'The comeback is always stronger than the setback.',
-    textEs: 'El regreso siempre es más fuerte que el revés.',
+    textEs: 'El vuelta siempre es más fuerte que el revés.',
     author: 'Unknown',
   },
   {

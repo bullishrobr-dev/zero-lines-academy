@@ -829,7 +829,7 @@ export const dailyDoses: DailyDose[] = [
       {
         type: 'tip',
         text: 'ALWAYS give a reason to return: a saved sample, a reserved gift, a personal promise. Callbacks are warmer than cold stops. A returning customer has already decided — they just need permission.',
-        textEs: 'SIEMPRE da una razón para volver: una muestra guardada, un regalo reservado, una promesa personal. Los retornos son más cálidos que las paradas en frío. Un cliente que regresa ya decidió — solo necesita permiso.',
+        textEs: 'SIEMPRE da una razón para volver: una muestra guardada, un regalo reservado, una promesa personal. Los retornos son más cálidos que las paradas en frío. Un cliente que vuelve ya decidió — solo necesita permiso.',
       },
     ],
     practicePrompt: 'When someone says "I\'ll come back" today, use the callback strategy. Give them a specific reason to return. Track how many actually come back.',

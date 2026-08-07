@@ -128,7 +128,7 @@ const hesitantTouristExercise: Exercise = {
       },
       {
         text: '"Wait! This is the best product we have! You need to try it!" (You grab her arm gently)',
-        textEs: '"¡Espere! ¡Este es el mejor producto que tenemos! ¡Necesita probarlo!" (Le agarras el brazo suavemente)',
+        textEs: '"¡Espere! ¡Este es el mejor producto que tenemos! ¡Necesita probarlo!" (Le coges el brazo suavemente)',
         feedback:
           'WAY too aggressive. Grabbing a customer and saying "you NEED to try it" triggers immediate resistance. Nobody likes to feel pressured. You just confirmed her instinct to walk away.',
         feedbackEs:

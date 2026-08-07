@@ -257,7 +257,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'comparison',
       left: { label: 'GREEN (Stop Immediately)', text: 'Carrying luxury shopping bags, window-shopping slowly, well-dressed, good grooming, with a partner, smiling and chatting, looking at displays, no phone in hand. These people are in buying mode. Approach with confidence.' },
-      leftEs: { label: 'VERDE (Detente de Inmediato)', text: 'Cargando bolsas de compras de lujo, viendo escaparates despacio, bien vestidos, buena presentación, con una pareja, sonriendo y platicando, mirando los exhibidores, sin teléfono en la mano. Estas personas están en modo de compra. Acércate con confianza.' },
+      leftEs: { label: 'VERDE (Detente de Inmediato)', text: 'Cargando bolsas de compras de lujo, viendo escaparates despacio, bien vestidos, buena presentación, con una pareja, sonriendo y charlando, mirando los escaparates, sin teléfono en la mano. Estas personas están en modo de compra. Acércate con confianza.' },
       right: { label: 'RED (Low Priority)', text: 'Walking fast with purpose, on phone call, pushing stroller with fussy baby, wearing headphones, carrying heavy bags (tired), frowning, checking watch repeatedly. These people are unlikely to stop. Let them pass or use a very light touch.' },
       rightEs: { label: 'ROJO (Baja Prioridad)', text: 'Andando rápido y con rumbo, hablando por teléfono, empujando un carrito con un bebé inquieto, con auriculares puestos, cargando bolsas pesadas (cansados), con el ceño fruncido, mirando el reloj una y otra vez. Es poco probable que estas personas paren. Déjalas pasar o usa un toque muy suave.' }
     },
@@ -1213,7 +1213,7 @@ export const lessons: Record<string, Lesson> = {
       ],
       itemsEs: [
           '6. VULNERABILIDAD: La honestidad breve y genuina crea confianza profunda. \'Cuando empecé, yo tampoco me creía el hype. Luego lo probé yo misma y me obsesioné.\' Esto demuestra que eres una persona real, no un robot de ventas.',
-          '7. CURIOSIDAD: Haz preguntas que demuestren interés genuino en ELLOS, no solo en su billetera. \'¿Qué sueles usar en tu piel? Claramente te cuidas.\' A la gente le encanta hablar de sí misma.',
+          '7. CURIOSIDAD: Haz preguntas que demuestren interés genuino en ELLOS, no solo en su cartera. \'¿Qué sueles usar en tu piel? Claramente te cuidas.\' A la gente le encanta hablar de sí misma.',
           '8. MARCOS DE ACUERDO: Empieza con algo con lo que no puedan estar en desacuerdo. \'{locationName} es hermosa, ¿o no?\' \'Claramente tienes excelente gusto.\' \'Cuidar tu piel es importante.\' Cada acuerdo crea impulso hacia la venta.',
           '9. NARRACIÓN: Comparte una historia de 30 segundos sobre otro cliente. \'Una mujer vino ayer diciendo que lo pensaría. Volvió una hora después y compró dos para sus hermanas.\' Las historias evaden el escepticismo y van directo a la imaginación.',
           '10. TOQUE APROPIADO: Una mano ligera en el antebrazo durante un momento clave, o guiando su mano durante la demostración. Solo cuando el rapport está establecido y es culturalmente apropiado. El toque acelera la confianza cuando se hace bien, la destruye cuando se hace mal.',
@@ -2868,7 +2868,7 @@ export const lessons: Record<string, Lesson> = {
           'REACCIÓN INDIFERENTE: Si dijeron "Está bonito" sin entusiasmo, una venta adicional se sentirá agresiva. No estaban convencidos del primer producto.',
           'OPOSICIÓN DE LA PAREJA: Si su pareja era escéptica sobre el primer producto, agregar más desatará un veto. Asegura la primera venta.',
           'PRESIÓN DE TIEMPO: Si van con prisa y aceptaron el producto base solo para seguir adelante, agregar complejidad mata el trato.',
-          'COMPRADORES DE UN SOLO ARTÍCULO: Algunas personas vinieron por una cosa y quieren una cosa. Respeta su simplicidad. Un cliente feliz de un solo artículo regresa. Un cliente presionado a comprar varios no.',
+          'COMPRADORES DE UN SOLO ARTÍCULO: Algunas personas vinieron por una cosa y quieren una cosa. Respeta su simplicidad. Un cliente feliz de un solo artículo vuelve. Un cliente presionado a comprar varios no.',
         ],
     },
     {
@@ -2940,7 +2940,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'keypoint',
       text: 'Every person who walks past your door has a product that\'s optimal for them. Your job is to identify it in 10 seconds and deliver the perfect pitch. Matching = higher conversion, higher satisfaction, and higher return visits.',
-      textEs: 'Cada persona que pasa por tu puerta tiene un producto que es óptimo para ella. Tu trabajo es identificarlo en 10 segundos y dar el pitch perfecto. El emparejamiento = mayor conversión, mayor satisfacción y más visitas de regreso.',
+      textEs: 'Cada persona que pasa por tu puerta tiene un producto que es óptimo para ella. Tu trabajo es identificarlo en 10 segundos y dar el pitch perfecto. El emparejamiento = mayor conversión, mayor satisfacción y más visitas de vuelta.',
     },
     {
             type: 'divider'
@@ -3375,7 +3375,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'A one-time sale is good. A returning customer is gold. A referring customer is a gold mine. The WhatsApp close transforms a single transaction into an ongoing relationship — and relationships are where real money is made. A customer who buys once might spend {currency}150. A customer who returns three times and refers two friends might spend {currency}1,000+ over their lifetime. That\'s the math that matters.',
-      textEs: 'Una venta única es buena. Un cliente que regresa es oro. Un cliente que refiere es una mina de oro. El cierre de WhatsApp transforma una transacción única en una relación continua — y las relaciones son donde se hace el dinero real. Un cliente que compra una vez podría gastar {currency}150. Un cliente que regresa tres veces y refiere a dos amigos podría gastar {currency}1,000+ a lo largo de su vida. Esa es la matemática que importa.',
+      textEs: 'Una venta única es buena. Un cliente que vuelve es oro. Un cliente que refiere es una mina de oro. El cierre de WhatsApp transforma una transacción única en una relación continua — y las relaciones son donde se hace el dinero real. Un cliente que compra una vez podría gastar {currency}150. Un cliente que vuelve tres veces y refiere a dos amigos podría gastar {currency}1,000+ a lo largo de su vida. Esa es la matemática que importa.',
     },
     {
             type: 'keypoint',
@@ -3413,7 +3413,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'You use WhatsApp, right? Perfect. Give me your number — I\'ll send you my contact right now. If you ever need to reorder, have questions about how to use it, or just want to say hi when you\'re back in {locationName}, I\'m here. Here\'s my number too. We\'re officially friends now!\' [Send message immediately while they\'re in the shop.]',
-      textEs: '"¿Usas WhatsApp, verdad? Perfecto. Dame tu número — te envío mi contacto ahora mismo. Si alguna vez necesitas reordenar, tienes preguntas sobre cómo usarlo, o solo quieres saludar cuando regreses a {locationName}, aquí estoy. Aquí está mi número también. ¡Ya somos amigos oficialmente!" [Envía el mensaje inmediatamente mientras están en la tienda.]',
+      textEs: '"¿Usas WhatsApp, verdad? Perfecto. Dame tu número — te envío mi contacto ahora mismo. Si alguna vez necesitas reordenar, tienes preguntas sobre cómo usarlo, o solo quieres saludar cuando vuelvas a {locationName}, aquí estoy. Aquí está mi número también. ¡Ya somos amigos oficialmente!" [Envía el mensaje inmediatamente mientras están en la tienda.]',
     },
     {
             type: 'divider'
@@ -3441,8 +3441,8 @@ export const lessons: Record<string, Lesson> = {
           'DÍA 1 — EL CHECK-IN: "¡Hola [Nombre]! Espero que estés disfrutando {locationName}. Solo quería comprobar — ¿ya probaste el [producto]? ¿Alguna pregunta? ¡Aquí estoy si me necesitas!" (Muestra que te importa, abre el diálogo.)',
           'DÍA 3 — EL TIP: "¡Hola [Nombre]! Tip pro para el [producto]: úsalo en la noche antes de dormir para que tenga tiempo de hacer su magia mientras duermes. ¡Dime cómo te va!" (Agrega valor, mantiene la conexión viva.)',
           'DÍA 7 — EL CHECK DE ENCANTO: "¡Hola [Nombre]! Ya hace una semana — ¿cómo te está gustando el [producto]? ¿La gente ha notado la diferencia? ¡Apuesto a que sí!" (Los anima a reflexionar sobre resultados y compartir sentimientos positivos.)',
-          'DÍA 14 — EL EMPUJÓN DE REORDEN: "¡Hola [Nombre]! Si se te está acabando algo o quieres agarrar otro antes de tu próximo viaje, solo avísame. ¡Puedo guardarte algo!" (Planta la semilla de reorden sin presión.)',
-          'MES 3 — EL CLIENTE QUE REGRESA: "¡Hola [Nombre]! ¿Ya extrañas {locationName}? Cuando estés planeando tu próximo viaje, avísame — tengo algunos productos nuevos que creo que te encantarán. ¡Además, tendré una pequeña sorpresa esperándote!" (Crea anticipación para la visita de regreso.)',
+          'DÍA 14 — EL EMPUJÓN DE REORDEN: "¡Hola [Nombre]! Si se te está acabando algo o quieres coger otro antes de tu próximo viaje, solo avísame. ¡Puedo guardarte algo!" (Planta la semilla de reorden sin presión.)',
+          'MES 3 — EL CLIENTE QUE Vuelve: "¡Hola [Nombre]! ¿Ya extrañas {locationName}? Cuando estés planeando tu próximo viaje, avísame — tengo algunos productos nuevos que creo que te encantarán. ¡Además, tendré una pequeña sorpresa esperándote!" (Crea anticipación para la visita de vuelta.)',
         ],
     },
     {
@@ -3489,7 +3489,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Return Customer Techniques',
-      textEs: 'Técnicas para Clientes que Regresan',
+      textEs: 'Técnicas para Clientes que Vuelven',
     },
     {
             type: 'paragraph',
@@ -3499,15 +3499,15 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'THE EXCLUSIVE RETURN OFFER: \'When you come back, mention my name and I\'ll have a little something special waiting for you.\' Creates anticipation and exclusivity.',
+        'THE COME-BACK LINE: \'We\'re here all season — come and see us next time you\'re over.\' Warm, and it costs nobody anything. Do not promise them a gift or a price for a day you might not be working.',
         'THE NEW PRODUCT TEASE: \'We\'re getting a new line next month that I think you\'ll love. I\'ll message you when it arrives.\' Gives them a reason to stay connected.',
         'THE COMPLEMENTARY PRODUCT SUGGESTION: \'You have the syringe for your eyes. Next time, try the peeling for your face — they\'re incredible together.\' Plants the seed for an upsell on their return.',
         'THE PERSONAL CONNECTION: Remember details. \'How was your ski trip?\' \'Did your daughter like the Nail Kit?\' Personal memory creates loyalty stronger than any discount.'
       ],
       itemsEs: [
-          'LA OFERTA EXCLUSIVA DE REGRESO: "Cuando regreses, menciona mi nombre y tendré algo especial esperándote." Crea anticipación y exclusividad.',
+          'LA FRASE DE VUELTA: "Estamos aquí toda la temporada — pasaos a vernos la próxima vez que vengáis." Cercano, y no le cuesta nada a nadie. No les prometas un regalo ni un precio para un día en el que a lo mejor no trabajas.',
           'EL TEASER DE NUEVO PRODUCTO: "Vamos a recibir una nueva línea el mes que viene que creo que te encantará. Te escribo cuando llegue." Les da una razón para mantenerse conectados.',
-          'LA SUGERENCIA DE PRODUCTO COMPLEMENTARIO: "Ya tienes la jeringa para tus ojos. La próxima vez, prueba el peeling para tu rostro — son increíbles juntos." Planta la semilla para una venta adicional en su regreso.',
+          'LA SUGERENCIA DE PRODUCTO COMPLEMENTARIO: "Ya tienes la jeringa para tus ojos. La próxima vez, prueba el peeling para tu rostro — son increíbles juntos." Planta la semilla para una venta adicional en su vuelta.',
           'LA CONEXIÓN PERSONAL: Recuerda detalles. "¿Cómo estuvo tu viaje de esquí?" "¿A tu hija le gustó el Kit de Uñas?" La memoria personal crea lealtad más fuerte que cualquier descuento.',
         ],
     },
@@ -3565,7 +3565,7 @@ export const lessons: Record<string, Lesson> = {
           'NO HAGAS SPAM: Máximo un mensaje por semana. Los mensajes diarios no solicitados te hacen que te bloqueen.',
           'NO SEAS MUY VENDEDOR: Empieza con valor, cuidado y tips. Los mensajes de venta deben ser 1 de 5, no 5 de 5.',
           'NO IGNORES LAS RESPUESTAS: Si responden, responde tú. Una conversación es de dos vías.',
-          'NO COMPARTAS SU NÚMERO: Nunca des el contacto de un cliente a colegas o gerentes sin permiso. La confianza es todo.',
+          'NO COMPARTAS SU NÚMERO: Nunca des el contacto de un cliente a colegas o encargados sin permiso. La confianza es todo.',
           'NO ENVÍES MENSAJES A HORAS RARAS: Respeta su zona horaria. Un mensaje a las 11pm se siente invasivo.',
         ],
     },
@@ -5029,7 +5029,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'I did this demo for a woman earlier who said she\'d \'think about it.\' She came back an hour later and bought two. Once you feel the difference, it stays with you.\' This story creates social proof AND plants the seed that they might come back too.',
-      textEs: '\'Le hice esta demostración a una mujer hace rato que dijo que lo \'pensaría\'. Regresó una hora después y compró dos. Una vez que sientes la diferencia, se queda contigo.\' Esta historia crea prueba social Y planta la semilla de que ellos también podrían regresar.',
+      textEs: '\'Le hice esta demostración a una mujer hace rato que dijo que lo \'pensaría\'. Volvió una hora después y compró dos. Una vez que sientes la diferencia, se queda contigo.\' Esta historia crea prueba social Y planta la semilla de que ellos también podrían volver.',
     },
     {
             type: 'quote',
@@ -5160,7 +5160,7 @@ export const lessons: Record<string, Lesson> = {
           'LA REVISIÓN POST-ACCIÓN: Después de cada interacción — sí O no — hazte tres preguntas: ¿Qué noté de esta persona? ¿Qué hice? ¿Cuál fue el resultado? Escríbelo. Esto obliga a tu cerebro a procesar patrones.',
           'LA QUE SE TE ESCAPÓ: Al final del turno apunta dos — la que se te escapó y la que entró. Ni la edad, ni la ropa. El momento. El segundo exacto en que pasó de \'no, gracias\' a reírse, o el segundo exacto en que la perdiste. Eso es lo único que merece la pena guardar.',
           'ESTUDIA TUS VICTORIAS: ¿Qué tenían en común tus compradores? ¿Eran parejas? ¿Traían bolsas de lujo? ¿Eran de cierto rango de edad? Tus mejores clientes tienen patrones.',
-          'ESTUDIA TUS DERROTAS POR IGUAL: ¿Qué tenían en común los que no compraron? ¿Estaban apurados? ¿Estaban en su teléfono? ¿Traían niños? Entender quién NO comprará es tan valioso como entender quién sí.',
+          'ESTUDIA TUS DERROTAS POR IGUAL: ¿Qué tenían en común los que no compraron? ¿Estaban con prisa? ¿Estaban en su teléfono? ¿Traían niños? Entender quién NO comprará es tan valioso como entender quién sí.',
         ],
     },
     {
@@ -5225,7 +5225,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'I can see you\'re thinking about it — that\'s smart. Here\'s my WhatsApp. If you have any questions later, or if you want to come back and try something else, just message me. No pressure at all.\' This plants a seed, builds a bridge, and respects their signals.',
-      textEs: '\'Veo que lo estás pensando — eso es inteligente. Aquí está mi WhatsApp. Si tienes preguntas más tarde, o si quieres regresar y probar algo más, solo escríbeme. Ninguna presión.\' Esto planta una semilla, construye un puente y respeta sus señales.',
+      textEs: '\'Veo que lo estás pensando — eso es inteligente. Aquí está mi WhatsApp. Si tienes preguntas más tarde, o si quieres volver y probar algo más, solo escríbeme. Ninguna presión.\' Esto planta una semilla, construye un puente y respeta sus señales.',
     },
     {
             type: 'divider'
@@ -5250,7 +5250,7 @@ export const lessons: Record<string, Lesson> = {
       ],
       itemsEs: [
           'EL QUE IGNORA: \'Caminaban rápido, mirando su teléfono, cargando café. Probablemente debería haberlos dejado pasar.\' → Lección: Adapta tu esfuerzo de detención a la receptividad del cliente.',
-          'EL \'NO GRACIAS\': \'Sonrieron pero siguieron caminando. Buena energía pero mal timing.\' → Lección: Mi acercamiento fue cálido pero están apurados. Acelera el acercamiento la próxima vez.',
+          'EL \'NO GRACIAS\': \'Sonrieron pero siguieron caminando. Buena energía pero mal timing.\' → Lección: Mi acercamiento fue cálido pero están con prisa. Acelera el acercamiento la próxima vez.',
           'LA DEMO, SIN COMPRA: \'Les encantó la demostración del kit de uñas pero dijeron que era muy caro incluso a {currency}30.\' → Lección: O es una objeción de precio para trabajar, o genuinamente no tienen presupuesto. Toma nota de las señales para referencia futura.',
           'EL CIERRE: \'Compraron la jeringa después de involucrar al esposo en la demostración.\' → Lección: El compromiso de la pareja fue el factor clave. Replica ese acercamiento con parejas.',
         ],
@@ -6027,7 +6027,7 @@ export const lessons: Record<string, Lesson> = {
       left: { label: 'Urgency That Lands', text: 'Specific, and said straight. \'Two left.\' \'That\'s gone at closing.\' Straight face, half a smile, then you carry on as if you had mentioned the weather. And the second they say no you drop it completely — \'Fine, fine, I tried. Enjoy your day.\' Dropping it instantly is what makes the next one land.' },
       leftEs: { label: 'La Urgencia Que Entra', text: 'Concreta, y dicha a pelo. \'Me quedan dos.\' \'Eso se acaba al cerrar.\' Cara seria, media sonrisa, y sigues como si hubieras hablado del tiempo. Y en cuanto te dicen que no, lo sueltas del todo — \'Vale, vale, lo he intentado. Que disfrutes del día.\' Soltarlo al momento es lo que hace que funcione la siguiente.' },
       right: { label: 'Urgency That Dies', text: 'Vague and limp — \'you should really get it while you are here.\' Nothing to take hold of. Or said apologetically, eyes down, like you do not believe it yourself. Or worst of all, repeated after they have already said no, which turns two seconds of theatre into somebody following them up the street.' },
-      rightEs: { label: 'La Urgencia Que Se Muere', text: 'Vaga y sin fuerza — \'deberías llevártelo ya que estás aquí\'. No hay de dónde agarrar. O dicha pidiendo perdón, con la mirada baja, como si tú tampoco te lo creyeras. O peor todavía, repetida después de que ya te han dicho que no, que convierte dos segundos de teatro en alguien siguiéndolos por la calle.' }
+      rightEs: { label: 'La Urgencia Que Se Muere', text: 'Vaga y sin fuerza — \'deberías llevártelo ya que estás aquí\'. No hay de dónde coger. O dicha pidiendo perdón, con la mirada baja, como si tú tampoco te lo creyeras. O peor todavía, repetida después de que ya te han dicho que no, que convierte dos segundos de teatro en alguien siguiéndolos por la calle.' }
     },
     {
             type: 'tip',
@@ -6070,7 +6070,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'quote',
       text: 'Urgency isn\'t about pressuring people. It\'s about helping them overcome procrastination. The customer who genuinely wants your product but leaves to \'think about it\' often never returns. Urgency helps them make the decision they already want to make.',
-      textEs: 'La urgencia no se trata de presionar a la gente. Se trata de ayudarles a superar la procrastinación. El cliente que genuinamente quiere tu producto pero se va a \'pensarlo\' a menudo nunca regresa. La urgencia les ayuda a tomar la decisión que ya quieren tomar.',
+      textEs: 'La urgencia no se trata de presionar a la gente. Se trata de ayudarles a superar la procrastinación. El cliente que genuinamente quiere tu producto pero se va a \'pensarlo\' a menudo nunca vuelve. La urgencia les ayuda a tomar la decisión que ya quieren tomar.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines'
     }
@@ -6460,7 +6460,7 @@ export const lessons: Record<string, Lesson> = {
           '\'¡Me estás rompiendo el corazón! Es broma, pero en serio, te estás perdiendo de algo.\'',
           '\'Está bien, pero cuando pases frente a nuestra tienda más tarde y veas a todos sonriendo adentro, te preguntarás qué te perdiste.\'',
           '\'Estaré aquí todo el día. ¡Cuando cambies de opinión después de ver los resultados de alguien más, ven a buscarme!\'',
-          '\'Mi gerente está viendo, ¿puedes al menos fingir interés por 10 segundos?\' (Humor autocrítico que crea conexión.)',
+          '\'Mi encargado está viendo, ¿puedes al menos fingir interés por 10 segundos?\' (Humor autocrítico que crea conexión.)',
           '\'Ese es el cuarto \'no\' seguido. ¡Todos me van a hacer llorar!\' (Juguetón, no desesperado.)',
         ],
     },
@@ -6485,7 +6485,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'No problem at all! Enjoy your day in {locationName}. But hey — when you see someone walk out of our shop with that \'wow\' look on their face, remember I offered!\' This plants a seed of curiosity. They might walk past later, see a happy customer, and come back. It happens more than you think.',
-      textEs: '\'¡Ningún problema! Disfruta tu día en {locationName}. Pero oye, cuando veas a alguien salir de nuestra tienda con esa cara de \'wow\', ¡recuerda que te lo ofrecí!\' Esto siembra una semilla de curiosidad. Pueden pasar más tarde, ver a un cliente feliz, y regresar. Pasa más de lo que crees.',
+      textEs: '\'¡Ningún problema! Disfruta tu día en {locationName}. Pero oye, cuando veas a alguien salir de nuestra tienda con esa cara de \'wow\', ¡recuerda que te lo ofrecí!\' Esto siembra una semilla de curiosidad. Pueden pasar más tarde, ver a un cliente feliz, y volver. Pasa más de lo que crees.',
     },
     {
             type: 'bullets',
@@ -6497,8 +6497,8 @@ export const lessons: Record<string, Lesson> = {
       ],
       itemsEs: [
           'DALES UNA TARJETA O FOLLETO: Los recordatorios físicos funcionan. Algo que puedan guardar en su bolsillo y considerar más tarde.',
-          'MENCIONA TU UBICACIÓN: \'Estamos justo aquí, el número 15. Si cambias de opinión, solo entra.\' Hace que regresar se sienta fácil.',
-          'Haz REFERENCIA A UN PRODUCTO ESPECÍFICO: \'Si te encuentras pensando en piel radiante más tarde, pide el Peeling. Ese es por el que todos regresan.\'',
+          'MENCIONA TU UBICACIÓN: \'Estamos justo aquí, el número 15. Si cambias de opinión, solo entra.\' Hace que volver se sienta fácil.',
+          'Haz REFERENCIA A UN PRODUCTO ESPECÍFICO: \'Si te encuentras pensando en piel radiante más tarde, pide el Peeling. Ese es por el que todos vuelven.\'',
           'DEJA LA PUERTA ABIERTA: \'Ninguna presión en absoluto. Si pasas más tarde y te apetece, estaré aquí. Me encantaría mostrártelo entonces.\' Cálido, no desesperado, invitante.',
         ],
     },

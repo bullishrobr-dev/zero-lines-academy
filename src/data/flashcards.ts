@@ -200,7 +200,7 @@ export const flashcards: Flashcard[] = [
     question: 'What\'s the "Reciprocity Principle" in sales?',
     answer: 'Give something first (free sample, compliment, demo) — people feel obligated to give back, usually with a purchase.',
     questionEs: '¿Qué es el "Principio de Reciprocidad" en ventas?',
-    answerEs: 'Da algo primero (muestra gratis, cumplido, demo) — la gente siente la obligación de devolver el favor, usualmente con una compra.',
+    answerEs: 'Da algo primero (muestra gratis, cumplido, demo) — la gente siente la obligación de devolver el favor, normalmente con una compra.',
   },
   {
     id: 'sp-8-1',
@@ -321,7 +321,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is "Vibe Reading" and how do you practice it?',
     answer: 'Reading emotional energy in 3 seconds. Are they open (smiling, eye contact) or closed (headphones, crossed arms, rushing)? Adjust accordingly.',
     questionEs: '¿Qué es la "Lectura de Vibra" y cómo la practicas?',
-    answerEs: 'Leer la energía emocional en 3 segundos. ¿Están abiertos (sonriendo, contacto visual) o cerrados (audífonos, brazos cruzados, apurados)? Adapta tu acercamiento.',
+    answerEs: 'Leer la energía emocional en 3 segundos. ¿Están abiertos (sonriendo, contacto visual) o cerrados (audífonos, brazos cruzados, con prisa)? Adapta tu acercamiento.',
   },
   {
     id: 'rc-6-2',
