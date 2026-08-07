@@ -36,8 +36,6 @@ interface LocationContextType {
   currency: string;
   currencyCode: 'EUR' | 'GBP';
   locationName: string;
-  taxHavenText: string;
-  taxHavenTextEs: string;
 }
 
 const LOCATION_DATA: Record<
@@ -46,23 +44,17 @@ const LOCATION_DATA: Record<
     currency: string;
     currencyCode: 'EUR' | 'GBP';
     name: string;
-    taxHavenText: string;
-    taxHavenTextEs: string;
   }
 > = {
   andorra: {
     currency: '€',
     currencyCode: 'EUR',
     name: 'Andorra',
-    taxHavenText: 'Tax-free shopping — no VAT added on top',
-    taxHavenTextEs: 'Compras libres de impuestos — sin IVA añadido',
   },
   gibraltar: {
     currency: '£',
     currencyCode: 'GBP',
     name: 'Gibraltar',
-    taxHavenText: 'Tax-free luxury — zero VAT on all purchases',
-    taxHavenTextEs: 'Lujo libre de impuestos — cero IVA en todas las compras',
   },
 };
 
@@ -86,9 +78,9 @@ export function LocationProvider({ children }: { children: ReactNode }) {
    * A signed-in seller's shop always wins over anything cached in this browser.
    *
    * The admin is the exception: they run both shops, so they are not tied to
-   * either and can switch freely to see what each seller sees — prices in the
-   * right currency, the right tax wording. Their account carries no shop at all
-   * (see supabase/schema.sql), which is what leaves them unlocked here.
+   * either and can switch freely to see what each seller sees — every price in
+   * the right currency. Their account carries no shop at all (see
+   * supabase/schema.sql), which is what leaves them unlocked here.
    */
   const location: Location = user?.location ?? guestLocation;
   const isLocked = !!user?.location;
@@ -121,8 +113,6 @@ export function LocationProvider({ children }: { children: ReactNode }) {
       currency: data.currency,
       currencyCode: data.currencyCode,
       locationName: data.name,
-      taxHavenText: data.taxHavenText,
-      taxHavenTextEs: data.taxHavenTextEs,
     }),
     [location, setLocation, isLocked, data]
   );

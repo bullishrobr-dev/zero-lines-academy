@@ -1,20 +1,24 @@
 // ─────────────────────────────────────────────────────────────
 // locationText.ts — Template variable replacement for location
-// Replaces {{currency}}, {{location}}, {{taxHavenText}} with
-// actual values from the current location context.
+// Replaces {{currency}} and {{location}} with actual values from the current
+// location context.
+//
+// A third placeholder, {{taxHavenText}}, used to resolve to "Tax-free shopping
+// — no VAT added on top". It is gone: the owner does not want sellers making
+// tax claims, and the price comparison the shop actually teaches (Europe price
+// vs the price here) needs no tax explanation to work. No content string ever
+// used the placeholder anyway, so this removes plumbing as well as a claim.
 // ─────────────────────────────────────────────────────────────
 
 import { useLocation } from '../contexts/LocationContext';
 
 export interface LocationTextHelpers {
-  /** Replace {{currency}}, {{location}}, {{taxHavenText}} in a string */
+  /** Replace {{currency}} and {{location}} in a string */
   replacePlaceholders: (text: string) => string;
   /** Current currency symbol */
   currency: string;
   /** Current location name */
   location: string;
-  /** Current tax haven description */
-  taxHavenText: string;
 }
 
 /**
@@ -23,21 +27,19 @@ export interface LocationTextHelpers {
  *        <p>{replacePlaceholders("Only {{currency}}300 here in {{location}}!")}</p>
  */
 export function useLocationText(): LocationTextHelpers {
-  const { currency, locationName, taxHavenText } = useLocation();
+  const { currency, locationName } = useLocation();
 
   const replacePlaceholders = (text: string): string => {
     if (!text) return text;
     return text
       .replace(/\{\{currency\}\}/g, currency)
-      .replace(/\{\{location\}\}/g, locationName)
-      .replace(/\{\{taxHavenText\}\}/g, taxHavenText);
+      .replace(/\{\{location\}\}/g, locationName);
   };
 
   return {
     replacePlaceholders,
     currency,
     location: locationName,
-    taxHavenText,
   };
 }
 
@@ -48,12 +50,10 @@ export function useLocationText(): LocationTextHelpers {
 export function replacePlaceholdersWithValues(
   text: string,
   currency: string,
-  location: string,
-  taxHavenText: string
+  location: string
 ): string {
   if (!text) return text;
   return text
     .replace(/\{\{currency\}\}/g, currency)
-    .replace(/\{\{location\}\}/g, location)
-    .replace(/\{\{taxHavenText\}\}/g, taxHavenText);
+    .replace(/\{\{location\}\}/g, location);
 }
