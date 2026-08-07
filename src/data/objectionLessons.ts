@@ -661,8 +661,8 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Maybe — but here's the thing about Amazon skincare. Counterfeit cosmetics are a {currency}3 billion industry. That 'deal' you find? Probably fake, expired, or diluted. This?\" [Hold up sealed product] \"Sealed, fresh, straight from the manufacturer. And you just watched it work on your own face. Can Amazon do that?\"",
-        textEs: "TÚ: \"Tal vez — pero esto es lo del skincare en Amazon. Los cosméticos falsificados son una industria de {currency}3 mil millones. ¿Esa 'ganga' que encuentras? Probablemente falsa, vencida, o diluida. ¿Esto?\" [Levanta producto sellado] \"Sellado, fresco, directo del fabricante. Y acabas de verlo funcionar en tu propia cara. ¿Amazon puede hacer eso?\"",
+        text: "YOU: \"Maybe — but here's the thing about Amazon skincare. Counterfeit cosmetics are a multi-billion industry. That 'deal' you find? Probably fake, expired, or diluted. This?\" [Hold up sealed product] \"Sealed, fresh, straight from the manufacturer. And you just watched it work on your own face. Can Amazon do that?\"",
+        textEs: "TÚ: \"Tal vez — pero esto es lo del skincare en Amazon. Los cosméticos falsificados son una industria de miles de millones. ¿Esa 'ganga' que encuentras? Probablemente falsa, vencida, o diluida. ¿Esto?\" [Levanta producto sellado] \"Sellado, fresco, directo del fabricante. Y acabas de verlo funcionar en tu propia cara. ¿Amazon puede hacer eso?\"",
       },
       {
         type: "subheader",
@@ -706,8 +706,8 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "tip",
-        text: "Keep a screenshot on your phone of a news article about counterfeit cosmetics on Amazon. When you pull it up and say \"Look, this was last month — {currency}3 billion in fake skincare seized,\" it becomes REAL. Also, the phrase \"You're not paying for the product, you're paying for the guarantee\" is your best closer. People will pay {currency}20 more for peace of mind.",
-        textEs: "Guarda una captura de pantalla en tu móvil de un artículo de noticias sobre cosméticos falsificados en Amazon. Cuando la sacas y dices \"Mira, esto fue el mes pasado — {currency}3 mil millones en skincare falso decomisado,\" se vuelve REAL. Además, la frase \"No estás pagando por el producto, estás pagando por la garantía\" es tu mejor cierre. La gente pagará {currency}20 más por tranquilidad.",
+        text: "Keep a screenshot on your phone of a news article about counterfeit cosmetics on Amazon. When you pull it up and say \"Look, this was last month — millions in fake skincare seized,\" it becomes REAL. Also, the phrase \"You're not paying for the product, you're paying for the guarantee\" is your best closer. People will pay {currency}20 more for peace of mind.",
+        textEs: "Guarda una captura de pantalla en tu móvil de un artículo de noticias sobre cosméticos falsificados en Amazon. Cuando la sacas y dices \"Mira, esto fue el mes pasado — millones en skincare falso decomisado,\" se vuelve REAL. Además, la frase \"No estás pagando por el producto, estás pagando por la garantía\" es tu mejor cierre. La gente pagará {currency}20 más por tranquilidad.",
       },
     ],
     quiz: [],

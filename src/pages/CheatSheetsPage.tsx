@@ -22,10 +22,14 @@
 //   • Search cuts across everything at once and returns a flat ranked list,
 //     rather than making you guess which section a phrase lives in.
 //
-// Three reasons — "been scammed", "wrong for my skin", "cheaper online" — have
-// an objection LESSON but no scripted line. Those panels say so and link to the
-// lesson. Writing sales copy for a real shop is the owner's call, not mine, and
-// a confident-looking invented line is worse than an honest gap.
+// All nine walk-away reasons now return a line. The last three — "been
+// scammed", "wrong for my skin", "cheaper online" — used to show an honest
+// "no scripted line yet" note, because their answers were sitting inside
+// lessons O4/O5/O7, three taps and a scroll from a seller who has four seconds.
+// They are lifted here verbatim, so the cheat sheet and the lesson cannot end
+// up teaching two different answers. The empty-state is still built and still
+// correct: add a tenth reason to encounterChips.ts without a line and the panel
+// will say so rather than showing something invented.
 //
 // All copy lives in src/data/cheatSheets.ts and every number comes from
 // src/data/pricing.ts. Nothing here builds a price string by hand: `sub()`
