@@ -12,9 +12,9 @@ independently described the same underlying problem in their own vocabulary.
 
 ## Progress log
 
-Shipped since this plan was written (builds 8–21):
+Shipped since this plan was written (builds 8–23):
 
-**Builds 18–21 (the journal, the shift, the two screens sellers actually open):**
+**Builds 18–23 (the journal, the shift, and the sale itself):**
 - **The journal** — Log-a-sale became a journal that works during the shift: a
   live encounter card, sold/walked in one tap, and a why-they-walked chip. The
   funnel is two steps now (brought in → sold), because a pavement "stop" was
@@ -29,6 +29,22 @@ Shipped since this plan was written (builds 8–21):
 - **Onboarding facelift**, and the three photographs on it now load at all —
   they were absolute paths under a sub-path deployment, so the first screen
   anyone saw was three broken-image icons.
+- **Stage 4 — the missing sale, written down.** The academy taught stopping
+  (7 lessons) and products (8), with a hole where the money changes hands. A
+  new category, **Bring, Close, Collect**, fills it from the owner's own method
+  in his own words: *The Bring* (get the look before you move, name the rush
+  before they can, turn and walk without checking, sit them facing the wall),
+  *Asking For The Money* (ask which card, never whether; do not go quiet), and
+  *The Counter* (charge them in the chair, the card-decline ladder, the review
+  ask). Sixteen new cheat-sheet scripts carry the same lines mid-shift.
+- **Stage 4 — the last three objections answered.** "Been scammed", "wrong for
+  my skin" and "cheaper online" had lessons but no line on the cheat sheet.
+  Lifted from lessons O4/O5/O7 unchanged, so all 8 walk-away reasons in the
+  journal now return words to say.
+- **The pricing ladder gate.** Buy 2 get 2 is the same {currency}120 as buy 2
+  get 1 but hands over a fourth unit, so as a plain ladder step it taught
+  sellers to give away stock. It is not a step — it is situational, for a group
+  or Christmas. Rungs now carry a `when` condition, printed above the words.
 - **Stage 6 — Cheat Sheets rebuilt.** It opened on a tab that rendered every
   section at once: 13,691px, 16.2 phone screens, on the screen you hold with a
   customer in front of you. Now nothing renders until asked for — landing is
@@ -80,10 +96,8 @@ Still open below: unifying the XP ledger and moving scoring server-side
 (Stage 2), the missing "bring"/close/counter content (Stage 4), the spoken rep
 (Stage 5), and the reward curve for veterans (Stage 7).
 
-Two of those need the owner, not me: the missing close/counter content, and the
-scripted answers for "been scammed", "wrong for my skin" and "cheaper online" —
-those three have objection lessons but no line to say, and writing sales copy
-for a real shop is his call.
+Both of the content gaps that needed the owner are now closed — he dictated the
+bring, the ask and the counter, and they are in the app in his voice.
 
 ## The one sentence version
 

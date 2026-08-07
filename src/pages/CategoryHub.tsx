@@ -45,6 +45,8 @@ import {
   RotateCcw,
   CreditCard,
   type LucideIcon,
+  DoorOpen,
+  Coins,
 } from 'lucide-react';
 import { createElement, useMemo } from 'react';
 import { categories, getLessonsForCategory, type Category } from '../data/lessons';
@@ -58,6 +60,8 @@ const iconMap: Record<string, LucideIcon> = {
   Drama, ShieldQuestion, AlertTriangle, XCircle, PartyPopper, Sword, Eye, Timer,
   Baby, Video, Frown, RefreshCw, Wallet, Clock, Heart, Shield, Palette, Leaf,
   ShoppingCart, RotateCcw, CreditCard,
+  // Bring, Close, Collect
+  DoorOpen, Coins,
 };
 
 /** The icon is data-driven, so it is resolved and instantiated in one step —

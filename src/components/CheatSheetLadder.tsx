@@ -86,6 +86,19 @@ function Rung({ rung, index, anchor, accent }: { rung: LadderRung; index: number
         />
       </div>
 
+      {/* The gate on rungs that are situational rather than the next step down.
+          Printed above the words, because a seller scanning the ladder mid-sale
+          reads the line and says it — the condition has to arrive first. */}
+      {rung.when && (
+        <p
+          className={`mt-2 rounded-chip px-2 py-1 text-caption font-semibold ${
+            isFloor ? 'bg-danger-tint text-danger' : 'bg-surface-sunken text-ink-2'
+          }`}
+        >
+          {tr(language, rung.when, rung.whenEs ?? rung.when)}
+        </p>
+      )}
+
       <div className="mt-2.5 flex items-start gap-2">
         <p className="text-body text-ink flex-1">{words}</p>
         <CopyButton text={words} />

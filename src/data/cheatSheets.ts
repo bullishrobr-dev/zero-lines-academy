@@ -63,6 +63,20 @@ export interface LadderRung {
   wordsEs: string;
   /** The rung to open with — drawn raised. */
   recommended?: boolean;
+  /**
+   * When this rung is allowed, for rungs that are NOT simply the next step
+   * down.
+   *
+   * Buy 2 get 2 is the case that forced this. It is the same {currency}120 as
+   * buy 2 get 1 but hands over a fourth unit, so read as a plain ladder step it
+   * teaches a seller to give away stock for nothing. It is not a step: it is a
+   * situational offer for a group or the holidays, where four units actually
+   * get used. Without the condition printed on the rung, a seller scanning the
+   * ladder mid-sale offers it to a solo customer who was about to pay 120 for
+   * three.
+   */
+  when?: string;
+  whenEs?: string;
 }
 
 export type ProductKey = 'syringe' | 'peeling' | 'scrub' | 'nailkit';
@@ -135,7 +149,15 @@ const EUROPE_ANCHOR_LABEL_ES = 'Precio Ancla de Europa';
 const BASE_LABEL = '{locationName} Price';
 const BASE_LABEL_ES = 'Precio de {locationName}';
 
-/** Buy 2 get 1, buy 2 get 2 and buy 1 get 1 are shared by the mix & match family. */
+/**
+ * Buy 2 get 1, buy 2 get 2 and buy 1 get 1 are shared by the mix & match family.
+ *
+ * The descent here is in TOTAL SPEND, not in unit price: 120 → 120 → 60 → 30.
+ * Per unit, everything below the opening offer is the same 30, so the seller is
+ * not discounting as they go down — they are shrinking the ask until it is small
+ * enough to say yes to. Reading the rungs as unit prices is what makes buy 2
+ * get 2 look like a bargain to hand out; see LadderRung.when.
+ */
 function mixMatchDeals(companions: string, companionsEs: string): LadderRung[] {
   return [
     {
@@ -148,14 +170,18 @@ function mixMatchDeals(companions: string, companionsEs: string): LadderRung[] {
     {
       ...fromPricing(MIX_B2G2),
       tone: 'offer',
-      words: `"For the holidays: buy 2, get 2 free — {currency}${MIX_B2G2.price} for ${MIX_B2G2.units}, so {currency}${eachOf(MIX_B2G2)} each. That is the best deal in the shop."`,
-      wordsEs: `"Para las fiestas: compra 2 y llévate 2 gratis — {currency}${MIX_B2G2.price} por ${MIX_B2G2.units}, o sea {currency}${eachOf(MIX_B2G2)} cada uno. Es la mejor oferta de la tienda."`,
+      when: 'Only for a group, or at Christmas. Never volunteer it to one person.',
+      whenEs: 'Solo para un grupo, o en Navidad. Nunca se lo ofrezcas por tu cuenta a una sola persona.',
+      words: `"We have buy 2 get 1 — but listen, for you I'll do buy 2, get 2. Same {currency}${MIX_B2G2.price}, and you walk out with ${MIX_B2G2.units}. That is an amazing deal."`,
+      wordsEs: `"Tenemos el compra 2 y llévate 1 — pero mira, para ti lo hago compra 2 y llévate 2. Los mismos {currency}${MIX_B2G2.price}, y te llevas ${MIX_B2G2.units}. Es un chollo."`,
     },
     {
       ...fromPricing(MIX_B1G1),
       tone: 'fallback',
-      words: `"Or keep it simple — buy one, take one free. {currency}${MIX_B1G1.price} for ${MIX_B1G1.units}."`,
-      wordsEs: `"O más sencillo — compra uno y llévate otro gratis. {currency}${MIX_B1G1.price} por ${MIX_B1G1.units}."`,
+      when: 'They love it but do not need three. Shrink the ask, not the value.',
+      whenEs: 'Les encanta pero no necesitan tres. Reduce lo que pides, no el valor.',
+      words: `"My last customer only took one. Let me do something nice for you — buy one, and I'll give you the other one free. I'll staple both receipts together. {currency}${MIX_B1G1.price} for ${MIX_B1G1.units}."`,
+      wordsEs: `"Mi última clienta se llevó solo uno. Déjame hacerte algo bonito — compra uno y te regalo el otro. Te grapo los dos tickets juntos. {currency}${MIX_B1G1.price} por ${MIX_B1G1.units}."`,
     },
   ];
 }
@@ -330,8 +356,10 @@ export const PRODUCT_LADDERS: ProductLadder[] = [
       {
         ...fromPricing(MIX_FLOOR),
         tone: 'floor',
-        words: `"One jar, {currency}${MIX_FLOOR.price}, and that is my last price — I cannot go under it."`,
-        wordsEs: `"Un bote, {currency}${MIX_FLOOR.price}, y ese es mi último precio — no puedo bajar más."`,
+        when: 'Only when you can SEE they love it — they have not stopped touching their hands.',
+        whenEs: 'Solo cuando VES que les encanta — no paran de tocarse las manos.',
+        words: `"You really love it, don't you — you haven't stopped touching your hands. Alright: {currency}${MIX_FLOOR.price} for the one. But zip it, this stays between us."`,
+        wordsEs: `"Te encanta de verdad, ¿eh? No paras de tocarte las manos. Venga: {currency}${MIX_FLOOR.price} por uno. Pero chitón, que esto queda entre nosotros."`,
       },
     ],
     proof: {
@@ -377,8 +405,10 @@ export const PRODUCT_LADDERS: ProductLadder[] = [
       {
         ...fromPricing(MIX_FLOOR),
         tone: 'floor',
-        words: `"The whole kit for {currency}${MIX_FLOOR.price} — that is my final price."`,
-        wordsEs: `"El kit entero por {currency}${MIX_FLOOR.price} — ese es mi precio final."`,
+        when: 'Only when you can SEE they love it. This is the last price, not an opener.',
+        whenEs: 'Solo cuando VES que les encanta. Es el último precio, no una apertura.',
+        words: `"The whole kit for {currency}${MIX_FLOOR.price} — that is my final price. But zip it, this stays between us."`,
+        wordsEs: `"El kit entero por {currency}${MIX_FLOOR.price} — ese es mi precio final. Pero chitón, que esto queda entre nosotros."`,
       },
     ],
     proof: {
@@ -428,6 +458,63 @@ export interface ScriptCard {
 
 export const SCRIPTS: ScriptCard[] = [
   // ── Openings ──
+  /*
+   * The owner's own approach, dictated in his words and kept in his voice.
+   *
+   * The order matters and is the whole technique: get the LOOK before you take
+   * a step, name the rush before they can use it, ask a question you cannot
+   * answer for them, then turn and walk without checking. Split into separate
+   * cards on purpose — mid-shift a seller wants the one line they are about to
+   * say, not a paragraph to find their place in.
+   */
+  {
+    id: 'o-look',
+    category: 'opening',
+    title: '1. Get the look before you move',
+    titleEs: '1. Consigue la mirada antes de moverte',
+    text: `"Hi guys, how you doing?" — and WAIT. Do not step, do not raise the sample. Only once they look at you do you lift it and start walking towards them.`,
+    textEs: `"Hola chicos, ¿qué tal?" — y ESPERA. No des un paso, no levantes la muestra. Solo cuando te miren la levantas y empiezas a andar hacia ellos.`,
+  },
+  {
+    id: 'o-rush',
+    category: 'opening',
+    title: '2. Name the rush before they can',
+    titleEs: '2. Nombra la prisa antes que ellos',
+    text: `"Listen, I know you're in a rush — but can I ask you something really quick? It's just that you look so good, I have to ask what you normally use on your skin."`,
+    textEs: `"Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel."`,
+  },
+  {
+    id: 'o-gift',
+    category: 'opening',
+    title: '3. The gift, then turn and walk',
+    titleEs: '3. El regalo, y date la vuelta',
+    text: `"Really? No way. You know what — I'm going to give you a small gift. You're going to love it." Then turn and walk into the shop. Do NOT look back to see if they follow.`,
+    textEs: `"¿En serio? No me lo creo. ¿Sabes qué? Te voy a dar un regalito. Te va a encantar." Luego date la vuelta y entra en la tienda. NO mires atrás para ver si te siguen.`,
+  },
+  {
+    id: 'o-come',
+    category: 'opening',
+    title: '4. Only now, look back',
+    titleEs: '4. Ahora sí, mira atrás',
+    text: `Once you are inside, turn your head. If they have not followed: "Come, guys, don't worry — it's really quick. You're going to love it."`,
+    textEs: `Una vez dentro, gira la cabeza. Si no te han seguido: "Venid, chicos, no os preocupéis — es rapidísimo. Os va a encantar."`,
+  },
+  {
+    id: 'o-doorway',
+    category: 'opening',
+    title: '5. They stop in the doorway',
+    titleEs: '5. Se paran en la puerta',
+    text: `"Come on guys, it's two seconds of your time. I promise you need to see this."`,
+    textEs: `"Venga chicos, son dos segundos de vuestro tiempo. Os prometo que tenéis que ver esto."`,
+  },
+  {
+    id: 'o-seat',
+    category: 'opening',
+    title: '6. Sit them facing the wall',
+    titleEs: '6. Siéntalos mirando a la pared',
+    text: `Put them in the chair facing INTO the shop, never facing the street. If they can see the pavement moving, they start thinking about being back on it.`,
+    textEs: `Siéntalos mirando HACIA DENTRO de la tienda, nunca hacia la calle. Si ven el movimiento de la acera, empiezan a pensar en volver a ella.`,
+  },
   {
     id: 'o1',
     category: 'opening',
@@ -501,6 +588,30 @@ export const SCRIPTS: ScriptCard[] = [
 
   // ── Closes ──
   {
+    id: 'c-card',
+    category: 'closing',
+    title: 'Assume the card',
+    titleEs: 'Da por hecho la tarjeta',
+    text: `"I guess you're paying by card, aren't you? Visa or Mastercard?" Most people pay by card, so assume it — you are asking WHICH, never WHETHER.`,
+    textEs: `"Supongo que pagas con tarjeta, ¿no? ¿Visa o Mastercard?" La mayoría paga con tarjeta, así que dalo por hecho — preguntas CUÁL, nunca SI.`,
+  },
+  {
+    id: 'c-no-silence',
+    category: 'closing',
+    title: 'Do not go quiet after the ask',
+    titleEs: 'No te calles después de pedir',
+    text: `They say "I don't know… Visa." You say: "Perfect, don't worry — I'll bring it over to you." Then go and get the machine. You never leave them alone with the decision.`,
+    textEs: `Dicen "no sé... Visa." Tú dices: "Perfecto, no te preocupes — te la traigo yo." Y vas a por el datáfono. Nunca los dejas solos con la decisión.`,
+  },
+  {
+    id: 'c-on-the-spot',
+    category: 'closing',
+    title: 'Charge where they are sitting',
+    titleEs: 'Cobra donde están sentados',
+    text: `The machine comes to the customer. Never walk them to a till — every metre between the yes and the payment is a metre they can change their mind in.`,
+    textEs: `El datáfono va al cliente. Nunca los lleves a la caja — cada metro entre el sí y el pago es un metro para que cambien de opinión.`,
+  },
+  {
     id: 'c1',
     category: 'closing',
     product: 'syringe',
@@ -562,6 +673,56 @@ export const SCRIPTS: ScriptCard[] = [
   },
 
   // ── Objections ──
+  /*
+   * The owner's answer to a stall, in his words. It works by refusing to treat
+   * "let me think" as new information: everything in it is something the
+   * customer has already told YOU in the last two minutes.
+   */
+  {
+    id: 'r-stall',
+    category: 'objection',
+    answers: 'think',
+    title: '"I need to think about it" — the real answer',
+    titleEs: '"Me lo tengo que pensar" — la respuesta de verdad',
+    text: `"What do you actually need to think about? You already told me you like it. You told me you'd use it. You're not going to walk up and down the street and come back to a different price — you know exactly what it does. It's just whether you want to treat yourself or not. It's not a mortgage."`,
+    textEs: `"¿Qué te tienes que pensar exactamente? Ya me has dicho que te gusta. Me has dicho que lo usarías. No vas a dar una vuelta por la calle y volver con otro precio — sabes perfectamente lo que hace. Es simplemente si quieres darte un capricho o no. Tampoco es una hipoteca."`,
+  },
+  /*
+   * These three were the gap the cheat sheet used to admit to: the journal
+   * offers "been scammed", "wrong for my skin" and "cheaper online" as things a
+   * customer said, and there was no line to answer them with. The lines were
+   * not missing from the app — they were sitting inside lessons O4, O5 and O7,
+   * three taps and a scroll away from a seller who has about four seconds.
+   * Lifted from the lessons unchanged, so the cheat sheet and the lesson cannot
+   * teach two different answers.
+   */
+  {
+    id: 'r-trust',
+    category: 'objection',
+    answers: 'trust',
+    title: '"I was scammed before"',
+    titleEs: '"Ya me han timado antes"',
+    text: `"I am SO sorry that happened to you. There are some bad people out there, and it makes my job harder because guys like that ruin it for everyone. Look — I won't ask you to trust me. Let me just show you how this works, and YOU decide. No pressure, no strings."`,
+    textEs: `"Siento muchísimo que te pasara eso. Hay gente muy mala por ahí, y a mí me complica el trabajo porque tipos así lo estropean para todos. Mira — no te voy a pedir que confíes en mí. Déjame enseñarte cómo funciona y decides TÚ. Sin presión, sin compromiso."`,
+  },
+  {
+    id: 'r-skin',
+    category: 'objection',
+    answers: 'skin',
+    title: '"Will this work on my skin?"',
+    titleEs: '"¿Esto funciona en mi piel?"',
+    text: `"Great question! This is hyaluronic acid — it's a water molecule, not a bleach. It doesn't care about skin colour. It works by binding water under your skin. Your melanin stays exactly the same. You just get smoother, plumper skin. Want me to show you on my hand?"`,
+    textEs: `"¡Muy buena pregunta! Esto es ácido hialurónico — es una molécula de agua, no un blanqueador. Le da igual el tono de piel. Funciona reteniendo agua bajo la piel. Tu melanina se queda exactamente igual. Solo consigues una piel más lisa y con más volumen. ¿Te lo enseño en mi mano?"`,
+  },
+  {
+    id: 'r-online',
+    category: 'objection',
+    answers: 'online',
+    title: '"I can get it cheaper online"',
+    titleEs: '"Lo consigo más barato online"',
+    text: `"Maybe — but here's the thing about skincare online. Counterfeits are everywhere: fake, expired, or diluted. This?" [hold up the sealed product] "Sealed, fresh, straight from the manufacturer. And you just watched it work on your own face. Can a website do that?"`,
+    textEs: `"Puede ser — pero te cuento cómo va la cosmética por internet. Está lleno de falsificaciones: producto falso, caducado o diluido. ¿Esto?" [enseña el producto precintado] "Precintado, fresco, directo del fabricante. Y lo acabas de ver funcionar en tu propia cara. ¿Eso te lo hace una web?"`,
+  },
   {
     id: 'r1',
     answers: 'think',
@@ -648,6 +809,30 @@ export const SCRIPTS: ScriptCard[] = [
   },
 
   // ── Partner ──
+  {
+    id: 'p-two-seconds',
+    category: 'partner',
+    title: 'The one who is already walking',
+    titleEs: 'El que ya se está yendo',
+    text: `"It's two seconds of your time, I promise — she's going to love it."`,
+    textEs: `"Son dos segundos, te lo prometo — le va a encantar."`,
+  },
+  {
+    id: 'p-ladies',
+    category: 'partner',
+    title: 'Bad energy off the partner',
+    titleEs: 'Mala energía de la pareja',
+    text: `"Don't worry, it's ladies' business anyway." Say it light, with a smile — you are giving him permission to stand back, not picking a fight.`,
+    textEs: `"No te preocupes, esto es cosa de chicas de todas formas." Dilo ligero, con una sonrisa — le estás dando permiso para apartarse, no buscando pelea.`,
+  },
+  {
+    id: 'p-let-go',
+    category: 'partner',
+    title: 'When the partner is genuinely hostile',
+    titleEs: 'Cuando la pareja va de verdad en contra',
+    text: `Let them go. Do not spend your energy winning over someone who has decided to be difficult — keep it on the person who is still listening to you.`,
+    textEs: `Déjalo. No gastes tu energía en convencer a alguien que ha decidido ponerse difícil — céntrala en la persona que todavía te está escuchando.`,
+  },
   {
     id: 'p1',
     category: 'partner',
@@ -898,6 +1083,37 @@ const EMERGENCY_KILLERS: EmergencyLine[] = [
   },
 ];
 
+const EMERGENCY_CARD_TROUBLE: EmergencyLine[] = [
+  {
+    id: 'ect1',
+    head: `Declined`,
+    headEs: `Rechazada`,
+    text: `"No problem at all — do you have another card on you?"`,
+    textEs: `"No pasa nada — ¿llevas otra tarjeta encima?"`,
+  },
+  {
+    id: 'ect2',
+    head: `Declined again`,
+    headEs: `Rechazada otra vez`,
+    text: `"Let me try typing the numbers in by hand — the chip does this sometimes."`,
+    textEs: `"Déjame probar metiendo los números a mano — el chip hace esto a veces."`,
+  },
+  {
+    id: 'ect3',
+    head: `No other card`,
+    headEs: `No tiene otra tarjeta`,
+    text: `"Have you got Apple Pay or Google Pay on your phone? That works too."`,
+    textEs: `"¿Tienes Apple Pay o Google Pay en el móvil? Eso también nos vale."`,
+  },
+  {
+    id: 'ect4',
+    head: `Nothing works`,
+    headEs: `Nada funciona`,
+    text: `"Honestly, don't worry about it at all. We're right here — come back whenever you like." Take the L warmly. They remember how you handled it.`,
+    textEs: `"De verdad, no te preocupes lo más mínimo. Estamos aquí — vuelve cuando quieras." Encaja la pérdida con buena cara. Se acuerdan de cómo lo gestionaste.`,
+  },
+];
+
 /** The three panels of the emergency sheet, in the order they are drawn. */
 export const EMERGENCY_BLOCKS: {
   key: string;
@@ -937,5 +1153,17 @@ export const EMERGENCY_BLOCKS: {
     hint: 'Quick answers to the usual objections:',
     hintEs: 'Respuestas rápidas a las objeciones de siempre:',
     items: EMERGENCY_KILLERS,
+  },
+  {
+    // Not a selling panic — a payment one. It lives here because this is the
+    // sheet a seller opens when it is going wrong, and a card refusing in front
+    // of a customer is exactly that. Four steps in order, so nobody freezes.
+    key: 'card',
+    accent: 'violet',
+    title: 'Card trouble',
+    titleEs: 'Problemas con la tarjeta',
+    hint: 'Work down the list. Stay relaxed — they are already embarrassed:',
+    hintEs: 'Ve bajando por la lista. Mantén la calma — ya están incómodos:',
+    items: EMERGENCY_CARD_TROUBLE,
   },
 ];

@@ -11,6 +11,7 @@
 
 import { scenarioLessons } from './scenarioLessons';
 import { objectionLessons } from './objectionLessons';
+import { closingLessons } from './closingLessons';
 import { LESSON_QUIZZES } from './lessonQuizzes';
 
 export type SectionType =
@@ -115,6 +116,21 @@ export const categories: Category[] = [
     icon: 'Hand',
     accentColor: '#F59E0B',
     lessonOrder: ['stop-1', 'stop-2', 'stop-3', 'stop-4', 'stop-5', 'stop-6', 'stop-7'],
+  },
+  {
+    // The sale itself. Seven lessons taught stopping someone and eight taught
+    // the products, and between them was a hole where the money actually
+    // changes hands. Authored from the owner's own method, in his words.
+    id: 'closing',
+    title: 'Bring, Close, Collect',
+    titleEs: 'Meter, Cerrar, Cobrar',
+    subtitle: 'From hello to paid',
+    subtitleEs: 'Del hola al pago',
+    description:
+      'You stopped them. Now what? These are the five metres from the pavement to the chair, the moment you ask for the money, and the ninety seconds between yes and paid. This is where sales are won and lost after all the hard work is already done.',
+    icon: 'DoorOpen',
+    accentColor: '#FF6B6B',
+    lessonOrder: ['close-1', 'close-2', 'close-3'],
   },
   {
     id: 'products',
@@ -6793,6 +6809,7 @@ export const lessons: Record<string, Lesson> = {
   // that reads `lessons` resolve them exactly like the 31 above.
   ...scenarioLessons,
   ...objectionLessons,
+  ...closingLessons,
 };
 
 // The lesson quizzes are maintained in their own file — bilingual, and with the
