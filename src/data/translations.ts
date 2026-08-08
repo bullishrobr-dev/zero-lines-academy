@@ -292,7 +292,7 @@ export const translations = {
     homeLessonsLabel: 'Lecciones',
     homeStreakLabel: 'Racha',
     homeQuickAccess: 'Acceso R\u00e1pido',
-    homeQuickAccessCheatSheets: 'Hojas de Trucos',
+    homeQuickAccessCheatSheets: 'Chuletas',
     homeQuickAccessExercises: 'Ejercicios',
     homeQuickAccessQuizzes: 'Cuestionarios',
 
@@ -392,7 +392,7 @@ export const translations = {
     achMasterSellerDesc: 'Completa TODAS las lecciones',
 
     // ── Cheat Sheets ──
-    cheatSheetsTitle: 'Hojas de Referencia',
+    cheatSheetsTitle: 'Chuletas',
     cheatSheetsSubtitle: 'Referencia r\u00e1pida de precios, guiones, combos y psicolog\u00eda',
     cheatSheetsSearch: 'Buscar guiones, precios, frases...',
     cheatSheetsAll: 'Todo',

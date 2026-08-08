@@ -765,7 +765,7 @@ const quizOneEyeDemo: GeneralQuiz = {
       explanation:
         "Always use LIGHT, UPWARD, GENTLE tapping or sweeping motions. The eye area skin is the thinnest and most delicate on the face — about 0.5mm thick. Hard pressure damages skin, creates redness, and actually works AGAINST the product. Upward motions also counteract gravity (which pulls down), giving a subtle lifting effect during the demo.",
       explanationEs:
-        "Usa siempre movimientos LIGEROS, HACIA ARRIBA, de toque suave. La piel del área de los ojos es la más delgada y delicada del rostro — aproximadamente 0.5mm de grosor. La presión fuerte daña la piel, crea enrojecimiento y en realidad trabaja EN CONTRA del producto. Los movimientos hacia arriba también contrarrestan la gravedad (que jala hacia abajo), dando un efecto sutil de lifting durante la demo."
+        "Usa siempre movimientos LIGEROS, HACIA ARRIBA, de toque suave. La piel del área de los ojos es la más delgada y delicada del rostro — aproximadamente 0.5mm de grosor. La presión fuerte daña la piel, crea enrojecimiento y en realidad trabaja EN CONTRA del producto. Los movimientos hacia arriba también contrarrestan la gravedad (que tira hacia abajo), dando un efecto sutil de lifting durante la demo."
     },
     {
       question:
@@ -1015,7 +1015,7 @@ const quizTouristPsych: GeneralQuiz = {
       explanation:
         "Tourists buying GIFTS have a powerful emotional driver: they want to return home with something MEANINGFUL, not just another magnet or t-shirt. Position our products as 'the gift that keeps giving' — every time her daughter uses the syringe, she will think of her mother and the trip to {locationName}. Emotional connections create higher willingness to spend.",
       explanationEs:
-        "Los turistas que compran REGALOS tienen un poderoso motor emocional: quieren regresar a casa con algo SIGNIFICATIVO, no solo otro imán o camiseta. Posiciona nuestros productos como 'el regalo que sigue dando' — cada vez que su hija use la jeringa, pensará en su madre y el viaje a {locationName}. Las conexiones emocionales crean mayor disposición a gastar."
+        "Los turistas que compran REGALOS tienen un poderoso motor emocional: quieren volver a casa con algo SIGNIFICATIVO, no solo otro imán o camiseta. Posiciona nuestros productos como 'el regalo que sigue dando' — cada vez que su hija use la jeringa, pensará en su madre y el viaje a {locationName}. Las conexiones emocionales crean mayor disposición a gastar."
     },
     {
       question:
@@ -1153,7 +1153,7 @@ const quizTouristPsych: GeneralQuiz = {
       explanation:
         "'I need to think about it' is the #1 stalling tactic. For tourists, you have a UNIQUE weapon: SCARCITY of opportunity. She cannot 'think about it' and come back next week — she is LEAVING. Frame hesitation as active loss: every hour she waits, that price stays behind in {locationName}. 'At home you pay {currency}500 plus shipping. Right here, right now, it is {currency}100. This exact moment is your best deal.'",
       explanationEs:
-        "'Necesito pensarlo' es la táctica de demora #1. Para turistas, tienes un arma ÚNICA: ESCASEZ de oportunidad. Ella no puede 'pensarlo' y regresar la próxima semana — se está YENDO. Enmarca la duda como pérdida activa: cada hora que espera, ese precio se queda en {locationName}. 'En casa pagas {currency}500 más envío. Aquí mismo, ahora mismo, es {currency}100. Este momento exacto es tu mejor oferta.'"
+        "'Necesito pensarlo' es la táctica de demora #1. Para turistas, tienes un arma ÚNICA: ESCASEZ de oportunidad. Ella no puede 'pensarlo' y volver la semana que viene — se está YENDO. Enmarca la duda como pérdida activa: cada hora que espera, ese precio se queda en {locationName}. 'En casa pagas {currency}500 más envío. Aquí mismo, ahora mismo, es {currency}100. Este momento exacto es tu mejor oferta.'"
     }
   ]
 };

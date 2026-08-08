@@ -86,7 +86,7 @@ export interface Exercise {
 const hesitantTouristExercise: Exercise = {
   id: 'ex-hesitant-tourist',
   title: 'Hesitant Tourist',
-  titleEs: 'Turista Hesitante',
+  titleEs: 'Turista Indecisa',
   description:
     'A tourist says "just looking." Practice the right response to turn a brush-off into a demo.',
   descriptionEs:
@@ -109,40 +109,40 @@ const hesitantTouristExercise: Exercise = {
     responses: [
       {
         text: '"No problem! Let me know if you need anything!" (You walk away)',
-        textEs: '"¡Ningún problema! ¡Avísenme si necesitan algo!" (Te alejas)',
+        textEs: '"¡Sin problema! ¡Avisadme si necesitáis algo!" (Te alejas)',
         feedback:
           'You just gave up. "Let me know if you need anything" is the weakest response — 99% of people will never call you back. You lost the sale before it started.',
         feedbackEs:
-          'Acabas de rendirte. "Avísenme si necesitan algo" es la respuesta más débil — el 99% de la gente nunca te llamará. Perdiste la venta antes de empezar.',
+          'Acabas de rendirte. "Avisadme si necesitáis algo" es la respuesta más débil — el 99% de la gente nunca te llamará. Perdiste la venta antes de empezar.',
         score: 0,
       },
       {
         text: '"I completely understand! Before you go — can I show you something that takes exactly 20 seconds? You do not have to buy anything, I just love the reaction people have."',
         textEs:
-          '"¡Lo entiendo completamente! Antes de irse — ¿puedo mostrarle algo que toma exactamente 20 segundos? No tiene que comprar nada, me encanta la reacción de la gente."',
+          '"¡Te entiendo perfectamente! Antes de que te vayas — ¿te enseño una cosa? Son 20 segundos exactos. No tienes que comprar nada, es que me encanta la reacción de la gente."',
         feedback:
           'SOLID! You validated her "just looking" (no pressure), created curiosity with "20 seconds" (low commitment), and removed all risk with "you do not have to buy anything." The "I love the reaction" line makes it personal and hard to refuse. This is how you turn walk-aways into demos.',
         feedbackEs:
-          '¡SÓLIDO! Validaste su "solo miro" (sin presión), creaste curiosidad con "20 segundos" (bajo compromiso), y eliminaste todo el riesgo con "no tiene que comprar nada." La frase "me encanta la reacción" lo hace personal y difícil de rechazar. Así es como conviertes a los que se van en demos.',
+          '¡SÓLIDO! Validaste su "solo miro" (sin presión), creaste curiosidad con "20 segundos" (bajo compromiso), y eliminaste todo el riesgo con "no tienes que comprar nada". La frase "me encanta la reacción" lo hace personal y difícil de rechazar. Así es como conviertes a los que se van en demos.',
         score: 90,
       },
       {
         text: '"Wait! This is the best product we have! You need to try it!" (You grab her arm gently)',
-        textEs: '"¡Espere! ¡Este es el mejor producto que tenemos! ¡Necesita probarlo!" (Le coges el brazo suavemente)',
+        textEs: '"¡Espera! ¡Este es el mejor producto que tenemos! ¡Tienes que probarlo!" (La coges del brazo con suavidad)',
         feedback:
           'WAY too aggressive. Grabbing a customer and saying "you NEED to try it" triggers immediate resistance. Nobody likes to feel pressured. You just confirmed her instinct to walk away.',
         feedbackEs:
-          'DEMASIADO agresivo. Agarrar a un cliente y decir "NECESITA probarlo" desencadena resistencia inmediata. A nadie le gusta sentirse presionado. Acabas de confirmar su instinto de alejarse.',
+          'DEMASIADO agresivo. Coger a una clienta del brazo y decirle "TIENES que probarlo" provoca resistencia inmediata. A nadie le gusta sentirse presionado. Acabas de confirmar su instinto de alejarse.',
         score: 5,
       },
       {
         text: '"Are you shopping for anyone else today? Because this makes the perfect gift — and I will show you why in 30 seconds."',
         textEs:
-          '"¿Está comprando para alguien más hoy? Porque esto hace el regalo perfecto — y le mostraré por qué en 30 segundos."',
+          '"¿Estás comprando para alguien más hoy? Porque esto es el regalo perfecto — y te enseño por qué en 30 segundos."',
         feedback:
           'GREAT approach! The gift angle is disarming — it shifts the focus from "being sold to" to "finding a gift." The "30 seconds" sets a low time commitment. This works especially well with couples and tourists. However, it does not work for everyone — some people are not gift shopping. Solid 75%.',
         feedbackEs:
-          '¡GRAN enfoque! El ángulo de regalo es desarmante — cambia el enfoque de "le están vendiendo" a "encontrar un regalo." Los "30 segundos" establecen un bajo compromiso de tiempo. Esto funciona especialmente bien con parejas y turistas. Sin embargo, no funciona para todos — algunos no están comprando regalos. Un sólido 75%.',
+          '¡GRAN enfoque! El ángulo de regalo es desarmante — cambia el foco de "me están vendiendo" a "estoy buscando un regalo". Los "30 segundos" establecen un bajo compromiso de tiempo. Esto funciona especialmente bien con parejas y turistas. Sin embargo, no funciona para todos — algunos no están comprando regalos. Un sólido 75%.',
         score: 75,
       },
     ],
@@ -170,7 +170,7 @@ const priceObjectionExercise: Exercise = {
     customerProfile:
       'A French woman in her 50s, well-dressed. She was amazed by the syringe demo — her eyes widened when she saw the result. But now she is hesitating.',
     customerProfileEs:
-      'Una mujer francesa de unos 50 años, bien vestida. Le asombró la demo de la jeringuilla — sus ojos se iluminaron cuando vio el resultado. Pero ahora duda.',
+      'Una mujer francesa de unos 50 años, bien vestida. Le asombró la demo de la jeringuilla — se le abrieron los ojos cuando vio el resultado. Pero ahora duda.',
     scenario:
       'Marie says: "Wow, the result is incredible... but {currency}300? That is a lot of money. I was not planning to spend that much today." She starts to hand the product back. What do you do?',
     scenarioEs:
@@ -188,7 +188,7 @@ const priceObjectionExercise: Exercise = {
       {
         text: '"I completely understand — {currency}300 does sound like a lot. But let me ask you this: how much would you expect to pay in a salon in Paris for this exact same treatment? [She says {currency}400-500] Exactly. And this gives you multiple treatments at home. But let me check something for you..." (You pause, then offer) "I can do {currency}210 today — that is 30% off — and I will include a free gift of your choice: cream, cleanser, or peeling. How does that sound?"',
         textEs:
-          '"Lo entiendo completamente — {currency}300 suena a mucho. Pero déjame preguntarte: ¿cuánto esperarías pagar en un salón de París por este mismísimo tratamiento? [Ella dice {currency}400-500] Exacto. Y esto te da tratamientos múltiples en casa. Pero déjeme comprobar algo para usted..." (Pausas, luego ofreces) "Puedo hacer {currency}210 hoy — eso es 30% descuento — e incluiré un regalo gratis a su elección: crema, limpiador o peeling. ¿Qué le parece?"',
+          '"Te entiendo perfectamente — {currency}300 suena a mucho. Pero te pregunto una cosa: ¿cuánto esperarías pagar en un salón de París por este mismo tratamiento? [Ella dice {currency}400-500] Exacto. Y esto te da varios tratamientos en casa. Espera, que te miro una cosa..." (Pausas, luego ofreces) "Te lo puedo hacer hoy a {currency}210 — un 30% menos — y te incluyo un regalo a elegir: crema, limpiador o peeling. ¿Qué me dices?"',
         feedback:
           'EXCELLENT! This is master-level selling. You: 1) Validated her concern, 2) Reframed the price by asking about salon costs (she answers HERSELF that it should cost more), 3) Offered Option 1 at {currency}210 (30% off) with a free gift instead of just dropping the price. You moved down the ladder correctly: {currency}300 → {currency}210 + gift.',
         feedbackEs:
@@ -201,7 +201,7 @@ const priceObjectionExercise: Exercise = {
         feedback:
           'Telling a customer their objection is wrong triggers defensiveness. She said it is "a lot of money" — and for her, it IS. Arguing about it makes you the enemy. Instead, reframe the value or add more to the offer.',
         feedbackEs:
-          'Decirle a un cliente que su objeción está mal desencadena defensiva. Ella dijo que es "mucho dinero" — y para ella, LO ES. Discutir sobre ello te convierte en el enemigo. En su lugar, reformula el valor o añade más a la oferta.',
+          'Decirle a una clienta que su objeción está mal la pone a la defensiva. Ella dijo que es "mucho dinero" — y para ella, LO ES. Discutir sobre ello te convierte en el enemigo. En su lugar, reformula el valor o añade más a la oferta.',
         score: 10,
       },
       {
@@ -246,21 +246,21 @@ const giftShopperExercise: Exercise = {
     responses: [
       {
         text: '"Everything is good, just pick whatever you want!"',
-        textEs: '"¡Todo es bueno, elija lo que quiera!"',
+        textEs: '"¡Todo está muy bien, elige lo que quieras!"',
         feedback:
           'You just abandoned her. She came to you FOR guidance. Saying "pick whatever" means you are not helping. She will likely leave overwhelmed and buy nothing.',
         feedbackEs:
-          'Acabas de abandonarla. Ella vino a ti PARA que la guíes. Decir "elija lo que quiera" significa que no estás ayudando. Probablemente se irá abrumada y no comprará nada.',
+          'Acabas de abandonarla. Ella ha venido a ti PARA que la guíes. Decir "elige lo que quieras" es no ayudar. Probablemente se irá abrumada y no comprará nada.',
         score: 0,
       },
       {
         text: '"Perfect — I have exactly what you need. Our Buy 2, Get 1 Free deal on Scrub and Body Butter: you pick any 3 products for {currency}120. One for your sister, one for your mom, one for your friend — and you stay right on budget. Plus I will include free gift bags for all three. Which scents would you like?"',
         textEs:
-          '"Perfecto — tengo exactamente lo que necesita. Nuestra oferta Compra 2, Lleva 1 Gratis en Exfoliante y Manteca Corporal: elige 3 productos por {currency}120. Uno para su hermana, uno para su madre, uno para su amiga — y se mantiene justo en el presupuesto. Además incluiré bolsas de regalo gratis para los tres. ¿Qué aromas le gustarían?"',
+          '"Perfecto — tengo exactamente lo que necesitas. Nuestra oferta Compra 2, Lleva 1 Gratis en Exfoliante y Manteca Corporal: eliges 3 productos por {currency}120. Uno para tu hermana, uno para tu madre, uno para tu amiga — y te quedas justo en el presupuesto. Además te pongo bolsas de regalo para los tres. ¿Qué aromas quieres?"',
         feedback:
           'PERFECT! You: 1) Showed confidence ("exactly what you need"), 2) Matched her {currency}120 budget perfectly with Buy 2 Get 1 ({currency}120/3), 3) Made it personal (one for each person), 4) Added free gift bags (perceived value), 5) Asked a follow-up question ("which scents") to move toward closing. This is consultative selling at its finest.',
         feedbackEs:
-          '¡PERFECTO! Tú: 1) Mostraste confianza ("exactamente lo que necesita"), 2) Coincidiste con su presupuesto de {currency}120 perfectamente con Compra 2 Lleva 1 ({currency}120/3), 3) Lo hiciste personal (uno para cada persona), 4) Añadiste bolsas de regalo gratis (valor percibido), 5) Hiciste una pregunta de seguimiento ("qué aromas") para avanzar hacia el cierre. Esto es venta consultiva en su máxima expresión.',
+          '¡PERFECTO! Tú: 1) Mostraste confianza ("exactamente lo que necesitas"), 2) Coincidiste con su presupuesto de {currency}120 perfectamente con Compra 2 Lleva 1 ({currency}120/3), 3) Lo hiciste personal (uno para cada persona), 4) Añadiste bolsas de regalo gratis (valor percibido), 5) Hiciste una pregunta de seguimiento ("qué aromas") para avanzar hacia el cierre. Esto es venta consultiva en su máxima expresión.',
         score: 100,
       },
       {
@@ -274,7 +274,7 @@ const giftShopperExercise: Exercise = {
       },
       {
         text: '"The scrub is really popular. Your mom and sister would both love it. Two scrubs for {currency}60 — done!"',
-        textEs: '"El exfoliante es muy popular. A su madre y hermana les encantaría. Dos exfoliantes por {currency}60 — ¡listo!"',
+        textEs: '"El exfoliante se vende muchísimo. A tu madre y a tu hermana les encantaría. Dos exfoliantes por {currency}60 — ¡listo!"',
         feedback:
           'Decent but missed a huge opportunity. She needs THREE gifts for {currency}120. You sold two scrubs for {currency}60 when you could have sold 3 products for {currency}120 with Buy 2 Get 1. Also, you did not create any emotional connection. Functional but not great.',
         feedbackEs:
@@ -309,7 +309,7 @@ const syringePriceDrill: Exercise = {
     customerReaction:
       'Customer nods but says "That IS expensive in Europe." They are waiting for you to continue.',
     customerReactionEs:
-      'El cliente asiente pero dice "Eso SÍ es caro en Europa." Te están esperando para que continúes.',
+      'El cliente asiente pero dice "Eso SÍ es caro en Europa." Están esperando a que sigas.',
     options: [
       {
         text: 'Drop immediately to the absolute minimum of {currency}100',
@@ -323,7 +323,7 @@ const syringePriceDrill: Exercise = {
       {
         text: 'Reveal the {locationName} price: "Here in {locationName}, it is only {currency}300 — a fraction of what you would pay in Paris."',
         textEs:
-          'Revelar el precio de {locationName}: "Aquí en {locationName}, es solo {currency}300 — una fracción de lo que pagaría en París."',
+          'Revelar el precio de {locationName}: "Aquí en {locationName}, es solo {currency}300 — una fracción de lo que pagarías en París."',
         correct: true,
         explanation:
           'Correct! The flow is: Europe anchor ({currency}500) → {locationName} base ({currency}300) → Offer Option 1 ({currency}210 + gift) or Option 2 ({currency}300 + 2nd syringe) → adaptive ({currency}175) → voucher ({currency}140) → minimum ({currency}100). You are on step 2.',
@@ -403,7 +403,7 @@ const peelingPriceDrill: Exercise = {
       },
       {
         text: 'Offer Option 2: "At {currency}150 I will include our Day & Night Cream completely free — that is a {currency}60 value on top of your peeling."',
-        textEs: 'Ofrecer Opción 2: "A {currency}150 incluiré nuestra Crema Día y Noche completamente gratis — eso es un valor de {currency}60 además de su peeling."',
+        textEs: 'Ofrecer Opción 2: "A {currency}150 incluiré nuestra Crema Día y Noche completamente gratis — eso son {currency}60 de regalo encima de tu peeling."',
         correct: false,
         explanation:
           'Option 2 maintains the {currency}150 price by adding the Day & Night Cream free. But the customer already signaled hesitation at {currency}150 — she needs a price DROP, not just added value. Option 1 ({currency}100 + scrub) would be the better first move here.',
@@ -436,7 +436,7 @@ const matchTechniqueExercise: Exercise = {
         definition:
           'Approach the customer within 3 seconds of them entering your zone, before they form a "just looking" defense.',
         definitionEs:
-          'Acércate al cliente en 3 segundos de que entren en tu zona, antes de que formen una defensa de "solo miro".',
+          'Acércate al cliente en los 3 segundos siguientes a que entre en tu zona, antes de que monte la defensa del "solo miro".',
       },
       {
         term: 'Europe Price Anchor',
@@ -464,7 +464,7 @@ const matchTechniqueExercise: Exercise = {
       },
       {
         term: 'Minimum / Floor',
-        termEs: 'Mínimo / Piso',
+        termEs: 'Mínimo / Suelo',
         definition:
           'The last-resort price you never cross: {currency}100 for the syringe, {currency}50 for the peeling, {currency}30 for scrub/nail kit. Only when the customer is genuinely walking away.',
         definitionEs:
@@ -484,7 +484,7 @@ const matchTechniqueExercise: Exercise = {
         definition:
           'Using testimonials, sales numbers, or crowd behavior to influence the buying decision.',
         definitionEs:
-          'Usar testimonios, números de ventas o comportamiento de multitud para influir en la decisión de compra.',
+          'Usar testimonios, cifras de ventas o lo que hace el resto de la gente para influir en la decisión de compra.',
       },
       {
         term: 'Adaptive Pricing',
@@ -492,7 +492,7 @@ const matchTechniqueExercise: Exercise = {
         definition:
           'Reading customer signals (clothes, engagement, reactions) and tailoring your offer to match their budget and interest.',
         definitionEs:
-          'Leer las señales del cliente (ropa, compromiso, reacciones) y adaptar tu oferta para coincidir con su presupuesto e interés.',
+          'Leer las señales del cliente (ropa, interés, reacciones) y adaptar tu oferta a su presupuesto y a sus ganas.',
       },
       {
         term: 'Reciprocity (Cialdini)',
@@ -500,7 +500,7 @@ const matchTechniqueExercise: Exercise = {
         definition:
           'Giving something first (demo, sample, compliment) makes people feel obliged to give back — often with a purchase.',
         definitionEs:
-          'Dar algo primero (demo, muestra, cumplido) hace que la gente se sienta obligada a devolver — a menudo con una compra.',
+          'Dar algo primero (demo, muestra, cumplido) hace que la gente se sienta obligada a devolver el favor — a menudo con una compra.',
       },
     ],
   },
@@ -525,7 +525,7 @@ const orderPitchExercise: Exercise = {
       {
         text: 'Stop the customer with a curiosity hook: "Can I show you something amazing? It takes 30 seconds."',
         textEs:
-          'Parar al cliente con un gancho de curiosidad: "¿Puedo mostrarle algo increíble? Toma 30 segundos."',
+          'Parar al cliente con un gancho de curiosidad: "¿Te enseño una cosa increíble? Son 30 segundos."',
         correctOrder: 1,
       },
       {
@@ -570,11 +570,11 @@ const orderPitchExercise: Exercise = {
 const skepticalHusbandExercise: Exercise = {
   id: 'ex-skeptical-husband',
   title: 'Skeptical Husband',
-  titleEs: 'Esposo Escéptico',
+  titleEs: 'Marido Escéptico',
   description:
     'The wife is interested but the husband thinks it is a scam. Win them both over.',
   descriptionEs:
-    'La esposa está interesada pero el esposo piensa que es una estafa. Convence a ambos.',
+    'A ella le interesa pero el marido cree que es una estafa. Convence a los dos.',
   type: 'roleplay',
   icon: 'Users',
   xpReward: 35,
@@ -594,7 +594,7 @@ const skepticalHusbandExercise: Exercise = {
       {
         text: '"Sir, this is definitely NOT makeup. It is a professional treatment. You can trust us."',
         textEs:
-          '"Señor, esto definitivamente NO es maquillaje. Es un tratamiento profesional. Puede confiar en nosotros."',
+          '"Que no, que esto NO es maquillaje. Es un tratamiento profesional. Puedes fiarte de nosotros."',
         feedback:
           '"You can trust us" is the LEAST trustworthy thing you can say. A skeptical person needs PROOF, not claims. You just sounded defensive, which confirms his suspicion.',
         feedbackEs:
@@ -604,29 +604,29 @@ const skepticalHusbandExercise: Exercise = {
       {
         text: '"Sir, I completely understand your skepticism — there are a lot of gimmicks out there. Here is what I suggest: let me do the demo on YOUR hand too. That way YOU can see there is no makeup — just your own skin, 60 seconds apart. What do you say?"',
         textEs:
-          '"Señor, entiendo completamente su escepticismo — hay muchos trucos por ahí. Esto es lo que sugiero: déjame hacerte la demo en TU mano también. Así TÚ ves que no hay maquillaje — solo tu propia piel, con 60 segundos de diferencia. ¿Qué dice?"',
+          '"Te entiendo perfectamente, que hay mucho cuento por ahí. Mira lo que te propongo: te hago la demo a TI, en tu mano. Así lo ves TÚ — que no hay maquillaje, es tu propia piel con 60 segundos de diferencia. ¿Qué me dices?"',
         feedback:
           'BRILLIANT! You: 1) Validated his skepticism (not defensive), 2) Agreed there are gimmicks (builds rapport), 3) Offered proof on HIS skin (undeniable evidence), 4) Made it a challenge he cannot refuse. Once he sees the result on his own hand, he becomes your ally, not your enemy.',
         feedbackEs:
-          '¡BRILLANTE! Tú: 1) Validaste su escepticismo (no defensivo), 2) Acordaste que hay trucos (construye rapport), 3) Ofreciste prueba en SU piel (evidencia innegable), 4) Lo convertiste en un reto que no puede rechazar. Una vez que vea el resultado en su propia mano, se convierte en tu aliado, no tu enemigo.',
+          '¡BRILLANTE! Tú: 1) Validaste su escepticismo (no defensivo), 2) Le diste la razón en que hay mucho truco (creas complicidad), 3) Ofreciste prueba en SU piel (evidencia innegable), 4) Lo convertiste en un reto que no puede rechazar. Una vez que vea el resultado en su propia mano, se convierte en tu aliado, no tu enemigo.',
         score: 100,
       },
       {
         text: '"Sir, your wife loves it and she wants it. Do not ruin her experience."',
-        textEs: '"Señor, a su esposa le encanta y lo quiere. No arruine su experiencia."',
+        textEs: '"A tu mujer le encanta y lo quiere. No le fastidies el momento."',
         feedback:
           'Making the husband the villain will backfire completely. Now he feels attacked AND his wife feels awkward. You created a conflict between them instead of solving his concern.',
         feedbackEs:
-          'Hacer al esposo el villano se volverá completamente en tu contra. Ahora se siente atacado Y su esposa se siente incómoda. Creaste un conflicto entre ellos en lugar de resolver su preocupación.',
+          'Hacer del marido el villano se te va a volver en contra. Ahora se siente atacado Y su mujer se queda incómoda. Creaste un conflicto entre ellos en lugar de resolver su preocupación.',
         score: 0,
       },
       {
         text: '"I understand, sir. Here is my card — come back if you change your mind."',
-        textEs: '"Entiendo, señor. Aquí está mi tarjeta — vuelvan si cambian de opinión."',
+        textEs: '"Lo entiendo. Aquí tienes mi tarjeta — volved si cambiáis de opinión."',
         feedback:
           'You gave up on a hot prospect. Margaret LOVED the demo. The only barrier is John\'s skepticism, which you could have overcome with proof. Giving a card means you will likely never see them again.',
         feedbackEs:
-          'Te rendiste con un prospecto caliente. A Margaret le ENCANTÓ la demo. La única barrera es el escepticismo de John, que podrías haber superado con pruebas. Dar una tarjeta significa que probablemente nunca los volverás a ver.',
+          'Te rendiste con una venta que estaba caliente. A Margaret le ENCANTÓ la demo. La única barrera es el escepticismo de John, que podrías haber superado con pruebas. Dar una tarjeta significa que probablemente nunca los volverás a ver.',
         score: 5,
       },
     ],
@@ -654,7 +654,7 @@ const theDoubterExercise: Exercise = {
     customerProfile:
       'A Spanish woman in her 40s, well-groomed. She watched the full syringe demo with interest but now seems hesitant. She carries a luxury handbag.',
     customerProfileEs:
-      'Una mujer española de unos 40 años, bien arreglada. Vio la demo completa de jeringuilla con interés pero ahora parece hesitante. Lleva un bolso de lujo.',
+      'Una mujer española de unos 40 años, bien arreglada. Ha visto la demo entera de la jeringuilla con interés, pero ahora parece que duda. Lleva un bolso de lujo.',
     scenario:
       'Elena says: "The result is impressive, I admit. But I already have La Mer cream at home that I use every night. It is very expensive and works well. I do not think I need another product." She starts to step away. What do you say?',
     scenarioEs:
@@ -672,16 +672,16 @@ const theDoubterExercise: Exercise = {
       {
         text: '"I completely understand — most of our customers use La Mer or similar creams too. But here is the thing: even La Mer works on the surface. This hyaluronic acid syringe works from the inside by delivering active ingredients directly to the deeper layers. It is not replacing your La Mer — it is doing what La Mer cannot. Think of it as a monthly salon treatment you do at home. Can I show you how easy it is to use?"',
         textEs:
-          '"Lo entiendo completamente — la mayoría de nuestros clientes también usan La Mer o cremas similares. Pero esto es lo que pasa: incluso La Mer trabaja en la superficie. Esta jeringuilla de ácido hialurónico trabaja desde dentro al entregar ingredientes activos directamente a las capas más profundas. No está reemplazando su La Mer — está haciendo lo que La Mer no puede. Piense en ello como un tratamiento mensual de salón que hace en casa. ¿Puedo mostrarle qué fácil es de usar?"',
+          '"Te entiendo perfectamente — la mayoría de nuestras clientas usan La Mer o cremas parecidas. Pero mira: hasta La Mer actúa en la superficie. Esta jeringuilla de ácido hialurónico actúa desde dentro, llevando los principios activos a las capas profundas. No sustituye a tu La Mer — hace lo que La Mer no puede. Piénsalo como un tratamiento de salón al mes, pero en tu casa. ¿Te enseño lo fácil que es de usar?"',
         feedback:
           'PERFECT response! You: 1) Validated her La Mer (no insult), 2) Educated without lecturing (surface vs deep), 3) Positioned as complementary, not replacement, 4) Used the salon comparison (familiar luxury framing), 5) Offered to show usage (low-commitment next step). This is textbook consultative selling.',
         feedbackEs:
-          '¡Respuesta PERFECTA! Tú: 1) Validaste su La Mer (sin insulto), 2) Educaste sin dar lecciones (superficie vs profundo), 3) Posicionaste como complementario, no reemplazo, 4) Usaste la comparación con salón (enmarcado de lujo familiar), 5) Ofreciste mostrar uso (siguiente paso de bajo compromiso). Esto es venta consultiva de manual.',
+          '¡Respuesta PERFECTA! Tú: 1) Validaste su La Mer (sin insulto), 2) Enseñaste sin dar lecciones (superficie contra profundidad), 3) La colocaste como complemento, no como sustituto, 4) Usaste la comparación con el salón, un lujo que ella ya conoce, 5) Te ofreciste a enseñarle cómo se usa (siguiente paso de bajo compromiso). Esto es venta consultiva de manual.',
         score: 100,
       },
       {
         text: '"Okay, that makes sense. Have a nice day!"',
-        textEs: '"Vale, tiene sentido. ¡Que tenga un buen día!"',
+        textEs: '"Vale, tiene sentido. ¡Que tengas buen día!"',
         feedback:
           'You accepted her objection without even trying. She was interested enough to watch the full demo and carries a luxury bag — that means she has spending power. Your job is to bridge the gap between "I have La Mer" and "I want this too."',
         feedbackEs:
@@ -731,7 +731,7 @@ const bodyLanguageExercise: Exercise = {
         definition:
           'Strong buying signal. The "endowment effect" — they are imagining ownership. Once they hold it, they are more likely to buy it.',
         definitionEs:
-          'Fuerte señal de compra. El "efecto de dotación" — se están imaginando como dueños. Una vez que lo sostienen, es más probable que lo compren.',
+          'Fuerte señal de compra. El "efecto dotación" — ya se lo están imaginando suyo. Una vez que lo sostienen, es más probable que lo compren.',
       },
       {
         term: 'Customer looks at partner repeatedly',
@@ -739,7 +739,7 @@ const bodyLanguageExercise: Exercise = {
         definition:
           'They are seeking permission or validation. Engage BOTH people — ask the partner for their opinion to bring them into the decision.',
         definitionEs:
-          'Buscan permiso o validación. Involucra a AMBAS personas — pide la opinión de la pareja para traerlos a la decisión.',
+          'Buscan permiso o validación. Involucra a AMBAS personas — pide la opinión de la pareja para meterla en la decisión.',
       },
       {
         term: 'Leaning in closer to see the demo',
@@ -747,7 +747,7 @@ const bodyLanguageExercise: Exercise = {
         definition:
           'High engagement and interest. They are invested in the outcome. This is your green light to proceed with confidence.',
         definitionEs:
-          'Alto compromiso e interés. Están invertidos en el resultado. Esta es tu luz verde para proceder con confianza.',
+          'Muy enganchados e interesados. Les importa el resultado. Esta es tu luz verde para proceder con confianza.',
       },
       {
         term: 'Crossed arms, stepping back',
@@ -755,7 +755,7 @@ const bodyLanguageExercise: Exercise = {
         definition:
           'Defensive posture. They feel pressured or skeptical. Create space, lower your energy, and use curiosity-based hooks to re-engage.',
         definitionEs:
-          'Postura defensiva. Se sienten presionados o escépticos. Crea espacio, baja tu energía, y usa ganchos basados en curiosidad para volver a involucrar.',
+          'Postura defensiva. Se sienten presionados o escépticos. Crea espacio, baja tu energía, y y usa ganchos de curiosidad para volver a engancharlos.',
       },
       {
         term: 'Asking "How long does it last?"',
@@ -779,7 +779,7 @@ const bodyLanguageExercise: Exercise = {
         definition:
           'Distraction or disengagement. They are looking for an exit or a reason to leave. Re-engage with a direct question or a surprising statement.',
         definitionEs:
-          'Distracción o descompromiso. Están buscando una salida o una razón para irse. Vuelve a involucrar con una pregunta directa o una declaración sorprendente.',
+          'Distracción o desconexión. Están buscando una salida o una excusa para irse. Vuelve a engancharlos con una pregunta directa o algo que les sorprenda.',
       },
     ],
   },

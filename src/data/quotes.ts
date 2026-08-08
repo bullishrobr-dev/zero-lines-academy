@@ -27,7 +27,7 @@ const confidenceQuotes: Quote[] = [
   {
     id: 'conf-3',
     text: 'Confidence is not "they will like me." Confidence is "I\'ll be fine if they don\'t."',
-    textEs: 'La confianza no es "les caeré bien". La confianza es "me va a ir bien si no es así".',
+    textEs: 'La confianza no es "les voy a caer bien". La confianza es "no pasa nada si no les caigo".',
     author: 'Christina Grimmie',
   },
   {
@@ -39,7 +39,7 @@ const confidenceQuotes: Quote[] = [
   {
     id: 'conf-5',
     text: 'Act as if what you do makes a difference. It does.',
-    textEs: 'Actúa como si lo que haces marcará la diferencia. Y la marca.',
+    textEs: 'Actúa como si lo que haces marcara la diferencia. Porque la marca.',
     author: 'William James',
   },
   {
@@ -75,7 +75,7 @@ const confidenceQuotes: Quote[] = [
   {
     id: 'conf-11',
     text: 'Your energy introduces you before you even speak. Make it count.',
-    textEs: 'Tu energía te presenta antes de que abra la boca. Haz que cuente.',
+    textEs: 'Tu energía te presenta antes de que abras la boca. Haz que cuente.',
     author: 'Zero Lines',
   },
   {
@@ -193,7 +193,7 @@ const actionQuotes: Quote[] = [
   {
     id: 'act-15',
     text: 'The floor is your stage. Step onto it.',
-    textEs: 'La tienda es tu escenario. Súbete a ella.',
+    textEs: 'La tienda es tu escenario. Súbete a él.',
     author: 'Zero Lines',
   },
 ];
@@ -215,13 +215,13 @@ const resilienceQuotes: Quote[] = [
   {
     id: 'res-3',
     text: 'The comeback is always stronger than the setback.',
-    textEs: 'El vuelta siempre es más fuerte que el revés.',
+    textEs: 'La remontada siempre es más fuerte que el revés.',
     author: 'Unknown',
   },
   {
     id: 'res-4',
     text: 'Fall seven times, stand up eight.',
-    textEs: 'Caíste siete veces, levántate ocho.',
+    textEs: 'Cáete siete veces, levántate ocho.',
     author: 'Japanese Proverb',
   },
   {
@@ -257,13 +257,13 @@ const resilienceQuotes: Quote[] = [
   {
     id: 'res-10',
     text: 'The salesperson who got rejected ten times and showed up for number eleven is the one who wins.',
-    textEs: 'El vendedor que fue rechazado diez veces y apareció para el once es el que gana.',
+    textEs: 'El vendedor al que rechazaron diez veces y volvió a por el número once es el que gana.',
     author: 'Zero Lines',
   },
   {
     id: 'res-11',
     text: 'Your worst day this month still taught you something your best day last month didn\'t.',
-    textEs: 'Tu peor día este mes aun así te enseñó algo que tu mejor día del mes pasado no lo hizo.',
+    textEs: 'Tu peor día de este mes te enseñó algo que tu mejor día del mes pasado no te enseñó.',
     author: 'Zero Lines',
   },
   {
@@ -303,7 +303,7 @@ const salesQuotes: Quote[] = [
   {
     id: 'sale-2',
     text: 'Every sale has five basic obstacles: no need, no money, no hurry, no desire, no trust.',
-    textEs: 'Cada venta tiene cinco obstáculos básicos: no necesidad, no dinero, no prisa, no deseo, no confianza.',
+    textEs: 'Cada venta tiene cinco obstáculos básicos: sin necesidad, sin dinero, sin prisa, sin deseo, sin confianza.',
     author: 'Zig Ziglar',
   },
   {
@@ -315,7 +315,7 @@ const salesQuotes: Quote[] = [
   {
     id: 'sale-4',
     text: 'The best salespeople are problem solvers, not product pushers.',
-    textEs: 'Los mejores vendedores son solucionadores de problemas, no impositores de productos.',
+    textEs: 'Los mejores vendedores solucionan problemas, no colocan productos.',
     author: 'Zero Lines',
   },
   {
@@ -357,13 +357,13 @@ const salesQuotes: Quote[] = [
   {
     id: 'sale-11',
     text: 'Your commission check is a report card on how many people you helped today.',
-    textEs: 'Tu comisión es un boletín de calificaciones sobre cuántas personas ayudaste hoy.',
+    textEs: 'Tu comisión es el boletín de notas de a cuánta gente has ayudado hoy.',
     author: 'Zero Lines',
   },
   {
     id: 'sale-12',
     text: 'If you\'re not making mistakes, you\'re not trying hard enough. Risk the stop. Risk the demo. Risk the close.',
-    textEs: 'Si no estás cometiendo errores, no te estás esforzando lo suficiente. Arrísgate a parar. Arrísgate a demostrar. Arrísgate a cerrar.',
+    textEs: 'Si no estás cometiendo errores, no te estás esforzando lo suficiente. Arriésgate a parar. Arriésgate a la demo. Arriésgate a cerrar.',
     author: 'Zero Lines',
   },
   {
@@ -391,7 +391,7 @@ const energyQuotes: Quote[] = [
   {
     id: 'nrg-1',
     text: 'Enthusiasm is the sparkle in your eyes, the swing in your gait, the grip of your hand.',
-    textEs: 'El entusiasmo es el brillo en tus ojos, el swing en tu paso, el apretón de tu mano.',
+    textEs: 'El entusiasmo es el brillo de tus ojos, el brío de tu paso, la fuerza de tu apretón de manos.',
     author: 'Henry Ford',
   },
   {
@@ -409,7 +409,7 @@ const energyQuotes: Quote[] = [
   {
     id: 'nrg-4',
     text: 'Your energy is contagious. Infect the whole floor.',
-    textEs: 'Tu energía es contagiosa. Infecta toda la tienda.',
+    textEs: 'Tu energía se contagia. Contágiala a toda la tienda.',
     author: 'Zero Lines',
   },
   {
@@ -445,7 +445,7 @@ const energyQuotes: Quote[] = [
   {
     id: 'nrg-10',
     text: 'Passion is energy. Feel the power that comes from focusing on what excites you.',
-    textEs: 'La pasión es energía. Siente el poder que viene de enfocarte en lo que te apasiona.',
+    textEs: 'La pasión es energía. Siente el poder que viene de centrarte en lo que te apasiona.',
     author: 'Oprah Winfrey',
   },
 ];
@@ -473,7 +473,7 @@ const rejectionQuotes: Quote[] = [
   {
     id: 'rej-4',
     text: 'The only thing we have to fear is fear itself.',
-    textEs: 'Lo único que tenemos que temer es al propio miedo.',
+    textEs: 'A lo único que tenemos que temer es al miedo mismo.',
     author: 'Franklin D. Roosevelt',
   },
   {
@@ -503,13 +503,13 @@ const rejectionQuotes: Quote[] = [
   {
     id: 'rej-9',
     text: 'Every top earner has a graveyard of "no"s behind them. That\'s how you know they\'re warriors.',
-    textEs: 'Todo buen vendedor tiene un cementerio de "no" detrás de ellos. Así es como sabes que son guerreros.',
+    textEs: 'Todo gran vendedor lleva detrás un cementerio de "noes". Así es como sabes que es un guerrero.',
     author: 'Zero Lines',
   },
   {
     id: 'rej-10',
     text: 'The worst they can say is no. The best they can say changes your whole day. Risk it.',
-    textEs: 'Lo peor que pueden decir es no. Lo mejor que pueden decir cambia todo tu día. Arrísgate.',
+    textEs: 'Lo peor que pueden decir es no. Lo mejor que pueden decir te cambia el día entero. Arriésgate.',
     author: 'Zero Lines',
   },
 ];
@@ -531,7 +531,7 @@ const successQuotes: Quote[] = [
   {
     id: 'suc-3',
     text: 'Success usually comes to those who are too busy to be looking for it.',
-    textEs: 'El éxito suele venir a quienes están demasiado ocupados buscándolo.',
+    textEs: 'El éxito suele llegar a quienes están demasiado ocupados para buscarlo.',
     author: 'Henry David Thoreau',
   },
   {
@@ -543,7 +543,7 @@ const successQuotes: Quote[] = [
   {
     id: 'suc-5',
     text: 'The harder you work for something, the greater you\'ll feel when you achieve it.',
-    textEs: 'Cuanto más duro trabajas por algo, mayor te sentirás cuando lo logres.',
+    textEs: 'Cuanto más te dejas la piel en algo, más grande te sientes cuando lo consigues.',
     author: 'Unknown',
   },
   {
@@ -567,7 +567,7 @@ const successQuotes: Quote[] = [
   {
     id: 'suc-9',
     text: 'The gap between average and extraordinary is narrower than you think. Cross it today.',
-    textEs: 'La brecha entre lo mediocre y lo extraordinario es más estrecha de lo que crees. Cruízala hoy.',
+    textEs: 'La brecha entre lo mediocre y lo extraordinario es más estrecha de lo que crees. Crúzala hoy.',
     author: 'Zero Lines',
   },
   {
@@ -583,7 +583,7 @@ const morningQuotes: Quote[] = [
   {
     id: 'mor-1',
     text: 'Today is a new day. Even if you were terrible yesterday, today you can be great.',
-    textEs: 'Hoy es un nuevo día. Incluso si ayer fue terrible, hoy puedes ser grande.',
+    textEs: 'Hoy es un día nuevo. Aunque ayer lo hicieras fatal, hoy puedes ser grande.',
     author: 'Zero Lines',
   },
   {
@@ -595,7 +595,7 @@ const morningQuotes: Quote[] = [
   {
     id: 'mor-3',
     text: 'Write down your goal for today. Now double it. That\'s your real target.',
-    textEs: 'Escribe tu objetivo para hoy. Ahora lo duplicas. Ese es tu verdadero objetivo.',
+    textEs: 'Escribe tu objetivo para hoy. Ahora dóblalo. Ese es tu objetivo de verdad.',
     author: 'Zero Lines',
   },
   {
@@ -637,7 +637,7 @@ const morningQuotes: Quote[] = [
   {
     id: 'mor-10',
     text: 'You don\'t need motivation. You need momentum. Start moving.',
-    textEs: 'No necesitas motivación. Necesitas momentum. Empieza a moverte.',
+    textEs: 'No necesitas motivación. Necesitas impulso. Empieza a moverte.',
     author: 'Zero Lines',
   },
 ];
@@ -647,7 +647,7 @@ const legendaryQuotes: Quote[] = [
   {
     id: 'leg-1',
     text: 'Sales are contingent upon the attitude of the salesman, not the attitude of the prospect.',
-    textEs: 'Las ventas dependen de la actitud del vendedor, no de la actitud del prospecto.',
+    textEs: 'Las ventas dependen de la actitud del vendedor, no de la del cliente potencial.',
     author: 'William Clement Stone',
   },
   {
@@ -659,7 +659,7 @@ const legendaryQuotes: Quote[] = [
   {
     id: 'leg-3',
     text: 'The most unprofitable item ever manufactured is an excuse.',
-    textEs: 'El artículo más infructuoso jamás fabricado es una excusa.',
+    textEs: 'El artículo menos rentable jamás fabricado es una excusa.',
     author: 'John Mason',
   },
   {

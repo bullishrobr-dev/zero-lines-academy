@@ -179,7 +179,7 @@ export const syringeData = {
     advancedScript:
       '"Can I be honest with you? There\'s not a big difference between the two options anyway. I really feel like you\'d use it for those extra areas, and honestly, you\'re the type who will take care of it properly. So I\'ll do something nice \u2014 if you take the bigger option, I\'ll give you both my Day and Night Cream completely free."',
     advancedScriptEs:
-      '"\u00bfPuedo ser honesto contigo? No hay una gran diferencia entre las dos opciones de todos modos. Realmente siento que lo usar\u00edas para esas \u00e1reas extra, y honestamente, eres del tipo que lo cuidar\u00e1 bien. As\u00ed que har\u00e9 algo lindo \u2014 si tomas la opci\u00f3n m\u00e1s grande, te dar\u00e9 tanto mi Crema de D\u00eda como mi Crema de Noche completamente gratis."',
+      '"\u00bfPuedo ser honesto contigo? No hay una gran diferencia entre las dos opciones de todos modos. Realmente siento que lo usar\u00edas para esas \u00e1reas extra, y honestamente, eres del tipo que lo cuidar\u00e1 bien. As\u00ed que voy a hacer una cosa bonita \u2014 si tomas la opci\u00f3n m\u00e1s grande, te dar\u00e9 tanto mi Crema de D\u00eda como mi Crema de Noche completamente gratis."',
   },
 
   /* ─── Price Ladder ─── */
@@ -288,7 +288,7 @@ export const syringeData = {
     whatsappNote:
       'This creates a personal relationship \u2014 not just a transaction. Returning customers are your easiest future sales.',
     whatsappNoteEs:
-      'Esto crea una relaci\u00f3n personal \u2014 no solo una transacci\u00f3n. Los clientes que regresan son tus ventas futuras m\u00e1s f\u00e1ciles.',
+      'Esto crea una relaci\u00f3n personal \u2014 no solo una transacci\u00f3n. Los clientes que vuelven son tus ventas futuras m\u00e1s f\u00e1ciles.',
   },
 
   /* ─── The Two Offers ───

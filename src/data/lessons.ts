@@ -894,7 +894,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'This would make an incredible Christmas gift for her — but honestly? Use it together. The Scrub and Body Butter work for men too. Make it a couples\' spa night at home.\' This transforms a single purchase into a shared experience and removes the \'selfish purchase\' barrier.',
-      textEs: '\'Esto sería un regalo de Navidad increíble para ella — pero ¿honestamente? Úsenlo juntos. El Scrub y la Body Butter también funcionan para hombres. Hagan una noche de spa en casa.\' Esto transforma una compra individual en una experiencia compartida y elimina la barrera de la \'compra egoísta\'.',
+      textEs: '\'Esto sería un regalo de Navidad increíble para ella — pero ¿honestamente? Usadlo juntos. El Scrub y la Body Butter también funcionan para hombres. Hagan una noche de spa en casa.\' Esto transforma una compra individual en una experiencia compartida y elimina la barrera de la \'compra egoísta\'.',
     },
     {
             type: 'quote',
@@ -2517,7 +2517,7 @@ export const lessons: Record<string, Lesson> = {
           'LA VERSIÓN AMIGABLE: \'Vale, voy a hacer algo que probablemente no debería... pero pareces tan encantador, y realmente quiero que tengas esto. ¡Solo no le digas a mi jefe!\' Juguetona, conspirativa.',
           'LA VERSIÓN DIRECTA: \'Vale, déjame mirar una cosa... eso es. Me queda un cupón y solo vale para la individual. Eso la deja en {currency}140. Ese es el número, no te lo puedo dejar mejor.\' Para el que no quiere el guiño.',
           'LA VERSIÓN URGENTE: \'Solo me queda un voucher hoy, y honestamente, lo he estado guardando para alguien que realmente aprecie el producto. Ese eres tú. {currency}140, solo esta vez.\' Escasez + personalización.',
-          'LA VERSIÓN DE RELACIÓN: \'Quiero que seas un cliente feliz que regrese. Así que esto es lo que haré — {currency}140 en la individual, y tendrás mi WhatsApp para cualquier cosa que necesites después.\' Enfoque a largo plazo.',
+          'LA VERSIÓN DE RELACIÓN: \'Quiero que seas un cliente contento que vuelva. Así que esto es lo que haré — {currency}140 en la individual, y tendrás mi WhatsApp para cualquier cosa que necesites después.\' Enfoque a largo plazo.',
         ],
     },
     {
@@ -3390,7 +3390,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'Getting a customer to return is significantly easier than finding a new one. Here\'s how to encourage repeat visits:',
-      textEs: 'Hacer que un cliente regrese es significativamente más fácil que encontrar uno nuevo. Así es como fomentar visitas repetidas:',
+      textEs: 'Hacer que un cliente vuelva es significativamente más fácil que encontrar uno nuevo. Así es como fomentar visitas repetidas:',
     },
     {
             type: 'bullets',
@@ -5529,7 +5529,7 @@ export const lessons: Record<string, Lesson> = {
         'IT\'S DELIVERED WITH EYE CONTACT: Look them in the eye. Smile genuinely. Pause for 1 second after the compliment. Let it land. Then transition.'
       ],
       itemsEs: [
-          'ES ESPECÍFICO: \'Linda chaqueta\' es débil. \'Esa chaqueta verde oliva resalta tus ojos perfectamente\' es fuerte. Especificidad = observación = real.',
+          'ES ESPECÍFICO: \'Qué chaqueta más bonita\' es débil. \'Esa chaqueta verde oliva resalta tus ojos perfectamente\' es fuerte. Especificidad = observación = real.',
           'ES SOBRE SU ELECCIÓN: Cumplimenta cosas que eligieron (ropa, accesorios, cuidado personal) no cosas con las que nacieron (a menos que sean ojos — esos funcionan universalmente).',
           'CONDUCE NATURALMENTE AL PRODUCTO: Los mejores cumplidos tienen un puente. \'Uñas hermosas\' → Kit de Uñas. \'Piel radiante\' → Peeling. \'Gusto de calidad\' → Cualquier producto. El puente debe sentirse natural, no forzado.',
           'SE ENTREGA CON CONTACTO VISUAL: Míralos a los ojos. Sonríe genuinamente. Pausa 1 segundo después del cumplido. Déjalo caer. Luego transiciona.',
@@ -5982,7 +5982,7 @@ export const lessons: Record<string, Lesson> = {
         'COMPRAS NAVIDEÑAS: \'Este es el regalo de Navidad más fácil que vas a comprar. A todos les encanta, es unisex, y de verdad se usa.\' Las compras de regalo tienen una fecha límite natural — el 25 de diciembre.',
         'REGALOS DE ÚLTIMO MINUTO: \'La Navidad es en 5 días. Si todavía buscas regalos, esta es tu respuesta. Pequeño, elegante, y menos de {currency}60.\'',
         'TEMPORADA DE ESQUÍ (solo tiendas de montaña): \'Después de un día en las pistas, tu piel queda súper seca por el aire de la montaña. Esto es lo que usan los locales para recuperarse.\' La relevancia de temporada crea necesidad inmediata.',
-        'LOCURA DE FIN DE SEMANA: \'Los fines de semana son una locura aquí. Odiaría que regresaras y encontraras tu aroma agotado.\' El timing de fin de semana crea presión de compra.'
+        'LOCURA DE FIN DE SEMANA: \'Los fines de semana son una locura aquí. Me sabría fatal que volvieras y encontraras tu aroma agotado.\' El timing de fin de semana crea presión de compra.'
       ]
     },
     {
@@ -6353,7 +6353,7 @@ export const lessons: Record<string, Lesson> = {
           'LA RECUPERACIÓN CON HUMOR: \'Lo sé, lo sé, no planeabas parar hoy. Pero te prometo que esta es la única vez en la que te alegrarás de haberlo hecho. ¿Treinta segundos?\' El humor desarma el \'no\' automático.',
           'EL GANCHO DE LA CURIOSIDAD: \'Lo entiendo, estás ocupado. Pero ¿puedo preguntarte algo? ¿Cuándo fue la última vez que un desconocido te mostró algo que realmente te impresionó?\' La curiosidad anula el rechazo.',
           'LA RECUPERACIÓN POR TIEMPO: \'Ah, no te preocupes por eso. ¿Qué tal esto? No te explico nada. Déjame hacerlo y ya está. Si no te encanta en treinta segundos, te vas. ¿Trato?\' Les quita el miedo a quedarse contigo diez minutos.',
-          'LA RECUPERACIÓN CON PRUEBA SOCIAL: \'¿Sabes qué? Cada persona que acaba de pasar a mi lado dijo lo mismo. Y cada una de las que regresaron a probarlo compró algo. Solo digo...\' Crea intriga a través de la prueba social.',
+          'LA RECUPERACIÓN CON PRUEBA SOCIAL: \'¿Sabes qué? Cada persona que acaba de pasar a mi lado dijo lo mismo. Y cada una de las que volvieron a probarlo compró algo. Solo digo...\' Crea intriga a través de la prueba social.',
           'EL replanteo COMO REGALO: \'Sé que no lo estabas buscando, pero quiero DARTE algo. Sin compra, sin truco. Solo un tratamiento de manos gratis porque tus manos lo merecen.\' Replantearlo como un regalo elimina la presión de venta.',
         ],
     },

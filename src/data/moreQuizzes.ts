@@ -1012,7 +1012,7 @@ const quizNailKitPro: GeneralQuiz = {
       explanation:
         "The 'one nail' close is perfect for the nail kit because it's low-risk (one nail, not all ten), creates an immediate visual result, and triggers the 'completion desire' — once one nail looks amazing, the contrast with the other nine becomes unbearable. The customer will ASK to do the rest. You're not pushing — you're pulling. The micro-commitment strategy works because it requires almost zero commitment while delivering maximum proof.",
       explanationEs:
-        "El cierre de 'una uña' es perfecto para el kit de uñas porque es de bajo riesgo (una uña, no las diez), crea un resultado visual inmediato, y dispara el 'deseo de completitud' — una vez que una uña se ve increíble, el contraste con las otras nueve se vuelve insoportable. La cliente pedirá hacer el resto. No estás empujando — estás jalando. La estrategia de micro-compromiso funciona porque requiere casi cero compromiso mientras entrega máxima prueba."
+        "El cierre de 'una uña' es perfecto para el kit de uñas porque es de bajo riesgo (una uña, no las diez), crea un resultado visual inmediato, y dispara el 'deseo de completitud' — una vez que una uña se ve increíble, el contraste con las otras nueve se vuelve insoportable. La cliente pedirá hacer el resto. No estás empujando — estás tirando de ellos. La estrategia de micro-compromiso funciona porque requiere casi cero compromiso mientras entrega máxima prueba."
     }
   ]
 };
@@ -1060,7 +1060,7 @@ const quizObjectionsChampion: GeneralQuiz = {
       question:
         "Customer: 'Let me think about it and come back tomorrow.' Which response is BEST?",
       questionEs:
-        "Cliente: 'Déjame pensarlo y regreso mañana.' ¿Qué respuesta es la MEJOR?",
+        "Cliente: 'Déjame pensarlo y vuelvo mañana.' ¿Qué respuesta es la MEJOR?",
       options: [
         "Okay, I'll be here tomorrow — no problem! Come by whenever you like and we can pick up exactly where we left off",
         "People who say that never come back — are you really interested or just being nice? Tell me straight and I will not waste your time",

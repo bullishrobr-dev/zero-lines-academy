@@ -205,7 +205,7 @@ function getOffersData(
         ],
         tag: 'M\u00E1s Popular',
         isHighlight: true,
-        script: `"Ahora tenemos una oferta incre\u00EDble: si compras dos, te llevas uno gratis. As\u00ED que pagas ${currency}120 y te llevas tres kits completos. Por eso todos los agarran durante las fiestas \u2014 son los regalos de Navidad perfectos. Peque\u00F1os, elegantes y realmente \u00FAtiles."`,
+        script: `"Ahora tenemos una oferta incre\u00EDble: si compras dos, te llevas uno gratis. As\u00ED que pagas ${currency}120 y te llevas tres kits completos. Por eso todo el mundo los coge en fiestas \u2014 son los regalos de Navidad perfectos. Peque\u00F1os, elegantes y realmente \u00FAtiles."`,
       },
       {
         title: 'Compra 2 y Lleva 2 (Navidad)',
@@ -240,11 +240,11 @@ function getOffersData(
         items: [
           'Kit completo (no solo la lima)',
           'Garant\u00EDa de por vida incluida',
-          'Abre la puerta para regresar',
+          'Abre la puerta para que vuelva',
         ],
         tag: '',
         isHighlight: false,
-        script: `"Mira, veo cu\u00E1nto te encant\u00F3. El kit normalmente es ${currency}60, y la lima sola ya lo justifica con la garant\u00EDa de por vida. Pero como son las fiestas y realmente quiero que lo disfrutes, te doy el kit completo \u2014 lima, archivo, aceite y crema \u2014 por solo ${currency}30. Es mi manera de abrir la puerta \u2014 pru\u00E9balo, \u00Fasalo, \u00E1malo. La pr\u00F3xima vez que est\u00E9s en ${locationName}, regresar\u00E1s por el segundo, te lo prometo."`,
+        script: `"Mira, veo cu\u00E1nto te encant\u00F3. El kit normalmente es ${currency}60, y la lima sola ya lo justifica con la garant\u00EDa de por vida. Pero como son las fiestas y realmente quiero que lo disfrutes, te doy el kit completo \u2014 lima, archivo, aceite y crema \u2014 por solo ${currency}30. Es mi manera de abrir la puerta \u2014 pru\u00E9balo, \u00Fasalo, \u00E1malo. La pr\u00F3xima vez que est\u00E9s en ${locationName}, volver\u00E1s a por el segundo, te lo prometo."`,
       },
     ];
   }

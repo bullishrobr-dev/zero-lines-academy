@@ -126,7 +126,7 @@ export const flashcards: Flashcard[] = [
     lessonId: 'connect-7',
     categoryId: 'sales-psychology',
     question: 'What does it mean when a customer touches their face or chin while you demo?',
-    answer: 'High interest signal — they\'s mentally processing ownership. Move to close immediately.',
+    answer: 'High interest signal — they\'re mentally processing ownership. Move to close immediately.',
     questionEs: '¿Qué significa cuando un cliente se toca la cara o la barbilla durante la demo?',
     answerEs: 'Señal de alto interés — está procesando mentalmente la compra. Ve a cerrar la venta de inmediato.',
   },
@@ -137,7 +137,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is "Price Psychology" — the {currency}300 vs {currency}299 debate?',
     answer: 'Round numbers ({currency}300) signal quality and luxury. Charm prices ({currency}299) signal deals and discounts. Use {currency}300 for premium feel.',
     questionEs: '¿Qué es la "Psicología de Precios" — el debate de {currency}300 vs {currency}299?',
-    answerEs: 'Los números redondos ({currency}300) transmiten calidad y lujo. Los precios encantados ({currency}299) transmiten ofertas y descuentos. Usa {currency}300 para sensación premium.',
+    answerEs: 'Los números redondos ({currency}300) transmiten calidad y lujo. Los precios acabados en 9 ({currency}299) transmiten ofertas y descuentos. Usa {currency}300 para sensación premium.',
   },
   {
     id: 'sp-4-2',
@@ -145,8 +145,8 @@ export const flashcards: Flashcard[] = [
     categoryId: 'sales-psychology',
     question: 'When presenting the bundle price, what\'s the best framing technique?',
     answer: 'Break it down per item: "That\'s {currency}40 per product" instead of "{currency}120 total" — feels smaller.',
-    questionEs: 'Al presentar el precio del paquete, ¿cuál es la mejor técnica de enmarcado?',
-    answerEs: 'Divídelo por producto: "Son {currency}40 por producto" en vez de "{currency}120 en total" — se siente más pequeño.',
+    questionEs: 'Al presentar el precio del paquete, ¿cuál es la mejor forma de presentarlo?',
+    answerEs: 'Divídelo por producto: "Son {currency}40 por producto" en vez de "{currency}120 en total" — parece más pequeño.',
   },
   {
     id: 'sp-5-1',
@@ -173,7 +173,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is the "Yes Ladder" technique?',
     answer: 'Ask 3 small "yes" questions before the big ask. Build agreement momentum: "You like smooth skin?" → "You want results fast?" → "Shall I wrap this up?"',
     questionEs: '¿Qué es la técnica de la "Escalera de Síes"?',
-    answerEs: 'Haz 3 preguntas pequeñas de "sí" antes de la gran pregunta. Crea momentum: "¿Te gusta la piel suave?" → "¿Quieres resultados rápidos?" → "¿Te lo envuelvo?"',
+    answerEs: 'Haz 3 preguntas pequeñas de "sí" antes de la gran pregunta. Vas sumando síes: "¿Te gusta la piel suave?" → "¿Quieres resultados rápidos?" → "¿Te lo envuelvo?"',
   },
   {
     id: 'sp-6-2',
@@ -209,7 +209,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is the "Assumed Close" technique?',
     answer: 'Act as if they already decided to buy. Instead of "Do you want it?" ask "Would you like the bag or the box?"',
     questionEs: '¿Qué es la técnica del "Cierre Asumido"?',
-    answerEs: 'Actúa como si ya decidieron comprar. En vez de "¿Lo quieres?" pregunta "¿Lo quieres en bolsa o en caja?"',
+    answerEs: 'Actúa como si ya hubieran decidido comprar. En vez de "¿Lo quieres?" pregunta "¿Lo quieres en bolsa o en caja?"',
   },
   {
     id: 'sp-8-2',
@@ -217,7 +217,7 @@ export const flashcards: Flashcard[] = [
     categoryId: 'sales-psychology',
     question: 'How do you handle the "It\'s too expensive" objection with reframing?',
     answer: 'Reframe cost as investment: "For under {currency}2 a week across a whole year, you get salon-grade skin. A coffee costs more."',
-    questionEs: '¿Cómo manejas la objeción "Está muy caro" con reframing?',
+    questionEs: '¿Cómo rebates la objeción "Es muy caro" reencuadrando?',
     answerEs: 'Reencuadra el coste como inversión: "Por menos de {currency}2 a la semana durante un año entero, tienes piel de salón. Un café cuesta más."',
   },
 
@@ -230,7 +230,7 @@ export const flashcards: Flashcard[] = [
     categoryId: 'reading-connecting',
     question: 'What are the 3 Compliment Openers that always work?',
     answer: '1) "I love your energy" (personality), 2) "That color looks amazing on you" (style), 3) "You have great taste" (choice) — be specific and genuine.',
-    questionEs: '¿Cuáles son los 3 Abiertores de Cumplido que siempre funcionan?',
+    questionEs: '¿Cuáles son los 3 cumplidos de apertura que siempre funcionan?',
     answerEs: '1) "Me encanta tu energía" (personalidad), 2) "Ese color te queda increíble" (estilo), 3) "Tienes muy buen gusto" (elección) — sé específico y genuino.',
   },
   {
@@ -240,7 +240,7 @@ export const flashcards: Flashcard[] = [
     question: 'Why should compliments be specific rather than generic?',
     answer: 'Specific compliments feel genuine and memorable. "I love how you carry yourself" hits harder than "You\'re pretty."',
     questionEs: '¿Por qué los cumplidos deben ser específicos y no genéricos?',
-    answerEs: 'Los cumplidos específicos se sienten genuinos y memorables. "Me encanta cómo te mueves" pega más fuerte que "Estás bonita."',
+    answerEs: 'Los cumplidos concretos suenan sinceros y se recuerdan. "Me encanta cómo te mueves" pega más fuerte que "Estás bonita."',
   },
   {
     id: 'rc-2-1',
@@ -257,8 +257,8 @@ export const flashcards: Flashcard[] = [
     categoryId: 'reading-connecting',
     question: 'What\'s the "Observation Opener" and when do you use it?',
     answer: 'Comment on something in the environment: "That drink looks dangerous" or "Great choice on the playlist." Works anywhere, anytime.',
-    questionEs: '¿Qué es el "Abiertor de Observación" y cuándo lo usas?',
-    answerEs: 'Comenta algo del entorno: "Esa bebida se ve peligrosa" o "Buena elección de música." Funciona en cualquier lugar, en cualquier momento.',
+    questionEs: '¿Qué es la "Apertura por Observación" y cuándo la usas?',
+    answerEs: 'Comenta algo del entorno: "Esa copa tiene pinta de peligrosa" o "Buena elección de música." Funciona en cualquier lugar, en cualquier momento.',
   },
   {
     id: 'rc-3-1',
@@ -276,7 +276,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is "Callback Humor" and why is it powerful?',
     answer: 'Referencing an earlier joke or moment in the conversation. It shows you\'re paying attention and creates inside-joke intimacy.',
     questionEs: '¿Qué es el "Humor de Callback" y por qué es tan poderoso?',
-    answerEs: 'Hacer referencia a una broma o momento anterior de la conversación. Demuestra que estás poniendo atención y crea intimidad de chiste interno.',
+    answerEs: 'Hacer referencia a una broma o momento anterior de la conversación. Demuestra que estás prestando atención y crea intimidad de chiste interno.',
   },
   {
     id: 'rc-4-1',
@@ -285,7 +285,7 @@ export const flashcards: Flashcard[] = [
     question: 'What are the 5 Body Language Signals of interest?',
     answer: '1) Leaning in, 2) Mirroring your posture, 3) Playing with hair/jewelry, 4) Sustained eye contact, 5) Open palms / uncrossed arms.',
     questionEs: '¿Cuáles son las 5 Señales de Lenguaje Corporal de interés?',
-    answerEs: '1) Se inclinan hacia ti, 2) Imitan tu postura, 3) Juegan con su cabello/joyería, 4) Contacto visual sostenido, 5) Palmas abiertas / brazos sin cruzar.',
+    answerEs: '1) Se inclinan hacia ti, 2) Imitan tu postura, 3) Se tocan el pelo o las joyas, 4) Contacto visual sostenido, 5) Palmas abiertas / brazos sin cruzar.',
   },
   {
     id: 'rc-4-2',
@@ -294,7 +294,7 @@ export const flashcards: Flashcard[] = [
     question: 'What does "mirroring" mean in conversation and why does it work?',
     answer: 'Subtly matching their body language, tone, or energy. It builds unconscious trust and rapport — they feel "this person gets me."',
     questionEs: '¿Qué significa "espejear" (mirroring) en conversación y por qué funciona?',
-    answerEs: 'Igualar sutilmente su lenguaje corporal, tono o energía. Construye confianza y rapport inconsciente — sienten que "esta persona me entiende."',
+    answerEs: 'Igualar sutilmente su lenguaje corporal, tono o energía. Crea confianza y complicidad sin que se den cuenta — sienten que "esta persona me entiende."',
   },
   {
     id: 'rc-5-1',
@@ -312,7 +312,7 @@ export const flashcards: Flashcard[] = [
     question: 'What\'s the best approach when someone is with their partner?',
     answer: 'Acknowledge both equally first: "You two look like you have great energy — quick question..." Respect builds trust.',
     questionEs: '¿Cuál es la mejor forma de acercarte cuando alguien está con su pareja?',
-    answerEs: 'Reconoce a ambos por igual primero: "Se ven como que tienen buena energía — una pregunta rápida..." El respeto construye confianza.',
+    answerEs: 'Reconoce a ambos por igual primero: "Se os ve con muy buen rollo — una preguntita rápida..." El respeto construye confianza.',
   },
   {
     id: 'rc-6-1',
@@ -321,7 +321,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is "Vibe Reading" and how do you practice it?',
     answer: 'Reading emotional energy in 3 seconds. Are they open (smiling, eye contact) or closed (headphones, crossed arms, rushing)? Adjust accordingly.',
     questionEs: '¿Qué es la "Lectura de Vibra" y cómo la practicas?',
-    answerEs: 'Leer la energía emocional en 3 segundos. ¿Están abiertos (sonriendo, contacto visual) o cerrados (audífonos, brazos cruzados, con prisa)? Adapta tu acercamiento.',
+    answerEs: 'Leer la energía emocional en 3 segundos. ¿Están abiertos (sonriendo, contacto visual) o cerrados (con cascos, brazos cruzados, con prisa)? Adapta tu acercamiento.',
   },
   {
     id: 'rc-6-2',
@@ -330,7 +330,7 @@ export const flashcards: Flashcard[] = [
     question: 'What are 3 signs someone is NOT open to conversation?',
     answer: '1) Headphones in, 2) Fast walking with purpose, 3) Phone held up as a shield — Respect the signal and move on.',
     questionEs: '¿Cuáles son 3 señales de que alguien NO está abierto a conversar?',
-    answerEs: '1) Trae audífonos puestos, 2) Camina rápido con propósito, 3) El móvil levantado como escudo — Respeta la señal y sigue adelante.',
+    answerEs: '1) Lleva cascos puestos, 2) Camina rápido y con rumbo fijo, 3) El móvil levantado como escudo — Respeta la señal y sigue adelante.',
   },
   {
     id: 'rc-7-1',
@@ -339,7 +339,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is "Active Listening" and how do you show it?',
     answer: 'Fully focusing on the speaker, nodding, paraphrasing: "So what you\'re saying is..." — People buy from those who truly listen.',
     questionEs: '¿Qué es la "Escucha Activa" y cómo la demuestras?',
-    answerEs: 'Enfocarte completamente en quien habla, asentir, parafrasear: "Entonces lo que dices es..." — La gente compra a quienes realmente escuchan.',
+    answerEs: 'Centrarte del todo en quien habla, asentir, parafrasear: "Entonces lo que dices es..." — La gente compra a quienes realmente escuchan.',
   },
   {
     id: 'rc-7-2',
@@ -357,7 +357,7 @@ export const flashcards: Flashcard[] = [
     question: 'How do you smoothly transition from conversation to demo?',
     answer: 'Use a natural bridge: "Speaking of skincare — can I show you something cool? It takes 10 seconds." Low commitment, high curiosity.',
     questionEs: '¿Cómo haces la transición fluida de conversación a demo?',
-    answerEs: 'Usa un puente natural: "Hablando de cuidado de la piel — ¿te muestro algo cool? Toma 10 segundos." Bajo compromiso, alta curiosidad.',
+    answerEs: 'Usa un puente natural: "Hablando de cuidar la piel — ¿te enseño una cosa? Son 10 segundos." Bajo compromiso, alta curiosidad.',
   },
   {
     id: 'rc-8-2',
@@ -379,7 +379,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is the "3-Second Rule" in approaching?',
     answer: 'Approach within 3 seconds of seeing someone. The longer you wait, the more anxiety builds. 3 seconds is before doubt kicks in.',
     questionEs: '¿Qué es la "Regla de los 3 Segundos" al acercarte?',
-    answerEs: 'Acércate dentro de 3 segundos de ver a alguien. Entre más esperas, más ansiedad se acumula. A los 3 segundos la duda aún no entra.',
+    answerEs: 'Acércate en los 3 segundos siguientes a ver a alguien. Cuanto más esperas, más ansiedad se te acumula. A los 3 segundos la duda aún no entra.',
   },
   {
     id: 'aos-1-2',
@@ -387,8 +387,8 @@ export const flashcards: Flashcard[] = [
     categoryId: 'art-of-stopping',
     question: 'Why does hesitation kill the approach?',
     answer: 'Your body language telegraphs hesitation — you look uncertain. They sense it and become guarded before you even speak.',
-    questionEs: '¿Por qué la hesitación mata el acercamiento?',
-    answerEs: 'Tu lenguaje corporal transmite hesitación — te ves inseguro. Lo sienten y se ponen a la defensiva antes de que abras la boca.',
+    questionEs: '¿Por qué titubear mata el acercamiento?',
+    answerEs: 'Tu lenguaje corporal te delata — pareces inseguro. Lo sienten y se ponen a la defensiva antes de que abras la boca.',
   },
   {
     id: 'aos-2-1',
@@ -397,7 +397,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is the "Power Pause" after stopping someone?',
     answer: 'After your opener, pause for 2 seconds before continuing. The silence commands attention and shows confidence.',
     questionEs: '¿Qué es la "Pausa de Poder" después de detener a alguien?',
-    answerEs: 'Después de tu abridor, pausa 2 segundos antes de continuar. El silencio manda atención y muestra confianza.',
+    answerEs: 'Después de tu frase de entrada, para 2 segundos antes de seguir. El silencio capta la atención y demuestra seguridad.',
   },
   {
     id: 'aos-2-2',
@@ -406,7 +406,7 @@ export const flashcards: Flashcard[] = [
     question: 'How do you use Eye Contact to command attention in the first 3 seconds?',
     answer: 'Hold eye contact 1 second longer than feels comfortable. Look at one eye, then the other — it creates intimacy and authority.',
     questionEs: '¿Cómo usas el contacto visual para captar atención en los primeros 3 segundos?',
-    answerEs: 'Mantén el contacto visual 1 segundo más de lo que te sientas cómodo. Mira un ojo, luego el otro — crea intimidad y autoridad.',
+    answerEs: 'Mantén el contacto visual 1 segundo más de lo que te resulte cómodo. Mira un ojo, luego el otro — crea intimidad y autoridad.',
   },
   {
     id: 'aos-3-1',
@@ -415,7 +415,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is "Positioning" and why does it matter?',
     answer: 'Stand at a 45-degree angle, not head-on. It feels less confrontational. Keep 1.5 arm lengths of distance initially.',
     questionEs: '¿Qué es el "Posicionamiento" y por qué importa?',
-    answerEs: 'Párate a 45 grados, no de frente. Se siente menos confrontacional. Mantén 1.5 largos de brazo de distancia inicialmente.',
+    answerEs: 'Colócate a 45 grados, no de frente. Resulta menos agresivo. Al principio, mantén un brazo y medio de distancia.',
   },
   {
     id: 'aos-3-2',
@@ -424,7 +424,7 @@ export const flashcards: Flashcard[] = [
     question: 'Why should you never approach someone from directly behind?',
     answer: 'It triggers their threat response. Always come from the front-side (10 or 2 o\'clock position) where they can see you.',
     questionEs: '¿Por qué nunca debes acercarte a alguien directamente por atrás?',
-    answerEs: 'Activa su respuesta de amenaza. Siempre ven por el frente-lateral (posición de las 10 o 2) donde te puedan ver.',
+    answerEs: 'Activa su respuesta de amenaza. Acércate siempre en diagonal por delante (a las 10 o a las 2), donde te pueda ver.',
   },
   {
     id: 'aos-4-1',
@@ -442,7 +442,7 @@ export const flashcards: Flashcard[] = [
     question: 'How do you project "Warm Authority" — not aggressive, not weak?',
     answer: 'Smile with your eyes (smize), open palms, slightly slower speech, and stand tall with relaxed shoulders.',
     questionEs: '¿Cómo proyectas "Autoridad Cálida" — ni agresivo, ni débil?',
-    answerEs: 'Sonríe con los ojos, palmas abiertas, habla un poco más lento, y párate erguido con hombros relajados.',
+    answerEs: 'Sonríe con los ojos, palmas abiertas, habla un poco más lento, y ponte erguido con los hombros relajados.',
   },
   {
     id: 'aos-5-1',
@@ -451,7 +451,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is the "Bounce Back" technique for rejection recovery?',
     answer: 'Reframe rejection as redirection: "No worries — quick question before you go..." One more question can turn it around.',
     questionEs: '¿Qué es la técnica del "Rebote" para recuperarte del rechazo?',
-    answerEs: 'Reenmarca el rechazo como redirección: "No hay problema — una pregunta rápida antes de que te vayas..." Una pregunta más puede cambiar todo.',
+    answerEs: 'Reformula el rechazo como un desvío: "No hay problema — una pregunta rápida antes de que te vayas..." Una pregunta más puede cambiar todo.',
   },
   {
     id: 'aos-5-2',
@@ -460,7 +460,7 @@ export const flashcards: Flashcard[] = [
     question: 'What are the 3 Types of "No" and how do you handle each?',
     answer: '1) Soft no (hesitant) — persist gently; 2) Firm no (polite) — one more try, then exit gracefully; 3) Hard no (rude) — smile and walk away with energy intact.',
     questionEs: '¿Cuáles son los 3 Tipos de "No" y cómo manejas cada uno?',
-    answerEs: '1) No suave (hesitante) — insiste gentilmente; 2) No firme (educado) — un intento más, luego retírate con elegancia; 3) No duro (grosero) — sonríe y aléjate con tu energía intacta.',
+    answerEs: '1) No blando (dudoso) — insiste con suavidad; 2) No firme (educado) — un intento más, luego retírate con elegancia; 3) No duro (grosero) — sonríe y aléjate con tu energía intacta.',
   },
   {
     id: 'aos-6-1',
@@ -469,7 +469,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is "The Walk-Away" power move?',
     answer: 'After your pitch, start slowly packing up or turning away. Scarcity kicks in — they often stop you to ask one more question.',
     questionEs: '¿Qué es el movimiento de poder del "Alejamiento"?',
-    answerEs: 'Después de tu pitch, empieza a guardar tus cosas lentamente o a girarte. La escasez entra en acción — muchas veces te detienen para preguntar algo más.',
+    answerEs: 'Después de tu discurso, empieza a recoger despacio o a darte la vuelta. La escasez entra en acción — muchas veces te detienen para preguntar algo más.',
   },
   {
     id: 'aos-6-2',
@@ -478,7 +478,7 @@ export const flashcards: Flashcard[] = [
     question: 'How do you maintain confidence after 3 rejections in a row?',
     answer: 'Detach from outcome. Your job is to deliver energy and information. Their response is not your report card. Reset and go again.',
     questionEs: '¿Cómo mantienes la confianza después de 3 rechazos seguidos?',
-    answerEs: 'Despégate del resultado. Tu trabajo es entregar energía e información. Su respuesta no es tu boleta de calificaciones. Reinicia y vuelve a intentar.',
+    answerEs: 'Despégate del resultado. Tu trabajo es entregar energía e información. Su respuesta no es tu boletín de notas. Reinicia y vuelve a intentar.',
   },
   {
     id: 'aos-7-1',
@@ -487,7 +487,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is the "Pattern Interrupt" technique?',
     answer: 'Say or do something unexpected to break autopilot: "Wait — I have to tell you something..." or a playful high-five. Cuts through the noise.',
     questionEs: '¿Qué es la técnica de la "Interrupción de Patrón"?',
-    answerEs: 'Di o haz algo inesperado para romper el piloto automático: "Espera — tengo que decirte algo..." o un high-five juguetón. Corta a través del ruido.',
+    answerEs: 'Di o haz algo inesperado para romper el piloto automático: "Espera — tengo que decirte algo..." o chocarle los cinco en broma. Corta el ruido de golpe.',
   },
   {
     id: 'aos-7-2',
@@ -495,8 +495,8 @@ export const flashcards: Flashcard[] = [
     categoryId: 'art-of-stopping',
     question: 'What\'s the best opening line for stopping someone on the street?',
     answer: '"Excuse me — can I get your opinion on something real quick?" People love giving opinions, and it feels low-pressure.',
-    questionEs: '¿Cuál es la mejor línea de apertura para detener a alguien en la calle?',
-    answerEs: '"Disculpa — ¿me das tu opinión de algo rapidísimo?" A la gente le encanta dar opiniones, y se siente sin presión.',
+    questionEs: '¿Cuál es la mejor frase de entrada para parar a alguien en la calle?',
+    answerEs: '"Disculpa — ¿me das tu opinión de algo rapidísimo?" A la gente le encanta dar su opinión, y no suena a presión.',
   },
   {
     id: 'aos-8-1',
@@ -514,7 +514,7 @@ export const flashcards: Flashcard[] = [
     question: 'Why should you NOT use a questioning tone at the end of statements?',
     answer: 'Uptalk ("This product is amazing?") undermines authority. End statements with a downward tone to sound certain and confident.',
     questionEs: '¿Por qué NO debes usar tono de pregunta al final de las afirmaciones?',
-    answerEs: 'El uptalk ("¿Este producto está increíble?") socava tu autoridad. Termina las afirmaciones con tono descendente para sonar seguro y con confianza.',
+    answerEs: 'Acabar las frases preguntando ("¿Este producto es increíble?") te quita autoridad. Termina las afirmaciones con tono descendente para sonar seguro y con confianza.',
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -527,7 +527,7 @@ export const flashcards: Flashcard[] = [
     question: 'How do you perform the "One-Eye Demo" with the Syringe?',
     answer: 'Apply a small drop under one eye only. Have them look in the mirror — the lifted, brighter side creates instant visual proof.',
     questionEs: '¿Cómo haces la "Demo de Un Ojo" con la Jeringa?',
-    answerEs: 'Aplica una gotita debajo de un solo ojo. Haz que se vean en el espejo — el lado levantado y más brillante crea prueba visual instantánea.',
+    answerEs: 'Aplica una gotita debajo de un solo ojo. Que se mire en el espejo — el lado levantado y más luminoso crea prueba visual instantánea.',
   },
   {
     id: 'pm-1-2',
@@ -563,7 +563,7 @@ export const flashcards: Flashcard[] = [
     question: 'What is the "Scrub Feel" technique during a demo?',
     answer: 'Let them feel the scrub texture on their own skin — the physical sensation of the granules creates a tactile memory and desire.',
     questionEs: '¿Qué es la técnica "Toque del Scrub" durante la demo?',
-    answerEs: 'Déjalos sentir la textura del scrub en su propia piel — la sensación física de los gránulos crea memoria táctil y deseo.',
+    answerEs: 'Que note la textura del scrub en su propia piel — la sensación física de los gránulos crea memoria táctil y deseo.',
   },
   {
     id: 'pm-3-2',
@@ -581,7 +581,7 @@ export const flashcards: Flashcard[] = [
     question: 'How do you demo the Nail Kit for maximum wow factor?',
     answer: 'File one nail with the buffer, show the instant shine. Compare to the dull nails — the contrast is the closer.',
     questionEs: '¿Cómo haces la demo del Nail Kit para máximo efecto wow?',
-    answerEs: 'Lima una uña con el pulidor, muestra el brillo instantáneo. Compara con las uñas opacas — el contraste es el cerrador.',
+    answerEs: 'Lima una uña con el pulidor, muestra el brillo instantáneo. Compara con las uñas apagadas — el contraste cierra la venta.',
   },
   {
     id: 'pm-4-2',
@@ -608,7 +608,7 @@ export const flashcards: Flashcard[] = [
     question: 'How do you calculate and present the "per-use" value?',
     answer: 'Break down longevity: "This bottle lasts a full year — 52 treatments for {currency}100. That\'s under {currency}2 a week, less than a coffee." Makes any price feel small.',
     questionEs: '¿Cómo calculas y presentas el valor "por uso"?',
-    answerEs: 'Desglosa la duración: "Este frasco dura un año entero — 52 tratamientos por {currency}100. Son menos de {currency}2 a la semana, menos que un café." Hace que cualquier precio se sienta pequeño.',
+    answerEs: 'Desglosa la duración: "Este frasco dura un año entero — 52 tratamientos por {currency}100. Son menos de {currency}2 a la semana, menos que un café." Hace que cualquier precio parezca pequeño.',
   },
   {
     id: 'pm-6-1',
@@ -617,7 +617,7 @@ export const flashcards: Flashcard[] = [
     question: 'What\'s the key ingredient story for the Syringe (Hyaluronic Acid)?',
     answer: '"This is the same ingredient in {currency}500 dermatologist injections — but ours is needle-free and instant." Borrow authority.',
     questionEs: '¿Cuál es la historia clave del ingrediente de la Jeringa (Ácido Hialurónico)?',
-    answerEs: '"Es el mismo ingrediente de las inyecciones de dermatólogo de {currency}500 — pero el nuestro es sin agujas e instantáneo." Presta autoridad.',
+    answerEs: '"Es el mismo ingrediente de las inyecciones de dermatólogo de {currency}500 — pero el nuestro es sin agujas e instantáneo." Toma prestada su autoridad.',
   },
   {
     id: 'pm-6-2',
@@ -635,7 +635,7 @@ export const flashcards: Flashcard[] = [
     question: 'What\'s the "Gift Close" technique?',
     answer: 'Frame the purchase as a gift opportunity: "This set is perfect for your mom/sister too — buy 2, I\'ll give you a deal."',
     questionEs: '¿Qué es la técnica del "Cierre por Regalo"?',
-    answerEs: 'Enmarca la compra como oportunidad de regalo: "Este set es perfecto para tu mamá/hermana también — lleva 2 y te hago un deal."',
+    answerEs: 'Enmarca la compra como oportunidad de regalo: "Este set es perfecto también para tu madre o tu hermana — llévate 2 y te hago precio."',
   },
   {
     id: 'pm-7-2',
