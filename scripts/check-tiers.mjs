@@ -12,15 +12,17 @@
  * away. So a tier may grow by at most one lesson relative to what a finished
  * seller could already have completed.
  */
-import esbuild from '/home/user/zero-lines-academy/node_modules/esbuild/lib/main.js';
+import esbuild from 'esbuild';
+import { join } from 'node:path';
+import { DATA } from './paths.mjs';
 globalThis.localStorage = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
 
 const load = async (f) => {
   const o = await esbuild.build({ entryPoints: [f], bundle: true, format: 'esm', platform: 'node', write: false, logLevel: 'silent' });
   return import('data:text/javascript;base64,' + Buffer.from(o.outputFiles[0].text).toString('base64'));
 };
-const T = await load('/home/user/zero-lines-academy/src/data/lessonTiers.ts');
-const L = await load('/home/user/zero-lines-academy/src/data/lessons.ts');
+const T = await load(join(DATA, 'lessonTiers.ts'));
+const L = await load(join(DATA, 'lessons.ts'));
 
 let fail = 0;
 const bad = (m) => { console.log('  ' + m); fail++; };

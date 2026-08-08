@@ -15,8 +15,9 @@
  * A guard is the right answer to that, not a reminder to be careful.
  */
 import { readFileSync } from 'node:fs';
+import { fromRoot } from './paths.mjs';
 
-const FILE = '/home/user/zero-lines-academy/src/backend/supabaseClient.ts';
+const FILE = fromRoot('src', 'backend', 'supabaseClient.ts');
 const src = readFileSync(FILE, 'utf8');
 
 const url = src.match(/export const SUPABASE_URL = '([^']*)'/)?.[1];

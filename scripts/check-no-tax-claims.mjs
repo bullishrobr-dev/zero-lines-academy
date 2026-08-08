@@ -8,8 +8,8 @@
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { SRC as ROOT } from './paths.mjs';
 
-const ROOT = '/home/user/zero-lines-academy/src';
 const BANNED = [
   /tax[\s-]?haven/i, /tax[\s-]?free/i, /duty[\s-]?free/i,
   /\bVAT\b/, /\bIVA\b/,

@@ -6,13 +6,15 @@
  * once; four agents just rewrote quiz copy, so it gets re-checked from the
  * real, post-overlay lesson objects rather than from anyone's report.
  */
-import esbuild from '/home/user/zero-lines-academy/node_modules/esbuild/lib/main.js';
+import esbuild from 'esbuild';
+import { DATA } from './paths.mjs';
+import { sep } from 'node:path';
 globalThis.localStorage={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 const load = async (f) => {
   const o = await esbuild.build({entryPoints:[f],bundle:true,format:'esm',platform:'node',write:false,logLevel:'silent'});
   return import('data:text/javascript;base64,'+Buffer.from(o.outputFiles[0].text).toString('base64'));
 };
-const R='/home/user/zero-lines-academy/src/data/';
+const R = DATA + sep;
 const L = await load(R+'lessons.ts');           // applies the LESSON_QUIZZES overlay
 const M2 = await load(R+'moreQuizzes2.ts');
 const M1 = await load(R+'moreQuizzes.ts');

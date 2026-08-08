@@ -1,7 +1,9 @@
 /* Every renderable string in a lesson must have a Spanish twin. */
-import esbuild from '/home/user/zero-lines-academy/node_modules/esbuild/lib/main.js';
+import esbuild from 'esbuild';
+import { join } from 'node:path';
+import { DATA } from './paths.mjs';
 globalThis.localStorage={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
-const o=await esbuild.build({entryPoints:['/home/user/zero-lines-academy/src/data/lessons.ts'],bundle:true,format:'esm',platform:'node',write:false,logLevel:'silent'});
+const o=await esbuild.build({entryPoints:[join(DATA,'lessons.ts')],bundle:true,format:'esm',platform:'node',write:false,logLevel:'silent'});
 const { lessons } = await import('data:text/javascript;base64,'+Buffer.from(o.outputFiles[0].text).toString('base64'));
 
 const gaps=[];

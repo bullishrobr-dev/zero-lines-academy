@@ -21,8 +21,8 @@
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { SRC as ROOT } from './paths.mjs';
 
-const ROOT = '/home/user/zero-lines-academy/src';
 
 /** Offers of money back, in either language. */
 const PROMISE = [
