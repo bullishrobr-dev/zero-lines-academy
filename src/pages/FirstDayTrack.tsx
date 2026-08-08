@@ -1,5 +1,14 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// FirstDayTrack.tsx — the five-screen briefing a brand new hire reads on shift one.
+// FirstDayTrack.tsx — the six-screen briefing a brand new hire reads on shift one.
+//
+// Screen two is the one that was missing. It told a new seller to smile and go
+// out, and never mentioned that most of the people they step in front of will
+// walk straight past. Somebody who has not been warned takes thirty walk-pasts
+// personally before lunch and has no energy left by the afternoon — which is
+// exactly the seller the owner does not want to lose in week one. It is said
+// before they go out because on day one that is calibration, not an excuse;
+// the "you are off the hook" version is conditional and lives in `close-fault`,
+// where it belongs, after the demo rather than before it.
 //
 // Rebuilt on the Counter Light design system (it was hardcoded to the old dark
 // palette, so on a light-mode phone it was a black rectangle in a white app).
@@ -11,11 +20,24 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Eye, Heart, Sparkles, Users, Zap, type LucideIcon } from 'lucide-react';
+import {
+  ArrowRight,
+  CheckCircle2,
+  Eye,
+  Heart,
+  Shield,
+  Sparkles,
+  Users,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import ConfettiCelebration from '../components/ConfettiCelebration';
 
-const ICONS: LucideIcon[] = [Sparkles, Zap, Heart, Eye, Users];
+/* One per step. `Shield` belongs to the rejection step: it is armour, not a
+   warning sign — the point of that step is that being walked past cannot hurt
+   you if you were expecting it. */
+const ICONS: LucideIcon[] = [Sparkles, Shield, Zap, Heart, Eye, Users];
 
 interface StepData {
   title: string;
@@ -34,6 +56,18 @@ const STEPS_EN: StepData[] = [
       'Your only metric: how many people you get through the door.',
       'Smile like you mean it — energy is contagious.',
       'Nobody expects you to sell on day one. Relax.',
+    ],
+  },
+  {
+    title: 'Most of them will walk past',
+    body: "Nobody tells you this on day one, so here it is before you go out. Most of the people you step in front of will not stop. Not because you did it wrong — because that is the job, and it is the same for everyone out there, including the best one in the centre. If you are not ready for it, you will take thirty walk-pasts personally by lunchtime and your energy will be gone. So expect it, count it, and keep going. The one who does stop is worth all of them.",
+    cta: 'Alright — how do I stop them?',
+    tips: [
+      'Being ignored is not rejection. They never even heard you.',
+      'Say it to yourself now: most will walk past, and that is normal.',
+      'The tenth no does not mean anything about the eleventh person.',
+      'The only thing that would be your fault is going quiet and stopping nobody.',
+      'One person inside is worth thirty who walked past. Go and get them.',
     ],
   },
   {
@@ -94,6 +128,18 @@ const STEPS_ES: StepData[] = [
       'Tu única métrica: cuánta gente metes por la puerta.',
       'Sonríe de verdad — la energía se contagia.',
       'Nadie espera que vendas el primer día. Relájate.',
+    ],
+  },
+  {
+    title: 'La mayoría va a pasar de largo',
+    body: 'Nadie te lo cuenta el primer día, así que te lo cuento antes de salir. La mayoría de la gente a la que te pongas delante no va a parar. No porque lo hagas mal — porque el trabajo es así, y es igual para todos los que están ahí fuera, incluido el mejor del centro. Si no vas preparado, a mediodía te habrás tomado treinta desprecios como algo personal y te habrás quedado sin energía. Así que cuéntalo con ello, llévalo en la cuenta y sigue. El que sí para vale por todos los demás.',
+    cta: 'Vale — ¿cómo los paro?',
+    tips: [
+      'Que te ignoren no es un rechazo. Ni siquiera te han oído.',
+      'Dítelo ahora: la mayoría va a pasar de largo, y es lo normal.',
+      'El décimo no no dice nada de la persona número once.',
+      'Lo único que sí sería culpa tuya es apagarte y no parar a nadie.',
+      'Una persona dentro vale por treinta que pasaron. Ve a por ella.',
     ],
   },
   {
