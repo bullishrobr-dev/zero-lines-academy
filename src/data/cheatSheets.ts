@@ -715,6 +715,30 @@ export const SCRIPTS: ScriptCard[] = [
     textEs: `"¡Muy buena pregunta! Esto es ácido hialurónico — es una molécula de agua, no un blanqueador. Le da igual el tono de piel. Funciona reteniendo agua bajo la piel. Tu melanina se queda exactamente igual. Solo consigues una piel más lisa y con más volumen. ¿Te lo enseño en mi mano?"`,
   },
   {
+    /* The other skin line answers "will it work on my colour". This one answers
+       the commoner version — "my skin is difficult, it will react". Same chip,
+       different worry, and she needs the second one far more often. */
+    id: 'r-skin-sensitive',
+    category: 'objection',
+    answers: 'skin',
+    title: '"It will not suit my skin"',
+    titleEs: '"No le va a ir bien a mi piel"',
+    text: `"Nothing to worry about, my love. It is all natural — no chemicals, no parabens, nothing in there to upset anybody's skin. And this is not another moisturiser you slap on every morning. It is something completely different — you do it once a week. Once. Give me your hand and see for yourself."`,
+    textEs: `"No tienes nada de qué preocuparte, cariño. Es todo natural — sin químicos, sin parabenos, nada que le pueda irritar la piel a nadie. Y esto no es otra crema para ponerte cada mañana. Es algo completamente distinto — se usa una vez a la semana. Una. Dame la mano y lo ves tú misma."`,
+  },
+  {
+    /* The two questions that make every later objection answerable. Ask them
+       DURING the demo, while her hand is still in yours. Once she has said yes
+       to both, the only thing she can object to is the price — and price is the
+       one objection the ladder is built for. */
+    id: 'c-two-yeses',
+    category: 'closing',
+    title: 'The two yeses (ask during the demo)',
+    titleEs: 'Los dos síes (pregúntalos durante la demo)',
+    text: `"Do you like it? … Yes? And if you had it at home, would you actually use it? … Yes?" [Now there is nothing left to argue about except the price.]`,
+    textEs: `"¿Te gusta? … ¿Sí? Y si lo tuvieras en casa, ¿lo usarías de verdad? … ¿Sí?" [Ahora ya no queda nada que discutir salvo el precio.]`,
+  },
+  {
     id: 'r-online',
     category: 'objection',
     answers: 'online',
@@ -729,8 +753,13 @@ export const SCRIPTS: ScriptCard[] = [
     category: 'objection',
     title: '"I need to think about it"',
     titleEs: '"Necesito pensármelo"',
-    text: `"Of course. Just so you know, this voucher expires when you leave the store — it is tied to today's visit. I can hold it at the counter for 10 minutes while you look around, and the price stays locked."`,
-    textEs: `"Claro. Solo para que lo sepas, este cupón caduca cuando sales de la tienda — va con la visita de hoy. Te lo puedo guardar en caja 10 minutos mientras das una vuelta, y el precio se queda fijo."`,
+    /* This used to park her at the counter and send her off for a wander. Ten
+       minutes to look around is ten minutes to leave, and a customer who leaves
+       does not come back. She has already told you she likes it and that she
+       would use it, so there is only one thing left to think about — name it
+       and get to the ladder. */
+    text: `"Think about what, my love? You told me you like it. You told me you would use it. So it is the price — say it out loud and let me see what I can do for you. Because the second you walk out of here this price is gone, and I cannot get it back for you tomorrow."`,
+    textEs: `"¿Pensar el qué, cariño? Me has dicho que te gusta. Me has dicho que lo usarías. Entonces es el precio — dilo en voz alta y veo qué puedo hacer por ti. Porque en cuanto salgas por esa puerta este precio ya no existe, y mañana no te lo puedo recuperar."`,
   },
   {
     id: 'r2',
@@ -795,8 +824,12 @@ export const SCRIPTS: ScriptCard[] = [
     category: 'objection',
     title: '"I need to ask my partner"',
     titleEs: '"Tengo que preguntarle a mi pareja"',
-    text: `"Absolutely. If they were here, what would they say? [Pause] Here — take this sample card with the price written down. The voucher is valid for today only."`,
-    textEs: `"Por supuesto. Si estuviera aquí, ¿qué diría? [Pausa] Toma — llévate esta tarjeta de muestra con el precio apuntado. El cupón solo vale hoy."`,
+    /* This used to hand her a card with the price on it and wish her luck. That
+       is not the method — it is the opposite of it. A customer who walks out to
+       ask someone is a customer you have lost, so the answer has to keep her
+       here and put the decision back in her hands. */
+    text: `"Ladies' business, my darling. He is playing golf — he is not thinking about your face. You told me you like it. You told me you would use it. So it is your call, not his. Spoil yourself for once. And if you really would not use it, keep your money — no hard feelings, it is all good."`,
+    textEs: `"Cosa de mujeres, cariño. Él está con el golf — no está pensando en tu cara. Me has dicho que te gusta. Me has dicho que lo usarías. Así que es cosa tuya, no suya. Date un capricho por una vez. Y si de verdad no lo vas a usar, guárdate el dinero — sin rencores, no pasa nada."`,
   },
   {
     id: 'r6',
