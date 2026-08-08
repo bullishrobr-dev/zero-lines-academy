@@ -90,6 +90,32 @@ in front of you.
 Note the ending. Being willing to walk away from her money is part of the
 close, not a softener bolted on.
 
+## How rejection is taught here
+
+Say the numbers out loud. Most people you step in front of will not stop; most
+of the ones who do stop will not buy. That is true, the owner wants it said, and
+it is not there for comfort — it is there so a seller understands how **rare**
+the person already sitting in their chair is, and fights for that one instead of
+waiting for an easier one. It is fine to make that a bit uncomfortable to read.
+
+But the absolution is **conditional**, and that condition is the whole method:
+
+> "Make the seller immune to mistakes. Make sure they give 100% of themselves in
+> every demo. They didn't say something wrong, they didn't forget to do
+> something, they didn't get lazy in the middle. If they did everything
+> perfectly and still the customer didn't buy, this is not on the seller
+> anymore. This is just a bad customer, and it's part of the game."
+
+So never write "most people say no" as a standalone comfort — on its own it
+excuses the seller who rushed the demo, which is the opposite of the point. It
+always comes attached to the honest checklist: wrong words, skipped step, filled
+the silence, went lazy halfway, stopped early on the ladder. Answer that first.
+If the answer really is "I did all of it", then it is not on you — put it down
+and go to the next one.
+
+And it only ever runs in that direction. "Most of them say no anyway" said
+*before* a demo is not perspective, it is an excuse. See `close-fault`.
+
 ## Lines we do not cross
 
 Short list, and none of it is about being nice — it is about things that come

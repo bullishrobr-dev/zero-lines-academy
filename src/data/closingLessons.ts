@@ -916,4 +916,175 @@ export const closingLessons: Record<string, Lesson> = {
       },
     ],
   },
+  /*
+   * The owner's own way of teaching, in his words:
+   *
+   *   "Make the seller immune to mistakes. Make sure they give 100% of
+   *    themselves in every demo. They didn't say something wrong, they didn't
+   *    forget to do something, they didn't get lazy in the middle. If they did
+   *    everything perfectly and still the customer didn't buy, this is not on
+   *    the seller anymore. This is just a bad customer, and it's part of the
+   *    game."
+   *
+   * The app already told sellers that most people say no. On its own that is
+   * an excuse waiting to be used — it absolves everybody, including the person
+   * who rushed the demo. His version is CONDITIONAL, and the condition is the
+   * whole lesson: you are off the hook only once you have genuinely given
+   * everything. That is also why he wants the numbers said out loud rather
+   * than softened. A seller who knows how rare a person in their chair is
+   * fights for that person instead of waiting for an easier one.
+   */
+  'close-fault': {
+    id: 'close-fault',
+    categoryId: 'closing',
+    title: 'It Is Not On You — If You Did Everything',
+    titleEs: 'No Es Culpa Tuya — Si Lo Hiciste Todo',
+    subtitle: 'Most of them say no. That is the job, not your failure',
+    subtitleEs: 'La mayoría dice que no. Eso es el trabajo, no tu fracaso',
+    duration: '5 min',
+    icon: 'Shield',
+    order: 5,
+    xpReward: 120,
+    sections: [
+      {
+        type: 'header',
+        text: 'Most of them are going to say no',
+        textEs: 'La mayoría te va a decir que no',
+      },
+      {
+        type: 'paragraph',
+        text: `Nobody tells you this on your first day, so here it is, straight. Most of the people you step in front of will not stop. Of the ones who do stop and sit down, most will not buy. That is not you being bad at this. That is the shape of the job, and it is the same shape for the best seller in the centre. If you are waiting for a day where everybody says yes, you are going to have a miserable career waiting for it.`,
+        textEs: `Nadie te cuenta esto el primer día, así que te lo cuento yo, claro. La mayoría de la gente a la que te pongas delante no va a parar. Y de los que paran y se sientan, la mayoría no va a comprar. Eso no es que se te dé mal. Esa es la forma que tiene este trabajo, y es la misma para el mejor vendedor del centro. Si esperas un día en el que todo el mundo diga que sí, vas a esperar sentado toda tu carrera.`,
+      },
+      {
+        type: 'keypoint',
+        text: `So why tell you? Because of what it means about the person already sitting in your chair. If most people never stop, and most of the ones who stop never buy, then somebody with your product in their hand is a rare thing. Not a lead. Not one of many. Rare. You do not hurry that person, you do not get bored halfway through them, and you certainly do not let them wander off to think about it — because there is no queue of them behind you.`,
+        textEs: `¿Y por qué contártelo? Por lo que dice de la persona que ya está sentada en tu silla. Si casi nadie para, y de los que paran casi nadie compra, entonces alguien con tu producto en la mano es algo raro. No es "un cliente más". Es raro. A esa persona no la metes prisa, no te aburres a mitad de camino, y desde luego no la dejas irse a pensárselo — porque no hay una cola de ellas esperando detrás.`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'The only question worth asking after a no',
+        textEs: 'La única pregunta que vale la pena tras un no',
+      },
+      {
+        type: 'paragraph',
+        text: `When somebody walks without buying, there is exactly one useful question, and it is not "what is wrong with me". It is: did I actually give that everything? Not "was I nice". Not "did I try". Everything. Because the difference between a seller who gets better and one who does the same year forever is that the first one answers this honestly and the second one does not ask.`,
+        textEs: `Cuando alguien se va sin comprar, hay exactamente una pregunta útil, y no es "qué me pasa a mí". Es: ¿le he dado de verdad todo lo que tengo? No "he sido amable". No "lo he intentado". Todo. Porque la diferencia entre un vendedor que mejora y uno que hace lo mismo durante años es que el primero se responde en serio y el segundo ni se lo pregunta.`,
+      },
+      {
+        type: 'checklist',
+        items: [
+          'Did I say anything wrong, or promise something I should not have?',
+          'Did I skip a step — the hand, the mirror, the two yeses, the ask?',
+          'Did I go quiet after the price, or did I fill the silence and lose it?',
+          'Did I get lazy in the middle, once I decided they were not buying?',
+          'Did I go all the way down the ladder, or stop early to save myself the effort?',
+        ],
+        itemsEs: [
+          '¿He dicho algo que no debía, o he prometido algo que no toca?',
+          '¿Me he saltado un paso — la mano, el espejo, los dos síes, el pedir?',
+          '¿Me he callado después del precio, o lo he llenado de ruido y lo he perdido?',
+          '¿Me he vuelto perezoso a mitad, cuando ya decidí que no iban a comprar?',
+          '¿He bajado toda la escalera, o he parado antes para ahorrarme el esfuerzo?',
+        ],
+      },
+      {
+        type: 'paragraph',
+        text: `If one of those is a yes, that is your lesson and it is a good day — you just found the thing to fix, for free, without it costing you anything but one sale. Write it in the journal and take it out to the next one.`,
+        textEs: `Si alguna de esas es un sí, ahí tienes tu lección y ha sido un buen día — acabas de encontrar gratis lo que hay que arreglar, y solo te ha costado una venta. Apúntalo en el diario y sácalo con el siguiente.`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'And if the answer is "I did all of it"',
+        textEs: 'Y si la respuesta es "lo he hecho todo"',
+      },
+      {
+        type: 'keypoint',
+        text: `Then it is not on you. It genuinely is not. You did the demo properly, you said the right things, you asked for the money, you worked the whole ladder, you stayed warm to the last second — and they still walked. That is a bad customer, and bad customers are part of the game. Put it down. Do not carry it to the next person, because they can smell it on you and it will cost you that one too.`,
+        textEs: `Entonces no es culpa tuya. De verdad que no. Has hecho la demo bien, has dicho lo que había que decir, has pedido el dinero, has trabajado la escalera entera, has estado simpático hasta el último segundo — y aun así se han ido. Eso es un mal cliente, y los malos clientes forman parte del juego. Suéltalo. No te lo lleves al siguiente, porque te lo huelen encima y te va a costar también esa.`,
+      },
+      {
+        type: 'tip',
+        text: `Notice this only works one way round. It is what you tell yourself AFTER, once you have honestly been through the list. The moment you start saying "most people say no anyway" BEFORE the demo, it has stopped being perspective and turned into an excuse — and excuses are the thing that makes a seller slow.`,
+        textEs: `Fíjate en que esto solo vale en un sentido. Es lo que te dices DESPUÉS, cuando has repasado la lista de verdad. En cuanto empiezas a decirte "total, la mayoría dice que no" ANTES de la demo, ha dejado de ser perspectiva y se ha convertido en excusa — y las excusas son lo que vuelve lento a un vendedor.`,
+      },
+      {
+        type: 'script',
+        text: `"I did everything. They still said no. Next one." — said out loud, once, and then you are back on the floor.`,
+        textEs: `"Lo he hecho todo. Aun así han dicho que no. Al siguiente." — dicho en voz alta, una vez, y vuelves a la sala.`,
+      },
+      {
+        type: 'paragraph',
+        text: `That is the whole trick, and it is why the good sellers last. They are not the ones who never get rejected — everybody gets rejected all day. They are the ones who have made themselves immune to their own mistakes, so that when a no comes, there is nothing on it for them to feel bad about.`,
+        textEs: `Ese es todo el truco, y por eso duran los buenos vendedores. No son los que nunca reciben un no — todo el mundo recibe noes todo el día. Son los que se han hecho inmunes a sus propios errores, así que cuando llega un no, no hay nada ahí de lo que sentirse mal.`,
+      },
+    ],
+    quiz: [
+      {
+        question: 'Why are you told that most people will not buy?',
+        questionEs: '¿Por qué te dicen que la mayoría no va a comprar?',
+        options: [
+          'So a quiet day feels less like your fault',
+          'So you fight for the rare one already in your chair',
+          'So you learn to spot the buyers and skip the rest',
+          'So you know when a shift is not worth finishing',
+        ],
+        optionsEs: [
+          'Para que un día flojo pese menos sobre ti',
+          'Para que pelees por el raro que ya tienes sentado',
+          'Para aprender a ver quién compra y saltarte al resto',
+          'Para saber cuándo un turno ya no merece la pena',
+        ],
+        correctIndex: 1,
+        explanation:
+          'If almost nobody stops, and almost none of those buy, the person holding your product is rare. That is the point of the number — not comfort, urgency.',
+        explanationEs:
+          'Si casi nadie para, y de esos casi ninguno compra, la persona que tiene tu producto en la mano es rara. Ese es el sentido del dato — no consuelo, urgencia.',
+      },
+      {
+        question: 'A customer walks without buying. What do you ask yourself?',
+        questionEs: 'Un cliente se va sin comprar. ¿Qué te preguntas?',
+        options: [
+          'Whether they were ever really going to buy',
+          'Whether the price is too high for this centre',
+          'Whether I gave that one absolutely everything',
+          'Whether I should change how I open tomorrow',
+        ],
+        optionsEs: [
+          'Si de verdad iban a comprar en algún momento',
+          'Si el precio es demasiado alto para este centro',
+          'Si a ese le he dado absolutamente todo lo que tengo',
+          'Si mañana debería cambiar cómo abro',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Wrong words, a skipped step, filling the silence, going lazy halfway, stopping early on the ladder. If one of those is a yes, you just found what to fix.',
+        explanationEs:
+          'Palabras equivocadas, un paso saltado, llenar el silencio, aflojar a mitad, parar antes de tiempo en la escalera. Si alguna es un sí, ya sabes qué arreglar.',
+      },
+      {
+        question: 'You went through the list honestly and did everything right. Whose fault is the lost sale?',
+        questionEs: 'Repasas la lista con sinceridad y lo hiciste todo bien. ¿De quién es la venta perdida?',
+        options: [
+          'Still partly yours — there is always something',
+          'Nobody’s, so there is nothing to learn from it',
+          'The shop’s, for pricing the product where it is',
+          'Not yours. A bad customer is part of the game',
+        ],
+        optionsEs: [
+          'Un poco tuya todavía — siempre hay algo',
+          'De nadie, así que no hay nada que aprender',
+          'De la tienda, por poner el precio donde está',
+          'Tuya no. Un mal cliente es parte del juego',
+        ],
+        correctIndex: 3,
+        explanation:
+          'Put it down and do not carry it to the next person — they can smell it on you. But it only counts after the list, never before the demo.',
+        explanationEs:
+          'Suéltalo y no te lo lleves al siguiente — te lo huelen encima. Pero solo vale después de la lista, nunca antes de la demo.',
+      },
+    ],
+  },
 };

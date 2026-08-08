@@ -49,6 +49,10 @@ export const LESSON_TIERS: Record<string, number> = {
   'prod-7': 5,
   'psych-7': 5,
   'close-3': 5,
+  /* The mindset lesson sits with the other mindset material in Mastery — it
+     leans on the ladder, the two yeses and the ask, so it only lands once a
+     seller has been taught all three. */
+  'close-fault': 6,
 
   // Tier 6: Advanced (4 lessons) — Mastery
   'psych-5': 6,
@@ -84,7 +88,7 @@ export const TIER_LESSON_COUNT: Record<number, number> = {
   3: 5,
   4: 7,
   5: 7,
-  6: 4,
+  6: 5,
 };
 
 export const TIER_ORDER: number[] = [1, 2, 3, 4, 5, 6];

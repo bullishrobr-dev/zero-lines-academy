@@ -4545,13 +4545,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'Your emotional resilience drops by 60%. Rejections hurt more.',
+        'Your skin gets thinner. The same no that bounced off you at ten in the morning stings at six.',
         'Your facial expressions become flatter and less genuine. Customers notice.',
         'Your verbal fluency decreases. Words don\'t come as easily.',
         'Your motivation and drive plummet. You stop more hesitantly.'
       ],
       itemsEs: [
-          'Tu resiliencia emocional cae un 60%. Los rechazos duelen más.',
+          'Se te pone la piel más fina. El mismo no que a las diez de la mañana te resbalaba, a las seis escuece.',
           'Tus expresiones faciales se vuelven más planas y menos genuinas. Los clientes se dan cuenta.',
           'Tu fluidez verbal disminuye. Las palabras no salen tan fácilmente.',
           'Tu motivación y empuje se desploman. Te detienes de forma más vacilante.',

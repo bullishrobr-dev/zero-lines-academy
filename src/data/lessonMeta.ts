@@ -305,6 +305,18 @@ export const LESSON_META: Record<string, LessonMeta> = {
     order: 4,
     xpReward: 120,
   },
+  "close-fault": {
+    id: "close-fault",
+    categoryId: "closing",
+    title: "It Is Not On You — If You Did Everything",
+    titleEs: "No Es Culpa Tuya — Si Lo Hiciste Todo",
+    subtitle: "Most of them say no. That is the job, not your failure",
+    subtitleEs: "La mayoría dice que no. Eso es el trabajo, no tu fracaso",
+    duration: "5 min",
+    icon: "Shield",
+    order: 5,
+    xpReward: 120,
+  },
   "close-market": {
     id: "close-market",
     categoryId: "closing",
