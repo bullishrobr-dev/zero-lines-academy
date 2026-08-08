@@ -51,7 +51,7 @@ import CheatSheetLadder from '../components/CheatSheetLadder';
 import CopyButton from '../components/CopyButton';
 import { WALK_REASONS, chipLabel } from '../data/encounterChips';
 import {
-  ACCENT, BODY_LANGUAGE, BUYING_SIGNALS, CIALDINI, EMERGENCY_BLOCKS, LADDER_BY_ID,
+  ACCENT, BODY_LANGUAGE, BUYING_SIGNALS, CIALDINI, EMERGENCY_BLOCKS, LADDER_BY_ID, linesAnswering,
   PHRASES, PRODUCT_LADDERS, SCRIPTS, tr,
 } from '../data/cheatSheets';
 
@@ -217,26 +217,14 @@ export default function CheatSheetsPage() {
   // ── "They said…" — the lines that answer one walk-away reason ─────────────
   const answersFor = useMemo(() => {
     if (!reason) return { lines: [] as { key: string; label?: string; body: string }[] };
-    const lines: { key: string; label?: string; body: string }[] = [];
-    for (const s of SCRIPTS) {
-      if (s.answers !== reason) continue;
-      const product = s.product ? LADDER_BY_ID[s.product] : undefined;
-      lines.push({
-        key: `s-${s.id}`,
-        label: product ? tr(language, product.short, product.shortEs) : undefined,
-        body: sub(tr(language, s.text, s.textEs)),
-      });
-    }
-    for (const block of EMERGENCY_BLOCKS) {
-      for (const item of block.items) {
-        if (item.answers !== reason) continue;
-        lines.push({
-          key: `e-${item.id}`,
-          label: tr(language, 'Under pressure', 'Bajo presión'),
-          body: sub(tr(language, item.text, item.textEs)),
-        });
-      }
-    }
+    /* Shared with the journal's comeback card — see linesAnswering() in
+       cheatSheets.ts. Both screens answer the same objection, so they must read
+       from the same selection rule, not two copies of it. */
+    const lines = linesAnswering(reason).map((l) => ({
+      key: l.key,
+      label: l.label ? tr(language, l.label, l.labelEs ?? l.label) : undefined,
+      body: sub(tr(language, l.text, l.textEs)),
+    }));
     return { lines };
   }, [reason, language, sub]);
 

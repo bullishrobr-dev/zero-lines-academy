@@ -19,7 +19,7 @@ import {
   ChevronLeft, Lock, ArrowRight, Layers, type LucideIcon,
 } from 'lucide-react';
 import { useMemo } from 'react';
-import { categories, getLessonsForCategory } from '../data/lessons';
+import { categories, getLessonMetaForCategory } from '../data/lessonMeta';
 import { useProgress } from '../hooks/useProgress';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { TranslationKey } from '../data/translations';
@@ -135,7 +135,7 @@ export default function TrainingHub() {
 
   const categoryData = useMemo(() => {
     return categories.map((cat) => {
-      const catLessons = getLessonsForCategory(cat.id);
+      const catLessons = getLessonMetaForCategory(cat.id);
       const catCompleted = catLessons.filter((l) => lessonProgress[l.id]).length;
       const catPct =
         catLessons.length > 0 ? Math.round((catCompleted / catLessons.length) * 100) : 0;

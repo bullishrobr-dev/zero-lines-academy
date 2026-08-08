@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
-    "check:content": "node scripts/check-scripts-portable.mjs && node scripts/check-backend-keys.mjs && node scripts/check-no-tax-claims.mjs && node scripts/check-no-lasting-promises.mjs && node scripts/check-spanish-parity.mjs && node scripts/check-quiz-integrity.mjs && node scripts/check-tiers.mjs"
+    "gen:meta": "node scripts/gen-lesson-meta.mjs",
+    "check:content": "node scripts/check-scripts-portable.mjs && node scripts/check-lesson-meta.mjs && node scripts/check-backend-keys.mjs && node scripts/check-no-tax-claims.mjs && node scripts/check-no-lasting-promises.mjs && node scripts/check-spanish-parity.mjs && node scripts/check-quiz-integrity.mjs && node scripts/check-tiers.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",

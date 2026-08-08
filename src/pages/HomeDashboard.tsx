@@ -40,7 +40,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { useMemo, useState, useCallback, useRef } from 'react';
-import { getLesson, getCategory } from '../data/lessons';
+import { getLessonMeta, getCategory } from '../data/lessonMeta';
 import { getRandomQuote, type Quote } from '../data/quotes';
 import { useProgress } from '../hooks/useProgress';
 import BiggestLeak from '../components/BiggestLeak';
@@ -316,7 +316,7 @@ export default function HomeDashboard() {
   /* ── The single most important action right now ── */
   const continueIds = useMemo(() => getContinueLearning(), []);
   const continueLessons = useMemo(
-    () => continueIds.map((id) => getLesson(id)).filter(Boolean).slice(0, 6),
+    () => continueIds.map((id) => getLessonMeta(id)).filter(Boolean).slice(0, 6),
     [continueIds]
   );
   const nextLesson = continueLessons.find((l) => l && !lessonProgress[l.id]) || continueLessons[0];

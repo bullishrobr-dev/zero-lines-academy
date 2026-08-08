@@ -51,7 +51,7 @@ import { useCurrency } from '@/utils/currency';
 import ConfettiCelebration from '@/components/ConfettiCelebration';
 import XPToast from '@/components/XPToast';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
-import { categories, getLesson } from '@/data/lessons';
+import { categories, getLessonMeta } from '@/data/lessonMeta';
 import {
   ACHIEVEMENTS,
   getAchievement,
@@ -522,7 +522,7 @@ export default function ProfilePage() {
                       : item.type === 'quiz'
                         ? quizLabel
                         : challengeLabel;
-                  const lesson = item.type === 'lesson' && item.detail ? getLesson(item.detail) : undefined;
+                  const lesson = item.type === 'lesson' && item.detail ? getLessonMeta(item.detail) : undefined;
                   const detail = lesson ? (isEs ? lesson.titleEs : lesson.title) : item.detail;
                   const when = formatDate(item.timestamp, locale, true);
                   return (

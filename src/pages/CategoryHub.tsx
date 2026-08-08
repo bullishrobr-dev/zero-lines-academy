@@ -49,7 +49,7 @@ import {
   Coins,
 } from 'lucide-react';
 import { createElement, useMemo } from 'react';
-import { categories, getLessonsForCategory, type Category } from '../data/lessons';
+import { categories, getLessonMetaForCategory, type Category } from '../data/lessonMeta';
 import { useLanguage } from '../contexts/LanguageContext';
 import { LESSON_TIERS, TIER_NAMES } from '../data/lessonTiers';
 
@@ -287,7 +287,7 @@ export default function CategoryHub() {
   const isEs = language === 'es';
 
   const category = useMemo(() => categories.find((c) => c.id === id), [id]);
-  const lessons = useMemo(() => (id ? getLessonsForCategory(id) : []), [id]);
+  const lessons = useMemo(() => (id ? getLessonMetaForCategory(id) : []), [id]);
   const progress = useMemo(() => getProgress(), []);
 
   if (!category) {

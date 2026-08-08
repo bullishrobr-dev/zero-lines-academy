@@ -42,7 +42,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import { haptic } from '../utils/haptics';
 import { WALK_REASONS, walkReason, chipLabel } from '../data/encounterChips';
-import { EMERGENCY_BLOCKS, LADDER_BY_ID, SCRIPTS } from '../data/cheatSheets';
+import { linesAnswering } from '../data/cheatSheets';
 
 /** One rep. Long enough to actually say a line twice, short enough to do standing up. */
 const REP_SECONDS = 20;
@@ -70,7 +70,6 @@ const COPY = {
     allLines: 'All the lines for this',
     dismiss: 'Close',
     reps: (n: number) => `${n} out loud today`,
-    pressure: 'Under pressure',
   },
   es: {
     freshEyebrow: 'Te acaban de decir',
@@ -92,7 +91,6 @@ const COPY = {
     allLines: 'Todas las frases para esto',
     dismiss: 'Cerrar',
     reps: (n: number) => `${n} en voz alta hoy`,
-    pressure: 'Bajo presión',
   },
 } as const;
 
@@ -105,33 +103,19 @@ interface Line {
 }
 
 /**
- * Every line in the app that answers one walk-away reason.
+ * Every line in the app that answers one walk-away reason, in one language.
  *
- * Deliberately the same two sources and the same `answers` key the Cheat Sheets
- * page reads, rather than a second list that could drift away from it.
+ * The selection itself lives in cheatSheets.ts and is shared with the Cheat
+ * Sheets "They said…" panel, so this card and that sheet can never end up
+ * teaching different answers to the same objection. All that happens here is
+ * picking a language.
  */
 function linesFor(reasonId: string, isEs: boolean): Line[] {
-  const out: Line[] = [];
-  for (const s of SCRIPTS) {
-    if (s.answers !== reasonId) continue;
-    const ladder = s.product ? LADDER_BY_ID[s.product] : undefined;
-    out.push({
-      key: `s-${s.id}`,
-      tag: ladder ? (isEs ? ladder.shortEs : ladder.short) : undefined,
-      text: isEs ? s.textEs : s.text,
-    });
-  }
-  for (const block of EMERGENCY_BLOCKS) {
-    for (const item of block.items) {
-      if (item.answers !== reasonId) continue;
-      out.push({
-        key: `e-${item.id}`,
-        tag: isEs ? COPY.es.pressure : COPY.en.pressure,
-        text: isEs ? item.textEs : item.text,
-      });
-    }
-  }
-  return out;
+  return linesAnswering(reasonId).map((l) => ({
+    key: l.key,
+    tag: isEs ? l.labelEs ?? l.label : l.label,
+    text: isEs ? l.textEs : l.text,
+  }));
 }
 
 /**

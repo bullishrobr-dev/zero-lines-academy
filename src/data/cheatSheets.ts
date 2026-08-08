@@ -1167,3 +1167,56 @@ export const EMERGENCY_BLOCKS: {
     items: EMERGENCY_CARD_TROUBLE,
   },
 ];
+
+// ── The lines that answer one walk-away reason ──────────────────────────────
+//
+// Two screens ask this exact question: the Cheat Sheets "They said…" panel, and
+// the journal's comeback card seconds after a customer walked. They were each
+// looping over SCRIPTS and EMERGENCY_BLOCKS with their own copy of the matching
+// rule, which is one edit away from the sheet and the card teaching different
+// answers to the same objection — the one thing neither may ever do.
+//
+// Language stays out of it deliberately. This returns both twins and leaves the
+// caller to pick one and run it through `sub()`, so the data layer has no
+// opinion about who is reading.
+
+export interface AnswerLine {
+  key: string;
+  /** Which product or context the line belongs to, where it has one. */
+  label?: string;
+  labelEs?: string;
+  /** Both still carry {currency} / {locationName} — the caller resolves them. */
+  text: string;
+  textEs: string;
+}
+
+export function linesAnswering(reasonId: string): AnswerLine[] {
+  const out: AnswerLine[] = [];
+
+  for (const s of SCRIPTS) {
+    if (s.answers !== reasonId) continue;
+    const ladder = s.product ? LADDER_BY_ID[s.product] : undefined;
+    out.push({
+      key: `s-${s.id}`,
+      label: ladder?.short,
+      labelEs: ladder?.shortEs,
+      text: s.text,
+      textEs: s.textEs,
+    });
+  }
+
+  for (const block of EMERGENCY_BLOCKS) {
+    for (const item of block.items) {
+      if (item.answers !== reasonId) continue;
+      out.push({
+        key: `e-${item.id}`,
+        label: 'Under pressure',
+        labelEs: 'Bajo presión',
+        text: item.text,
+        textEs: item.textEs,
+      });
+    }
+  }
+
+  return out;
+}

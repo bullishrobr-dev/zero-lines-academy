@@ -27,7 +27,10 @@
 // ─────────────────────────────────────────────────────────────
 
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { categories, getLessonsForCategory } from '@/data/lessons';
+/* Metadata, not lesson bodies. This hook runs on every screen in the app, so
+   importing the full lesson corpus here put all 741 KB of it on the critical
+   path of the home screen. Nothing below reads a lesson's sections or quiz. */
+import { categories, getLessonMetaForCategory } from '@/data/lessonMeta';
 import {
   getTierForLesson,
   getTierCompletion,
@@ -591,7 +594,7 @@ export function useProgress(): UseProgressReturn {
   const computeCategoryProgress = useCallback((): Record<string, number> => {
     const result: Record<string, number> = {};
     for (const cat of categories) {
-      const lessons = getLessonsForCategory(cat.id);
+      const lessons = getLessonMetaForCategory(cat.id);
       if (lessons.length === 0) {
         result[cat.id] = 0;
         continue;
@@ -672,7 +675,7 @@ export function useProgress(): UseProgressReturn {
   );
 
   const getTotalCompletion = useCallback((): number => {
-    const allLessons = categories.flatMap((cat) => getLessonsForCategory(cat.id));
+    const allLessons = categories.flatMap((cat) => getLessonMetaForCategory(cat.id));
     if (allLessons.length === 0) return 0;
     const completed = allLessons.filter((l) => lessonProgress[l.id]).length;
     return Math.round((completed / allLessons.length) * 100);
