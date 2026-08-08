@@ -238,8 +238,8 @@ export const PRODUCT_LADDERS: ProductLadder[] = [
       {
         ...fromPricing(SYR_VOUCHER),
         tone: 'fallback',
-        words: `"I want you to leave happy today — I have a 20% voucher, and that takes the {currency}${SYR_NO_GIFT.price} down to {currency}${SYR_VOUCHER.price}."`,
-        wordsEs: `"Quiero que te vayas contento hoy — tengo un cupón del 20%, y eso deja los {currency}${SYR_NO_GIFT.price} en {currency}${SYR_VOUCHER.price}."`,
+        words: `"You know what — I have a 20% voucher here. I'll do it for you. But you are being greedy now, eh? {currency}${SYR_NO_GIFT.price} down to {currency}${SYR_VOUCHER.price} — the syringe on its own, no gift, and only while you are standing in front of me."`,
+        wordsEs: `"¿Sabes qué? Aquí tengo un cupón del 20%. Te lo hago. Pero qué morro tienes, ¿eh? De {currency}${SYR_NO_GIFT.price} a {currency}${SYR_VOUCHER.price} — la jeringa sola, sin regalo, y solo mientras estés aquí delante de mí."`,
       },
       {
         ...fromPricing(SYR_FLOOR),
@@ -634,8 +634,12 @@ export const SCRIPTS: ScriptCard[] = [
     category: 'closing',
     title: 'Assumptive Close',
     titleEs: 'Cierre Asumido',
-    text: `"I will set this aside for you at the counter. Do you want the gift bag with it?"`,
-    textEs: `"Te lo dejo apartado en la caja. ¿Te lo pongo con la bolsa de regalo?"`,
+    /* This used to park it "at the counter" for her. Nothing waits at a counter
+       except a customer who has left — and it argues with c-on-the-spot, which
+       says the machine comes to her. Wrap it in front of her instead: you are
+       not asking IF, you are asking which bag. */
+    text: `"Right — I'm wrapping this one up for you. Gift bag, or straight in the bag?" You are not asking whether. You are asking which.`,
+    textEs: `"Venga — te lo envuelvo ya. ¿Con bolsa de regalo o tal cual?" No preguntas si lo quiere. Preguntas qué bolsa.`,
   },
   {
     id: 'c3',
@@ -1139,11 +1143,15 @@ const EMERGENCY_CARD_TROUBLE: EmergencyLine[] = [
     textEs: `"¿Tienes Apple Pay o Google Pay en el móvil? Eso también nos vale."`,
   },
   {
+    // The old fourth step waved her out with "come back whenever you like",
+    // which is the one thing the method never does — a card that will not work
+    // is not a reason to lose the sale, it is a reason to walk to the cash
+    // machine together. You go with her. You never send her.
     id: 'ect4',
-    head: `Nothing works`,
-    headEs: `Nada funciona`,
-    text: `"Honestly, don't worry about it at all. We're right here — come back whenever you like." Take the L warmly. They remember how you handled it.`,
-    textEs: `"De verdad, no te preocupes lo más mínimo. Estamos aquí — vuelve cuando quieras." Encaja la pérdida con buena cara. Se acuerdan de cómo lo gestionaste.`,
+    head: `No card at all`,
+    headEs: `Sin tarjeta`,
+    text: `"Cash suits me even better, my love. There's a machine two minutes that way — I'll walk you over and carry the bag." You go WITH them. You never send them off on their own.`,
+    textEs: `"En efectivo aún mejor, cariño. Hay un cajero a dos minutos — te acompaño yo y te llevo la bolsa." Vas CON ellos. Nunca los mandas solos.`,
   },
 ];
 

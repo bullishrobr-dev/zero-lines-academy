@@ -57,19 +57,19 @@ export const dailyDoses: DailyDose[] = [
       {
         type: 'mindset',
         text: 'A compliment opens the door. But it must be SPECIFIC and GENUINE. "Nice dress" is weak. "That colour looks amazing on you" is strong.',
-        textEs: 'Un cumplido abre la puerta. Pero debe ser ESPECÍFICO y GENUINO. "Lindo vestido" es débil. "Ese color te queda increíble" es fuerte.',
+        textEs: 'Un cumplido abre la puerta. Pero tiene que ser ESPECÍFICO y GENUINO. "Bonito vestido" es flojo. "Ese color te queda increíble" es fuerte.',
         highlight: 'Specific compliments stop people. Generic ones don\'t.',
         highlightEs: 'Los cumplidos específicos detienen a la gente. Los genéricos no.',
       },
       {
         type: 'technique',
         text: 'The DETAIL RULE: Pick one specific detail — a colour, an accessory, a hairstyle, the way they carry themselves. Name it. Own it.',
-        textEs: 'La REGLA DEL DETALLE: Elige un detalle específico — un color, un accesorio, un peinado, su forma de caminar. Nombrarlo. Aprópiate de ello.',
+        textEs: 'La REGLA DEL DETALLE: Elige un detalle concreto — un color, un complemento, un peinado, cómo se mueve. Nómbralo. Hazlo tuyo.',
       },
       {
         type: 'script',
         text: '"Excuse me, I just have to say — that scarf is stunning. The way you tied it, so elegant!"',
-        textEs: '"Disculpe, solo quería decirle — esa bufanda es deslumbrante. La forma en que la anudó, ¡tan elegante!"',
+        textEs: '"Perdona, te lo tengo que decir — ese pañuelo es una preciosidad. Y cómo te lo has puesto, ¡qué elegante!"',
       },
     ],
     practicePrompt: 'Give 5 specific compliments today. Write down which ones got a smile or a "thank you." What pattern do you see?',
@@ -98,7 +98,7 @@ export const dailyDoses: DailyDose[] = [
       {
         type: 'script',
         text: '"Hi there — sorry to stop you, but I just noticed your eyes sparkle and I couldn\'t walk past. I\'m [Name] by the way!"',
-        textEs: '"Hola — perdón por detenerla, pero noté que sus ojos brillan y no pude pasar de largo. ¡Soy [Nombre], por cierto!"',
+        textEs: '"Hola — perdona que te pare, pero es que te brillan los ojos y no podía pasar de largo. Soy [Nombre], por cierto."',
       },
     ],
     practicePrompt: 'Practice the Lock-and-Smile on 5 strangers today. Count how many return the smile. Record the number.',
@@ -466,15 +466,15 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'mindset',
-        text: '"I need to think about it" often means "I\'m not convinced yet." Don\'t let them walk. Find the REAL hesitation and address it head-on.',
-        textEs: '"Necesito pensarlo" a menudo significa "No estoy convencida todavía." No dejes que se vayan. Encuentra la VERDADERA hesitación y enfréntala directamente.',
+        text: '"I need to think about it" almost always means "I\'m not convinced yet." Don\'t let them walk. Find the REAL hesitation and hit it head-on, in front of you.',
+        textEs: '"Necesito pensarlo" casi siempre significa "todavía no me has convencido". No dejes que se vayan. Encuentra la duda DE VERDAD y atácala ahí mismo, delante de ti.',
         highlight: 'The real objection is hiding behind "I need to think."',
         highlightEs: 'La objeción real se esconde detrás del "necesito pensarlo."',
       },
       {
         type: 'script',
-        text: '"Of course! What specifically would you like to think about — is it the product itself, the price, or whether it will work for your skin? I want to make sure I answered all your questions."',
-        textEs: '"¡Por supuesto! ¿Qué te gustaría pensar específicamente — es el producto en sí, el precio, o si funcionará para tu piel? Quiero asegurarme de haber respondido todas tus preguntas."',
+        text: '"Think about what, my love? You told me you like it. You told me you would use it. So it is the price — say it out loud and let me see what I can do for you. Because the second you walk out of that door this price is gone."',
+        textEs: '"¿Pensar el qué, cariño? Me has dicho que te gusta. Me has dicho que lo usarías. Entonces es el precio — dilo en voz alta y veo qué puedo hacer por ti. Porque en cuanto salgas por esa puerta este precio ya no existe."',
       },
       {
         type: 'technique',
@@ -495,24 +495,24 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'mindset',
-        text: '"I need to ask my husband" can mean two things: genuine need to consult, or a polite excuse. Your job: find out which, and handle accordingly.',
-        textEs: '"Necesito preguntarle a mi marido" puede significar dos cosas: necesidad genuina de consultar, o una excusa educada. Tu trabajo: averiguar cuál, y manejarlo en consecuencia.',
-        highlight: 'Never argue with "my husband." Work WITH it.',
-        highlightEs: 'Nunca discutas con "mi marido." Trabaja CON ello.',
+        text: '"I need to ask my husband" is almost never about him. It is the politest door out of the shop there is. She already told you she likes it and that she would use it — so the decision is hers, and it happens here, in front of you.',
+        textEs: '"Se lo tengo que preguntar a mi marido" casi nunca va de él. Es la puerta de salida más educada que existe. Ya te ha dicho que le gusta y que lo usaría — así que la decisión es suya, y se toma aquí, delante de ti.',
+        highlight: 'Never argue with "my husband." Hand the decision back to her.',
+        highlightEs: 'Nunca discutas con "mi marido". Devuélvele la decisión a ella.',
       },
       {
         type: 'script',
-        text: '"That\'s totally fair! Here\'s what I suggest: let me give you our card and write down exactly what we discussed. When you talk to him, you can say \'I tried it, I loved it, and it\'s {currency}100 and the bottle lasts a whole year.\' Most husbands just want to know it\'s a good deal!"',
-        textEs: '"¡Totalmente justo! Te sugiero: déjame darte nuestra tarjeta y anotar exactamente de qué hablamos. Cuando le hables, puedes decir \'Lo probé, me encantó, y son {currency}100 y el frasco dura un año entero.\' ¡La mayoría de los maridos solo quieren saber que es un buen trato!"',
+        text: '"Ladies\' business, my darling. He is playing golf — he is not thinking about your face. You said you like it, you said you would use it. So it is your call, not his. Spoil yourself for once. And if you really would not use it, keep your money — no hard feelings."',
+        textEs: '"Cosa de mujeres, cariño. Él está con el golf — no está pensando en tu cara. Me has dicho que te gusta, me has dicho que lo usarías. Así que es cosa tuya, no suya. Date un capricho por una vez. Y si de verdad no lo vas a usar, guárdate el dinero — sin rencores."',
       },
       {
         type: 'tip',
-        text: 'If she genuinely wants to ask, make it EASY for her to sell it to him. Write down the key points. Give her the words. She becomes YOUR salesperson at home.',
-        textEs: 'Si ella genuinamente quiere preguntar, haz que sea FÁCIL venderle a él. Anota los puntos clave. Dale las palabras. Ella se convierte en TU vendedora en casa.',
+        text: 'Never write the price down and never hand anything over for her to take to him — a price that leaves the shop leaves with the customer. And notice how the line ends: being happy to walk away from her money is part of the close, not a softener bolted on. It proves you are not desperate, and it leaves her nothing to push against.',
+        textEs: 'Nunca le apuntes el precio ni le des nada para enseñárselo a él — un precio que sale de la tienda sale con la clienta. Y fíjate en cómo acaba la frase: estar dispuesta a renunciar a su dinero es parte del cierre, no un adorno. Demuestra que no vas desesperada y la deja sin nada contra lo que empujar.',
       },
     ],
-    practicePrompt: 'When you hear the husband objection today, use the card technique. Track how many come back or buy on the spot.',
-    practicePromptEs: 'Cuando escuches la objeción del marido hoy, usa la técnica de la tarjeta. Registra cuántas vuelven o compran en el momento.',
+    practicePrompt: 'When you hear the husband today, answer it without her leaving the shop. Say the whole line — including the part where you give her permission to keep her money. Track how many buy on the spot.',
+    practicePromptEs: 'Cuando hoy te salga el marido, respóndelo sin que salga de la tienda. Di la frase entera — incluida la parte en la que le das permiso para guardarse el dinero. Registra cuántas compran en el momento.',
     xpReward: 20,
   },
   {
@@ -576,16 +576,16 @@ export const dailyDoses: DailyDose[] = [
   {
     id: 'dose-020',
     day: 20,
-    title: 'Create Urgency Without Pressure',
-    titleEs: 'Crear Urgencia Sin Presión',
+    title: 'Put a Door on the Price',
+    titleEs: 'Ponle Puerta al Precio',
     category: 'Closing',
     content: [
       {
         type: 'technique',
-        text: 'Urgency works, but only when it\'s REAL. Fake urgency destroys trust. Use genuine scarcity: limited stock, today\'s promotion, the gift that runs out.',
-        textEs: 'La urgencia funciona, pero solo cuando es REAL. La urgencia falsa destruye la confianza. Usa escasez genuina: stock limitado, promoción de hoy, el regalo que se acaba.',
-        highlight: 'Real urgency creates action. Fake urgency creates distrust.',
-        highlightEs: 'La urgencia real crea acción. La urgencia falsa crea desconfianza.',
+        text: 'A price with no end on it is not a price, it is a shelf. Give every offer a door: limited stock, today\'s promotion, the gift that runs out, the voucher that dies at the exit.',
+        textEs: 'Un precio sin final no es un precio, es una estantería. Ponle puerta a cada oferta: stock limitado, la promoción de hoy, el regalo que se acaba, el cupón que se muere en la salida.',
+        highlight: 'A deadline creates a decision. No deadline creates a maybe.',
+        highlightEs: 'Una fecha límite crea una decisión. Sin fecha límite solo hay un "ya veré".',
       },
       {
         type: 'script',
@@ -594,12 +594,12 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'tip',
-        text: 'NEVER say "today only" if it\'s not true. Your credibility is everything. Instead, say "while supplies last" or "this week\'s promotion" — honest and effective.',
-        textEs: 'NUNCA digas "solo hoy" si no es verdad. Tu credibilidad es todo. En su lugar, di "mientras duren las existencias" o "la promoción de esta semana" — honesto y efectivo.',
+        text: 'Say it straight and move on: "Only today." "Two left." "This voucher dies the second you walk out of here." Straight face, half a smile — and drop it the moment they say no. Never stretch it into "come back this week" — that is not urgency, that is you showing them the door.',
+        textEs: 'Dilo sin más y sigue: "Solo hoy." "Me quedan dos." "Este cupón se muere en cuanto sales por esa puerta." Cara seria, media sonrisa — y lo sueltas en cuanto te digan que no. Nunca lo estires a "vuelve esta semana" — eso no es urgencia, es enseñarle la puerta.',
       },
     ],
-    practicePrompt: 'Use genuine scarcity in your close today. Be specific about what\'s limited. Track your close rate vs. non-urgency closes.',
-    practicePromptEs: 'Usa escasez genuina en tu cierre hoy. Sé específica sobre qué es limitado. Registra tu tasa de cierre vs. cierres sin urgencia.',
+    practicePrompt: 'Put a door on every price you say today. Be specific about what runs out. Track your close rate against the closes where you left the price open.',
+    practicePromptEs: 'Ponle puerta a cada precio que digas hoy. Sé concreta con lo que se acaba. Compara tu tasa de cierre con los cierres en los que dejaste el precio abierto.',
     xpReward: 20,
   },
   {
@@ -611,24 +611,24 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'technique',
-        text: 'The voucher close is your safety net. When nothing else works, the voucher gives them a reason to decide NOW. But use it as a final step, not your opening move.',
-        textEs: 'El cierre de vale es tu red de seguridad. Cuando nada más funciona, el vale les da una razón para decidir AHORA. Pero úsalo como paso final, no como movimiento de apertura.',
+        text: 'There is no voucher in a drawer. You invent it on the spot, because you need a reason to come down and she needs a second to breathe. It is theatre, and it is a final step, never your opening move.',
+        textEs: 'No hay ningún cupón en ningún cajón. Te lo inventas en el momento, porque tú necesitas una excusa para bajar y ella necesita un segundo para respirar. Es teatro, y es el paso final, nunca tu apertura.',
         highlight: 'Save the voucher for the final push. Don\'t lead with it.',
-        highlightEs: 'Guarda el vale para el empujón final. No empieces con él.',
+        highlightEs: 'Guarda el cupón para el empujón final. No empieces con él.',
       },
       {
         type: 'script',
-        text: '"Tell you what — I really want you to try this. I\'m going to use my one voucher on you, today only. That takes it from {currency}175 down to {currency}140. That\'s my absolute best offer, and it\'s only because I know you\'ll love it."',
-        textEs: '"Mira — de verdad quiero que lo pruebes. Voy a usar mi único cupón contigo, solo por hoy. Eso lo baja de {currency}175 a {currency}140. Es mi mejor oferta absoluta, y es solo porque sé que te va a encantar."',
+        text: '"You know what — I have got one voucher left and I am using it on you. That is {currency}175 down to {currency}140. But you are being greedy now, eh? No gift at that price. And it is gone the second you walk out of here."',
+        textEs: '"¿Sabes qué? Me queda un cupón y lo gasto contigo. Eso deja los {currency}175 en {currency}140. Pero qué morro tienes, ¿eh? A ese precio no va regalo. Y se muere en cuanto salgas por esa puerta."',
       },
       {
         type: 'tip',
-        text: 'Personalise the voucher. "I\'m going to give YOU..." makes it feel special. "We have a discount" makes it feel cheap and common.',
-        textEs: 'Personaliza el vale. "Te voy a dar A TI..." lo hace sentir especial. "Tenemos un descuento" lo hace sentir barato y común.',
+        text: 'Personalise it — "I\'m going to give YOU..." feels special, "we have a discount" feels cheap and common. And it never leaves the shop: no voucher handed over, none saved for next time, none waiting at the counter. A voucher that walks out of the door is just a customer walking out of the door with extra steps.',
+        textEs: 'Personalízalo — "te lo voy a hacer A TI" suena especial, "tenemos un descuento" suena barato y común. Y nunca sale de la tienda: ni se lo das, ni se lo guardas para otro día, ni le espera en caja. Un cupón que sale por la puerta es una clienta saliendo por la puerta con pasos de más.',
       },
     ],
-    practicePrompt: 'Use the voucher close on 2 hesitant clients today. Track: did the personalised approach ("for you") feel different than generic discounts?',
-    practicePromptEs: 'Usa el cierre de vale en 2 clientes indecisos hoy. Registra: ¿el enfoque personalizado ("para ti") se sintió diferente que los descuentos genéricos?',
+    practicePrompt: 'Use the voucher close on 2 hesitant customers today — invented on the spot, with the greedy line and the smile. Track how many said yes right there.',
+    practicePromptEs: 'Usa el cierre con cupón con 2 clientas indecisas hoy — inventado en el momento, con la frase del morro y la sonrisa. Registra cuántas dijeron que sí ahí mismo.',
     xpReward: 20,
   },
 
@@ -650,7 +650,7 @@ export const dailyDoses: DailyDose[] = [
       {
         type: 'script',
         text: '"Hi there! I have to say — your partner is very lucky to be with someone who takes such good care of their skin. I\'m [Name], and I\'m showcasing Swiss skincare today. Can I show you both something really cool?"',
-        textEs: '"¡Hola! Tengo que decir — tu pareja es muy afortunada de estar con alguien que cuida tanto su piel. Soy [Nombre], y estoy presentando cuidado de piel suizo hoy. ¿Puedo mostrarles algo muy genial?"',
+        textEs: '"¡Hola! Te lo tengo que decir — tu pareja tiene suerte de estar con alguien que se cuida así la piel. Soy [Nombre] y hoy traigo cosmética suiza. ¿Os enseño una cosa? Es una pasada."',
       },
       {
         type: 'tip',
@@ -708,7 +708,7 @@ export const dailyDoses: DailyDose[] = [
       {
         type: 'script',
         text: '"Hi ladies! I have to stop you — I just need ONE of you to try this, but I bet you\'ll ALL want one after you see it. Who\'s the bravest?"',
-        textEs: '"¡Hola chicas! Tengo que detenerlas — solo necesito que UNA lo pruebe, pero apuesto a que TODAS querrán uno después de verlo. ¿Quién es la más valiente?"',
+        textEs: '"¡Hola chicas! Os tengo que parar — solo necesito que lo pruebe UNA, pero os apuesto a que lo vais a querer TODAS en cuanto lo veáis. ¿Quién es la más valiente?"',
       },
       {
         type: 'tip',
@@ -810,30 +810,30 @@ export const dailyDoses: DailyDose[] = [
   {
     id: 'dose-028',
     day: 28,
-    title: 'The Callback Strategy',
-    titleEs: 'La Estrategia de Retorno',
+    title: 'There Is No Tomorrow',
+    titleEs: 'No Hay un Mañana',
     category: 'Advanced',
     content: [
       {
-        type: 'technique',
-        text: 'Not everyone buys today. But a "no today" can become a "yes tomorrow." The callback strategy turns maybes into sales. Always leave the door open.',
-        textEs: 'No todos compran hoy. Pero un "no hoy" puede convertirse en "sí mañana." La estrategia de retorno convierte los tal vez en ventas. Siempre deja la puerta abierta.',
-        highlight: 'A "maybe" is a seed. Water it.',
-        highlightEs: 'Un "tal vez" es una semilla. Ríégala.',
+        type: 'mindset',
+        text: 'There is no such thing as a callback. If they walk out, they are not coming back — treat every exit as a lost sale, because that is what it is. The ten seconds you have left in front of them are worth more than any promise about next week.',
+        textEs: 'No existe eso de que vuelvan. Si salen por la puerta, no vuelven — trata cada salida como una venta perdida, porque eso es lo que es. Los diez segundos que te quedan delante de ellos valen más que cualquier promesa sobre la semana que viene.',
+        highlight: 'A "maybe" heading for the door is a no. Answer it now.',
+        highlightEs: 'Un "ya veré" que va hacia la puerta es un no. Respóndelo ahora.',
       },
       {
         type: 'script',
-        text: '"No problem at all! I know it\'s a decision. Here\'s my card — I\'m here every day until 6 PM. Come back and ask for me, I\'ll make sure you get the same gift I offered today. And I\'ll save you a sample to try!"',
-        textEs: '"¡Ningún problema! Sé que es una decisión. Aquí está mi tarjeta — estoy aquí todos los días hasta las 6 PM. Vuelve y pide por mí, me aseguraré de que obtengas el mismo regalo que ofrecí hoy. ¡Y te guardaré una muestra para probar!"',
+        text: '"One second before you go. You said you like it. You said you would use it. So go on — tell me your number. Say it out loud." [Let them say it. Then move ONE rung, and put something small in the bag.]',
+        textEs: '"Un segundo antes de irte. Me has dicho que te gusta. Me has dicho que lo usarías. Venga — dime tu número. Dilo en voz alta." [Deja que lo diga. Luego bajas UN escalón y le metes algo pequeño en la bolsa.]',
       },
       {
         type: 'tip',
-        text: 'ALWAYS give a reason to return: a saved sample, a reserved gift, a personal promise. Callbacks are warmer than cold stops. A returning customer has already decided — they just need permission.',
-        textEs: 'SIEMPRE da una razón para volver: una muestra guardada, un regalo reservado, una promesa personal. Los retornos son más cálidos que las paradas en frío. Un cliente que vuelve ya decidió — solo necesita permiso.',
+        text: 'Never hand over a reason to return — no card, no sample put aside, no gift reserved, no price written down. All of that is a lost sale with extra steps. Go A to Z first: the two yeses again, one more rung, one more thing in the bag. Only when you have honestly given it everything do you let them go — smiling, warm, empty-handed.',
+        textEs: 'Nunca le des un motivo para volver — ni tarjeta, ni muestra apartada, ni regalo reservado, ni el precio apuntado. Todo eso es una venta perdida con pasos de más. Primero de la A a la Z: los dos síes otra vez, un escalón más, algo más en la bolsa. Solo cuando de verdad lo has dado todo los dejas marchar — sonriendo, con buena cara y con las manos vacías.',
       },
     ],
-    practicePrompt: 'When someone says "I\'ll come back" today, use the callback strategy. Give them a specific reason to return. Track how many actually come back.',
-    practicePromptEs: 'Cuando alguien diga "volveré" hoy, usa la estrategia de retorno. Dales una razón específica para regresar. Registra cuántos realmente vuelven.',
+    practicePrompt: 'Today, when someone says they will come back, do not agree with them. Answer it and go one more rung, right there. Count how many you close on the spot.',
+    practicePromptEs: 'Hoy, cuando alguien te diga que ya volverá, no le des la razón. Respóndelo y baja un escalón más, ahí mismo. Cuenta cuántas cierras en el momento.',
     xpReward: 25,
   },
 

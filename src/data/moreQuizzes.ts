@@ -502,19 +502,19 @@ const quizPeelingMastery: GeneralQuiz = {
         "Yes — glycolic acid will clear your acne completely, so start using it tonight and keep going every day until it is gone",
         "No — glycolic acid causes acne in everyone, so this is the one product you should never use on a face that already breaks out",
         "Use it twice daily directly on pimples to dry them out, and the stronger the tingling feels the faster it will be working",
-        "Not on active, inflamed acne — wait until breakouts calm down, then use it to fade scars and prevent future ones"
+        "Not while the skin is angry — but you are not leaving with nothing. Give me your hands and we do the Scrub instead"
       ],
       optionsEs: [
         "Sí — el ácido glicólico te quitará el acné del todo, empieza esta noche y sigue cada día hasta que desaparezca",
         "No — el ácido glicólico causa acné en todo el mundo, así que es el producto que nunca deberías usar en una cara con brotes",
         "Úsalo dos veces al día directamente sobre los granos para secarlos, y cuanto más pique más rápido estará funcionando",
-        "No sobre acné activo e inflamado — espera a que los brotes se calmen, luego úsalo para atenuar cicatrices y prevenir futuros"
+        "Sobre la piel irritada no — pero no te vas de vacío. Dame las manos y hacemos el Exfoliante"
       ],
       correctIndex: 3,
       explanation:
-        "This is a SAFETY question, not just a sales question. Applying acid to inflamed, broken skin can cause irritation, hyperpigmentation, and scarring. The honest answer protects the customer AND sets up a future sale ('come back when your skin calms down, I'll show you how to fade the scars'). This integrity builds your reputation and prevents dangerous misuse. Never sacrifice safety for a sale.",
+        "Acid does not go on skin that is already inflamed. That is not squeamishness — it is the one thing that comes back on the shop. But 'no' to the peeling today is not 'no' to you. Do not put a name on what she has, do not promise to clear it up, and above all do not send her off to come back another week, because she will not come back. Turn her hands over, do the Scrub demo, and let her leave with a bag in her hand.",
       explanationEs:
-        "Esta es una pregunta de SEGURIDAD, no solo de ventas. Aplicar ácido sobre piel inflamada y abierta puede causar irritación, hiperpigmentación y cicatrices. La respuesta honesta protege a la cliente Y prepara una venta futura ('regresa cuando tu piel se calme, te mostraré cómo atenuar las cicatrices'). Esta integridad construye tu reputación y previene uso peligroso. Nunca sacrificues seguridad por una venta."
+        "El ácido no va sobre una piel que ya está inflamada. No es remilgo: es lo único que se le vuelve en contra a la tienda. Pero un 'no' al peeling hoy no es un 'no' a ti. No le pongas nombre a lo que tiene, no le prometas que se lo vas a curar y, sobre todo, no la mandes a volver otra semana, porque no vuelve. Dale la vuelta a sus manos, hazle la demo del Exfoliante y que salga con una bolsa."
     }
   ]
 };
@@ -657,21 +657,21 @@ const quizScrubExpert: GeneralQuiz = {
         "¿Cuál de estos es un beneficio REAL de los minerales del Mar Muerto que hace al scrub único comparado con scrubs de sal regulares?",
       options: [
         "It contains 10x more salt than regular scrubs, which is what makes the crystals feel so different on the back of the hand",
-        "Dead Sea minerals have been clinically studied for psoriasis and eczema treatment — the mineral concentration is 30% vs 3% in regular seawater",
+        "The Dead Sea runs about 30% minerals, against roughly 3% in ordinary seawater — ten times as much in every handful",
         "It smells better than other scrubs because the minerals are unscented, so nothing competes with the perfume you already wear",
         "The crystals are sharper so they exfoliate deeper than sugar or plastic beads, which is why one use is enough for a whole week"
       ],
       optionsEs: [
         "Contiene 10 veces más sal que los exfoliantes normales, que es lo que hace que los cristales se noten tan distintos en la mano",
-        "Los minerales del Mar Muerto han sido estudiados clínicamente para tratamiento de psoriasis y eczema — la concentración mineral es 30% vs 3% en agua de mar regular",
+        "El Mar Muerto ronda el 30% de minerales, frente al 3% del agua de mar normal — diez veces más en cada puñado",
         "Huele mejor que otros exfoliantes porque los minerales no llevan perfume, así que nada compite con el que ya usas",
         "Los cristales son más afilados, así que exfolian más hondo que el azúcar o las microesferas, por eso un uso basta para toda la semana"
       ],
       correctIndex: 1,
       explanation:
-        "The Dead Sea's mineral concentration (approximately 30%) is roughly TEN TIMES higher than regular seawater (~3%). This isn't marketing — it's geology. The Dead Sea is one of the saltiest bodies of water on Earth, and people literally travel there for therapeutic treatments. Mentioning psoriasis and eczema studies adds medical credibility. Facts like these separate you from sellers who just say 'it's good for your skin.'",
+        "The Dead Sea's mineral concentration (approximately 30%) is roughly TEN TIMES higher than regular seawater (~3%). This isn't marketing — it's geology. It is one of the saltiest bodies of water on Earth and people fly across the world to get into it. Keep it there: say where the minerals come from and what they do for skin, and never name an illness or a condition the product is supposed to treat. A fact you can say with a straight face separates you from sellers who just say 'it's good for your skin.'",
       explanationEs:
-        "La concentración mineral del Mar Muerto (aproximadamente 30%) es aproximadamente DIEZ VECES mayor que el agua de mar regular (~3%). Esto no es marketing — es geología. El Mar Muerto es uno de los cuerpos de agua más salados de la Tierra, y la gente literalmente viaja allí para tratamientos terapéuticos. Mencionar estudios de psoriasis y eczema agrega credibilidad médica. Hechos como estos te separan de vendedores que solo dicen 'es bueno para tu piel.'"
+        "La concentración mineral del Mar Muerto (aproximadamente 30%) es unas DIEZ VECES mayor que la del agua de mar normal (~3%). Esto no es marketing — es geología. Es uno de los mares más salados de la Tierra y hay gente que cruza el mundo para meterse en él. Quédate ahí: di de dónde salen los minerales y qué le hacen a la piel, y no nombres nunca una enfermedad ni una dolencia que el producto vaya a tratar. Un dato que puedes soltar sin pestañear te separa de los vendedores que solo dicen 'es bueno para la piel.'"
     },
     {
       question:
@@ -1064,20 +1064,20 @@ const quizObjectionsChampion: GeneralQuiz = {
       options: [
         "Okay, I'll be here tomorrow — no problem! Come by whenever you like and we can pick up exactly where we left off",
         "People who say that never come back — are you really interested or just being nice? Tell me straight and I will not waste your time",
-        "You'll forget about it by tomorrow — just buy it now while you can still remember how your face looked in the mirror",
-        "Absolutely, sleep on it. Just so you know — this is the last day at this price. I have 2 units left at {currency}300. Want me to hold one for you with a small deposit?"
+        "Tomorrow you are on a beach, my love. You said you like it, you said you would use it — so the only thing left is the price. Let me sort that out now",
+        "Absolutely, sleep on it and see how you feel in the morning. This is the last day at this price. Want me to hold one for you at the counter with a small deposit?"
       ],
       optionsEs: [
         "Vale, mañana estaré aquí — ¡sin problema! Pásate cuando quieras y seguimos justo donde lo dejamos",
         "La gente que dice eso no vuelve nunca — ¿te interesa de verdad o solo estás siendo amable? Dímelo claro y no te hago perder el tiempo",
-        "Mañana ya se te habrá olvidado — cómpralo ahora que todavía recuerdas cómo te has visto en el espejo",
-        "Absolutamente, piénsalo. Solo para que sepas — este es el último día a este precio. Me quedan 2 unidades a {currency}300. ¿Quieres que te reserve una con un pequeño depósito?"
+        "Mañana estarás en la playa, cariño. Me has dicho que te gusta y que lo usarías, así que solo queda el precio. Deja que lo arregle ahora",
+        "Claro, consúltalo con la almohada y mira cómo lo ves por la mañana. Es el último día a este precio. ¿Te reservo una en el mostrador con un pequeño depósito?"
       ],
-      correctIndex: 3,
+      correctIndex: 2,
       explanation:
-        "This response respects their need to think (non-pushy) while creating genuine urgency ('last day,' '2 units left'). The deposit offer is the secret weapon — it requires a small commitment now that makes them far more likely to return. Even a {currency}10 deposit dramatically increases return rates. Never let a 'maybe' walk away without some form of commitment — a deposit, a phone number, or at minimum a business card.",
+        "'I'll come back tomorrow' is the sale walking out on two legs. She already said yes twice in the demo — she likes it, she would use it — so the only thing still open is the price, and the price is the one thing you can only work on with her in front of you. Sleeping on it, a deposit, a card, a unit held at the counter: they all sound considerate and they all end with her outside. Do not invent stock numbers either — you do not need them. Fix the price now, in the shop.",
       explanationEs:
-        "Esta respuesta respeta su necesidad de pensar (no agresiva) mientras crea urgencia genuina ('último día,' '2 unidades'). La oferta de depósito es el arma secreta — requiere un pequeño compromiso ahora que hace mucho más probable que regresen. Incluso un depósito de {currency}10 aumenta dramáticamente las tasas de retorno. Nunca dejes que un 'tal vez' se vaya sin alguna forma de compromiso — un depósito, un número de teléfono, o al mínimo una tarjeta de presentación."
+        "'Vuelvo mañana' es la venta saliendo por la puerta andando. Ya te ha dicho que sí dos veces en la demo: le gusta y lo usaría, así que lo único que queda abierto es el precio, y el precio es lo único que solo puedes trabajar con ella delante. Consultarlo con la almohada, una señal, una tarjeta, una unidad guardada en el mostrador: todo suena muy considerado y todo acaba con ella en la calle. Y no te inventes existencias, no te hacen falta. Arregla el precio ahora, en la tienda."
     },
     {
       question:
@@ -1225,20 +1225,20 @@ const quizObjectionsChampion: GeneralQuiz = {
       options: [
         "Those other products are probably why you don't see results — ours is different, and mixing brands is exactly what stops any of them from working. Clear the shelf, keep one system, and you will finally see what your skin can do",
         "I hear that all the time. Here's the difference — those products didn't come with ME showing you exactly how to use them and what results to expect. Let me give you my card. Use your products for 2 more weeks. When they don't deliver what I just showed you, text me and I'll be here.",
-        "You should throw all those away and start fresh with our line — a half-used shelf of products is worth less than one that actually works",
+        "That is exactly my point, my darling — they are sitting in a cupboard because not one of them ever did this. You told me you like it and you would use it. So do not shelve this one. Use it tonight",
         "Then you don't need anything — have a nice day, and come back when you have actually finished the ones you already own"
       ],
       optionsEs: [
         "Esos otros productos son probablemente la razón de que no veas resultados — el nuestro es distinto, y mezclar marcas es justo lo que impide que ninguno funcione. Vacía el estante, quédate con un sistema y por fin verás lo que puede hacer tu piel",
         "Eso lo escucho todo el tiempo. Aquí está la diferencia — esos productos no vinieron conmigo mostrándote exactamente cómo usarlos y qué resultados esperar. Déjame darte mi tarjeta. Usa tus productos por 2 semanas más. Cuando no entreguen lo que acabo de mostrarte, escríbeme y estaré aquí.",
-        "Deberías tirarlos todos y empezar de cero con nuestra línea — un estante de productos a medias vale menos que uno que de verdad funcione",
+        "Justo por eso, cariño — están en un armario porque ninguno de ellos hizo nunca esto. Me has dicho que te gusta y que lo usarías. Así que este no lo guardes. Úsalo esta noche",
         "Entonces no necesitas nada — que tengas buen día, y vuelve cuando hayas terminado de verdad los que ya tienes"
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "This is the 'seed planting' close — one of the most powerful long-game techniques in street sales. Instead of fighting their existing products, you EMBRACE them and set up a comparison test. You look generous (giving your card, not pressuring), confident ('when they don't deliver'), and you create a follow-up mechanism. Most importantly, you've set up a mental benchmark — they'll be comparing their products to YOUR demo result every time they use them. Plant the seed, walk away, and watch it grow.",
+        "She is not telling you her shelf is full. She is telling you that nothing she has ever bought did what she just watched happen in the mirror — so use her own words back: she said she likes it, she said she would use it. The card answer is the one that loses. It is generous, it is patient, it feels like the classy move, and it hands the decision to a woman who will be on a plane before she next opens that drawer. Everything you are going to win, you win here, with her hand still in yours.",
       explanationEs:
-        "Este es el cierre de 'sembrar la semilla' — una de las técnicas de juego largo más poderosas en ventas de calle. En lugar de pelear con sus productos existentes, los ABRAZAS y preparas una prueba comparativa. Pareces generoso (dando tu tarjeta, sin presionar), confiado ('cuando no entreguen'), y creas un mecanismo de seguimiento. Más importante, has establecido un punto de referencia mental — estarán comparando sus productos con el resultado de TU demo cada vez que los usen. Siembra la semilla, aléjate, y observa crecer."
+        "No te está diciendo que tenga el estante lleno. Te está diciendo que nada de lo que ha comprado hizo nunca lo que acaba de ver en el espejo — así que devuélvele sus propias palabras: te ha dicho que le gusta y que lo usaría. La respuesta de la tarjeta es la que pierde. Es generosa, es paciente, parece la jugada elegante, y le deja la decisión a una mujer que estará en un avión antes de volver a abrir ese cajón. Todo lo que vas a ganar, lo ganas aquí, con su mano todavía en la tuya."
     },
     {
       question:

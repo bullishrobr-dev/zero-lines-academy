@@ -117,21 +117,25 @@ export const NUDGES: Nudge[] = [
     route: '/cheat-sheets',
   },
   {
+    // Parked her at the till for ten minutes, which is ten minutes to walk out.
+    // She already gave you the two yeses, so there is one thing left: the price.
     id: 'line-think-about-it',
     kind: 'line',
     title: 'For "let me think about it"',
     titleEs: 'Para "déjame pensarlo"',
-    body: `"Of course. The voucher goes with today's visit — I'll hold it at the till for ten minutes."`,
-    bodyEs: `"Claro. El cupón va con la visita de hoy — te lo guardo en caja diez minutos."`,
+    body: `"Think about what, my love? You like it, you'd use it. So it's the price. Say it and watch me."`,
+    bodyEs: `"¿Pensar el qué, cariño? Te gusta, lo usarías. Entonces es el precio. Dilo y verás lo que hago."`,
     route: '/cheat-sheets',
   },
   {
+    // Asking what an absent partner would say hands him a vote he did not ask
+    // for. Ladies' business — put the decision back in her hands, right here.
     id: 'line-ask-partner',
     kind: 'line',
     title: 'For "I have to ask my partner"',
     titleEs: 'Para "tengo que preguntarle"',
-    body: `"Totally fair. If they were here right now, what would they say?" Then stop talking.`,
-    bodyEs: `"Normal. Si estuviera aquí ahora mismo, ¿qué diría?" Y ahí te callas.`,
+    body: `"Ladies' business, my love. He's playing golf — he isn't thinking about your face. Your call."`,
+    bodyEs: `"Cosa de mujeres, cariño. Él está con el golf — no piensa en tu cara. Es cosa tuya, no suya."`,
     route: '/cheat-sheets',
   },
   {

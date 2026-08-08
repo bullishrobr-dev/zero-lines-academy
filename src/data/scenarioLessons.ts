@@ -610,8 +610,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Take your time. I'm not going anywhere.\" [Half a step back. Busy yourself with something on the table for ten seconds — tidy the samples, wipe the mirror] [Then look up, warm] \"Whenever you're ready.\"",
-        textEs: "TÚ: \"Tómate tu tiempo. Yo no me voy a ningún lado.\" [Medio paso atrás. Entretente diez segundos con algo de la mesa — coloca las muestras, limpia el espejo] [Y luego levanta la vista, con cariño] \"Cuando tú quieras.\"",
+        text: "YOU: \"I'm not going anywhere.\" [Half a step back. Busy yourself with something on the table for ten seconds — tidy the samples, wipe the mirror] [Then look up, warm] \"Go on then. Which one?\"",
+        textEs: "TÚ: \"Yo no me muevo de aquí.\" [Medio paso atrás. Entretente diez segundos con algo de la mesa — coloca las muestras, limpia el espejo] [Y luego levanta la vista, con cariño] \"Venga. ¿Cuál te llevas?\"",
       },
       {
         type: "subheader",

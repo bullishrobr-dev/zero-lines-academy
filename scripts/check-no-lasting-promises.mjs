@@ -35,11 +35,29 @@ const PROMISE = [
   /menciona mi nombre/i,
   /pregunta por m[ií]\b/i,
   /ask for me by name/i,
+  /* A promise does not have to say "refund" to be one. A flashcard offered a
+     "satisfaction guarantee — if you don't love it in 7 days, I'll swap it for
+     you", which is the same cheque drawn on a colleague's shift and sailed
+     straight past a list that only knew the word refund. The buffer is the one
+     real replacement the shop honours, so it is exempted below. */
+  /satisfaction guarantee/i,
+  /garant[ií]a de satisfacci[oó]n/i,
+  /(swap|exchange|replace) it for you/i,
+  /te lo (cambio|cambiamos|sustituyo)/i,
+  /money.?back guarantee/i,
 ];
 
 /** The line is stating the rule, not breaking it. */
 const NEGATED =
-  /never promise|do not promise|don't promise|no prometas|nada de |no money back|NOT to Do|what NOT|nunca prometas|no le prometas/i;
+  /never promise|do not promise|don't promise|no prometas|nada de |no money back|NOT to Do|what NOT|nunca prometas|no le prometas|no (hacemos|hay) devoluciones|we do not do returns|don't do returns/i;
+
+/**
+ * The buffer / nail-kit replacement, which is real and which the owner honours:
+ * "they can come with the old buffer, we'll give them a new one". Swapping a
+ * worn buffer is a true statement, so the words that would otherwise read as a
+ * promise are allowed when the line is about that.
+ */
+const BUFFER = /buffer|pulidor|lima\b|nail ?kit|kit de u[ñn]as|whole kit|kit entero|MIX_FLOOR/i;
 
 /**
  * Lines that are WRONG ANSWERS in a quiz.
@@ -85,11 +103,15 @@ const hits = [];
 for (const file of walk(ROOT)) {
   const src = readFileSync(file, 'utf8');
   const exempt = distractorLines(src);
-  src
-    .split('\n')
+  const all = src.split('\n');
+  all
     .forEach((line, i) => {
       if (/^\s*(\/\/|\*|\/\*)/.test(line)) return; // explanatory comments are not content
       if (NEGATED.test(line)) return;
+      /* Which product a guarantee belongs to is usually named a few lines up,
+         on the ladder or block that owns it, not in the sentence itself — the
+         nail-kit line is literally "bring it back and we replace it". */
+      if (BUFFER.test(all.slice(Math.max(0, i - 12), i + 1).join(' '))) return;
       if (exempt.has(i + 1)) return; // a wrong answer, there to be rejected
       for (const rx of PROMISE) {
         if (rx.test(line)) {

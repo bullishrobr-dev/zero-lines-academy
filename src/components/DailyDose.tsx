@@ -11,6 +11,7 @@ import { BookOpen, Check, Clock, X, Lightbulb, MessageSquare, Wand2, Brain, Awar
 import { useDailyFlow } from '../hooks/useDailyFlow';
 import { getTodaysDose } from '../data/dailyDoses';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCurrency } from '../utils/currency';
 import { haptic } from '../utils/haptics';
 
 const COPY = {
@@ -82,6 +83,10 @@ interface DailyDoseCardProps {
 export function DailyDoseCard({ onOpen }: DailyDoseCardProps) {
   const { isDoseCompleted } = useDailyFlow();
   const { language } = useLanguage();
+  /* The dose copy carries {currency} tokens like every other price string in
+     the app, and nothing here was resolving them — a seller opening today's
+     dose read "{currency}300" on the screen, in both shops. */
+  const { sub } = useCurrency();
   const c = language === 'es' ? COPY.es : COPY.en;
   const dose = getTodaysDose();
   const completed = isDoseCompleted(dose.id);
@@ -116,10 +121,10 @@ export function DailyDoseCard({ onOpen }: DailyDoseCardProps) {
       </div>
 
       <h3 className="text-h4 text-ink">
-        {c.todaysFocus}: {language === 'es' ? dose.titleEs : dose.title}
+        {c.todaysFocus}: {sub(language === 'es' ? dose.titleEs : dose.title)}
       </h3>
       <p className="mt-1 line-clamp-2 text-body-small text-ink-2">
-        {language === 'es' ? dose.content[0].textEs : dose.content[0].text}
+        {sub(language === 'es' ? dose.content[0].textEs : dose.content[0].text)}
       </p>
 
       <div className="mt-3 flex items-center justify-between">
@@ -144,6 +149,7 @@ export function DailyDoseModal({ isOpen, onClose, onCompleted }: DailyDoseModalP
   const { completeDailyDose, isDoseCompleted } = useDailyFlow();
   const [markedDone, setMarkedDone] = useState(false);
   const { language } = useLanguage();
+  const { sub } = useCurrency();
   const c = language === 'es' ? COPY.es : COPY.en;
   const isEs = language === 'es';
   const dose = getTodaysDose();
@@ -205,7 +211,7 @@ export function DailyDoseModal({ isOpen, onClose, onCompleted }: DailyDoseModalP
                   <span className="inline-block rounded-full bg-teal-tint px-2.5 py-1 text-overline text-teal-strong">
                     {c.day} {dose.day} · {catLabel(dose.category, isEs)}
                   </span>
-                  <h2 className="mt-2 text-h2 text-ink">{isEs ? dose.titleEs : dose.title}</h2>
+                  <h2 className="mt-2 text-h2 text-ink">{sub(isEs ? dose.titleEs : dose.title)}</h2>
                 </div>
                 <button onClick={handleClose} className="btn-icon shrink-0" aria-label={c.close}>
                   <X className="h-5 w-5" aria-hidden="true" />
@@ -233,9 +239,9 @@ export function DailyDoseModal({ isOpen, onClose, onCompleted }: DailyDoseModalP
                       </span>
                     </div>
                     {highlight && (
-                      <p className="mb-2 text-h4 text-ink">{highlight}</p>
+                      <p className="mb-2 text-h4 text-ink">{sub(highlight)}</p>
                     )}
-                    <p className="text-body text-ink-2">{isEs ? block.textEs : block.text}</p>
+                    <p className="text-body text-ink-2">{sub(isEs ? block.textEs : block.text)}</p>
                   </motion.div>
                 );
               })}
@@ -252,7 +258,7 @@ export function DailyDoseModal({ isOpen, onClose, onCompleted }: DailyDoseModalP
                   <span className="text-overline">{c.practice}</span>
                 </div>
                 <p className="text-body text-ink-2">
-                  {isEs ? dose.practicePromptEs : dose.practicePrompt}
+                  {sub(isEs ? dose.practicePromptEs : dose.practicePrompt)}
                 </p>
               </motion.div>
 

@@ -875,8 +875,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'When a couple is deciding, GIVE THEM SPACE. Step back after presenting the offer. Say \'Take your time, I\'ll be right here.\' Hovering creates pressure. Space creates comfort. The conversation they have in that 30-second gap often seals the deal — one convinces the other.',
-      textEs: 'Cuando una pareja está decidiendo, DALES ESPACIO. Retrocede después de presentar la oferta. Di "Tómate tu tiempo, estaré aquí." Cernirse crea presión. El espacio crea comodidad. La conversación que tienen en esos 30 segundos a menudo sella el trato — uno convence al otro.',
+      text: 'When a couple is deciding, GIVE THEM A BEAT — but give it to them at your table, not out on the pavement. Put the box in her hands, take half a step back, busy yourself with something. \'I\'m right here.\' Let them have the little conversation they need to have, because one of them nearly always talks the other into it. What you never do is send them off to have it somewhere else.',
+      textEs: 'Cuando una pareja está decidiendo, DALES UN SEGUNDO — pero dáselo en tu mesa, no en mitad de la calle. Ponle la caja en las manos, medio paso atrás, y entretente con algo. "Estoy aquí mismo." Que tengan la conversación que necesitan tener, porque casi siempre uno convence al otro. Lo que no haces nunca es mandarlos a tenerla a otra parte.',
     },
     {
             type: 'divider'
@@ -1650,13 +1650,13 @@ export const lessons: Record<string, Lesson> = {
         'HOW YOU SPOT ONE: Picks the box up and turns it over. Asks what is in it before asking what it costs. Goes quiet and reads. That silence is not boredom, it is homework.',
         'WHAT WORKS: Know your product and answer straight. \'Dead Sea mineral salt — magnesium, calcium, potassium. One jar is 8 to 12 months of weekly treatments, which is under {currency}2 a go.\' Numbers you actually know, said without hesitating.',
         'WHAT KILLS IT: Waffle, or rushing them, or making something up. This is the one customer who will catch you out — and if they catch you once, you have lost the whole thing.',
-        'HOW YOU CLOSE: Let the box do the last bit. \'Read it properly, take your time. I am not going anywhere.\' Then go quiet. They close themselves more often than you would think.'
+        'HOW YOU CLOSE: Let the box do the last bit. \'Read it properly, I am in no hurry. I am not going anywhere.\' Then go quiet. They close themselves more often than you would think.'
       ],
       itemsEs: [
           'CÓMO LOS PILLAS: Coge la caja y le da la vuelta. Pregunta qué lleva antes de preguntar cuánto cuesta. Se queda callado leyendo. Ese silencio no es aburrimiento, son deberes.',
           'LO QUE FUNCIONA: Sábete el producto y contesta a pelo. \'Sal mineral del Mar Muerto: magnesio, calcio, potasio. Un bote son de 8 a 12 meses de tratamientos semanales, o sea menos de {currency}2 cada vez.\' Números que te sepas de verdad, dichos sin dudar.',
           'LO QUE LO MATA: Enrollarte, meterle prisa o inventarte algo. Este es el cliente que te va a pillar — y si te pilla una vez, ya lo has perdido del todo.',
-          'CÓMO CIERRAS: Que la caja haga el último trozo. \'Léetelo con calma, no tengo prisa. Yo no me muevo de aquí.\' Y te callas. Se cierran solos más veces de las que te imaginas.',
+          'CÓMO CIERRAS: Que la caja haga el último trozo. \'Léetelo bien, que yo no tengo ninguna prisa. Yo no me muevo de aquí.\' Y te callas. Se cierran solos más veces de las que te imaginas.',
         ],
     },
     {
@@ -3257,7 +3257,7 @@ export const lessons: Record<string, Lesson> = {
     title: 'The WhatsApp Close & Follow-Up',
     titleEs: 'El Cierre de WhatsApp y Seguimiento',
     subtitle: 'Turning one sale into a relationship — follow-up templates, client books, and referral strategies',
-    subtitleEs: 'El seguimiento cierra la mitad de las ventas',
+    subtitleEs: 'Convertir una venta en una relación — plantillas de seguimiento, libro de clientes y referencias',
     duration: '10 min',
     icon: 'MessageSquare',
     order: 8,
@@ -3330,15 +3330,15 @@ export const lessons: Record<string, Lesson> = {
         'DAY 1 — THE CHECK-IN: \'Hi [Name]! Hope you\'re enjoying {locationName}. Just wanted to check — did you try the [product] yet? Any questions? I\'m here if you need me!\' (Shows you care, opens dialogue.)',
         'DAY 3 — THE TIP: \'Hey [Name]! Pro tip for the [product]: use it at night before bed so it has time to work its magic while you sleep. Let me know how it goes!\' (Adds value, keeps connection alive.)',
         'DAY 7 — THE LOVE CHECK: \'Hi [Name]! It\'s been a week — how are you loving the [product]? Have people noticed the difference? I bet they have!\' (Encourages them to reflect on results and share positive feelings.)',
-        'DAY 14 — THE REORDER NUDGE: \'Hey [Name]! If you\'re running low on anything or want to grab another before your next trip, just let me know. I can hold something for you!\' (Plants the reorder seed without pressure.)',
-        'MONTH 3 — THE RETURNING CUSTOMER: \'Hi [Name]! Missing {locationName} yet? When you\'re planning your next trip, let me know — I have some new products I think you\'ll love. Plus, I\'ll have a little surprise waiting for you!\' (Creates anticipation for return visit.)'
+        'DAY 14 — THE REORDER NUDGE: \'Hey [Name]! If you\'re running low on anything, message me and I\'ll tell you exactly what we have in.\' (Opens the door to a reorder. Notice what it does not do: promise to hold anything, or promise a price, on a day you might not even be working.)',
+        'MONTH 3 — THE RETURNING CUSTOMER: \'Hi [Name]! Missing {locationName} yet? When you\'re planning your next trip, let me know — we have some lovely new bits in I think you\'ll go mad for.\' (Keeps you in their head without promising them anything somebody else has to honour.)'
       ],
       itemsEs: [
           'DÍA 1 — EL CHECK-IN: "¡Hola [Nombre]! Espero que estés disfrutando {locationName}. Solo quería comprobar — ¿ya probaste el [producto]? ¿Alguna pregunta? ¡Aquí estoy si me necesitas!" (Muestra que te importa, abre el diálogo.)',
           'DÍA 3 — EL TIP: "¡Hola [Nombre]! Tip pro para el [producto]: úsalo en la noche antes de dormir para que tenga tiempo de hacer su magia mientras duermes. ¡Dime cómo te va!" (Agrega valor, mantiene la conexión viva.)',
           'DÍA 7 — EL CHECK DE ENCANTO: "¡Hola [Nombre]! Ya hace una semana — ¿cómo te está gustando el [producto]? ¿La gente ha notado la diferencia? ¡Apuesto a que sí!" (Los anima a reflexionar sobre resultados y compartir sentimientos positivos.)',
-          'DÍA 14 — EL EMPUJÓN DE REORDEN: "¡Hola [Nombre]! Si se te está acabando algo o quieres coger otro antes de tu próximo viaje, solo avísame. ¡Puedo guardarte algo!" (Planta la semilla de reorden sin presión.)',
-          'MES 3 — EL CLIENTE QUE Vuelve: "¡Hola [Nombre]! ¿Ya extrañas {locationName}? Cuando estés planeando tu próximo viaje, avísame — tengo algunos productos nuevos que creo que te encantarán. ¡Además, tendré una pequeña sorpresa esperándote!" (Crea anticipación para la visita de vuelta.)',
+          'DÍA 14 — EL EMPUJÓN DE REPOSICIÓN: "¡Hola [Nombre]! Si se te está acabando algo, escríbeme y te digo justo lo que tenemos." (Abre la puerta a que repita. Fíjate en lo que no hace: prometer que le guardas nada, ni un precio, para un día en el que a lo mejor ni trabajas.)',
+          'MES 3 — EL CLIENTE QUE VUELVE: "¡Hola [Nombre]! ¿Ya echas de menos {locationName}? Cuando estés planeando el próximo viaje, avísame — nos han entrado cosas nuevas preciosas que creo que te van a volver loca." (Te mantiene en su cabeza sin prometerle nada que luego tenga que cumplir otro.)',
         ],
     },
     {
@@ -3425,13 +3425,13 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'THE IMMEDIATE ASK: During the two promises at close: \'If you love it, tell your friends about us.\' This plants the seed.',
         'THE RESULTS-BASED ASK: After they text you positively: \'I\'m so glad you love it! If you have any friends who\'d enjoy the same result, send them my way. I\'ll take great care of them too.\'',
-        'THE INCENTIVIZED ASK: \'Refer a friend who buys something, and next time you\'re in, I\'ll have a free gift waiting for you.\' Small incentive creates reciprocity.',
+        'THE INCENTIVE IS YOU: \'Send them to me and I\'ll look after them exactly the way I looked after you.\' Your name and your service are the incentive. Never a gift or a price for a day you might not be working — that is a promise somebody else has to keep.',
         'THE SOCIAL PROOF ASK: \'Most of my new customers come from referrals. If you know anyone heading to {locationName}, I\'d love to meet them!\' Makes asking feel natural, not salesy.'
       ],
       itemsEs: [
           'LA PREGUNTA INMEDIATA: Durante las dos promesas al cerrar: "Si te encanta, cuéntales a tus amigos sobre nosotros." Esto planta la semilla.',
           'LA PREGUNTA BASADA EN RESULTADOS: Después de que te escriban positivamente: "¡Me alegra tanto que te encante! Si tienes amigas que disfrutarían el mismo resultado, mándamelas. Yo también las cuidaré muy bien."',
-          'LA PREGUNTA INCENTIVADA: "Refiere a una amiga que compre algo, y la próxima vez que vengas, tendré un regalo gratis esperándote." Un pequeño incentivo crea reciprocidad.',
+          'EL INCENTIVO ERES TÚ: "Mándamelas y las cuido exactamente igual que te he cuidado a ti." Tu nombre y tu trato son el incentivo. Nunca un regalo ni un precio para un día en el que a lo mejor no trabajas — eso es una promesa que tiene que cumplir otro.',
           'LA PREGUNTA DE PRUEBA SOCIAL: "La mayoría de mis nuevos clientes vienen de referencias. Si conoces a alguien que vaya a {locationName}, ¡me encantaría conocerlos!" Hace que pedir se sienta natural, no como venta.',
         ],
     },
@@ -5142,8 +5142,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'I can see you\'re thinking about it — that\'s smart. Here\'s my WhatsApp. If you have any questions later, or if you want to come back and try something else, just message me. No pressure at all.\' This plants a seed, builds a bridge, and respects their signals.',
-      textEs: '\'Veo que lo estás pensando — eso es inteligente. Aquí está mi WhatsApp. Si tienes preguntas más tarde, o si quieres volver y probar algo más, solo escríbeme. Ninguna presión.\' Esto planta una semilla, construye un puente y respeta sus señales.',
+      text: '\'I can see you\'re thinking about it — so tell me what about. You told me you like it. You told me you\'d use it. So it\'s the price, my love. Say the number out loud and let me see what I can do.\' Read the signals, absolutely — but read them so you know which line to reach for, not so you know when to open the door for her.',
+      textEs: '\'Veo que lo estás pensando — pues dime en qué. Me has dicho que te gusta. Me has dicho que lo usarías. Entonces es el precio, cariño. Dime tú el número en voz alta y a ver qué puedo hacer.\' Lee las señales, por supuesto — pero léelas para saber qué frase sacar, no para saber cuándo abrirle la puerta.',
     },
     {
             type: 'divider'
@@ -6375,14 +6375,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         '\'You\'re breaking my heart! Just kidding — but seriously, you\'re missing out.\'',
         '\'Okay, but when you walk past our shop later and see everyone smiling inside, you\'ll wonder what you missed.\'',
-        '\'I\'ll be here all day. When you change your mind after seeing someone else\'s results, come find me!\'',
+        '\'Go on then. But I\'m telling you now — you\'ll be thinking about me over dinner.\' (Cheeky, and it does not hand them a reason to postpone.)',
         '\'My manager is watching — can you at least pretend to be interested for 10 seconds?\' (Self-deprecating humor that creates connection.)',
         '\'That\'s the fourth \'no\' in a row. You\'re all going to make me cry!\' (Playful, not desperate.)'
       ],
       itemsEs: [
           '\'¡Me estás rompiendo el corazón! Es broma, pero en serio, te estás perdiendo de algo.\'',
           '\'Está bien, pero cuando pases frente a nuestra tienda más tarde y veas a todos sonriendo adentro, te preguntarás qué te perdiste.\'',
-          '\'Estaré aquí todo el día. ¡Cuando cambies de opinión después de ver los resultados de alguien más, ven a buscarme!\'',
+          '\'Venga, vale. Pero te aviso — vas a estar pensando en mí durante la cena.\' (Con guasa, y sin darles una excusa para dejarlo para luego.)',
           '\'Mi encargado está viendo, ¿puedes al menos fingir interés por 10 segundos?\' (Humor autocrítico que crea conexión.)',
           '\'Ese es el cuarto \'no\' seguido. ¡Todos me van a hacer llorar!\' (Juguetón, no desesperado.)',
         ],
@@ -6397,32 +6397,32 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'The Seed Planting Technique',
-      textEs: 'La Técnica de Sembrar la Semilla',
+      text: 'The Last Line You Leave Them With',
+      textEs: 'La Última Frase Que Les Dejas',
     },
     {
             type: 'paragraph',
-      text: 'Sometimes the best recovery is no recovery at all. Sometimes you plant a seed and let it grow:',
-      textEs: 'A veces la mejor recuperación es no recuperar en absoluto. A veces siembras una semilla y dejas que crezca:',
+      text: 'If the second attempt lands, you are back in business. If it genuinely does not, the last line still matters — but it is a line that buys you one more second here, never one that arms them to deal with you some other day:',
+      textEs: 'Si el segundo intento entra, ya estás otra vez dentro. Y si de verdad no entra, la última frase sigue importando — pero es una frase que te compra un segundo más aquí, nunca una que les dé con qué dejarte para otro día:',
     },
     {
             type: 'script',
-      text: '\'No problem at all! Enjoy your day in {locationName}. But hey — when you see someone walk out of our shop with that \'wow\' look on their face, remember I offered!\' This plants a seed of curiosity. They might walk past later, see a happy customer, and come back. It happens more than you think.',
-      textEs: '\'¡Ningún problema! Disfruta tu día en {locationName}. Pero oye, cuando veas a alguien salir de nuestra tienda con esa cara de \'wow\', ¡recuerda que te lo ofrecí!\' Esto siembra una semilla de curiosidad. Pueden pasar más tarde, ver a un cliente feliz, y volver. Pasa más de lo que crees.',
+      text: '\'No problem at all! Enjoy your day in {locationName}. But hey — when you see someone walk out of our shop with that \'wow\' look on their face, remember I offered!\' Said with a grin over your shoulder, this turns people round on the spot more often than any pitch does. Deliver it like a joke, not like a goodbye.',
+      textEs: '\'¡No pasa nada! Disfruta el día en {locationName}. Pero oye — cuando veas a alguien salir de nuestra tienda con esa cara de \'guau\', ¡acuérdate de que te lo ofrecí!\' Dicho con una sonrisa por encima del hombro, esto hace que se den la vuelta ahí mismo más que ningún discurso. Suéltalo como una broma, no como una despedida.',
     },
     {
             type: 'bullets',
       items: [
-        'GIVE THEM A CARD OR FLYER: Physical reminders work. Something they can put in their pocket and consider later.',
-        'MENTION YOUR LOCATION: \'We\'re right here — number 15. If you change your mind, just pop in.\' Makes returning feel easy.',
-        'REFERENCE A SPECIFIC PRODUCT: \'If you find yourself thinking about glowing skin later, ask for the Peeling. That\'s the one everyone comes back for.\'',
-        'LEAVE THE DOOR OPEN: \'No pressure at all. If you pass by later and feel like it, I\'ll be here. I\'d love to show you then.\' Warm, non-desperate, inviting.'
+        'NOTHING GOES IN THEIR POCKET: No card, no flyer, no price written on anything. It feels helpful and it is the most expensive thing you can hand a person — you have just given them permission to go and think about it somewhere you are not standing.',
+        'POINT AT THE TABLE, NOT AT TOMORROW: \'It is two steps. Put your hand on it and then tell me no.\' A tiny, specific ask beats an open invitation every single time.',
+        'NAME THE THING THEY WERE LOOKING AT: \'You did not take your eyes off that peeling. Sixty seconds and you will know.\' Being properly seen is what turns a walker around.',
+        'IF THE NO IS REAL, MEAN IT: \'Fair enough, gorgeous — have a lovely day.\' Warm, quick, nothing attached to it. Then straight back to the pavement, because the next one is already walking past you.'
       ],
       itemsEs: [
-          'DALES UNA TARJETA O FOLLETO: Los recordatorios físicos funcionan. Algo que puedan guardar en su bolsillo y considerar más tarde.',
-          'MENCIONA TU UBICACIÓN: \'Estamos justo aquí, el número 15. Si cambias de opinión, solo entra.\' Hace que volver se sienta fácil.',
-          'Haz REFERENCIA A UN PRODUCTO ESPECÍFICO: \'Si te encuentras pensando en piel radiante más tarde, pide el Peeling. Ese es por el que todos vuelven.\'',
-          'DEJA LA PUERTA ABIERTA: \'Ninguna presión en absoluto. Si pasas más tarde y te apetece, estaré aquí. Me encantaría mostrártelo entonces.\' Cálido, no desesperado, invitante.',
+          'QUE NO SE LLEVEN NADA EN EL BOLSILLO: Ni tarjeta, ni folleto, ni el precio apuntado en ningún sitio. Parece un detalle y es lo más caro que le puedes dar a nadie — acabas de darle permiso para irse a pensarlo donde tú no estás.',
+          'SEÑALA LA MESA, NO EL MAÑANA: \'Si son dos pasos. Pon la mano aquí y luego me dices que no.\' Una petición pequeña y concreta gana siempre a una invitación abierta.',
+          'NOMBRA LO QUE ESTABAN MIRANDO: \'No le has quitado el ojo de encima al peeling. Sesenta segundos y lo sabes.\' Que se sientan vistos de verdad es lo que hace que se den la vuelta.',
+          'SI EL NO ES DE VERDAD, QUE SEA DE VERDAD: \'Nada, guapa, que tengas buen día.\' Con cariño, rápido y sin nada colgando. Y vuelta a la acera, que el siguiente ya está pasando por delante.',
         ],
     },
     {

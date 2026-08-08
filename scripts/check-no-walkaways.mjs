@@ -62,7 +62,7 @@ const WALKAWAY = [
 
 /** The line is stating the rule, or warning against it, not doing it. */
 const NEGATED =
-  /never say|do not say|don't say|nunca digas|no digas|nada de |what NOT|NOT to Do|worst |peor |never (offer|hand|give)|nunca (ofrezcas|des)|loses the sale|pierde la venta|kill(s|ed)? the sale|mata(do)? la venta|never (come|comes|came) back|never return|no vuelve|means never|significa nunca|without a plan|sin un plan/i;
+  /never say|do not say|don't say|nunca digas|no digas|nada de |what NOT|NOT to Do|worst |peor |never (offer|hand|give)|nunca (ofrezcas|des)|loses the sale|pierde la venta|kill(s|ed)? the sale|mata(do)? la venta|never (come|comes|came) back|never return|no vuelve|means never|significa nunca|without a plan|sin un plan|they will not|no van a volver|walking out|se va(n)? (la venta|andando)|is the sale|es la venta/i;
 
 /*
  * Safety, not salesmanship. You cannot put acid on broken skin today whatever

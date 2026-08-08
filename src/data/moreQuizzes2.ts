@@ -661,9 +661,9 @@ const quizIngredients: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "The Dead Sea sits at the lowest point on Earth and has a mineral concentration of 34% — 10 times saltier than the ocean. For centuries, people have traveled there specifically to treat skin conditions like psoriasis and eczema. This scientific and historical credibility is what separates our products from generic 'mineral' creams. The Dead Sea name carries instant authority.",
+        "The Dead Sea sits at the lowest point on Earth and has a mineral concentration of 34% — 10 times saltier than the ocean. For centuries people have travelled there for their skin, and that history is what separates our products from generic 'mineral' creams. Say where the minerals come from and what they do for skin — never name an illness the product is supposed to treat. The Dead Sea name carries all the authority you need on its own.",
       explanationEs:
-        "El Mar Muerto se encuentra en el punto más bajo de la Tierra y tiene una concentración mineral del 34% — 10 veces más salado que el océano. Durante siglos, la gente ha viajado allí específicamente para tratar condiciones de piel como psoriasis y eczema. Esta credibilidad científica e histórica es lo que separa nuestros productos de las cremas 'minerales' genéricas. El nombre Mar Muerto porta autoridad instantánea."
+        "El Mar Muerto se encuentra en el punto más bajo de la Tierra y tiene una concentración mineral del 34% — 10 veces más salado que el océano. Durante siglos la gente ha viajado allí por su piel, y esa historia es lo que separa nuestros productos de las cremas 'minerales' genéricas. Di de dónde salen los minerales y qué le hacen a la piel — no nombres nunca una enfermedad que el producto vaya a tratar. El nombre del Mar Muerto ya lleva toda la autoridad que necesitas."
     }
   ]
 };

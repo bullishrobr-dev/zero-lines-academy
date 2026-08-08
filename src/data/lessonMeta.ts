@@ -503,7 +503,7 @@ export const LESSON_META: Record<string, LessonMeta> = {
     title: "The WhatsApp Close & Follow-Up",
     titleEs: "El Cierre de WhatsApp y Seguimiento",
     subtitle: "Turning one sale into a relationship — follow-up templates, client books, and referral strategies",
-    subtitleEs: "El seguimiento cierra la mitad de las ventas",
+    subtitleEs: "Convertir una venta en una relación — plantillas de seguimiento, libro de clientes y referencias",
     duration: "10 min",
     icon: "MessageSquare",
     order: 8,
