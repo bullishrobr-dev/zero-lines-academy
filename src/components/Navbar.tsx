@@ -29,7 +29,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home,
   GraduationCap,
-  Layers,
+  FileText,
   Trophy,
   NotebookPen,
   type LucideIcon,
@@ -62,9 +62,21 @@ export default function Navbar() {
     { to: '/home', label: t('navHome'), icon: Home },
     { to: '/training', label: t('navTraining'), icon: GraduationCap },
   ];
+  /*
+   * Cheat Sheets took the slot flashcards used to hold.
+   *
+   * The owner's reasoning, and it is right: cheat sheets are the one screen
+   * opened WITH A CUSTOMER STANDING THERE, so it has to be one thumb away from
+   * wherever you are. Flashcards are study — they belong with the lessons, and
+   * they now have their own card at the top of the Training hub so nothing is
+   * stranded by this swap.
+   *
+   * Five slots, not six: at 320px the Spanish labels already run to the edge
+   * ("Formación", "Chuletas"), and a sixth would either truncate them or push
+   * the type below the 11px floor.
+   */
   const rightItems: NavItem[] = [
-    // Was hardcoded English while its four siblings were translated.
-    { to: '/flashcard-decks', label: isEs ? 'Tarjetas' : 'Cards', icon: Layers },
+    { to: '/cheat-sheets', label: isEs ? 'Chuletas' : 'Cheats', icon: FileText },
     { to: '/profile', label: t('navProfile'), icon: Trophy },
   ];
 

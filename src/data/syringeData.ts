@@ -291,6 +291,47 @@ export const syringeData = {
       'Esto crea una relaci\u00f3n personal \u2014 no solo una transacci\u00f3n. Los clientes que regresan son tus ventas futuras m\u00e1s f\u00e1ciles.',
   },
 
+  /* ─── The Two Offers ───
+     Mirrors peelingData.offers, and exists because this page used to skip it.
+     The Partner Upsell section said "Now introduce Option 2" while Option 2's
+     own section sat two sections further down and Option 1 was never presented
+     at all — so a seller read an instruction to introduce a thing the page had
+     not yet taught them. Option 1 is the promo rung, Option 2 is the second
+     syringe; both are rungs on SYRINGE_LADDER in pricing.ts, so the numbers
+     here cannot drift from the ladder below them. */
+  offers: {
+    heading: 'The Two Offers',
+    headingEs: 'Las Dos Ofertas',
+    subtext: 'Always present TWO choices. Let them decide. Then pause — silence is your friend.',
+    subtextEs: 'Siempre presenta DOS opciones. Deja que decidan. Luego haz una pausa — el silencio es tu amigo.',
+    option1: {
+      label: 'Option 1',
+      labelEs: 'Opci\u00f3n 1',
+      priceLabel: '30% Off + Gift',
+      priceLabelEs: '30% Descuento + Regalo',
+      text:
+        '"Right now we have an incredible promotion: take it for 30% off, which makes it {currency}210, and you also get a small gift \u2014 you can choose between a Day Cream, Night Cream, Cleanser or Peeling."',
+      textEs:
+        '"Ahora mismo tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con un 30% de descuento, lo que lo deja en {currency}210, y adem\u00e1s te llevas un regalito \u2014 puedes elegir entre Crema de D\u00eda, Crema de Noche, Limpiador o Peeling."',
+    },
+    option2: {
+      label: 'Option 2',
+      labelEs: 'Opci\u00f3n 2',
+      priceLabel: 'Full Price + 2nd Syringe Free',
+      priceLabelEs: 'Precio Completo + 2\u00aa Jeringa Gratis',
+      text:
+        '"This one is actually the favourite: pay the normal price of {currency}300 and you get two syringes instead of one \u2014 so you can do both eyes, the forehead, the upper lip, even the number 11s between the eyebrows. A full face treatment that lasts a whole year."',
+      textEs:
+        '"Esta es en realidad la favorita: pagas el precio normal de {currency}300 y te llevas dos jeringas en vez de una \u2014 as\u00ed puedes hacerte los dos ojos, la frente, el labio superior, hasta las arruguitas del ce\u00f1o. Un tratamiento facial completo que dura un a\u00f1o entero."',
+    },
+    twoChoiceLabel: 'Then ask, and stop talking',
+    twoChoiceLabelEs: 'Luego pregunta, y c\u00e1llate',
+    twoChoiceScript:
+      '"So \u2014 would you rather have the 30% off at {currency}210 with a free gift, or the two-syringe deal at {currency}300?"',
+    twoChoiceScriptEs:
+      '"Entonces \u2014 \u00bfprefieres el 30% de descuento a {currency}210 con un regalo, o la oferta de dos jeringas a {currency}300?"',
+  },
+
   /* ─── Offer 2 ─── */
   offer2: {
     sectionTitle: 'Offer 2 \u2014 {currency}300 + 2nd Syringe Free',

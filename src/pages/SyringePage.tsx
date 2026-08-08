@@ -208,9 +208,68 @@ export default function SyringePage() {
           </div>
         </ProductSection>
 
-        {/* ── PARTNER UPSELL ── */}
+        {/*
+          ── THE TWO OFFERS ──
+          Both options are presented here, together, immediately after the demo
+          — the same order the Peeling page uses.
+
+          This section used to be missing. The page went demo → Partner Upsell,
+          and the Partner Upsell opens with "Now introduce Option 2:" while
+          Option 2's own section sat two sections further down and Option 1 was
+          never presented at all. A seller reading it in order was told to
+          introduce something the page had not taught them yet.
+        */}
         <ProductSection
           index={2}
+          icon={<Sparkles size={18} />}
+          title={t(d.offers.heading, d.offers.headingEs)}
+          subtitle={t(d.offers.subtext, d.offers.subtextEs)}
+        >
+          <div className="space-y-3">
+            <OfferCard
+              tag={t(d.offers.option1.label, d.offers.option1.labelEs)}
+              title={t(d.offers.option1.priceLabel, d.offers.option1.priceLabelEs)}
+              price={price(stepPrice('promo'))}
+              script={t(d.offers.option1.text, d.offers.option1.textEs)}
+            />
+            <OfferCard
+              highlight
+              tag={t(d.offers.option2.label, d.offers.option2.labelEs)}
+              title={t(d.offers.option2.priceLabel, d.offers.option2.priceLabelEs)}
+              price={priceFor(stepPrice('second-free'), stepUnits('second-free') ?? 2, forWord)}
+              subtitle={t(d.offer2.description, d.offer2.descriptionEs).replace(/<\/?strong>/g, '')}
+              items={[
+                `${t(d.offer2.treatsLabel, d.offer2.treatsLabelEs)} ${t(d.offer2.treatsValue, d.offer2.treatsValueEs)}`,
+              ]}
+              script={t(d.offers.option2.text, d.offers.option2.textEs)}
+            />
+          </div>
+          <div className="mt-3">
+            <ScriptBlock
+              label={t(d.offers.twoChoiceLabel, d.offers.twoChoiceLabelEs)}
+              quote={t(d.offers.twoChoiceScript, d.offers.twoChoiceScriptEs)}
+            />
+          </div>
+        </ProductSection>
+
+        {/* ── THE PRICE LADDER ── */}
+        <ProductSection
+          index={3}
+          icon={<TrendingDown size={18} />}
+          title={t(pl.sectionTitle, pl.sectionTitleEs)}
+          subtitle={t(pl.description, pl.descriptionEs)}
+        >
+          <PriceLadder rungs={rungs} anchor={L.europeAnchor} />
+        </ProductSection>
+
+        {/*
+          ── PARTNER UPSELL ──
+          Now a SCENARIO for pushing Option 2, which by this point has actually
+          been presented, so "introduce Option 2" finally refers to something
+          the reader has seen.
+        */}
+        <ProductSection
+          index={4}
           variant="feature"
           icon={<Users size={18} />}
           title={t(d.partnerUpsell.sectionTitle, d.partnerUpsell.sectionTitleEs)}
@@ -234,35 +293,6 @@ export default function SyringePage() {
               </em>
             </p>
           </div>
-        </ProductSection>
-
-        {/* ── THE PRICE LADDER ── */}
-        <ProductSection
-          index={3}
-          icon={<TrendingDown size={18} />}
-          title={t(pl.sectionTitle, pl.sectionTitleEs)}
-          subtitle={t(pl.description, pl.descriptionEs)}
-        >
-          <PriceLadder rungs={rungs} anchor={L.europeAnchor} />
-        </ProductSection>
-
-        {/* ── OFFER 2 — the second-syringe upsell, not a step down ── */}
-        <ProductSection
-          index={4}
-          icon={<Sparkles size={18} />}
-          title={t(d.offer2.sectionTitle, d.offer2.sectionTitleEs)}
-        >
-          <OfferCard
-            highlight
-            title={t(d.offer2.whatTheyGetValue, d.offer2.whatTheyGetValueEs)}
-            price={priceFor(stepPrice('second-free'), stepUnits('second-free') ?? 2, forWord)}
-            subtitle={t(d.offer2.description, d.offer2.descriptionEs).replace(/<\/?strong>/g, '')}
-            items={[
-              `${t(d.offer2.treatsLabel, d.offer2.treatsLabelEs)} ${t(d.offer2.treatsValue, d.offer2.treatsValueEs)}`,
-            ]}
-            scriptLabel={t(d.offer2.scriptLabel, d.offer2.scriptLabelEs)}
-            script={t(d.offer2.script, d.offer2.scriptEs)}
-          />
         </ProductSection>
 
         {/* ── VOUCHER CLOSE ── */}

@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Brain, Users, Hand, Sparkles, Drama, ShieldQuestion, AlertTriangle, XCircle, PartyPopper, Sword, Eye, Timer, Baby, Video, Frown, RefreshCw, Wallet, Clock, Heart, Shield, Palette, Leaf, ShoppingCart, RotateCcw, CreditCard,
-  ChevronLeft, Lock, ArrowRight, type LucideIcon,
+  ChevronLeft, Lock, ArrowRight, Layers, type LucideIcon,
 } from 'lucide-react';
 import { useMemo } from 'react';
 import { categories, getLessonsForCategory } from '../data/lessons';
@@ -236,6 +236,38 @@ export default function TrainingHub() {
         animate="visible"
         className="space-y-4 px-5 pt-7"
       >
+        {/*
+          Flashcards live here now.
+          They used to have a bottom-nav slot, which Cheat Sheets took — cheat
+          sheets are opened with a customer standing there, flashcards are study,
+          and study belongs next to the lessons. Without this card the decks
+          would only be reachable through Home's one-minute "sprint" tile, which
+          starts a timed run rather than letting you browse a deck.
+        */}
+        <motion.button
+          variants={itemVariants}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigate('/flashcard-decks')}
+          className="surface-feature feature-violet flex w-full items-start gap-4 p-5 text-left"
+        >
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-feature bg-violet-tint">
+            <Layers size={28} className="text-violet-strong" aria-hidden="true" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="flex items-center gap-2">
+              <span className="min-w-0 flex-1 text-h3 text-ink">
+                {isEs ? 'Tarjetas' : 'Flashcards'}
+              </span>
+              <ArrowRight size={20} className="shrink-0 text-violet-strong" aria-hidden="true" />
+            </span>
+            <span className="mt-0.5 block text-body-small text-ink-2">
+              {isEs
+                ? 'Repasa cualquier mazo cuando quieras, o haz solo las que tocan hoy'
+                : 'Browse any deck whenever you like, or just do the ones due today'}
+            </span>
+          </span>
+        </motion.button>
+
         {categoryData.map((cat, i) => {
           const CatIcon = getIcon(cat.icon);
           const hue = HUE[cat.meta?.hue ?? EXTRA_CATEGORY_HUE[cat.id] ?? 'teal'];
