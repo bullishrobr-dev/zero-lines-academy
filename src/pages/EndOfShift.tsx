@@ -12,6 +12,7 @@ import {
   Flame,
   Minus,
   Plus,
+  Shield,
 } from 'lucide-react';
 import { useDailyFlow } from '../hooks/useDailyFlow';
 import { useProgress } from '../hooks/useProgress';
@@ -32,6 +33,18 @@ const COPY = {
     q5: "Did you try today's focus technique?",
     yes: 'Yes, nailed it',
     no: 'Not today',
+    slipTitle: 'Think of the one that got away today',
+    slipHint: 'Be honest — this is the only question on here that makes you better.',
+    slips: {
+      words: 'I said something wrong',
+      step: 'I skipped a step',
+      silence: 'I filled the silence',
+      lazy: 'I went lazy halfway',
+      ladder: 'I stopped early on the ladder',
+      none: 'I did everything — they still walked',
+    },
+    slipLesson: 'That is your lesson, and it only cost you one sale. Take it out to the first one tomorrow.',
+    slipAbsolved: 'Then it is not on you. Bad customer, part of the game. Put it down and leave it here.',
     q6: 'Rate your energy',
     energy: ['Drained', 'Low', 'Okay', 'Good', 'Fully charged'],
     energyStar: (n: number) => `Rate energy ${n} out of 5`,
@@ -68,6 +81,18 @@ const COPY = {
     q5: '¿Has probado la técnica de foco de hoy?',
     yes: 'Sí, clavada',
     no: 'Hoy no',
+    slipTitle: 'Piensa en la que se te escapó hoy',
+    slipHint: 'Sé sincero — es la única pregunta de aquí que te hace mejor.',
+    slips: {
+      words: 'Dije algo que no debía',
+      step: 'Me salté un paso',
+      silence: 'Llené el silencio',
+      lazy: 'Aflojé a mitad de camino',
+      ladder: 'Paré antes de tiempo en la escalera',
+      none: 'Lo hice todo — y aun así se fueron',
+    },
+    slipLesson: 'Ahí tienes tu lección, y solo te ha costado una venta. Sácala con el primero de mañana.',
+    slipAbsolved: 'Entonces no es culpa tuya. Mal cliente, parte del juego. Suéltalo y déjalo aquí.',
     q6: 'Puntúa tu energía',
     energy: ['Agotada', 'Baja', 'Normal', 'Buena', 'A tope'],
     energyStar: (n: number) => `Puntuar energía ${n} de 5`,
@@ -93,6 +118,15 @@ const COPY = {
     redirecting: 'Te llevamos al panel…',
   },
 };
+
+/**
+ * The five ways a seller loses a sale that were their own doing, plus the sixth
+ * answer that is not. Order matters: the slips come first and 'none' sits last,
+ * so the absolution is what you reach at the END of reading the list rather
+ * than the easy first tap.
+ */
+type SlipId = 'words' | 'step' | 'silence' | 'lazy' | 'ladder' | 'none';
+const SLIP_IDS: SlipId[] = ['words', 'step', 'silence', 'lazy', 'ladder', 'none'];
 
 /** Number field shared by both counters — including its focus ring. */
 function CounterField({
@@ -152,6 +186,11 @@ export default function EndOfShift() {
   const [bestMoment, setBestMoment] = useState('');
   const [challenge, setChallenge] = useState('');
   const [triedFocus, setTriedFocus] = useState<boolean | null>(null);
+  /* The one that got away — see the `close-fault` lesson and CLAUDE.md. The
+     owner's whole method is that a seller is absolved only AFTER the honest
+     list, never before, so this sits at the end of the day rather than in the
+     middle of a shift where it would read as an excuse. */
+  const [slip, setSlip] = useState<SlipId | null>(null);
   const [energyRating, setEnergyRating] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
@@ -166,6 +205,7 @@ export default function EndOfShift() {
     bestMoment.trim().length > 0 &&
     challenge.trim().length > 0 &&
     triedFocus !== null &&
+    slip !== null &&
     energyRating > 0;
 
   const handleSubmit = () => {
@@ -176,6 +216,7 @@ export default function EndOfShift() {
       bestMoment: bestMoment.trim(),
       challenge: challenge.trim(),
       triedFocus,
+      slip,
       energyRating,
     });
     // The +10 XP the screen promises now goes into the real total, once a day.
@@ -282,8 +323,53 @@ export default function EndOfShift() {
                 />
               </motion.section>
 
-              {/* Focus */}
+              {/* The one that got away — the owner's honest audit. */}
               <motion.section custom={4} variants={section} initial="hidden" animate="visible">
+                <h2 className="mb-1 flex items-center gap-2 text-overline text-ink-3">
+                  <Shield className="h-4 w-4 text-violet-strong" aria-hidden="true" />
+                  {t.slipTitle}
+                </h2>
+                <p className="mb-3 text-caption text-ink-2">{t.slipHint}</p>
+                <div className="flex flex-col gap-2">
+                  {SLIP_IDS.map((id) => {
+                    /* 'none' is the answer that says it was not your fault, so
+                       it wears the calm colour; the five slips wear the coral
+                       the app uses everywhere else for a lost customer. */
+                    const selected =
+                      id === 'none'
+                        ? 'border-teal bg-teal-tint text-teal-strong'
+                        : 'border-coral bg-coral-tint text-coral-strong';
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        aria-pressed={slip === id}
+                        onClick={() => setSlip(id)}
+                        className={`min-h-touch w-full rounded-card border px-4 py-3 text-left text-body-small font-semibold transition-colors ${
+                          slip === id ? selected : 'border-line bg-surface text-ink-2'
+                        }`}
+                      >
+                        {t.slips[id]}
+                      </button>
+                    );
+                  })}
+                </div>
+                {slip && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`mt-3 text-caption font-semibold ${
+                      slip === 'none' ? 'text-teal-strong' : 'text-ink-2'
+                    }`}
+                    aria-live="polite"
+                  >
+                    {slip === 'none' ? t.slipAbsolved : t.slipLesson}
+                  </motion.p>
+                )}
+              </motion.section>
+
+              {/* Focus */}
+              <motion.section custom={5} variants={section} initial="hidden" animate="visible">
                 <h2 className="mb-2 text-overline text-ink-3">{t.q5}</h2>
                 <p className="mb-3 text-caption text-ink-2">{focusLabel}</p>
                 <div className="flex gap-3">
@@ -315,7 +401,7 @@ export default function EndOfShift() {
               </motion.section>
 
               {/* Energy */}
-              <motion.section custom={5} variants={section} initial="hidden" animate="visible">
+              <motion.section custom={6} variants={section} initial="hidden" animate="visible">
                 <h2 className="mb-3 text-overline text-ink-3">{t.q6}</h2>
                 <div className="flex justify-center gap-2">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -349,7 +435,7 @@ export default function EndOfShift() {
               {/* Streak */}
               {streak > 0 && (
                 <motion.div
-                  custom={6}
+                  custom={7}
                   variants={section}
                   initial="hidden"
                   animate="visible"
@@ -366,7 +452,7 @@ export default function EndOfShift() {
               )}
 
               {/* Submit */}
-              <motion.div custom={7} variants={section} initial="hidden" animate="visible" className="pt-2">
+              <motion.div custom={8} variants={section} initial="hidden" animate="visible" className="pt-2">
                 <button
                   type="button"
                   onClick={handleSubmit}

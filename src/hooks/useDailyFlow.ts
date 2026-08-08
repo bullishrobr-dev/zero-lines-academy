@@ -15,6 +15,17 @@ interface ReflectionData {
   challenge: string;
   triedFocus: boolean;
   energyRating: number;
+  /**
+   * The honest audit of the one that got away — see `close-fault`.
+   *
+   * The owner's method: a seller is only off the hook for a lost sale once they
+   * have genuinely been through the list. One of the five slips, or 'none'
+   * meaning "I did everything and they still walked", which is the answer that
+   * lets them put it down.
+   *
+   * Optional because every shift logged before this field existed has none.
+   */
+  slip?: 'words' | 'step' | 'silence' | 'lazy' | 'ladder' | 'none';
 }
 
 interface DayRecord {
