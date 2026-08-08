@@ -69,7 +69,7 @@ export default function ProgressChecklist({ storageKey, items }: ProgressCheckli
             aria-checked={isChecked}
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-30px' }}
+            viewport={{ once: true, margin: '0px 0px 200px 0px' }}
             transition={{
               duration: 0.35,
               delay: Math.min(index, 6) * 0.06,

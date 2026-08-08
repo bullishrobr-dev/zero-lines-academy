@@ -26,7 +26,7 @@ export default function TipCard({ children }: TipCardProps) {
     <motion.aside
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
+      viewport={{ once: true, margin: '0px 0px 200px 0px' }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] }}
       /* -mx-2 pushes the card past the text measure so it breaks the column. */
       className="-mx-2 my-7 rounded-card border border-teal/30 bg-teal-tint px-4 py-4"

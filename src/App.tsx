@@ -1,4 +1,4 @@
-import { lazy, Suspense, type ReactElement } from 'react';
+import { lazy, Suspense, useEffect, type ReactElement } from 'react';
 import { Routes, Route, Navigate, useLocation as useRouterLocation } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import Layout from './components/Layout';
@@ -38,6 +38,63 @@ const LeaderboardPage   = lazy(() => import('./pages/LeaderboardPage'));
 const StreetTrackerPage = lazy(() => import('./pages/StreetTrackerPage'));
 const SetPasswordPage   = lazy(() => import('./pages/SetPasswordPage'));
 const SettingsPage      = lazy(() => import('./pages/SettingsPage'));
+
+/* ── Warm the bottom-nav chunks ──
+   Every destination is its own JS chunk, so the first tap on a tab has to
+   download one before it can paint. The page transition used to cover that gap
+   — badly, at the cost of a quarter-second of blank screen on EVERY tap (see
+   the note in Layout.tsx). With the transition gone the download is exposed,
+   so fetch the five for real while the phone is idle and the seller is still
+   reading the screen they are on.
+
+   Identical specifiers to the lazy() calls above, so Rollup emits one chunk per
+   page and the browser's module cache makes the later real import instant.
+
+   Signed-in only, and one at a time: a first-time visitor on a shop's 4G should
+   not spend their connection on pages they have not reached, and five parallel
+   requests would compete with whatever the current page is still loading. */
+const NAV_CHUNKS: Array<() => Promise<unknown>> = [
+  () => import('./pages/HomeDashboard'),
+  () => import('./pages/TrainingHub'),
+  () => import('./pages/StreetTrackerPage'),
+  () => import('./pages/CheatSheetsPage'),
+  () => import('./pages/ProfilePage'),
+];
+
+function PrefetchNavRoutes() {
+  const { isAuthenticated } = useAuthContext();
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    let cancelled = false;
+    const run = async () => {
+      for (const load of NAV_CHUNKS) {
+        if (cancelled) return;
+        try {
+          await load();
+        } catch {
+          /* Offline, or the chunk 404s after a redeploy. Either way the real
+             navigation will surface it — a warm-up must never break the app,
+             and one failure must not stop the rest warming. */
+        }
+      }
+    };
+
+    const idle = 'requestIdleCallback' in window;
+    const handle = idle
+      ? window.requestIdleCallback(run, { timeout: 3000 })
+      : window.setTimeout(run, 1200);
+
+    return () => {
+      cancelled = true;
+      if (idle) window.cancelIdleCallback(handle);
+      else window.clearTimeout(handle);
+    };
+  }, [isAuthenticated]);
+
+  return null;
+}
 
 /* ── Route guards ──
    Every route used to be reachable by anyone: a plain seller could open
@@ -156,6 +213,7 @@ export default function App() {
                 </Suspense>
                 <PwaPrompts />
                 <ShiftNudges />
+                <PrefetchNavRoutes />
               </Layout>
             </ErrorBoundary>
           </LocationProvider>

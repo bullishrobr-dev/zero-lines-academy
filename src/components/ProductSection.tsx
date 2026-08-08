@@ -125,7 +125,7 @@ export default function ProductSection({
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-40px' }}
+      viewport={{ once: true, margin: '0px 0px 200px 0px' }}
       className={isFeature ? 'rounded-feature border p-5' : 'surface-raised p-5'}
       style={isFeature ? featureSurface : undefined}
     >

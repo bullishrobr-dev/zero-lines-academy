@@ -54,7 +54,7 @@ export default function ScriptCard({ text, title }: ScriptCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
+      viewport={{ once: true, margin: '0px 0px 200px 0px' }}
       transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] }}
       className="-mx-2 my-7 overflow-hidden rounded-card border border-line bg-surface-sunken"
     >
