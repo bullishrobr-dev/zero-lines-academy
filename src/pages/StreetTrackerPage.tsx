@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Flame, DoorOpen, Coins, Trophy, DoorClosed } from 'lucide-react';
@@ -9,8 +9,8 @@ import QuickLogButtons from '../components/QuickLogButtons';
 import EncounterCard from '../components/EncounterCard';
 import SaleLogModal from '../components/SaleLogModal';
 import BetweenShiftsCard from '../components/BetweenShiftsCard';
+import ComebackCard, { type ComebackMode } from '../components/ComebackCard';
 import { PRODUCTS } from '../types/streetTracker';
-import { walkReason, chipLabel } from '../data/encounterChips';
 import type { StreetSession, DailySummary } from '../types/streetTracker';
 
 const COPY = {
@@ -37,9 +37,6 @@ const COPY = {
     hrsAgo: 'h ago',
     xpToday: 'XP today',
     dayStreak: 'day streak',
-    beatYouToday: 'What beat you today',
-    beatYouTimes: 'times',
-    beatYouCta: 'Your line for it →',
   },
   es: {
     title: 'Mi Diario',
@@ -64,9 +61,6 @@ const COPY = {
     hrsAgo: 'h',
     xpToday: 'XP hoy',
     dayStreak: 'días de racha',
-    beatYouToday: 'Lo que te frenó hoy',
-    beatYouTimes: 'veces',
-    beatYouCta: 'Tu respuesta →',
   },
 };
 
@@ -215,13 +209,18 @@ const WeekChart: React.FC<{ data: DailySummary[]; t: Copy; isEs: boolean }> = ({
   return (
     <div className="surface-flat p-4">
       <h3 className="mb-3 text-overline text-ink-3">{t.weekTrend}</h3>
-      <div className="flex h-28 items-end justify-between gap-1.5">
+      {/* `items-end` here collapsed every column to its content height, which
+          left the bar well at 0px — and a percentage height against a 0px
+          parent is 0px. So the chart drew seven invisible bars over seven day
+          labels, on every shift, for everyone. The columns stretch to the full
+          112px now and the bars sit on the floor of their own well instead. */}
+      <div className="flex h-28 items-stretch justify-between gap-1.5">
         {data.map((day, i) => {
           const total = day.stops + day.sales;
           const pct = total === 0 ? 0 : (total / maxVal) * 100;
           return (
             <div key={day.date} className="flex flex-1 flex-col items-center gap-1.5">
-              <div className="flex w-full flex-1 items-end justify-center">
+              <div className="flex w-full min-h-0 flex-1 items-end justify-center">
                 <motion.div
                   className="w-full max-w-[18px] rounded-t-chip bg-teal"
                   initial={{ height: 0 }}
@@ -272,46 +271,21 @@ const PersonalBest: React.FC<{ label: string; value: string | number; delay?: nu
   </motion.div>
 );
 
-/**
- * "Let me think about it beat you 5 times today — here is your line for it."
- *
- * Only shown once a reason has actually come up twice, so it stays a signal
- * rather than wallpaper, and it links straight into the objection lesson that
- * answers it.
- */
-const TopObjection: React.FC<{
-  reasons: { id: string; count: number }[];
-  t: Copy;
-  isEs: boolean;
-}> = ({ reasons, t, isEs }) => {
-  const navigate = useNavigate();
-  const top = reasons[0];
-  if (!top || top.count < 2) return null;
-  const chip = walkReason(top.id);
-  if (!chip) return null;
+// ── The learning slot ───────────────────────────────────────────────────────
+//
+// One card, directly under the encounter, chosen by what the seller's own data
+// says. It replaces the old "what beat you today" strip, which named the
+// objection and then sent them somewhere else to find out what to say about it
+// — a signpost where the answer would have fitted.
+//
+// See ComebackCard.tsx for what it shows and why it is not the Home screen's
+// leak card wearing a different hat.
 
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="surface-feature feature-warning p-4"
-    >
-      <p className="text-overline text-ink-3">{t.beatYouToday}</p>
-      <p className="mt-1 text-body-small text-ink">
-        <b>{chipLabel(chip, isEs)}</b> · {top.count} {t.beatYouTimes}
-      </p>
-      {chip.lessonId && (
-        <button
-          type="button"
-          onClick={() => navigate(`/lesson/${chip.lessonId}`)}
-          className="btn-quiet mt-2 min-h-touch w-full text-body-small"
-        >
-          {t.beatYouCta}
-        </button>
-      )}
-    </motion.section>
-  );
-};
+/** How long a loss stays worth answering on the spot. */
+const FRESH_WINDOW_MS = 20 * 60 * 1000;
+
+/** Remembers the one card the seller closed, so it stays closed. */
+const COMEBACK_DISMISS_KEY = 'zl_comeback_done';
 
 // ── Page ────────────────────────────────────────────────────────────────────
 
@@ -319,6 +293,7 @@ const StreetTrackerPage: React.FC = () => {
   const {
     logActivity,
     openEncounter,
+    lastWalkAway,
     resolveEncounter,
     getTodayLogs,
     getTodayReasons,
@@ -329,6 +304,7 @@ const StreetTrackerPage: React.FC = () => {
     getStreak,
   } = useStreetTracker();
 
+  const navigate = useNavigate();
   const { language } = useLanguage();
   const isEs = language === 'es';
   const t = COPY[isEs ? 'es' : 'en'];
@@ -373,6 +349,73 @@ const StreetTrackerPage: React.FC = () => {
   const todayKey = useMemo(() => {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }, []);
+
+  // ── The learning slot ─────────────────────────────────────────────────────
+  //
+  // Freshness has to be re-checked on the clock, not only when the data
+  // changes: a seller who leaves the journal open would otherwise still be told
+  // a loss from half an hour ago "just" happened. The ticker only runs while
+  // something is actually fresh, and stops itself the moment it is not.
+  const [nowTick, setNowTick] = useState(() => Date.now());
+  useEffect(() => {
+    if (!lastWalkAway || Date.now() - lastWalkAway.resolvedAt >= FRESH_WINDOW_MS) return;
+    const id = window.setInterval(() => setNowTick(Date.now()), 30_000);
+    return () => window.clearInterval(id);
+  }, [lastWalkAway, nowTick]);
+
+  const [dismissedComeback, setDismissedComeback] = useState(() => {
+    try {
+      return localStorage.getItem(COMEBACK_DISMISS_KEY) ?? '';
+    } catch {
+      return '';
+    }
+  });
+
+  const todayReasons = useMemo(() => getTodayReasons(), [getTodayReasons]);
+
+  /**
+   * What the spare minute is for, in priority order:
+   *
+   *  1. the objection that beat them minutes ago, while it still stings;
+   *  2. failing that, the one that has beaten them more than once today;
+   *  3. failing that — a seller with no history, or a good day — an honest
+   *     warm-up that does not pretend to be their data.
+   *
+   * The seven-day window is deliberately NOT used here. That is the Home
+   * screen's biggest-leak card, and saying the same sentence on two screens is
+   * how both stop being read.
+   */
+  const comeback = useMemo((): { mode: ComebackMode; reasonId?: string; count: number; token: string } => {
+    if (lastWalkAway && nowTick - lastWalkAway.resolvedAt < FRESH_WINDOW_MS) {
+      const count = todayReasons.find((r) => r.id === lastWalkAway.reason)?.count ?? 1;
+      return { mode: 'fresh', reasonId: lastWalkAway.reason, count, token: `w-${lastWalkAway.id}` };
+    }
+    const top = todayReasons[0];
+    if (top && top.count >= 2) {
+      // The count is in the token, so closing it at three does not hide it
+      // again at four — by then it is news.
+      return {
+        mode: 'pattern',
+        reasonId: top.id,
+        count: top.count,
+        token: `p-${todayKey}-${top.id}-${top.count}`,
+      };
+    }
+    return { mode: 'warmup', count: 0, token: `u-${todayKey}` };
+  }, [lastWalkAway, nowTick, todayReasons, todayKey]);
+
+  /* Never while someone is in the shop. The encounter owns that slot, and the
+     quick-log button stays one tap away from opening the next one. */
+  const showComeback = !openEncounter && dismissedComeback !== comeback.token;
+
+  const dismissComeback = useCallback((token: string) => {
+    setDismissedComeback(token);
+    try {
+      localStorage.setItem(COMEBACK_DISMISS_KEY, token);
+    } catch {
+      /* non-fatal */
+    }
   }, []);
 
   const todayLogs = useMemo(() => getTodayLogs(), [getTodayLogs]);
@@ -434,17 +477,33 @@ const StreetTrackerPage: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* The payoff for tapping a chip: today's most common objection, and a
-            one-tap route to the lesson that answers it. Without this the journal
-            is write-only, which is how journals die. */}
-        <TopObjection reasons={getTodayReasons()} t={t} isEs={isEs} />
+        {/* The payoff for tapping a chip: the words that answer it, right here,
+            seconds later, and twenty seconds to say them out loud. Without this
+            the journal is write-only, which is how journals die. */}
+        <AnimatePresence mode="wait">
+          {showComeback && (
+            <ComebackCard
+              key={comeback.token}
+              mode={comeback.mode}
+              reasonId={comeback.reasonId}
+              countToday={comeback.count}
+              dateKey={todayKey}
+              onDismiss={() => dismissComeback(comeback.token)}
+            />
+          )}
+        </AnimatePresence>
 
+        {/* The generic drill menu, kept as the fallback for a seller who has
+            closed the card above — two learning cards stacked over the numbers
+            is exactly the clutter this screen cannot afford. Its three buttons
+            used to close the card and go nowhere at all; they now open the
+            thing they name. */}
         <AnimatePresence>
-          {showBetweenShifts && (
+          {showBetweenShifts && !showComeback && (
             <BetweenShiftsCard
-              onFlashcardSprint={() => setShowBetweenShifts(false)}
-              onScenarioDrill={() => setShowBetweenShifts(false)}
-              onTechniqueReminder={() => setShowBetweenShifts(false)}
+              onFlashcardSprint={() => navigate('/flashcards')}
+              onScenarioDrill={() => navigate('/exercises')}
+              onTechniqueReminder={() => navigate('/cheat-sheets')}
               onDismiss={() => setShowBetweenShifts(false)}
             />
           )}

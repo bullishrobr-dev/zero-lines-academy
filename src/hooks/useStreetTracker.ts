@@ -162,12 +162,35 @@ export function useStreetTracker() {
    */
   const resolveEncounter = useCallback(
     (encounterId: string, outcome: 'sold' | 'walked', reason?: string): void => {
+      const at = Date.now();
       setSessions((prev) =>
-        prev.map((s) => (s.id === encounterId ? { ...s, outcome, reason } : s))
+        prev.map((s) => (s.id === encounterId ? { ...s, outcome, reason, resolvedAt: at } : s))
       );
     },
     []
   );
+
+  /**
+   * The most recently closed walk-away of today — the one still stinging.
+   *
+   * `timestamp` is when they walked IN, so it cannot answer "did this just
+   * happen?"; `resolvedAt` can. "Nothing, they just left" is excluded for the
+   * same reason it is excluded from the counts: there was no objection, so
+   * there is nothing to answer.
+   */
+  const lastWalkAway = useMemo((): { id: string; reason: string; resolvedAt: number } | null => {
+    const todayKey = getTodayKey();
+    let latest: { id: string; reason: string; resolvedAt: number } | null = null;
+    for (const s of sessions) {
+      if (s.date !== todayKey) continue;
+      if (s.outcome !== 'walked' || !s.reason || s.reason === 'none') continue;
+      if (!s.resolvedAt) continue;
+      if (!latest || s.resolvedAt > latest.resolvedAt) {
+        latest = { id: s.id, reason: s.reason, resolvedAt: s.resolvedAt };
+      }
+    }
+    return latest;
+  }, [sessions]);
 
   const getTodayLogs = useCallback((): StreetSession[] => {
     const todayKey = getTodayKey();
@@ -260,6 +283,7 @@ export function useStreetTracker() {
     getTodayReasons,
     getRecentReasons,
     openEncounter,
+    lastWalkAway,
     resolveEncounter,
     getDailySummary,
     getWeekSummary,

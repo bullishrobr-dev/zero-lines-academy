@@ -23,6 +23,16 @@ export interface StreetSession {
   outcome?: 'sold' | 'walked';
   /** Chip id from encounterChips.ts — why they walked, or what closed it. */
   reason?: string;
+  /**
+   * When the encounter was CLOSED, which is not `timestamp` — that is when the
+   * person walked in, and a long encounter can end half an hour later.
+   *
+   * The journal needs the closing time to know whether a loss is still fresh
+   * enough to be worth answering on the spot. Optional, because every encounter
+   * logged before this field existed has none; those simply never count as
+   * fresh, which is the correct answer for them anyway.
+   */
+  resolvedAt?: number;
 }
 
 export interface DailySummary {

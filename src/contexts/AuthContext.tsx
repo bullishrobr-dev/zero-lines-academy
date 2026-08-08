@@ -71,6 +71,14 @@ const PER_USER_KEYS = [
   'zl_exercise_scores',
   'zl_shoutouts',
   'zl_daily_xp_awarded',
+  /*
+   * The journal's comeback card: which card the seller closed, and how many
+   * lines they have said out loud today. Both are one person's own practice on
+   * one person's own losses, so neither may follow them onto the next seller's
+   * shift on a shared tablet.
+   */
+  'zl_comeback_done',
+  'zl_comeback_reps',
 ];
 
 /**

@@ -266,6 +266,25 @@ function selectDueCards(progress: Record<string, CardProgress>, today: string): 
   return [...reviewedDue, ...fresh.slice(0, MAX_NEW_PER_DAY)];
 }
 
+/**
+ * BROWSE — every card in a deck, in author order.
+ *
+ * The scheduler decides what you *have* to see today. It should never decide
+ * what you are *allowed* to see: someone about to work a hard pitch wants to
+ * read the whole "Art of Stopping" deck now, whether or not those cards are
+ * queued. That is reading, not reviewing.
+ *
+ * So this deliberately takes no `progress` argument and returns the data file
+ * unfiltered. Nothing in the browse path may call `applyReview`, `saveState`
+ * or `reviewCard` — a card looked at in browse mode keeps its interval, its
+ * ease factor, its due date and its review count, and the streak does not
+ * move. Keep it that way: the moment browsing writes, an idle flick through a
+ * deck starts burying real revision under fake "you knew it" answers.
+ */
+export function getBrowseFlashcards(categoryId?: string): Flashcard[] {
+  return categoryId ? flashcards.filter((c) => c.categoryId === categoryId) : flashcards;
+}
+
 // ── Hook ────────────────────────────────────────────────────────────────────
 
 export interface UseFlashcardsReturn {
@@ -280,6 +299,8 @@ export interface UseFlashcardsReturn {
   masteryPercent: number;
   categoryMastery: Record<string, number>;
   categoryDueCount: Record<string, number>;
+  /** Every card a deck holds, due or not — the size of the browse list. */
+  categoryTotalCount: Record<string, number>;
 
   // Actions
   reviewCard: (cardId: string, result: 'again' | 'hard' | 'good' | 'easy') => void;
@@ -340,6 +361,16 @@ export function useFlashcards(): UseFlashcardsReturn {
     return map;
   }, [dueCards]);
 
+  /* Deck sizes never depend on progress, so this is computed once. */
+  const categoryTotalCount = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const cat of categoryIds()) map[cat] = 0;
+    for (const card of flashcards) {
+      map[card.categoryId] = (map[card.categoryId] ?? 0) + 1;
+    }
+    return map;
+  }, []);
+
   // ── Actions ─────────────────────────────────────────────────────────────
 
   const reviewCard = useCallback(
@@ -384,6 +415,7 @@ export function useFlashcards(): UseFlashcardsReturn {
     masteryPercent,
     categoryMastery,
     categoryDueCount,
+    categoryTotalCount,
     reviewCard,
     getCardProgress,
     resetProgress,

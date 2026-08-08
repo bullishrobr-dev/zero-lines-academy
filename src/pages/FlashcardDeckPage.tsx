@@ -15,10 +15,11 @@ import {
   Sparkles,
   BarChart3,
   Sun,
+  Layers,
 } from 'lucide-react';
 import { useFlashcards } from '../hooks/useFlashcards';
 import { useLanguage } from '../contexts/LanguageContext';
-import { categories, getFlashcardsByCategory } from '../data/flashcards';
+import { categories } from '../data/flashcards';
 
 // ── Copy ────────────────────────────────────────────────────────────────────
 // This screen had no `useLanguage` import at all, so "Flashcard Decks",
@@ -42,9 +43,16 @@ const COPY = {
     morningBody: 'A five-card warm-up before the door',
     reviewAllTitle: 'Review all due cards',
     reviewAllBody: (n: number) => `${n} card${n === 1 ? '' : 's'} waiting`,
+    browseAllTitle: 'Browse every card',
+    browseAllBody: (n: number) => `All ${n} cards, nothing scheduled`,
+    nothingDueTitle: 'Nothing due right now',
+    nothingDueBody: 'Pick a deck below and go through it whenever you want.',
     byCategory: 'Study by category',
     cards: 'cards',
     dueShort: 'due',
+    dueNow: (n: number) => `Due now (${n})`,
+    browseDeck: (n: number) => `Browse all (${n})`,
+    modeHint: 'Browsing never changes when a card comes back.',
     footer: (cards: number, decks: number) => `${cards} cards across ${decks} decks`,
     footerSub: 'Cards come back on a spacing that matches how well you knew them.',
     emptyTitle: 'No decks yet',
@@ -67,9 +75,16 @@ const COPY = {
     morningBody: 'Cinco fichas antes de salir a la puerta',
     reviewAllTitle: 'Repasar todas las pendientes',
     reviewAllBody: (n: number) => `${n} ficha${n === 1 ? '' : 's'} esperando`,
+    browseAllTitle: 'Ver todas las fichas',
+    browseAllBody: (n: number) => `Las ${n} fichas, sin programar nada`,
+    nothingDueTitle: 'Ahora mismo no hay nada pendiente',
+    nothingDueBody: 'Elige un mazo de abajo y repásalo cuando quieras.',
     byCategory: 'Estudiar por categoría',
     cards: 'fichas',
     dueShort: 'pendientes',
+    dueNow: (n: number) => `Pendientes (${n})`,
+    browseDeck: (n: number) => `Ver todas (${n})`,
+    modeHint: 'El repaso libre nunca cambia cuándo vuelve una ficha.',
     footer: (cards: number, decks: number) => `${cards} fichas en ${decks} mazos`,
     footerSub: 'Las fichas vuelven según lo bien que te las supiste.',
     emptyTitle: 'Aún no hay mazos',
@@ -128,8 +143,15 @@ export default function FlashcardDeckPage() {
   const isEs = language === 'es';
   const t = COPY[isEs ? 'es' : 'en'];
 
-  const { dueCount, streak, masteryPercent, totalReviewed, categoryMastery, categoryDueCount } =
-    useFlashcards();
+  const {
+    dueCount,
+    streak,
+    masteryPercent,
+    totalReviewed,
+    categoryMastery,
+    categoryDueCount,
+    categoryTotalCount,
+  } = useFlashcards();
 
   const decks = useMemo(
     () =>
@@ -138,13 +160,15 @@ export default function FlashcardDeckPage() {
         name: isEs ? cat.nameEs : cat.name,
         description: isEs ? cat.descriptionEs : cat.description,
         index,
-        totalCards: getFlashcardsByCategory(cat.id).length,
+        // Deck size comes from the hook so the row label, the browse button's
+        // count and the session the button opens can never disagree.
+        totalCards: categoryTotalCount[cat.id] ?? 0,
         due: categoryDueCount[cat.id] ?? 0,
         mastered: categoryMastery[cat.id] ?? 0,
         Icon: ICONS[cat.icon] ?? Brain,
         theme: DECK_THEME[cat.id] ?? FALLBACK_THEME,
       })),
-    [categoryDueCount, categoryMastery, isEs]
+    [categoryDueCount, categoryMastery, categoryTotalCount, isEs]
   );
 
   const totalCards = useMemo(() => decks.reduce((sum, d) => sum + d.totalCards, 0), [decks]);
@@ -233,29 +257,48 @@ export default function FlashcardDeckPage() {
           </div>
         </section>
 
-        {/* Session shortcuts */}
-        {dueCount > 0 && (
-          <div className="mb-6 space-y-3">
-            <ActionRow
-              onClick={() => navigate('/flashcards?mode=morning')}
-              icon={<Sun className="h-6 w-6" aria-hidden="true" />}
-              title={t.morningTitle}
-              body={t.morningBody}
-              featureClass="feature-gold"
-              fillClass="bg-gold text-on-gold"
-              inkClass="text-gold-strong"
-            />
-            <ActionRow
-              onClick={() => navigate('/flashcards')}
-              icon={<Sparkles className="h-6 w-6" aria-hidden="true" />}
-              title={t.reviewAllTitle}
-              body={t.reviewAllBody(dueCount)}
-              featureClass=""
-              fillClass="bg-teal text-on-teal"
-              inkClass="text-teal-strong"
-            />
-          </div>
-        )}
+        {/* Session shortcuts.
+            This block used to render only when something was due, so a seller
+            with a clear queue got a screen with no way into any card at all.
+            Browsing is always offered; the scheduled sessions come and go. */}
+        <div className="mb-6 space-y-3">
+          {dueCount > 0 ? (
+            <>
+              <ActionRow
+                onClick={() => navigate('/flashcards?mode=morning')}
+                icon={<Sun className="h-6 w-6" aria-hidden="true" />}
+                title={t.morningTitle}
+                body={t.morningBody}
+                featureClass="feature-gold"
+                fillClass="bg-gold text-on-gold"
+                inkClass="text-gold-strong"
+              />
+              <ActionRow
+                onClick={() => navigate('/flashcards')}
+                icon={<Sparkles className="h-6 w-6" aria-hidden="true" />}
+                title={t.reviewAllTitle}
+                body={t.reviewAllBody(dueCount)}
+                featureClass=""
+                fillClass="bg-teal text-on-teal"
+                inkClass="text-teal-strong"
+              />
+            </>
+          ) : (
+            <div className="surface-flat p-4">
+              <h3 className="text-body-small font-semibold text-ink">{t.nothingDueTitle}</h3>
+              <p className="mt-0.5 text-caption text-ink-2">{t.nothingDueBody}</p>
+            </div>
+          )}
+          <ActionRow
+            onClick={() => navigate('/flashcards?mode=browse')}
+            icon={<Layers className="h-6 w-6" aria-hidden="true" />}
+            title={t.browseAllTitle}
+            body={t.browseAllBody(totalCards)}
+            featureClass="feature-violet"
+            fillClass="bg-violet-tint text-violet-strong"
+            inkClass="text-violet-strong"
+          />
+        </div>
 
         {/* Decks */}
         <h2 className="mb-3 text-overline text-ink-3">{t.byCategory}</h2>
@@ -267,64 +310,98 @@ export default function FlashcardDeckPage() {
           </div>
         ) : (
           <div className="space-y-3">
+            {/*
+              A deck row used to be ONE button that could only open the due
+              queue, which is why "somebody wants to check the cards on the art
+              of stopping" had nowhere to go once that deck was clear. It is now
+              a card carrying two explicit entrances — the scheduled queue, and
+              the whole deck — so both modes are visible without opening
+              anything, and the counts say which is which.
+            */}
             {decks.map((deck) => (
-              <motion.button
+              <motion.div
                 key={deck.id}
-                type="button"
-                whileTap={{ scale: 0.985 }}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(deck.index * 0.07, 0.3) }}
-                onClick={() => navigate(`/flashcards?category=${deck.id}`)}
-                className={`flex w-full items-center gap-3.5 rounded-card border ${deck.theme.border} bg-surface p-4 text-left`}
+                className={`rounded-card border ${deck.theme.border} bg-surface p-4`}
               >
-                <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-card ${deck.theme.tint}`}
-                >
-                  <deck.Icon className={`h-6 w-6 ${deck.theme.ink}`} aria-hidden="true" />
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <div className="mb-1 flex items-center gap-2">
-                    <h3 className="truncate text-body-small font-semibold text-ink">{deck.name}</h3>
-                    {deck.due > 0 && (
-                      <span className="flex h-5 min-w-[20px] shrink-0 items-center justify-center rounded-full bg-teal px-1.5 text-caption font-bold text-on-teal">
-                        {deck.due}
-                      </span>
-                    )}
+                <div className="flex items-center gap-3.5">
+                  <div
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-card ${deck.theme.tint}`}
+                  >
+                    <deck.Icon className={`h-6 w-6 ${deck.theme.ink}`} aria-hidden="true" />
                   </div>
-                  <p className="mb-2 truncate text-caption text-ink-2">{deck.description}</p>
 
-                  <div className="flex items-center gap-2">
-                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-sunken">
-                      <motion.div
-                        className={`h-full rounded-full ${deck.theme.bar}`}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${deck.mastered}%` }}
-                        transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 + deck.index * 0.08 }}
-                      />
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-1 flex items-center gap-2">
+                      <h3 className="truncate text-body-small font-semibold text-ink">
+                        {deck.name}
+                      </h3>
+                      {deck.due > 0 && (
+                        <span className="flex h-5 min-w-[20px] shrink-0 items-center justify-center rounded-full bg-teal px-1.5 text-caption font-bold text-on-teal">
+                          {deck.due}
+                        </span>
+                      )}
                     </div>
-                    <span className="text-caption font-medium tabular-nums text-ink-3">
-                      {deck.mastered}%
-                    </span>
-                  </div>
+                    <p className="mb-2 truncate text-caption text-ink-2">{deck.description}</p>
 
-                  <div className="mt-1.5 flex items-center gap-3">
-                    <span className="text-caption text-ink-3">
-                      {deck.totalCards} {t.cards}
-                    </span>
-                    {deck.due > 0 && (
-                      <span className="flex items-center gap-1 text-caption text-teal-strong">
-                        <Clock className="h-3 w-3" aria-hidden="true" />
-                        {deck.due} {t.dueShort}
+                    <div className="flex items-center gap-2">
+                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-sunken">
+                        <motion.div
+                          className={`h-full rounded-full ${deck.theme.bar}`}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${deck.mastered}%` }}
+                          transition={{
+                            duration: 0.7,
+                            ease: 'easeOut',
+                            delay: 0.2 + deck.index * 0.08,
+                          }}
+                        />
+                      </div>
+                      <span className="text-caption font-medium tabular-nums text-ink-3">
+                        {deck.mastered}%
                       </span>
-                    )}
+                    </div>
+
+                    <div className="mt-1.5 flex items-center gap-3">
+                      <span className="text-caption text-ink-3">
+                        {deck.totalCards} {t.cards}
+                      </span>
+                      {deck.due > 0 && (
+                        <span className="flex items-center gap-1 text-caption text-teal-strong">
+                          <Clock className="h-3 w-3" aria-hidden="true" />
+                          {deck.due} {t.dueShort}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-                <ChevronRight className="h-5 w-5 shrink-0 text-ink-3" aria-hidden="true" />
-              </motion.button>
+                <div className="mt-3 grid grid-cols-2 gap-2">
+                  <motion.button
+                    type="button"
+                    whileTap={{ scale: 0.97 }}
+                    disabled={deck.due === 0}
+                    onClick={() => navigate(`/flashcards?category=${deck.id}`)}
+                    className="flex min-h-touch items-center justify-center gap-1.5 rounded-card bg-teal px-2 text-caption font-bold text-on-teal disabled:bg-surface-sunken disabled:text-ink-3"
+                  >
+                    <Clock className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    <span className="truncate">{t.dueNow(deck.due)}</span>
+                  </motion.button>
+                  <motion.button
+                    type="button"
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => navigate(`/flashcards?category=${deck.id}&mode=browse`)}
+                    className="flex min-h-touch items-center justify-center gap-1.5 rounded-card border border-line bg-surface-sunken px-2 text-caption font-bold text-ink"
+                  >
+                    <Layers className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    <span className="truncate">{t.browseDeck(deck.totalCards)}</span>
+                  </motion.button>
+                </div>
+              </motion.div>
             ))}
+            <p className="pt-1 text-center text-caption text-ink-3">{t.modeHint}</p>
           </div>
         )}
 
@@ -395,9 +472,12 @@ function ActionRow({
       <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-card ${fillClass}`}>
         {icon}
       </div>
+      {/* `truncate` here clipped "Repasar todas las pendientes" to
+          "Repasar todas las pendie…" — Spanish runs ~20% longer than the
+          English these widths were eyeballed against. Two lines, then clamp. */}
       <div className="min-w-0 flex-1">
-        <h3 className="truncate text-body-small font-semibold text-ink">{title}</h3>
-        <p className="truncate text-caption text-ink-2">{body}</p>
+        <h3 className="line-clamp-2 text-body-small font-semibold text-ink">{title}</h3>
+        <p className="line-clamp-2 text-caption text-ink-2">{body}</p>
       </div>
       <ChevronRight className={`h-5 w-5 shrink-0 ${inkClass}`} aria-hidden="true" />
     </motion.button>
