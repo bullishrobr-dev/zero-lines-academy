@@ -1,15 +1,28 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // ManagerDashboard.tsx — the shop manager's view of their team. Used on a phone.
 //
-// THE HONEST PART. Progress is stored on each seller's own device: XP, streaks,
-// lessons and quiz scores never leave the phone that earned them, because there
-// is no server to send them to. So on the manager's phone `getTeamProgress()`
-// answers `hasData: false` for almost everyone.
+// THE HONEST PART, AND IT NOW HAS TWO ANSWERS.
 //
-// This screen therefore says "No data on this device" instead of rendering a 0%
-// bar that looks measured, and every derived figure — average, furthest along,
-// behind — counts only the people this device actually has records for, which
-// is exactly what `getTeamStats()` already does.
+// This file used to say flatly that progress never leaves the phone that earned
+// it "because there is no server to send them to". That was true when it was
+// written and it is not true any more: with the database connected,
+// `db.getTeamProgress()` reads the team's real `stats` and `quiz_results` rows
+// plus seven days of `sales`, all scoped by row-level security to the people
+// this manager may coach.
+//
+// Leaving the old wording in place told an owner his dashboard could not see
+// anything, on a screen that was in fact showing him live numbers. So the
+// explanation, the stat label and the section heading each have a second
+// version, chosen by `backend.isDatabaseConfigured`:
+//
+//   Configured      → the numbers come from the sellers' accounts, and someone
+//                     blank has not opened the app or has not had signal since.
+//   Not configured  → the original wording, which is still exactly right for a
+//                     device-only build.
+//
+// Either way the screen still says "No data" rather than drawing a 0% bar that
+// looks measured, and every derived figure counts only people with records —
+// which is what `getTeamStats()` already does.
 //
 // ADDING A SELLER depends on whether the database is connected:
 //
@@ -81,6 +94,10 @@ const COPY = {
   statTeam: { en: 'In your team', es: 'En tu equipo' },
   statSeen: { en: 'Seen on this phone', es: 'Con datos aquí' },
   measuredHeading: { en: 'Measured on this device', es: 'Medido en este dispositivo' },
+  /* The same three slots, for a shop whose database is connected — which is
+     every shop now. See the note at the top of this file. */
+  statSeenLive: { en: 'Sending data', es: 'Enviando datos' },
+  measuredHeadingLive: { en: 'From your team’s accounts', es: 'Desde las cuentas de tu equipo' },
   statAvg: { en: 'Average done', es: 'Media completada' },
   statTop: { en: 'Furthest along', es: 'Más avanzado' },
   statRisk: { en: 'Behind', es: 'Rezagados' },
@@ -88,12 +105,25 @@ const COPY = {
   /* ── The one explanation ── */
   whyTitle: { en: 'Where the numbers are', es: 'Dónde están los números' },
   whyBody: {
-    en: 'Training progress is saved on each seller’s own phone, so this screen only sees what was earned on this one. A shared view of everybody needs a server.',
-    es: 'El progreso se guarda en el móvil de cada vendedor, así que esta pantalla solo ve lo que se ha hecho en este. Una vista compartida de todos necesita un servidor.',
+    en: 'Training progress is saved on each seller’s own phone, so this screen only sees what was earned on this device.',
+    es: 'El progreso se guarda en el móvil de cada vendedor, así que esta pantalla solo ve lo que se ha hecho en este dispositivo.',
   },
   whyTip: {
     en: 'Ask your team to tap “Share my stats” on their profile and send you the summary.',
     es: 'Pide a tu equipo que toque «Compartir mis datos» en su perfil y te mande el resumen.',
+  },
+  /* ── The same explanation, for a connected shop ──
+     The originals above were written before there was a database. They are kept
+     for the offline build, but on a live shop they are simply untrue and they
+     tell an owner his dashboard cannot see anything when it can. */
+  whyTitleLive: { en: 'Where the numbers come from', es: 'De dónde salen los números' },
+  whyBodyLive: {
+    en: 'Straight from your sellers’ accounts — lessons, quiz scores, streaks, and the last seven days of stops and sales. A seller appears here once their phone has synced, which happens whenever they have signal.',
+    es: 'Directo de las cuentas de tus vendedores — lecciones, notas de test, rachas, y los últimos siete días de paradas y ventas. Un vendedor aparece aquí en cuanto su móvil sincroniza, que es siempre que tenga cobertura.',
+  },
+  whyTipLive: {
+    en: 'Someone showing nothing has not opened the app yet, or has not had signal since they did.',
+    es: 'Si alguien no muestra nada, o no ha abierto la app todavía, o no ha tenido cobertura desde que lo hizo.',
   },
 
   /* ── Team list ── */
@@ -438,7 +468,7 @@ export default function ManagerDashboard() {
             <StatTile
               icon={Smartphone}
               value={`${measuredCount}/${team.length}`}
-              label={c('statSeen')}
+              label={c(backend.isDatabaseConfigured ? 'statSeenLive' : 'statSeen')}
               accent="violet"
             />
           </div>
@@ -447,7 +477,9 @@ export default function ManagerDashboard() {
         {/* Derived figures only exist where there is data to derive them from. */}
         {measuredCount > 0 && (
           <section className="surface-raised p-4">
-            <p className="text-overline text-ink-3">{c('measuredHeading')}</p>
+            <p className="text-overline text-ink-3">
+              {c(backend.isDatabaseConfigured ? 'measuredHeadingLive' : 'measuredHeading')}
+            </p>
             <div className="mt-3 grid grid-cols-3 divide-x divide-line">
               {[
                 { value: `${stats.avgCompletion}%`, label: c('statAvg') },
@@ -471,9 +503,15 @@ export default function ManagerDashboard() {
                 <Smartphone size={16} className="text-ink-2" aria-hidden />
               </div>
               <div className="min-w-0">
-                <p className="text-body-small font-semibold text-ink">{c('whyTitle')}</p>
-                <p className="mt-1 text-caption leading-5 text-ink-2">{c('whyBody')}</p>
-                <p className="mt-2 text-caption leading-5 text-ink-3">{c('whyTip')}</p>
+                <p className="text-body-small font-semibold text-ink">
+                  {c(backend.isDatabaseConfigured ? 'whyTitleLive' : 'whyTitle')}
+                </p>
+                <p className="mt-1 text-caption leading-5 text-ink-2">
+                  {c(backend.isDatabaseConfigured ? 'whyBodyLive' : 'whyBody')}
+                </p>
+                <p className="mt-2 text-caption leading-5 text-ink-3">
+                  {c(backend.isDatabaseConfigured ? 'whyTipLive' : 'whyTip')}
+                </p>
               </div>
             </div>
           </section>
@@ -826,9 +864,15 @@ function EmployeeDetail({
       ) : (
         /* The header line above already states the fact; this explains it once. */
         <div className="surface-flat mt-5 p-4">
-          <p className="text-body-small font-semibold text-ink">{c('whyTitle')}</p>
-          <p className="mt-1 text-caption leading-5 text-ink-2">{c('whyBody')}</p>
-          <p className="mt-2 text-caption leading-5 text-ink-3">{c('whyTip')}</p>
+          <p className="text-body-small font-semibold text-ink">
+            {c(backend.isDatabaseConfigured ? 'whyTitleLive' : 'whyTitle')}
+          </p>
+          <p className="mt-1 text-caption leading-5 text-ink-2">
+            {c(backend.isDatabaseConfigured ? 'whyBodyLive' : 'whyBody')}
+          </p>
+          <p className="mt-2 text-caption leading-5 text-ink-3">
+            {c(backend.isDatabaseConfigured ? 'whyTipLive' : 'whyTip')}
+          </p>
         </div>
       )}
 
