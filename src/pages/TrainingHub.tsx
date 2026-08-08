@@ -70,9 +70,12 @@ const categoryMeta: Record<
 };
 
 /* Categories with no translation-key entry above still need a hue. */
+/* Categories with no `meta` entry above still need a colour, or they silently
+   fall back to teal and become indistinguishable from Psychology. */
 const EXTRA_CATEGORY_HUE: Record<string, Hue> = {
   scenarios: 'warning',
   objections: 'success',
+  closing: 'coral',
 };
 
 const HUE: Record<Hue, { surface: string; chip: string; ink: string; bar: string }> = {

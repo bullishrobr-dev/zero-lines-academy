@@ -202,13 +202,16 @@ export default function PeelingPage() {
         >
           <div className="space-y-3">
             <OfferCard
-              highlight
               tag={t(d.offers.option1.label, d.offers.option1.labelEs)}
               title={t(d.offers.option1.priceLabel, d.offers.option1.priceLabelEs)}
               price={price(stepPrice('promo'))}
               script={t(d.offers.option1.text, d.offers.option1.textEs)}
             />
+            {/* Option 2 carries the highlight: its own copy calls it the one most
+                customers take, and it holds full price. Option 1 was marked as the
+                lead while saying the opposite. */}
             <OfferCard
+              highlight
               tag={t(d.offers.option2.label, d.offers.option2.labelEs)}
               title={t(d.offers.option2.priceLabel, d.offers.option2.priceLabelEs)}
               price={price(stepPrice('creams-free'))}

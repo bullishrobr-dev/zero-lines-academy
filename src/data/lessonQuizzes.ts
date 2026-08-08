@@ -811,8 +811,8 @@ export const LESSON_QUIZZES: Record<string, QuizQuestion[]> = {
       options: ["Season-based urgency", "Location-based urgency", "Quantity-based urgency", "Time-based urgency"],
       optionsEs: ["Urgencia por temporada", "Urgencia por ubicación", "Urgencia por cantidad", "Urgencia por tiempo"],
       correctIndex: 1,
-      explanation: "This is location-based urgency. The {currency}300 price only exists in {locationName}. Once the customer crosses the border, the price goes back to {currency}500. This is genuine, verifiable scarcity.",
-      explanationEs: "Es urgencia por ubicación. El precio de {currency}300 solo existe en {locationName}. En cuanto el cliente cruza la frontera, el precio vuelve a {currency}500. Es una escasez real y comprobable.",
+      explanation: "This is location-based urgency. The syringe is {currency}300 here and only here. Once the customer crosses the border it is back to {currency}500. Genuine scarcity, and they can check it.",
+      explanationEs: "Es urgencia por ubicación. La jeringa son {currency}300 aquí y solo aquí. En cuanto el cliente cruza la frontera, vuelve a {currency}500. Escasez real, y lo pueden comprobar.",
     },
     {
       question: "Why does urgency help customers who genuinely want your product?",

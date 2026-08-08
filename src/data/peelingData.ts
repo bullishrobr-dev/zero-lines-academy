@@ -113,7 +113,7 @@ export const peelingData = {
       {
         step: '2',
         title: 'The "Roll It, Don\'t Rub It" Technique',
-        titleEs: 'La Técnica de "Enrolla, No Frijegues"',
+        titleEs: 'La Técnica de "Enrolla, No Friegues"',
         text: 'Tell them: "Roll it gently with your fingers — don\'t rub hard." The dead skin will start to pill and roll off. This is the visual WOW moment. Let them see the grey/brown particles forming.',
         textEs: 'Diles: "Enróllalo suavemente con tus dedos — no frotes fuerte." La piel muerta empezará a pelarse y salir. Este es el momento visual WOW. Déjalos ver las partículas grises/marrones formándose.',
       },
@@ -121,8 +121,8 @@ export const peelingData = {
         step: '3',
         title: 'Explain What They\'re Seeing',
         titleEs: 'Explica Lo Que Están Viendo',
-        text: '"See that? That\'s dead skin. Dry, dead layers separating from the living skin underneath. It\'s actually so good that dermatologists recommend it for eczema, psoriasis, dry skin, and even redness or sensitivity."',
-        textEs: '"¿Ves eso? Eso es piel muerta. Capas secas y muertas separándose de la piel viva de abajo. Es tan bueno que los dermatólogos lo recomiendan para eczema, psoriasis, piel seca, e incluso enrojecimiento o sensibilidad."',
+        text: '"See that? That\'s dead skin. Dry, dead layers separating from the living skin underneath." Point at their hand as you say it, not at yourself — let them keep looking at their own skin.',
+        textEs: '"¿Ves eso? Eso es piel muerta. Capas secas y muertas separándose de la piel viva de abajo." Señala su mano mientras lo dices, no a ti — deja que sigan mirando su propia piel.',
       },
       {
         step: '4',
@@ -152,8 +152,10 @@ export const peelingData = {
   offers: {
     heading: 'The Two Offers',
     headingEs: 'Las Dos Ofertas',
-    subtext: 'Always present TWO choices. Let them decide. Then pause — silence is your friend.',
-    subtextEs: 'Siempre presenta DOS opciones. Déjalas decidir. Luego haz pausa — el silencio es tu amigo.',
+    subtext:
+      'Say the two anchors first, every time: {currency}200 around Europe, {currency}150 here in {locationName}. Both offers below are read against those numbers — without them, {currency}100 is just a price. Then present TWO choices, let them decide, and pause — silence is your friend.',
+    subtextEs:
+      'Di primero las dos referencias, siempre: {currency}200 por Europa, {currency}150 aquí en {locationName}. Las dos ofertas de abajo se leen contra esos números — sin ellos, {currency}100 es solo un precio. Luego presenta DOS opciones, deja que decidan y haz una pausa — el silencio es tu amigo.',
     option1: {
       label: 'Option 1',
       labelEs: 'Opción 1',

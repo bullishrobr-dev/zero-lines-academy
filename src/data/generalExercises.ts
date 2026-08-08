@@ -458,9 +458,17 @@ const matchTechniqueExercise: Exercise = {
         term: 'Voucher Close',
         termEs: 'Cierre con Vale',
         definition:
-          'Your last-resort minimum price ({currency}100 for syringe, {currency}50 for peeling, {currency}30 for scrub/nail kit) used only when the customer is genuinely walking away.',
+          'A one-time voucher played as the last push BEFORE the floor: {currency}140 on the syringe, {currency}50 on the peeling. The syringe still has {currency}100 underneath it. Mix & Match has no voucher rung.',
         definitionEs:
-          'Tu precio mínimo de último recurso ({currency}100 para jeringuilla, {currency}50 para peeling, {currency}30 para exfoliante/kit uñas) usado solo cuando el cliente realmente se está yendo.',
+          'Un cupón de una sola vez que juegas como último empujón ANTES del mínimo: {currency}140 en la jeringuilla, {currency}50 en el peeling. La jeringuilla todavía tiene {currency}100 por debajo. Mix & Match no tiene peldaño de cupón.',
+      },
+      {
+        term: 'Minimum / Floor',
+        termEs: 'Mínimo / Piso',
+        definition:
+          'The last-resort price you never cross: {currency}100 for the syringe, {currency}50 for the peeling, {currency}30 for scrub/nail kit. Only when the customer is genuinely walking away.',
+        definitionEs:
+          'El precio de último recurso que nunca cruzas: {currency}100 para jeringuilla, {currency}50 para peeling, {currency}30 para exfoliante/kit uñas. Solo cuando el cliente realmente se está yendo.',
       },
       {
         term: 'Assumptive Close',
@@ -521,14 +529,15 @@ const orderPitchExercise: Exercise = {
         correctOrder: 1,
       },
       {
-        text: 'Anchor the value with the Europe price: "In Paris or London, this treatment costs {currency}500 per session."',
+        text: 'Demo on ONE eye only. Then hand them the mirror and point them at the untreated eye so they compare the two themselves.',
         textEs:
-          'Anclar el valor con el precio de Europa: "En París o Londres, este tratamiento cuesta {currency}500 por sesión."',
+          'Hacer la demo en UN SOLO ojo. Luego darle el espejo y señalarle el ojo sin tratar para que compare los dos por su cuenta.',
         correctOrder: 2,
       },
       {
-        text: 'Demonstrate the product on their hand, showing the instant result.',
-        textEs: 'Demostrar el producto en su mano, mostrando el resultado instantáneo.',
+        text: 'Anchor the value with the Europe price: "In Paris or London, this treatment costs {currency}500 per session."',
+        textEs:
+          'Anclar el valor con el precio de Europa: "En París o Londres, este tratamiento cuesta {currency}500 por sesión."',
         correctOrder: 3,
       },
       {

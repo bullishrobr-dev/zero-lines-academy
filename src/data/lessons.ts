@@ -2384,7 +2384,7 @@ export const lessons: Record<string, Lesson> = {
           'PASO 1 — OFERTA COMPLETA: Presenta ambas opciones a valor completo. \'Opción 1: {currency}210 con regalo. Opción 2: {currency}300 con dos jeringas y cremas.\' Este es tu techo.',
           'PASO 2 — QUITA EL REGALO: Si dudan con {currency}210: \'Sabes qué, déjame hacerlo más fácil. Quito el regalo — eso es un valor de {currency}35 — y dejo la jeringa en {currency}175.\' Ellos ahorran dinero; tú pierdes un regalo, no margen.',
           'PASO 3 — EL CIERRE CON VOUCHER: Si aún dudan: \'Está bien, puedo hacer algo un poco loco — solo esta vez. Con un voucher del 20%, puedo dejar la jeringa individual en {currency}140. Pero solo en la individual, no en el combo.\' Esto se siente exclusivo y definitivo.',
-          'PASO 4 — EL PISO: Tu mínimo absoluto. Conócelo y nunca lo cruces. Si no compran en {currency}140, no iban a comprar a ningún precio. Déjalos ir amablemente.',
+          'PASO 4 — EL PISO: Tu mínimo absoluto son {currency}100 en la jeringa — {currency}140 es el peldaño del cupón, no el fondo. Conoce los dos y nunca cruces el piso. Si no compran en {currency}100, no iban a comprar a ningún precio. Déjalos ir amablemente.',
         ],
     },
     {
@@ -3638,7 +3638,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'keypoint',
       text: 'The mindset shift: You\'re not interrupting someone\'s day — you\'re enhancing it. The products you sell deliver visible, immediate results. You\'re doing them a favor by stopping them.',
-      textEs: 'El cambio de mentalidad: No estas interrumpiendo el dia de alguien — lo estas mejorando. Los productos que vendes ofrecen resultados visibles e inmediatos. Les estas haciendo un favor al detenerlos.',
+      textEs: 'El cambio de mentalidad: No estas interrumpiendo el día de alguien — lo estas mejorando. Los productos que vendes ofrecen resultados visibles e inmediatos. Les estas haciendo un favor al detenerlos.',
     },
     {
             type: 'divider'
@@ -3690,7 +3690,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Practical Techniques',
-      textEs: 'Tecnicas Practicas',
+      textEs: 'Técnicas Practicas',
     },
     {
             type: 'bullets',
@@ -3704,7 +3704,7 @@ export const lessons: Record<string, Lesson> = {
           'Viste el papel: Lo primero que juzgan eres tú. Zapatos limpios, el pelo arreglado, la camisa en su sitio. Parece alguien por quien merece la pena pararse y se paran.',
           'El lenguaje importa: Di \'Me encantaria mostrarte algo\' no \'Puedo mostrarte algo?\' La primera es una invitacion. La segunda es una pregunta que pueden rechazar.',
           'Revisa tu postura: Hombros hacia atras, barbilla arriba, sonrisa en tus ojos. Practica poses de poder en el almacen antes de tu turno.',
-          'La pausa: Despues de lanzar tu apertura, pausa. Deja que el silencio haga su trabajo. El Agresivo de Lujo no se apresura — comanda la atencion, y luego deja que caiga.',
+          'La pausa: Después de lanzar tu apertura, pausa. Deja que el silencio haga su trabajo. El Agresivo de Lujo no se apresura — comanda la atención, y luego deja que caiga.',
         ],
     },
     {
@@ -3718,7 +3718,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'Even the Luxury Aggressor gets ignored. The difference? They don\'t flinch. A rejected invitation isn\'t a reflection on you — it\'s a reflection on their timing, mood, or preoccupations. Maintain your posture. Smile at the next person. Your energy doesn\'t dip because one person said no.',
-      textEs: 'Incluso el Agresivo de Lujo es ignorado. La diferencia? No se inmutan. Una invitacion rechazada no es un reflejo de ti — es un reflejo de su tiempo, su estado de animo o sus preocupaciones. Manten tu postura. Sonrie a la siguiente persona. Tu energia no decae porque una persona dijo no.',
+      textEs: 'Incluso el Agresivo de Lujo es ignorado. La diferencia? No se inmutan. Una invitacion rechazada no es un reflejo de ti — es un reflejo de su tiempo, su estado de animo o sus preocupaciones. Manten tu postura. Sonrie a la siguiente persona. Tu energía no decae porque una persona dijo no.',
     },
     {
             type: 'quote',
@@ -3784,17 +3784,17 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'header',
       text: 'Energy Sells Before Words Do',
-      textEs: 'Tu Energia Vende Antes que tus Palabras',
+      textEs: 'Tu Energía Vende Antes que tus Palabras',
     },
     {
             type: 'paragraph',
       text: 'Customers feel your energy from 5 meters away. Before they hear your voice, before they see your smile, they sense your vibration. Tired, heavy energy repels. Light, excited energy attracts. This isn\'t mystical — it\'s neuroscience. Humans have mirror neurons that cause us to emotionally sync with people around us. Your mood literally becomes their mood.',
-      textEs: 'Los clientes sienten tu energia a 5 metros de distancia. Antes de escuchar tu voz, antes de ver tu sonrisa, sienten tu vibracion. La energia cansada y pesada repele. La energia ligera y entusiasmada atrae. No es mistico — es neurociencia. Los seres humanos tenemos neuronas espejo que nos hacen sincronizarnos emocionalmente con las personas a nuestro alrededor. Tu estado de animo literalmente se convierte en el de ellos.',
+      textEs: 'Los clientes sienten tu energía a 5 metros de distancia. Antes de escuchar tu voz, antes de ver tu sonrisa, sienten tu vibracion. La energía cansada y pesada repele. La energía ligera y entusiasmada atrae. No es mistico — es neurociencia. Los seres humanos tenemos neuronas espejo que nos hacen sincronizarnos emocionalmente con las personas a nuestro alrededor. Tu estado de animo literalmente se convierte en el de ellos.',
     },
     {
             type: 'keypoint',
       text: 'Energy is more important than script, product knowledge, or pricing. A salesperson with great energy and average skills will outsell a tired expert every single time.',
-      textEs: 'La energia es mas importante que el guion, el conocimiento del producto o los precios. Un vendedor con gran energia y habilidades promedio vendera mas que un experto cansado, cada vez.',
+      textEs: 'La energía es mas importante que el guion, el conocimiento del producto o los precios. Un vendedor con gran energía y habilidades promedio vendera mas que un experto cansado, cada vez.',
     },
     {
             type: 'divider'
@@ -3802,12 +3802,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'The Energy Lifecycle of a Shift',
-      textEs: 'El Ciclo de Energia de un Turno',
+      textEs: 'El Ciclo de Energía de un Turno',
     },
     {
             type: 'paragraph',
       text: 'Most salespeople\'s energy follows a predictable curve: high at opening, dipping after the first hour, crashing mid-day, then a small recovery before closing. Top performers break this curve deliberately. Here\'s how:',
-      textEs: 'La energia de la mayoria de los vendedores sigue una curva predecible: alta al inicio, bajando despues de la primera hora, cayendo a mitad del dia, y luego una pequena recuperacion antes de cerrar. Los mejores rompen esta curva deliberadamente. Asi es como:',
+      textEs: 'La energía de la mayoria de los vendedores sigue una curva predecible: alta al inicio, bajando después de la primera hora, cayendo a mitad del día, y luego una pequena recuperacion antes de cerrar. Los mejores rompen esta curva deliberadamente. Asi es como:',
     },
     {
             type: 'numbered',
@@ -3821,11 +3821,11 @@ export const lessons: Record<string, Lesson> = {
       ],
       itemsEs: [
           'PRE-TURNO (30 min antes): Abastece tu cuerpo. Come una comida ligera rica en proteinas — no carbohidratos pesados que te hagan sentir lento. Hidratate. Escucha musica que te motive. Haz 2 minutos de jumping jacks o shadow boxing para despertar tu sistema nervioso.',
-          'HORA DE APERTURA (alerta maxima): Usala sabiamente. Tus primeras detenciones marcan el tono para todo el dia. Sonrie a CADA persona que pase, incluso si no las detienes. Esto genera momentum.',
-          'MEDIA MANANA (primer bajon): Aqui es cuando la rotacion de 4 minutos te salva. Usa tu tiempo adentro para recargarte — no mirando el móvil, sino tomando 5 respiraciones profundas, bebiendo agua y celebrando cualquier pequena victoria hasta ahora.',
+          'HORA DE APERTURA (alerta maxima): Usala sabiamente. Tus primeras detenciones marcan el tono para todo el día. Sonrie a CADA persona que pase, incluso si no las detienes. Esto genera momentum.',
+          'MEDIA MANANA (primer bajon): Aquí es cuando la rotacion de 4 minutos te salva. Usa tu tiempo adentro para recargarte — no mirando el móvil, sino tomando 5 respiraciones profundas, bebiendo agua y celebrando cualquier pequena victoria hasta ahora.',
           'PERIODO DE COMIDA: Come ligero. Una comida pesada matara tu tarde. Ensaladas, proteina, fruta. Evita la trampa de la pasta y el pan.',
-          'BAJON DE LA TARDE (la zona de peligro 2-4pm): Aqui es donde las ventas se ganan o se pierden. Parate mas derecho. Muevete mas rapido. Habla mas fuerte. Eleva conscientemente cada accion fisica — tu cerebro sigue a tu cuerpo.',
-          'HORA DE PODER (ultimos 90 minutos): Termina fuerte. El empuje final del dia a menudo tiene a los mejores clientes — ya terminaron de comprar y estan listos para ser vendidos. Pon todo lo que te queda.',
+          'BAJON DE LA TARDE (la zona de peligro 2-4pm): Aquí es donde las ventas se ganan o se pierden. Parate mas derecho. Muevete mas rápido. Habla mas fuerte. Eleva conscientemente cada acción física — tu cerebro sigue a tu cuerpo.',
+          'HORA DE PODER (ultimos 90 minutos): Termina fuerte. El empuje final del día a menudo tiene a los mejores clientes — ya terminaron de comprar y están listos para ser vendidos. Pon todo lo que te queda.',
         ],
     },
     {
@@ -3839,12 +3839,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'The 4-minute door rotation isn\'t just fair — it\'s energy management genius. Knowing you only have 4 minutes outside before switching keeps your intensity high. It\'s like interval training for sales. You sprint, recover, sprint again. This prevents the burnout that kills most street sellers by hour 3.',
-      textEs: 'La rotacion de puerta de 4 minutos no es solo justa — es una genialidad de manejo de energia. Saber que solo tienes 4 minutos afuera antes de cambiar mantiene tu intensidad alta. Es como entrenamiento por intervalos para ventas. Corres, recuperas, corres de nuevo. Esto previene el agotamiento que mata a la mayoria de los vendedores de calle a la hora 3.',
+      textEs: 'La rotacion de puerta de 4 minutos no es solo justa — es una genialidad de manejo de energía. Saber que solo tienes 4 minutos afuera antes de cambiar mantiene tu intensidad alta. Es como entrenamiento por intervalos para ventas. Corres, recuperas, corres de nuevo. Esto previene el agotamiento que mata a la mayoria de los vendedores de calle a la hora 3.',
     },
     {
             type: 'tip',
       text: 'During your 4 minutes outside, give 100% energy to every person you stop. During your inside time, consciously lower your shoulders, unclench your jaw, and breathe. This oscillation keeps you fresh all day.',
-      textEs: 'Durante tus 4 minutos afuera, da el 100% de tu energia a cada persona que detengas. Durante tu tiempo adentro, baja conscientemente tus hombros, relaja la mandibula y respira. Esta oscilacion te mantiene fresco todo el dia.',
+      textEs: 'Durante tus 4 minutos afuera, da el 100% de tu energía a cada persona que detengas. Durante tu tiempo adentro, baja conscientemente tus hombros, relaja la mandibula y respira. Esta oscilacion te mantiene fresco todo el día.',
     },
     {
             type: 'divider'
@@ -3852,7 +3852,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'The \'Fake It Till You Make It\' Technique',
-      textEs: 'La Tecnica \'Finge Hasta Que Lo Logres\'',
+      textEs: 'La Técnica \'Finge Hasta Que Lo Logres\'',
     },
     {
             type: 'paragraph',
@@ -3862,7 +3862,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'Even on my worst days, I play a character. I am High-Energy Salesperson. I smile bigger. I move faster. I speak with more enthusiasm. And within 30 minutes, I\'m not playing anymore — I actually feel it.\'',
-      textEs: '\'Incluso en mis peores dias, interpreto un personaje. Soy el Vendedor de Alta Energia. Sonrio mas grande. Me muevo mas rapido. Hablo con mas entusiasmo. Y dentro de 30 minutos, ya no estoy actuando — realmente lo siento.\'',
+      textEs: '\'Incluso en mis peores días, interpreto un personaje. Soy el Vendedor de Alta Energía. Sonrio mas grande. Me muevo mas rápido. Hablo con mas entusiasmo. Y dentro de 30 minutos, ya no estoy actuando — realmente lo siento.\'',
     },
     {
             type: 'bullets',
@@ -3876,7 +3876,7 @@ export const lessons: Record<string, Lesson> = {
           'POSE DE PODER: Dos minutos antes del turno, manos en las caderas, pecho abierto, barbilla arriba. Es ridículo y funciona igual — sales a la acera ya plantado como alguien por quien merece la pena pararse.',
           'EL CICLO DE SONRISA: Fuerza una sonrisa amplia por 10 segundos. Tu cerebro libera dopamina y serotonina. Repite cada hora.',
           'DETONANTES MUSICALES: Crea una lista de 3 canciones que siempre te motiven. Escuchalas durante los descansos.',
-          'PROYECCION DE VOZ: Habla 20% mas fuerte de lo normal. Proyectar energia a traves de tu voz te hace sentir mas energetico.',
+          'PROYECCION DE VOZ: Habla 20% mas fuerte de lo normal. Proyectar energía a traves de tu voz te hace sentir mas energetico.',
         ],
     },
     {
@@ -3885,7 +3885,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Hydration, Nutrition & Physical Maintenance',
-      textEs: 'Hidratacion, Nutricion y Mantenimiento Fisico',
+      textEs: 'Hidratacion, Nutricion y Mantenimiento Físico',
     },
     {
             type: 'paragraph',
@@ -3913,7 +3913,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'quote',
       text: 'Your energy introduces you before you even speak. Make sure it\'s saying the right thing.',
-      textEs: 'Tu energia te presenta antes de que siquiera hables. Asegurate de que este diciendo lo correcto.',
+      textEs: 'Tu energía te presenta antes de que siquiera hables. Asegurate de que este diciendo lo correcto.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
@@ -3992,7 +3992,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'Your body speaks louder than your words. Before you even open your mouth, customers have judged your credibility from your posture, movement, and facial expression. Here are the specific adjustments that create instant confidence perception:',
-      textEs: 'Tu cuerpo habla mas fuerte que tus palabras. Antes de que siquiera abras la boca, los clientes han juzgado tu credibilidad por tu postura, movimiento y expresion facial. Aqui estan los ajustes especificos que crean percepcion de confianza instantanea:',
+      textEs: 'Tu cuerpo habla mas fuerte que tus palabras. Antes de que siquiera abras la boca, los clientes han juzgado tu credibilidad por tu postura, movimiento y expresion facial. Aquí están los ajustes especificos que crean percepcion de confianza instantanea:',
     },
     {
             type: 'bullets',
@@ -4006,10 +4006,10 @@ export const lessons: Record<string, Lesson> = {
       ],
       itemsEs: [
           'POSICION DE HOMBROS: Lleva tus hombros hacia atras y abajo. Esto abre tu pecho, mejora la respiracion y senala dominancia sin agresion. Practica esto cada vez que caminas por la puerta.',
-          'CONTACTO VISUAL: Manten el contacto visual por 2-3 segundos a la vez. Romper el contacto visual demasiado rapido senala nerviosismo. Mantenerlo demasiado tiempo se siente agresivo. El punto ideal es una conexion breve y confiada.',
+          'CONTACTO VISUAL: Manten el contacto visual por 2-3 segundos a la vez. Romper el contacto visual demasiado rápido senala nerviosismo. Mantenerlo demasiado tiempo se siente agresivo. El punto ideal es una conexion breve y confiada.',
           'SONRIE CON TUS OJOS: Una sonrisa genuina arruga las esquinas de tus ojos (sonrisa de Duchenne). Una sonrisa falsa de solo boca desencadena desconfianza en el cliente. Piensa en algo que genuinamente te hace feliz antes de acercarte.',
           'PALMAS ABIERTAS: Manten tus manos visibles con las palmas ligeramente abiertas. Esta es una senal biologica antigua de \'no tengo armas.\' Desencadena confianza subconsciente.',
-          'MOVIMIENTOS LENTOS: La gente nerviosa se mueve rapido y a tirones. La gente confiada se mueve deliberadamente. Ralentiza tus gestos un 20%. Pausa entre movimientos.',
+          'MOVIMIENTOS LENTOS: La gente nerviosa se mueve rápido y a tirones. La gente confiada se mueve deliberadamente. Ralentiza tus gestos un 20%. Pausa entre movimientos.',
           'POSTURA ESTABLE: Evita cambiar tu peso de pie a pie. Planta tus pies al ancho de los hombros. Esta postura \'enraizada\' senala estabilidad y certeza.',
         ],
     },
@@ -4019,7 +4019,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'The \'Act As If\' Technique',
-      textEs: 'La Tecnica \'Actua Como Si\'',
+      textEs: 'La Técnica \'Actua Como Si\'',
     },
     {
             type: 'paragraph',
@@ -4029,12 +4029,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'When I first started, I wasn\'t confident at all. So I picked a character — I imagined I was a famous actress playing the role of a badass saleswoman. I copied her posture, her voice, her walk. After two weeks, I wasn\'t acting anymore. I had become her.\'',
-      textEs: '\'Cuando empece, no era nada confiada. Asi que elegi un personaje — imagine que era una actriz famosa interpretando el papel de una vendedora increible. Copie su postura, su voz, su caminar. Despues de dos semanas, ya no estaba actuando. Me habia convertido en ella.\'',
+      textEs: '\'Cuando empece, no era nada confiada. Asi que elegi un personaje — imagine que era una actriz famosa interpretando el papel de una vendedora increible. Copie su postura, su voz, su caminar. Después de dos semanas, ya no estaba actuando. Me había convertido en ella.\'',
     },
     {
             type: 'tip',
       text: 'This is not about being fake. It\'s about rapid behavioral learning. By mimicking confident behaviors, you build the neural pathways that make confidence natural. Within 30 days of consistent practice, the \'act\' becomes authentic.',
-      textEs: 'Esto no se trata de ser falso. Se trata de aprendizaje conductual rapido. Al imitar comportamientos confiados, construyes las vias neuronales que hacen que la confianza sea natural. Dentro de 30 dias de practica constante, el \'acto\' se vuelve autentico.',
+      textEs: 'Esto no se trata de ser falso. Se trata de aprendizaje conductual rápido. Al imitar comportamientos confiados, construyes las vias neuronales que hacen que la confianza sea natural. Dentro de 30 días de practica constante, el \'acto\' se vuelve autentico.',
     },
     {
             type: 'divider'
@@ -4046,28 +4046,50 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'The deepest source of confidence is knowing you\'re ready. A prepared salesperson walks differently. They know they can handle any question, any objection, any situation. Here\'s your preparation checklist:',
-      textEs: 'La fuente mas profunda de confianza es saber que estas listo. Un vendedor preparado camina diferente. Saben que pueden manejar cualquier pregunta, cualquier objecion, cualquier situacion. Aqui esta tu lista de verificacion de preparacion:',
+      text: 'The deepest source of confidence is knowing you\'re ready. A prepared salesperson walks differently. But ready on day one and ready after a week are two different lists, and ticking nothing on your first shift is not a sign you are behind. Start with the day-one list:',
+      textEs: 'La fuente más profunda de confianza es saber que estás listo. Un vendedor preparado camina diferente. Pero estar listo el primer día y estarlo después de una semana son dos listas distintas, y no marcar nada en tu primer turno no significa que vayas atrasado. Empieza por la lista del primer día:',
     },
     {
             type: 'checklist',
       items: [
-        'I can pitch all 4 products from memory without hesitation',
-        'I know every price point and offer combination by heart',
-        'I have 3 different openers for each product ready to go',
-        'I\'ve practiced the demo on myself or a teammate until it\'s smooth',
-        'I know 5 common objections and my responses to each',
-        'I\'ve rehearsed my voucher close until it feels natural',
+        'I know where to stand and when to start the approach — the 2-metre rule and the 3-second rule',
+        'I have 3 different openers ready to go without thinking about them',
+        'I\'ve practiced one demo on myself or a teammate until it\'s smooth',
         'I know my daily target and my personal best — and I\'m committed to beating it'
       ],
       itemsEs: [
-          'Puedo presentar los 4 productos de memoria sin dudar',
-          'Se cada punto de precio y combinacion de oferta de memoria',
-          'Tengo 3 aperturas diferentes para cada producto listas para usar',
-          'He practicado la demo en mi mismo o un companero hasta que salga fluida',
-          'Se 5 objeciones comunes y mis respuestas para cada una',
-          'He ensayado mi cierre con cupon hasta que se sienta natural',
-          'Se mi meta diaria y mi mejor marca personal — y estoy comprometido a superarla',
+          'Sé dónde colocarme y cuándo empezar el acercamiento — la regla de 2 metros y la regla de los 3 segundos',
+          'Tengo 3 aperturas distintas listas para soltarlas sin pensar',
+          'He practicado una demo conmigo mismo o con un compañero hasta que sale fluida',
+          'Sé mi objetivo diario y mi mejor marca personal — y me he comprometido a superarla',
+        ],
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'By the End of Your First Week',
+      textEs: 'Para el Final de Tu Primera Semana',
+    },
+    {
+            type: 'paragraph',
+      text: 'These four are not day-one items. Each one lives in a lesson further up the ladder, named below, and you tick it once you have done that lesson — not before:',
+      textEs: 'Estos cuatro no son del primer día. Cada uno vive en una lección más arriba en la escalera, que te indicamos abajo, y lo marcas cuando hayas hecho esa lección — no antes:',
+    },
+    {
+            type: 'checklist',
+      items: [
+        'I can pitch all 4 products from memory without hesitation — Price Anchoring Psychology',
+        'I know every price point and offer combination by heart — Price Anchoring Psychology and The Two-Choice Framework',
+        'I know 5 common objections and my responses to each — Objection Handling Library',
+        'I\'ve rehearsed my voucher close until it feels natural — The Voucher Close'
+      ],
+      itemsEs: [
+          'Puedo presentar los 4 productos de memoria sin dudar — Psicología del Anclaje de Precio',
+          'Me sé todos los precios y combinaciones de oferta de memoria — Psicología del Anclaje de Precio y El Marco de Dos Opciones',
+          'Me sé 5 objeciones comunes y mi respuesta para cada una — Biblioteca de Manejo de Objeciones',
+          'He ensayado mi cierre con cupón hasta que sale natural — El Cierre con Voucher'
         ],
     },
     {
@@ -4076,7 +4098,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Vocal Confidence Techniques',
-      textEs: 'Tecnicas de Confianza Vocal',
+      textEs: 'Técnicas de Confianza Vocal',
     },
     {
             type: 'bullets',
@@ -4087,8 +4109,8 @@ export const lessons: Record<string, Lesson> = {
         'BREATHING: Take a full breath before speaking. Shallow breathing creates shaky voices. Deep diaphragmatic breathing creates resonance and stability.'
       ],
       itemsEs: [
-          'VOLUMEN: Habla 15-20% mas fuerte que tu voz normal de conversacion. Las voces bajas senalan incertidumbre. Las voces proyectadas comandan atencion.',
-          'RITMO: La gente nerviosa habla rapido. Ralentiza tu habla un 20%. Las pausas se sienten mas largas para ti que para el oyente. Una pausa de 2 segundos suena pensativa, no incomoda.',
+          'VOLUMEN: Habla 15-20% mas fuerte que tu voz normal de conversación. Las voces bajas senalan incertidumbre. Las voces proyectadas comandan atención.',
+          'RITMO: La gente nerviosa habla rápido. Ralentiza tu habla un 20%. Las pausas se sienten mas largas para ti que para el oyente. Una pausa de 2 segundos suena pensativa, no incomoda.',
           'TONO DESCENDENTE: Termina las oraciones con un tono ligeramente mas bajo. El tono ascendente (entonacion ascendente al final de las afirmaciones) suena como si estuvieras preguntando, lo que socava la autoridad.',
           'RESPIRACION: Toma una respiracion completa antes de hablar. La respiracion superficial crea voces temblorosas. La respiracion diafragmatica profunda crea resonancia y estabilidad.',
         ],
@@ -4127,7 +4149,7 @@ export const lessons: Record<string, Lesson> = {
         'LOWER THE STAKES: Tell yourself \'I\'m just practicing.\' This removes the pressure and lets you be playful again.'
       ],
       itemsEs: [
-          'ALAJATE: Pide un rapido descanso de 2 minutos al bano. Echate agua fria en la cara. El reinicio fisico desencadena un reinicio mental.',
+          'ALAJATE: Pide un rápido descanso de 2 minutos al bano. Echate agua fria en la cara. El reinicio físico desencadena un reinicio mental.',
           'RECUERDA UNA VICTORIA: Piensa en tu mejor venta de todos los tiempos. Siente ese momento de nuevo. Recuerda que SI eres capaz.',
           'AJUSTA UNA COSA: No intentes arreglarlo todo. Elige UN comportamiento — quizas tu postura, quizas tu sonrisa — y enfocate solo en eso para los siguientes 3 clientes.',
           'REDUCE LAS APUESTAS: Dite a ti mismo \'solo estoy practicando.\' Esto elimina la presion y te deja ser jugueton de nuevo.',
@@ -4136,7 +4158,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'tip',
       text: 'Create a \'confidence anchor\' — a physical gesture paired with a powerful memory. For example, touching your thumb and forefinger together while remembering your best sale. After practicing this 20 times, the gesture alone triggers confidence.',
-      textEs: 'Crea un \'ancla de confianza\' — un gesto fisico emparejado con un recuerdo poderoso. Por ejemplo, juntar tu pulgar e indice mientras recuerdas tu mejor venta. Despues de practicar esto 20 veces, el gesto solo desencadena confianza.',
+      textEs: 'Crea un \'ancla de confianza\' — un gesto físico emparejado con un recuerdo poderoso. Por ejemplo, juntar tu pulgar e indice mientras recuerdas tu mejor venta. Después de practicar esto 20 veces, el gesto solo desencadena confianza.',
     }
     ],
     quiz: [
@@ -4195,7 +4217,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'If you stop 100 people in a day, and 80 ignore you, 15 say \'no thanks,\' and 5 buy — you\'ve had a GREAT day. But most people don\'t see the 95 rejections as the path to 5 wins. They see 95 failures. That perspective destroys performance. The rejection-proof mindset sees every interaction as data, not drama.',
-      textEs: 'Si detienes a 100 personas en un dia, y 80 te ignoran, 15 dicen \'no gracias,\' y 5 compran — has tenido un GRAN dia. Pero la mayoria de la gente no ve los 95 rechazos como el camino a 5 victorias. Ven 95 fracasos. Esa perspectiva destruye el desempeno. La mentalidad a prueba de rechazo ve cada interaccion como datos, no como drama.',
+      textEs: 'Si detienes a 100 personas en un día, y 80 te ignoran, 15 dicen \'no gracias,\' y 5 compran — has tenido un GRAN día. Pero la mayoria de la gente no ve los 95 rechazos como el camino a 5 victorias. Ven 95 fracasos. Esa perspectiva destruye el desempeno. La mentalidad a prueba de rechazo ve cada interaccion como datos, no como drama.',
     },
     {
             type: 'keypoint',
@@ -4213,7 +4235,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'The best baseball hitters in history fail 70% of the time. A .300 batting average — failing 7 out of 10 times — is considered excellent. In sales, a 5-10% close rate makes you a top earner. You\'re not failing 90-95% of the time. You\'re succeeding at a rate that most people would consider elite performance.',
-      textEs: 'Los mejores bateadores de beisbol en la historia fallan el 70% del tiempo. Un promedio de bateo de .300 — fallar 7 de cada 10 veces — se considera excelente. En ventas, una tasa de cierre del 5-10% te convierte en un top de ganancias. No estas fallando el 90-95% del tiempo. Estas teniendo exito a una tasa que la mayoria de la gente consideraria desempeno de elite.',
+      textEs: 'Los mejores bateadores de beisbol en la historia fallan el 70% del tiempo. Un promedio de bateo de .300 — fallar 7 de cada 10 veces — se considera excelente. En ventas, una tasa de cierre del 5-10% te convierte en un top de ganancias. No estas fallando el 90-95% del tiempo. Estas teniendo éxito a una tasa que la mayoria de la gente consideraria desempeno de elite.',
     },
     {
             type: 'comparison',
@@ -4233,7 +4255,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'The most powerful mental habit in sales is instantaneous reset. The moment a customer walks away, that interaction is erased. It doesn\'t exist anymore. Your total focus shifts to the next person approaching. This is how top sellers maintain energy through 8 hours of rejection.',
-      textEs: 'El habito mental mas poderoso en ventas es el reinicio instantaneo. En el momento en que un cliente se aleja, esa interaccion se borra. Ya no existe. Tu enfoque total se traslada a la siguiente persona que se acerque. Asi es como los mejores vendedores mantienen energia a traves de 8 horas de rechazo.',
+      textEs: 'El habito mental mas poderoso en ventas es el reinicio instantaneo. En el momento en que un cliente se aleja, esa interaccion se borra. Ya no existe. Tu enfoque total se traslada a la siguiente persona que se acerque. Asi es como los mejores vendedores mantienen energía a traves de 8 horas de rechazo.',
     },
     {
             type: 'script',
@@ -4243,7 +4265,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'tip',
       text: 'Practice the \'next\' technique literally. After every rejection — verbal or just being ignored — say the word \'next\' quietly to yourself. This creates a mental reset ritual that becomes automatic.',
-      textEs: 'Practica la tecnica del \'siguiente\' literalmente. Despues de cada rechazo — verbal o simplemente ser ignorado — di la palabra \'siguiente\' en voz baja para ti mismo. Esto crea un ritual de reinicio mental que se vuelve automatico.',
+      textEs: 'Practica la técnica del \'siguiente\' literalmente. Después de cada rechazo — verbal o simplemente ser ignorado — di la palabra \'siguiente\' en voz baja para ti mismo. Esto crea un ritual de reinicio mental que se vuelve automático.',
     },
     {
             type: 'divider'
@@ -4265,19 +4287,19 @@ export const lessons: Record<string, Lesson> = {
         'Personal problems: Fights, health issues, stress. They\'re not really there.'
       ],
       itemsEs: [
-          'Van con prisa: Reunion, reserva, cansados de comprar. No habia nada que pudieras haber hecho.',
+          'Van con prisa: Reunion, reserva, cansados de comprar. No había nada que pudieras haber hecho.',
           'Acaban de gastar dinero: El agotamiento del presupuesto es real. El mejor pitch del mundo no abrira una cartera vacia.',
-          'No estan en mood de comprar hoy: Algunos dias la gente solo mira. La misma persona podria comprar con entusiasmo manana.',
+          'No están en mood de comprar hoy: Algunos días la gente solo mira. La misma persona podría comprar con entusiasmo manana.',
           'Tuvieron una mala experiencia con un vendedor anterior: Estas pagando por el error de alguien mas.',
           'No compran nada de vacaciones: Algunas personas tienen una regla de \'no compras de viaje\'.',
-          'Estan abrumados: Demasiadas opciones, demasiada informacion. Se bloquean.',
-          'Problemas personales: Peleas, problemas de salud, estres. Realmente no estan ahi.',
+          'Están abrumados: Demasiadas opciones, demasiada informacion. Se bloquean.',
+          'Problemas personales: Peleas, problemas de salud, estres. Realmente no están ahi.',
         ],
     },
     {
             type: 'keypoint',
       text: 'When you internalize that rejection is almost never personal, you stop carrying it. The customer isn\'t rejecting YOU. They\'re rejecting the interaction, the timing, or their own readiness.',
-      textEs: 'Cuando interiorizas que el rechazo casi nunca es personal, dejas de cargar con el. El cliente no te esta rechazando a TI. Estan rechazando la interaccion, el momento, o su propia disposicion.',
+      textEs: 'Cuando interiorizas que el rechazo casi nunca es personal, dejas de cargar con el. El cliente no te esta rechazando a TI. Están rechazando la interaccion, el momento, o su propia disposicion.',
     },
     {
             type: 'divider'
@@ -4285,12 +4307,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'How Top Sellers Process a Bad Day',
-      textEs: 'Como los Mejores Vendedores Procesan un Mal Dia',
+      textEs: 'Como los Mejores Vendedores Procesan un Mal Día',
     },
     {
             type: 'paragraph',
       text: 'Even the best have terrible days. Here\'s the protocol that separates pros from amateurs:',
-      textEs: 'Incluso los mejores tienen dias terribles. Aqui esta el protocolo que separa a los profesionales de los aficionados:',
+      textEs: 'Incluso los mejores tienen días terribles. Aquí esta el protocolo que separa a los profesionales de los aficionados:',
     },
     {
             type: 'numbered',
@@ -4302,11 +4324,11 @@ export const lessons: Record<string, Lesson> = {
         'TALK TO TEAMMATES: Everyone has bad days. Sharing yours normalizes it. Hearing that your colleague also got rejected 30 times makes you feel less alone.'
       ],
       itemsEs: [
-          'NO TE LO LLEVES A CASA: En el momento en que fichas tu salida, el dia se acabo. No repitas los rechazos en tu cabeza toda la noche. Ese dia ya no existe.',
-          'ENCUENTRA UNA VICTORIA: Incluso en el peor dia, encuentra UNA cosa que hiciste bien. Quizas tu apertura fue fluida. Quizas tu demo estuvo genial aunque no compraron. Enfocate en eso.',
-          'ANALIZA PATRONES: Si te estan rechazando mas de lo usual, busca patrones. Esta baja tu energia? Estas deteniendo a las personas equivocadas? Tu apertura esta cansada? Arregla la mecanica, no tu autoestima.',
-          'DUERMETELO: Un mal dia se siente como una crisis a las 6pm y a menudo no significa nada a la manana siguiente. Nunca tomes decisiones de carrera basadas en un mal turno.',
-          'HABLA CON TUS COMPANEROS: Todos tienen malos dias. Compartir los tuyos lo normaliza. Escuchar que tu companero tambien fue rechazado 30 veces te hace sentir menos solo.',
+          'NO TE LO LLEVES A CASA: En el momento en que fichas tu salida, el día se acabo. No repitas los rechazos en tu cabeza toda la noche. Ese día ya no existe.',
+          'ENCUENTRA UNA VICTORIA: Incluso en el peor día, encuentra UNA cosa que hiciste bien. Quizas tu apertura fue fluida. Quizas tu demo estuvo genial aunque no compraron. Enfocate en eso.',
+          'ANALIZA PATRONES: Si te están rechazando mas de lo usual, busca patrones. Esta baja tu energía? Estas deteniendo a las personas equivocadas? Tu apertura esta cansada? Arregla la mecanica, no tu autoestima.',
+          'DUERMETELO: Un mal día se siente como una crisis a las 6pm y a menudo no significa nada a la manana siguiente. Nunca tomes decisiones de carrera basadas en un mal turno.',
+          'HABLA CON TUS COMPANEROS: Todos tienen malos días. Compartir los tuyos lo normaliza. Escuchar que tu companero también fue rechazado 30 veces te hace sentir menos solo.',
         ],
     },
     {
@@ -4315,12 +4337,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Turning a Bad Day Around',
-      textEs: 'Cambiar un Mal Dia',
+      textEs: 'Cambiar un Mal Día',
     },
     {
             type: 'paragraph',
       text: 'Sometimes you can actually SAVE a bad day. Here\'s the emergency turnaround protocol:',
-      textEs: 'A veces puedes realmente SALVAR un mal dia. Aqui esta el protocolo de emergencia para darle la vuelta:',
+      textEs: 'A veces puedes realmente SALVAR un mal día. Aquí esta el protocolo de emergencia para darle la vuelta:',
     },
     {
             type: 'bullets',
@@ -4331,16 +4353,16 @@ export const lessons: Record<string, Lesson> = {
         'ASK A TEAMMATE TO WATCH YOU: Sometimes you have a blind spot. A colleague might notice you\'re rushing, or your posture has collapsed, or you\'re not making eye contact. External feedback is gold.'
       ],
       itemsEs: [
-          'CAMBIA UNA COSA: Si has estado usando la misma apertura todo el dia y te rechazan, cambiala completamente. La energia nueva rompe el patron.',
+          'CAMBIA UNA COSA: Si has estado usando la misma apertura todo el día y te rechazan, cambiala completamente. La energía nueva rompe el patron.',
           'APUNTA A DIFERENTES PERSONAS: Si has estado deteniendo a mujeres solas y fallando, prueba con parejas. O viceversa. Diferentes demografias responden a diferentes energias.',
           'VUELVE A LO BASICO: Cuando todo se desmorona, simplifica. Deja de pensar demasiado. Sonrie, haz contacto visual, lanza tu apertura mas limpia. Los fundamentos arreglan los bajones.',
-          'PIDE A UN COMPANERO QUE TE OBSERVE: A veces tienes un punto ciego. Un colega podria notar que te estas apresurando, o que tu postura se ha derrumbado, o que no estas haciendo contacto visual. La retroalimentacion externa es oro.',
+          'PIDE A UN COMPANERO QUE TE OBSERVE: A veces tienes un punto ciego. Un colega podría notar que te estas apresurando, o que tu postura se ha derrumbado, o que no estas haciendo contacto visual. La retroalimentacion externa es oro.',
         ],
     },
     {
             type: 'quote',
       text: 'The only difference between a top seller and a quitter is that the top seller kept going through the days they wanted to quit.',
-      textEs: 'La unica diferencia entre un top vendedor y alguien que se rinde es que el top vendedor siguio adelante en los dias que quiso rendirse.',
+      textEs: 'La única diferencia entre un top vendedor y alguien que se rinde es que el top vendedor siguio adelante en los días que quiso rendirse.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     },
@@ -5332,6 +5354,11 @@ export const lessons: Record<string, Lesson> = {
       textEs: 'La regla de 2 metros: Empieza tu acercamiento cuando el cliente está a 2 metros de tu zona. Más cerca y se sienten emboscados. Más lejos y no te escuchan o no procesan tu presencia a tiempo.',
     },
     {
+            type: 'keypoint',
+      text: 'The 3-second rule: 2 metres is WHERE, 3 seconds is WHEN. From the moment someone enters your zone you have about three seconds to start the approach. Wait longer and they have already filed you as staff and built the \'just looking\' wall before you say a word — and the pause gives your own hesitation time to grow. Three seconds is not a rush: eye contact, smile, first word, in that order.',
+      textEs: 'La regla de los 3 segundos: los 2 metros son el DÓNDE, los 3 segundos son el CUÁNDO. Desde que alguien entra en tu zona tienes unos tres segundos para empezar el acercamiento. Si esperas más, ya te han catalogado como personal de tienda y han levantado el muro del \'solo miro\' antes de que digas nada — y esa pausa le da tiempo a tu propia duda para crecer. Tres segundos no es ir con prisa: contacto visual, sonrisa y primera palabra, en ese orden.',
+    },
+    {
             type: 'divider'
     },
     {
@@ -5977,14 +6004,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'TIME: \'We\'re closing in half an hour.\' \'That offer\'s gone tonight.\' A deadline turns a maybe into a decision, which is the only thing you are after.',
         'QUANTITY: \'I\'ve only got two left.\' \'That scent went in a weekend.\' Nobody wants to be the one who missed it. Say it flat, like it is just information.',
-        'LOCATION: \'This price lives here. Cross the border and you are back to {currency}500.\' The strongest one you have, because it does not even need selling.',
+        'LOCATION: \'The syringe is {currency}300 here. Cross the border and it is back to {currency}500.\' The strongest one you have, because it does not even need selling.',
         'SEASON: \'Christmas is in two weeks and this is the easiest present you will buy all month.\' The calendar does the pushing for you.',
         'THE DEMO ITSELF: \'You have already felt it. You know what it does. What exactly are you going to think about?\' The best urgency of the lot, because they made it themselves.'
       ],
       itemsEs: [
         'TIEMPO: \'Cerramos en media hora.\' \'Esa oferta se acaba esta noche.\' Una fecha límite convierte un quizá en una decisión, que es lo único que buscas.',
         'CANTIDAD: \'Solo me quedan dos.\' \'Ese aroma voló en un fin de semana.\' Nadie quiere ser el que se lo pierde. Dilo a pelo, como si fuera información y ya está.',
-        'SITIO: \'Este precio vive aquí. Cruzas la frontera y vuelves a {currency}500.\' La más fuerte que tienes, porque ni siquiera hay que venderla.',
+        'SITIO: \'La jeringa son {currency}300 aquí. Cruzas la frontera y vuelve a {currency}500.\' La más fuerte que tienes, porque ni siquiera hay que venderla.',
         'TEMPORADA: \'La Navidad es en dos semanas y este es el regalo más fácil que vas a comprar este mes.\' El calendario empuja por ti.',
         'LA PROPIA DEMO: \'Ya lo has notado. Ya sabes lo que hace. ¿Qué te tienes que pensar exactamente?\' La mejor de todas, porque se la han montado ellos solos.'
       ]
@@ -6096,7 +6123,7 @@ export const lessons: Record<string, Lesson> = {
         'Seasonal urgency'
       ],
       correctIndex: 1,
-      explanation: 'The price gap is location-based urgency. The {currency}300 price only exists in {locationName}. Once the customer crosses the border, the price goes back to {currency}500. This is genuine, verifiable scarcity.',
+      explanation: 'The price gap is location-based urgency. The syringe is {currency}300 in {locationName}. Once the customer crosses the border, it goes back to {currency}500. This is genuine, verifiable scarcity.',
     },
     {
       question: 'Why does urgency help customers who genuinely want your product?',
@@ -6280,8 +6307,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Sometimes you can offer multiple products in one stop. Here\'s when to combine:',
-      textEs: 'A veces puedes ofrecer múltiples productos en una sola parada. Aquí te decimos cuándo combinarlos:',
+      text: 'Sometimes you can offer multiple products in one stop. The totals below are not four separate prices — {currency}120 is the Buy 2, Get 1 Free bundle and {currency}60 is the Buy 1, Get 1 Free bundle, which is why they repeat. Here\'s when to combine:',
+      textEs: 'A veces puedes ofrecer varios productos en una sola parada. Los totales de abajo no son cuatro precios distintos: {currency}120 es el paquete Compra 2, Llévate 1 Gratis y {currency}60 es el paquete Compra 1, Llévate 1 Gratis, por eso se repiten. Aquí te decimos cuándo combinarlos:',
     },
     {
             type: 'bullets',

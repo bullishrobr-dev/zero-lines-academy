@@ -910,7 +910,7 @@ export const PHRASES: Phrase[] = [
   { id: 'g3', type: 'good', text: `"This is only valid today"`, textEs: `"Esto solo vale hoy"`, reason: 'Puts a door on the price. Say it straight and move on', reasonEs: 'Le pone una puerta al precio. Dilo sin más y sigue' },
   { id: 'g4', type: 'good', text: `"You will see the difference instantly"`, textEs: `"Vas a ver la diferencia al instante"`, reason: 'Promises immediate value', reasonEs: 'Promete valor inmediato' },
   { id: 'g5', type: 'good', text: `"What brings you to {locationName}?"`, textEs: `"¿Qué te trae por {locationName}?"`, reason: 'Opens the conversation naturally', reasonEs: 'Abre la conversación con naturalidad' },
-  { id: 'g6', type: 'good', text: `"That is a great choice"`, textEs: `"Es una gran elección"`, reason: 'Validates their decision', reasonEs: 'Valida su decisión' },
+  { id: 'g6', type: 'good', text: `"That is a great choice"`, textEs: `"Es una gran elección"`, reason: 'Validates their decisión', reasonEs: 'Valida su decisión' },
   { id: 'g7', type: 'good', text: `"Feel this texture..."`, textEs: `"Toca esta textura..."`, reason: 'Hands first. Once they are touching it, it is half theirs', reasonEs: 'Primero las manos. En cuanto lo tocan, ya es medio suyo' },
   { id: 'g8', type: 'good', text: `"Can I ask your opinion?"`, textEs: `"¿Te puedo pedir tu opinión?"`, reason: 'Makes them feel valued', reasonEs: 'Les hace sentir valorados' },
   { id: 'b1', type: 'bad', text: `"Do you need any help?"`, textEs: `"¿Necesitas ayuda?"`, reason: 'Triggers the "just looking" reflex', reasonEs: 'Dispara el reflejo de "solo estoy mirando"' },

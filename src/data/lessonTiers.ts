@@ -10,6 +10,9 @@ export const LESSON_TIERS: Record<string, number> = {
   'psych-3': 1,
   'stop-1': 1,
   'stop-2': 1,
+  // What kind of selling this is. A new starter who has not read it treats a
+  // market stall like a pharmacy and behaves accordingly.
+  'close-market': 1,
 
   // Tier 2: Stopping Basics (5 lessons) — Core stopping
   'psych-4': 2,
@@ -17,6 +20,9 @@ export const LESSON_TIERS: Record<string, number> = {
   'stop-4': 2,
   'stop-5': 2,
   'stop-6': 2,
+  // Bringing them from the pavement to the chair is the direct sequel to
+  // stopping them, so it belongs with stopping and not three tiers later.
+  'close-1': 2,
 
   // Tier 3: Stopping Advanced (5 lessons) — Reading people
   'connect-1': 3,
@@ -32,6 +38,8 @@ export const LESSON_TIERS: Record<string, number> = {
   'prod-1': 4,
   'prod-6': 4,
   'connect-6': 4,
+  // Asking for the money needs the prices from prod-1, which is this tier.
+  'close-2': 4,
 
   // Tier 5: Product Mastery (6 lessons) — Closing techniques
   'prod-2': 5,
@@ -40,6 +48,7 @@ export const LESSON_TIERS: Record<string, number> = {
   'prod-5': 5,
   'prod-7': 5,
   'psych-7': 5,
+  'close-3': 5,
 
   // Tier 6: Advanced (4 lessons) — Mastery
   'psych-5': 6,
@@ -54,15 +63,27 @@ export const TIER_NAMES: Record<number, { en: string; es: string }> = {
   3: { en: 'Stopping Advanced', es: 'Parada Avanzada' },
   4: { en: 'Product Intro', es: 'Introducción a Productos' },
   5: { en: 'Product Mastery', es: 'Dominio de Producto' },
-  6: { en: 'Advanced Closing', es: 'Cierre Avanzado' },
+  // Was 'Advanced Closing', which named something it did not contain: the
+  // closing lessons now sit in tiers 1, 2, 4 and 5, and this tier holds the
+  // mindset and intuition material.
+  6: { en: 'Mastery', es: 'Maestr\u00eda' },
 };
 
+/*
+ * Kept in step with LESSON_TIERS by the unit test in scripts/.
+ *
+ * ONE closing lesson was added per tier on purpose. getTierCompletion divides
+ * by the number of lessons actually mapped to a tier, so adding two to a
+ * six-lesson tier would drop a seller who had finished it from 100% to 75% —
+ * under the 80% gate — and re-lock the next tier they had already earned.
+ * Adding one takes them to 86%, which re-locks nobody.
+ */
 export const TIER_LESSON_COUNT: Record<number, number> = {
-  1: 5,
-  2: 5,
+  1: 6,
+  2: 6,
   3: 5,
-  4: 6,
-  5: 6,
+  4: 7,
+  5: 7,
   6: 4,
 };
 

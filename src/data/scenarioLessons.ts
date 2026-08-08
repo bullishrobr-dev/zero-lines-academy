@@ -630,8 +630,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "tip",
-        text: "Quiet is not no. Watch her hands, not her mouth. Still touching the spot? Still hanging on to the mirror? She's already bought it, she just hasn't told you. Put the box in her hands, smile, and say nothing at all. And keep the three-second rule in your head: if she holds it for three seconds without handing it back, stop talking and start bagging.",
-        textEs: "El silencio no es un no. Mírale las manos, no la boca. ¿Sigue tocándose la zona? ¿Sigue aferrada al espejo? Ya se lo ha comprado, lo que pasa es que no te lo ha dicho. Ponle la caja en las manos, sonríe y no digas absolutamente nada. Y quédate con la regla de los tres segundos: si la sujeta tres segundos sin devolvértela, deja de hablar y empieza a envolver.",
+        text: "Quiet is not no. Watch her hands, not her mouth. Still touching the spot? Still hanging on to the mirror? She's already bought it, she just hasn't told you. Put the box in her hands, smile, and say nothing at all. And keep the three-second hold in your head: if she holds it for three seconds without handing it back, stop talking and start bagging.",
+        textEs: "El silencio no es un no. Mírale las manos, no la boca. ¿Sigue tocándose la zona? ¿Sigue aferrada al espejo? Ya se lo ha comprado, lo que pasa es que no te lo ha dicho. Ponle la caja en las manos, sonríe y no digas absolutamente nada. Y quédate con la regla de los tres segundos en la mano: si la sujeta tres segundos sin devolvértela, deja de hablar y empieza a envolver.",
       },
     ],
     quiz: [],
