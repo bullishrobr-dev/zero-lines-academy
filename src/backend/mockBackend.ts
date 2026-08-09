@@ -1,15 +1,52 @@
-// ─────────────────────────────────────────────────────────────
-// backend/mockBackend.ts — Complete mock backend API
-// All data persisted to localStorage. Ready for Supabase swap.
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// backend/mockBackend.ts — the seam in front of the two backends.
+//
+// WHERE THE DATA ACTUALLY LIVES:
+//
+//   Normally  →  the database. src/backend/db.ts. Accounts are created from
+//                inside the app, progress follows people between phones, and
+//                the leaderboard is live. This is the path in production.
+//
+//   Fallback  →  only if src/backend/supabaseClient.ts has no URL and key: the
+//                committed roster in src/data/accounts.ts, with progress kept
+//                on each person's own device. Nothing leaves the phone, so a
+//                manager cannot see it. Kept so a fork of this repository still
+//                runs before anyone sets a database up.
+//
+// Everything below is deliberately confined to this file so the rest of the app
+// never has to know which one it is talking to.
+// ─────────────────────────────────────────────────────────────────────────────
 
 import type { User, UserRole, UserLocation, LessonProgress, QuizResult, TeamStats } from './types';
+import { ACCOUNTS, accountId, findAccount, type Account } from '../data/accounts';
+import { hashPassword, verifierMatches } from '../utils/credentials';
+import { isDatabaseConfigured } from './supabaseClient';
+import * as db from './db';
+
+/*
+ * Two implementations live behind these functions.
+ *
+ *   Database configured  → src/backend/db.ts. Real accounts, real cross-device
+ *                          progress, a real leaderboard.
+ *   Not configured       → the committed roster below, progress on the device.
+ *
+ * The switch is `isDatabaseConfigured`, so the app works either way and the
+ * rest of the codebase never has to know which one it is talking to.
+ */
+export { isDatabaseConfigured };
 
 // ── Storage keys ──
-const LS_USERS = 'zl_backend_users';
-const LS_CURRENT_USER = 'zl_user'; // shared with useAuth hook
+const LS_CURRENT_USER = 'zl_user';
 const LS_PROGRESS = 'zl_backend_progress';
 const LS_QUIZZES = 'zl_backend_quiz_results';
+
+/**
+ * Total lessons in the curriculum. Deliberately a constant rather than an
+ * import of src/data/lessons.ts — that module is large and already code-split
+ * behind the lesson routes; importing it here would pull it into the initial
+ * bundle for every user.
+ */
+export const TOTAL_LESSON_COUNT = 51;
 
 // ── Helpers ──
 function loadJSON<T>(key: string, fallback: T): T {
@@ -23,287 +60,278 @@ function loadJSON<T>(key: string, fallback: T): T {
 }
 
 function saveJSON<T>(key: string, value: T): void {
-  localStorage.setItem(key, JSON.stringify(value));
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Storage full or blocked — losing a write is survivable, throwing is not.
+  }
 }
 
-function genId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
+/** Committed roster entry → the shape the app works with. */
+function toUser(a: Account): User {
+  return {
+    id: accountId(a.username),
+    username: a.username.toLowerCase(),
+    name: a.name,
+    role: a.role,
+    location: a.location,
+    managerUsername: a.managerUsername?.toLowerCase(),
+    // The roster does not track join dates; the app guards a missing value.
+    createdAt: '',
+  };
 }
 
-// ── Seed Data ──
-function seedData(): void {
-  const existing = loadJSON<User[]>(LS_USERS, []);
-  if (existing.length > 0) return; // already seeded
-
-  const admin: User = {
-    id: 'admin-1',
-    email: 'admin@zerolines.com',
-    name: 'System Admin',
-    password: 'admin123',
-    role: 'admin',
-    location: 'andorra',
-    createdAt: new Date().toISOString(),
-  };
-
-  const managerAndorra: User = {
-    id: 'mgr-1',
-    email: 'manager.andorra@zerolines.com',
-    name: 'Carlos Rivera',
-    password: 'manager1',
-    role: 'manager',
-    location: 'andorra',
-    createdAt: new Date().toISOString(),
-  };
-
-  const managerGibraltar: User = {
-    id: 'mgr-2',
-    email: 'manager.gibraltar@zerolines.com',
-    name: 'Sarah Johnson',
-    password: 'manager2',
-    role: 'manager',
-    location: 'gibraltar',
-    createdAt: new Date().toISOString(),
-  };
-
-  const employees: User[] = [
-    { id: 'emp-1', email: 'maria@zerolines.com', name: 'Maria Garcia', password: 'emp1', role: 'employee', location: 'andorra', managerId: 'mgr-1', createdAt: '2026-04-15T10:00:00Z' },
-    { id: 'emp-2', email: 'john@zerolines.com', name: 'John Smith', password: 'emp2', role: 'employee', location: 'gibraltar', managerId: 'mgr-2', createdAt: '2026-04-20T10:00:00Z' },
-    { id: 'emp-3', email: 'sofia@zerolines.com', name: 'Sofia Martinez', password: 'emp3', role: 'employee', location: 'andorra', managerId: 'mgr-1', createdAt: '2026-03-10T10:00:00Z' },
-    { id: 'emp-4', email: 'david@zerolines.com', name: 'David Lee', password: 'emp4', role: 'employee', location: 'gibraltar', managerId: 'mgr-2', createdAt: '2026-05-01T10:00:00Z' },
-    { id: 'emp-5', email: 'emma@zerolines.com', name: 'Emma Wilson', password: 'emp5', role: 'employee', location: 'gibraltar', managerId: 'mgr-2', createdAt: '2026-04-25T10:00:00Z' },
-    { id: 'emp-6', email: 'lucas@zerolines.com', name: 'Lucas Fernandez', password: 'emp6', role: 'employee', location: 'andorra', managerId: 'mgr-1', createdAt: '2026-03-20T10:00:00Z' },
-  ];
-
-  const allUsers = [admin, managerAndorra, managerGibraltar, ...employees];
-  saveJSON(LS_USERS, allUsers);
+function allUsers(): User[] {
+  return ACCOUNTS.map(toUser);
 }
 
 // ── Auth ──
 export interface LoginResult {
   success: boolean;
-  user?: Omit<User, 'password'>;
+  user?: User;
   error?: string;
 }
 
-export async function login(email: string, password: string): Promise<LoginResult> {
-  seedData();
-  await simulateNetwork();
+/**
+ * Sign in against the committed roster.
+ *
+ * Deliberately gives one message for both "no such username" and "wrong
+ * password" — telling someone which half they got right is free help.
+ */
+export async function login(username: string, password: string): Promise<LoginResult> {
+  if (isDatabaseConfigured) return db.login(username, password);
 
-  const users = loadJSON<User[]>(LS_USERS, []);
-  const user = users.find((u) => u.email === email && u.password === password);
+  const account = findAccount(username);
 
-  if (!user) {
-    return { success: false, error: 'Invalid email or password' };
+  // Hash even when the username is unknown, so a missing account does not
+  // return noticeably faster than a wrong password.
+  const salt = account?.salt ?? 'no-such-account';
+  const attempt = await hashPassword(password, salt);
+
+  if (!account || !verifierMatches(attempt, account.verifier)) {
+    return { success: false, error: 'Incorrect username or password' };
   }
 
-  const { password: _, ...safeUser } = user;
-  saveJSON(LS_CURRENT_USER, safeUser);
-  return { success: true, user: safeUser };
-}
-
-export interface SignupData {
-  email: string;
-  name: string;
-  password: string;
-  role: UserRole;
-  location: UserLocation;
-  managerId?: string;
-}
-
-export async function signup(data: SignupData): Promise<LoginResult> {
-  seedData();
-  await simulateNetwork();
-
-  const users = loadJSON<User[]>(LS_USERS, []);
-
-  if (users.some((u) => u.email === data.email)) {
-    return { success: false, error: 'Email already registered' };
-  }
-
-  const newUser: User = {
-    id: genId(),
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    role: data.role,
-    location: data.location,
-    managerId: data.managerId,
-    createdAt: new Date().toISOString(),
-  };
-
-  users.push(newUser);
-  saveJSON(LS_USERS, users);
-
-  const { password: _, ...safeUser } = newUser;
-  saveJSON(LS_CURRENT_USER, safeUser);
-  return { success: true, user: safeUser };
+  const user = toUser(account);
+  saveJSON(LS_CURRENT_USER, user);
+  return { success: true, user };
 }
 
 export function logout(): void {
-  localStorage.removeItem(LS_CURRENT_USER);
+  if (isDatabaseConfigured) {
+    void db.logout();
+    return;
+  }
+  try {
+    localStorage.removeItem(LS_CURRENT_USER);
+  } catch {
+    // non-fatal
+  }
 }
 
-export function getCurrentUser(): Omit<User, 'password'> | null {
-  return loadJSON<Omit<User, 'password'> | null>(LS_CURRENT_USER, null);
+/**
+ * The signed-in user, or null.
+ *
+ * Re-resolved against the committed roster on every read, so removing someone
+ * from accounts.ts signs them out everywhere on the next deploy, and a change
+ * to their role or shop takes effect without them signing in again.
+ */
+/**
+ * Async resolution of the signed-in user. The database path has to make a
+ * request; the roster path answers immediately.
+ */
+export async function getCurrentUserAsync(): Promise<User | null> {
+  if (isDatabaseConfigured) return db.getCurrentUser();
+  return getCurrentUser();
 }
 
-// ── User Management ──
-export async function getUsers(): Promise<Omit<User, 'password'>[]> {
-  seedData();
-  await simulateNetwork();
-  const users = loadJSON<User[]>(LS_USERS, []);
-  return users.map(({ password, ...safe }) => safe);
+/** Synchronous — roster path only. Returns null when the database is in use. */
+export function getCurrentUser(): User | null {
+  if (isDatabaseConfigured) return null;
+  const raw = loadJSON<Partial<User> | null>(LS_CURRENT_USER, null);
+  if (!raw?.username) return null;
+
+  const account = findAccount(raw.username);
+  if (!account) {
+    // Their account was removed from the roster, or this is a stale session
+    // from before the username migration.
+    logout();
+    return null;
+  }
+  return toUser(account);
 }
 
-export async function getMyTeam(managerId: string): Promise<Omit<User, 'password'>[]> {
-  seedData();
-  await simulateNetwork();
-  const users = loadJSON<User[]>(LS_USERS, []);
-  return users
-    .filter((u) => u.managerId === managerId || (u.role === 'employee' && u.location === getCurrentUser()?.location))
-    .map(({ password, ...safe }) => safe);
+// ── User management ──
+export async function getUsers(): Promise<User[]> {
+  if (isDatabaseConfigured) return db.getUsers();
+  return allUsers();
 }
 
-export async function getEmployeesByLocation(location: UserLocation): Promise<Omit<User, 'password'>[]> {
-  seedData();
-  await simulateNetwork();
-  const users = loadJSON<User[]>(LS_USERS, []);
-  return users
-    .filter((u) => u.role === 'employee' && u.location === location)
-    .map(({ password, ...safe }) => safe);
+/**
+ * Employees reporting to a manager: their assigned reports, plus anyone at the
+ * same shop who has no manager set yet. It deliberately does NOT fall back to
+ * "everyone at this location" — that used to mean every manager saw every
+ * colleague, and was how a plain seller could read the whole roster.
+ */
+function resolveTeam(users: User[], manager: User): User[] {
+  return users.filter(
+    (u) =>
+      u.role === 'employee' &&
+      (u.managerUsername === manager.username ||
+        (!u.managerUsername && u.location === manager.location))
+  );
 }
 
-export async function createUser(data: SignupData): Promise<LoginResult> {
-  return signup(data);
+export async function getMyTeam(managerId: string): Promise<User[]> {
+  if (isDatabaseConfigured) return db.getMyTeam(managerId);
+  const users = allUsers();
+  const manager = users.find((u) => u.id === managerId);
+  if (!manager) return [];
+  return resolveTeam(users, manager);
 }
 
-export async function deleteUser(userId: string): Promise<boolean> {
-  await simulateNetwork();
-  const users = loadJSON<User[]>(LS_USERS, []);
-  const filtered = users.filter((u) => u.id !== userId);
-  if (filtered.length === users.length) return false;
-  saveJSON(LS_USERS, filtered);
-  return true;
+export async function getEmployeesByLocation(location: UserLocation): Promise<User[]> {
+  if (isDatabaseConfigured) {
+    return (await db.getUsers()).filter((u) => u.role === 'employee' && u.location === location);
+  }
+  return allUsers().filter((u) => u.role === 'employee' && u.location === location);
 }
 
-export async function updateUserRole(userId: string, role: UserRole, managerId?: string): Promise<boolean> {
-  await simulateNetwork();
-  const users = loadJSON<User[]>(LS_USERS, []);
-  const idx = users.findIndex((u) => u.id === userId);
-  if (idx === -1) return false;
-  users[idx].role = role;
-  if (managerId !== undefined) users[idx].managerId = managerId;
-  saveJSON(LS_USERS, users);
-  return true;
-}
-
-// ── Progress ──
+// ── Progress (device-local) ──
 export async function getLessonProgress(userId: string): Promise<LessonProgress[]> {
-  await simulateNetwork();
-  const all = loadJSON<LessonProgress[]>(LS_PROGRESS, []);
-  return all.filter((p) => p.userId === userId);
+  return loadJSON<LessonProgress[]>(LS_PROGRESS, []).filter((p) => p.userId === userId);
 }
 
 export async function completeLesson(userId: string, lessonId: string, score?: number): Promise<void> {
-  await simulateNetwork();
   const all = loadJSON<LessonProgress[]>(LS_PROGRESS, []);
-  const existing = all.find((p) => p.userId === userId && p.lessonId === lessonId);
-  if (existing) {
-    existing.completed = true;
-    existing.completedAt = new Date().toISOString();
-    if (score !== undefined) existing.score = score;
-  } else {
-    all.push({ userId, lessonId, completed: true, completedAt: new Date().toISOString(), score });
-  }
+  const idx = all.findIndex((p) => p.userId === userId && p.lessonId === lessonId);
+  const record: LessonProgress = {
+    userId,
+    lessonId,
+    completed: true,
+    completedAt: new Date().toISOString(),
+    score,
+  };
+  if (idx === -1) all.push(record);
+  else all[idx] = record;
   saveJSON(LS_PROGRESS, all);
 }
 
-// ── Quiz Results ──
 export async function getQuizResults(userId: string): Promise<QuizResult[]> {
-  await simulateNetwork();
-  const all = loadJSON<QuizResult[]>(LS_QUIZZES, []);
-  return all.filter((q) => q.userId === userId);
+  return loadJSON<QuizResult[]>(LS_QUIZZES, []).filter((q) => q.userId === userId);
 }
 
 export async function saveQuizResult(result: QuizResult): Promise<void> {
-  await simulateNetwork();
   const all = loadJSON<QuizResult[]>(LS_QUIZZES, []);
   all.push(result);
   saveJSON(LS_QUIZZES, all);
 }
 
-// ── Team Progress (for Manager Dashboard) ──
+// ── Team view ──
 export interface EmployeeProgress {
-  user: Omit<User, 'password'>;
+  user: User;
   progress: number;
   streak: number;
   avgScore: number;
   lastActive: string;
   completedLessons: number;
   totalLessons: number;
+  /**
+   * False when this device holds no records for the person — which is the
+   * normal case, since progress never leaves the phone that earned it. The UI
+   * must say so rather than render zeros as if they were measured.
+   */
+  hasData: boolean;
+  /** Last 7 days on the street. All zeros on the roster fallback (no server). */
+  street: db.StreetFunnel;
 }
 
+const NO_STREET: db.StreetFunnel = { stops: 0, sales: 0, revenue: 0, conversion: 0 };
+
 export async function getTeamProgress(managerId: string): Promise<EmployeeProgress[]> {
-  seedData();
-  await simulateNetwork();
+  if (isDatabaseConfigured) return db.getTeamProgress(managerId, TOTAL_LESSON_COUNT);
 
-  const users = loadJSON<User[]>(LS_USERS, []);
-  const allProgress = loadJSON<LessonProgress[]>(LS_PROGRESS, []);
-  const allQuizzes = loadJSON<QuizResult[]>(LS_QUIZZES, []);
-
+  const users = allUsers();
   const manager = users.find((u) => u.id === managerId);
   if (!manager) return [];
 
-  // Get employees under this manager or at same location
-  const employees = users.filter(
-    (u) => u.role === 'employee' && (u.managerId === managerId || u.location === manager.location)
-  );
+  const allProgress = loadJSON<LessonProgress[]>(LS_PROGRESS, []);
+  const allQuizzes = loadJSON<QuizResult[]>(LS_QUIZZES, []);
 
-  const TOTAL_LESSONS = 31;
-
-  return employees.map((emp) => {
+  return resolveTeam(users, manager).map((emp) => {
     const empProgress = allProgress.filter((p) => p.userId === emp.id && p.completed);
     const empQuizzes = allQuizzes.filter((q) => q.userId === emp.id);
+    const hasData = empProgress.length > 0 || empQuizzes.length > 0;
     const completedLessons = empProgress.length;
-    const progress = Math.round((completedLessons / TOTAL_LESSONS) * 100);
-    const avgScore = empQuizzes.length > 0
-      ? Math.round(empQuizzes.reduce((s, q) => s + q.score, 0) / empQuizzes.length)
-      : 0;
-    const lastActive = empProgress.length > 0
-      ? empProgress.sort((a, b) => (b.completedAt || '').localeCompare(a.completedAt || ''))[0].completedAt || emp.createdAt
-      : emp.createdAt;
-    const streak = Math.min(30, Math.floor(progress / 10)); // simulated streak based on progress
 
     return {
-      user: { id: emp.id, email: emp.email, name: emp.name, role: emp.role, location: emp.location, managerId: emp.managerId, createdAt: emp.createdAt },
-      progress,
-      streak,
-      avgScore,
-      lastActive,
+      user: emp,
+      progress: Math.round((completedLessons / TOTAL_LESSON_COUNT) * 100),
+      streak: 0,
+      avgScore: empQuizzes.length
+        ? Math.round(empQuizzes.reduce((s, q) => s + q.score, 0) / empQuizzes.length)
+        : 0,
+      lastActive: empProgress.length
+        ? (empProgress
+            .slice()
+            .sort((a, b) => (b.completedAt || '').localeCompare(a.completedAt || ''))[0]
+            .completedAt ?? '')
+        : '',
       completedLessons,
-      totalLessons: TOTAL_LESSONS,
+      totalLessons: TOTAL_LESSON_COUNT,
+      hasData,
+      street: NO_STREET,
     };
   });
 }
 
-// ── Stats ──
 export async function getTeamStats(managerId: string): Promise<TeamStats> {
   const team = await getTeamProgress(managerId);
-  if (team.length === 0) {
-    return { totalEmployees: 0, avgCompletion: 0, topPerformer: '-', atRiskCount: 0 };
+  const measured = team.filter((e) => e.hasData);
+  if (measured.length === 0) {
+    return { totalEmployees: team.length, avgCompletion: 0, topPerformer: '—', atRiskCount: 0 };
   }
-  const avgCompletion = Math.round(team.reduce((s, e) => s + e.progress, 0) / team.length);
-  const top = team.reduce((best, e) => (e.progress > best.progress ? e : best), team[0]);
-  const atRiskCount = team.filter((e) => e.progress < 40).length;
   return {
     totalEmployees: team.length,
-    avgCompletion,
-    topPerformer: top.user.name.split(' ')[0],
-    atRiskCount,
+    avgCompletion: Math.round(measured.reduce((s, e) => s + e.progress, 0) / measured.length),
+    topPerformer: measured.reduce((best, e) => (e.progress > best.progress ? e : best), measured[0])
+      .user.name.split(' ')[0],
+    atRiskCount: measured.filter((e) => e.progress < 40).length,
   };
 }
 
-// ── Simulation ──
-function simulateNetwork(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, 200 + Math.random() * 300));
+// ── Roster editing ──
+// There is no server, so the app cannot add a person for everyone. What it can
+// do is produce the exact line to commit. See AdminPanel.
+
+export interface NewAccountDraft {
+  username: string;
+  name: string;
+  role: UserRole;
+  location: UserLocation;
+  managerUsername?: string;
+}
+
+export function usernameTaken(username: string): boolean {
+  return !!findAccount(username);
+}
+
+/** The snippet the owner pastes into src/data/accounts.ts. */
+export async function buildAccountSnippet(
+  draft: NewAccountDraft,
+  password: string,
+  salt: string
+): Promise<string> {
+  const verifier = await hashPassword(password, salt);
+  const manager = draft.managerUsername
+    ? `\n    managerUsername: '${draft.managerUsername.toLowerCase()}',`
+    : '';
+  return `  {
+    username: '${draft.username.trim().toLowerCase()}',
+    name: '${draft.name.replace(/'/g, "\\'")}',
+    salt: '${salt}',
+    verifier: '${verifier}',
+    role: '${draft.role}',
+    location: '${draft.location}',${manager}
+  },`;
 }

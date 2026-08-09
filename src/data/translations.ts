@@ -157,7 +157,7 @@ export const translations = {
     cheatSheetsMinPrice: 'Minimum price:',
     cheatSheetsComboReference: 'Combo Reference',
     cheatSheetsSave: 'Save',
-    cheatSheetsCialdini: "Cialdini's 6 Principles",
+    cheatSheetsCialdini: 'The six moves',
     cheatSheetsKeyPhrases: 'Key Phrases',
     cheatSheetsSayThis: 'SAY THIS',
     cheatSheetsAvoidThis: 'AVOID THIS',
@@ -292,7 +292,7 @@ export const translations = {
     homeLessonsLabel: 'Lecciones',
     homeStreakLabel: 'Racha',
     homeQuickAccess: 'Acceso R\u00e1pido',
-    homeQuickAccessCheatSheets: 'Hojas de Trucos',
+    homeQuickAccessCheatSheets: 'Chuletas',
     homeQuickAccessExercises: 'Ejercicios',
     homeQuickAccessQuizzes: 'Cuestionarios',
 
@@ -392,7 +392,7 @@ export const translations = {
     achMasterSellerDesc: 'Completa TODAS las lecciones',
 
     // ── Cheat Sheets ──
-    cheatSheetsTitle: 'Hojas de Referencia',
+    cheatSheetsTitle: 'Chuletas',
     cheatSheetsSubtitle: 'Referencia r\u00e1pida de precios, guiones, combos y psicolog\u00eda',
     cheatSheetsSearch: 'Buscar guiones, precios, frases...',
     cheatSheetsAll: 'Todo',
@@ -404,7 +404,7 @@ export const translations = {
     cheatSheetsMinPrice: 'Precio m\u00ednimo:',
     cheatSheetsComboReference: 'Referencia de Combos',
     cheatSheetsSave: 'Ahorra',
-    cheatSheetsCialdini: 'Los 6 Principios de Cialdini',
+    cheatSheetsCialdini: 'Los seis movimientos',
     cheatSheetsKeyPhrases: 'Frases Clave',
     cheatSheetsSayThis: 'DI ESTO',
     cheatSheetsAvoidThis: 'EVITA ESTO',

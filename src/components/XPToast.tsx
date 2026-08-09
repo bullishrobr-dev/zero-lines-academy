@@ -1,5 +1,9 @@
 // ─────────────────────────────────────────────────────────────
-// XPToast.tsx — Floating XP notification with Framer Motion
+// XPToast.tsx — floating "+N XP" pill
+//
+// Restyled to the Counter Light tokens. The old pill put white text on the
+// brand teal (2.41:1 — a WCAG failure at any size); a coloured fill now always
+// takes the dark on-teal ink. `pt-safe` keeps it clear of the notch.
 // ─────────────────────────────────────────────────────────────
 
 import { useEffect } from 'react';
@@ -36,27 +40,22 @@ export default function XPToast({
           initial={{ opacity: 0, y: -60, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -40, scale: 0.9 }}
-          transition={{
-            type: 'spring',
-            stiffness: 400,
-            damping: 25,
-          }}
-          className="fixed top-6 left-0 right-0 z-[100] flex justify-center pointer-events-none"
+          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex justify-center px-4 pt-safe"
+          role="status"
+          aria-live="polite"
         >
-          <div className="flex items-center gap-2.5 bg-gradient-to-r from-[#0ABAB5] to-[#065B58] text-white px-5 py-3 rounded-full shadow-lg shadow-[#0ABAB5]/25 pointer-events-auto">
-            <motion.div
+          <div className="mt-4 flex items-center gap-2.5 rounded-full bg-teal px-5 py-3 text-on-teal shadow-feature">
+            <motion.span
               initial={{ rotate: -20, scale: 0 }}
               animate={{ rotate: 0, scale: 1 }}
               transition={{ delay: 0.1, type: 'spring', stiffness: 500 }}
+              className="flex"
             >
-              <Star size={18} className="fill-white text-white" />
-            </motion.div>
-            <span className="text-sm font-bold tracking-wide">
-              +{amount} XP
-            </span>
-            {message && (
-              <span className="text-xs text-white/80 ml-1">{message}</span>
-            )}
+              <Star size={18} className="fill-current" aria-hidden="true" />
+            </motion.span>
+            <span className="text-button">+{amount} XP</span>
+            {message && <span className="text-caption opacity-80">{message}</span>}
           </div>
         </motion.div>
       )}

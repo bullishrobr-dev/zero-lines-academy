@@ -1,6 +1,17 @@
 // ─────────────────────────────────────────────────────────────
-// HomeDashboard.tsx — Main dashboard screen
-// Motivational quote, welcome, stats, continue learning, daily challenge, quick access
+// HomeDashboard.tsx — the landing screen
+//
+// Rebuilt around a single question: "what should I do right now?"
+//
+//  · A full-bleed, time-of-day hero carries the greeting, the streak and the
+//    one action that matters at this hour.
+//  · Everything below is a weighted feed — feature surfaces for the things
+//    worth doing today, raised cards for interactive shortcuts, flat cards for
+//    reference. The old screen was nine identical rows in one column.
+//  · Cheat Sheets and the Leaderboard are surfaced here; the Leaderboard had
+//    no inbound link anywhere in the app and Cheat Sheets sat at the bottom of
+//    a 2,200px scroll despite being the screen sellers need mid-sale.
+//  · The name comes from the auth context, not a raw localStorage read.
 // ─────────────────────────────────────────────────────────────
 
 import { useNavigate } from 'react-router-dom';
@@ -20,21 +31,107 @@ import {
   BrainCircuit,
   Award,
   ChevronRight,
+  ArrowRight,
   Quote as QuoteIcon,
+  Sunrise,
+  Moon,
+  Trophy,
+  Layers,
   type LucideIcon,
 } from 'lucide-react';
 import { useMemo, useState, useCallback, useRef } from 'react';
-import { getLesson, getCategory } from '../data/lessons';
+import { getLessonMeta, getCategory } from '../data/lessonMeta';
 import { getRandomQuote, type Quote } from '../data/quotes';
 import { useProgress } from '../hooks/useProgress';
+import BiggestLeak from '../components/BiggestLeak';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuthContext } from '../contexts/AuthContext';
 import DailyChallengeCard from '../components/DailyChallengeCard';
 import DailyDose, { DailyDoseModal } from '../components/DailyDose';
+import XPToast from '../components/XPToast';
+import ConfettiCelebration from '../components/ConfettiCelebration';
 import { useDailyFlow } from '../hooks/useDailyFlow';
 import { useCountUp } from '../hooks/useCountUp';
-import { celebrateChallengeComplete } from '../utils/confetti';
 import { haptic } from '../utils/haptics';
-import { Sunrise, Moon } from 'lucide-react';
+
+/* ─── Copy ───
+   These strings have no key in data/translations.ts (owned elsewhere), so they
+   live here rather than shipping as hardcoded English. Spanish is European,
+   informal "tú". */
+const COPY = {
+  en: {
+    signIn: 'Sign in for the admin & manager dashboard',
+    dayStreak: 'day streak',
+    checkIn: 'Shift check-in',
+    checkInSub: 'How are you feeling? What is today’s goal?',
+    endShift: 'End of shift',
+    endShiftSub: 'Reflect on your day and keep your streak alive',
+    keepGoing: 'Pick up where you left off',
+    keepGoingSub: 'Your next lesson is waiting',
+    startTraining: 'Start training',
+    startTrainingSub: 'Six paths, 51 lessons — begin with the basics',
+    nowLabel: 'Right now',
+    onTheFloor: 'On the floor',
+    cheatSheets: 'Cheat sheets',
+    cheatSheetsSub: 'Prices, scripts and closes — open mid-sale',
+    logSale: 'Log a sale',
+    logSaleSub: 'Track stops, brings and revenue',
+    leaderboard: 'Leaderboard',
+    leaderboardSub: 'Andorra vs Gibraltar',
+    quizzes: 'Quizzes',
+    exercises: 'Exercises',
+    flashcards: 'Flashcards',
+    quickPractice: 'Quick practice',
+    quickPracticeSub: 'Got a few minutes? Sharpen your skills.',
+    flashcardSprint: 'Flashcard sprint',
+    flashcardSprintSub: '1 min · 5 cards',
+    scenarioDrill: 'Scenario drill',
+    scenarioDrillSub: '2 min · real situation',
+    priceLadder: 'Price ladder',
+    priceLadderSub: 'Test your pricing',
+    newHere: 'New to Zero Lines?',
+    newHereSub: 'First-day track — learn to stop people and bring them inside',
+    streakMilestone: 'streak — keep it going!',
+    challengeDone: 'Challenge complete',
+    doseDone: 'Daily dose read',
+  },
+  es: {
+    signIn: 'Inicia sesión para el panel de admin y manager',
+    dayStreak: 'días de racha',
+    checkIn: 'Check-in de turno',
+    checkInSub: '¿Cómo te sientes? ¿Cuál es tu meta de hoy?',
+    endShift: 'Fin de turno',
+    endShiftSub: 'Repasa tu día y mantén viva tu racha',
+    keepGoing: 'Sigue donde lo dejaste',
+    keepGoingSub: 'Tu próxima lección te espera',
+    startTraining: 'Empieza a formarte',
+    startTrainingSub: 'Seis caminos, 51 lecciones — empieza por lo básico',
+    nowLabel: 'Ahora mismo',
+    onTheFloor: 'En la calle',
+    cheatSheets: 'Hojas de trucos',
+    cheatSheetsSub: 'Precios, guiones y cierres — ábrelas en plena venta',
+    logSale: 'Registrar venta',
+    logSaleSub: 'Apunta paradas, entradas e ingresos',
+    leaderboard: 'Clasificación',
+    leaderboardSub: 'Andorra vs Gibraltar',
+    quizzes: 'Cuestionarios',
+    exercises: 'Ejercicios',
+    flashcards: 'Tarjetas',
+    quickPractice: 'Práctica rápida',
+    quickPracticeSub: '¿Tienes unos minutos? Afila tus habilidades.',
+    flashcardSprint: 'Sprint de tarjetas',
+    flashcardSprintSub: '1 min · 5 tarjetas',
+    scenarioDrill: 'Simulacro de escenario',
+    scenarioDrillSub: '2 min · situación real',
+    priceLadder: 'Escalera de precios',
+    priceLadderSub: 'Pon a prueba tus precios',
+    newHere: '¿Nuevo en Zero Lines?',
+    newHereSub: 'Track de primer día — aprende a parar gente y meterla dentro',
+    streakMilestone: 'de racha — ¡no la sueltes!',
+    challengeDone: 'Reto completado',
+    doseDone: 'Dosis diaria leída',
+  },
+} as const;
 
 /* ─── Helpers ─── */
 
@@ -42,19 +139,6 @@ const iconMap: Record<string, LucideIcon> = { Brain, Users, Hand, Sparkles };
 
 function getIcon(name: string): LucideIcon {
   return iconMap[name] || Sparkles;
-}
-
-function getUserName(): string {
-  try {
-    const userData = localStorage.getItem('zl_user');
-    if (userData) {
-      const parsed = JSON.parse(userData);
-      if (parsed.name) return parsed.name;
-    }
-    return localStorage.getItem('zl_user_name') || 'Learner';
-  } catch {
-    return 'Learner';
-  }
 }
 
 function getContinueLearning(): string[] {
@@ -72,18 +156,23 @@ function saveContinueLearning(lessonId: string) {
   localStorage.setItem('zl_continue_learning', JSON.stringify(list));
 }
 
+/** Local date key — matches useProgress, which is deliberately not UTC. */
+function todayKey(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+const STREAK_MILESTONES = [3, 7, 14, 30, 60, 100];
+
 /* ─── Animations ─── */
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.07 },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
@@ -91,73 +180,181 @@ const itemVariants = {
   },
 };
 
-/* ─── Quick Access Item ─── */
+/* ─── Small building blocks ─── */
 
-function QuickAccessItem({
+function SectionHeading({ title, hint }: { title: string; hint?: string }) {
+  return (
+    <div className="mb-3">
+      <h2 className="text-h3 text-ink">{title}</h2>
+      {hint && <p className="text-caption text-ink-3">{hint}</p>}
+    </div>
+  );
+}
+
+function StatTile({
+  icon: Icon,
+  value,
+  label,
+  tone,
+  isZero,
+}: {
+  icon: LucideIcon;
+  value: number;
+  label: string;
+  tone: 'coral' | 'teal' | 'gold';
+  isZero: boolean;
+}) {
+  const iconTone =
+    tone === 'coral' ? 'text-coral-strong' : tone === 'teal' ? 'text-teal-strong' : 'text-gold-strong';
+  return (
+    <div className="surface-flat flex flex-col items-center gap-1 px-2 py-3">
+      <Icon size={20} className={iconTone} aria-hidden="true" />
+      {/* Zero state used to render at 2.87:1. `text-ink-3` is the AA floor. */}
+      <p className={`text-h2 tabular-nums ${isZero ? 'text-ink-3' : 'text-ink'}`}>{value}</p>
+      <p className="text-caption text-ink-2">{label}</p>
+    </div>
+  );
+}
+
+function TileLink({
   icon: Icon,
   label,
   onClick,
-  color,
+  tone,
 }: {
   icon: LucideIcon;
   label: string;
   onClick: () => void;
-  color: string;
+  tone: 'teal' | 'gold' | 'violet';
 }) {
+  const tint =
+    tone === 'teal' ? 'bg-teal-tint' : tone === 'gold' ? 'bg-gold-tint' : 'bg-violet-tint';
+  const ink =
+    tone === 'teal' ? 'text-teal-strong' : tone === 'gold' ? 'text-gold-strong' : 'text-violet-strong';
   return (
     <motion.button
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.96 }}
       onClick={onClick}
-      className="flex flex-col items-center gap-2 p-4 card-elevation-1 hover:border-[#2A2A2A] transition-colors"
+      className="surface-raised flex min-h-touch flex-col items-center gap-2 px-2 py-4"
     >
-      <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center"
-        style={{ backgroundColor: `${color}18` }}
-      >
-        <Icon size={24} style={{ color }} />
-      </div>
-      <span className="text-xs font-medium text-[#8A8A8A]">{label}</span>
+      <span className={`flex h-11 w-11 items-center justify-center rounded-chip ${tint}`}>
+        <Icon size={22} className={ink} aria-hidden="true" />
+      </span>
+      <span className="text-caption text-ink">{label}</span>
     </motion.button>
   );
 }
 
-/* ─── Main Component ─── */
+function PracticeCard({
+  icon: Icon,
+  title,
+  subtitle,
+  onClick,
+  tone,
+}: {
+  icon: LucideIcon;
+  title: string;
+  subtitle: string;
+  onClick: () => void;
+  tone: 'teal' | 'coral' | 'violet';
+}) {
+  const tint =
+    tone === 'teal' ? 'bg-teal-tint' : tone === 'coral' ? 'bg-coral-tint' : 'bg-violet-tint';
+  const ink =
+    tone === 'teal' ? 'text-teal-strong' : tone === 'coral' ? 'text-coral-strong' : 'text-violet-strong';
+  return (
+    <motion.button
+      whileTap={{ scale: 0.97 }}
+      onClick={onClick}
+      className="surface-raised flex w-[248px] flex-shrink-0 snap-start items-center gap-3 p-4 text-left"
+    >
+      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${tint}`}>
+        <Icon size={22} className={ink} aria-hidden="true" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-h4 text-ink">{title}</span>
+        <span className="block text-caption text-ink-2">{subtitle}</span>
+      </span>
+    </motion.button>
+  );
+}
+
+/* ─── Main component ─── */
 
 export default function HomeDashboard() {
   const navigate = useNavigate();
   const progress = useProgress();
   const { language, t } = useLanguage();
+  const { user, isAuthenticated } = useAuthContext();
   const dailyFlow = useDailyFlow();
   const todayProgress = dailyFlow.getTodayProgress();
   const [showDoseModal, setShowDoseModal] = useState(false);
 
-  const userName = useMemo(() => getUserName(), []);
+  const c = language === 'es' ? COPY.es : COPY.en;
   const lessonProgress = progress.lessonProgress;
 
-  // Stats
+  /* The stored user shape just changed — read it through the context, never
+     straight out of localStorage. */
+  const userName = useMemo(() => user?.name?.split(' ')[0] || t('profileSalesTrainee'), [user, t]);
+
   const totalXP = progress.getTotalXP();
   const lessonsCompleted = progress.getLessonsCompletedCount();
   const currentStreak = progress.getCurrentStreak();
 
-  // Greeting based on time of day
-  const greeting = useMemo(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) return t('homeGoodMorning');
-    if (hour < 17) return t('homeGoodAfternoon');
-    return t('homeGoodEvening');
-  }, [t]);
+  /* ── Time of day drives both the greeting and the hero wash ── */
+  const hour = new Date().getHours();
+  const partOfDay: 'dawn' | 'day' | 'dusk' = hour < 12 ? 'dawn' : hour < 18 ? 'day' : 'dusk';
+  const greeting =
+    partOfDay === 'dawn'
+      ? t('homeGoodMorning')
+      : partOfDay === 'day'
+        ? t('homeGoodAfternoon')
+        : t('homeGoodEvening');
+  const heroWash =
+    partOfDay === 'dawn' ? 'hero-dawn' : partOfDay === 'day' ? 'hero-day' : 'hero-dusk';
 
-  // Continue learning
+  /* ── The single most important action right now ── */
   const continueIds = useMemo(() => getContinueLearning(), []);
   const continueLessons = useMemo(
-    () => continueIds.map((id) => getLesson(id)).filter(Boolean).slice(0, 6),
+    () => continueIds.map((id) => getLessonMeta(id)).filter(Boolean).slice(0, 6),
     [continueIds]
   );
+  const nextLesson = continueLessons.find((l) => l && !lessonProgress[l.id]) || continueLessons[0];
 
-  // Motivational quotes — pre-select 5 for swipeable carousel
+  const primaryAction = useMemo(() => {
+    if (!todayProgress.checkedIn) {
+      return { icon: Sunrise, title: c.checkIn, subtitle: c.checkInSub, to: '/shift-checkin' };
+    }
+    if (!todayProgress.reflected) {
+      return { icon: Moon, title: c.endShift, subtitle: c.endShiftSub, to: '/end-of-shift' };
+    }
+    if (nextLesson) {
+      return {
+        icon: BookOpen,
+        title: c.keepGoing,
+        subtitle: nextLesson.title,
+        to: `/lesson/${nextLesson.id}`,
+      };
+    }
+    return { icon: Sparkles, title: c.startTraining, subtitle: c.startTrainingSub, to: '/training' };
+  }, [todayProgress.checkedIn, todayProgress.reflected, nextLesson, c]);
+
+  /* ── Quotes — demoted to a small footer card, still swipeable ──
+     Drawn WITHOUT replacement. Five independent getRandomQuote() calls will
+     collide often enough at 110 quotes (~9% of loads) that the carousel dots,
+     which are keyed by quote id, produced duplicate React keys. */
   const [quotesList] = useState<Quote[]>(() => {
-    const all = Array.from({ length: 5 }, () => getRandomQuote());
-    return all;
+    const picked: Quote[] = [];
+    const seen = new Set<string>();
+    // Bounded: stop once we have five, or after enough tries that the pool is
+    // clearly smaller than five.
+    for (let i = 0; i < 40 && picked.length < 5; i++) {
+      const q = getRandomQuote();
+      if (seen.has(q.id)) continue;
+      seen.add(q.id);
+      picked.push(q);
+    }
+    return picked;
   });
   const [quoteIndex, setQuoteIndex] = useState(0);
   const quote = quotesList[quoteIndex];
@@ -172,204 +369,240 @@ export default function HomeDashboard() {
     [quotesList.length]
   );
 
-  // Touch swipe state for quote card
   const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.changedTouches[0].screenX;
   }, []);
   const handleTouchEnd = useCallback(
     (e: React.TouchEvent) => {
-      touchEndX.current = e.changedTouches[0].screenX;
-      const diff = touchStartX.current - touchEndX.current;
-      if (Math.abs(diff) > 40) {
-        goToQuote(diff > 0 ? 'next' : 'prev');
-      }
+      const diff = touchStartX.current - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 40) goToQuote(diff > 0 ? 'next' : 'prev');
     },
     [goToQuote]
   );
 
-  // Count-up animated stats
   const animatedXP = useCountUp(totalXP, 800);
   const animatedLessons = useCountUp(lessonsCompleted, 800);
   const animatedStreak = useCountUp(currentStreak, 800);
 
-  // Daily challenge completion with confetti
-  const handleDailyChallengeComplete = useCallback(() => {
-    haptic('medium');
-    celebrateChallengeComplete();
-    progress.completeDailyChallenge();
-  }, [progress]);
+  /* ── Reward layer ──
+     XPToast and ConfettiCelebration were both finished and never rendered
+     anywhere in the app. Every XP award on this screen now has a visible,
+     physical response. */
+  const [toast, setToast] = useState<{ amount: number; message: string } | null>(null);
+  const [celebrate, setCelebrate] = useState(false);
+  const dismissToast = useCallback(() => setToast(null), []);
+  const stopCelebrating = useCallback(() => setCelebrate(false), []);
+
+  const handleDailyChallengeComplete = useCallback(
+    (xpReward: number) => {
+      // Streak advances only if today has not already been counted.
+      const streakAfter =
+        progress.lastActiveDate === todayKey() ? currentStreak : currentStreak + 1;
+      const milestone = STREAK_MILESTONES.includes(streakAfter);
+
+      haptic(milestone ? 'heavy' : 'medium');
+      if (milestone) window.setTimeout(() => haptic('heavy'), 120);
+
+      setCelebrate(true);
+      setToast({
+        amount: xpReward,
+        message: milestone ? `${streakAfter} ${c.streakMilestone}` : c.challengeDone,
+      });
+      progress.completeDailyChallenge(xpReward);
+    },
+    [progress, currentStreak, c]
+  );
+
+  const handleDoseComplete = useCallback(
+    (xp: number) => {
+      // Actually pay the XP into the real total — it used to only show a toast.
+      // awardXP is a no-op if today's dose was already claimed, so re-opening
+      // the dose does not toast a reward that was not given.
+      if (progress.awardXP('dose', xp, 'Daily dose')) {
+        setToast({ amount: xp, message: c.doseDone });
+      }
+    },
+    [progress, c]
+  );
 
   return (
-    <div className="min-h-full px-6 pt-6 pb-24">
-      <motion.div variants={containerVariants} initial="hidden" animate="visible">
-        {/* ── Motivational Quote Hero ── */}
-        <motion.div variants={itemVariants} className="mb-6">
-          <motion.div
-            key={quoteIndex}
-            initial={{ opacity: 0, x: 12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
-            className="p-5 rounded-2xl bg-gradient-to-br from-[#0ABAB5]/10 to-transparent border border-[#1A1A1A] border-l-2 border-l-[#0ABAB5] relative overflow-hidden select-none"
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-          >
-            {/* Decorative large quote marks */}
-            <div className="absolute -top-3 -left-1 pointer-events-none select-none">
-              <QuoteIcon size={64} className="text-[#0ABAB5]/[0.07]" />
-            </div>
-            <div className="absolute -bottom-5 -right-1 pointer-events-none select-none rotate-180">
-              <QuoteIcon size={48} className="text-[#0ABAB5]/[0.05]" />
+    <div className="min-h-full">
+      <XPToast
+        visible={!!toast}
+        amount={toast?.amount ?? 0}
+        message={toast?.message}
+        onDismiss={dismissToast}
+      />
+      <ConfettiCelebration trigger={celebrate} onComplete={stopCelebrating} />
+
+      {/* ══ Hero ══ */}
+      <header className={`${heroWash} relative overflow-hidden rounded-b-feature border-b border-line px-5 pb-6 pt-7`}>
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-overline text-ink-2">{greeting}</p>
+              <h1 className="mt-1 truncate text-display text-ink">{userName}</h1>
             </div>
 
-            <p
-              className="relative z-10 text-lg italic leading-relaxed text-[#0ABAB5] mb-3"
-              style={{ fontFamily: "'Playfair Display', serif" }}
+            {/* Streak flame */}
+            <div
+              className={`relative flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 ${
+                currentStreak > 0
+                  ? 'bg-coral text-on-coral'
+                  : 'border border-line bg-surface text-ink-2'
+              }`}
             >
-              &ldquo;{language === 'es' ? quote.textEs : quote.text}&rdquo;
-            </p>
-            <p className="relative z-10 text-sm text-[#8A8A8A]">&mdash; {quote.author}</p>
-
-            {/* Dot indicators */}
-            <div className="relative z-10 flex items-center justify-center gap-1.5 mt-4">
-              {quotesList.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setQuoteIndex(i)}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                    i === quoteIndex ? 'bg-[#0ABAB5] w-4' : 'bg-[#5A5A5A]/50'
-                  }`}
-                />
-              ))}
+              <Flame size={18} aria-hidden="true" />
+              {currentStreak > 0 ? (
+                <span className="text-button tabular-nums">{animatedStreak}</span>
+              ) : (
+                <span className="text-caption">{t('start')}</span>
+              )}
+              <span className="sr-only">{c.dayStreak}</span>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
 
-        {/* ── Welcome Message ── */}
-        <motion.div variants={itemVariants} className="mb-4">
-          <h1 className="text-h1 text-white">
-            {greeting}, <span className="text-[#0ABAB5]">{userName}</span>!
-          </h1>
-          {userName === 'Learner' && (
+          {!isAuthenticated && (
             <button
               onClick={() => navigate('/auth')}
-              className="mt-3 flex items-center gap-2 text-[#0ABAB5] text-sm font-medium hover:underline"
+              className="mt-3 inline-flex items-center gap-1 text-caption text-teal-strong underline underline-offset-4"
             >
-              {language === 'es' ? 'Inicia sesión para acceder al panel de admin/manager' : 'Sign in to access admin & manager dashboard'}
-              <ChevronRight size={14} />
+              {c.signIn}
+              <ChevronRight size={14} aria-hidden="true" />
             </button>
           )}
+
+          {/* Today's single most important action */}
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              haptic('light');
+              navigate(primaryAction.to);
+            }}
+            className="surface-raised mt-5 flex w-full items-center gap-3 p-4 text-left"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-coral text-on-coral">
+              <primaryAction.icon size={22} aria-hidden="true" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-overline text-coral-strong">{c.nowLabel}</span>
+              <span className="block text-h4 text-ink">{primaryAction.title}</span>
+              <span className="line-clamp-2 text-caption text-ink-2">
+                {primaryAction.subtitle}
+              </span>
+            </span>
+            <ArrowRight size={20} className="shrink-0 text-ink-3" aria-hidden="true" />
+          </motion.button>
+
+          {/* Stats */}
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            <StatTile
+              icon={Zap}
+              value={animatedXP}
+              label={t('homeTotalXP')}
+              tone="coral"
+              isZero={totalXP === 0}
+            />
+            <StatTile
+              icon={BookOpen}
+              value={animatedLessons}
+              label={t('homeLessonsLabel')}
+              tone="teal"
+              isZero={lessonsCompleted === 0}
+            />
+            <StatTile
+              icon={Flame}
+              value={animatedStreak}
+              label={t('homeStreakLabel')}
+              tone="gold"
+              isZero={currentStreak === 0}
+            />
+          </div>
         </motion.div>
+      </header>
 
-        {/* ── Shift Check-In Card (if not done today) ── */}
-        {!todayProgress.checkedIn && (
-          <motion.div variants={itemVariants} className="mb-4">
-            <button
-              onClick={() => navigate('/shift-checkin')}
-              className="w-full p-4 rounded-2xl bg-gradient-to-r from-[#0ABAB5]/20 to-[#008B8B]/10 border border-[#0ABAB5]/30 hover:border-[#0ABAB5]/50 transition-colors flex items-center gap-3"
-            >
-              <div className="w-10 h-10 rounded-xl bg-[#0ABAB5]/20 flex items-center justify-center">
-                <Sunrise className="w-5 h-5 text-[#0ABAB5]" />
-              </div>
-              <div className="text-left flex-1">
-                <p className="text-sm font-semibold text-white">
-                  {language === 'es' ? 'Check-In de Turno' : 'Shift Check-In'}
-                </p>
-                <p className="text-xs text-[#8A8A8A]">
-                  {language === 'es' ? '¿Cómo te sientes? ¿Cuál es tu meta hoy?' : 'How do you feel? What\'s your goal today?'}
-                </p>
-              </div>
-              <ChevronRight className="w-5 h-5 text-[#0ABAB5]" />
-            </button>
-          </motion.div>
-        )}
+      {/* ══ Feed ══ */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="space-y-7 px-5 pt-7"
+      >
+        {/* ── Cheat sheets: the screen sellers need mid-sale ── */}
+        <motion.section variants={itemVariants}>
+          <SectionHeading title={c.onTheFloor} />
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/cheat-sheets')}
+            className="surface-feature feature-coral flex w-full items-center gap-4 p-5 text-left"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-coral text-on-coral">
+              <FileText size={24} aria-hidden="true" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-h4 text-ink">{c.cheatSheets}</span>
+              <span className="block text-caption text-ink-2">{c.cheatSheetsSub}</span>
+            </span>
+            <ArrowRight size={20} className="shrink-0 text-coral-strong" aria-hidden="true" />
+          </motion.button>
 
-        {/* ── Daily Dose ── */}
-        <motion.div variants={itemVariants} className="mb-4">
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            <TileLink
+              icon={Trophy}
+              label={c.leaderboard}
+              tone="gold"
+              onClick={() => navigate('/leaderboard')}
+            />
+            <TileLink
+              icon={BrainCircuit}
+              label={t('homeQuickAccessQuizzes')}
+              tone="teal"
+              onClick={() => navigate('/quizzes')}
+            />
+            <TileLink
+              icon={Dumbbell}
+              label={t('homeQuickAccessExercises')}
+              tone="violet"
+              onClick={() => navigate('/exercises')}
+            />
+          </div>
+        </motion.section>
+
+        {/* ── The journal, read back. Renders nothing until there is a real
+             pattern to point at — see the note in BiggestLeak.tsx. ── */}
+        <motion.section variants={itemVariants}>
+          <BiggestLeak />
+        </motion.section>
+
+        {/* ── Daily challenge — the achievement that matters today.
+             The card carries its own heading, so there is no section title. ── */}
+        <motion.section variants={itemVariants}>
+          <DailyChallengeCard
+            isCompleted={progress.isDailyChallengeCompleted()}
+            onComplete={handleDailyChallengeComplete}
+          />
+        </motion.section>
+
+        {/* ── Daily dose ── */}
+        <motion.section variants={itemVariants}>
           <DailyDose onOpen={() => setShowDoseModal(true)} />
-          <DailyDoseModal isOpen={showDoseModal} onClose={() => setShowDoseModal(false)} />
-        </motion.div>
+          <DailyDoseModal
+            isOpen={showDoseModal}
+            onClose={() => setShowDoseModal(false)}
+            onCompleted={handleDoseComplete}
+          />
+        </motion.section>
 
-        {/* ── End of Shift Card (if checked in but not reflected) ── */}
-        {todayProgress.checkedIn && !todayProgress.reflected && (
-          <motion.div variants={itemVariants} className="mb-4">
-            <button
-              onClick={() => navigate('/end-of-shift')}
-              className="w-full p-4 rounded-2xl bg-gradient-to-r from-[#8B5CF6]/20 to-[#6D28D9]/10 border border-[#8B5CF6]/30 hover:border-[#8B5CF6]/50 transition-colors flex items-center gap-3"
-            >
-              <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/20 flex items-center justify-center">
-                <Moon className="w-5 h-5 text-[#8B5CF6]" />
-              </div>
-              <div className="text-left flex-1">
-                <p className="text-sm font-semibold text-white">
-                  {language === 'es' ? 'Fin de Turno' : 'End of Shift'}
-                </p>
-                <p className="text-xs text-[#8A8A8A]">
-                  {language === 'es' ? 'Reflexiona sobre tu día y mantén tu racha' : 'Reflect on your day and keep your streak'}
-                </p>
-              </div>
-              <ChevronRight className="w-5 h-5 text-[#8B5CF6]" />
-            </button>
-          </motion.div>
-        )}
-
-        {/* ── Stats Row ── */}
-        <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 mb-6">
-          <div className="flex flex-col items-center p-4 card-elevation-1">
-            <Flame
-              size={22}
-              className={`text-orange-500 mb-2 ${totalXP === 0 ? 'animate-pulse' : ''}`}
-            />
-            <p className={`text-h4 font-bold ${totalXP === 0 ? 'text-[#5A5A5A]' : 'text-white'}`}>
-              {totalXP === 0 ? 'Start' : animatedXP}
-            </p>
-            <p className="text-caption text-[#8A8A8A]">{t('homeTotalXP')}</p>
-            {totalXP === 0 && (
-              <div className="w-full h-1 bg-[#1A1A1A] rounded-full mt-2 overflow-hidden">
-                <div className="h-full w-[2%] bg-orange-500/40 rounded-full" />
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col items-center p-4 card-elevation-1">
-            <BookOpen
-              size={22}
-              className={`text-[#0ABAB5] mb-2 ${lessonsCompleted === 0 ? 'animate-pulse' : ''}`}
-            />
-            <p className={`text-h4 font-bold ${lessonsCompleted === 0 ? 'text-[#5A5A5A]' : 'text-white'}`}>
-              {lessonsCompleted === 0 ? 'Start' : animatedLessons}
-            </p>
-            <p className="text-caption text-[#8A8A8A]">{t('homeLessonsLabel')}</p>
-            {lessonsCompleted === 0 && (
-              <div className="w-full h-1 bg-[#1A1A1A] rounded-full mt-2 overflow-hidden">
-                <div className="h-full w-[2%] bg-[#0ABAB5]/40 rounded-full" />
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col items-center p-4 card-elevation-1">
-            <Zap
-              size={22}
-              className={`text-[#F59E0B] mb-2 ${currentStreak === 0 ? 'animate-pulse' : ''}`}
-            />
-            <p className={`text-h4 font-bold ${currentStreak === 0 ? 'text-[#5A5A5A]' : 'text-white'}`}>
-              {currentStreak === 0 ? 'Start' : animatedStreak}
-            </p>
-            <p className="text-caption text-[#8A8A8A]">{t('homeStreakLabel')}</p>
-            {currentStreak === 0 && (
-              <div className="w-full h-1 bg-[#1A1A1A] rounded-full mt-2 overflow-hidden">
-                <div className="h-full w-[2%] bg-[#F59E0B]/40 rounded-full" />
-              </div>
-            )}
-          </div>
-        </motion.div>
-
-        {/* ── Continue Learning ── */}
+        {/* ── Continue learning ── */}
         {continueLessons.length > 0 && (
-          <motion.div variants={itemVariants} className="mb-6">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-h2 text-white font-bold">{t('homeContinueLearning')}</h2>
-            </div>
-            <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-6 px-6">
+          <motion.section variants={itemVariants}>
+            <SectionHeading title={t('homeContinueLearning')} />
+            <div className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
               {continueLessons.map((lesson) => {
                 if (!lesson) return null;
                 const cat = getCategory(lesson.categoryId);
@@ -383,26 +616,23 @@ export default function HomeDashboard() {
                       saveContinueLearning(lesson.id);
                       navigate(`/lesson/${lesson.id}`);
                     }}
-                    className="snap-start flex-shrink-0 w-60 p-4 card-elevation-2 hover:border-[#2A2A2A] transition-colors text-left"
+                    className="surface-raised w-60 flex-shrink-0 snap-start p-4 text-left"
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div
-                        className="w-6 h-6 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: `${cat?.accentColor || '#0ABAB5'}20` }}
-                      >
-                        <LessonIcon size={13} style={{ color: cat?.accentColor || '#0ABAB5' }} />
-                      </div>
-                      <span className="text-caption text-[#8A8A8A] truncate">{cat?.title}</span>
+                    <div className="mb-2 flex items-center gap-2">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-chip bg-teal-tint">
+                        <LessonIcon size={15} className="text-teal-strong" aria-hidden="true" />
+                      </span>
+                      <span className="truncate text-caption text-ink-3">{cat?.title}</span>
                     </div>
-                    <h4 className="text-h4 text-white font-semibold mb-1 truncate">{lesson.title}</h4>
-                    <p className="text-caption text-[#8A8A8A] truncate mb-2">{lesson.subtitle}</p>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#1A1A1A] text-[#8A8A8A]">
+                    <h3 className="truncate text-h4 text-ink">{lesson.title}</h3>
+                    <p className="mt-0.5 truncate text-caption text-ink-2">{lesson.subtitle}</p>
+                    <div className="mt-3 flex items-center gap-2">
+                      <span className="rounded-full bg-surface-sunken px-2.5 py-1 text-caption text-ink-2">
                         {lesson.duration}
                       </span>
                       {isDone && (
-                        <span className="text-[10px] font-medium text-green-400 flex items-center gap-0.5">
-                          <Award size={10} /> {t('homeDone')}
+                        <span className="flex items-center gap-1 text-caption text-success">
+                          <Award size={14} aria-hidden="true" /> {t('homeDone')}
                         </span>
                       )}
                     </div>
@@ -410,136 +640,93 @@ export default function HomeDashboard() {
                 );
               })}
             </div>
-          </motion.div>
+          </motion.section>
         )}
 
-        {/* ── Daily Challenge ── */}
-        <motion.div variants={itemVariants} className="mb-6">
-          <h2 className="text-h2 text-white font-bold mb-4">{t('homeDailyChallenge')}</h2>
-          <DailyChallengeCard
-            isCompleted={progress.isDailyChallengeCompleted()}
-            onComplete={handleDailyChallengeComplete}
-          />
-        </motion.div>
+        {/* ── Quick practice ── */}
+        <motion.section variants={itemVariants}>
+          <SectionHeading title={c.quickPractice} hint={c.quickPracticeSub} />
+          <div className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
+            <PracticeCard
+              icon={Layers}
+              title={c.flashcardSprint}
+              subtitle={c.flashcardSprintSub}
+              tone="teal"
+              onClick={() => navigate('/flashcards?mode=quick')}
+            />
+            <PracticeCard
+              icon={Target}
+              title={c.scenarioDrill}
+              subtitle={c.scenarioDrillSub}
+              tone="coral"
+              onClick={() => navigate('/training')}
+            />
+            <PracticeCard
+              icon={TrendingUp}
+              title={c.priceLadder}
+              subtitle={c.priceLadderSub}
+              tone="violet"
+              onClick={() => navigate('/quizzes')}
+            />
+          </div>
+        </motion.section>
 
-        {/* ── First Day Track Promo ── */}
-        <motion.div variants={itemVariants} className="mb-6">
+        {/* ── First-day track ── */}
+        <motion.section variants={itemVariants}>
           <button
             onClick={() => navigate('/first-day')}
-            className="w-full p-5 rounded-2xl bg-gradient-to-r from-[#0ABAB5]/20 to-[#008B8B]/10 border border-[#0ABAB5]/30 hover:border-[#0ABAB5]/50 transition-colors text-left"
+            className="surface-flat flex w-full items-center gap-3 p-4 text-left"
           >
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-[#0ABAB5]/20 flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-[#0ABAB5]" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-sm font-bold text-white">
-                  {language === 'es' ? '¿Nuevo en Zero Lines?' : 'New to Zero Lines?'}
-                </h3>
-                <p className="text-xs text-[#8A8A8A]">
-                  {language === 'es'
-                    ? 'Track de primer día — Aprende a detener gente y traerla adentro'
-                    : 'First-day track — Learn to stop people and bring them inside'}
-                </p>
-              </div>
-              <ChevronRight className="w-5 h-5 text-[#0ABAB5]" />
-            </div>
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-chip bg-teal-tint">
+              <Sparkles className="h-5 w-5 text-teal-strong" aria-hidden="true" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-h4 text-ink">{c.newHere}</span>
+              <span className="block text-caption text-ink-2">{c.newHereSub}</span>
+            </span>
+            <ChevronRight className="h-5 w-5 shrink-0 text-ink-3" aria-hidden="true" />
           </button>
-        </motion.div>
+        </motion.section>
 
-        {/* ── Quick Practice ── */}
-        <motion.div variants={itemVariants} className="mb-6">
-          <p className="text-xs text-[#8A8A8A] mb-2 italic">
-            {language === 'es' ? '¿Tienes unos minutos? Afila tus habilidades.' : 'Got a few minutes? Sharpen your skills.'}
-          </p>
-          <h2 className="text-h2 text-white font-bold mb-4">
-            {language === 'es' ? 'Práctica Rápida' : 'Quick Practice'}
-          </h2>
-          <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-6 px-6">
-            {/* Flashcard Sprint */}
-            <motion.button
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate('/flashcards?mode=quick')}
-              className="snap-start flex-shrink-0 w-64 p-4 card-elevation-2 hover:border-[#2A2A2A] transition-colors text-left flex items-center gap-3"
-            >
-              <div className="w-12 h-12 rounded-full bg-[#0ABAB5]/20 flex items-center justify-center flex-shrink-0">
-                <Zap size={22} className="text-[#0ABAB5]" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-white truncate">Flashcard Sprint</h4>
-                <p className="text-xs text-[#8A8A8A]">
-                  {language === 'es' ? '1 min · 5 cartas' : '1 min · 5 cards'}
-                </p>
-              </div>
-              <ChevronRight size={18} className="text-[#5A5A5A] flex-shrink-0" />
-            </motion.button>
-
-            {/* Scenario Drill */}
-            <motion.button
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate('/training')}
-              className="snap-start flex-shrink-0 w-64 p-4 card-elevation-2 hover:border-[#2A2A2A] transition-colors text-left flex items-center gap-3"
-            >
-              <div className="w-12 h-12 rounded-full bg-[#F59E0B]/20 flex items-center justify-center flex-shrink-0">
-                <Target size={22} className="text-[#F59E0B]" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-white truncate">
-                  {language === 'es' ? 'Simulacro de Escenario' : 'Scenario Drill'}
-                </h4>
-                <p className="text-xs text-[#8A8A8A]">
-                  {language === 'es' ? '2 min · Situación real' : '2 min · Real situation'}
-                </p>
-              </div>
-              <ChevronRight size={18} className="text-[#5A5A5A] flex-shrink-0" />
-            </motion.button>
-
-            {/* Price Ladder */}
-            <motion.button
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate('/quizzes')}
-              className="snap-start flex-shrink-0 w-64 p-4 card-elevation-2 hover:border-[#2A2A2A] transition-colors text-left flex items-center gap-3"
-            >
-              <div className="w-12 h-12 rounded-full bg-[#8B5CF6]/20 flex items-center justify-center flex-shrink-0">
-                <TrendingUp size={22} className="text-[#8B5CF6]" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-white truncate">
-                  {language === 'es' ? 'Escalera de Precios' : 'Price Ladder'}
-                </h4>
-                <p className="text-xs text-[#8A8A8A]">
-                  {language === 'es' ? 'Prueba tus precios' : 'Test your pricing'}
-                </p>
-              </div>
-              <ChevronRight size={18} className="text-[#5A5A5A] flex-shrink-0" />
-            </motion.button>
-          </div>
-        </motion.div>
-
-        {/* ── Quick Access Row ── */}
-        <motion.div variants={itemVariants}>
-          <h2 className="text-h2 text-white font-bold mb-4">{t('homeQuickAccess') || 'Quick Access'}</h2>
-          <div className="grid grid-cols-3 gap-3">
-            <QuickAccessItem
-              icon={FileText}
-              label={t('homeQuickAccessCheatSheets')}
-              onClick={() => navigate('/cheat-sheets')}
-              color="#8B5CF6"
+        {/* ── Motivational quote — demoted from hero to footer ── */}
+        <motion.section variants={itemVariants} className="pb-2">
+          <motion.div
+            key={quoteIndex}
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
+            className="surface-flat relative select-none overflow-hidden p-5"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <QuoteIcon
+              size={56}
+              className="pointer-events-none absolute -right-2 -top-2 text-teal/10"
+              aria-hidden="true"
             />
-            <QuickAccessItem
-              icon={Dumbbell}
-              label={t('homeQuickAccessExercises')}
-              onClick={() => navigate('/exercises')}
-              color="#0ABAB5"
-            />
-            <QuickAccessItem
-              icon={BrainCircuit}
-              label={t('homeQuickAccessQuizzes')}
-              onClick={() => navigate('/quizzes')}
-              color="#F59E0B"
-            />
-          </div>
-        </motion.div>
+            <p className="relative z-10 font-brand text-h4 italic text-ink">
+              &ldquo;{language === 'es' ? quote.textEs : quote.text}&rdquo;
+            </p>
+            <p className="relative z-10 mt-2 text-caption text-ink-2">&mdash; {quote.author}</p>
+
+            <div className="relative z-10 mt-4 flex items-center justify-center gap-2">
+              {quotesList.map((q, i) => (
+                <button
+                  key={q.id}
+                  onClick={() => setQuoteIndex(i)}
+                  aria-label={`${i + 1}/${quotesList.length}`}
+                  className="flex h-touch w-6 items-center justify-center"
+                >
+                  <span
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i === quoteIndex ? 'w-5 bg-teal' : 'w-1.5 bg-line-strong'
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </motion.section>
       </motion.div>
     </div>
   );

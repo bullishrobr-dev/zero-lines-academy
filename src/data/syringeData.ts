@@ -179,7 +179,7 @@ export const syringeData = {
     advancedScript:
       '"Can I be honest with you? There\'s not a big difference between the two options anyway. I really feel like you\'d use it for those extra areas, and honestly, you\'re the type who will take care of it properly. So I\'ll do something nice \u2014 if you take the bigger option, I\'ll give you both my Day and Night Cream completely free."',
     advancedScriptEs:
-      '"\u00bfPuedo ser honesto contigo? No hay una gran diferencia entre las dos opciones de todos modos. Realmente siento que lo usar\u00edas para esas \u00e1reas extra, y honestamente, eres del tipo que lo cuidar\u00e1 bien. As\u00ed que har\u00e9 algo lindo \u2014 si tomas la opci\u00f3n m\u00e1s grande, te dar\u00e9 tanto mi Crema de D\u00eda como mi Crema de Noche completamente gratis."',
+      '"\u00bfPuedo ser honesto contigo? No hay una gran diferencia entre las dos opciones de todos modos. Realmente siento que lo usar\u00edas para esas \u00e1reas extra, y honestamente, eres del tipo que lo cuidar\u00e1 bien. As\u00ed que voy a hacer una cosa bonita \u2014 si tomas la opci\u00f3n m\u00e1s grande, te dar\u00e9 tanto mi Crema de D\u00eda como mi Crema de Noche completamente gratis."',
   },
 
   /* ─── Price Ladder ─── */
@@ -219,12 +219,12 @@ export const syringeData = {
 
     locationLabel: '{locationName} Price',
     locationLabelEs: 'Precio {locationName}',
-    locationDescription: 'Tax haven advantage \u2014 our standard price',
-    locationDescriptionEs: 'Ventaja de para\u00edso fiscal \u2014 nuestro precio est\u00e1ndar',
+    locationDescription: 'Our standard price',
+    locationDescriptionEs: 'Nuestro precio est\u00e1ndar',
     locationScript:
-      '"But here in {locationName} \u2014 you know how special it is here \u2014 we\'re a tax haven, so instead of {currency}500, we charge only {currency}300."',
+      '"But here in {locationName} \u2014 you know how special it is here \u2014 instead of {currency}500, we charge only {currency}300."',
     locationScriptEs:
-      '"Pero aqu\u00ed en {locationName} \u2014 sabes lo especial que es aqu\u00ed \u2014 somos un para\u00edso fiscal, as\u00ed que en lugar de {currency}500, cobramos solo {currency}300."',
+      '"Pero aqu\u00ed en {locationName} \u2014 sabes lo especial que es aqu\u00ed \u2014 en lugar de {currency}500, cobramos solo {currency}300."',
 
     promoLabel: '30% Off + Gift',
     promoLabelEs: '30% Descuento + Regalo',
@@ -233,7 +233,7 @@ export const syringeData = {
     promoScript:
       '"Right now, we have an incredible promotion: take it for 30% off, which makes it {currency}210, and you\'ll also get a small gift \u2014 you can choose between a Day Cream, Night Cream, Cleanser, or Peeling."',
     promoScriptEs:
-      '"Ahora mismo, tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con 30% de descuento, lo que lo deja en {currency}210, y tambi\u00e9n recibir\u00e1s un peque\u00f1o regalo \u2014 puedes elegir entre una Crema de D\u00eda, Crema de Noche, Limpiador, o Exfoliante."',
+      '"Ahora mismo, tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con 30% de descuento, lo que lo deja en {currency}210, y tambi\u00e9n recibir\u00e1s un peque\u00f1o regalo \u2014 puedes elegir entre una Crema de D\u00eda, Crema de Noche, Limpiador, o Peeling."',
 
     noGiftLabel: 'Remove Gift',
     noGiftLabelEs: 'Sin Regalo',
@@ -288,7 +288,48 @@ export const syringeData = {
     whatsappNote:
       'This creates a personal relationship \u2014 not just a transaction. Returning customers are your easiest future sales.',
     whatsappNoteEs:
-      'Esto crea una relaci\u00f3n personal \u2014 no solo una transacci\u00f3n. Los clientes que regresan son tus ventas futuras m\u00e1s f\u00e1ciles.',
+      'Esto crea una relaci\u00f3n personal \u2014 no solo una transacci\u00f3n. Los clientes que vuelven son tus ventas futuras m\u00e1s f\u00e1ciles.',
+  },
+
+  /* ─── The Two Offers ───
+     Mirrors peelingData.offers, and exists because this page used to skip it.
+     The Partner Upsell section said "Now introduce Option 2" while Option 2's
+     own section sat two sections further down and Option 1 was never presented
+     at all — so a seller read an instruction to introduce a thing the page had
+     not yet taught them. Option 1 is the promo rung, Option 2 is the second
+     syringe; both are rungs on SYRINGE_LADDER in pricing.ts, so the numbers
+     here cannot drift from the ladder below them. */
+  offers: {
+    heading: 'The Two Offers',
+    headingEs: 'Las Dos Ofertas',
+    subtext: 'Always present TWO choices. Let them decide. Then pause — silence is your friend.',
+    subtextEs: 'Siempre presenta DOS opciones. Deja que decidan. Luego haz una pausa — el silencio es tu amigo.',
+    option1: {
+      label: 'Option 1',
+      labelEs: 'Opci\u00f3n 1',
+      priceLabel: '30% Off + Gift',
+      priceLabelEs: '30% Descuento + Regalo',
+      text:
+        '"Right now we have an incredible promotion: take it for 30% off, which makes it {currency}210, and you also get a small gift \u2014 you can choose between a Day Cream, Night Cream, Cleanser or Peeling."',
+      textEs:
+        '"Ahora mismo tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con un 30% de descuento, lo que lo deja en {currency}210, y adem\u00e1s te llevas un regalito \u2014 puedes elegir entre Crema de D\u00eda, Crema de Noche, Limpiador o Peeling."',
+    },
+    option2: {
+      label: 'Option 2',
+      labelEs: 'Opci\u00f3n 2',
+      priceLabel: 'Full Price + 2nd Syringe Free',
+      priceLabelEs: 'Precio Completo + 2\u00aa Jeringa Gratis',
+      text:
+        '"This one is actually the favourite: pay the normal price of {currency}300 and you get two syringes instead of one \u2014 so you can do both eyes, the forehead, the upper lip, even the number 11s between the eyebrows. A full face treatment that lasts a whole year."',
+      textEs:
+        '"Esta es en realidad la favorita: pagas el precio normal de {currency}300 y te llevas dos jeringas en vez de una \u2014 as\u00ed puedes hacerte los dos ojos, la frente, el labio superior, hasta las arruguitas del ce\u00f1o. Un tratamiento facial completo que dura un a\u00f1o entero."',
+    },
+    twoChoiceLabel: 'Then ask, and stop talking',
+    twoChoiceLabelEs: 'Luego pregunta, y c\u00e1llate',
+    twoChoiceScript:
+      '"So \u2014 would you rather have the 30% off at {currency}210 with a free gift, or the two-syringe deal at {currency}300?"',
+    twoChoiceScriptEs:
+      '"Entonces \u2014 \u00bfprefieres el 30% de descuento a {currency}210 con un regalo, o la oferta de dos jeringas a {currency}300?"',
   },
 
   /* ─── Offer 2 ─── */

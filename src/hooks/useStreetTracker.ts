@@ -1,64 +1,96 @@
-import { useState, useCallback, useEffect } from 'react';
-import {
-  XP_VALUES,
-  STORAGE_KEY,
-  XP_LOG_KEY,
-} from '../types/streetTracker';
+import { useState, useCallback, useEffect, useMemo } from 'react';
+import { XP_VALUES, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
 import type { StreetSession, DailySummary, XPAward } from '../types/streetTracker';
+import { useAuthContext } from '../contexts/AuthContext';
+import { isDatabaseConfigured } from '../backend/supabaseClient';
+import * as db from '../backend/db';
 
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-function getTodayKey(): string {
-  return new Date().toISOString().slice(0, 10);
+/**
+ * LOCAL date key — same convention as `hooks/useProgress.ts`.
+ *
+ * This was `toISOString().slice(0, 10)`, a UTC key. Both shops run at UTC+1/+2,
+ * so anything logged after 22:00 or 23:00 local was filed under *yesterday*:
+ * the stop a seller had just recorded vanished from "Today's performance", and
+ * the closing hours of every shift — the busy ones — landed on the wrong day.
+ */
+function dateKey(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
 }
 
-function getDateKey(date: Date): string {
-  return date.toISOString().slice(0, 10);
+function getTodayKey(): string {
+  return dateKey(new Date());
+}
+
+/** N days before today, in local time. */
+function daysAgoKey(n: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return dateKey(d);
 }
 
 function loadSessions(): StreetSession[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
 }
 
 function saveSessions(sessions: StreetSession[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  } catch {
+    /* quota or private mode — never throw at the seller mid-shift */
+  }
 }
 
 function loadXPAwards(): XPAward[] {
   try {
     const raw = localStorage.getItem(XP_LOG_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
 }
 
 function saveXPAwards(awards: XPAward[]): void {
-  localStorage.setItem(XP_LOG_KEY, JSON.stringify(awards));
+  try {
+    localStorage.setItem(XP_LOG_KEY, JSON.stringify(awards));
+  } catch {
+    /* non-fatal */
+  }
 }
 
-function aggregateDay(sessions: StreetSession[], dateKey: string): DailySummary {
-  const daySessions = sessions.filter((s) => s.date === dateKey);
+function aggregateDay(sessions: StreetSession[], key: string): DailySummary {
+  const daySessions = sessions.filter((s) => s.date === key);
   const stops = daySessions.filter((s) => s.type === 'stop').length;
-  const brings = daySessions.filter((s) => s.type === 'bring').length;
   const sales = daySessions.filter((s) => s.type === 'sale').length;
   const revenue = daySessions
     .filter((s) => s.type === 'sale')
     .reduce((sum, s) => sum + (s.amount || 0), 0);
-  const conversionRate = stops > 0 ? Math.round((brings / stops) * 100) : 0;
-  return { date: dateKey, stops, brings, sales, revenue, conversionRate };
+  // Of the people you got inside, how many bought. That is the number worth
+  // coaching on; it used to be brings ÷ pavement-stops, which measured effort.
+  const conversionRate = stops > 0 ? Math.round((sales / stops) * 100) : 0;
+  return { date: key, stops, sales, revenue, conversionRate };
 }
 
 export function useStreetTracker() {
   const [sessions, setSessions] = useState<StreetSession[]>(loadSessions);
   const [xpAwards, setXpAwards] = useState<XPAward[]>(loadXPAwards);
+
+  const { user } = useAuthContext();
+  const userId = user?.id ?? '';
+  const syncing = isDatabaseConfigured && userId !== '';
 
   useEffect(() => {
     saveSessions(sessions);
@@ -70,7 +102,7 @@ export function useStreetTracker() {
 
   const logActivity = useCallback(
     (
-      type: 'stop' | 'bring' | 'sale',
+      type: 'stop' | 'sale',
       productId?: string,
       amount?: number,
       note?: string
@@ -86,46 +118,125 @@ export function useStreetTracker() {
       };
       setSessions((prev) => [...prev, entry]);
 
-      const points = XP_VALUES[type];
+      // Mirror the action to the server, so it survives a lost phone and the
+      // manager can see the team's funnel. Fire-and-forget: the local log above
+      // is the source of truth on the device either way.
+      if (syncing) {
+        void db.recordSale(userId, type, productId, amount).catch(() => {});
+      }
+
       const award: XPAward = {
-        activity:
-          type === 'stop'
-            ? 'Stopped someone'
-            : type === 'bring'
-            ? 'Brought them inside'
-            : 'Made a sale',
-        points,
+        activity: type === 'stop' ? 'Brought someone in' : 'Made a sale',
+        points: XP_VALUES[type],
         timestamp: Date.now(),
       };
       setXpAwards((prev) => [...prev, award]);
 
       return entry;
     },
+    [syncing, userId]
+  );
+
+  /**
+   * The encounter still open — someone is in the shop right now and the seller
+   * has not said how it went. Only ever one at a time: tapping "brought someone
+   * in" again resolves nothing, so the newest open stop is the live one.
+   */
+  const openEncounter = useMemo((): StreetSession | null => {
+    const todayKey = getTodayKey();
+    const open = sessions
+      .filter((s) => s.date === todayKey && s.type === 'stop' && !s.outcome)
+      .sort((a, b) => b.timestamp - a.timestamp);
+    return open[0] ?? null;
+  }, [sessions]);
+
+  /**
+   * Close an open encounter.
+   *
+   * Deliberately LOCAL ONLY. The counts a manager needs — stops, sales,
+   * conversion — already reach the server through logActivity. The *reason*
+   * someone walked is the seller's own note on their own game, and the moment
+   * it feels like it is being reported upward they will stop answering honestly
+   * (or tap the same tile every time), which destroys the only data here that
+   * the till cannot already produce. Their notes are theirs.
+   */
+  const resolveEncounter = useCallback(
+    (encounterId: string, outcome: 'sold' | 'walked', reason?: string): void => {
+      const at = Date.now();
+      setSessions((prev) =>
+        prev.map((s) => (s.id === encounterId ? { ...s, outcome, reason, resolvedAt: at } : s))
+      );
+    },
     []
   );
 
-  const getTodayLogs = useCallback((): StreetSession[] => {
+  /**
+   * The most recently closed walk-away of today — the one still stinging.
+   *
+   * `timestamp` is when they walked IN, so it cannot answer "did this just
+   * happen?"; `resolvedAt` can. "Nothing, they just left" is excluded for the
+   * same reason it is excluded from the counts: there was no objection, so
+   * there is nothing to answer.
+   */
+  const lastWalkAway = useMemo((): { id: string; reason: string; resolvedAt: number } | null => {
     const todayKey = getTodayKey();
-    return sessions
-      .filter((s) => s.date === todayKey)
-      .sort((a, b) => b.timestamp - a.timestamp);
+    let latest: { id: string; reason: string; resolvedAt: number } | null = null;
+    for (const s of sessions) {
+      if (s.date !== todayKey) continue;
+      if (s.outcome !== 'walked' || !s.reason || s.reason === 'none') continue;
+      if (!s.resolvedAt) continue;
+      if (!latest || s.resolvedAt > latest.resolvedAt) {
+        latest = { id: s.id, reason: s.reason, resolvedAt: s.resolvedAt };
+      }
+    }
+    return latest;
   }, [sessions]);
 
-  const getDailySummary = useCallback(
-    (date: string): DailySummary => {
-      return aggregateDay(sessions, date);
+  const getTodayLogs = useCallback((): StreetSession[] => {
+    const todayKey = getTodayKey();
+    return sessions.filter((s) => s.date === todayKey).sort((a, b) => b.timestamp - a.timestamp);
+  }, [sessions]);
+
+  /**
+   * Walk-away reasons over the last `days` days, most frequent first — the
+   * coaching signal, and the only thing in this product the till cannot produce.
+   *
+   * `days = 1` is today. A week is the window worth acting on: one bad
+   * afternoon of "let me think" is noise, five of them across a week is a hole
+   * in someone's close, and that is a different conversation.
+   */
+  const getRecentReasons = useCallback(
+    (days = 1): { id: string; count: number }[] => {
+      const window = new Set<string>();
+      for (let i = 0; i < days; i++) window.add(daysAgoKey(i));
+
+      const counts = new Map<string, number>();
+      for (const s of sessions) {
+        if (!window.has(s.date) || s.outcome !== 'walked' || !s.reason) continue;
+        if (s.reason === 'none') continue; // "they just left" is not a lesson
+        counts.set(s.reason, (counts.get(s.reason) ?? 0) + 1);
+      }
+      return [...counts.entries()]
+        .map(([id, count]) => ({ id, count }))
+        .sort((a, b) => b.count - a.count);
     },
+    [sessions],
+  );
+
+  /** Today only. Kept as its own name because the journal reads it that way. */
+  const getTodayReasons = useCallback(
+    (): { id: string; count: number }[] => getRecentReasons(1),
+    [getRecentReasons],
+  );
+
+  const getDailySummary = useCallback(
+    (date: string): DailySummary => aggregateDay(sessions, date),
     [sessions]
   );
 
   const getWeekSummary = useCallback((): DailySummary[] => {
     const result: DailySummary[] = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const key = getDateKey(d);
-      result.push(aggregateDay(sessions, key));
-    }
+    for (let i = 6; i >= 0; i--) result.push(aggregateDay(sessions, daysAgoKey(i)));
     return result;
   }, [sessions]);
 
@@ -133,34 +244,33 @@ export function useStreetTracker() {
     (field: keyof DailySummary): number => {
       const allDates = [...new Set(sessions.map((s) => s.date))];
       if (allDates.length === 0) return 0;
-      const summaries = allDates.map((d) => aggregateDay(sessions, d));
-      const values = summaries.map((s) => s[field] as number);
+      const values = allDates.map((d) => aggregateDay(sessions, d)[field] as number);
       return Math.max(...values);
     },
     [sessions]
   );
 
+  /** XP earned today. Also a local-day figure, so it matches the log above it. */
   const getTotalXP = useCallback((): number => {
     const todayKey = getTodayKey();
     return xpAwards
-      .filter((a) => new Date(a.timestamp).toISOString().slice(0, 10) === todayKey)
+      .filter((a) => dateKey(new Date(a.timestamp)) === todayKey)
       .reduce((sum, a) => sum + a.points, 0);
   }, [xpAwards]);
 
   const getStreak = useCallback((): number => {
-    const uniqueDates = [...new Set(sessions.map((s) => s.date))].sort().reverse();
+    const active = new Set(sessions.map((s) => s.date));
+    if (active.size === 0) return 0;
+
+    // Today counts if there is activity; otherwise a streak can still be alive
+    // from yesterday (the shift may not have started yet).
+    let offset = active.has(getTodayKey()) ? 0 : 1;
+    if (!active.has(daysAgoKey(offset))) return 0;
+
     let streak = 0;
-    const today = getTodayKey();
-    const yesterday = getDateKey(new Date(Date.now() - 86400000));
-    let checkDate = uniqueDates.includes(today) ? today : yesterday;
-    for (const date of uniqueDates) {
-      if (date === checkDate) {
-        streak++;
-        const prev = new Date(new Date(checkDate).getTime() - 86400000);
-        checkDate = getDateKey(prev);
-      } else {
-        break;
-      }
+    while (active.has(daysAgoKey(offset))) {
+      streak++;
+      offset++;
     }
     return streak;
   }, [sessions]);
@@ -170,6 +280,11 @@ export function useStreetTracker() {
     xpAwards,
     logActivity,
     getTodayLogs,
+    getTodayReasons,
+    getRecentReasons,
+    openEncounter,
+    lastWalkAway,
+    resolveEncounter,
     getDailySummary,
     getWeekSummary,
     getPersonalBest,

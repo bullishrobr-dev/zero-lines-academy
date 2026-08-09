@@ -1,95 +1,93 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Tag, Lightbulb } from 'lucide-react';
+// ─────────────────────────────────────────────────────────────────────────────
+// OfferCard — a single named deal: what it costs, what is in it, and the exact
+// words that sell it.
+//
+// Used for the offers that are NOT a step down the price ladder — the syringe's
+// second-syringe upsell and the peeling's two-choice close. Descending rungs
+// belong in <PriceLadder>.
+//
+// The price is passed in already formatted by `price()` / `priceFor()` from
+// useCurrency(), so this component can never put the wrong symbol on screen.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { motion } from 'framer-motion';
+import type { CSSProperties } from 'react';
+import { useCurrency } from '../utils/currency';
+import CopyButton from './CopyButton';
 
 interface OfferCardProps {
-  title: string;
-  price: string;
-  description: string;
-  whenToUse?: string;
-  includes?: string[];
+  /** Short badge — "Most popular", "Option 1". */
   tag?: string;
+  title: string;
+  /** Already formatted: price(120) or priceFor(120, 3). */
+  price: string;
+  subtitle?: string;
+  items?: string[];
+  scriptLabel?: string;
+  script?: string;
+  /** The one to lead with. */
+  highlight?: boolean;
 }
 
-export default function OfferCard({ title, price, description, whenToUse, includes, tag }: OfferCardProps) {
-  const [isOpen, setIsOpen] = useState(false);
+const highlightSkin: CSSProperties = {
+  background: 'linear-gradient(135deg, rgb(var(--pa-tint)) 0%, rgb(var(--surface)) 62%)',
+  borderColor: 'rgb(var(--pa) / 0.35)',
+};
+
+export default function OfferCard({
+  tag,
+  title,
+  price,
+  subtitle,
+  items,
+  scriptLabel,
+  script,
+  highlight,
+}: OfferCardProps) {
+  const { sub } = useCurrency();
 
   return (
-    <motion.div
-      className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl overflow-hidden"
+    <motion.article
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
+      viewport={{ once: true, margin: '0px 0px 200px 0px' }}
       transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] }}
+      className={highlight ? 'rounded-card border p-4' : 'surface-flat p-4'}
+      style={highlight ? highlightSkin : undefined}
     >
-      <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center gap-3 p-4 text-left"
-        whileTap={{ scale: 0.98 }}
-      >
-        {/* Tag badge */}
-        {tag && (
-          <span className="shrink-0 bg-[#0ABAB5]/15 text-[#0ABAB5] text-[10px] font-semibold tracking-[0.08em] uppercase px-2 py-1 rounded-full">
-            {tag}
-          </span>
-        )}
+      {tag && (
+        <p className="inline-block text-overline rounded-full px-2 py-0.5 bg-[rgb(var(--pa-tint))] text-[rgb(var(--pa-strong))] mb-2">
+          {sub(tag)}
+        </p>
+      )}
 
-        <div className="flex-1 min-w-0">
-          <h4 className="text-h4 text-white truncate">{title}</h4>
-          <p className="text-price text-[#0ABAB5] font-mono">{price}</p>
+      <p className="text-price text-ink">{price}</p>
+      <h3 className="text-h4 text-ink mt-0.5">{sub(title)}</h3>
+
+      {subtitle && <p className="text-body-small text-ink-2 mt-1.5">{sub(subtitle)}</p>}
+
+      {items && items.length > 0 && (
+        <ul className="flex flex-wrap gap-1.5 mt-3">
+          {items.map((item) => (
+            <li
+              key={item}
+              className="text-caption text-ink-2 bg-surface-sunken border border-line rounded-chip px-2 py-1"
+            >
+              {sub(item)}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {script && (
+        <div className="rounded-card bg-surface-sunken p-3.5 mt-3">
+          {scriptLabel && <p className="text-overline text-ink-3 mb-1.5">{sub(scriptLabel)}</p>}
+          <div className="flex items-start gap-2">
+            <p className="flex-1 text-body font-brand italic text-ink">{sub(script)}</p>
+            <CopyButton text={sub(script)} />
+          </div>
         </div>
-
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="text-[#6B6B6B] shrink-0"
-        >
-          <ChevronDown size={20} />
-        </motion.div>
-      </motion.button>
-
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{
-              height: { duration: 0.4, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] },
-              opacity: { duration: 0.2, delay: 0.1 },
-            }}
-            className="overflow-hidden"
-          >
-            <div className="px-4 pb-4 space-y-3">
-              <p className="text-body text-[#D1D1D1] leading-relaxed">{description}</p>
-
-              {includes && includes.length > 0 && (
-                <div className="bg-[#0F0F0F] rounded-lg p-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Tag size={14} className="text-[#0ABAB5]" />
-                    <span className="text-caption text-[#8A8A8A]">Includes:</span>
-                  </div>
-                  <ul className="space-y-1.5">
-                    {includes.map((item, i) => (
-                      <li key={i} className="text-body-small text-white flex items-start gap-2">
-                        <span className="text-[#0ABAB5] mt-1 shrink-0">•</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {whenToUse && (
-                <div className="flex items-start gap-2 bg-[#0ABAB5]/5 rounded-lg p-3 border-l-2 border-[#0ABAB5]">
-                  <Lightbulb size={16} className="text-[#0ABAB5] shrink-0 mt-0.5" />
-                  <p className="text-body-small text-[#D1D1D1]">{whenToUse}</p>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+      )}
+    </motion.article>
   );
 }

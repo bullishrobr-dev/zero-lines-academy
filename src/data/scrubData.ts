@@ -23,6 +23,7 @@ export interface CheatCombo {
   nameEs: string;
   price: string;
   items: string;
+  itemsEs: string;
 }
 
 export interface QuickRefItem {
@@ -80,7 +81,7 @@ export function getComboOffersData(currency: string): ComboOfferData[] {
     {
       title: 'Single Scrub',
       titleEs: 'Scrub Individual',
-      price: `${currency}35`,
+      price: `${currency}30`,
       subtitle: 'Final push — the graceful exit',
       subtitleEs: 'Empujón final — la salida elegante',
       items: ['Dead Sea Scrub only', 'No gifts, no extras', 'Opens the door for future purchase'],
@@ -193,8 +194,8 @@ export const scrubData = {
       'Open the butter, flip it upside down — no spill. Point to the fact that nothing falls out.',
     demoQuote1Es:
       'Abre la crema, voltéala — no se derrama. Señala el hecho de que no cae nada.',
-    demoQuote2: `\"To complete the treatment — the Body Butter. Same minerals, ultra-rich. You see how it doesn't spill? Even if I flip it over, it doesn't fall. You only need a tiny bit — not because I'm cheap 😄 — because it's really that concentrated.\"`,
-    demoQuote2Es: `\"Para completar el tratamiento — el Body Butter. Los mismos minerales, ultra-concentrado. ¿Ves cómo no se derrama? Aunque lo voltee, no cae. Solo necesitas un poquito — no porque sea tacaño 😄 — porque es realmente tan concentrado.\"`,
+    demoQuote2: `"To complete the treatment — the Body Butter. Same minerals, ultra-rich. You see how it doesn't spill? Even if I flip it over, it doesn't fall. You only need a tiny bit — not because I'm cheap 😄 — because it's really that concentrated."`,
+    demoQuote2Es: `"Para completar el tratamiento — el Body Butter. Los mismos minerales, ultra-concentrado. ¿Ves cómo no se derrama? Aunque lo voltee, no cae. Solo necesitas un poquito — no porque sea tacaño 😄 — porque es realmente tan concentrado."`,
     closingLine: 'Let them massage it in. Then: ',
     closingLineEs: 'Déjalos masajearlo. Luego: ',
     closingQuote:
@@ -216,12 +217,12 @@ export const scrubData = {
     title: 'Cheat Combos for Sellers',
     titleEs: 'Combos Rápidos para Vendedores',
     combos: [
-      { name: 'Classic Trio', nameEs: 'Trío Clásico', price: '{currency}120', items: 'Scrub + Body Butter + Nail Kit' },
-      { name: 'Spa Trio', nameEs: 'Trío Spa', price: '{currency}120', items: 'Scrub + Body Butter + Face Cleanser' },
-      { name: 'Scent Duo', nameEs: 'Duo Aroma', price: '{currency}60', items: 'Scrub + Body Butter (Buy 1 Get 1)' },
-      { name: 'Smart Duo', nameEs: 'Duo Inteligente', price: '{currency}60', items: 'Scrub + Nail Kit (kit includes cream)' },
-      { name: "Gifter's Four", nameEs: 'Cuatro para Regalar', price: '{currency}120', items: 'Buy 2, Get 2 (Christmas special)' },
-      { name: 'Final Push', nameEs: 'Empujón Final', price: '{currency}35', items: 'Scrub only, no gifts' },
+      { name: 'Classic Trio', nameEs: 'Trío Clásico', price: '{currency}120', items: 'Scrub + Body Butter + Nail Kit', itemsEs: 'Exfoliante + Manteca Corporal + Kit de Uñas' },
+      { name: 'Spa Trio', nameEs: 'Trío Spa', price: '{currency}120', items: 'Scrub + Body Butter + Face Cleanser', itemsEs: 'Exfoliante + Manteca Corporal + Limpiador Facial' },
+      { name: 'Scent Duo', nameEs: 'Duo Aroma', price: '{currency}60', items: 'Scrub + Body Butter (Buy 1 Get 1)', itemsEs: 'Exfoliante + Manteca Corporal (Compra 1, Llévate 1)' },
+      { name: 'Smart Duo', nameEs: 'Duo Inteligente', price: '{currency}60', items: 'Scrub + Nail Kit (kit includes cream)', itemsEs: 'Exfoliante + Kit de Uñas (el kit incluye crema)' },
+      { name: "Gifter's Four", nameEs: 'Cuatro para Regalar', price: '{currency}120', items: 'Buy 2, Get 2 (Christmas special)', itemsEs: 'Compra 2, Llévate 2 (oferta de Navidad)' },
+      { name: 'Final Push', nameEs: 'Empujón Final', price: '{currency}30', items: 'Scrub only, no gifts', itemsEs: 'Solo el exfoliante, sin regalos' },
     ] as CheatCombo[],
   },
 
@@ -232,15 +233,15 @@ export const scrubData = {
     anchorLabel: 'Anchor',
     anchorLabelEs: 'Anclaje',
     anchorQuote: (currency: string) =>
-      `\"I won't lie — it's not cheap. Around Europe these go for ${currency}100 each.\"`,
+      `"I won't lie — it's not cheap. Around Europe these go for ${currency}80 each."`,
     anchorQuoteEs: (currency: string) =>
-      `\"No te voy a mentir — no es barato. Por Europa estos cuestan ${currency}100 cada uno.\"`,
+      `"No te voy a mentir — no es barato. Por Europa estos cuestan ${currency}80 cada uno."`,
     localLabel: 'Local Price',
     localLabelEs: 'Precio Local',
     localQuote: (currency: string, locationName: string) =>
-      `\"But here in ${locationName}, we're a tax haven — each one is ${currency}60.\"`,
+      `"But here in ${locationName}, each one is ${currency}60."`,
     localQuoteEs: (currency: string, locationName: string) =>
-      `\"Pero aquí en ${locationName}, somos un paraíso fiscal — cada uno es ${currency}60.\"`,
+      `"Pero aquí en ${locationName}, cada uno es ${currency}60."`,
     coreLabel: 'Core Offer',
     coreLabelEs: 'Oferta Principal',
     coreQuote: (currency: string) =>
@@ -298,10 +299,10 @@ export const scrubData = {
       },
       {
         iconName: 'Sparkles',
-        title: '{currency}35 Scrub is your final push',
-        titleEs: 'El Scrub a {currency}35 es tu empujón final',
-        text: 'When nothing else works, the single Scrub at {currency}35 creates a customer today and a bigger sale tomorrow. No gifts, no extras — just the hero product in their hands.',
-        textEs: 'Cuando nada más funciona, el Scrub individual a {currency}35 crea un cliente hoy y una venta mayor mañana. Sin regalos, sin extras — solo el producto estrella en sus manos.',
+        title: '{currency}30 Scrub is your final push',
+        titleEs: 'El Scrub a {currency}30 es tu empujón final',
+        text: 'When nothing else works, the single Scrub at {currency}30 creates a customer today and a bigger sale tomorrow. No gifts, no extras — just the hero product in their hands.',
+        textEs: 'Cuando nada más funciona, el Scrub individual a {currency}30 crea un cliente hoy y una venta mayor mañana. Sin regalos, sin extras — solo el producto estrella en sus manos.',
       },
       {
         iconName: 'Moon',
@@ -320,8 +321,8 @@ export const scrubData = {
     grid: {
       europeLabel: 'Europe:',
       europeLabelEs: 'Europa:',
-      europeValue: '{currency}100 each',
-      europeValueEs: '{currency}100 cada uno',
+      europeValue: '{currency}80 each',
+      europeValueEs: '{currency}80 cada uno',
       localLabel: '{locationName}:',
       localLabelEs: '{locationName}:',
       localValue: '{currency}60 each',
@@ -332,8 +333,8 @@ export const scrubData = {
       coreValueEs: '{currency}120/3 (C2L1)',
       floorLabel: 'Floor:',
       floorLabelEs: 'Mínimo:',
-      floorValue: '{currency}35 Scrub',
-      floorValueEs: 'Scrub {currency}35',
+      floorValue: '{currency}30 Scrub',
+      floorValueEs: 'Scrub {currency}30',
     },
   },
 };

@@ -196,33 +196,33 @@ function getOffersData(
     return [
       {
         title: 'Compra 2 y Lleva 1 Gratis',
-        price: `${currency}160`,
+        price: `${currency}120`,
         subtitle: 'Tr\u00EDo cl\u00E1sico \u2014 oferta m\u00E1s popular',
         items: [
           '3 Kits de U\u00F1as completos',
           'Perfecto para regalos',
-          `${currency}53 por kit efectivo`,
+          `${currency}40 por kit efectivo`,
         ],
         tag: 'M\u00E1s Popular',
         isHighlight: true,
-        script: `"Ahora tenemos una oferta incre\u00EDble: si compras dos, te llevas uno gratis. As\u00ED que pagas ${currency}160 y te llevas tres kits completos. Por eso todos los agarran durante las fiestas \u2014 son los regalos de Navidad perfectos. Peque\u00F1os, elegantes y realmente \u00FAtiles."`,
+        script: `"Ahora tenemos una oferta incre\u00EDble: si compras dos, te llevas uno gratis. As\u00ED que pagas ${currency}120 y te llevas tres kits completos. Por eso todo el mundo los coge en fiestas \u2014 son los regalos de Navidad perfectos. Peque\u00F1os, elegantes y realmente \u00FAtiles."`,
       },
       {
         title: 'Compra 2 y Lleva 2 (Navidad)',
-        price: `${currency}160`,
+        price: `${currency}120`,
         subtitle: 'Navidad premium \u2014 cuatro por el precio de dos',
         items: [
           '4 Kits de U\u00F1as completos',
           'Uno para ti, tres para regalar',
-          `${currency}40 por kit efectivo`,
+          `${currency}30 por kit efectivo`,
         ],
         tag: 'Navidad',
         isHighlight: false,
-        script: `"Sabes qu\u00E9, se acerca la Navidad \u2014 hagamos algo especial. En lugar de Compra 2 y Lleva 1, te hago Compra 2 y Lleva 2. Te llevar\u00E1s cuatro kits completos por ${currency}160 \u2014 uno para ti, uno para mam\u00E1, uno para tu hermana, uno para una amiga. Las compras navide\u00F1as m\u00E1s f\u00E1ciles de la historia."`,
+        script: `"Sabes qu\u00E9, se acerca la Navidad \u2014 hagamos algo especial. En lugar de Compra 2 y Lleva 1, te hago Compra 2 y Lleva 2. Te llevar\u00E1s cuatro kits completos por ${currency}120 \u2014 uno para ti, uno para mam\u00E1, uno para tu hermana, uno para una amiga. Las compras navide\u00F1as m\u00E1s f\u00E1ciles de la historia."`,
       },
       {
         title: 'Mezcla y Combina (Compra 1 y Lleva 1)',
-        price: `${currency}80`,
+        price: `${currency}60`,
         subtitle: 'Combo flexible \u2014 preparaci\u00F3n para venta cruzada',
         items: [
           'Kit de U\u00F1as + Exfoliante',
@@ -231,20 +231,20 @@ function getOffersData(
         ],
         tag: 'Flexible',
         isHighlight: false,
-        script: `"Te digo algo \u2014 te hago algo mejor. En lugar de solo un kit, te hago Compra 1 y Lleva 1 Gratis por ${currency}80, y puedes mezclar y combinar con nuestro Exfoliante o Mantequilla Corporal. As\u00ED que puedes llevar un Kit de U\u00F1as y un Exfoliante \u2014 o un Kit y una Mantequilla \u2014 siguen siendo ${currency}80 en total."`,
+        script: `"Te digo algo \u2014 te hago algo mejor. En lugar de solo un kit, te hago Compra 1 y Lleva 1 Gratis por ${currency}60, y puedes mezclar y combinar con nuestro Exfoliante o Mantequilla Corporal. As\u00ED que puedes llevar un Kit de U\u00F1as y un Exfoliante \u2014 o un Kit y una Mantequilla \u2014 siguen siendo ${currency}60 en total."`,
       },
       {
         title: 'Cierre de \u00DAnico Kit de Temporada',
-        price: `${currency}45`,
-        subtitle: 'Empuj\u00F3n final \u2014 kit completo al precio de lima',
+        price: `${currency}30`,
+        subtitle: 'Empuj\u00F3n final \u2014 kit completo a mitad de precio',
         items: [
           'Kit completo (no solo la lima)',
           'Garant\u00EDa de por vida incluida',
-          'Abre la puerta para regresar',
+          'Abre la puerta para que vuelva',
         ],
         tag: '',
         isHighlight: false,
-        script: `"Mira, veo cu\u00E1nto te encant\u00F3. Normalmente vendemos la lima sola por ${currency}45, ya que tiene la garant\u00EDa de por vida. Pero como son las fiestas y realmente quiero que lo disfrutes, te doy el kit completo al mismo precio \u2014 solo ${currency}45. Es mi manera de abrir la puerta \u2014 pru\u00E9balo, \u00Fasalo, \u00E1malo. La pr\u00F3xima vez que est\u00E9s en ${locationName}, regresar\u00E1s por el segundo, te lo prometo."`,
+        script: `"Mira, veo cu\u00E1nto te encant\u00F3. El kit normalmente es ${currency}60, y la lima sola ya lo justifica con la garant\u00EDa de por vida. Pero como son las fiestas y realmente quiero que lo disfrutes, te doy el kit completo \u2014 lima, archivo, aceite y crema \u2014 por solo ${currency}30. Es mi manera de abrir la puerta \u2014 pru\u00E9balo, \u00Fasalo, \u00E1malo. La pr\u00F3xima vez que est\u00E9s en ${locationName}, volver\u00E1s a por el segundo, te lo prometo."`,
       },
     ];
   }
@@ -252,33 +252,33 @@ function getOffersData(
   return [
     {
       title: 'Buy 2 Get 1 Free',
-      price: `${currency}160`,
+      price: `${currency}120`,
       subtitle: 'Classic trio \u2014 most popular offer',
       items: [
         '3 full Nail Kits',
         'Perfect for gifts',
-        `${currency}53 per kit effective`,
+        `${currency}40 per kit effective`,
       ],
       tag: 'Most Popular',
       isHighlight: true,
-      script: `"Right now we've got an amazing offer: if you buy two, you get one free. So you pay ${currency}160 and walk away with three full kits. That's why everyone grabs these during the holidays \u2014 they make the perfect Christmas gifts. Small, elegant, and actually useful."`,
+      script: `"Right now we've got an amazing offer: if you buy two, you get one free. So you pay ${currency}120 and walk away with three full kits. That's why everyone grabs these during the holidays \u2014 they make the perfect Christmas gifts. Small, elegant, and actually useful."`,
     },
     {
       title: 'Buy 2 Get 2 (Christmas)',
-      price: `${currency}160`,
+      price: `${currency}120`,
       subtitle: 'Premium Christmas \u2014 four for the price of two',
       items: [
         '4 full Nail Kits',
         'One for you, three for gifts',
-        `${currency}40 per kit effective`,
+        `${currency}30 per kit effective`,
       ],
       tag: 'Christmas',
       isHighlight: false,
-      script: `"You know what, Christmas is coming \u2014 let's do something special. Instead of Buy 2, Get 1, I'll do Buy 2, Get 2. You'll get four full kits for ${currency}160 \u2014 one for you, one for mom, one for sister, one for a friend. Easiest Christmas shopping ever."`,
+      script: `"You know what, Christmas is coming \u2014 let's do something special. Instead of Buy 2, Get 1, I'll do Buy 2, Get 2. You'll get four full kits for ${currency}120 \u2014 one for you, one for mom, one for sister, one for a friend. Easiest Christmas shopping ever."`,
     },
     {
       title: 'Mix & Match (Buy 1 Get 1)',
-      price: `${currency}80`,
+      price: `${currency}60`,
       subtitle: 'Flexible combo \u2014 cross-sell setup',
       items: [
         'Nail Kit + Scrub',
@@ -287,12 +287,12 @@ function getOffersData(
       ],
       tag: 'Flexible',
       isHighlight: false,
-      script: `"Tell you what \u2014 I'll do something better for you. Instead of just one kit, I'll do Buy 1, Get 1 Free for ${currency}80, and you can mix and match it with our Scrub or Body Butter. So you can take one Nail Kit and one Scrub \u2014 or one Kit and one Butter \u2014 still ${currency}80 total."`,
+      script: `"Tell you what \u2014 I'll do something better for you. Instead of just one kit, I'll do Buy 1, Get 1 Free for ${currency}60, and you can mix and match it with our Scrub or Body Butter. So you can take one Nail Kit and one Scrub \u2014 or one Kit and one Butter \u2014 still ${currency}60 total."`,
     },
     {
       title: 'Single Kit Holiday Close',
-      price: `${currency}45`,
-      subtitle: 'Final push \u2014 whole kit at buffer price',
+      price: `${currency}30`,
+      subtitle: 'Final push \u2014 whole kit at half the normal price',
       items: [
         'Full kit (not just buffer)',
         'Lifetime warranty included',
@@ -300,7 +300,7 @@ function getOffersData(
       ],
       tag: '',
       isHighlight: false,
-      script: `"Alright, you know what \u2014 I can see how much you loved it. Normally we sell the buffer by itself for ${currency}45, since it's got the lifetime warranty. But since it's the holidays and I really want you to enjoy it, I'll give you the whole kit for the same price \u2014 just ${currency}45. It's my way of opening the door \u2014 try it, use it, love it. Next time you're in ${locationName}, you'll come back for the second one, I promise."`,
+      script: `"Alright, you know what \u2014 I can see how much you loved it. The kit is normally ${currency}60, and the buffer alone justifies that with the lifetime warranty. But since it's the holidays and I really want you to enjoy it, I'll do the whole kit \u2014 buffer, file, oil and cream \u2014 for just ${currency}30. It's my way of opening the door \u2014 try it, use it, love it. Next time you're in ${locationName}, you'll come back for the second one, I promise."`,
     },
   ];
 }
@@ -316,9 +316,9 @@ const emotional = {
   script1Es:
     "Sabes, esto no es solo sobre belleza \u2014 se trata de ese peque\u00F1o detalle diario que te hace sentir fresca y segura. Cada vez que veas tus manos, te sentir\u00E1s limpia, pulida y cuidada.",
   script2Template:
-    "And if you think about it \u2014 {currency}80 for something that replaces salon visits for years \u2014 it's a no-brainer.",
+    "And if you think about it \u2014 {currency}60 for something that replaces salon visits for years \u2014 it's a no-brainer.",
   script2TemplateEs:
-    "Y si lo piensas \u2014 {currency}80 por algo que reemplaza visitas al sal\u00F3n por a\u00F1os \u2014 es una decisi\u00F3n f\u00E1cil.",
+    "Y si lo piensas \u2014 {currency}60 por algo que reemplaza visitas al sal\u00F3n por a\u00F1os \u2014 es una decisi\u00F3n f\u00E1cil.",
   coaching:
     'Keep the tone friendly, not pushy \u2014 this pitch should feel like a fun chat, not a sale.',
   coachingEs:
@@ -354,16 +354,16 @@ function getProTipsData(currency: string, isEs: boolean): TipData[] {
       {
         iconName: 'Package',
         title: 'Compra 2, Lleva 2 para compradores incre\u00EDbles',
-        text: `Cuando la energ\u00EDa es alta y tienen una lista navide\u00F1a \u2014 este es tu cierre por volumen. Cuatro kits a ${currency}160 son ${currency}40 por kit.`,
+        text: `Cuando la energ\u00EDa es alta y tienen una lista navide\u00F1a \u2014 este es tu cierre por volumen. Cuatro kits a ${currency}120 son ${currency}30 por kit.`,
       },
       {
         iconName: 'Hand',
         title: 'Compra 1, Lleva 1 Mezcla y Combina para cierres r\u00E1pidos',
-        text: `${currency}80 por un Kit de U\u00F1as + Exfoliante/Mantequilla es un s\u00ED f\u00E1cil. Tambi\u00E9n prepara tu venta cruzada perfectamente.`,
+        text: `${currency}60 por un Kit de U\u00F1as + Exfoliante/Mantequilla es un s\u00ED f\u00E1cil. Tambi\u00E9n prepara tu venta cruzada perfectamente.`,
       },
       {
         iconName: 'TrendingDown',
-        title: `${currency}45 kit \u00FAnico \u2014 la l\u00EDnea de regalo de temporada`,
+        title: `${currency}30 kit \u00FAnico \u2014 la l\u00EDnea de regalo de temporada`,
         text: "Tu salida elegante que a\u00FAn crea un cliente. Enm\u00E1rcalo como un regalo de ti: 'Es mi manera de abrir la puerta.'",
       },
       {
@@ -398,16 +398,16 @@ function getProTipsData(currency: string, isEs: boolean): TipData[] {
     {
       iconName: 'Package',
       title: 'Buy 2, Get 2 for amazing buyers',
-      text: `When the energy is high and they have a Christmas list \u2014 this is your volume close. Four kits at ${currency}160 is ${currency}40 per kit.`,
+      text: `When the energy is high and they have a Christmas list \u2014 this is your volume close. Four kits at ${currency}120 is ${currency}30 per kit.`,
     },
     {
       iconName: 'Hand',
       title: 'Buy 1, Get 1 Mix & Match for quick closes',
-      text: `${currency}80 for a Nail Kit + Scrub/Butter is an easy yes. It also sets up your cross-sell perfectly.`,
+      text: `${currency}60 for a Nail Kit + Scrub/Butter is an easy yes. It also sets up your cross-sell perfectly.`,
     },
     {
       iconName: 'TrendingDown',
-      title: `${currency}45 single kit \u2014 the holiday gift line`,
+      title: `${currency}30 single kit \u2014 the holiday gift line`,
       text: "Your graceful exit that still creates a customer. Frame it as a gift from you: 'It's my way of opening the door.'",
     },
     {
@@ -450,7 +450,7 @@ const quickRef = {
 /* ------------------------------------------------------------------ */
 /*  Icon name lookup for Pro Tips                                      */
 /* ------------------------------------------------------------------ */
-const iconMap = [
+export const ICON_NAMES = [
   'Sparkles',
   'Shield',
   'Gift',
@@ -461,7 +461,7 @@ const iconMap = [
   'Clock',
 ] as const;
 
-export type IconName = (typeof iconMap)[number];
+export type IconName = (typeof ICON_NAMES)[number];
 
 /* ------------------------------------------------------------------ */
 /*  Aggregated export                                                  */

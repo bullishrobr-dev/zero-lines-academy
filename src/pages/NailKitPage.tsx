@@ -1,529 +1,348 @@
-import { useState, useCallback } from 'react';
-import { useLocation } from '../contexts/LocationContext';
-import { useLanguage } from '../contexts/LanguageContext';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+// ─────────────────────────────────────────────────────────────────────────────
+// NailKitPage — the 60-second demo. Accent: coral.
+//
+// This page used to print its own prices straight into the JSX: a {currency}140
+// Europe anchor and a {currency}80 local price, neither of which the owner has
+// ever charged. The Nail Kit is part of the mix-and-match family with the Scrub
+// and the Body Butter — 80 in Europe, 60 here, 120 for three, 120 for four, 60
+// for two, 30 floor — and every one of those numbers now comes from
+// MIX_MATCH_LADDER in src/data/pricing.ts.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { useCallback, type ReactNode } from 'react';
 import {
-  ChevronLeft,
-  Sparkles,
-  Copy,
-  Check,
-  Shield,
+  Clock,
   Gift,
+  Hand,
+  HeartHandshake,
   Lightbulb,
   Package,
-  Volume2,
   ScanEye,
-  Star,
-  Clock,
-  Hand,
-  TrendingDown,
-  HeartHandshake,
-} from 'lucide-react';
-import { nailKitData } from '../data/nailKitData';
-
-/* ------------------------------------------------------------------ */
-/*  Animation helpers                                                  */
-/* ------------------------------------------------------------------ */
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] as const },
-  }),
-};
-
-/* ------------------------------------------------------------------ */
-/*  Icon component map for Pro Tips                                    */
-/* ------------------------------------------------------------------ */
-const iconComponents: Record<string, React.ElementType> = {
-  Sparkles,
   Shield,
-  Gift,
-  Package,
-  Hand,
-  TrendingDown,
+  Sparkles,
   Star,
-  Clock,
-};
+  TrendingDown,
+  Volume2,
+} from 'lucide-react';
+import PriceLadder, { type LadderRung } from '../components/PriceLadder';
+import ProductHero from '../components/ProductHero';
+import ProductSection, {
+  CurrencyIcon,
+  ProductPage,
+  QuickRefGrid,
+  ScriptBlock,
+  StepRow,
+} from '../components/ProductSection';
+import { useLanguage } from '../contexts/LanguageContext';
+import { nailKitData, type OfferData } from '../data/nailKitData';
+import { MIX_MATCH_LADDER } from '../data/pricing';
+import { useCurrency } from '../utils/currency';
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
+const d = nailKitData;
+const L = MIX_MATCH_LADDER;
+
+const stepPrice = (id: string) => L.steps.find((s) => s.id === id)?.price ?? L.base;
+const stepUnits = (id: string) => L.steps.find((s) => s.id === id)?.units;
+
 export default function NailKitPage() {
-  const navigate = useNavigate();
   const { language } = useLanguage();
+  const { currency, locationName, price, sub } = useCurrency();
   const isEs = language === 'es';
-  const { currency, locationName } = useLocation();
-  const offers = nailKitData.getOffers(currency, locationName, isEs);
-  const proTips = nailKitData.getProTips(currency, isEs);
-  const [copiedPrice, setCopiedPrice] = useState<string | null>(null);
 
-  const copyPrice = useCallback((price: string) => {
-    navigator.clipboard?.writeText(price).catch(() => {});
-    setCopiedPrice(price);
-    setTimeout(() => setCopiedPrice(null), 1500);
-  }, []);
+  const t = useCallback(
+    (en?: string, es?: string) => sub((isEs && es) || en || es || ''),
+    [isEs, sub]
+  );
 
-  const d = nailKitData;
+  /* Offer copy comes from the data file already in the reader's language. */
+  const offers = d.getOffers(currency, locationName, isEs);
+  const o = (i: number): Partial<OfferData> => offers[i] ?? {};
+  const proTips = d.getProTips(currency, isEs);
+
+  const rungs: LadderRung[] = [
+    {
+      id: 'europe',
+      amount: L.europeAnchor,
+      perUnit: true,
+      tone: 'anchor',
+      label: t(d.price.europeLabel, d.price.europeLabelEs),
+    },
+    {
+      id: 'base',
+      amount: L.base,
+      perUnit: true,
+      label: t(d.price.locationPriceLabel, d.price.locationPriceLabelEs),
+    },
+    {
+      id: 'b2g1',
+      amount: stepPrice('b2g1'),
+      units: stepUnits('b2g1'),
+      recommended: true,
+      label: t(o(0).title),
+      note: t(o(0).subtitle),
+      items: o(0).items,
+      script: t(o(0).script),
+    },
+    {
+      id: 'b2g2',
+      amount: stepPrice('b2g2'),
+      units: stepUnits('b2g2'),
+      label: t(o(1).title),
+      note: t(o(1).subtitle),
+      items: o(1).items,
+      script: t(o(1).script),
+    },
+    {
+      id: 'b1g1',
+      amount: stepPrice('b1g1'),
+      units: stepUnits('b1g1'),
+      label: t(o(2).title),
+      note: t(o(2).subtitle),
+      items: o(2).items,
+      script: t(o(2).script),
+    },
+    {
+      id: 'floor',
+      amount: L.floor,
+      tone: 'floor',
+      label: t(o(3).title),
+      note: t(o(3).subtitle),
+      items: o(3).items,
+      script: t(o(3).script),
+    },
+  ];
+
+  const tipIcon: Record<string, ReactNode> = {
+    Sparkles: <Sparkles size={16} />,
+    Shield: <Shield size={16} />,
+    Gift: <Gift size={16} />,
+    Package: <Package size={16} />,
+    Hand: <Hand size={16} />,
+    TrendingDown: <TrendingDown size={16} />,
+    Star: <Star size={16} />,
+    Clock: <Clock size={16} />,
+    Euro: <CurrencyIcon size={16} />,
+  };
 
   return (
-    <div className="min-h-full bg-[#0A0A0A]">
-      {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0D1F1F] to-[#0A0A0A] px-5 pt-6 pb-8">
-        <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-[#0ABAB5] opacity-10 blur-3xl pointer-events-none" />
+    <ProductPage accent="coral">
+      <ProductHero
+        backLabel={t(d.hero.back, d.hero.backEs)}
+        badge={t(d.hero.badge, d.hero.badgeEs)}
+        badgeIcon={<Sparkles size={14} />}
+        title={t(d.hero.title, d.hero.titleEs)}
+        subtitle={t(d.hero.subtitle, d.hero.subtitleEs)}
+        subtitleIcon={<Star size={18} />}
+        stats={[
+          {
+            icon: <Clock size={18} />,
+            label: t(d.hero.statDemoTime, d.hero.statDemoTimeEs),
+            value: t(d.hero.statDemoValue, d.hero.statDemoValueEs),
+          },
+          {
+            icon: <Shield size={18} />,
+            label: t(d.hero.statWarranty, d.hero.statWarrantyEs),
+            value: t(d.hero.statWarrantyValue, d.hero.statWarrantyValueEs),
+          },
+          {
+            icon: <Sparkles size={18} />,
+            label: t(d.hero.statShineLasts, d.hero.statShineLastsEs),
+            value: t(d.hero.statShineValue, d.hero.statShineValueEs),
+          },
+        ]}
+      />
 
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-1 text-[#8A8A8A] hover:text-white transition-colors mb-5"
+      <div className="px-5 pb-8 space-y-5">
+        {/* ── THE HOOK ── */}
+        <ProductSection
+          index={0}
+          icon={<Volume2 size={18} />}
+          title={t(d.hook.sectionTitle, d.hook.sectionTitleEs)}
         >
-          <ChevronLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">{isEs ? d.hero.backEs : d.hero.back}</span>
-        </button>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="inline-flex items-center gap-1.5 bg-[#0ABAB5]/15 border border-[#0ABAB5]/30 rounded-full px-3 py-1 mb-4"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-[#0ABAB5]" />
-          <span className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider">
-            {isEs ? d.hero.badgeEs : d.hero.badge}
-          </span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-[28px] font-extrabold text-white leading-tight tracking-tight"
-        >
-          {isEs ? d.hero.titleEs : d.hero.title}
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="flex items-center gap-2 text-[#0ABAB5] text-base font-medium mt-2"
-        >
-          <Star className="w-4 h-4" />
-          {isEs ? d.hero.subtitleEs : d.hero.subtitle}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-3 gap-2 mt-5"
-        >
-          <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
-            <Clock className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{isEs ? d.hero.statDemoTimeEs : d.hero.statDemoTime}</p>
-            <p className="text-xs font-bold text-white">{isEs ? d.hero.statDemoValueEs : d.hero.statDemoValue}</p>
-          </div>
-          <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
-            <Shield className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{isEs ? d.hero.statWarrantyEs : d.hero.statWarranty}</p>
-            <p className="text-xs font-bold text-white">{isEs ? d.hero.statWarrantyValueEs : d.hero.statWarrantyValue}</p>
-          </div>
-          <div className="bg-[#1A1A1A]/80 rounded-xl p-3 text-center border border-[#2A2A2A]">
-            <Sparkles className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{isEs ? d.hero.statShineLastsEs : d.hero.statShineLasts}</p>
-            <p className="text-xs font-bold text-white">{isEs ? d.hero.statShineValueEs : d.hero.statShineValue}</p>
-          </div>
-        </motion.div>
-      </section>
-
-      <div className="px-5 pb-10 space-y-6">
-        {/* ─── THE HOOK ─── */}
-        <motion.section
-          custom={0}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Volume2 className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">{isEs ? d.hook.sectionTitleEs : d.hook.sectionTitle}</h2>
-          </div>
-
           <div className="space-y-3">
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
-              <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                {isEs ? d.hook.complimentLabelEs : d.hook.complimentLabel}
-              </p>
-              <p className="text-[14px] text-white italic font-serif leading-relaxed">
-                {isEs ? d.hook.complimentScriptEs : d.hook.complimentScript}
-              </p>
-              <p className="text-[12px] text-[#8A8A8A] mt-2">
-                {isEs ? d.hook.complimentCoachingEs : d.hook.complimentCoaching}
-              </p>
-            </div>
-
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border-l-3 border-[#0ABAB5]">
-              <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-                {isEs ? d.hook.sceneLabelEs : d.hook.sceneLabel}
-              </p>
-              <p className="text-[13px] text-white leading-relaxed italic font-serif">
-                {isEs ? d.hook.sceneScriptEs : d.hook.sceneScript}
-              </p>
-              <p className="text-[12px] text-[#8A8A8A] mt-2">
-                {isEs ? d.hook.sceneCoachingEs : d.hook.sceneCoaching}
-              </p>
-            </div>
+            <ScriptBlock
+              label={t(d.hook.complimentLabel, d.hook.complimentLabelEs)}
+              quote={t(d.hook.complimentScript, d.hook.complimentScriptEs)}
+              note={t(d.hook.complimentCoaching, d.hook.complimentCoachingEs)}
+            />
+            <ScriptBlock
+              label={t(d.hook.sceneLabel, d.hook.sceneLabelEs)}
+              quote={t(d.hook.sceneScript, d.hook.sceneScriptEs)}
+              note={t(d.hook.sceneCoaching, d.hook.sceneCoachingEs)}
+            />
           </div>
-        </motion.section>
+        </ProductSection>
 
-        {/* ─── THE 3-STEP DEMO ─── */}
-        <motion.section
-          custom={1}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
+        {/* ── THE 3-STEP DEMO ── */}
+        <ProductSection
+          index={1}
+          icon={<ScanEye size={18} />}
+          title={t(d.demo.sectionTitle, d.demo.sectionTitleEs)}
+          subtitle={t(d.demo.description, d.demo.descriptionEs)}
         >
-          <div className="flex items-center gap-2 mb-4">
-            <ScanEye className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">{isEs ? d.demo.sectionTitleEs : d.demo.sectionTitle}</h2>
+          <div className="space-y-2.5">
+            <StepRow
+              step="1"
+              label={t(d.demo.step1Label, d.demo.step1LabelEs)}
+              title={t(d.demo.step1Title, d.demo.step1TitleEs)}
+            >
+              <p className="text-body-small text-ink-2">
+                {t(d.demo.step1Instruction, d.demo.step1InstructionEs)}{' '}
+                <em className="text-ink">{t(d.demo.step1Script, d.demo.step1ScriptEs)}</em>
+              </p>
+              <p className="text-body-small text-ink-2">
+                {t(d.demo.step1CoachingPrefix, d.demo.step1CoachingPrefixEs)}
+                <em className="text-ink">{t(d.demo.step1Coaching, d.demo.step1CoachingEs)}</em>
+              </p>
+            </StepRow>
+
+            <StepRow
+              step="2"
+              label={t(d.demo.step2Label, d.demo.step2LabelEs)}
+              title={t(d.demo.step2Title, d.demo.step2TitleEs)}
+            >
+              <p className="text-body-small text-ink-2">
+                {t(d.demo.step2Instruction, d.demo.step2InstructionEs)}{' '}
+                <em className="text-ink">{t(d.demo.step2Script, d.demo.step2ScriptEs)}</em>
+              </p>
+            </StepRow>
+
+            <StepRow
+              step="3"
+              highlight
+              label={t(d.demo.step3Label, d.demo.step3LabelEs)}
+              title={t(d.demo.step3Title, d.demo.step3TitleEs)}
+            >
+              <p className="text-body-small text-ink-2">
+                {t(d.demo.step3Instruction, d.demo.step3InstructionEs)}
+              </p>
+              <ScriptBlock
+                label={t(d.demo.step3Teaser, d.demo.step3TeaserEs)}
+                quote={t(d.demo.step3Script, d.demo.step3ScriptEs)}
+                note={t(d.demo.step3Coaching, d.demo.step3CoachingEs)}
+              />
+            </StepRow>
           </div>
+        </ProductSection>
 
-          <p className="text-[12px] text-[#8A8A8A] mb-4">
-            {isEs ? d.demo.descriptionEs : d.demo.description}
-          </p>
-
-          <div className="space-y-3">
-            {/* Step 1 */}
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border border-[#2A2A2A]">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-7 h-7 rounded-full bg-gray-600 flex items-center justify-center">
-                  <span className="text-[10px] font-bold text-white">1</span>
-                </div>
-                <span className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-                  {isEs ? d.demo.step1LabelEs : d.demo.step1Label}
-                </span>
-              </div>
-              <p className="text-sm font-semibold text-white mb-1">{isEs ? d.demo.step1TitleEs : d.demo.step1Title}</p>
-              <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
-                {isEs ? d.demo.step1InstructionEs : d.demo.step1Instruction}{' '}
-                <em className="text-white/80">
-                  {isEs ? d.demo.step1ScriptEs : d.demo.step1Script}
-                </em>
-              </p>
-              <p className="text-[12px] text-[#8A8A8A] mt-2 italic">
-                {isEs ? d.demo.step1CoachingPrefixEs : d.demo.step1CoachingPrefix}
-                {isEs ? d.demo.step1CoachingEs : d.demo.step1Coaching}
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="bg-[#0A0A0A] rounded-xl p-4 border border-[#2A2A2A]">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-7 h-7 rounded-full bg-gray-400 flex items-center justify-center">
-                  <span className="text-[10px] font-bold text-[#0A0A0A]">2</span>
-                </div>
-                <span className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-                  {isEs ? d.demo.step2LabelEs : d.demo.step2Label}
-                </span>
-              </div>
-              <p className="text-sm font-semibold text-white mb-1">{isEs ? d.demo.step2TitleEs : d.demo.step2Title}</p>
-              <p className="text-[13px] text-[#8A8A8A] leading-relaxed">
-                {isEs ? d.demo.step2InstructionEs : d.demo.step2Instruction}{' '}
-                <em className="text-white/80">
-                  {isEs ? d.demo.step2ScriptEs : d.demo.step2Script}
-                </em>
-              </p>
-            </div>
-
-            {/* Step 3 — THE WOW */}
-            <div className="bg-gradient-to-r from-[#0ABAB5]/15 to-[#0A0A0A] rounded-xl p-4 border border-[#0ABAB5]/30">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-7 h-7 rounded-full bg-[#0ABAB5] flex items-center justify-center">
-                  <Sparkles className="w-3.5 h-3.5 text-[#0A0A0A]" />
-                </div>
-                <span className="text-[10px] text-[#0ABAB5] uppercase tracking-wider font-semibold">
-                  {isEs ? d.demo.step3LabelEs : d.demo.step3Label}
-                </span>
-              </div>
-              <p className="text-sm font-semibold text-white mb-2">
-                {isEs ? d.demo.step3TitleEs : d.demo.step3Title}
-              </p>
-              <p className="text-[13px] text-[#B0B0B0] leading-relaxed mb-3">
-                {isEs ? d.demo.step3InstructionEs : d.demo.step3Instruction}
-              </p>
-              <div className="bg-[#0A0A0A]/60 rounded-lg p-3 border-l-2 border-[#0ABAB5]">
-                <p className="text-[11px] text-[#0ABAB5] font-medium mb-1">
-                  {isEs ? d.demo.step3TeaserEs : d.demo.step3Teaser}
-                </p>
-                <p className="text-[15px] text-white italic font-serif leading-relaxed">
-                  {isEs ? d.demo.step3ScriptEs : d.demo.step3Script}
-                </p>
-              </div>
-              <p className="text-[12px] text-[#8A8A8A] mt-3">
-                {isEs ? d.demo.step3CoachingEs : d.demo.step3Coaching}
-              </p>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* ─── THE WARRANTY PITCH ─── */}
-        <motion.section
-          custom={2}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-gradient-to-br from-[#0ABAB5]/10 to-[#1A1A1A] rounded-2xl p-5 border border-[#0ABAB5]/25"
+        {/* ── THE WARRANTY PITCH ── */}
+        <ProductSection
+          index={2}
+          variant="feature"
+          icon={<Shield size={18} />}
+          title={t(d.warranty.sectionTitle, d.warranty.sectionTitleEs)}
+          subtitle={t(d.warranty.description, d.warranty.descriptionEs)}
         >
-          <div className="flex items-center gap-2 mb-3">
-            <Shield className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">{isEs ? d.warranty.sectionTitleEs : d.warranty.sectionTitle}</h2>
-          </div>
-
-          <p className="text-[13px] text-[#B0B0B0] leading-relaxed mb-3">
-            {isEs ? d.warranty.descriptionEs : d.warranty.description}
-          </p>
-
-          <div className="bg-[#0A0A0A]/60 rounded-xl p-4">
-            <p className="text-[11px] font-semibold text-[#0ABAB5] uppercase tracking-wider mb-2">
-              {isEs ? d.warranty.presentKitLabelEs : d.warranty.presentKitLabel}
-            </p>
-            <p className="text-[14px] text-white italic font-serif leading-relaxed">
-              {isEs ? d.warranty.presentKitScriptEs : d.warranty.presentKitScript}
-            </p>
-          </div>
-
-          <p className="text-[12px] text-[#8A8A8A] mt-3 leading-relaxed">
-            {isEs ? d.warranty.coachingIntroEs : d.warranty.coachingIntro}{' '}
-            <em className="text-white/80">
-              {isEs ? d.warranty.coachingScriptEs : d.warranty.coachingScript}
+          <ScriptBlock
+            label={t(d.warranty.presentKitLabel, d.warranty.presentKitLabelEs)}
+            quote={t(d.warranty.presentKitScript, d.warranty.presentKitScriptEs)}
+          />
+          <p className="text-body-small text-ink-2 mt-3">
+            {t(d.warranty.coachingIntro, d.warranty.coachingIntroEs)}{' '}
+            <em className="text-ink">
+              {t(d.warranty.coachingScript, d.warranty.coachingScriptEs)}
             </em>
           </p>
-
-          <div className="grid grid-cols-2 gap-2 mt-3">
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-3 text-center">
-              <Shield className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-              <p className="text-[10px] text-[#8A8A8A]">{isEs ? d.warranty.statWarrantyLabelEs : d.warranty.statWarrantyLabel}</p>
-              <p className="text-xs font-bold text-white">{isEs ? d.warranty.statWarrantyValueEs : d.warranty.statWarrantyValue}</p>
-            </div>
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-3 text-center">
-              <Package className="w-4 h-4 text-[#0ABAB5] mx-auto mb-1" />
-              <p className="text-[10px] text-[#8A8A8A]">{isEs ? d.warranty.statKitLabelEs : d.warranty.statKitLabel}</p>
-              <p className="text-xs font-bold text-white">{isEs ? d.warranty.statKitValueEs : d.warranty.statKitValue}</p>
-            </div>
+          <div className="mt-3">
+            <QuickRefGrid
+              items={[
+                {
+                  label: t(d.warranty.statWarrantyLabel, d.warranty.statWarrantyLabelEs),
+                  value: t(d.warranty.statWarrantyValue, d.warranty.statWarrantyValueEs),
+                },
+                {
+                  label: t(d.warranty.statKitLabel, d.warranty.statKitLabelEs),
+                  value: t(d.warranty.statKitValue, d.warranty.statKitValueEs),
+                },
+              ]}
+            />
           </div>
-        </motion.section>
+        </ProductSection>
 
-        {/* ─── PRICE & OFFERS ─── */}
-        <motion.section
-          custom={3}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
+        {/* ── THE PRICE LADDER ── */}
+        <ProductSection
+          index={3}
+          icon={<TrendingDown size={18} />}
+          title={t(d.price.sectionTitle, d.price.sectionTitleEs)}
         >
-          <div className="flex items-center gap-2 mb-1">
-            <TrendingDown className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">{isEs ? d.price.sectionTitleEs : d.price.sectionTitle}</h2>
-          </div>
-          <p className="text-[12px] text-[#8A8A8A] mb-4">
-            {isEs ? d.price.descriptionEs : d.price.description}
+          <PriceLadder rungs={rungs} anchor={L.europeAnchor} />
+        </ProductSection>
+
+        {/* ── EMOTIONAL CONNECTION ── */}
+        <ProductSection
+          index={4}
+          icon={<HeartHandshake size={18} />}
+          title={t(d.emotional.sectionTitle, d.emotional.sectionTitleEs)}
+        >
+          <ScriptBlock quote={`“${t(d.emotional.script1, d.emotional.script1Es)}”`}>
+            <p className="text-body font-brand italic text-ink mt-3">
+              “{t(d.emotional.script2Template, d.emotional.script2TemplateEs)}”
+            </p>
+          </ScriptBlock>
+          <p className="text-body-small text-ink-2 mt-3">
+            {t(d.emotional.coaching, d.emotional.coachingEs)}
           </p>
+        </ProductSection>
 
-          {/* Price anchor */}
-          <div className="bg-[#0A0A0A] rounded-xl p-4 mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-                {isEs ? d.price.europeLabelEs : d.price.europeLabel}
-              </span>
-              <span className="font-mono text-lg font-bold text-[#8A8A8A] line-through">
-                {currency}140
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] text-[#0ABAB5] uppercase tracking-wider font-semibold">
-                {isEs
-                  ? d.price.locationPriceLabelEs.replace('{locationName}', locationName)
-                  : d.price.locationPriceLabel.replace('{locationName}', locationName)}
-              </span>
-              <button
-                onClick={() => copyPrice(`${currency}80`)}
-                className="flex items-center gap-1.5"
-              >
-                <span className="font-mono text-lg font-bold text-[#0ABAB5]">{currency}80</span>
-                {copiedPrice === `${currency}80` ? (
-                  <Check className="w-3.5 h-3.5 text-green-400" />
-                ) : (
-                  <Copy className="w-3.5 h-3.5 text-[#8A8A8A]" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Offers */}
-          <div className="space-y-3">
-            {offers.map((offer, i) => (
-              <div
-                key={i}
-                className={`rounded-xl border p-4 ${
-                  offer.isHighlight
-                    ? 'border-[#0ABAB5]/30 bg-[#0ABAB5]/8'
-                    : 'border-[#2A2A2A] bg-[#0A0A0A]'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    {offer.tag && (
-                      <span
-                        className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase ${
-                          offer.isHighlight
-                            ? 'bg-[#0ABAB5] text-[#0A0A0A]'
-                            : 'bg-[#0ABAB5]/20 text-[#0ABAB5]'
-                        }`}
-                      >
-                        {offer.tag}
-                      </span>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => copyPrice(offer.price)}
-                    className="flex items-center gap-1.5 bg-[#1A1A1A] hover:bg-[#2A2A2A] transition-colors rounded-lg px-2.5 py-1"
-                  >
-                    <span className="font-mono text-lg font-bold text-white">
-                      {offer.price}
-                    </span>
-                    {copiedPrice === offer.price ? (
-                      <Check className="w-3.5 h-3.5 text-green-400" />
-                    ) : (
-                      <Copy className="w-3.5 h-3.5 text-[#8A8A8A]" />
-                    )}
-                  </button>
-                </div>
-                <p className="text-sm font-semibold text-white mb-1">{offer.title}</p>
-                <p className="text-[12px] text-[#8A8A8A] mb-2">{offer.subtitle}</p>
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {offer.items.map((item, j) => (
-                    <span
-                      key={j}
-                      className="text-[11px] bg-[#1A1A1A] text-[#B0B0B0] px-2 py-1 rounded-md"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                <div className="bg-[#1A1A1A] rounded-lg p-3">
-                  <p className="text-[11px] font-semibold text-[#8A8A8A] uppercase tracking-wider mb-1">
-                    {isEs ? d.price.scriptLabelEs : d.price.scriptLabel}
-                  </p>
-                  <p className="text-[13px] text-white/90 italic font-serif leading-relaxed">
-                    {offer.script}
-                  </p>
-                </div>
-              </div>
+        {/* ── PRO TIPS ── */}
+        <ProductSection
+          index={5}
+          icon={<Lightbulb size={18} />}
+          title={t(d.proTips.sectionTitle, d.proTips.sectionTitleEs)}
+        >
+          <ul className="space-y-2.5">
+            {proTips.map((tip) => (
+              <li key={tip.title} className="flex gap-3 rounded-card bg-surface-sunken p-3.5">
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 w-9 h-9 rounded-chip flex items-center justify-center bg-[rgb(var(--pa-tint))] text-[rgb(var(--pa-strong))]"
+                >
+                  {tipIcon[tip.iconName] ?? <Sparkles size={16} />}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-body-small font-semibold text-ink">
+                    {t(tip.title)}
+                  </span>
+                  <span className="block text-body-small text-ink-2 mt-0.5">{t(tip.text)}</span>
+                </span>
+              </li>
             ))}
-          </div>
-        </motion.section>
+          </ul>
+        </ProductSection>
 
-        {/* ─── EMOTIONAL CONNECTION ─── */}
-        <motion.section
-          custom={4}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
+        {/* ── QUICK REFERENCE ── */}
+        <ProductSection
+          index={6}
+          variant="feature"
+          icon={<Star size={18} />}
+          title={t(d.quickRef.sectionTitle, d.quickRef.sectionTitleEs)}
         >
-          <div className="flex items-center gap-2 mb-3">
-            <HeartHandshake className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">{isEs ? d.emotional.sectionTitleEs : d.emotional.sectionTitle}</h2>
-          </div>
-
-          <div className="bg-[#0A0A0A] rounded-xl p-4">
-            <p className="text-[14px] text-white italic font-serif leading-relaxed">
-              "{isEs ? d.emotional.script1Es : d.emotional.script1}"
-            </p>
-            <p className="text-[14px] text-white italic font-serif leading-relaxed mt-3">
-              "{isEs
-                ? d.emotional.script2TemplateEs.replace('{currency}', currency)
-                : d.emotional.script2Template.replace('{currency}', currency)}"
-            </p>
-          </div>
-          <p className="text-[12px] text-[#8A8A8A] mt-3">
-            {isEs ? d.emotional.coachingEs : d.emotional.coaching}
+          <QuickRefGrid
+            items={[
+              {
+                label: t(d.quickRef.demoLabel, d.quickRef.demoLabelEs),
+                value: t(d.quickRef.demoValue, d.quickRef.demoValueEs),
+              },
+              {
+                label: t(d.quickRef.shineLabel, d.quickRef.shineLabelEs),
+                value: t(d.quickRef.shineValue, d.quickRef.shineValueEs),
+              },
+              {
+                label: t(d.quickRef.warrantyLabel, d.quickRef.warrantyLabelEs),
+                value: t(d.quickRef.warrantyValue, d.quickRef.warrantyValueEs),
+              },
+              {
+                label: t(d.quickRef.noPolishLabel, d.quickRef.noPolishLabelEs),
+                value: t(d.quickRef.noPolishValue, d.quickRef.noPolishValueEs),
+              },
+            ]}
+          />
+          <p className="text-caption text-ink-2 mt-3">
+            {isEs ? 'Nunca por debajo de' : 'Never below'}{' '}
+            <span className="text-danger font-bold">{price(L.floor)}</span>
           </p>
-        </motion.section>
-
-        {/* ─── PRO TIPS ─── */}
-        <motion.section
-          custom={5}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#2A2A2A]"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Lightbulb className="w-5 h-5 text-[#0ABAB5]" />
-            <h2 className="text-lg font-bold text-white">{isEs ? d.proTips.sectionTitleEs : d.proTips.sectionTitle}</h2>
-          </div>
-
-          <div className="space-y-3">
-            {proTips.map((tip, i) => {
-              const IconComp = iconComponents[tip.iconName] || Sparkles;
-              return (
-                <div key={i} className="flex gap-3 bg-[#0A0A0A] rounded-xl p-3.5">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#0ABAB5]/15 flex items-center justify-center text-[#0ABAB5]">
-                    <IconComp className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">{tip.title}</p>
-                    <p className="text-[12px] text-[#8A8A8A] leading-relaxed mt-0.5">
-                      {tip.text}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* ─── Quick Reference Card ─── */}
-        <motion.section
-          custom={6}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }}
-          className="bg-gradient-to-br from-[#0ABAB5]/15 to-[#1A1A1A] rounded-2xl p-5 border border-[#0ABAB5]/25 mb-8"
-        >
-          <h3 className="text-sm font-bold text-[#0ABAB5] mb-3 uppercase tracking-wider">
-            {isEs ? d.quickRef.sectionTitleEs : d.quickRef.sectionTitle}
-          </h3>
-          <div className="grid grid-cols-2 gap-2 text-[12px]">
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">{isEs ? d.quickRef.demoLabelEs : d.quickRef.demoLabel}</span>{' '}
-              <span className="text-white font-medium">{isEs ? d.quickRef.demoValueEs : d.quickRef.demoValue}</span>
-            </div>
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">{isEs ? d.quickRef.shineLabelEs : d.quickRef.shineLabel}</span>{' '}
-              <span className="text-white font-medium">{isEs ? d.quickRef.shineValueEs : d.quickRef.shineValue}</span>
-            </div>
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">{isEs ? d.quickRef.warrantyLabelEs : d.quickRef.warrantyLabel}</span>{' '}
-              <span className="text-white font-medium">{isEs ? d.quickRef.warrantyValueEs : d.quickRef.warrantyValue}</span>
-            </div>
-            <div className="bg-[#0A0A0A]/60 rounded-lg p-2.5">
-              <span className="text-[#8A8A8A]">{isEs ? d.quickRef.noPolishLabelEs : d.quickRef.noPolishLabel}</span>{' '}
-              <span className="text-white font-medium">{isEs ? d.quickRef.noPolishValueEs : d.quickRef.noPolishValue}</span>
-            </div>
-          </div>
-        </motion.section>
+        </ProductSection>
       </div>
-    </div>
+    </ProductPage>
   );
 }

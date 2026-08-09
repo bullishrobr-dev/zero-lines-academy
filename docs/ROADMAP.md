@@ -1,0 +1,368 @@
+# Zero Lines Academy — where this goes next
+
+Six specialists reviewed the app in parallel: a kiosk sales trainer, a mobile
+product designer, a frontend engineer, a backend and security engineer, a
+learning scientist, and QA. This is what they found and the order I would build
+in.
+
+They disagreed about almost nothing, which is itself the finding. Five of six
+independently described the same underlying problem in their own vocabulary.
+
+---
+
+## Progress log
+
+Shipped since this plan was written (builds 8–24):
+
+**Builds 18–24 (the journal, the shift, the sale itself, and what we say):**
+- **The journal** — Log-a-sale became a journal that works during the shift: a
+  live encounter card, sold/walked in one tap, and a why-they-walked chip. The
+  funnel is two steps now (brought in → sold), because a pavement "stop" was
+  never countable honestly.
+- **Shift nudges** — 54 bilingual prompts, one every ~35 minutes during shop
+  hours, as a phone notification where the platform allows it and always as an
+  in-app card. Never while an encounter is open.
+- **Profile and Settings split.** Profile is the trophy cabinet; everything
+  configurable moved to /settings.
+- **A docked bottom bar** instead of a floating pill, and one CSS variable
+  (`--nav-h`) that the four things reserving space for it all read.
+- **Onboarding facelift**, and the three photographs on it now load at all —
+  they were absolute paths under a sub-path deployment, so the first screen
+  anyone saw was three broken-image icons.
+- **Every tax claim removed, both languages.** The owner's instruction was that
+  sellers do not mention tax-free or tax haven at all. There were **121** of
+  them across ten content files, not the one line that started this: a causal
+  clause running through the lessons ("but here in {locationName}, *because
+  we're a tax haven*, it's {currency}300"), four quiz questions built entirely
+  on the premise, a tourist quiz whose correct answer was "you save the VAT",
+  and a `taxHavenText` field on every shop record wired to a template
+  placeholder no content ever used. The replacement was already in the app: the
+  price ladders have always framed it as Europe price against the price here,
+  with no tax explanation, because the two numbers are the argument and they are
+  the part a customer can check. No substitute reason was invented anywhere.
+- **The comparison cards were half English.** Twelve lessons had a `right`
+  column with no `rightEs`, so a Spanish-speaking seller read one side in their
+  language and the other in English. All 14 gaps filled.
+- **`npm run check:content`, wired into CI.** Three guards: no tax claim (or the
+  earlier VAT-refund and customs claims) in any seller-facing string; every
+  lesson string has a Spanish twin; and the quiz answer cannot be found by
+  position or by length. Sellers read this copy aloud to real customers, so a
+  claim that creeps back gets said in a shop before anyone spots it in a diff.
+- **Stage 4 — the missing sale, written down.** The academy taught stopping
+  (7 lessons) and products (8), with a hole where the money changes hands. A
+  new category, **Bring, Close, Collect**, fills it from the owner's own method
+  in his own words: *The Bring* (get the look before you move, name the rush
+  before they can, turn and walk without checking, sit them facing the wall),
+  *Asking For The Money* (ask which card, never whether; do not go quiet), and
+  *The Counter* (charge them in the chair, the card-decline ladder, the review
+  ask). Sixteen new cheat-sheet scripts carry the same lines mid-shift.
+- **Stage 4 — the last three objections answered.** "Been scammed", "wrong for
+  my skin" and "cheaper online" had lessons but no line on the cheat sheet.
+  Lifted from lessons O4/O5/O7 unchanged, so all 8 walk-away reasons in the
+  journal now return words to say.
+- **The pricing ladder gate.** Buy 2 get 2 is the same {currency}120 as buy 2
+  get 1 but hands over a fourth unit, so as a plain ladder step it taught
+  sellers to give away stock. It is not a step — it is situational, for a group
+  or Christmas. Rungs now carry a `when` condition, printed above the words.
+- **Stage 6 — Cheat Sheets rebuilt.** It opened on a tab that rendered every
+  section at once: 13,691px, 16.2 phone screens, on the screen you hold with a
+  customer in front of you. Now nothing renders until asked for — landing is
+  844px (1.0 screens), no section is over 2.3 — and the fastest path is
+  **"They said…"**, which uses the same nine walk-away reasons as the journal,
+  so the objection you tapped last time is the tile you tap to get the line.
+  The three reasons with a lesson but no scripted line say so and link to the
+  lesson rather than showing an invented one.
+
+**Builds 13–17 (data integrity, coaching, reliability):**
+- **Two-way record sync** — a new phone no longer shows "XP but 0 lessons";
+  tiers stop re-locking; a finished lesson can't be re-earned. Tested, 12 cases.
+- **Manager dashboard reads the database** and shows each seller's last-7-days
+  **street funnel** (stops → brings → sales → conversion), scoped to their team.
+- **Street tracker persists to the database**, so stops/brings/sales survive a
+  lost phone and reach the manager.
+- **XP survives a dropped connection** — flush on reconnect and on
+  backgrounding, and the "server has this" marker only advances after the write
+  confirms.
+- **Reduce Motion respected** app-wide; crash screen no longer shows sellers a
+  raw JS error; activity log names each action correctly in both languages.
+
+Still to verify: the sales row-level-security was confirmed at creation, but a
+live signed-in-as-a-seller impersonation test is pending a stable connector.
+
+**Builds 8–12:**
+
+- **Stage 1** — the VAT-refund guarantee and every customs / "nothing to
+  declare" / €300-allowance claim are removed, both languages. The daily-dose,
+  check-in and end-of-shift screens no longer promise XP they don't pay.
+- **Stage 1** — all 93 lesson quizzes are fully bilingual, and rebuilt so the
+  answer isn't guessable by position (was 85% "B") or length (was 85% longest).
+- **Stage 2 (partial)** — daily habits now pay **real** XP through one
+  farm-proof path, so they count toward the leaderboard. The four separate XP
+  economies aren't fully unified yet, and scoring is still client-side.
+- **Stage 3** — the manager dashboard reads the database: a real team, real
+  figures from the stats each seller pushes.
+- **Stage 5 (partial)** — the flashcard scheduler got its relearning step,
+  interval fuzz, new-card cap, and a reachable definition of "mastered".
+- **Stage 6 (partial)** — a proper update prompt and an add-to-home-screen
+  prompt; the service worker no longer swaps assets under a running page. Admin
+  is no longer tied to a shop and can switch to see each seller's view. The
+  sign-in screen shows the build and whether it's talking to the database.
+- **Security** — closed a public admin-signup hole, made the password gate real,
+  scoped manager reads to their own team, and fixed a shared-tablet bug that was
+  silently zeroing the next seller's quiz XP.
+
+Still open below: unifying the XP ledger and moving scoring server-side
+(Stage 2), the missing "bring"/close/counter content (Stage 4), the spoken rep
+(Stage 5), and the reward curve for veterans (Stage 7).
+
+Both of the content gaps that needed the owner are now closed — he dictated the
+bring, the ask and the counter, and they are in the app in his voice.
+
+## The one sentence version
+
+**The app measures taps, not selling.** Everything below follows from that.
+
+A lesson is "complete" when you scroll to the bottom and press a button
+(`LessonView.tsx` → `handleMarkComplete`). The quiz is optional and only appears
+*after* that. Finishing it with 0 out of 5 still unlocks the next tier. Meanwhile
+the only real selling data in the product — stops, brings, sales, what you
+promised yourself at check-in, what actually happened at end of shift — is
+collected, written to the phone, and never read by anything, ever.
+
+So the app can tell you who pressed the most buttons. It cannot yet tell you who
+got better at selling. That is the gap worth closing, and most of the roadmap is
+different angles on it.
+
+---
+
+## Stage 0 — Done today
+
+Not planned work; it was too serious to leave.
+
+- **Anyone could have made themselves an admin.** The database trusted the role
+  sent in a sign-up request, and the public API key ships in a public
+  repository. One HTTP request granted control of both shops' data. Closed two
+  ways: the trigger never reads a role from the caller, and nothing can create a
+  login except an admin acting inside the app.
+- **The "choose your own password" gate was decorative** — one request cleared
+  it without changing any password. Setting the password and clearing the flag
+  are now a single database operation.
+- **A shared shop tablet silently ate people's XP.** The ledger of which quizzes
+  had already paid out survived the handover, so the next seller aced the same
+  quiz and earned exactly nothing — permanently, with no repair path.
+- A manager could read every seller in both shops, and reset another manager's
+  password. Both scoped down.
+- Password reset and account removal now end that person's open sessions.
+- The admin is no longer pinned to a shop and can switch between them.
+- `tsc --noEmit` was typechecking **nothing** (empty root config + project
+  references). `npm run typecheck` is the real one, and it found a genuine error
+  the moment it ran.
+
+---
+
+## Stage 1 — Stop saying things that are not true (1–2 weeks)
+
+Highest value per hour in the whole document, and some of it is legal exposure
+rather than polish.
+
+**Content that could cost real money**
+
+- `objectionLessons.ts` scripts a **money-back guarantee that does not exist**:
+  "you can get a full VAT refund at the border. Zero risk." Gibraltar has no
+  VAT; Andorra has no buyer-side border refund. A seller repeating this is
+  making a promise the shop cannot honour.
+- `moreQuizzes2.ts` teaches "nothing to declare on the way home" and "no customs
+  fees". Andorra → EU allowances are around €300. A €300 syringe sits exactly on
+  that line.
+- `scrubData.ts` has sellers say the scrub is "recommended to help with eczema,
+  psoriasis". `syringeData.ts` sells "Natural Alternative to Botox", "stimulates
+  collagen", "relaxes the facial muscles". Those are **medicinal claims** on a
+  cosmetic, and Gibraltar runs UK cosmetics rules.
+- There is **no safety screening** anywhere — no pregnancy question, no
+  contraindication, no aftercare line — and sellers put product on strangers'
+  faces twenty times a day.
+
+**Numbers the app invents**
+
+- `HomeDashboard` fires a "+15 XP" toast for the daily dose. No XP is added
+  anywhere. Check-in and end-of-shift both promise XP in their copy and pay
+  none.
+- The daily challenge card shows 20/25/30 XP; the code always pays 20.
+- On a new phone the header reads **1,840 XP next to 0 lessons and every
+  category at 0%**, because XP syncs from the server and the lesson map does
+  not.
+
+**Every lesson quiz can be passed without reading anything**
+
+Across all 93 lesson quiz questions the correct answer is **B in 84.9% of
+them**. Option D is never correct anywhere in the app, and 19 of the 31 lessons
+have all three answers at B. Tapping B every time passes every lesson quiz,
+banks full XP, and marks the lesson complete. (The 160 general quiz questions
+are properly balanced — this is only the per-lesson ones.)
+
+Fixing it means redistributing the correct answer across 93 questions and
+rewriting any explanation that refers to a position. It is mechanical, but it
+has to be done carefully rather than with a script.
+
+**The Spanish lesson quizzes are not in Spanish**
+
+Not one of the 93 lesson quiz questions has a Spanish version. A Spanish seller
+opening a quiz gets "PREGUNTA 1 DE 3" above an English question and four English
+options. This is the largest single translation gap left.
+
+---
+
+## Stage 2 — One XP ledger, one streak, numbers that cannot be typed in (2–3 weeks)
+
+There are currently **four separate XP economies** (lessons/quizzes, daily flow,
+street tracker, flashcards) and only one of them counts. There are **three
+different streaks** with different rules on different screens; they will visibly
+disagree with each other.
+
+Worse, every number is client-authored. `stats` is writable by its owner with no
+constraint, so one line in a phone's browser console sets your XP to 999999 and
+your streak to 365. The leaderboard is the motivational core of the app and it
+is currently forgeable.
+
+- One `awardXP(source, amount)` path through `useProgress`; daily flow, street
+  tracker and flashcards all route into it.
+- Kill two of the three streaks.
+- Move scoring server-side: an append-only `xp_events` table with a unique
+  client event id, `stats` becomes a rollup the client cannot write. The
+  idempotency key also kills the double-counting that happens today when someone
+  re-completes lessons on a new phone.
+- An outbox in IndexedDB that drains on reconnect, so nothing is lost when the
+  app closes inside the 1.5-second save delay — which is most of the time, on a
+  phone, in a street.
+
+---
+
+## Stage 3 — A manager dashboard that is not empty (2–3 weeks)
+
+`getTeamProgress` and `getTeamStats` have **no database branch at all**. They
+build the team from the old committed file and read progress from the manager's
+own phone. A seller created through the button on that very screen never appears
+in the team, and "no data" is shown for everyone, permanently.
+
+- Wire the remaining backend functions to the database (the dispatch seam is the
+  architecture's load-bearing idea and half of it was never connected).
+- A `team_progress` RPC, plus the four missing indexes.
+- Give Miguel something worth opening daily: who has not trained this week, who
+  is stuck on a tier, whose stop→bring→sale rate is sliding.
+
+---
+
+## Stage 4 — Teach the parts of the sale that are missing (3–4 weeks)
+
+The trainer's verdict: the demo choreography is genuinely professional — the
+one-eye reveal, the mirror, turning to the companion for confirmation. The
+sequencing around it is wrong, and three chunks of the sale are simply absent.
+
+- **The bring.** Seven lessons on stopping, zero on the five metres between the
+  pavement and the chair — the lead, walking half-backwards, the doorway
+  hesitation, "sit here for me", what to do when one of a couple won't follow.
+  This is where most sellers lose the customer.
+- **Asking for the money, then shutting up.** Closing lines exist; no lesson
+  teaches the ask, the silence after it, or who speaks first.
+- **The counter.** Nothing on taking the card while the yes is warm, what to say
+  while the terminal thinks, the second customer waiting, the walk-out. The 90
+  seconds between "yes" and "paid" is where kiosk sales die.
+- **Resequence.** Sixteen lessons currently stand between a new starter and
+  their first price. Demo choreography should be tier 2 — it is what makes the
+  sale and it is learnable by day three. The descent discounts should be gated
+  *later*, not earlier.
+- Cut lessons to a three-minute read. They average ~200 lines and claim 8–10
+  minutes; nobody reads that between customers.
+
+**A pricing observation, for you to rule on.** The mix-and-match ladder is
+80 → 60 → *120 for 3* → *120 for 4* → *60 for 2* → 30. Rung two hands over a
+fourth unit for zero extra revenue, and it is scripted as something the seller
+volunteers ("that's the best deal in the shop"). Between 120 and 60 there is
+nothing at all. As written, the ladder teaches sellers to halve. Adding rungs
+between 120 and 60, and making buy-2-get-2 something traded for rather than
+offered, is the single highest-revenue change in this document — but it is your
+call, not mine, so I have not touched it.
+
+---
+
+## Stage 5 — Practice that transfers to the street (3–4 weeks)
+
+Every interaction in the app is a tap. The highest-fidelity practice available
+is choosing one of three *written* replies. Street selling is spoken, physical
+and full of rejection.
+
+- **The spoken rep.** 20–30 seconds saying today's technique out loud, scored
+  against a rubric, with reps as the currency. Half the scaffolding already
+  exists: a focus technique is chosen at check-in and asked about at end of
+  shift, and the loop is simply never closed.
+- **Close the shift loop.** Read yesterday's end-of-shift and tracker numbers to
+  choose today's lesson, dose and cards. Ninety days of reflections are archived
+  and nothing has ever read them.
+- **Fix the flashcard scheduler.** It is a competent SM-2 skeleton with four real
+  defects: no relearning step (a failed card leaves the session and returns
+  tomorrow, skipping the single most valuable moment in retrieval practice); no
+  interval fuzz, so every card reviewed on day one comes back on exactly the
+  same day forever; no new-card cap, so day one shows a seller all 68 cards; and
+  "mastered" is unreachable unless you rate yourself *Easy* twice running.
+- **Make lesson completion mean something** — gate the tier on passing the quiz,
+  not on pressing the button.
+- **Re-test old lessons.** Pull quiz items back into the scheduler so knowledge
+  visibly decays and can be repaired.
+
+---
+
+## Stage 6 — The phone experience (2 weeks)
+
+- **Cheat Sheets is 13,692 pixels — sixteen screens.** It is the page labelled
+  "open mid-sale". Sticky search, product-first default instead of "All",
+  collapsed by default, pinning and recents.
+- **No install prompt and no update prompt.** For staff on personal iPhones, an
+  Add-to-Home-Screen path is the biggest single PWA gap. The service worker
+  already has an update mechanism that nothing ever triggers.
+- **Split Profile** — 1,112 lines and 3,820 pixels, with the theme switch buried
+  3,400px down and the daily challenge card duplicated from home.
+- Respect reduced motion (lesson bodies currently animate in from invisible),
+  drop the 300ms slide on every route change, fix sub-44px targets, stop showing
+  raw error messages to sellers.
+
+---
+
+## Stage 7 — Competition that stays fun after month two (2 weeks)
+
+- The leaderboard is **lifetime-only**, so the longest-serving seller wins
+  permanently and a new starter can never close the gap. Rolling 30-day board,
+  plus a personal-best board so improvement counts.
+- **XP is a finite pot.** Once the curriculum is done, earning collapses to about
+  20 a day — exactly when practice should be intensifying.
+- **No streak freeze**, on a rota-shift workforce, with heavy loss framing. One
+  good week, then churn. Add rest days.
+- The cheapest streak-keeper currently wins: one self-reported tap on the daily
+  challenge is 20 XP and a streak day. That is the dominant strategy and it
+  should not be.
+
+---
+
+## Stage 8 — Foundations (ongoing)
+
+- **There are no tests.** The five worth having first: the XP economy and device
+  handover; the backend dispatch contract; route guards; local-date logic
+  (streaks and card scheduling, both of which already carry scars from timezone
+  bugs); content integrity.
+- **225 kB of lesson prose downloads on the dashboard**, because the progress
+  hook imports the lesson text to count lessons. Split the index from the prose:
+  one day's work, off the critical path of every single login.
+- Versioned migrations instead of one re-runnable schema file, and an admin
+  audit log.
+- Longer term, provisioning should move behind an Edge Function using Supabase's
+  own admin API. Writing `auth.users` directly works and is well guarded, but it
+  is a rental: a platform upgrade can break account creation silently.
+
+---
+
+## If you only do three things
+
+1. **Stage 1.** Stop teaching the refund guarantee and the medicinal claims, and
+   stop showing XP numbers the app does not award.
+2. **Stage 4's "bring" lessons**, and rule on the pricing ladder.
+3. **Stage 2.** One XP ledger, server-owned, so the leaderboard means something —
+   because everything you want to do with competition rests on it.

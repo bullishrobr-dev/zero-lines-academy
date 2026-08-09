@@ -1,33 +1,76 @@
-import { useState, useMemo, useEffect } from "react";
-import { useLanguage } from "../contexts/LanguageContext";
-import { useAuthContext } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Users, TrendingUp, Award, AlertTriangle, ArrowLeft, MapPin, UserPlus, X, MessageSquare, Send, BookOpen, Star, FileText, Zap, Calendar, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import * as backend from "../backend/mockBackend";
-import type { UserLocation } from "../backend/types";
+// ─────────────────────────────────────────────────────────────────────────────
+// ManagerDashboard.tsx — the shop manager's view of their team. Used on a phone.
+//
+// THE HONEST PART, AND IT NOW HAS TWO ANSWERS.
+//
+// This file used to say flatly that progress never leaves the phone that earned
+// it "because there is no server to send them to". That was true when it was
+// written and it is not true any more: with the database connected,
+// `db.getTeamProgress()` reads the team's real `stats` and `quiz_results` rows
+// plus seven days of `sales`, all scoped by row-level security to the people
+// this manager may coach.
+//
+// Leaving the old wording in place told an owner his dashboard could not see
+// anything, on a screen that was in fact showing him live numbers. So the
+// explanation, the stat label and the section heading each have a second
+// version, chosen by `backend.isDatabaseConfigured`:
+//
+//   Configured      → the numbers come from the sellers' accounts, and someone
+//                     blank has not opened the app or has not had signal since.
+//   Not configured  → the original wording, which is still exactly right for a
+//                     device-only build.
+//
+// Either way the screen still says "No data" rather than drawing a 0% bar that
+// looks measured, and every derived figure counts only people with records —
+// which is what `getTeamStats()` already does.
+//
+// ADDING A SELLER depends on whether the database is connected:
+//
+//   Configured      → "Create" creates. `db.createUser()` makes the login and
+//                     the profile with this manager attached, and the seller
+//                     signs in on their own phone straight away. "Remove"
+//                     removes, through `db.deleteUser()`.
+//   Not configured  → it is a commit against src/data/accounts.ts; the sheet
+//                     writes the block and the manager pastes it.
+//
+// Either way the manager's own username is filled in as the manager, so the
+// new seller lands on this screen.
+// ─────────────────────────────────────────────────────────────────────────────
 
-/* ── Types ── */
-interface EmployeeProgress {
-  user: { id: string; name: string; email: string; location: UserLocation; role: string; managerId?: string; createdAt: string };
-  progress: number;
-  streak: number;
-  avgScore: number;
-  lastActive: string;
-  completedLessons: number;
-  totalLessons: number;
-}
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import {
+  AlertTriangle,
+  ArrowLeft,
+  Check,
+  Copy,
+  ExternalLink,
+  FileText,
+  KeyRound,
+  MapPin,
+  Smartphone,
+  UserMinus,
+  UserPlus,
+  Users,
+  X,
+  type LucideIcon,
+} from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useAuthContext } from '../contexts/AuthContext';
+import LoadingScreen from '../components/LoadingScreen';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
+import * as backend from '../backend/mockBackend';
+import * as db from '../backend/db';
+import type { User, UserLocation } from '../backend/types';
+import { generatePassword, newSalt } from '../utils/credentials';
 
-/* ── Helpers ── */
-function getStatus(p: number): { label: string; labelEs: string; color: string } {
-  if (p >= 70) return { label: "On Track", labelEs: "En Buen Camino", color: "bg-[#4ADE80]" };
-  if (p >= 40) return { label: "Needs Push", labelEs: "Necesita Empuje", color: "bg-[#FBBF24]" };
-  return { label: "At Risk", labelEs: "En Riesgo", color: "bg-[#F87171]" };
-}
+type EmployeeProgress = backend.EmployeeProgress;
 
-/* ── Coaching Note Type ── */
+const ROSTER_FILE = 'src/data/accounts.ts';
+const ROSTER_EDIT_URL =
+  'https://github.com/bullishrobr-dev/zero-lines-academy/edit/main/src/data/accounts.ts';
+
 interface CoachingNote {
   id: string;
   employeeId: string;
@@ -36,637 +79,1404 @@ interface CoachingNote {
   createdAt: string;
 }
 
-/* ── localStorage helpers ── */
+/* Strings with no key in src/data/translations.ts — that file has none for the
+   management screens and is owned elsewhere. */
+const COPY = {
+  overline: { en: 'Manager', es: 'Responsable' },
+  title: { en: 'Your team', es: 'Tu equipo' },
+  close: { en: 'Close', es: 'Cerrar' },
+  back: { en: 'Back', es: 'Volver' },
+  cancel: { en: 'Cancel', es: 'Cancelar' },
+  done: { en: 'Done', es: 'Hecho' },
+  copied: { en: 'Copied', es: 'Copiado' },
+
+  /* ── Numbers ── */
+  statTeam: { en: 'In your team', es: 'En tu equipo' },
+  statSeen: { en: 'Seen on this phone', es: 'Con datos aquí' },
+  measuredHeading: { en: 'Measured on this device', es: 'Medido en este dispositivo' },
+  /* The same three slots, for a shop whose database is connected — which is
+     every shop now. See the note at the top of this file. */
+  statSeenLive: { en: 'Sending data', es: 'Enviando datos' },
+  measuredHeadingLive: { en: 'From your team’s accounts', es: 'Desde las cuentas de tu equipo' },
+  statAvg: { en: 'Average done', es: 'Media completada' },
+  statTop: { en: 'Furthest along', es: 'Más avanzado' },
+  statRisk: { en: 'Behind', es: 'Rezagados' },
+
+  /* ── The one explanation ── */
+  whyTitle: { en: 'Where the numbers are', es: 'Dónde están los números' },
+  whyBody: {
+    en: 'Training progress is saved on each seller’s own phone, so this screen only sees what was earned on this device.',
+    es: 'El progreso se guarda en el móvil de cada vendedor, así que esta pantalla solo ve lo que se ha hecho en este dispositivo.',
+  },
+  whyTip: {
+    en: 'Ask your team to tap “Share my stats” on their profile and send you the summary.',
+    es: 'Pide a tu equipo que toque «Compartir mis datos» en su perfil y te mande el resumen.',
+  },
+  /* ── The same explanation, for a connected shop ──
+     The originals above were written before there was a database. They are kept
+     for the offline build, but on a live shop they are simply untrue and they
+     tell an owner his dashboard cannot see anything when it can. */
+  whyTitleLive: { en: 'Where the numbers come from', es: 'De dónde salen los números' },
+  whyBodyLive: {
+    en: 'Straight from your sellers’ accounts — lessons, quiz scores, streaks, and the last seven days of stops and sales. A seller appears here once their phone has synced, which happens whenever they have signal.',
+    es: 'Directo de las cuentas de tus vendedores — lecciones, notas de test, rachas, y los últimos siete días de paradas y ventas. Un vendedor aparece aquí en cuanto su móvil sincroniza, que es siempre que tenga cobertura.',
+  },
+  whyTipLive: {
+    en: 'Someone showing nothing has not opened the app yet, or has not had signal since they did.',
+    es: 'Si alguien no muestra nada, o no ha abierto la app todavía, o no ha tenido cobertura desde que lo hizo.',
+  },
+
+  /* ── Team list ── */
+  addEmployee: { en: 'Add a seller', es: 'Añadir vendedor' },
+  allShops: { en: 'All shops', es: 'Todas' },
+  noEmployees: { en: 'Nobody on your team yet', es: 'Aún no tienes a nadie' },
+  noEmployeesSub: {
+    en: 'Add a seller and they appear here as soon as the roster commit lands.',
+    es: 'Añade a un vendedor y aparecerá aquí en cuanto se suba el commit del equipo.',
+  },
+  noData: { en: 'No data on this device', es: 'Sin datos en este dispositivo' },
+  progress: { en: 'Progress', es: 'Progreso' },
+  lessons: { en: 'Lessons', es: 'Lecciones' },
+  quizAvg: { en: 'Quiz avg', es: 'Media test' },
+  streetWeek: { en: 'Street · last 7 days', es: 'Calle · últimos 7 días' },
+  streetStops: { en: 'stops', es: 'paradas' },
+  streetSales: { en: 'sales', es: 'ventas' },
+  streetConv: { en: 'conv.', es: 'conv.' },
+  lastActive: { en: 'Last active', es: 'Última actividad' },
+  statusOnTrack: { en: 'On track', es: 'En buen camino' },
+  statusNeedsPush: { en: 'Needs a push', es: 'Necesita empuje' },
+  statusAtRisk: { en: 'Falling behind', es: 'Se está quedando atrás' },
+  statusNotStarted: { en: 'Not started', es: 'Sin empezar' },
+  note: { en: 'Note', es: 'Nota' },
+  remove: { en: 'Remove', es: 'Sacar' },
+  removeTitle: { en: 'Remove from the team', es: 'Sacar del equipo' },
+
+  /* ── Coaching notes ── */
+  coachingNotes: { en: 'Coaching notes', es: 'Notas de coaching' },
+  notesHint: {
+    en: 'Kept on this phone, for you.',
+    es: 'Se quedan en este móvil, para ti.',
+  },
+  writeNote: { en: 'Write a coaching note…', es: 'Escribe una nota de coaching…' },
+  saveNote: { en: 'Save note', es: 'Guardar nota' },
+  previousNotes: { en: 'Earlier notes', es: 'Notas anteriores' },
+  noNotes: { en: 'No notes yet for this person.', es: 'Aún no hay notas de esta persona.' },
+
+  /* ── Add a seller ── */
+  addLead: {
+    en: 'The team lives in the code, so adding a seller is a one-line commit — this writes the line for you.',
+    es: 'El equipo vive en el código, así que dar de alta a un vendedor es un commit de una línea — aquí la tienes escrita.',
+  },
+  addLeadDb: {
+    en: 'Fill this in and press Create. The account exists straight away — no commit, nothing to deploy.',
+    es: 'Rellena esto y pulsa Crear. La cuenta existe al momento — sin commit ni despliegue.',
+  },
+  name: { en: 'Name', es: 'Nombre' },
+  namePlaceholder: { en: 'e.g. Maria Garcia', es: 'p. ej. María García' },
+  username: { en: 'Username', es: 'Usuario' },
+  usernamePlaceholder: { en: 'e.g. maria', es: 'p. ej. maria' },
+  usernameHint: {
+    en: 'What they type to sign in. Lowercase letters and numbers, nothing else.',
+    es: 'Lo que escribe para entrar. Minúsculas y números, nada más.',
+  },
+  shop: { en: 'Shop', es: 'Tienda' },
+  shopHint: {
+    en: 'The shop sets the currency they are trained in — € in Andorra, £ in Gibraltar.',
+    es: 'La tienda define la moneda con la que se forma — € en Andorra, £ en Gibraltar.',
+  },
+  reportsToYou: { en: 'Reports to you', es: 'Estará en tu equipo' },
+  generate: { en: 'Generate the account', es: 'Generar la cuenta' },
+  create: { en: 'Create', es: 'Crear' },
+  creating: { en: 'Creating…', es: 'Creando…' },
+  errName: { en: 'Type their name.', es: 'Escribe su nombre.' },
+  errUsernameEmpty: { en: 'Pick a username.', es: 'Elige un usuario.' },
+  errUsernameShape: {
+    en: 'Lowercase letters and numbers only — no spaces, no dots, no dashes.',
+    es: 'Solo minúsculas y números — sin espacios, puntos ni guiones.',
+  },
+  errUsernameTaken: {
+    en: 'That username is already on the roster.',
+    es: 'Ese usuario ya está en el equipo.',
+  },
+
+  errCreate: { en: 'The account was not created', es: 'No se ha creado la cuenta' },
+  errUnknown: {
+    en: 'Could not reach the database. Check the connection and try again.',
+    es: 'No se ha podido conectar con la base de datos. Comprueba la conexión e inténtalo otra vez.',
+  },
+
+  /* ── Result ── */
+  created: { en: 'Account created', es: 'Cuenta creada' },
+  signInNow: {
+    en: 'They can sign in now, on their own phone. Nothing else to do.',
+    es: 'Ya puede entrar desde su móvil. No hay que hacer nada más.',
+  },
+  ready: { en: 'Account ready', es: 'Cuenta lista' },
+  theirLogin: { en: 'Their login', es: 'Sus datos de acceso' },
+  theirPassword: { en: 'Password', es: 'Contraseña' },
+  passwordWarning: {
+    en: 'The password is shown once and cannot be recovered. Write it down or send it to them now.',
+    es: 'La contraseña se muestra una sola vez y no se puede recuperar. Apúntala o envíasela ahora.',
+  },
+  copyPassword: { en: 'Copy the password', es: 'Copiar la contraseña' },
+  copyLogin: { en: 'Copy both', es: 'Copiar los dos' },
+  theCode: { en: 'The line to commit', es: 'La línea que subir' },
+  copyCode: { en: 'Copy the code', es: 'Copiar el código' },
+  openOnGitHub: { en: 'Open the file on GitHub', es: 'Abrir el archivo en GitHub' },
+  stepCopy: { en: 'Copy the code above.', es: 'Copia el código de arriba.' },
+  stepOpen: { en: `Open ${ROSTER_FILE} on GitHub.`, es: `Abre ${ROSTER_FILE} en GitHub.` },
+  stepPaste: { en: 'Paste it just above the closing ].', es: 'Pégalo justo encima del ] final.' },
+  stepCommit: {
+    en: 'Commit. They can sign in about a minute later, once the site rebuilds.',
+    es: 'Haz commit. Podrá entrar un minuto después, cuando el sitio se reconstruya.',
+  },
+
+  /* ── Remove ── */
+  removeLead: {
+    en: 'Taking someone off the team is a commit too: delete their block from the roster.',
+    es: 'Sacar a alguien del equipo también es un commit: borra su bloque del archivo.',
+  },
+  removeFind: { en: 'Find this line', es: 'Busca esta línea' },
+  copyLine: { en: 'Copy the line', es: 'Copiar la línea' },
+  removeStepOpen: { en: `Open ${ROSTER_FILE} on GitHub.`, es: `Abre ${ROSTER_FILE} en GitHub.` },
+  removeStepDelete: {
+    en: 'Delete the whole { … } block containing that line.',
+    es: 'Borra todo el bloque { … } que contiene esa línea.',
+  },
+  removeStepCommit: {
+    en: 'Commit. They lose access about a minute later, on every device.',
+    es: 'Haz commit. Pierde el acceso un minuto después, en todos los dispositivos.',
+  },
+  removeKeepsProgress: {
+    en: 'Their training history stays on their own phone. Nothing here can reach it.',
+    es: 'Su historial de formación se queda en su móvil. Desde aquí no se toca.',
+  },
+
+  /* ── Remove, with a database behind it ── */
+  removeLeadDb: {
+    en: 'They lose access immediately, on every device.',
+    es: 'Pierde el acceso al momento, en todos los dispositivos.',
+  },
+  removeLosesProgress: {
+    en: 'Their training record goes with their profile — XP, lessons and quiz scores. This cannot be undone.',
+    es: 'Su historial se borra con el perfil — XP, lecciones y resultados. Esto no se puede deshacer.',
+  },
+  removeConfirm: { en: 'Remove from the team', es: 'Sacar del equipo' },
+  removingNow: { en: 'Removing…', es: 'Sacando…' },
+  errRemove: { en: 'They were not removed', es: 'No se ha podido sacar' },
+} as const;
+
+type CopyKey = keyof typeof COPY;
+
+/* ── localStorage: coaching notes are the manager's own, on the manager's phone ── */
 function getCoachingNotes(): CoachingNote[] {
-  try { return JSON.parse(localStorage.getItem("zl_coaching_notes") || "[]"); } catch { return []; }
+  try {
+    return JSON.parse(localStorage.getItem('zl_coaching_notes') || '[]') as CoachingNote[];
+  } catch {
+    return [];
+  }
 }
+
 function saveCoachingNote(note: CoachingNote) {
-  const notes = getCoachingNotes();
-  notes.unshift(note);
-  localStorage.setItem("zl_coaching_notes", JSON.stringify(notes.slice(0, 200)));
-}
-function getTeamNudges(): { text: string; sentAt: string; sender: string }[] {
-  try { return JSON.parse(localStorage.getItem("zl_team_nudges") || "[]"); } catch { return []; }
-}
-function saveTeamNudge(nudge: { text: string; sentAt: string; sender: string }) {
-  const nudges = getTeamNudges();
-  nudges.unshift(nudge);
-  localStorage.setItem("zl_team_nudges", JSON.stringify(nudges.slice(0, 50)));
+  try {
+    const notes = getCoachingNotes();
+    notes.unshift(note);
+    localStorage.setItem('zl_coaching_notes', JSON.stringify(notes.slice(0, 200)));
+  } catch {
+    // non-fatal
+  }
 }
 
-/* ── Stat Card ── */
-function StatCard({ icon: Icon, value, label, labelEs, delay }: { icon: any; value: string; label: string; labelEs: string; delay: number }) {
-  const { language } = useLanguage();
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay }}
-      className="bg-[#1A1A1A] rounded-xl p-3 border border-[#2A2A2A] flex flex-col items-center text-center"
-    >
-      <Icon className="w-5 h-5 text-[#0ABAB5] mb-1" />
-      <span className="text-lg font-bold">{value}</span>
-      <span className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{language === "es" ? labelEs : label}</span>
-    </motion.div>
-  );
+/** Lowercase letters and digits, starting with a letter. Nothing to mistype. */
+const USERNAME_RE = /^[a-z][a-z0-9]*$/;
+
+/** "María García" → "maria". Only a suggestion; the field stays editable. */
+function suggestUsername(name: string): string {
+  const first = name.trim().split(/\s+/)[0] ?? '';
+  return first
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
 }
 
-/* ── Employee Card ── */
-function EmployeeCard({ emp, language, onClick, onNudge, onAssignLesson, onAwardXP, onAddNote }: {
-  emp: EmployeeProgress; language: string; onClick: () => void;
-  onNudge: (e: React.MouseEvent) => void;
-  onAssignLesson: (e: React.MouseEvent) => void;
-  onAwardXP: (e: React.MouseEvent) => void;
-  onAddNote: (e: React.MouseEvent) => void;
-}) {
-  const status = getStatus(emp.progress);
-  const btnBase = "flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-all border";
-  return (
-    <motion.div
-      layout
-      className="bg-[#1A1A1A] rounded-xl p-4 border border-[#2A2A2A] cursor-pointer active:scale-[0.98] transition-transform"
-    >
-      <div onClick={onClick}>
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0ABAB5] to-[#008B8B] flex items-center justify-center text-sm font-bold text-black">
-            {emp.user.name.split(" ").map(n => n[0]).join("")}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm truncate">{emp.user.name}</p>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className={`w-2 h-2 rounded-full ${status.color}`} />
-              <span className="text-[10px] text-[#8A8A8A]">{language === "es" ? status.labelEs : status.label}</span>
-            </div>
-          </div>
-          <MapPin className="w-3.5 h-3.5 text-[#8A8A8A] flex-shrink-0" />
-          <span className="text-[10px] text-[#8A8A8A] capitalize">{emp.user.location}</span>
-        </div>
-        <div className="w-full h-2 bg-[#2A2A2A] rounded-full overflow-hidden mb-2">
-          <motion.div className="h-full rounded-full bg-[#0ABAB5]" initial={{ width: 0 }} animate={{ width: `${emp.progress}%` }} transition={{ duration: 0.8 }} />
-        </div>
-        <div className="flex justify-between text-[10px] text-[#8A8A8A] mb-3">
-          <span>{language === "es" ? "Progreso" : "Progress"}: {emp.progress}%</span>
-          <span>{language === "es" ? "Racha" : "Streak"}: {emp.streak}d</span>
-          <span>Quiz: {emp.avgScore.toFixed(1)}</span>
-        </div>
-      </div>
-      {/* Action Buttons */}
-      <div className="flex gap-1.5 flex-wrap" onClick={e => e.stopPropagation()}>
-        <button onClick={onNudge} className={`${btnBase} bg-[#0ABAB5]/10 border-[#0ABAB5]/30 text-[#0ABAB5] hover:bg-[#0ABAB5]/20`}>
-          <MessageSquare className="w-3 h-3" />{language === "es" ? "Empujar" : "Nudge"}
-        </button>
-        <button onClick={onAssignLesson} className={`${btnBase} bg-[#3B82F6]/10 border-[#3B82F6]/30 text-[#3B82F6] hover:bg-[#3B82F6]/20`}>
-          <BookOpen className="w-3 h-3" />{language === "es" ? "Asignar" : "Assign"}
-        </button>
-        <button onClick={onAwardXP} className={`${btnBase} bg-[#FBBF24]/10 border-[#FBBF24]/30 text-[#FBBF24] hover:bg-[#FBBF24]/20`}>
-          <Star className="w-3 h-3" />XP
-        </button>
-        <button onClick={onAddNote} className={`${btnBase} bg-[#8B5CF6]/10 border-[#8B5CF6]/30 text-[#8B5CF6] hover:bg-[#8B5CF6]/20`}>
-          <FileText className="w-3 h-3" />{language === "es" ? "Nota" : "Note"}
-        </button>
-      </div>
-    </motion.div>
-  );
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // The Clipboard API needs a secure context; the shop tablets are not always
+    // on one, and a copy button that silently fails is worse than useless.
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch {
+      return false;
+    }
+  }
 }
 
-/* ── Add Employee Modal ── */
-function AddEmployeeModal({ onClose, onAdd, locationFilter }: { onClose: () => void; onAdd: (data: backend.SignupData) => void; locationFilter: UserLocation }) {
-  const { language } = useLanguage();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("emp" + Math.floor(Math.random() * 900 + 100));
-  const [loc, setLoc] = useState<UserLocation>(locationFilter === 'andorra' || locationFilter === 'gibraltar' ? locationFilter : 'andorra');
-  const [role, setRole] = useState<'employee' | 'manager'>('employee');
+const inputClass =
+  'min-h-touch w-full rounded-chip border border-line-strong bg-surface px-3 text-body-small text-ink outline-none placeholder:text-ink-3 focus:border-teal-strong';
 
-  const canSubmit = name.trim() && email.trim() && password.trim();
+type Status = 'onTrack' | 'needsPush' | 'atRisk' | 'notStarted';
 
-  const handleSubmit = () => {
-    if (!canSubmit) return;
-    onAdd({ email: email.trim(), name: name.trim(), password, role, location: loc });
-    onClose();
-  };
-
-  const pillBase = "px-4 py-2 rounded-full border text-xs font-semibold transition-all";
-  const pillInactive = "border-[#2A2A2A] bg-[#111] text-[#8A8A8A]";
-  const pillActive = "border-[#0ABAB5] bg-[#0ABAB5]/10 text-[#0ABAB5]";
-
-  return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-black/70">
-      <motion.div initial={{ y: 100 }} animate={{ y: 0 }} className="bg-[#1A1A1A] rounded-t-3xl p-6 w-full max-w-[430px] border-t border-[#2A2A2A] max-h-[85vh] overflow-y-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-bold text-white">{language === "es" ? "Añadir Empleado" : "Add Employee"}</h2>
-          <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#8A8A8A]"><X size={16} /></button>
-        </div>
-
-        <div className="space-y-4">
-          <div>
-            <label className="text-xs text-[#8A8A8A] mb-1 block">{language === "es" ? "Nombre" : "Name"}</label>
-            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Maria Garcia" className="bg-[#111] border-[#2A2A2A] text-white" />
-          </div>
-          <div>
-            <label className="text-xs text-[#8A8A8A] mb-1 block">Email</label>
-            <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="maria@zerolines.com" className="bg-[#111] border-[#2A2A2A] text-white" />
-          </div>
-          <div>
-            <label className="text-xs text-[#8A8A8A] mb-1 block">{language === "es" ? "Contraseña temporal" : "Temporary Password"}</label>
-            <Input value={password} onChange={(e) => setPassword(e.target.value)} className="bg-[#111] border-[#2A2A2A] text-white" />
-          </div>
-          <div>
-            <label className="text-xs text-[#8A8A8A] mb-2 block">{language === "es" ? "Ubicación" : "Location"}</label>
-            <div className="flex gap-2">
-              <button onClick={() => setLoc('andorra')} className={`flex-1 ${pillBase} ${loc === 'andorra' ? pillActive : pillInactive}`}>Andorra</button>
-              <button onClick={() => setLoc('gibraltar')} className={`flex-1 ${pillBase} ${loc === 'gibraltar' ? pillActive : pillInactive}`}>Gibraltar</button>
-            </div>
-          </div>
-          <div>
-            <label className="text-xs text-[#8A8A8A] mb-2 block">Role</label>
-            <div className="flex gap-2">
-              <button onClick={() => setRole('employee')} className={`flex-1 ${pillBase} ${role === 'employee' ? pillActive : pillInactive}`}>Employee</button>
-              <button onClick={() => setRole('manager')} className={`flex-1 ${pillBase} ${role === 'manager' ? pillActive : pillInactive}`}>Manager</button>
-            </div>
-          </div>
-          <Button onClick={handleSubmit} disabled={!canSubmit} className="w-full bg-[#0ABAB5] text-black font-semibold h-12 rounded-xl mt-2">
-            {language === "es" ? "Crear Usuario" : "Create User"}
-          </Button>
-        </div>
-      </motion.div>
-    </div>
-  );
+/** Only ever called for people this device has records for. */
+function getStatus(emp: EmployeeProgress): { key: Status; dot: string } {
+  if (emp.completedLessons === 0) return { key: 'notStarted', dot: 'bg-line-strong' };
+  if (emp.progress >= 70) return { key: 'onTrack', dot: 'bg-success' };
+  if (emp.progress >= 40) return { key: 'needsPush', dot: 'bg-warning' };
+  return { key: 'atRisk', dot: 'bg-danger' };
 }
 
-/* ── Employee Detail ── */
-function EmployeeDetail({ emp, language, onBack }: { emp: EmployeeProgress; language: string; onBack: () => void }) {
-  const status = getStatus(emp.progress);
-  return (
-    <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 100 }} className="min-h-screen bg-[#0A0A0A] text-white px-4 pt-6 pb-24">
-      <Button onClick={onBack} variant="ghost" className="text-[#8A8A8A] mb-4 -ml-2">
-        <ArrowLeft className="w-4 h-4 mr-1" />{language === "es" ? "Volver" : "Back"}
-      </Button>
-      <div className="flex items-center gap-4 mb-6">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#0ABAB5] to-[#008B8B] flex items-center justify-center text-xl font-bold text-black">
-          {emp.user.name.split(" ").map(n => n[0]).join("")}
-        </div>
-        <div>
-          <h2 className="text-xl font-bold">{emp.user.name}</h2>
-          <div className="flex items-center gap-2 mt-1">
-            <span className={`w-2.5 h-2.5 rounded-full ${status.color}`} />
-            <span className="text-sm text-[#8A8A8A]">{language === "es" ? status.labelEs : status.label}</span>
-            <MapPin className="w-3.5 h-3.5 text-[#8A8A8A] ml-2" />
-            <span className="text-sm text-[#8A8A8A] capitalize">{emp.user.location}</span>
-          </div>
-          <p className="text-xs text-[#8A8A8A] mt-1">{emp.user.email}</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        <div className="bg-[#1A1A1A] rounded-xl p-4 border border-[#2A2A2A]"><p className="text-2xl font-bold">{emp.progress}%</p><p className="text-[11px] text-[#8A8A8A]">{language === "es" ? "Completado" : "Completed"}</p></div>
-        <div className="bg-[#1A1A1A] rounded-xl p-4 border border-[#2A2A2A]"><p className="text-2xl font-bold">{emp.completedLessons}/{emp.totalLessons}</p><p className="text-[11px] text-[#8A8A8A]">{language === "es" ? "Lecciones" : "Lessons"}</p></div>
-        <div className="bg-[#1A1A1A] rounded-xl p-4 border border-[#2A2A2A]"><p className="text-2xl font-bold">{emp.streak}d</p><p className="text-[11px] text-[#8A8A8A]">{language === "es" ? "Racha Actual" : "Current Streak"}</p></div>
-        <div className="bg-[#1A1A1A] rounded-xl p-4 border border-[#2A2A2A]"><p className="text-2xl font-bold">{emp.avgScore.toFixed(1)}</p><p className="text-[11px] text-[#8A8A8A]">{language === "es" ? "Promedio Quiz" : "Quiz Avg"}</p></div>
-      </div>
-      <div className="bg-[#1A1A1A] rounded-xl p-4 border border-[#2A2A2A]">
-        <p className="text-[11px] text-[#8A8A8A] uppercase tracking-wider mb-2">{language === "es" ? "Miembro desde" : "Member since"}</p>
-        <p className="text-sm">{new Date(emp.user.createdAt).toLocaleDateString()}</p>
-      </div>
-    </motion.div>
-  );
-}
+/* ── Page ── */
 
-/* ── Coaching Notes Modal ── */
-function CoachingNotesModal({ emp, language, onClose }: { emp: EmployeeProgress; language: string; onClose: () => void }) {
-  const [text, setText] = useState("");
-  const [notes, setNotes] = useState<CoachingNote[]>(() => getCoachingNotes().filter(n => n.employeeId === emp.user.id));
-
-  const handleSave = () => {
-    if (!text.trim()) return;
-    const note: CoachingNote = {
-      id: crypto.randomUUID?.() || Date.now().toString(),
-      employeeId: emp.user.id,
-      employeeName: emp.user.name,
-      text: text.trim(),
-      createdAt: new Date().toISOString(),
-    };
-    saveCoachingNote(note);
-    setNotes(prev => [note, ...prev]);
-    setText("");
-  };
-
-  return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-black/70">
-      <motion.div initial={{ y: 100 }} animate={{ y: 0 }} className="bg-[#1A1A1A] rounded-t-3xl p-6 w-full max-w-[430px] border-t border-[#2A2A2A] max-h-[85vh] overflow-y-auto">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-lg font-bold text-white">{language === "es" ? "Notas de Coaching" : "Coaching Notes"}</h2>
-            <p className="text-xs text-[#8A8A8A]">{emp.user.name}</p>
-          </div>
-          <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#8A8A8A]"><X size={16} /></button>
-        </div>
-        <div className="mb-4">
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={language === "es" ? "Escribe una nota de coaching..." : "Write a coaching note..."}
-            className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-sm text-white placeholder-[#5A5A5A] resize-none focus:outline-none focus:border-[#0ABAB5] min-h-[80px]"
-          />
-          <button onClick={handleSave} disabled={!text.trim()} className="w-full bg-[#8B5CF6] text-white font-semibold py-2.5 rounded-xl text-sm mt-2 disabled:opacity-40">
-            {language === "es" ? "Guardar Nota" : "Save Note"}
-          </button>
-        </div>
-        {notes.length > 0 && (
-          <div>
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider mb-2">{language === "es" ? "Notas anteriores" : "Previous Notes"}</p>
-            <div className="space-y-2 max-h-[250px] overflow-y-auto">
-              {notes.map(n => (
-                <div key={n.id} className="bg-[#111] rounded-lg p-3 border border-[#2A2A2A]">
-                  <p className="text-xs text-white">{n.text}</p>
-                  <p className="text-[10px] text-[#5A5A5A] mt-1">{new Date(n.createdAt).toLocaleString(language === "es" ? "es-ES" : "en-US")}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </motion.div>
-    </div>
-  );
-}
-
-/* ── Team Nudge Modal ── */
-function TeamNudgeModal({ language, senderName, onClose }: { language: string; senderName: string; onClose: () => void }) {
-  const [message, setMessage] = useState("");
-  const [sent, setSent] = useState(false);
-  const presets = [
-    { en: "Great morning everyone! Let's crush those stops! 🔥", es: "¡Buenos días a todos! ¡A romper esas paradas! 🔥" },
-    { en: "Don't forget your daily dose! 📚", es: "¡No olviden su dosis diaria! 📚" },
-    { en: "End of shift — reflect on your day! ✍️", es: "Fin de turno — ¡reflexionen sobre su día! ✍️" },
-  ];
-
-  const handleSend = (text: string) => {
-    if (!text.trim()) return;
-    saveTeamNudge({ text: text.trim(), sentAt: new Date().toISOString(), sender: senderName });
-    setSent(true);
-    setTimeout(() => onClose(), 1200);
-  };
-
-  return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-black/70">
-      <motion.div initial={{ y: 100 }} animate={{ y: 0 }} className="bg-[#1A1A1A] rounded-t-3xl p-6 w-full max-w-[430px] border-t border-[#2A2A2A]">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-white">{language === "es" ? "Enviar Empujón al Equipo" : "Send Team Nudge"}</h2>
-          <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#8A8A8A]"><X size={16} /></button>
-        </div>
-        {sent ? (
-          <div className="text-center py-8">
-            <Send className="w-10 h-10 text-[#4ADE80] mx-auto mb-3" />
-            <p className="text-sm text-white font-semibold">{language === "es" ? "¡Mensaje enviado!" : "Nudge sent!"}</p>
-          </div>
-        ) : (
-          <>
-            <p className="text-xs text-[#8A8A8A] mb-3">{language === "es" ? "Mensajes predefinidos:" : "Quick nudges:"}</p>
-            <div className="space-y-2 mb-4">
-              {presets.map((p, i) => (
-                <button key={i} onClick={() => handleSend(language === "es" ? p.es : p.en)} className="w-full text-left bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-xs text-white hover:border-[#0ABAB5]/50 hover:bg-[#0ABAB5]/5 transition-all">
-                  {language === "es" ? p.es : p.en}
-                </button>
-              ))}
-            </div>
-            <div className="border-t border-[#2A2A2A] pt-4">
-              <label className="text-xs text-[#8A8A8A] mb-1 block">{language === "es" ? "Mensaje personalizado:" : "Custom message:"}</label>
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder={language === "es" ? "Escribe tu mensaje..." : "Type your message..."}
-                className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-sm text-white placeholder-[#5A5A5A] resize-none focus:outline-none focus:border-[#0ABAB5] min-h-[60px]"
-              />
-              <button onClick={() => handleSend(message)} disabled={!message.trim()} className="w-full bg-[#0ABAB5] text-black font-semibold py-2.5 rounded-xl text-sm mt-2 disabled:opacity-40">
-                <Send className="w-3.5 h-3.5 inline mr-1" />{language === "es" ? "Enviar a Todo el Equipo" : "Send to Whole Team"}
-              </button>
-            </div>
-          </>
-        )}
-      </motion.div>
-    </div>
-  );
-}
-
-/* ── Coaching Queue Modal ── */
-function CoachingQueueModal({ employees, language, onClose, onSchedule }: { employees: (EmployeeProgress & { reason: string; reasonEs: string; daysSinceActive: number })[]; language: string; onClose: () => void; onSchedule: (emp: EmployeeProgress) => void }) {
-  const [scheduledId, setScheduledId] = useState<string | null>(null);
-  return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-black/70">
-      <motion.div initial={{ y: 100 }} animate={{ y: 0 }} className="bg-[#1A1A1A] rounded-t-3xl p-6 w-full max-w-[430px] border-t border-[#2A2A2A] max-h-[85vh] overflow-y-auto">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-lg font-bold text-white">{language === "es" ? "Cola de Coaching" : "Coaching Queue"}</h2>
-            <p className="text-xs text-[#8A8A8A]">{employees.length} {language === "es" ? "empleados necesitan atención" : "employees need attention"}</p>
-          </div>
-          <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#8A8A8A]"><X size={16} /></button>
-        </div>
-        {employees.length === 0 ? (
-          <div className="text-center py-8 text-[#8A8A8A] text-sm">{language === "es" ? "¡Todo bien! Nadie necesita coaching ahora mismo." : "All good! No one needs coaching right now."}</div>
-        ) : (
-          <div className="space-y-3">
-            {employees.map(emp => (
-              <div key={emp.user.id} className="bg-[#111] rounded-xl p-3 border border-[#2A2A2A]">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#F87171] to-[#DC2626] flex items-center justify-center text-xs font-bold text-black">
-                      {emp.user.name.split(" ").map(n => n[0]).join("")}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-white">{emp.user.name}</p>
-                      <p className="text-[10px] text-[#F87171]">{language === "es" ? emp.reasonEs : emp.reason}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-[10px] text-[#8A8A8A]">
-                    <Clock className="w-3 h-3" />
-                    <span>{language === "es" ? "Últ. activo:" : "Last active:"} {new Date(emp.lastActive).toLocaleDateString()}</span>
-                  </div>
-                  {scheduledId === emp.user.id ? (
-                    <span className="text-[10px] text-[#4ADE80] font-semibold">{language === "es" ? "¡Programado!" : "Scheduled!"}</span>
-                  ) : (
-                    <button onClick={() => { setScheduledId(emp.user.id); onSchedule(emp); }} className="px-3 py-1.5 rounded-lg bg-[#0ABAB5]/10 border border-[#0ABAB5]/30 text-[#0ABAB5] text-[10px] font-semibold hover:bg-[#0ABAB5]/20 transition-colors">
-                      {language === "es" ? "Programar 10 min" : "Schedule 10-min"}
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </motion.div>
-    </div>
-  );
-}
-
-/* ── Toast notification helper ── */
-function useToast() {
-  const [toast, setToast] = useState<{ message: string; visible: boolean }>({ message: "", visible: false });
-  const show = (message: string) => { setToast({ message, visible: true }); setTimeout(() => setToast({ message: "", visible: false }), 2200); };
-  const ToastEl = toast.visible ? (
-    <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }} className="fixed bottom-20 left-0 right-0 z-[70] flex justify-center px-4 pointer-events-none">
-      <div className="bg-[#1A1A1A] border border-[#2A2A2A] text-white text-xs font-medium px-4 py-2.5 rounded-full shadow-lg">{toast.message}</div>
-    </motion.div>
-  ) : null;
-  return { ToastEl, show };
-}
-
-/* ── Main Dashboard ── */
 export default function ManagerDashboard() {
   const { language } = useLanguage();
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const [selectedEmp, setSelectedEmp] = useState<EmployeeProgress | null>(null);
-  const [locationFilter, setLocationFilter] = useState<"all" | UserLocation>(user?.location || "all");
-  const [team, setTeam] = useState<EmployeeProgress[]>([]);
-  const [stats, setStats] = useState({ total: 0, avgProgress: 0, top: "-", atRisk: 0 });
-  const [showAdd, setShowAdd] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [showCoachingNotes, setShowCoachingNotes] = useState<EmployeeProgress | null>(null);
-  const [showTeamNudge, setShowTeamNudge] = useState(false);
-  const [showCoachingQueue, setShowCoachingQueue] = useState(false);
-  const [showAssignLesson, setShowAssignLesson] = useState<EmployeeProgress | null>(null);
-  const [assignLessonVal, setAssignLessonVal] = useState("");
-  const toast = useToast();
+  const isEs = language === 'es';
+  const c = useCallback((key: CopyKey) => (isEs ? COPY[key].es : COPY[key].en), [isEs]);
+  const locale = isEs ? 'es-ES' : 'en-GB';
 
-  const fetchTeam = async () => {
-    if (!user) return;
-    setLoading(true);
-    const data = await backend.getTeamProgress(user.id);
-    setTeam(data);
-    const s = await backend.getTeamStats(user.id);
-    setStats({ total: s.totalEmployees, avgProgress: s.avgCompletion, top: s.topPerformer, atRisk: s.atRiskCount });
-    setLoading(false);
-  };
+  const [team, setTeam] = useState<EmployeeProgress[] | null>(null);
+  const [stats, setStats] = useState({ avgCompletion: 0, top: '—', atRisk: 0 });
+
+  const [selected, setSelected] = useState<EmployeeProgress | null>(null);
+  const [locationFilter, setLocationFilter] = useState<'all' | UserLocation>('all');
+  const [adding, setAdding] = useState(false);
+  const [removing, setRemoving] = useState<User | null>(null);
+  const [notesFor, setNotesFor] = useState<EmployeeProgress | null>(null);
 
   useEffect(() => {
-    fetchTeam();
+    let cancelled = false;
+    (async () => {
+      if (!user) {
+        // Clearing the loading state matters even here: returning early used to
+        // leave an unauthenticated visitor on "Loading…" for good.
+        if (!cancelled) setTeam([]);
+        return;
+      }
+      const data = await backend.getTeamProgress(user.id);
+      const s = await backend.getTeamStats(user.id);
+      if (cancelled) return;
+      setTeam(data);
+      setStats({ avgCompletion: s.avgCompletion, top: s.topPerformer, atRisk: s.atRiskCount });
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
+  /** Re-read the team after adding or removing someone. */
+  const refreshTeam = useCallback(() => {
+    if (!user) return;
+    void (async () => {
+      try {
+        const data = await backend.getTeamProgress(user.id);
+        const s = await backend.getTeamStats(user.id);
+        setTeam(data);
+        setStats({ avgCompletion: s.avgCompletion, top: s.topPerformer, atRisk: s.atRiskCount });
+      } catch {
+        // Keep showing what we had rather than blanking the screen.
+      }
+    })();
   }, [user]);
 
   const employees = useMemo(() => {
-    if (locationFilter === "all") return team;
-    return team.filter(e => e.user.location === locationFilter);
+    const list = team ?? [];
+    return locationFilter === 'all' ? list : list.filter((e) => e.user.location === locationFilter);
   }, [team, locationFilter]);
 
-  const coachingQueue = useMemo(() => {
-    return employees.filter(emp => {
-      const daysSinceActive = Math.floor((Date.now() - new Date(emp.lastActive).getTime()) / 86400000);
-      return emp.progress < 30 || daysSinceActive >= 3 || emp.avgScore < 50 || emp.streak === 0;
-    }).map(emp => {
-      const daysSinceActive = Math.floor((Date.now() - new Date(emp.lastActive).getTime()) / 86400000);
-      let reason = "";
-      let reasonEs = "";
-      if (emp.progress < 30) { reason = "Low progress"; reasonEs = "Progreso bajo"; }
-      else if (daysSinceActive >= 3) { reason = `No activity for ${daysSinceActive} days`; reasonEs = `Sin actividad por ${daysSinceActive} días`; }
-      else if (emp.avgScore < 50) { reason = "Low quiz scores"; reasonEs = "Puntuaciones bajas"; }
-      else { reason = "Streak broken"; reasonEs = "Racha rota"; }
-      return { ...emp, reason, reasonEs, daysSinceActive };
-    });
-  }, [employees]);
+  const shopsInTeam = useMemo(() => new Set((team ?? []).map((e) => e.user.location)).size, [team]);
 
-  const handleAddEmployee = async (data: backend.SignupData) => {
-    await backend.createUser(data);
-    fetchTeam();
-  };
+  /* The whole point: how many of these people this device has anything for. */
+  const measuredCount = useMemo(() => (team ?? []).filter((e) => e.hasData).length, [team]);
 
-  const handleNudge = (emp: EmployeeProgress) => {
-    toast.show(language === "es" ? `Empujón enviado a ${emp.user.name} 👋` : `Nudge sent to ${emp.user.name} 👋`);
-  };
-  const handleAwardXP = (emp: EmployeeProgress) => {
-    toast.show(language === "es" ? `+20 XP para ${emp.user.name} ⭐` : `+20 XP awarded to ${emp.user.name} ⭐`);
-  };
-  const handleAssignLessonSave = () => {
-    if (!assignLessonVal.trim() || !showAssignLesson) return;
-    toast.show(language === "es" ? `Lección asignada a ${showAssignLesson.user.name} 📚` : `Lesson assigned to ${showAssignLesson.user.name} 📚`);
-    setAssignLessonVal("");
-    setShowAssignLesson(null);
-  };
+  const statusLabel = useCallback(
+    (key: Status) =>
+      key === 'onTrack'
+        ? c('statusOnTrack')
+        : key === 'needsPush'
+          ? c('statusNeedsPush')
+          : key === 'atRisk'
+            ? c('statusAtRisk')
+            : c('statusNotStarted'),
+    [c]
+  );
 
-  if (selectedEmp) {
-    return <EmployeeDetail emp={selectedEmp} language={language} onBack={() => setSelectedEmp(null)} />;
+  if (team === null) return <LoadingScreen />;
+
+  if (selected) {
+    return (
+      <EmployeeDetail
+        emp={selected}
+        c={c}
+        locale={locale}
+        statusLabel={statusLabel}
+        onBack={() => setSelected(null)}
+        onNotes={() => setNotesFor(selected)}
+      />
+    );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white px-4 pt-6 pb-24">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <p className="text-[11px] font-semibold tracking-widest text-[#0ABAB5] uppercase">{language === "es" ? "Panel del Manager" : "Manager Dashboard"}</p>
-          <h1 className="text-xl font-bold">{language === "es" ? "Tu Equipo" : "Your Team"}</h1>
+    <div className="min-h-full bg-background pb-10">
+      {/* Not sticky: the app frame in Layout.tsx is `overflow-hidden`, which makes
+          every descendant's `position: sticky` silently do nothing. */}
+      <header className="border-b border-line bg-surface px-5 pb-3 pt-6">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-overline text-teal-strong">{c('overline')}</p>
+            <h1 className="text-h2 text-ink">{c('title')}</h1>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setAdding(true)}
+              aria-label={c('addEmployee')}
+              className="btn-icon bg-teal text-on-teal"
+            >
+              <UserPlus size={18} aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate('/profile')}
+              aria-label={c('close')}
+              className="btn-icon"
+            >
+              <X size={18} aria-hidden />
+            </button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <Button onClick={() => setShowAdd(true)} size="sm" className="bg-[#0ABAB5] text-black rounded-full px-3">
-            <UserPlus className="w-4 h-4" />
-          </Button>
-          <Button onClick={() => navigate("/profile")} variant="ghost" size="sm" className="text-[#8A8A8A]">{language === "es" ? "Cerrar" : "Close"}</Button>
-        </div>
-      </div>
+      </header>
 
-      {/* Stats Row */}
-      <div className="grid grid-cols-4 gap-2 mb-6">
-        <StatCard icon={Users} value={String(stats.total)} label="Employees" labelEs="Empleados" delay={0} />
-        <StatCard icon={TrendingUp} value={`${stats.avgProgress}%`} label="Avg Done" labelEs="Prom Completado" delay={0.1} />
-        <StatCard icon={Award} value={stats.top} label="Top" labelEs="Mejor" delay={0.2} />
-        <StatCard icon={AlertTriangle} value={String(stats.atRisk)} label="At Risk" labelEs="En Riesgo" delay={0.3} />
-      </div>
+      <div className="space-y-5 px-5 pt-5">
+        {/* Head count, and how much of it this phone can actually see. Both are
+            noise before anyone is on the team, so they wait until there is. */}
+        {team.length > 0 && (
+          <div className="grid grid-cols-2 gap-3">
+            <StatTile icon={Users} value={String(team.length)} label={c('statTeam')} accent="teal" />
+            <StatTile
+              icon={Smartphone}
+              value={`${measuredCount}/${team.length}`}
+              label={c(backend.isDatabaseConfigured ? 'statSeenLive' : 'statSeen')}
+              accent="violet"
+            />
+          </div>
+        )}
 
-      {/* Daily Digest Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.35 }}
-        className="bg-gradient-to-br from-[#1A1A1A] to-[#1A1A1A]/80 rounded-xl p-4 border border-[#2A2A2A] mb-4"
-      >
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <p className="text-[10px] font-semibold tracking-widest text-[#0ABAB5] uppercase">{language === "es" ? "Resumen Diario" : "Daily Digest"}</p>
-            <p className="text-xs text-[#8A8A8A]">{new Date().toLocaleDateString(language === "es" ? "es-ES" : "en-US", { weekday: "long", month: "long", day: "numeric" })} — {language === "es" ? "Resumen de hoy" : "Today's Overview"}</p>
-          </div>
-          <Calendar className="w-5 h-5 text-[#0ABAB5]" />
-        </div>
-        <div className="grid grid-cols-3 gap-2 mb-3">
-          <div className="bg-[#111] rounded-lg p-2 text-center">
-            <p className="text-lg font-bold text-[#4ADE80]">{employees.filter(e => new Date(e.lastActive).toDateString() === new Date().toDateString()).length}</p>
-            <p className="text-[9px] text-[#8A8A8A]">{language === "es" ? "Check-ins hoy" : "Checked in"}</p>
-          </div>
-          <div className="bg-[#111] rounded-lg p-2 text-center">
-            <p className="text-lg font-bold text-[#0ABAB5]">{employees.filter(e => e.progress > 0).length}</p>
-            <p className="text-[9px] text-[#8A8A8A]">{language === "es" ? "Dosis diaria" : "Daily dose done"}</p>
-          </div>
-          <div className="bg-[#111] rounded-lg p-2 text-center">
-            <p className="text-lg font-bold text-[#F87171]">{coachingQueue.length}</p>
-            <p className="text-[9px] text-[#8A8A8A]">{language === "es" ? "Necesitan coaching" : "Need coaching"}</p>
-          </div>
-        </div>
-        <div className="bg-[#111] rounded-lg p-2.5 mb-3 flex items-start gap-2">
-          <Award className="w-4 h-4 text-[#FBBF24] flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-[10px] text-[#8A8A8A] uppercase tracking-wider">{language === "es" ? "Victoria de ayer" : "Yesterday's Win"}</p>
-            <p className="text-xs text-white mt-0.5">{language === "es" ? "¡María trajo a 15 personas — su mejor marca personal!" : "Maria brought in 15 people — her personal best!"}</p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <button onClick={() => setShowTeamNudge(true)} className="flex-1 bg-[#0ABAB5]/10 border border-[#0ABAB5]/30 text-[#0ABAB5] rounded-lg py-2 text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#0ABAB5]/20 transition-colors">
-            <Send className="w-3.5 h-3.5" />{language === "es" ? "Enviar Empujón" : "Send Team Nudge"}
-          </button>
-          <button onClick={() => setShowCoachingQueue(true)} className="flex-1 bg-[#F87171]/10 border border-[#F87171]/30 text-[#F87171] rounded-lg py-2 text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#F87171]/20 transition-colors">
-            <Zap className="w-3.5 h-3.5" />{language === "es" ? "Ver Cola Coaching" : "View Coaching Queue"}
-          </button>
-        </div>
-      </motion.div>
+        {/* Derived figures only exist where there is data to derive them from. */}
+        {measuredCount > 0 && (
+          <section className="surface-raised p-4">
+            <p className="text-overline text-ink-3">
+              {c(backend.isDatabaseConfigured ? 'measuredHeadingLive' : 'measuredHeading')}
+            </p>
+            <div className="mt-3 grid grid-cols-3 divide-x divide-line">
+              {[
+                { value: `${stats.avgCompletion}%`, label: c('statAvg') },
+                { value: stats.top, label: c('statTop') },
+                { value: String(stats.atRisk), label: c('statRisk') },
+              ].map((cell) => (
+                <div key={cell.label} className="px-1 text-center">
+                  <p className="truncate text-h3 text-ink">{cell.value}</p>
+                  <p className="mt-0.5 text-caption leading-4 text-ink-3">{cell.label}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
-      {/* Location Filter */}
-      <div className="flex gap-2 mb-4">
-        {(["all", "gibraltar", "andorra"] as const).map((loc) => (
-          <button key={loc} onClick={() => setLocationFilter(loc)}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${locationFilter === loc ? "bg-[#0ABAB5] text-black" : "bg-[#1A1A1A] text-[#8A8A8A] border border-[#2A2A2A]"}`}>
-            {loc === "all" ? (language === "es" ? "Todos" : "All") : loc.charAt(0).toUpperCase() + loc.slice(1)}
-          </button>
-        ))}
-      </div>
+        {/* Said once, calmly, and then never again on this screen. */}
+        {team.length > 0 && (
+          <section className="surface-flat p-4">
+            <div className="flex items-start gap-3">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-chip bg-surface-sunken">
+                <Smartphone size={16} className="text-ink-2" aria-hidden />
+              </div>
+              <div className="min-w-0">
+                <p className="text-body-small font-semibold text-ink">
+                  {c(backend.isDatabaseConfigured ? 'whyTitleLive' : 'whyTitle')}
+                </p>
+                <p className="mt-1 text-caption leading-5 text-ink-2">
+                  {c(backend.isDatabaseConfigured ? 'whyBodyLive' : 'whyBody')}
+                </p>
+                <p className="mt-2 text-caption leading-5 text-ink-3">
+                  {c(backend.isDatabaseConfigured ? 'whyTipLive' : 'whyTip')}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
 
-      {loading ? (
-        <div className="text-center py-12 text-[#8A8A8A]">{language === "es" ? "Cargando..." : "Loading..."}</div>
-      ) : (
+        {/* Shop filter — only worth showing when the team spans shops. */}
+        {shopsInTeam > 1 && (
+          <div className="flex gap-2">
+            {(['all', 'andorra', 'gibraltar'] as const).map((loc) => {
+              const active = locationFilter === loc;
+              return (
+                <button
+                  key={loc}
+                  type="button"
+                  onClick={() => setLocationFilter(loc)}
+                  aria-pressed={active}
+                  className={`min-h-touch rounded-full border px-3 text-caption font-semibold transition-colors ${
+                    active ? 'border-teal bg-teal text-on-teal' : 'border-line bg-surface text-ink-2'
+                  }`}
+                >
+                  {loc === 'all' ? c('allShops') : loc === 'andorra' ? 'Andorra' : 'Gibraltar'}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Team */}
         <div className="space-y-3">
           {employees.map((emp, i) => (
-            <motion.div key={emp.user.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+            <motion.div
+              key={emp.user.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(i * 0.04, 0.3) }}
+            >
               <EmployeeCard
                 emp={emp}
-                language={language}
-                onClick={() => setSelectedEmp(emp)}
-                onNudge={(e) => { e.stopPropagation(); handleNudge(emp); }}
-                onAssignLesson={(e) => { e.stopPropagation(); setShowAssignLesson(emp); }}
-                onAwardXP={(e) => { e.stopPropagation(); handleAwardXP(emp); }}
-                onAddNote={(e) => { e.stopPropagation(); setShowCoachingNotes(emp); }}
+                c={c}
+                statusLabel={statusLabel}
+                onOpen={() => setSelected(emp)}
+                onNote={() => setNotesFor(emp)}
+                onRemove={() => setRemoving(emp.user)}
               />
             </motion.div>
           ))}
+
           {employees.length === 0 && (
-            <div className="text-center py-12 text-[#8A8A8A]">{language === "es" ? "No hay empleados" : "No employees found"}</div>
-          )}
-        </div>
-      )}
-
-      {/* Coaching Queue Section */}
-      {coachingQueue.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6"
-        >
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold text-white">{language === "es" ? "Cola de Coaching" : "Coaching Queue"}</h2>
-            <span className="text-[10px] text-[#F87171] bg-[#F87171]/10 px-2 py-0.5 rounded-full font-semibold">{coachingQueue.length} {language === "es" ? "necesitan atención" : "need attention"}</span>
-          </div>
-          <div className="space-y-2">
-            {coachingQueue.slice(0, 3).map(emp => (
-              <div key={emp.user.id} className="bg-[#1A1A1A] rounded-xl p-3 border border-[#F87171]/20 flex items-center justify-between">
-                <div className="flex items-center gap-2 min-w-0">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#F87171] to-[#DC2626] flex items-center justify-center text-xs font-bold text-black flex-shrink-0">
-                    {emp.user.name.split(" ").map(n => n[0]).join("")}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-white truncate">{emp.user.name}</p>
-                    <p className="text-[10px] text-[#F87171] truncate">{language === "es" ? emp.reasonEs : emp.reason}</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => { setShowCoachingNotes(emp); }}
-                  className="flex-shrink-0 px-3 py-1.5 rounded-lg bg-[#0ABAB5]/10 border border-[#0ABAB5]/30 text-[#0ABAB5] text-[10px] font-semibold hover:bg-[#0ABAB5]/20 transition-colors ml-2"
-                >
-                  {language === "es" ? "Programar 10 min" : "Schedule 10-min"}
-                </button>
-              </div>
-            ))}
-          </div>
-          {coachingQueue.length > 3 && (
-            <button onClick={() => setShowCoachingQueue(true)} className="w-full text-center text-xs text-[#0ABAB5] mt-2 py-2 hover:underline">
-              {language === "es" ? `Ver todos (${coachingQueue.length})` : `View all ${coachingQueue.length}`}
-            </button>
-          )}
-        </motion.div>
-      )}
-
-      {/* Modals */}
-      {showAdd && <AddEmployeeModal onClose={() => setShowAdd(false)} onAdd={handleAddEmployee} locationFilter={locationFilter as UserLocation} />}
-      {showCoachingNotes && <CoachingNotesModal emp={showCoachingNotes} language={language} onClose={() => setShowCoachingNotes(null)} />}
-      {showTeamNudge && <TeamNudgeModal language={language} senderName={user?.name || "Manager"} onClose={() => setShowTeamNudge(false)} />}
-      {showCoachingQueue && <CoachingQueueModal employees={coachingQueue} language={language} onClose={() => setShowCoachingQueue(false)} onSchedule={(emp) => setShowCoachingNotes(emp)} />}
-
-      {/* Assign Lesson Modal */}
-      {showAssignLesson && (
-        <div className="fixed inset-0 z-[60] flex items-end justify-center bg-black/70">
-          <motion.div initial={{ y: 100 }} animate={{ y: 0 }} className="bg-[#1A1A1A] rounded-t-3xl p-6 w-full max-w-[430px] border-t border-[#2A2A2A]">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="text-lg font-bold text-white">{language === "es" ? "Asignar Lección" : "Assign Lesson"}</h2>
-                <p className="text-xs text-[#8A8A8A]">{showAssignLesson.user.name}</p>
-              </div>
-              <button onClick={() => setShowAssignLesson(null)} className="w-8 h-8 rounded-full bg-[#2A2A2A] flex items-center justify-center text-[#8A8A8A]"><X size={16} /></button>
+            <div className="surface-flat p-8 text-center">
+              <Users size={28} className="mx-auto mb-2 text-line-strong" aria-hidden />
+              <p className="text-body-small font-semibold text-ink">{c('noEmployees')}</p>
+              <p className="mx-auto mt-1 max-w-[30ch] text-caption leading-5 text-ink-3">
+                {c('noEmployeesSub')}
+              </p>
+              <button type="button" onClick={() => setAdding(true)} className="btn-primary mt-4">
+                <UserPlus size={16} aria-hidden />
+                {c('addEmployee')}
+              </button>
             </div>
-            <label className="text-xs text-[#8A8A8A] mb-2 block">{language === "es" ? "Seleccionar lección:" : "Select lesson:"}</label>
-            <select
-              value={assignLessonVal}
-              onChange={(e) => setAssignLessonVal(e.target.value)}
-              className="w-full bg-[#111] border border-[#2A2A2A] rounded-xl p-3 text-sm text-white mb-4 focus:outline-none focus:border-[#0ABAB5]"
+          )}
+        </div>
+
+        <div className="pb-safe" />
+      </div>
+
+      {adding && user && (
+        <AddSellerSheet
+          c={c}
+          managerUsername={user.username}
+          managerId={user.id}
+          // An admin has no shop of their own, so the form starts on Andorra
+          // and they choose; a manager's own shop is right for them.
+          defaultLocation={user.location ?? 'andorra'}
+          onCreated={refreshTeam}
+          onClose={() => setAdding(false)}
+        />
+      )}
+
+      {removing &&
+        (backend.isDatabaseConfigured ? (
+          <DeleteFromDatabaseSheet
+            person={removing}
+            c={c}
+            onRemoved={refreshTeam}
+            onClose={() => setRemoving(null)}
+          />
+        ) : (
+          <RemoveSheet person={removing} c={c} onClose={() => setRemoving(null)} />
+        ))}
+
+      {notesFor && (
+        <CoachingNotesSheet emp={notesFor} c={c} locale={locale} onClose={() => setNotesFor(null)} />
+      )}
+    </div>
+  );
+}
+
+/* ── Pieces ── */
+
+const TILE_ACCENT = {
+  teal: { tint: 'bg-teal-tint', text: 'text-teal-strong' },
+  coral: { tint: 'bg-coral-tint', text: 'text-coral-strong' },
+  gold: { tint: 'bg-gold-tint', text: 'text-gold-strong' },
+  violet: { tint: 'bg-violet-tint', text: 'text-violet-strong' },
+} as const;
+
+function StatTile({
+  icon: Icon,
+  value,
+  label,
+  accent,
+}: {
+  icon: LucideIcon;
+  value: string;
+  label: string;
+  accent: keyof typeof TILE_ACCENT;
+}) {
+  const a = TILE_ACCENT[accent];
+  return (
+    <div className="surface-raised flex items-center gap-3 p-3">
+      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-chip ${a.tint}`}>
+        <Icon size={18} className={a.text} aria-hidden />
+      </div>
+      <div className="min-w-0">
+        <p className="truncate text-h3 text-ink">{value}</p>
+        <p className="text-caption leading-4 text-ink-3">{label}</p>
+      </div>
+    </div>
+  );
+}
+
+function Initials({ name, size = 'md' }: { name: string; size?: 'md' | 'lg' }) {
+  const box = size === 'lg' ? 'h-16 w-16 text-h3' : 'h-11 w-11 text-body-small';
+  return (
+    <div className={`flex ${box} shrink-0 items-center justify-center rounded-full bg-teal-tint`}>
+      <span className="font-semibold text-teal-strong">
+        {name
+          .split(' ')
+          .map((n) => n[0])
+          .slice(0, 2)
+          .join('')}
+      </span>
+    </div>
+  );
+}
+
+/** No records for this person on this phone. Stated, not implied with zeros. */
+function NoDataLine({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 text-caption text-ink-3">
+      <Smartphone size={12} aria-hidden />
+      {label}
+    </span>
+  );
+}
+
+function EmployeeCard({
+  emp,
+  c,
+  statusLabel,
+  onOpen,
+  onNote,
+  onRemove,
+}: {
+  emp: EmployeeProgress;
+  c: (k: CopyKey) => string;
+  statusLabel: (key: Status) => string;
+  onOpen: () => void;
+  onNote: () => void;
+  onRemove: () => void;
+}) {
+  // Training and street are separate signals: a seller can be pounding the
+  // street with no lessons done, or the reverse. Show each only when it is real,
+  // and "no data" only when neither is.
+  const hasTraining = emp.completedLessons > 0 || emp.avgScore > 0;
+  const hasStreet = emp.street.stops > 0 || emp.street.sales > 0;
+  const status = hasTraining ? getStatus(emp) : null;
+  return (
+    <div className="surface-raised overflow-hidden">
+      <button type="button" onClick={onOpen} className="w-full p-4 text-left">
+        <div className="flex items-center gap-3">
+          <Initials name={emp.user.name} />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-body-small font-semibold text-ink">{emp.user.name}</p>
+            <p className="truncate font-mono text-caption text-ink-3">{emp.user.username}</p>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-surface-sunken px-2 py-0.5 text-caption capitalize text-ink-2">
+            <MapPin size={11} aria-hidden />
+            {emp.user.location}
+          </span>
+        </div>
+
+        {status && (
+          <>
+            <div className="mt-3 flex items-center gap-1.5">
+              <span className={`h-2 w-2 shrink-0 rounded-full ${status.dot}`} aria-hidden />
+              <span className="truncate text-caption text-ink-2">{statusLabel(status.key)}</span>
+            </div>
+            <div
+              className="mt-2 h-2 overflow-hidden rounded-full bg-surface-sunken"
+              role="progressbar"
+              aria-valuenow={emp.progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={emp.user.name}
             >
-              <option value="">{language === "es" ? "-- Seleccionar --" : "-- Select --"}</option>
-              <option value="lesson-greeting">{language === "es" ? "Saludo al Cliente" : "Greeting the Customer"}</option>
-              <option value="lesson-upsell">{language === "es" ? "Técnicas de Upsell" : "Upselling Techniques"}</option>
-              <option value="lesson-difficult">{language === "es" ? "Clientes Difíciles" : "Dealing with Difficult Customers"}</option>
-              <option value="lesson-product">{language === "es" ? "Conocimiento de Producto" : "Product Knowledge"}</option>
-              <option value="lesson-closing">{language === "es" ? "Cierre de Venta" : "Closing the Sale"}</option>
-            </select>
-            <button onClick={handleAssignLessonSave} disabled={!assignLessonVal} className="w-full bg-[#3B82F6] text-white font-semibold py-2.5 rounded-xl text-sm disabled:opacity-40">
-              {language === "es" ? "Asignar Lección" : "Assign Lesson"}
-            </button>
-          </motion.div>
+              <motion.div
+                className="h-full rounded-full bg-teal"
+                initial={{ width: 0 }}
+                animate={{ width: `${emp.progress}%` }}
+                transition={{ duration: 0.7 }}
+              />
+            </div>
+            <div className="mt-2 flex justify-between text-caption text-ink-3">
+              <span>
+                {c('progress')}: <b className="text-ink-2">{emp.progress}%</b>
+              </span>
+              <span>
+                {c('lessons')}:{' '}
+                <b className="text-ink-2">
+                  {emp.completedLessons}/{emp.totalLessons}
+                </b>
+              </span>
+              <span>
+                {c('quizAvg')}: <b className="text-ink-2">{Math.round(emp.avgScore)}</b>
+              </span>
+            </div>
+          </>
+        )}
+
+        {hasStreet && (
+          <div className={`${status ? 'mt-3 border-t border-line pt-3' : 'mt-3'}`}>
+            <p className="text-overline text-ink-3">{c('streetWeek')}</p>
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-caption text-ink-3">
+              <span>
+                <b className="text-ink-2">{emp.street.stops}</b> {c('streetStops')}
+              </span>
+              <span>
+                <b className="text-ink-2">{emp.street.sales}</b> {c('streetSales')}
+              </span>
+              <span className="text-teal-strong">
+                <b>{emp.street.conversion}%</b> {c('streetConv')}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* No bar at all — a 0% bar is a measurement, and there is none. */}
+        {!status && !hasStreet && (
+          <div className="mt-3">
+            <NoDataLine label={c('noData')} />
+          </div>
+        )}
+      </button>
+
+      <div className="flex gap-2 border-t border-line px-4 py-2">
+        <button type="button" onClick={onNote} className="btn-quiet min-h-touch flex-1 px-2 text-caption">
+          <FileText size={14} aria-hidden />
+          {c('note')}
+        </button>
+        <button
+          type="button"
+          onClick={onRemove}
+          aria-label={`${c('remove')} — ${emp.user.name}`}
+          className="btn-icon shrink-0"
+        >
+          <UserMinus size={16} aria-hidden />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function EmployeeDetail({
+  emp,
+  c,
+  locale,
+  statusLabel,
+  onBack,
+  onNotes,
+}: {
+  emp: EmployeeProgress;
+  c: (k: CopyKey) => string;
+  locale: string;
+  statusLabel: (key: Status) => string;
+  onBack: () => void;
+  onNotes: () => void;
+}) {
+  const status = emp.hasData ? getStatus(emp) : null;
+  const lastActive = emp.lastActive ? new Date(emp.lastActive) : null;
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="min-h-full bg-background px-5 pb-10 pt-6"
+    >
+      <button type="button" onClick={onBack} className="btn-quiet mb-5 px-4 text-caption">
+        <ArrowLeft size={16} aria-hidden />
+        {c('back')}
+      </button>
+
+      <div className="flex items-center gap-4">
+        <Initials name={emp.user.name} size="lg" />
+        <div className="min-w-0">
+          <h1 className="truncate text-h2 text-ink">{emp.user.name}</h1>
+          <p className="truncate font-mono text-caption text-ink-3">{emp.user.username}</p>
+          <div className="mt-1 flex items-center gap-1.5">
+            {status ? (
+              <>
+                <span className={`h-2 w-2 rounded-full ${status.dot}`} aria-hidden />
+                <span className="text-caption text-ink-2">{statusLabel(status.key)}</span>
+              </>
+            ) : (
+              <NoDataLine label={c('noData')} />
+            )}
+            <span className="ml-1 inline-flex items-center gap-1 text-caption capitalize text-ink-3">
+              <MapPin size={11} aria-hidden />
+              {emp.user.location}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {emp.hasData ? (
+        <>
+          {/* No streak tile: the backend has no streak to report from another
+              device, and a hardcoded 0 would read as a measurement. */}
+          <div className="surface-raised mt-5 p-4">
+            <div className="grid grid-cols-3 divide-x divide-line">
+              {[
+                { value: `${emp.progress}%`, label: c('progress') },
+                { value: `${emp.completedLessons}/${emp.totalLessons}`, label: c('lessons') },
+                { value: String(Math.round(emp.avgScore)), label: c('quizAvg') },
+              ].map((s) => (
+                <div key={s.label} className="px-1 text-center">
+                  <p className="text-h2 text-ink">{s.value}</p>
+                  <p className="mt-0.5 text-caption leading-4 text-ink-3">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {lastActive && !Number.isNaN(lastActive.getTime()) && (
+            <div className="surface-raised mt-3 flex items-center justify-between gap-3 p-4">
+              <span className="text-caption text-ink-3">{c('lastActive')}</span>
+              <span className="text-body-small text-ink">{lastActive.toLocaleDateString(locale)}</span>
+            </div>
+          )}
+        </>
+      ) : (
+        /* The header line above already states the fact; this explains it once. */
+        <div className="surface-flat mt-5 p-4">
+          <p className="text-body-small font-semibold text-ink">
+            {c(backend.isDatabaseConfigured ? 'whyTitleLive' : 'whyTitle')}
+          </p>
+          <p className="mt-1 text-caption leading-5 text-ink-2">
+            {c(backend.isDatabaseConfigured ? 'whyBodyLive' : 'whyBody')}
+          </p>
+          <p className="mt-2 text-caption leading-5 text-ink-3">
+            {c(backend.isDatabaseConfigured ? 'whyTipLive' : 'whyTip')}
+          </p>
         </div>
       )}
 
-      {/* Toast */}
-      {toast.ToastEl}
+      <button type="button" onClick={onNotes} className="btn-secondary mt-4 w-full">
+        <FileText size={16} aria-hidden />
+        {c('coachingNotes')}
+      </button>
+      <div className="pb-safe" />
+    </motion.div>
+  );
+}
+
+function CopyRow({
+  value,
+  label,
+  copiedLabel,
+  variant = 'quiet',
+}: {
+  value: string;
+  label: string;
+  copiedLabel: string;
+  variant?: 'quiet' | 'teal';
+}) {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        if (await copyToClipboard(value)) {
+          setCopied(true);
+          window.clearTimeout(timer.current);
+          timer.current = window.setTimeout(() => setCopied(false), 1800);
+        }
+      }}
+      className={`${variant === 'teal' ? 'btn-secondary' : 'btn-quiet'} w-full text-body-small`}
+    >
+      {copied ? <Check size={16} aria-hidden /> : <Copy size={16} aria-hidden />}
+      <span aria-live="polite">{copied ? copiedLabel : label}</span>
+    </button>
+  );
+}
+
+/** Monospace, sunken, and allowed to scroll sideways so it cannot widen a 390px
+    phone. `min-w-0` because a grid/flex child otherwise refuses to shrink. */
+function CodeBlock({ code }: { code: string }) {
+  return (
+    <div className="min-w-0">
+      <pre className="max-w-full overflow-x-auto rounded-card bg-surface-sunken p-3 font-mono text-caption leading-5 text-ink">
+        {code}
+      </pre>
     </div>
+  );
+}
+
+function Steps({ items }: { items: string[] }) {
+  return (
+    <ol className="space-y-2">
+      {items.map((text, i) => (
+        <li key={text} className="flex items-start gap-2.5">
+          <span
+            aria-hidden
+            className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal text-caption font-semibold text-on-teal"
+          >
+            {i + 1}
+          </span>
+          <span className="min-w-0 flex-1 text-caption leading-5 text-ink-2">{text}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function GitHubLink({ label }: { label: string }) {
+  return (
+    <a href={ROSTER_EDIT_URL} target="_blank" rel="noreferrer" className="btn-quiet w-full text-body-small">
+      <ExternalLink size={16} aria-hidden />
+      {label}
+    </a>
+  );
+}
+
+/** Radix Dialog, so focus is trapped and Escape closes it. */
+function Sheet({
+  title,
+  subtitle,
+  description,
+  onClose,
+  closeLabel,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  onClose: () => void;
+  closeLabel: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent
+        showCloseButton={false}
+        className="max-h-[88vh] overflow-y-auto rounded-feature border-line bg-surface"
+      >
+        <div className="flex min-w-0 items-start justify-between gap-3">
+          <div className="min-w-0">
+            <DialogTitle className="text-h3 text-ink">{title}</DialogTitle>
+            {subtitle && <p className="mt-0.5 truncate text-caption text-ink-3">{subtitle}</p>}
+          </div>
+          <button type="button" onClick={onClose} aria-label={closeLabel} className="btn-icon shrink-0">
+            <X size={18} aria-hidden />
+          </button>
+        </div>
+        {description ? (
+          <DialogDescription className="text-body-small leading-6 text-ink-2">
+            {description}
+          </DialogDescription>
+        ) : (
+          <DialogDescription className="sr-only">{title}</DialogDescription>
+        )}
+        <div className="min-w-0">{children}</div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/** What to show once the account exists. */
+interface Created {
+  name: string;
+  username: string;
+  password: string;
+  /**
+   * Only set when there is no database: the block to paste into accounts.ts.
+   * Its absence is what makes the result screen say "they can sign in now"
+   * instead of printing four steps and a link to GitHub.
+   */
+  snippet?: string;
+}
+
+/** Whatever went wrong, in words, rather than a swallowed failure. */
+function errorText(err: unknown, fallback: string): string {
+  if (err instanceof Error && err.message) return err.message;
+  if (typeof err === 'string' && err) return err;
+  return fallback;
+}
+
+/**
+ * Two states in one sheet: the form, then the login. The manager only ever adds
+ * sellers, and they always report to the manager doing the adding.
+ */
+function AddSellerSheet({
+  c,
+  managerUsername,
+  managerId,
+  defaultLocation,
+  onCreated,
+  onClose,
+}: {
+  c: (key: CopyKey) => string;
+  managerUsername: string;
+  managerId: string;
+  defaultLocation: UserLocation;
+  onCreated: () => void;
+  onClose: () => void;
+}) {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [usernameTouched, setUsernameTouched] = useState(false);
+  const [location, setLocation] = useState<UserLocation>(defaultLocation);
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [result, setResult] = useState<Created | null>(null);
+
+  const live = backend.isDatabaseConfigured;
+
+  const submit = async () => {
+    if (busy) return;
+    const cleanName = name.trim();
+    const cleanUser = username.trim().toLowerCase();
+
+    setNameError(cleanName ? null : c('errName'));
+    // The committed roster can be checked here and now. The database cannot —
+    // that is a request, so it happens below, once the shape is known to be ok.
+    const takenOnRoster = !live && backend.usernameTaken(cleanUser);
+    if (!cleanUser) setUsernameError(c('errUsernameEmpty'));
+    else if (!USERNAME_RE.test(cleanUser)) setUsernameError(c('errUsernameShape'));
+    else if (takenOnRoster) setUsernameError(c('errUsernameTaken'));
+    else setUsernameError(null);
+
+    if (!cleanName || !cleanUser || !USERNAME_RE.test(cleanUser) || takenOnRoster) {
+      return;
+    }
+
+    setBusy(true);
+    setCreateError(null);
+    const password = generatePassword();
+
+    // ── The database path: this actually creates the account. ──
+    if (live) {
+      try {
+        if (await db.usernameExists(cleanUser)) {
+          setUsernameError(c('errUsernameTaken'));
+          return;
+        }
+        const created = await db.createUser({
+          username: cleanUser,
+          name: cleanName,
+          password,
+          role: 'employee',
+          location,
+          managerId,
+        });
+        if (!created.success) {
+          // Verbatim. One of these messages tells the owner to turn off
+          // "Confirm email" in Supabase, which is the only way to fix it.
+          setCreateError(created.error);
+          return;
+        }
+        setResult({ name: cleanName, username: cleanUser, password });
+        onCreated();
+      } catch (err) {
+        setCreateError(errorText(err, c('errUnknown')));
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+
+    // ── No database: write the commit instead. ──
+    const draft: backend.NewAccountDraft = {
+      username: cleanUser,
+      name: cleanName,
+      role: 'employee',
+      location,
+      managerUsername,
+    };
+    const snippet = await backend.buildAccountSnippet(draft, password, newSalt());
+    setResult({ name: cleanName, username: cleanUser, password, snippet });
+    setBusy(false);
+  };
+
+  if (result) {
+    return (
+      <Sheet
+        title={result.snippet ? c('ready') : c('created')}
+        subtitle={result.name}
+        onClose={onClose}
+        closeLabel={c('close')}
+      >
+        <div className="space-y-4">
+          {/* The password, while it still exists. Shown once either way — this
+              is genuinely the only moment it is readable. */}
+          <section className="surface-feature feature-gold p-4">
+            <p className="text-overline text-gold-strong">{c('theirLogin')}</p>
+            <dl className="mt-2">
+              <dt className="text-caption text-ink-3">{c('username')}</dt>
+              <dd className="break-all font-mono text-body-small text-ink">{result.username}</dd>
+              <dt className="mt-2 text-caption text-ink-3">{c('theirPassword')}</dt>
+              <dd className="break-all font-mono text-h3 text-ink">{result.password}</dd>
+            </dl>
+            <p className="mt-2 flex items-start gap-2 text-caption leading-5 text-ink-2">
+              <AlertTriangle size={14} className="mt-0.5 shrink-0 text-gold-strong" aria-hidden />
+              {c('passwordWarning')}
+            </p>
+            <div className="mt-3 space-y-2">
+              <CopyRow
+                value={result.password}
+                label={c('copyPassword')}
+                copiedLabel={c('copied')}
+                variant="teal"
+              />
+              <CopyRow
+                value={`${result.username} / ${result.password}`}
+                label={c('copyLogin')}
+                copiedLabel={c('copied')}
+              />
+            </div>
+          </section>
+
+          {result.snippet ? (
+            /* No database: the commit that makes the account real. */
+            <section className="space-y-3">
+              <p className="text-overline text-ink-3">{c('theCode')}</p>
+              <CodeBlock code={result.snippet} />
+              <CopyRow value={result.snippet} label={c('copyCode')} copiedLabel={c('copied')} />
+              <Steps items={[c('stepCopy'), c('stepOpen'), c('stepPaste'), c('stepCommit')]} />
+              <GitHubLink label={c('openOnGitHub')} />
+            </section>
+          ) : (
+            /* The account already exists. There is nothing else to do, and
+               saying so is the entire improvement. */
+            <p className="flex items-start gap-2 text-body-small leading-6 text-ink-2">
+              <Check size={16} className="mt-1 shrink-0 text-teal-strong" aria-hidden />
+              {c('signInNow')}
+            </p>
+          )}
+
+          <button type="button" onClick={onClose} className="btn-primary w-full">
+            {c('done')}
+          </button>
+        </div>
+      </Sheet>
+    );
+  }
+
+  return (
+    <Sheet
+      title={c('addEmployee')}
+      description={live ? c('addLeadDb') : c('addLead')}
+      onClose={onClose}
+      closeLabel={c('cancel')}
+    >
+      <div className="space-y-4">
+        <div>
+          <label htmlFor="seller-name" className="mb-1.5 block text-caption font-semibold text-ink-2">
+            {c('name')}
+          </label>
+          <input
+            id="seller-name"
+            type="text"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (!usernameTouched) setUsername(suggestUsername(e.target.value));
+            }}
+            placeholder={c('namePlaceholder')}
+            className={inputClass}
+            autoComplete="off"
+          />
+          {nameError && <p className="mt-1.5 text-caption leading-5 text-danger">{nameError}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="seller-username" className="mb-1.5 block text-caption font-semibold text-ink-2">
+            {c('username')}
+          </label>
+          <input
+            id="seller-username"
+            type="text"
+            value={username}
+            onChange={(e) => {
+              setUsernameTouched(true);
+              setUsername(e.target.value.toLowerCase().replace(/\s+/g, ''));
+            }}
+            placeholder={c('usernamePlaceholder')}
+            className={`${inputClass} font-mono`}
+            autoComplete="off"
+            autoCapitalize="none"
+            spellCheck={false}
+          />
+          {usernameError ? (
+            <p className="mt-1.5 text-caption leading-5 text-danger">{usernameError}</p>
+          ) : (
+            <p className="mt-1.5 text-caption leading-5 text-ink-3">{c('usernameHint')}</p>
+          )}
+        </div>
+
+        <div>
+          <p id="seller-shop-label" className="mb-1.5 text-caption font-semibold text-ink-2">
+            {c('shop')}
+          </p>
+          <div
+            role="group"
+            aria-labelledby="seller-shop-label"
+            className="flex gap-2 rounded-full bg-surface-sunken p-1"
+          >
+            {(['andorra', 'gibraltar'] as const).map((loc) => {
+              const active = location === loc;
+              return (
+                <button
+                  key={loc}
+                  type="button"
+                  onClick={() => setLocation(loc)}
+                  aria-pressed={active}
+                  className={`min-h-touch flex-1 rounded-full px-3 text-caption font-semibold transition-colors ${
+                    active ? 'bg-teal text-on-teal' : 'text-ink-2'
+                  }`}
+                >
+                  {loc === 'andorra' ? 'Andorra' : 'Gibraltar'}
+                </button>
+              );
+            })}
+          </div>
+          <p className="mt-1.5 text-caption leading-5 text-ink-3">{c('shopHint')}</p>
+        </div>
+
+        <p className="flex items-center gap-2 rounded-chip bg-surface-sunken px-3 py-2 text-caption text-ink-2">
+          <Users size={14} className="shrink-0 text-ink-3" aria-hidden />
+          {c('reportsToYou')} · <span className="font-mono">{managerUsername}</span>
+        </p>
+
+        {/* Whatever the database said, said back. Swallowing this is how a
+            manager ends up staring at a button that does nothing. */}
+        {createError && (
+          <div className="rounded-card border border-danger/40 bg-danger-tint p-3">
+            <p className="text-caption font-semibold text-danger">{c('errCreate')}</p>
+            <p className="mt-1 text-caption leading-5 text-ink-2">{createError}</p>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={submit}
+          disabled={busy}
+          className="btn-primary w-full disabled:opacity-50"
+        >
+          <KeyRound size={16} aria-hidden />
+          {busy && live ? c('creating') : live ? c('create') : c('generate')}
+        </button>
+      </div>
+    </Sheet>
+  );
+}
+
+/**
+ * Remove, when removing is a real thing that happens. The confirmation is the
+ * whole screen: this deletes their profile and their training record, and the
+ * old flow's "here is the line to delete" has nothing to say about it.
+ */
+function DeleteFromDatabaseSheet({
+  person,
+  c,
+  onRemoved,
+  onClose,
+}: {
+  person: User;
+  c: (key: CopyKey) => string;
+  onRemoved: () => void;
+  onClose: () => void;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const remove = async () => {
+    if (busy) return;
+    setBusy(true);
+    setError(null);
+    const result = await db
+      .deleteUser(person.id)
+      .catch((err: unknown) => ({ success: false as const, error: errorText(err, c('errUnknown')) }));
+    setBusy(false);
+    if (!result.success) {
+      setError(result.error);
+      return;
+    }
+    onRemoved();
+    onClose();
+  };
+
+  return (
+    <Sheet
+      title={c('removeTitle')}
+      subtitle={person.name}
+      description={c('removeLeadDb')}
+      onClose={onClose}
+      closeLabel={c('close')}
+    >
+      <div className="space-y-3">
+        <p className="flex items-start gap-2 text-caption leading-5 text-ink-2">
+          <AlertTriangle size={14} className="mt-0.5 shrink-0 text-danger" aria-hidden />
+          {c('removeLosesProgress')}
+        </p>
+
+        {error && (
+          <div className="rounded-card border border-danger/40 bg-danger-tint p-3">
+            <p className="text-caption font-semibold text-danger">{c('errRemove')}</p>
+            <p className="mt-1 text-caption leading-5 text-ink-2">{error}</p>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={remove}
+          disabled={busy}
+          className="btn-primary w-full disabled:opacity-50"
+        >
+          <UserMinus size={16} aria-hidden />
+          {busy ? c('removingNow') : c('removeConfirm')}
+        </button>
+        <button type="button" onClick={onClose} className="btn-quiet w-full">
+          {c('cancel')}
+        </button>
+      </div>
+    </Sheet>
+  );
+}
+
+/** No delete exists any more, so this shows the edit to make instead. */
+function RemoveSheet({
+  person,
+  c,
+  onClose,
+}: {
+  person: User;
+  c: (key: CopyKey) => string;
+  onClose: () => void;
+}) {
+  const line = `username: '${person.username}',`;
+  return (
+    <Sheet
+      title={c('removeTitle')}
+      subtitle={person.name}
+      description={c('removeLead')}
+      onClose={onClose}
+      closeLabel={c('close')}
+    >
+      <div className="space-y-3">
+        <p className="text-overline text-ink-3">{c('removeFind')}</p>
+        <CodeBlock code={line} />
+        <CopyRow value={line} label={c('copyLine')} copiedLabel={c('copied')} />
+        <Steps items={[c('removeStepOpen'), c('removeStepDelete'), c('removeStepCommit')]} />
+        <GitHubLink label={c('openOnGitHub')} />
+        <p className="text-caption leading-5 text-ink-3">{c('removeKeepsProgress')}</p>
+        <button type="button" onClick={onClose} className="btn-quiet w-full">
+          {c('done')}
+        </button>
+      </div>
+    </Sheet>
+  );
+}
+
+function CoachingNotesSheet({
+  emp,
+  c,
+  locale,
+  onClose,
+}: {
+  emp: EmployeeProgress;
+  c: (k: CopyKey) => string;
+  locale: string;
+  onClose: () => void;
+}) {
+  const [text, setText] = useState('');
+  const [notes, setNotes] = useState<CoachingNote[]>(() =>
+    getCoachingNotes().filter((n) => n.employeeId === emp.user.id)
+  );
+
+  const save = () => {
+    const body = text.trim();
+    if (!body) return;
+    const note: CoachingNote = {
+      id: globalThis.crypto?.randomUUID?.() ?? `note-${Date.now()}`,
+      employeeId: emp.user.id,
+      employeeName: emp.user.name,
+      text: body,
+      createdAt: new Date().toISOString(),
+    };
+    saveCoachingNote(note);
+    setNotes((prev) => [note, ...prev]);
+    setText('');
+  };
+
+  return (
+    <Sheet
+      title={c('coachingNotes')}
+      subtitle={emp.user.name}
+      description={c('notesHint')}
+      onClose={onClose}
+      closeLabel={c('close')}
+    >
+      <div className="space-y-4">
+        <div>
+          <label htmlFor="coaching-note" className="sr-only">
+            {c('writeNote')}
+          </label>
+          <textarea
+            id="coaching-note"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={c('writeNote')}
+            className="min-h-[90px] w-full resize-none rounded-card border border-line-strong bg-surface p-3 text-body-small text-ink outline-none placeholder:text-ink-3 focus:border-teal-strong"
+          />
+          <button
+            type="button"
+            onClick={save}
+            disabled={!text.trim()}
+            className="btn-primary mt-2 w-full disabled:opacity-50"
+          >
+            {c('saveNote')}
+          </button>
+        </div>
+
+        <div>
+          <p className="mb-2 text-overline text-ink-3">{c('previousNotes')}</p>
+          {notes.length === 0 ? (
+            <p className="text-caption text-ink-3">{c('noNotes')}</p>
+          ) : (
+            <ul className="max-h-[260px] space-y-2 overflow-y-auto">
+              {notes.map((n) => (
+                <li key={n.id} className="rounded-card bg-surface-sunken p-3">
+                  <p className="text-body-small text-ink">{n.text}</p>
+                  <p className="mt-1 text-caption text-ink-3">
+                    {new Date(n.createdAt).toLocaleString(locale)}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </Sheet>
   );
 }

@@ -1,93 +1,127 @@
-import { motion } from 'framer-motion';
-import { Clock, Layers } from 'lucide-react';
+// ─────────────────────────────────────────────────────────────────────────────
+// ProductHero — the masthead of a product deep-dive.
+//
+// This file was written for exactly this job and then never imported; the four
+// pages each drew their own hero instead, in the near-black palette, and none
+// of them opened with an <h1> — every page started at <h2>, so the heading
+// outline of the whole app was broken. There is now one hero, it carries the
+// page's only <h1>, and it takes its hue from the --pa custom properties that
+// <ProductPage> sets.
+// ─────────────────────────────────────────────────────────────────────────────
 
-interface ProductHeroProps {
-  icon: string;
-  overline: string;
-  title: string;
-  subtitle: string;
-  sections: number;
-  readTime: string;
-  badge?: string;
-  progress?: number;
+import { motion } from 'framer-motion';
+import { ChevronLeft } from 'lucide-react';
+import type { CSSProperties, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+export interface HeroStat {
+  icon: ReactNode;
+  label: string;
+  value: string;
 }
 
+interface ProductHeroProps {
+  backLabel: string;
+  badge: string;
+  badgeIcon: ReactNode;
+  title: string;
+  subtitle: string;
+  subtitleIcon?: ReactNode;
+  stats: HeroStat[];
+}
+
+/* A soft accent wash instead of the old #0D1F1F → #0A0A0A gradient. */
+const wash: CSSProperties = {
+  background:
+    'radial-gradient(120% 88% at 8% 0%, rgb(var(--pa) / 0.20) 0%, transparent 62%),' +
+    'radial-gradient(100% 70% at 96% 4%, rgb(var(--pa) / 0.12) 0%, transparent 60%)',
+};
+
 export default function ProductHero({
-  icon,
-  overline,
+  backLabel,
+  badge,
+  badgeIcon,
   title,
   subtitle,
-  sections,
-  readTime,
-  badge,
-  progress,
+  subtitleIcon,
+  stats,
 }: ProductHeroProps) {
+  const navigate = useNavigate();
+
   return (
-    <div className="mb-6">
-      {/* Progress bar */}
-      {progress !== undefined && (
-        <div className="px-5 pt-4 pb-2">
-          <div className="flex items-center gap-3">
-            <div className="flex-1 h-1 bg-[#2A2A2A] rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-[#0ABAB5] rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] }}
-              />
-            </div>
-            <span className="text-caption text-[#8A8A8A] font-mono">{progress}%</span>
-          </div>
-        </div>
-      )}
+    <header className="relative overflow-hidden px-5 pt-4 pb-6">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={wash} />
 
-      {/* Hero card */}
-      <div className="px-5">
-        <motion.div
-          className="dark-card-gradient rounded-2xl p-6 relative overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] as [number, number, number, number] }}
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="btn-quiet flex w-fit px-4 text-caption"
         >
-          {/* Decorative watermark */}
-          <div className="absolute top-3 right-3 opacity-[0.05] w-24 h-24 pointer-events-none">
-            <img src={icon} alt="" className="w-full h-full object-contain" />
-          </div>
+          <ChevronLeft size={18} aria-hidden="true" />
+          {backLabel}
+        </button>
 
-          {/* Badge */}
-          {badge && (
-            <span className="inline-block bg-[#0ABAB5] text-black text-overline px-3 py-1 rounded-full mb-4">
-              {badge}
+        <motion.p
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="mt-5 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 bg-[rgb(var(--pa-tint))] text-[rgb(var(--pa-strong))]"
+        >
+          <span aria-hidden="true" className="flex">
+            {badgeIcon}
+          </span>
+          <span className="text-overline">{badge}</span>
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.06 }}
+          className="text-display font-brand text-ink mt-3"
+        >
+          {title}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.12 }}
+          className="flex items-center gap-2 text-body text-[rgb(var(--pa-strong))] font-semibold mt-1.5"
+        >
+          {subtitleIcon && (
+            <span aria-hidden="true" className="flex shrink-0">
+              {subtitleIcon}
             </span>
           )}
+          {subtitle}
+        </motion.p>
 
-          {/* Icon */}
-          <div className="w-16 h-16 mb-4 rounded-xl bg-[#0ABAB5]/15 flex items-center justify-center">
-            <img src={icon} alt={title} className="w-10 h-10 object-contain" />
-          </div>
-
-          {/* Overline */}
-          <p className="text-overline text-[#0ABAB5] mb-2">{overline}</p>
-
-          {/* Title */}
-          <h1 className="text-h1 text-white mb-2">{title}</h1>
-
-          {/* Subtitle */}
-          <p className="text-body-small text-[#8A8A8A] mb-4">{subtitle}</p>
-
-          {/* Meta */}
-          <div className="flex items-center gap-4 text-caption text-[#6B6B6B]">
-            <div className="flex items-center gap-1.5">
-              <Layers size={14} />
-              <span>{sections} sections</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Clock size={14} />
-              <span>{readTime}</span>
-            </div>
-          </div>
-        </motion.div>
+        {stats.length > 0 && (
+          <motion.dl
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.18 }}
+            className="grid grid-cols-3 gap-2 mt-5"
+          >
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="surface-flat px-2 py-3 text-center flex flex-col items-center gap-1"
+              >
+                <span aria-hidden="true" className="text-[rgb(var(--pa-strong))]">
+                  {stat.icon}
+                </span>
+                <dt className="text-caption text-ink-2 leading-tight w-full break-words">
+                  {stat.label}
+                </dt>
+                <dd className="text-body-small font-bold text-ink leading-tight w-full break-words">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
+        )}
       </div>
-    </div>
+    </header>
   );
 }

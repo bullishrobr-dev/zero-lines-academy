@@ -1,104 +1,211 @@
 // ─────────────────────────────────────────────────────────────
 // contexts/AuthContext.tsx — Authentication React Context
-// Bridges useAuth localStorage with backend user management
+//
+// This provider deliberately does NOT write to `zl_user` itself. It used to
+// overwrite the record the backend had just persisted with a smaller "legacy"
+// shape — dropping id, email and managerId, and mapping admin down to manager.
+// The result was that after any page refresh the signed-in user had no id, and
+// admins silently lost admin rights. The backend is the only writer now.
 // ─────────────────────────────────────────────────────────────
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  type ReactNode,
+} from 'react';
 import * as backend from '../backend/mockBackend';
 import type { User } from '../backend/types';
 
+/** The roster no longer stores passwords on the user object at all. */
+export type SafeUser = User;
+
 interface AuthContextType {
-  user: Omit<User, 'password'> | null;
+  user: SafeUser | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
   isManager: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  signup: (data: backend.SignupData) => Promise<{ success: boolean; error?: string }>;
+  login: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   refreshUser: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+/**
+ * Learner state that belongs to whoever is signed in. Cleared on logout so a
+ * shared shop tablet does not hand the next seller the previous seller's XP,
+ * streak and activity history — or let them factory-reset it.
+ */
+const PER_USER_KEYS = [
+  'zl_lesson_progress',
+  'zl_quiz_scores',
+  'zl_streak',
+  'zl_xp',
+  'zl_user_name',
+  'zl_daily_challenge',
+  'zl_activity_log',
+  'zl_tier_progress',
+  'zl_daily_flow',
+  'zl_daily_streak',
+  'zl_flashcard_state',
+  'zl_street_tracker',
+  'zl_street_xp',
+  'zl_streak_defense',
+  'zl_continue_learning',
+  'zl_location',
+  /*
+   * These three were missing, and their absence was worse than it looks.
+   *
+   * zl_quiz_xp_awarded is the ledger of how much XP each quiz has already paid
+   * out. Left behind on a shared shop tablet, the next seller aces the same
+   * quiz and is paid `max(0, 60 - 60)` — nothing. Silently, on every quiz the
+   * previous person had done, with no way back short of clearing site data.
+   * zl_exercise_scores does the same for exercises.
+   */
+  'zl_quiz_xp_awarded',
+  'zl_exercise_scores',
+  'zl_shoutouts',
+  'zl_daily_xp_awarded',
+  /*
+   * The journal's comeback card: which card the seller closed, and how many
+   * lines they have said out loud today. Both are one person's own practice on
+   * one person's own losses, so neither may follow them onto the next seller's
+   * shift on a shared tablet.
+   */
+  'zl_comeback_done',
+  'zl_comeback_reps',
+];
+
+/**
+ * Every `zl_*` key any hook writes on the signed-in person's behalf must appear
+ * in the list above. If you add one, add it here too.
+ */
+
+const LS_LAST_USER = 'zl_last_user_id';
+
+function clearPerUserState() {
+  for (const key of PER_USER_KEYS) {
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      // non-fatal
+    }
+  }
+}
+
+/**
+ * Clearing on logout is not enough on a shared device — someone can close the
+ * browser without signing out. Whenever a *different* person signs in, wipe the
+ * previous learner's state too.
+ */
+function claimDeviceFor(userId: string) {
+  try {
+    if (localStorage.getItem(LS_LAST_USER) !== userId) {
+      clearPerUserState();
+      localStorage.setItem(LS_LAST_USER, userId);
+    }
+  } catch {
+    // non-fatal
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<Omit<User, 'password'> | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  /*
+   * Roster path: localStorage is synchronous, so seed during the first render.
+   * Loading it in an effect meant the route guards saw isAuthenticated: false
+   * on first paint and could bounce a signed-in seller to /auth.
+   *
+   * Database path: the session has to be fetched, so start empty and resolve
+   * below. isLoading keeps the guards from redirecting while that is in flight.
+   */
+  const [user, setUser] = useState<SafeUser | null>(() =>
+    backend.isDatabaseConfigured ? null : backend.getCurrentUser()
+  );
+  const [isLoading, setIsLoading] = useState(backend.isDatabaseConfigured);
 
-  // Load user on mount
   useEffect(() => {
-    const current = backend.getCurrentUser();
-    setUser(current);
-    setIsLoading(false);
+    if (!backend.isDatabaseConfigured) return;
+    let cancelled = false;
+
+    /*
+     * Never let a slow network hold the app on a blank loading screen. If the
+     * session has not resolved in a few seconds — patchy signal in the street,
+     * or a free-tier database waking up — fall through to the sign-in page,
+     * which is somewhere the seller can actually act.
+     */
+    const giveUp = setTimeout(() => {
+      if (!cancelled) setIsLoading(false);
+    }, 8000);
+
+    const settle = (u: SafeUser | null) => {
+      if (cancelled) return;
+      clearTimeout(giveUp);
+      setUser(u);
+      setIsLoading(false);
+    };
+
+    backend
+      .getCurrentUserAsync()
+      .then(settle)
+      .catch(() => settle(null));
+
+    return () => {
+      cancelled = true;
+      clearTimeout(giveUp);
+    };
   }, []);
 
-  const login = useCallback(async (email: string, password: string) => {
-    setIsLoading(true);
-    const result = await backend.login(email, password);
-    setIsLoading(false);
+  /*
+   * `isLoading` means "we are still working out who is signed in", and every
+   * route guard blocks on it. Signing in used to raise it too — which unmounted
+   * the sign-in screen mid-request and remounted it empty, destroying the error
+   * message it had just been handed along with both typed fields.
+   *
+   * A seller who mistyped their password saw a flicker and a blank form. No
+   * message, ever, for any failure. AuthPage tracks its own in-flight state, so
+   * this must not touch the global one.
+   */
+  const login = useCallback(async (username: string, password: string) => {
+    const result = await backend.login(username, password);
     if (result.success && result.user) {
+      claimDeviceFor(result.user.id);
       setUser(result.user);
-      // Sync with legacy useAuth format
-      localStorage.setItem('zl_user', JSON.stringify({
-        name: result.user.name,
-        location: result.user.location,
-        role: result.user.role === 'admin' ? 'manager' : result.user.role,
-        language: 'en',
-        joinedAt: result.user.createdAt,
-      }));
       return { success: true };
     }
     return { success: false, error: result.error };
   }, []);
 
-  const signup = useCallback(async (data: backend.SignupData) => {
-    setIsLoading(true);
-    const result = await backend.signup(data);
-    setIsLoading(false);
-    if (result.success && result.user) {
-      setUser(result.user);
-      localStorage.setItem('zl_user', JSON.stringify({
-        name: result.user.name,
-        location: result.user.location,
-        role: result.user.role === 'admin' ? 'manager' : result.user.role,
-        language: 'en',
-        joinedAt: result.user.createdAt,
-      }));
-      return { success: true };
-    }
-    return { success: false, error: result.error };
-  }, []);
 
   const logout = useCallback(() => {
     backend.logout();
-    localStorage.removeItem('zl_user');
+    clearPerUserState();
     setUser(null);
   }, []);
 
   const refreshUser = useCallback(() => {
-    setUser(backend.getCurrentUser());
+    void backend.getCurrentUserAsync().then(setUser);
   }, []);
 
-  const isAdmin = user?.role === 'admin';
-  const isManager = user?.role === 'manager' || user?.role === 'admin';
-
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        isAdmin,
-        isManager,
-        isLoading,
-        login,
-        signup,
-        logout,
-        refreshUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo<AuthContextType>(
+    () => ({
+      user,
+      isAuthenticated: !!user,
+      isAdmin: user?.role === 'admin',
+      isManager: user?.role === 'manager' || user?.role === 'admin',
+      isLoading,
+      login,
+      logout,
+      refreshUser,
+    }),
+    [user, isLoading, login, logout, refreshUser]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext(): AuthContextType {

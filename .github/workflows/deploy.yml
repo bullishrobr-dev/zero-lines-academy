@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+# The live site is served from the `gh-pages` branch, which holds the built
+# output. Until now nothing rebuilt it — someone had to build locally and push
+# the files by hand, so the site silently drifted behind `main`.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # lets you redeploy from the Actions tab without a commit
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # needed to push the built output to gh-pages
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          # The app is served from /zero-lines-academy/, so Jekyll must not try
+          # to process the output and strip the _-prefixed Vite assets.
+          enable_jekyll: false
+          commit_message: "deploy: ${{ github.event.head_commit.message || 'manual redeploy' }}"

@@ -2,7 +2,18 @@
 // Zero Lines Academy — Lesson Data Structure
 // All lesson content lives here as structured data.
 // UI components render dynamically from this file.
+//
+// Two categories live in sibling files purely for size — `scenarios` and
+// `objections` are 20 lessons between them. They import `Lesson` as a TYPE
+// only, so nothing here is a runtime cycle: `import type` is erased under
+// verbatimModuleSyntax.
 // ─────────────────────────────────────────────────────────────
+
+import { scenarioLessons } from './scenarioLessons';
+import { objectionLessons } from './objectionLessons';
+import { closingLessons } from './closingLessons';
+import { LESSON_QUIZZES } from './lessonQuizzes';
+import { categories, getCategory, type Category } from './categories';
 
 export type SectionType =
   | 'header'
@@ -34,9 +45,12 @@ export interface ContentSection {
 
 export interface QuizQuestion {
   question: string;
+  questionEs?: string;
   options: string[];
+  optionsEs?: string[];
   correctIndex: number;
   explanation: string;
+  explanationEs?: string;
 }
 
 export interface Lesson {
@@ -54,69 +68,14 @@ export interface Lesson {
   quiz: QuizQuestion[];
 }
 
-export interface Category {
-  id: string;
-  title: string;
-  titleEs?: string;
-  subtitle: string;
-  subtitleEs?: string;
-  description: string;
-  icon: string; // lucide-react icon name
-  accentColor: string; // hex color for category theming
-  lessonOrder: string[]; // ordered lesson IDs
-}
+/* Category and the categories array now live in ./categories, so that a screen
+   wanting a category name does not pull in every lesson body in the app.
+   Re-exported here because plenty of code already imports them from this
+   module, and that is a reasonable place to look for them. */
+export type { Category };
+export { categories, getCategory };
 
 // ── Categories ──
-export const categories: Category[] = [
-  {
-    id: 'psychology',
-    title: 'Sales Psychology & Self-Mastery',
-    titleEs: 'Psicología de Ventas y Auto-Dominio',
-    subtitle: 'Master your mind, master the floor',
-    subtitleEs: 'Domina tu mente, domina el piso',
-    description:
-      'Everything starts with you. Your energy, your confidence, your mindset — that is what customers feel before you say a single word. These lessons are about becoming the kind of salesperson who walks in and owns the room.',
-    icon: 'Brain',
-    accentColor: '#0ABAB5',
-    lessonOrder: ['psych-1', 'psych-2', 'psych-3', 'psych-4', 'psych-5', 'psych-6', 'psych-7', 'psych-8'],
-  },
-  {
-    id: 'connecting',
-    title: 'Reading & Connecting with People',
-    titleEs: 'Lectura y Conexión con la Gente',
-    subtitle: 'See what others miss',
-    subtitleEs: 'Ve lo que otros no ven',
-    description:
-      'The best salespeople are master observers. They read people in seconds — their mood, their budget, their relationship dynamics — and they adapt instantly. These lessons give you the tools to connect with anyone who walks through your door.',
-    icon: 'Users',
-    accentColor: '#8B5CF6',
-    lessonOrder: ['connect-1', 'connect-2', 'connect-3', 'connect-4', 'connect-5', 'connect-6', 'connect-7', 'connect-8'],
-  },
-  {
-    id: 'stopping',
-    title: 'The Art of Stopping',
-    titleEs: 'El Arte de Parar',
-    subtitle: 'Turn strangers into demos',
-    subtitleEs: 'Convierte desconocidos en demos',
-    description:
-      'Stopping is the hardest skill and the most important. No stop, no sale. These lessons give you a whole toolbox of approaches — different styles, different energies, different techniques — so you can find what works for YOUR personality.',
-    icon: 'Hand',
-    accentColor: '#F59E0B',
-    lessonOrder: ['stop-1', 'stop-2', 'stop-3', 'stop-4', 'stop-5', 'stop-6', 'stop-7'],
-  },
-  {
-    id: 'products',
-    title: 'Product Mastery',
-    titleEs: 'Dominio del Producto',
-    subtitle: 'Know your weapons inside out',
-    subtitleEs: 'Conoce tus armas a fondo',
-    description:
-      'Your products are incredible — but only if you know how to show them. Deep-dive into every product pitch, demo technique, price structure, and closing strategy. These are your money-makers.',
-    icon: 'Sparkles',
-    accentColor: '#0ABAB5',
-    lessonOrder: ['prod-1', 'prod-2', 'prod-3', 'prod-4', 'prod-5', 'prod-6', 'prod-7', 'prod-8'],
-  },
-];
 
 
 // ── Lessons ──
@@ -126,8 +85,8 @@ export const lessons: Record<string, Lesson> = {
     categoryId: 'connecting',
     title: 'The 15-Second Scan',
     titleEs: 'El Escaneo de 15 Segundos',
-    subtitle: 'Systematic observation: building a mental profile before you speak',
-    subtitleEs: 'Observación sistemática: construyendo un perfil mental antes de hablar',
+    subtitle: 'Read them before you open your mouth',
+    subtitleEs: 'Léelos antes de abrir la boca',
     duration: '8 min',
     icon: 'Eye',
     order: 1,
@@ -145,43 +104,43 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'keypoint',
-      text: 'Every detail is data. The watch on their wrist, the bags in their hands, the person beside them, the way they walk — all of it feeds into your mental profile. The more accurate your scan, the more precise your pitch.',
-      textEs: 'Cada detalle es información. El reloj en su muñeca, las bolsas en sus manos, la persona a su lado, su forma de caminar — todo alimenta tu perfil mental. Cuanto más preciso sea tu escaneo, más preciso será tu pitch.',
+      text: 'Every detail is telling you something. The watch on their wrist, the bags in their hands, the person beside them, the speed they are walking. You are not building a file on anybody — you are working out which sentence to open with, and you have got about a second to do it.',
+      textEs: 'Cada detalle te está diciendo algo. El reloj en la muñeca, las bolsas en las manos, la persona que va al lado, la velocidad a la que andan. No estás haciendo una ficha de nadie — estás decidiendo con qué frase abrir, y tienes como un segundo para hacerlo.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'The SCAN System: 5 Categories to Assess in 15 Seconds',
-      textEs: 'El Sistema SCAN: 5 Categorías para Evaluar en 15 Segundos',
+      text: 'What to Look At, in the Order Your Eyes Move',
+      textEs: 'Qué Mirar, en el Orden en que se te Van los Ojos',
     },
     {
             type: 'paragraph',
-      text: 'Use this acronym to quickly categorize what you observe:',
-      textEs: 'Usa este acrónimo para categorizar rápidamente lo que observas:',
+      text: 'Five looks, a second each, before you say a word. SCAN is just how you remember them:',
+      textEs: 'Cinco miradas, un segundo cada una, antes de decir nada. SCAN es solo la forma de acordarte:',
     },
     {
             type: 'bullets',
       items: [
-        'S — STYLE: What are they wearing? Look at fabric quality, brand logos, fit, and coordination. Are they dressed casually (tourist mode), elegantly (shopping mode), or practically (skiing/sightseeing)? A woman in a €2,000 coat is a different prospect than one in hiking gear.',
-        'C — CARRY: What bags are they carrying? Shopping bags from luxury stores (Louis Vuitton, Chanel, local ski boutiques) signal buying mood AND spending power. A person with no bags might be just starting their shopping day — perfect timing.',
-        'A — ACCESSORIES: Watch, jewelry, sunglasses, handbag. A Rolex or Cartier watch signals serious spending power. Costume jewelry signals budget-conscious. The quality of accessories often reveals more than clothing.',
-        'N — NETWORK: Who are they with? Solo travelers make fast decisions. Couples require different engagement (see the Partner Dynamic lesson). Groups are social — energy and humor work best. Families with young children are harder stops but can be big buyers when engaged.',
-        'P — PACE & POSTURE: How fast are they walking? Are they window-shopping (slow, looking around) or destination-shopping (fast, purposeful)? Relaxed posture means receptive. Tense posture means they\'re in a hurry or stressed.'
+        'S — STYLE: Shoes and coat tell you more than the face does. Good shoes, good coat, that is the money. Hiking boots and a rucksack is a different conversation, not a worse one — just a faster, funnier one.',
+        'C — CARRY: Bags in their hands means they are already spending today and somebody already got a yes out of them this morning. That is the easiest customer alive. No bags at all means the day has not started yet — perfect timing.',
+        'A — ACCESSORIES: Watch, rings, sunglasses, handbag. People spend on what they care about. Somebody wearing a serious watch cares how they look, and that is the whole pitch handed to you.',
+        'N — NETWORK: Who is with them tells you who you actually have to win. On their own, they decide fast. In a couple, the other one can kill it with one word — get them in early. In a group of six, they sell each other and you barely have to talk.',
+        'P — PACE & POSTURE: How fast they are walking tells you how good your first line has to be. Strolling and looking around, almost anything works. Marching with somewhere to be, you get one sentence and it had better be a good one.'
       ],
       itemsEs: [
-          'S — STYLE (ESTILO): ¿Qué traen puesto? Observa la calidad de la tela, los logos de marca, el corte y la coordinación. ¿Van vestidos de forma casual (modo turista), elegante (modo compras) o práctica (esquí/paseo)? Una mujer con un abrigo de €2,000 es una prospecto muy diferente a una con ropa de excursionismo.',
-          'C — CARRY (CARGA): ¿Qué bolsas traen? Bolsas de compras de tiendas de lujo (Louis Vuitton, Chanel, boutiques locales de esquí) indican estado de ánimo de compra Y poder adquisitivo. Una persona sin bolsas podría estar empezando su día de compras — momento perfecto.',
-          'A — ACCESSORIES (ACCESORIOS): Reloj, joyería, lentes de sol, bolso. Un reloj Rolex o Cartier indica alto poder adquisitivo. Las joyas de fantasía indican a alguien consciente del presupuesto. La calidad de los accesorios a menudo revela más que la ropa.',
-          'N — NETWORK (RED): ¿Con quién están? Los viajeros solos toman decisiones rápidas. Las parejas requieren un enfoque diferente (ve la lección de Dinámica de Pareja). Los grupos son sociales — la energía y el humor funcionan mejor. Las familias con niños pequeños son más difíciles de detener, pero pueden ser grandes compradores cuando se les involucra.',
-          'P — PACE & POSTURE (RITMO Y POSTURA): ¿Qué tan rápido caminan? ¿Están viendo escaparates (despacio, mirando alrededor) o comprando con destino (rápido, con propósito)? Una postura relajada significa receptividad. Una postura tensa significa que van con prisa o están estresados.',
+          'S — STYLE (ESTILO): Los zapatos y el abrigo te dicen más que la cara. Buenos zapatos, buen abrigo: ahí está el dinero. Botas de montaña y mochila es otra conversación, no peor — solo más rápida y más divertida.',
+          'C — CARRY (BOLSAS): Bolsas en la mano quiere decir que ya están gastando hoy y que alguien ya les ha sacado un sí esta mañana. Ese es el cliente más fácil que hay. Sin ninguna bolsa quiere decir que el día no ha empezado — momento perfecto.',
+          'A — ACCESSORIES (COMPLEMENTOS): Reloj, anillos, gafas de sol, bolso. La gente se gasta el dinero en lo que le importa. Quien lleva un reloj serio se preocupa por cómo se ve, y ahí tienes el argumento regalado.',
+          'N — NETWORK (CON QUIÉN VAN): Con quién van te dice a quién tienes que ganarte de verdad. Solos, deciden rápido. En pareja, el otro te lo tira abajo con una palabra — métele dentro desde el principio. En un grupo de seis, se venden entre ellos y tú casi no hablas.',
+          'P — PACE & POSTURE (RITMO Y POSTURA): Lo rápido que andan te dice lo buena que tiene que ser tu primera frase. Si van paseando y mirando, te vale casi cualquier cosa. Si van a paso ligero y con un sitio al que llegar, tienes una frase y más te vale que sea buena.',
         ],
     },
     {
             type: 'tip',
-      text: 'Practice the SCAN on random pedestrians even when you\'re not working. Sit at a café and mentally scan people walking by. Guess their spending power, their mood, their relationship to the person beside them. Then check your guesses if they enter a nearby shop. This builds your observation muscle.',
-      textEs: 'Practica el SCAN con peatones al azar incluso cuando no estés trabajando. Siéntate en un café y escanea mentalmente a la gente que pasa. Adivina su poder adquisitivo, su estado de ánimo, su relación con la persona a su lado. Luego verifica tus suposiciones si entran a una tienda cercana. Esto fortalece tu músculo de observación.',
+      text: 'Practise on strangers when you are not even working. Ten minutes outside a café, call it on everybody who walks past — money, mood, who they are with, how fast. Say it out loud in your head before they reach you. You will be wrong a lot at first. Then one day you are not.',
+      textEs: 'Practica con desconocidos aunque no estés trabajando. Diez minutos en la terraza de un café y ve cantándolo con cada persona que pasa — dinero, humor, con quién va, a qué velocidad. Dítelo por dentro antes de que lleguen a tu altura. Al principio fallarás mucho. Y un día dejas de fallar.',
     },
     {
             type: 'divider'
@@ -194,8 +153,9 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'comparison',
       left: { label: 'GREEN (Stop Immediately)', text: 'Carrying luxury shopping bags, window-shopping slowly, well-dressed, good grooming, with a partner, smiling and chatting, looking at displays, no phone in hand. These people are in buying mode. Approach with confidence.' },
-      leftEs: { label: 'VERDE (Detente de Inmediato)', text: 'Cargando bolsas de compras de lujo, viendo escaparates despacio, bien vestidos, buena presentación, con una pareja, sonriendo y platicando, mirando los exhibidores, sin teléfono en la mano. Estas personas están en modo de compra. Acércate con confianza.' },
-      right: { label: 'RED (Low Priority)', text: 'Walking fast with purpose, on phone call, pushing stroller with fussy baby, wearing headphones, carrying heavy bags (tired), frowning, checking watch repeatedly. These people are unlikely to stop. Let them pass or use a very light touch.' }
+      leftEs: { label: 'VERDE (Detente de Inmediato)', text: 'Cargando bolsas de compras de lujo, viendo escaparates despacio, bien vestidos, buena presentación, con una pareja, sonriendo y charlando, mirando los escaparates, sin teléfono en la mano. Estas personas están en modo de compra. Acércate con confianza.' },
+      right: { label: 'RED (Low Priority)', text: 'Walking fast with purpose, on phone call, pushing stroller with fussy baby, wearing headphones, carrying heavy bags (tired), frowning, checking watch repeatedly. These people are unlikely to stop. Let them pass or use a very light touch.' },
+      rightEs: { label: 'ROJO (Baja Prioridad)', text: 'Andando rápido y con rumbo, hablando por teléfono, empujando un carrito con un bebé inquieto, con auriculares puestos, cargando bolsas pesadas (cansados), con el ceño fruncido, mirando el reloj una y otra vez. Es poco probable que estas personas paren. Déjalas pasar o usa un toque muy suave.' }
     },
     {
             type: 'keypoint',
@@ -323,8 +283,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Reading spending power isn\'t about snobbery — it\'s about precision. Offering a €300 syringe to someone with a €50 budget wastes everyone\'s time. But missing a €500 sale because you pitched the €30 scrub to a wealthy buyer? That\'s leaving money on the table. The ability to read spending power lets you match the right product and price point to the right person.',
-      textEs: 'Leer el poder adquisitivo no es sobre esnobismo — es sobre precisión. Ofrecer una jeringa de €300 a alguien con un presupuesto de €50 es desperdiciar el tiempo de todos. ¿Pero perder una venta de €500 porque le ofreciste el scrub de €30 a un comprador adinerado? Eso es dejar dinero sobre la mesa. La habilidad de leer el poder adquisitivo te permite emparejar el producto y punto de precio correctos con la persona correcta.',
+      text: 'Reading spending power isn\'t about snobbery — it\'s about precision. Offering a {currency}300 syringe to someone with a {currency}50 budget wastes everyone\'s time. But missing a {currency}500 sale because you pitched the {currency}30 scrub to a wealthy buyer? That\'s leaving money on the table. The ability to read spending power lets you match the right product and price point to the right person.',
+      textEs: 'Leer el poder adquisitivo no es sobre esnobismo — es sobre precisión. Ofrecer una jeringa de {currency}300 a alguien con un presupuesto de {currency}50 es desperdiciar el tiempo de todos. ¿Pero perder una venta de {currency}500 porque le ofreciste el scrub de {currency}30 a un comprador adinerado? Eso es dejar dinero sobre la mesa. La habilidad de leer el poder adquisitivo te permite emparejar el producto y punto de precio correctos con la persona correcta.',
     },
     {
             type: 'keypoint',
@@ -374,7 +334,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'SPANISH TOURISTS: Often day-trippers or weekend visitors. Shopping-focused, price-conscious but will spend for genuine value. Love the tax-haven angle. Respond well to energy and warmth.',
+        'SPANISH TOURISTS: Often day-trippers or weekend visitors. Shopping-focused, price-conscious but will spend for genuine value. Love the price-gap angle. Respond well to energy and warmth.',
         'FRENCH TOURISTS: Sophisticated about skincare (French beauty culture). Appreciate product knowledge and quality. Less impressed by hype, more by substance. May seem reserved initially — don\'t mistake this for disinterest.',
         'BRITISH TOURISTS: Direct communicators. Appreciate humor and straightforwardness. Often generous spenders once convinced. May need more product education (less familiar with some skincare categories).',
         'EASTERN EUROPEAN TOURISTS: Often big spenders in luxury categories. Strong responders to premium positioning. Appreciate exclusivity and status signaling. Direct and decisive when interested.',
@@ -382,7 +342,7 @@ export const lessons: Record<string, Lesson> = {
         'SOUTH AMERICAN TOURISTS: Warm, social, relationship-oriented. Respond to emotional connection and personal attention. Often generous gift-buyers. Family-oriented purchasing (buying for multiple people).'
       ],
       itemsEs: [
-          'TURISTAS ESPAÑOLES: A menudo excursionistas de un día o visitantes de fin de semana. Enfocados en compras, conscientes del precio pero gastarán por valor genuino. Aman el ángulo del paraíso fiscal. Responden bien a la energía y calidez.',
+          'TURISTAS ESPAÑOLES: A menudo excursionistas de un día o visitantes de fin de semana. Enfocados en compras, conscientes del precio pero gastarán por valor genuino. Aman el ángulo de la diferencia de precio. Responden bien a la energía y calidez.',
           'TURISTAS FRANCESES: Sofisticados en cuidado de la piel (cultura de belleza francesa). Aprecian el conocimiento de productos y la calidad. Menos impresionados por el hype, más por la sustancia. Pueden parecer reservados al principio — no confundas esto con desinterés.',
           'TURISTAS BRITÁNICOS: Comunicadores directos. Aprecian el humor y la franqueza. A menudo gastan generosamente una vez convencidos. Pueden necesitar más educación sobre productos (menos familiarizados con algunas categorías de cuidado de la piel).',
           'TURISTAS DEL ESTE DE EUROPA: A menudo grandes gastadores en categorías de lujo. Responden fuertemente al posicionamiento premium. Aprecian la exclusividad y las señales de estatus. Directos y decisivos cuando están interesados.',
@@ -392,8 +352,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'The tax-haven pricing is your universal equalizer. Even budget-conscious tourists perk up when they realize they\'re getting a €500 product for €300. Lead with the Europe price, then deliver the Andorra advantage as a gift — not a discount.',
-      textEs: 'El precio de paraíso fiscal es tu ecualizador universal. Incluso los turistas conscientes del presupuesto se animan cuando se dan cuenta de que están obteniendo un producto de €500 por €300. Empieza con el precio de Europa, luego entrega la ventaja de Andorra como un regalo — no como un descuento.',
+      text: 'The price gap is your universal equalizer. Even budget-conscious tourists perk up when they realize they\'re getting a {currency}500 product for {currency}300. Lead with the Europe price, then deliver the {locationName} price as a gift — not a discount.',
+      textEs: 'La diferencia de precio es tu ecualizador universal. Incluso los turistas conscientes del presupuesto se animan cuando se dan cuenta de que están obteniendo un producto de {currency}500 por {currency}300. Empieza con el precio de Europa, luego entrega el precio de {locationName} como un regalo — no como un descuento.',
     },
     {
             type: 'divider'
@@ -412,21 +372,21 @@ export const lessons: Record<string, Lesson> = {
             type: 'bullets',
       items: [
         'Mental buying momentum: The decision to spend has already been made. Their wallet is open, their inhibitions are lowered.',
-        'Budget flexibility: Someone who has already spent €500 today is more likely to spend €100 more than someone who hasn\'t spent anything.',
-        'Trust in the location: They\'re already committed to shopping in Andorra. Your shop is just another stop on their buying journey.',
+        'Budget flexibility: Someone who has already spent {currency}500 today is more likely to spend {currency}100 more than someone who hasn\'t spent anything.',
+        'Trust in the location: They\'re already committed to shopping in {locationName}. Your shop is just another stop on their buying journey.',
         'Time investment: They\'ve dedicated time to shopping. Stopping for a 5-minute demo fits their current activity.'
       ],
       itemsEs: [
           'Momento de compra mental: La decisión de gastar ya se tomó. Su cartera está abierta, sus inhibiciones están bajas.',
-          'Flexibilidad de presupuesto: Alguien que ya gastó €500 hoy es más propenso a gastar €100 más que alguien que no ha gastado nada.',
-          'Confianza en el lugar: Ya están comprometidos con comprar en Andorra. Tu tienda es solo otra parada en su viaje de compras.',
+          'Flexibilidad de presupuesto: Alguien que ya gastó {currency}500 hoy es más propenso a gastar {currency}100 más que alguien que no ha gastado nada.',
+          'Confianza en el lugar: Ya están comprometidos con comprar en {locationName}. Tu tienda es solo otra parada en su viaje de compras.',
           'Inversión de tiempo: Han dedicado tiempo a las compras. Detenerse para una demo de 5 minutos encaja con su actividad actual.',
         ],
     },
     {
             type: 'script',
-      text: '\'I see you\'ve been shopping! You clearly know how to find the best spots in Andorra. Let me show you something that most tourists don\'t know about — it\'s my favorite hidden gem here.\' This connects their existing buying behavior to your offer.',
-      textEs: '\'¡Veo que has estado comprando! Claramente sabes encontrar los mejores lugares en Andorra. Déjame mostrarte algo que la mayoría de turistas no conocen — es mi joya escondida favorita aquí.\' Esto conecta su comportamiento de compra existente con tu oferta.',
+      text: '\'I see you\'ve been shopping! You clearly know how to find the best spots in {locationName}. Let me show you something that most tourists don\'t know about — it\'s my favorite hidden gem here.\' This connects their existing buying behavior to your offer.',
+      textEs: '\'¡Veo que has estado comprando! Claramente sabes encontrar los mejores lugares en {locationName}. Déjame mostrarte algo que la mayoría de turistas no conocen — es mi joya escondida favorita aquí.\' Esto conecta su comportamiento de compra existente con tu oferta.',
     },
     {
             type: 'divider'
@@ -458,8 +418,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'When in doubt, lead with the syringe (flagship). If they recoil at the €300 price point, you can always descale to the peeling or scrub. It\'s harder to upgrade someone who started at €30 than to descale someone who started at €300.',
-      textEs: 'Cuando dudes, empieza con la jeringa (producto estrella). Si se echan atrás con el precio de €300, siempre puedes bajar al peeling o scrub. Es más difícil elevar a alguien que empezó en €30 que bajar a alguien que empezó en €300.',
+      text: 'When in doubt, lead with the syringe (flagship). If they recoil at the {currency}300 price point, you can always descale to the peeling or scrub. It\'s harder to upgrade someone who started at {currency}30 than to descale someone who started at {currency}300.',
+      textEs: 'Cuando dudes, empieza con la jeringa (producto estrella). Si se echan atrás con el precio de {currency}300, siempre puedes bajar al peeling o scrub. Es más difícil elevar a alguien que empezó en {currency}30 que bajar a alguien que empezó en {currency}300.',
     },
     {
             type: 'quote',
@@ -524,8 +484,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Andorra is a crossroads — Spanish, French, British, Eastern European, and Asian tourists all converge on the same street. Selling the same product to a Frenchwoman from Paris requires a different approach than selling to a British family or a solo Spanish shopper. Cultural intelligence isn\'t stereotyping — it\'s understanding how cultural background shapes communication style, decision-making, and buying psychology.',
-      textEs: 'Andorra es una encrucijada — turistas españoles, franceses, británicos, del este de Europa y asiáticos convergen en la misma calle. Vender el mismo producto a una francesa de París requiere un enfoque diferente que vender a una familia británica o a un comprador español solitario. La inteligencia cultural no es estereotipar — es entender cómo el trasfondo cultural moldea el estilo de comunicación, la toma de decisiones y la psicología de compra.',
+      text: '{locationName} is a crossroads — Spanish, French, British, Eastern European, and Asian tourists all converge on the same street. Selling the same product to a Frenchwoman from Paris requires a different approach than selling to a British family or a solo Spanish shopper. Cultural intelligence isn\'t stereotyping — it\'s understanding how cultural background shapes communication style, decision-making, and buying psychology.',
+      textEs: '{locationName} es una encrucijada — turistas españoles, franceses, británicos, del este de Europa y asiáticos convergen en la misma calle. Vender el mismo producto a una francesa de París requiere un enfoque diferente que vender a una familia británica o a un comprador español solitario. La inteligencia cultural no es estereotipar — es entender cómo el trasfondo cultural moldea el estilo de comunicación, la toma de decisiones y la psicología de compra.',
     },
     {
             type: 'keypoint',
@@ -542,30 +502,30 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Spanish tourists often arrive in groups — families, couples, friends. They\'re typically shopping-oriented, respond well to high energy, and appreciate genuine warmth. The tax-haven angle resonates strongly because Spanish VAT is high.',
-      textEs: 'Los turistas españoles a menudo llegan en grupos — familias, parejas, amigos. Típicamente están orientados a las compras, responden bien a la energía alta y aprecian la calidez genuina. El ángulo del paraíso fiscal resuena fuertemente porque el IVA español es alto.',
+      text: 'Spanish tourists often arrive in groups — families, couples, friends. They\'re typically shopping-oriented, respond well to high energy, and appreciate genuine warmth. The price gap between Europe and {locationName} resonates strongly with them.',
+      textEs: 'Los turistas españoles a menudo llegan en grupos — familias, parejas, amigos. Típicamente están orientados a las compras, responden bien a la energía alta y aprecian la calidez genuina. La diferencia de precio entre Europa y {locationName} les resuena con fuerza.',
     },
     {
             type: 'bullets',
       items: [
         'COMMUNICATION STYLE: Warm, expressive, relationship-oriented. They appreciate personal connection before business. Ask about their trip, their day, their plans.',
         'DECISION-MAKING: Often consensus-based (especially in groups). The group dynamic matters — get everyone involved.',
-        'PRICE SENSITIVITY: Value-conscious but will spend for quality. The tax-haven savings narrative works brilliantly — frame it as \'smart shopping.\'',
-        'KEY PHRASES: \'Hola!\' (always greet warmly), \'Ahorras mucho aquí en Andorra\' (You save a lot here in Andorra), \'Es de muy buena calidad\' (It\'s very good quality), \'Regalo perfecto\' (Perfect gift).',
+        'PRICE SENSITIVITY: Value-conscious but will spend for quality. The price-gap narrative works brilliantly — frame it as \'smart shopping.\'',
+        'KEY PHRASES: \'Hola!\' (always greet warmly), \'Ahorras mucho aquí en {locationName}\' (You save a lot here in {locationName}), \'Es de muy buena calidad\' (It\'s very good quality), \'Regalo perfecto\' (Perfect gift).',
         'APPROACH: High energy, warm smile, personal questions. Show enthusiasm. Spanish customers often mirror your energy — bring it.'
       ],
       itemsEs: [
           'ESTILO DE COMUNICACIÓN: Cálido, expresivo, orientado a las relaciones. Aprecian la conexión personal antes de los negocios. Pregúntales sobre su viaje, su día, sus planes.',
           'TOMA DE DECISIONES: A menudo basada en consenso (especialmente en grupos). La dinámica de grupo importa — involucra a todos.',
-          'SENSIBILIDAD AL PRECIO: Conscientes del valor pero gastarán por calidad. La narrativa de ahorro del paraíso fiscal funciona brillantemente — preséntalo como "compras inteligentes".',
-          'FRASES CLAVE: "¡Hola!" (siempre saluda cálidamente), "Ahorras mucho aquí en Andorra" (Ahorras mucho aquí en Andorra), "Es de muy buena calidad" (Es de muy buena calidad), "Regalo perfecto" (Regalo perfecto).',
+          'SENSIBILIDAD AL PRECIO: Conscientes del valor pero gastarán por calidad. La narrativa de la diferencia de precio funciona brillantemente — preséntalo como "compras inteligentes".',
+          'FRASES CLAVE: "¡Hola!" (siempre saluda cálidamente), "Ahorras mucho aquí en {locationName}" (Ahorras mucho aquí en {locationName}), "Es de muy buena calidad" (Es de muy buena calidad), "Regalo perfecto" (Regalo perfecto).',
           'ENFOQUE: Alta energía, sonrisa cálida, preguntas personales. Muestra entusiasmo. Los clientes españoles a menudo reflejan tu energía — llévala.',
         ],
     },
     {
             type: 'script',
-      text: '\'Hola! ¿Qué tal vuestro día en Andorra? Me encanta tu bolso — claramente sabes encontrar las mejores tiendas. Déjame enseñarte algo que la mayoría de turistas no conocen. Es mi producto favorito aquí.\' (Hello! How\'s your day in Andorra? I love your bag — you clearly know how to find the best shops. Let me show you something most tourists don\'t know about. It\'s my favorite product here.)',
-      textEs: '\'¡Hola! ¿Qué tal vuestro día en Andorra? Me encanta tu bolso — claramente sabes encontrar las mejores tiendas. Déjame enseñarte algo que la mayoría de turistas no conocen. Es mi producto favorito aquí.\' (¡Hola! ¿Cómo va su día en Andorra? Me encanta tu bolso — claramente sabes encontrar las mejores tiendas. Déjame mostrarte algo que la mayoría de turistas no conocen. Es mi producto favorito aquí.)',
+      text: '\'Hola! ¿Qué tal vuestro día en {locationName}? Me encanta tu bolso — claramente sabes encontrar las mejores tiendas. Déjame enseñarte algo que la mayoría de turistas no conocen. Es mi producto favorito aquí.\' (Hello! How\'s your day in {locationName}? I love your bag — you clearly know how to find the best shops. Let me show you something most tourists don\'t know about. It\'s my favorite product here.)',
+      textEs: '\'¡Hola! ¿Qué tal vuestro día en {locationName}? Me encanta tu bolso — claramente sabes encontrar las mejores tiendas. Déjame enseñarte algo que la mayoría de turistas no conocen. Es mi producto favorito aquí.\' (¡Hola! ¿Cómo va su día en {locationName}? Me encanta tu bolso — claramente sabes encontrar las mejores tiendas. Déjame mostrarte algo que la mayoría de turistas no conocen. Es mi producto favorito aquí.)',
     },
     {
             type: 'divider'
@@ -585,14 +545,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'COMMUNICATION STYLE: Measured, thoughtful, appreciate expertise. Show product knowledge. Don\'t oversell — let the product speak.',
         'DECISION-MAKING: Individual or couple-based. They think before deciding. Give them space to consider. Pressure backfires.',
-        'PRICE SENSITIVITY: Quality over price. A French customer will pay €300 for something that works vs. €50 for something cheap. Frame it as investment, not discount.',
+        'PRICE SENSITIVITY: Quality over price. A French customer will pay {currency}300 for something that works vs. {currency}50 for something cheap. Frame it as investment, not discount.',
         'KEY PHRASES: \'Bonjour!\' (essential greeting), \'C\'est un produit exceptionnel\' (It\'s an exceptional product), \'Résultats immédiats\' (Immediate results), \'Sans parabènes, sans chimie\' (Without parabens, without chemicals).',
         'APPROACH: Professional, knowledgeable, respectful. Demonstrate the product with confidence. Answer technical questions well. Give them time to decide.'
       ],
       itemsEs: [
           'ESTILO DE COMUNICACIÓN: Medido, reflexivo, aprecian la experiencia. Muestra conocimiento de productos. No vendas en exceso — deja que el producto hable.',
           'TOMA DE DECISIONES: Individual o en pareja. Piensan antes de decidir. Dale espacio para considerar. La presión tiene el efecto contrario.',
-          'SENSIBILIDAD AL PRECIO: Calidad sobre precio. Un cliente francés pagará €300 por algo que funciona vs. €50 por algo barato. Preséntalo como inversión, no como descuento.',
+          'SENSIBILIDAD AL PRECIO: Calidad sobre precio. Un cliente francés pagará {currency}300 por algo que funciona vs. {currency}50 por algo barato. Preséntalo como inversión, no como descuento.',
           'FRASES CLAVE: "¡Bonjour!" (saludo esencial), "C\'est un produit exceptionnel" (Es un producto excepcional), "Résultats immédiats" (Resultados inmediatos), "Sans parabènes, sans chimie" (Sin parabenos, sin químicos).',
           'ENFOQUE: Profesional, conocedor, respetuoso. Demuestra el producto con confianza. Responde bien las preguntas técnicas. Dale tiempo para decidir.',
         ],
@@ -620,19 +580,20 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'COMMUNICATION STYLE: Direct, humorous, appreciates authenticity. Don\'t be too \'salesy.\' Be a real person having a real conversation.',
         'DECISION-MAKING: Usually couple-based. The partner\'s opinion matters heavily. Involve them with humor and direct questions.',
-        'PRICE SENSITIVITY: Reasonably price-aware but responsive to genuine value. The tax-haven angle works well. They love a \'bargain\' but hate feeling \'sold to.\'',
+        'PRICE SENSITIVITY: Reasonably price-aware but responsive to genuine value. The price-gap angle works well. They love a \'bargain\' but hate feeling \'sold to.\'',
         'APPROACH: Friendly, slightly cheeky, direct. \'I know you weren\'t planning to stop, but I promise this is worth two minutes of your time.\' British customers respect honesty and humor.'
       ],
       itemsEs: [
           'ESTILO DE COMUNICACIÓN: Directo, humorístico, aprecia la autenticidad. No seas demasiado "vendedor". Sé una persona real teniendo una conversación real.',
           'TOMA DE DECISIONES: Generalmente en pareja. La opinión de la pareja importa mucho. Involúcralos con humor y preguntas directas.',
-          'SENSIBILIDAD AL PRECIO: Razonablemente conscientes del precio pero responden al valor genuino. El ángulo del paraíso fiscal funciona bien. Aman una "ganga" pero odian sentirse "vendidos".',
+          'SENSIBILIDAD AL PRECIO: Razonablemente conscientes del precio pero responden al valor genuino. El ángulo de la diferencia de precio funciona bien. Aman una "ganga" pero odian sentirse "vendidos".',
           'ENFOQUE: Amigable, ligeramente atrevido, directo. "Sé que no planeabas detenerte, pero te prometo que esto vale dos minutos de tu tiempo." Los clientes británicos respetan la honestidad y el humor.',
         ],
     },
     {
             type: 'script',
-      text: '\'I know, I know — you\'re thinking \'not another salesperson.\' But I promise you, this is actually worth stopping for. Two minutes, and if you don\'t love it, you can tell me I\'m terrible at my job. Fair deal?\' This disarms skepticism with humor and directness.'
+      text: '\'I know, I know — you\'re thinking \'not another salesperson.\' But I promise you, this is actually worth stopping for. Two minutes, and if you don\'t love it, you can tell me I\'m terrible at my job. Fair deal?\' This disarms skepticism with humor and directness.',
+      textEs: '\'Ya lo sé, ya lo sé — estás pensando "otro vendedor no, por favor". Pero te prometo que esto sí merece la pena. Dos minutos, y si no te encanta, me dices que soy malísimo en mi trabajo. ¿Trato justo?\' Esto desarma el escepticismo con humor y franqueza.'
     },
     {
             type: 'divider'
@@ -719,13 +680,13 @@ export const lessons: Record<string, Lesson> = {
         'SPANISH: \'Hola\' (Hello), \'¿Cómo estás?\' (How are you?), \'Mira\' (Look), \'Increíble\' (Incredible), \'Regalo\' (Gift), \'Precio especial\' (Special price), \'Para ti\' (For you), \'Gracias\' (Thank you)',
         'FRENCH: \'Bonjour\' (Hello), \'Regardez\' (Look), \'Incroyable\' (Incredible), \'Résultat immédiat\' (Immediate result), \'Cadeau\' (Gift), \'Prix spécial\' (Special price), \'Merci\' (Thank you)',
         'ENGLISH: You\'re likely already fluent, but British-specific phrases help: \'Brilliant,\' \'Lovely,\' \'Absolutely,\' \'Cheers\' — mirror their vocabulary.',
-        'RUSSIAN (common in Andorra): \'Zdravstvuyte\' (Hello), \'Smotrite\' (Look), \'Potryasayushche\' (Amazing) — even attempting a greeting creates goodwill.'
+        'RUSSIAN (common with Eastern European visitors): \'Zdravstvuyte\' (Hello), \'Smotrite\' (Look), \'Potryasayushche\' (Amazing) — even attempting a greeting creates goodwill.'
       ],
       itemsEs: [
           'ESPAÑOL: "Hola" (Hola), "¿Cómo estás?" (¿Cómo estás?), "Mira" (Mira), "Increíble" (Increíble), "Regalo" (Regalo), "Precio especial" (Precio especial), "Para ti" (Para ti), "Gracias" (Gracias)',
           'FRANCÉS: "Bonjour" (Hola), "Regardez" (Mira), "Incroyable" (Increíble), "Résultat immédiat" (Resultado inmediato), "Cadeau" (Regalo), "Prix spécial" (Precio especial), "Merci" (Gracias)',
           'INGLÉS: Probablemente ya dominas el inglés, pero las frases específicas británicas ayudan: "Brilliant," "Lovely," "Absolutely," "Cheers" — refleja su vocabulario.',
-          'RUSO (común en Andorra): "Zdravstvuyte" (Hola), "Smotrite" (Mira), "Potryasayushche" (Increíble) — incluso intentar un saludo genera buena voluntad.',
+          'RUSO (común entre visitantes del este de Europa): "Zdravstvuyte" (Hola), "Smotrite" (Mira), "Potryasayushche" (Increíble) — incluso intentar un saludo genera buena voluntad.',
         ],
     },
     {
@@ -749,15 +710,15 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'French tourists appreciate expertise, product knowledge, and space to consider. They\'re often knowledgeable about skincare and respond to substance over hype. Pressure backfires.',
     },
     {
-      question: 'Why does the tax-haven savings narrative work especially well with Spanish tourists?',
+      question: 'Why does the price-gap narrative work especially well with Spanish tourists?',
       options: [
-        'They don\'t care about quality',
-        'Spanish VAT is high, so the savings feel significant and smart',
-        'They only buy cheap products',
+        'They don\'t care about quality, only about the lowest price',
+        'They\'re value-conscious — {currency}500 at {currency}300 feels smart',
+        'They only buy cheap products and avoid premium brands',
         'They don\'t understand luxury pricing'
       ],
       correctIndex: 1,
-      explanation: 'Spanish VAT is relatively high, so the tax-haven savings feel significant. Spanish tourists respond well to value framing — \'smart shopping\' in Andorra.',
+      explanation: 'Spanish tourists are value-conscious, so hearing {currency}500 in Europe and {currency}300 here makes the buy feel significant. They respond well to value framing — \'smart shopping\' in {locationName}.',
     },
     {
       question: 'What should you do when uncertain about someone\'s cultural background?',
@@ -847,14 +808,14 @@ export const lessons: Record<string, Lesson> = {
             type: 'numbered',
       items: [
         'INCLUDE HIM EARLY: Don\'t wait until the close. From the moment they\'re inside, make eye contact with him. Ask his opinion. \'Sir, you see what I mean about the eye area? You know how she sometimes says she looks tired even after sleeping well?\' This makes him an expert on HIS partner, not just an observer of your sale.',
-        'APPEAL TO HIS LOGIC: Men often respond to practical benefits. \'This lasts a whole year — one syringe, 52 treatments. That\'s less than €6 per week for this result.\' Logic defuses skepticism.',
+        'APPEAL TO HIS LOGIC: Men often respond to practical benefits. \'This lasts a whole year — one syringe, 52 treatments. That\'s less than {currency}6 per week for this result.\' Logic defuses skepticism.',
         'MAKE HIM THE HERO: Frame the purchase as something HE can give her. \'Imagine her waking up every morning looking this fresh — and she\'ll know it\'s because of you.\' Men love being the source of their partner\'s happiness.',
         'HUMOR DISARMS: A light joke directed at him breaks tension. \'Sir, don\'t worry — we\'re not changing her face, just making her eyes look like she slept twelve hours.\' Humor makes him smile, and a smiling man doesn\'t veto.'
       ],
       itemsEs: [
           'INCLÚYELO DESDE EL PRINCIPIO: No esperes hasta el cierre. Desde el momento en que están dentro, haz contacto visual con él. Pregúntale su opinión. "Señor, ¿ve lo que digo sobre el área del ojo? ¿Sabe cómo ella a veces dice que se ve cansada incluso después de dormir bien?" Esto lo convierte en experto sobre SU pareja, no solo en observador de tu venta.',
-          'APELA A SU LÓGICA: Los hombres a menudo responden a beneficios prácticos. "Esto dura todo un año — una jeringa, 52 tratamientos. Eso es menos de €6 por semana por este resultado." La lógica desactiva el escepticismo.',
-          'HÁZLO EL HÉROE: Presenta la compra como algo que ÉL puede darle. "Imagínela despertando cada mañana viéndose así de fresca — y ella sabrá que es gracias a usted." A los hombres les encanta ser la fuente de la felicidad de su pareja.',
+          'APELA A SU LÓGICA: Los hombres a menudo responden a beneficios prácticos. "Esto dura todo un año — una jeringa, 52 tratamientos. Eso es menos de {currency}6 por semana por este resultado." La lógica desactiva el escepticismo.',
+          'HÁZLO EL HÉROE: Presenta la compra como algo que ÉL puede darle. "Imagínatela despertando cada mañana viéndose así de fresca — y ella sabrá que es gracias a ti." A los hombres les encanta ser la fuente de la felicidad de su pareja.',
           'EL HUMOR DESARMA: Una broma ligera dirigida a él rompe la tensión. "Señor, no se preocupe — no le cambiamos la cara, solo hacemos que sus ojos se vean como si hubiera dormido doce horas." El humor lo hace sonreír, y un hombre que sonríe no veta.',
         ],
     },
@@ -914,8 +875,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'When a couple is deciding, GIVE THEM SPACE. Step back after presenting the offer. Say \'Take your time, I\'ll be right here.\' Hovering creates pressure. Space creates comfort. The conversation they have in that 30-second gap often seals the deal — one convinces the other.',
-      textEs: 'Cuando una pareja está decidiendo, DALES ESPACIO. Retrocede después de presentar la oferta. Di "Tómate tu tiempo, estaré aquí." Cernirse crea presión. El espacio crea comodidad. La conversación que tienen en esos 30 segundos a menudo sella el trato — uno convence al otro.',
+      text: 'When a couple is deciding, GIVE THEM A BEAT — but give it to them at your table, not out on the pavement. Put the box in her hands, take half a step back, busy yourself with something. \'I\'m right here.\' Let them have the little conversation they need to have, because one of them nearly always talks the other into it. What you never do is send them off to have it somewhere else.',
+      textEs: 'Cuando una pareja está decidiendo, DALES UN SEGUNDO — pero dáselo en tu mesa, no en mitad de la calle. Ponle la caja en las manos, medio paso atrás, y entretente con algo. "Estoy aquí mismo." Que tengan la conversación que necesitan tener, porque casi siempre uno convence al otro. Lo que no haces nunca es mandarlos a tenerla a otra parte.',
     },
     {
             type: 'divider'
@@ -933,7 +894,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'This would make an incredible Christmas gift for her — but honestly? Use it together. The Scrub and Body Butter work for men too. Make it a couples\' spa night at home.\' This transforms a single purchase into a shared experience and removes the \'selfish purchase\' barrier.',
-      textEs: '\'Esto sería un regalo de Navidad increíble para ella — pero ¿honestamente? Úsenlo juntos. El Scrub y la Body Butter también funcionan para hombres. Hagan una noche de spa en casa.\' Esto transforma una compra individual en una experiencia compartida y elimina la barrera de la \'compra egoísta\'.',
+      textEs: '\'Esto sería un regalo de Navidad increíble para ella — pero ¿honestamente? Usadlo juntos. El Scrub y la Body Butter también funcionan para hombres. Hagan una noche de spa en casa.\' Esto transforma una compra individual en una experiencia compartida y elimina la barrera de la \'compra egoísta\'.',
     },
     {
             type: 'quote',
@@ -1054,8 +1015,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'Maria, come look in the mirror — you won\'t believe what you see.\' \'So Maria, which option feels better for you?\' \'It was wonderful meeting you, Maria. Enjoy Andorra!\' Three uses: one during the experience, one during the close, one at goodbye. Perfect.',
-      textEs: '\'María, ven a ver el espejo — no vas a creer lo que ves.\' \'Entonces, María, ¿cuál opción se siente mejor para ti?\' \'Fue un placer conocerte, María. ¡Disfruta Andorra!\' Tres usos: uno durante la experiencia, uno durante el cierre, uno en la despedida. Perfecto.',
+      text: '\'Maria, come look in the mirror — you won\'t believe what you see.\' \'So Maria, which option feels better for you?\' \'It was wonderful meeting you, Maria. Enjoy {locationName}!\' Three uses: one during the experience, one during the close, one at goodbye. Perfect.',
+      textEs: '\'María, ven a ver el espejo — no vas a creer lo que ves.\' \'Entonces, María, ¿cuál opción se siente mejor para ti?\' \'Fue un placer conocerte, María. ¡Disfruta {locationName}!\' Tres usos: uno durante la experiencia, uno durante el cierre, uno en la despedida. Perfecto.',
     },
     {
             type: 'divider'
@@ -1067,20 +1028,20 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Compliments work when they\'re SPECIFIC and GENUINE. Generic compliments (\'You\'re beautiful\') feel fake. Specific compliments (\'That emerald scarf brings out your eyes perfectly\') feel observant and real.',
-      textEs: 'Los cumplidos funcionan cuando son ESPECÍFICOS y GENUINOS. Los cumplidos genéricos (\'Eres hermosa\') se sienten falsos. Los cumplidos específicos (\'Esa bufanda esmeralda resalta perfectamente tus ojos\') se sienten observadores y reales.',
+      text: 'A compliment does two jobs at once: it is a nice thing to hear, and it makes them answer you. \'You look so good — what do you normally use on your skin?\' cannot be answered with a yes or a no. That is why it stops people when \'excuse me, madam\' does not.',
+      textEs: 'Un cumplido hace dos cosas a la vez: es agradable de oír y les obliga a contestarte. \'Te veo muy bien, ¿qué usas normalmente para la piel?\' no se contesta con un sí o un no. Por eso para a la gente cuando \'perdone, señora\' no la para.',
     },
     {
             type: 'bullets',
       items: [
-        'COMPLIMENT CHOICES: Accessories (scarf, watch, bag), grooming (hair, nails, skin), style (color coordination, unique piece), energy (warm smile, confident walk)',
-        'AVOID: Physical compliments that could feel inappropriate (body, weight, age-related). Keep it to choices they\'ve MADE, not attributes they were born with.',
-        'DELIVERY: Make eye contact, smile, say it warmly, then move on. Don\'t linger on the compliment — that creates awkwardness.'
+        'TELL THEM THEY LOOK GOOD: Straight out. \'Listen, I know you\'re in a rush, but can I ask you something real quick, because you look so good?\' It works because it is warm and it is fast, and because it needs a real answer. It is the best opening line on this street.',
+        'OR PICK SOMETHING THEY CHOSE: The scarf, the coat, the bag, the nails. Works just as well and you can see it from three metres. Use whichever one you spot first — do not stand there hunting for the perfect one.',
+        'THE ONLY ONES THAT GO WRONG: Anything you would not say with their husband standing next to you — weight, age, anything about their body. That is the whole rule; everything else is fair. Then: eye contact, smile, say it, move. Do not hang about waiting for a thank you.'
       ],
       itemsEs: [
-          'CUMPLIDA SUS ELECCIONES: Accesorios (bufanda, reloj, bolsa), aseo (cabello, uñas, piel), estilo (combinación de colores, pieza única), energía (sonrisa cálida, caminata segura)',
-          'EVITA: Cumplidos físicos que puedan sentirse inapropiados (cuerpo, peso, relacionados con la edad). Manténlo en las elecciones que HAN HECHO, no en atributos con los que nacieron.',
-          'ENTREGA: Haz contacto visual, sonríe, dílo cálidamente, y sigue adelante. No te quedes en el cumplido — eso genera incomodidad.',
+          'DILES QUE ESTÁN GUAPÍSIMAS: A pelo. \'Mira, sé que vas con prisa, ¿pero te puedo preguntar una cosa rapidísima? Es que te veo muy bien.\' Funciona porque es cálido y es rápido, y porque pide una respuesta de verdad. Es la mejor apertura de esta calle.',
+          'O ALGO QUE HAYAN ELEGIDO ELLAS: El pañuelo, el abrigo, el bolso, las uñas. Funciona igual de bien y lo ves desde tres metros. Usa lo primero que pilles — no te quedes ahí buscando el detalle perfecto.',
+          'LAS ÚNICAS QUE SALEN MAL: Cualquier cosa que no dirías con su marido al lado — el peso, la edad, nada del cuerpo. Esa es toda la norma; el resto vale. Y luego: mirada, sonrisa, lo dices y sigues. No te quedes ahí esperando las gracias.',
         ],
     },
     {
@@ -1093,19 +1054,19 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Shared experiences create instant connection. Travelers in Andorra have common ground waiting to be discovered:',
-      textEs: 'Las experiencias compartidas crean conexión instantánea. Los viajeros en Andorra tienen terreno común esperando ser descubierto:',
+      text: 'Shared experiences create instant connection. Travelers in {locationName} have common ground waiting to be discovered:',
+      textEs: 'Las experiencias compartidas crean conexión instantánea. Los viajeros en {locationName} tienen terreno común esperando ser descubierto:',
     },
     {
             type: 'bullets',
       items: [
-        'THE LOCATION: \'Is this your first time in Andorra? I love it here — the mountains are incredible.\'',
+        'THE LOCATION: \'Is this your first time in {locationName}? I love it here — I never get tired of this place.\'',
         'THE WEATHER: \'Beautiful day for shopping! Better than yesterday\'s rain, right?\'',
         'SHARED ORIGINS: \'Oh, you\'re from Madrid? I have family there!\' Even distant connections create bonds.',
         'THE EXPERIENCE: \'Everyone who tries this is shocked — you\'re going to have the same reaction.\' Shared anticipation of the demo result.'
       ],
       itemsEs: [
-          'EL LUGAR: \'¿Es tu primera vez en Andorra? Me encanta aquí — las montañas son increíbles.\'',
+          'EL LUGAR: \'¿Es tu primera vez en {locationName}? Me encanta esto — no me canso de este sitio.\'',
           'EL CLIMA: \'¡Hermoso día para comprar! Mejor que la lluvia de ayer, ¿o no?\'',
           'ORÍGENES COMPARTIDOS: \'Oh, ¿eres de Madrid? ¡Tengo familia ahí!\' Incluso las conexiones lejanas crean lazos.',
           'LA EXPERIENCIA: \'Todos los que prueban esto se sorprenden — vas a tener la misma reacción.\' La anticipación compartida del resultado de la demostración.',
@@ -1142,14 +1103,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         '6. VULNERABILITY: Brief, genuine honesty creates deep trust. \'When I first started, I didn\'t believe the hype either. Then I tried it myself and became obsessed.\' This shows you\'re a real person, not a sales robot.',
         '7. CURIOSITY: Ask questions that show genuine interest in THEM, not just their wallet. \'What do you usually use on your skin? You clearly take care of yourself.\' People love talking about themselves.',
-        '8. AGREEMENT FRAMES: Start with something they can\'t disagree with. \'Andorra is beautiful, isn\'t it?\' \'You clearly have great taste.\' \'Taking care of your skin is important.\' Each agreement creates momentum toward the sale.',
+        '8. AGREEMENT FRAMES: Start with something they can\'t disagree with. \'{locationName} is beautiful, isn\'t it?\' \'You clearly have great taste.\' \'Taking care of your skin is important.\' Each agreement creates momentum toward the sale.',
         '9. STORYTELLING: Share a 30-second story about another customer. \'A woman came in yesterday saying she\'d think about it. She came back an hour later and bought two for her sisters.\' Stories bypass skepticism and go straight to imagination.',
         '10. APPROPRIATE TOUCH: A light hand on the forearm during a key moment, or guiding their hand during the demo. Only when rapport is established and culturally appropriate. Touch accelerates trust when done right, destroys it when done wrong.'
       ],
       itemsEs: [
           '6. VULNERABILIDAD: La honestidad breve y genuina crea confianza profunda. \'Cuando empecé, yo tampoco me creía el hype. Luego lo probé yo misma y me obsesioné.\' Esto demuestra que eres una persona real, no un robot de ventas.',
-          '7. CURIOSIDAD: Haz preguntas que demuestren interés genuino en ELLOS, no solo en su billetera. \'¿Qué sueles usar en tu piel? Claramente te cuidas.\' A la gente le encanta hablar de sí misma.',
-          '8. MARCOS DE ACUERDO: Empieza con algo con lo que no puedan estar en desacuerdo. \'Andorra es hermosa, ¿o no?\' \'Claramente tienes excelente gusto.\' \'Cuidar tu piel es importante.\' Cada acuerdo crea impulso hacia la venta.',
+          '7. CURIOSIDAD: Haz preguntas que demuestren interés genuino en ELLOS, no solo en su cartera. \'¿Qué sueles usar en tu piel? Claramente te cuidas.\' A la gente le encanta hablar de sí misma.',
+          '8. MARCOS DE ACUERDO: Empieza con algo con lo que no puedan estar en desacuerdo. \'{locationName} es hermosa, ¿o no?\' \'Claramente tienes excelente gusto.\' \'Cuidar tu piel es importante.\' Cada acuerdo crea impulso hacia la venta.',
           '9. NARRACIÓN: Comparte una historia de 30 segundos sobre otro cliente. \'Una mujer vino ayer diciendo que lo pensaría. Volvió una hora después y compró dos para sus hermanas.\' Las historias evaden el escepticismo y van directo a la imaginación.',
           '10. TOQUE APROPIADO: Una mano ligera en el antebrazo durante un momento clave, o guiando su mano durante la demostración. Solo cuando el rapport está establecido y es culturalmente apropiado. El toque acelera la confianza cuando se hace bien, la destruye cuando se hace mal.',
         ],
@@ -1240,9 +1201,10 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'comparison',
-      left: { label: 'Closed Questions (Weak)', text: '\'Do you use cream?\' — Yes/No answer. Ends conversation. Reveals nothing. \'Do you like it?\' — \'It\'s nice.\' Dead end. \'Have you been to Andorra before?\' — \'Yes.\' Nothing to work with.' },
-      leftEs: { label: 'Preguntas Cerradas (Débiles)', text: '\'¿Usas crema?\' — Respuesta sí/no. Termina la conversación. No revela nada. \'¿Te gusta?\' — \'Está bonito.\' Callejón sin salida. \'¿Has estado en Andorra antes?\' — \'Sí.\' Nada con qué trabajar.' },
-      right: { label: 'Open Questions (Powerful)', text: '\'What do you use on your skin?\' — Reveals routine, spending, and concerns. \'What do you think of the result?\' — Gets them talking about feelings. \'What brings you to Andorra?\' — Opens connection opportunities.' }
+      left: { label: 'Closed Questions (Weak)', text: '\'Do you use cream?\' — Yes/No answer. Ends conversation. Reveals nothing. \'Do you like it?\' — \'It\'s nice.\' Dead end. \'Have you been to {locationName} before?\' — \'Yes.\' Nothing to work with.' },
+      leftEs: { label: 'Preguntas Cerradas (Débiles)', text: '\'¿Usas crema?\' — Respuesta sí/no. Termina la conversación. No revela nada. \'¿Te gusta?\' — \'Está bonito.\' Callejón sin salida. \'¿Has estado en {locationName} antes?\' — \'Sí.\' Nada con qué trabajar.' },
+      right: { label: 'Open Questions (Powerful)', text: '\'What do you use on your skin?\' — Reveals routine, spending, and concerns. \'What do you think of the result?\' — Gets them talking about feelings. \'What brings you to {locationName}?\' — Opens connection opportunities.' },
+      rightEs: { label: 'Preguntas Abiertas (Potentes)', text: '\'¿Qué usas para la piel?\' — Revela rutina, gasto y preocupaciones. \'¿Qué te parece el resultado?\' — Les hace hablar de lo que sienten. \'¿Qué te trae por {locationName}?\' — Abre oportunidades de conexión.' }
     },
     {
             type: 'tip',
@@ -1265,14 +1227,14 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        'LEVEL 1 — OBSERVATIONAL (0-30 seconds): \'I love your scarf — is that from a local designer?\' \'How\'s your day in Andorra going?\' Light, surface-level, easy to answer. Creates initial comfort.',
-        'LEVEL 2 — CONTEXTUAL (30 seconds - 2 minutes): \'What brings you to Andorra?\' \'Are you here for skiing or shopping?\' \'What do you usually use on your skin?\' Slightly more personal but still easy. Reveals context.',
+        'LEVEL 1 — OBSERVATIONAL (0-30 seconds): \'I love your scarf — is that from a local designer?\' \'How\'s your day in {locationName} going?\' Light, surface-level, easy to answer. Creates initial comfort.',
+        'LEVEL 2 — CONTEXTUAL (30 seconds - 2 minutes): \'What brings you to {locationName}?\' \'Are you here for skiing or shopping?\' \'What do you usually use on your skin?\' Slightly more personal but still easy. Reveals context.',
         'LEVEL 3 — PERSONAL (2-5 minutes): \'What are your main skin concerns?\' \'How much time do you spend on your skincare routine?\' \'When was the last time you really treated yourself?\' Requires some trust. Reveals motivation and concerns.',
         'LEVEL 4 — DECISION-ORIENTED (During the close): \'Which option feels better for you?\' \'What would make this perfect for you?\' \'If price weren\'t an issue, which would you choose?\' Reveals objections and buying signals.'
       ],
       itemsEs: [
-          'NIVEL 1 — OBSERVACIONAL (0-30 segundos): \'Me encanta tu bufanda — ¿es de un diseñador local?\' \'¿Cómo va tu día en Andorra?\' Ligero, superficial, fácil de responder. Crea comodidad inicial.',
-          'NIVEL 2 — CONTEXTUAL (30 segundos - 2 minutos): \'¿Qué te trae a Andorra?\' \'¿Estás aquí para esquiar o de compras?\' \'¿Qué sueles usar en tu piel?\' Un poco más personal pero aún fácil. Revela contexto.',
+          'NIVEL 1 — OBSERVACIONAL (0-30 segundos): \'Me encanta tu bufanda — ¿es de un diseñador local?\' \'¿Cómo va tu día en {locationName}?\' Ligero, superficial, fácil de responder. Crea comodidad inicial.',
+          'NIVEL 2 — CONTEXTUAL (30 segundos - 2 minutos): \'¿Qué te trae a {locationName}?\' \'¿Estás aquí para esquiar o de compras?\' \'¿Qué sueles usar en tu piel?\' Un poco más personal pero aún fácil. Revela contexto.',
           'NIVEL 3 — PERSONAL (2-5 minutos): \'¿Cuáles son tus principales preocupaciones de piel?\' \'¿Cuánto tiempo dedicas a tu rutina de cuidado de la piel?\' \'¿Cuándo fue la última vez que realmente te consentiste?\' Requiere algo de confianza. Revela motivación y preocupaciones.',
           'NIVEL 4 — ORIENTADO A LA DECISIÓN (Durante el cierre): \'¿Cuál opción se siente mejor para ti?\' \'¿Qué haría esto perfecto para ti?\' \'Si el precio no fuera un problema, ¿cuál elegirías?\' Revela objeciones y señales de compra.',
         ],
@@ -1368,8 +1330,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'So what brings you to Andorra?\' — \'Skiing with my husband.\' — \'Oh amazing! Which ski resort? I love the slopes here. And after a day of skiing, your skin must be so dry — the mountain air is brutal. What do you usually use to rehydrate?\' See how each question follows naturally from the last? That\'s conversational questioning.',
-      textEs: '\'Entonces, ¿qué te trae a Andorra?\' — \'A esquiar con mi esposo.\' — \'¡Oh, increíble! ¿Qué estación de esquí? Me encantan las pistas aquí. Y después de un día de esquí, tu piel debe estar bien reseca — el aire de montaña es brutal. ¿Qué sueles usar para rehidratar?\' ¿Ves cómo cada pregunta sigue naturalmente de la anterior? Eso es cuestionar de forma conversacional.',
+      text: '\'So what brings you to {locationName}?\' — \'A few days away with my husband.\' — \'Oh amazing! Where are you staying? I love it here. And after a full day out, your skin must be so dry — travelling is brutal on it. What do you usually use to rehydrate?\' See how each question follows naturally from the last? That\'s conversational questioning.',
+      textEs: '\'Entonces, ¿qué te trae a {locationName}?\' — \'Unos días fuera con mi marido.\' — \'¡Ah, qué bien! ¿Dónde os alojáis? Me encanta esto. Y después de un día entero fuera, tu piel debe de estar resecísima — viajar es brutal para la piel. ¿Qué sueles usar para rehidratar?\' ¿Ves cómo cada pregunta sigue naturalmente de la anterior? Eso es cuestionar de forma conversacional.',
     },
     {
             type: 'quote',
@@ -1419,8 +1381,9 @@ export const lessons: Record<string, Lesson> = {
     id: 'connect-7',
     categoryId: 'connecting',
     title: 'Spotting Buying Signals',
-    titleEs: 'Escuchando Más Allá de las Palabras',
+    titleEs: 'Detectar Señales de Compra',
     subtitle: 'Body language and verbal cues that scream \'I\'m ready to buy\'',
+    subtitleEs: 'Gestos y frases que gritan \'estoy lista para comprar\'',
     duration: '8 min',
     icon: 'Target',
     order: 7,
@@ -1569,8 +1532,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: 'Customer: \'How long does one syringe last?\' (Buying signal!) You: \'A full year of treatments — 52 weeks. That\'s less than €6 per week for this result. Shall I set one aside for you?\' Direct close. Don\'t oversell past this point.',
-      textEs: 'Cliente: \'¿Cuánto dura una jeringa?\' (¡Señal de compra!) Tú: \'Un año completo de tratamientos — 52 semanas. Eso es menos de €6 por semana por este resultado. ¿Te guardo una?\' Cierre directo. No vendas de más después de este punto.',
+      text: 'Customer: \'How long does one syringe last?\' (Buying signal!) You: \'A full year of treatments — 52 weeks. That\'s less than {currency}6 per week for this result. Shall I set one aside for you?\' Direct close. Don\'t oversell past this point.',
+      textEs: 'Cliente: \'¿Cuánto dura una jeringa?\' (¡Señal de compra!) Tú: \'Un año completo de tratamientos — 52 semanas. Eso es menos de {currency}6 por semana por este resultado. ¿Te guardo una?\' Cierre directo. No vendas de más después de este punto.',
     },
     {
             type: 'tip',
@@ -1594,7 +1557,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Genuine Buying Signal', text: 'They ask specific questions about usage, logistics, or value. Their questions are about OWNING the product. They\'re problem-solving for purchase.' },
       leftEs: { label: 'Señal de Compra Genuina', text: 'Hacen preguntas específicas sobre uso, logística o valor. Sus preguntas son sobre POSEER el producto. Están resolviendo problemas para la compra.' },
-      right: { label: 'Polite Interest (Not Ready)', text: 'They say \'It\'s nice\' or \'I\'ll think about it.\' Their questions are general. No specifics about owning. They\'re being polite, not buying.' }
+      right: { label: 'Polite Interest (Not Ready)', text: 'They say \'It\'s nice\' or \'I\'ll think about it.\' Their questions are general. No specifics about owning. They\'re being polite, not buying.' },
+      rightEs: { label: 'Interés Educado (No Está Listo)', text: 'Dicen \'está bien\' o \'me lo pensaré\'. Sus preguntas son generales. Nada concreto sobre llevárselo. Están siendo educados, no comprando.' }
     },
     {
             type: 'quote',
@@ -1645,8 +1609,8 @@ export const lessons: Record<string, Lesson> = {
     categoryId: 'connecting',
     title: 'Handling Different Personality Types',
     titleEs: 'Manejando Diferentes Tipos de Personalidad',
-    subtitle: 'The 4 buyer types: Analytical, Driver, Amiable, and Expressive',
-    subtitleEs: 'Adapta tu enfoque al cliente frente a ti',
+    subtitle: 'The four you meet all day: the Interrogator, the Rusher, the Sweetheart, the Showman',
+    subtitleEs: 'Los cuatro que te encuentras todo el día: el Interrogador, el Acelerado, el Simpático, el Showman',
     duration: '10 min',
     icon: 'Users',
     order: 8,
@@ -1659,73 +1623,73 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'You\'ve probably noticed that some customers want every detail while others just want the bottom line. Some need to feel emotionally connected; others want facts and data. These differences aren\'t random — they\'re personality types. Understanding the four buyer types transforms your approach from guessing to precision.',
-      textEs: 'Probablemente has notado que algunos clientes quieren cada detalle mientras que otros solo quieren ir al grano. Algunos necesitan sentirse emocionalmente conectados; otros quieren hechos y datos. Estas diferencias no son al azar — son tipos de personalidad. Entender los cuatro tipos de comprador transforma tu enfoque de adivinar a precisión.',
+      text: 'You have already noticed it. Some of them want the whole ingredient list before they will let you touch their hand. Some want the price and the door. Some have to like you first and then they buy anything. And some are not really buying a cream at all, they are buying a story to tell at brunch. Same shop, same products, four completely different conversations.',
+      textEs: 'Ya te has dado cuenta. Algunos quieren la lista de ingredientes entera antes de dejarte tocarles la mano. Otros quieren el precio y la puerta. Otros primero tienen que caerte bien y luego te compran lo que sea. Y otros no están comprando una crema: están comprando una historia para contar en el brunch. La misma tienda, los mismos productos, cuatro conversaciones completamente distintas.',
     },
     {
             type: 'keypoint',
-      text: 'The four buyer types — Analytical, Driver, Amiable, and Expressive — each require a different sales approach. Using the wrong style with the wrong type is like speaking French to a German speaker. Adapt and close.',
-      textEs: 'Los cuatro tipos de comprador — Analítico, Conductor, Amable y Expresivo — cada uno requiere un enfoque de venta diferente. Usar el estilo equivocado con el tipo equivocado es como hablarle en francés a un alemán. Adáptate y cierra.',
+      text: 'Four people you will meet today: the Interrogator, the Rusher, the Sweetheart and the Showman. Work out which one is standing in front of you in the first ten seconds and the rest of it writes itself. Get it wrong and you will be giving a chemistry lecture to somebody who just wanted a laugh.',
+      textEs: 'Cuatro personas que te vas a encontrar hoy: el Interrogador, el Acelerado, el Simpático y el Showman. Averigua cuál tienes delante en los primeros diez segundos y lo demás se escribe solo. Fállalo y estarás dando una clase de química a alguien que solo quería reírse un rato.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Type 1: The Analytical (Facts First)',
-      textEs: 'Tipo 1: El Analítico (Hechos Primero)',
+      text: 'Type 1: The Interrogator',
+      textEs: 'Tipo 1: El Interrogador',
     },
     {
             type: 'paragraph',
-      text: 'The Analytical buyer is methodical, detail-oriented, and risk-averse. They want to understand HOW the product works before they commit. They\'ll ask about ingredients, research, and proof. They\'re not being difficult — they\'re being thorough.',
-      textEs: 'El comprador Analítico es metódico, orientado a los detalles y adverso al riesgo. Quiere entender CÓMO funciona el producto antes de comprometerse. Preguntará sobre ingredientes, investigación y pruebas. No está siendo difícil — está siendo minucioso.',
+      text: 'Wants the ingredient list before they want anything else. Reads the box. Asks you three questions before you have finished the first sentence. They are not having a go at you and they are not going to walk — they just need to know what is in it before they will enjoy it.',
+      textEs: 'Quiere la lista de ingredientes antes que ninguna otra cosa. Se lee la caja. Te hace tres preguntas antes de que termines la primera frase. No va a por ti y no se va a marchar — simplemente necesita saber qué lleva antes de poder disfrutarlo.',
     },
     {
             type: 'bullets',
       items: [
-        'IDENTIFYING THEM: Asks specific questions about ingredients, science, or proof. Reads labels. Takes time to consider. May seem skeptical but is actually just processing.',
-        'YOUR APPROACH: Lead with facts and evidence. \'This is recommended by dermatologists.\' \'The Dead Sea has the highest mineral concentration on Earth.\' \'One syringe lasts 52 treatments — here is the math.\'',
-        'WHAT TO AVOID: High-pressure tactics, emotional appeals, rushing them. They need time. Pressure creates resistance, not commitment.',
-        'CLOSING TECHNIQUE: Give them space to decide. \'I know you want to think this through. Here is my WhatsApp — if you have any questions later, just ask.\' Respect their process.'
+        'HOW YOU SPOT ONE: Picks the box up and turns it over. Asks what is in it before asking what it costs. Goes quiet and reads. That silence is not boredom, it is homework.',
+        'WHAT WORKS: Know your product and answer straight. \'Dead Sea mineral salt — magnesium, calcium, potassium. One jar is 8 to 12 months of weekly treatments, which is under {currency}2 a go.\' Numbers you actually know, said without hesitating.',
+        'WHAT KILLS IT: Waffle, or rushing them, or making something up. This is the one customer who will catch you out — and if they catch you once, you have lost the whole thing.',
+        'HOW YOU CLOSE: Let the box do the last bit. \'Read it properly, I am in no hurry. I am not going anywhere.\' Then go quiet. They close themselves more often than you would think.'
       ],
       itemsEs: [
-          'IDENTIFICARLOS: Preguntan cosas específicas sobre ingredientes, ciencia o pruebas. Leen etiquetas. Toman tiempo para considerar. Pueden parecer escépticos pero en realidad solo están procesando.',
-          'TU ENFOQUE: Empieza con hechos y evidencia. \'Esto es recomendado por dermatólogos.\' \'El Mar Muerto tiene la mayor concentración de minerales de la Tierra.\' \'Una jeringa dura 52 tratamientos — aquí está la cuenta.\'',
-          'QUÉ EVITAR: Tácticas de alta presión, apelaciones emocionales, apurarlos. Necesitan tiempo. La presión crea resistencia, no compromiso.',
-          'TÉCNICA DE CIERRE: Déles espacio para decidir. \'Sé que quieres pensarlo bien. Aquí está mi WhatsApp — si tienes alguna pregunta después, solo escríbeme.\' Respeta su proceso.',
+          'CÓMO LOS PILLAS: Coge la caja y le da la vuelta. Pregunta qué lleva antes de preguntar cuánto cuesta. Se queda callado leyendo. Ese silencio no es aburrimiento, son deberes.',
+          'LO QUE FUNCIONA: Sábete el producto y contesta a pelo. \'Sal mineral del Mar Muerto: magnesio, calcio, potasio. Un bote son de 8 a 12 meses de tratamientos semanales, o sea menos de {currency}2 cada vez.\' Números que te sepas de verdad, dichos sin dudar.',
+          'LO QUE LO MATA: Enrollarte, meterle prisa o inventarte algo. Este es el cliente que te va a pillar — y si te pilla una vez, ya lo has perdido del todo.',
+          'CÓMO CIERRAS: Que la caja haga el último trozo. \'Léetelo bien, que yo no tengo ninguna prisa. Yo no me muevo de aquí.\' Y te callas. Se cierran solos más veces de las que te imaginas.',
         ],
     },
     {
             type: 'script',
-      text: '\'I completely understand wanting the details. The active ingredient is Dead Sea mineral salt, which contains 21 minerals including magnesium, calcium, and potassium. These are clinically shown to improve skin barrier function. One jar gives you 8-12 months of weekly treatments. The math works out to about €2 per use. Does that help with your decision?\' Facts, structure, respect.',
-      textEs: '\'Entiendo perfectamente que quieras los detalles. El ingrediente activo es sal mineral del Mar Muerto, que contiene 21 minerales incluyendo magnesio, calcio y potasio. Estos han demostrado clínicamente mejorar la función de barrera de la piel. Un frasco te da 8-12 meses de tratamientos semanales. La cuenta sale a unos €2 por uso. ¿Eso te ayuda con tu decisión?\' Hechos, estructura, respeto.',
+      text: '\'Go on then, ask me. Dead Sea mineral salt — magnesium, calcium, potassium. Once a week, five minutes, and one jar sees you through the best part of a year. That is under {currency}2 a time. Here, the list is on the box, have a proper look while I do your other hand.\' Straight answers, no waffle, and the demo keeps going while they read.',
+      textEs: '\'Venga, pregúntame. Sal mineral del Mar Muerto: magnesio, calcio, potasio. Una vez por semana, cinco minutos, y un bote te dura casi el año entero. Eso son menos de {currency}2 cada vez. Toma, la lista está en la caja, míratela con calma mientras te hago la otra mano.\' Respuestas directas, sin rollo, y la demo sigue mientras leen.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Type 2: The Driver (Results Fast)',
-      textEs: 'Tipo 2: El Conductor (Resultados Rápidos)',
+      text: 'Type 2: The Rusher',
+      textEs: 'Tipo 2: El Acelerado',
     },
     {
             type: 'paragraph',
-      text: 'The Driver is goal-oriented, time-pressed, and decisive. They don\'t want small talk. They want to know what it does, what it costs, and whether it works. Waste their time and they are gone.',
-      textEs: 'El Conductor está orientado a objetivos, con poco tiempo, y es decisivo. No quiere plática ligera. Quiere saber qué hace, cuánto cuesta, y si funciona. Pierdes su tiempo y se van.',
+      text: 'Wants the price and the door. No chat, no story, no building up to it. They are not rude — they are somewhere else in their head already, and every extra sentence you add is a reason to leave.',
+      textEs: 'Quiere el precio y la puerta. Sin charla, sin historia, sin ir calentándolo. No es un borde — ya está en otro sitio con la cabeza, y cada frase de más que le sueltas es un motivo para irse.',
     },
     {
             type: 'bullets',
       items: [
-        'IDENTIFYING THEM: Walks with purpose. Checks their watch. Gives direct answers. May seem abrupt — they are not rude, they are efficient.',
-        'YOUR APPROACH: Fast, direct, results-focused. Skip the long rapport-building. Get to the demo and the result quickly. \'Two minutes, visible result, lasts a year.\'',
-        'WHAT TO AVOID: Excessive chatting, too many options, slow pacing. Drivers want to make a decision and move on. Respect their time.',
-        'CLOSING TECHNIQUE: Binary choice, quick close. \'Option 1: €210 with a gift. Option 2: €300 with two syringes. Which works for you?\' Clean and decisive.'
+        'HOW YOU SPOT ONE: Walking with somewhere to be. Looks at the watch. Answers you in three words. Already half turned back towards the street.',
+        'WHAT WORKS: Beat them to it. \'I know you\'re in a rush.\' Then: two minutes, one hand, done. Give the result before you give the speech.',
+        'WHAT KILLS IT: Chat. Three options. Anything that starts \'so what happens is...\'. They will not tell you they are bored, they will just be gone.',
+        'HOW YOU CLOSE: Two numbers, one question, nothing else. \'{currency}210 with the gift, or {currency}300 for the two. Which one?\' Then shut up and get the machine.'
       ],
       itemsEs: [
-          'IDENTIFICARLOS: Caminan con propósito. Revisan su reloj. Dan respuestas directas. Pueden parecer abruptos — no son groseros, son eficientes.',
-          'TU ENFOQUE: Rápido, directo, enfocado en resultados. Omite la larga construcción de rapport. Ve a la demostración y al resultado rápido. \'Dos minutos, resultado visible, dura un año.\'',
-          'QUÉ EVITAR: Plática excesiva, demasiadas opciones, ritmo lento. Los Conductores quieren tomar una decisión y seguir adelante. Respeta su tiempo.',
-          'TÉCNICA DE CIERRE: Elección binaria, cierre rápido. \'Opción 1: €210 con regalo. Opción 2: €300 con dos jeringas. ¿Cuál te funciona?\' Limpio y decisivo.',
+          'CÓMO LOS PILLAS: Andan con un sitio al que llegar. Miran el reloj. Te contestan con tres palabras. Ya están medio girados hacia la calle.',
+          'LO QUE FUNCIONA: Adelántate. \'Sé que vas con prisa.\' Y luego: dos minutos, una mano, listo. Dale el resultado antes que el discurso.',
+          'LO QUE LO MATA: La cháchara. Tres opciones. Cualquier cosa que empiece por \'lo que pasa es que...\'. No te van a decir que se aburren, simplemente ya no están.',
+          'CÓMO CIERRAS: Dos números, una pregunta y nada más. \'{currency}210 con el regalo, o {currency}300 las dos. ¿Cuál?\' Y te callas y vas a por el datáfono.',
         ],
     },
     {
@@ -1738,66 +1702,66 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'Type 3: The Amiable (Feel Good)',
-      textEs: 'Tipo 3: El Amable (Se Siente Bien)',
+      text: 'Type 3: The Sweetheart',
+      textEs: 'Tipo 3: El Simpático',
     },
     {
             type: 'paragraph',
-      text: 'The Amiable buyer is warm, people-oriented, and relationship-driven. They want to trust you before they buy from you. They make decisions based on how the purchase FEELS, not just the product specs.',
-      textEs: 'El comprador Amable es cálido, orientado a las personas e impulsado por las relaciones. Quiere confiar en ti antes de comprarte. Toman decisiones basándose en cómo se SIENTE la compra, no solo en las especificaciones del producto.',
+      text: 'Has to like you first. Once she does, she will buy almost anything you put in her hand. She is not deciding about a cream, she is deciding about you — and she made her mind up in the first thirty seconds, before you said a single thing about the product.',
+      textEs: 'Primero le tienes que caer bien. En cuanto le caes bien, se lleva casi cualquier cosa que le pongas en la mano. No está decidiendo sobre una crema, está decidiendo sobre ti — y lo decidió en los primeros treinta segundos, antes de que dijeras nada del producto.',
     },
     {
             type: 'bullets',
       items: [
-        'IDENTIFYING THEM: Friendly, asks personal questions, engages in chat, makes eye contact, smiles easily. Takes their partner\'s opinion seriously. Often the most fun to work with.',
-        'YOUR APPROACH: Build genuine rapport first. Share stories. Make them feel special. Emotional connection is the gateway to the sale. The demo should feel like an experience, not a transaction.',
-        'WHAT TO AVOID: Cold facts, aggressive closing, making them feel rushed. Amiable buyers need warmth and connection. Pressure feels like betrayal.',
-        'CLOSING TECHNIQUE: Emotional framing with partner involvement. \'Imagine waking up every morning looking this fresh. Which option feels right for you?\' Feelings over facts.'
+        'HOW YOU SPOT ONE: Asks you where you are from. Wants to know how long you have worked here. Laughs early. Looks at her partner before she answers you. Usually the best half hour of your shift.',
+        'WHAT WORKS: Be a person. Talk about their trip, tell them about yours, get a laugh in before you get a product in. The demo should feel like a five-minute spa moment in the middle of a day of shopping.',
+        'WHAT KILLS IT: Going cold on her the second the money comes up. She will feel the switch, and after that everything you say sounds like it was always the plan.',
+        'HOW YOU CLOSE: Warm and easy, with the partner in on it. \'Look at that. Go on, treat yourself — which one do you fancy?\' Never hard, never fast.'
       ],
       itemsEs: [
-          'IDENTIFICARLOS: Amigables, hacen preguntas personales, se involucran en la plática, hacen contacto visual, sonríen fácilmente. Toman en serio la opinión de su pareja. A menudo los más divertidos de atender.',
-          'TU ENFOQUE: Construye rapport genuino primero. Comparte historias. Haz que se sientan especiales. La conexión emocional es la puerta de entrada a la venta. La demostración debe sentirse como una experiencia, no una transacción.',
-          'QUÉ EVITAR: Hechos fríos, cierre agresivo, hacer que se sientan apurados. Los compradores Amables necesitan calidez y conexión. La presión se siente como traición.',
-          'TÉCNICA DE CIERRE: Enmarcado emocional con involucramiento de la pareja. \'Imagina despertar cada mañana viéndote así de fresca. ¿Cuál opción se siente bien para ti?\' Sentimientos sobre hechos.',
+          'CÓMO LOS PILLAS: Te pregunta de dónde eres. Quiere saber cuánto llevas trabajando aquí. Se ríe pronto. Mira a su pareja antes de contestarte. Suele ser la mejor media hora de tu turno.',
+          'LO QUE FUNCIONA: Sé una persona. Habla de su viaje, cuéntale el tuyo, sácale una risa antes de sacarle un producto. La demo tiene que parecer cinco minutos de spa en mitad de un día de compras.',
+          'LO QUE LO MATA: Ponerte frío en cuanto sale el dinero. Nota el cambio, y a partir de ahí todo lo que digas suena a que ese era el plan desde el principio.',
+          'CÓMO CIERRAS: Con calidez y sin prisa, y con la pareja metida en el ajo. \'Mira eso. Venga, date el capricho, ¿cuál te apetece?\' Nunca duro, nunca rápido.',
         ],
     },
     {
             type: 'script',
-      text: '\'Oh my gosh, your energy is amazing! Where are you visiting from? ... That is incredible! I love it there. You know what, I am going to give you my favorite treatment — it is like a spa moment in the middle of your shopping day. Just relax and enjoy.\' Experience-first, relationship-driven, warm.',
-      textEs: '\'¡Dios mío, tu energía es increíble! ¿De dónde nos visitas? ... ¡Eso es increíble! Me encanta ahí. ¡Sabes qué? Te voy a dar mi tratamiento favorito — es como un momento de spa en medio de tu día de compras. Solo relájate y disfruta.\' Experiencia primero, relación como motor, cálido.',
+      text: '\'Where are you two from? ... No way, I have got family there. Right, sit down, you are getting my favourite one — five minutes of spa in the middle of your shopping day. Do not thank me, just enjoy it.\' The person comes first, the product comes second, and she has already decided by the time you get to it.',
+      textEs: '\'¿De dónde sois vosotros dos? ... ¡Anda, si tengo familia allí! Venga, siéntate, que te voy a hacer el que más me gusta a mí — cinco minutos de spa en mitad del día de compras. No me des las gracias, tú disfruta.\' Primero la persona, después el producto, y para cuando llegas al producto ya lo tiene decidido.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Type 4: The Expressive (Storyteller)',
-      textEs: 'Tipo 4: El Expresivo (El Narrador)',
+      text: 'Type 4: The Showman',
+      textEs: 'Tipo 4: El Showman',
     },
     {
             type: 'paragraph',
-      text: 'The Expressive buyer is enthusiastic, talkative, and imaginative. They love stories, emotions, and the big picture. They may seem scattered because they jump between topics — that is just how their mind works.',
-      textEs: 'El comprador Expresivo es entusiasta, hablador e imaginativo. Aman las historias, las emociones y la visión general. Pueden parecer dispersos porque saltan entre temas — así es como funciona su mente.',
+      text: 'Not buying a cream. Buying a story to tell at brunch. Talks the whole way through, jumps subject three times a minute, and is already imagining who she is going to show it to. Give her the story and she will sell herself the product.',
+      textEs: 'No está comprando una crema. Está comprando una historia para contar en el brunch. Habla todo el rato, cambia de tema tres veces por minuto y ya se está imaginando a quién se lo va a enseñar. Dale la historia y ella sola se vende el producto.',
     },
     {
             type: 'bullets',
       items: [
-        'IDENTIFYING THEM: Talks a lot, tells stories, gets excited easily, asks creative questions, imagines scenarios (\'Oh, my sister would LOVE this!\').',
-        'YOUR APPROACH: Match their enthusiasm. Use storytelling. Paint pictures of the future. \'Your skin will glow like you just came back from a two-week spa retreat.\' Let them talk — they sell themselves through their own excitement.',
-        'WHAT TO AVOID: Shutting down their stories, being too structured, dampening their enthusiasm. Expressive buyers need to feel heard and excited.',
-        'CLOSING TECHNIQUE: Story-based close with gift potential. \'Your sister would absolutely love this too! Should we do two — one for you, one for her?\' Connect their enthusiasm to the purchase.'
+        'HOW YOU SPOT ONE: Talks more than you do. Gets loud when it works. Says \'oh my god, my sister would LOVE this\' before you have mentioned anybody else.',
+        'WHAT WORKS: Go up to meet her, do not stand there being calm at her. Make it an event. Get the mirror out with a bit of theatre. Let her talk — every sentence she says out loud is one you do not have to.',
+        'WHAT KILLS IT: Talking over her stories to get back to the script. She needs to feel like the most interesting person on the street, because right now she is.',
+        'HOW YOU CLOSE: Straight into the gift. \'Your sister is going to be furious. Shall we do two and save her the trouble?\' Her own excitement does the closing.'
       ],
       itemsEs: [
-          'IDENTIFICARLOS: Hablan mucho, cuentan historias, se emocionan fácilmente, hacen preguntas creativas, imaginan escenarios (\'¡Oh, a mi hermana le ENCANTARÍA esto!\').',
-          'TU ENFOQUE: Empareja su entusiasmo. Usa narración. Pinta cuadros del futuro. \'Tu piel va a brillar como si acabaras de regresar de un retiro de spa de dos semanas.\' Déjalos hablar — se venden a sí mismos a través de su propia emoción.',
-          'QUÉ EVITAR: Cortarles sus historias, ser demasiado estructurado, apagar su entusiasmo. Los compradores Expresivos necesitan sentirse escuchados y emocionados.',
-          'TÉCNICA DE CIERRE: Cierre basado en historias con potencial de regalo. \'¡Tu hermana también amaría esto! ¿Hacemos dos — uno para ti, uno para ella?\' Conecta su entusiasmo con la compra.',
+          'CÓMO LOS PILLAS: Habla más que tú. Sube el volumen cuando funciona. Te suelta \'ay, madre, a mi hermana le ENCANTARÍA\' antes de que tú hayas nombrado a nadie.',
+          'LO QUE FUNCIONA: Súbete tú a su nivel, no te quedes ahí tranquilo mirándola. Móntalo como un evento. Saca el espejo con un poco de teatro. Déjala hablar — cada frase que suelta es una que no tienes que decir tú.',
+          'LO QUE LO MATA: Pisarle las historias para volver a tu guion. Necesita sentirse la persona más interesante de la calle, porque ahora mismo lo es.',
+          'CÓMO CIERRAS: Directo al regalo. \'Tu hermana se va a poner de mala leche. ¿Nos llevamos dos y le ahorramos el disgusto?\' Su propia emoción hace el cierre.',
         ],
     },
     {
             type: 'script',
-      text: '\'Wait until you tell your friends about this! They are going to be SO jealous. You will be at brunch like \'Oh this? Just something I picked up in Andorra.\' So — are we doing the full experience or starting with the essentials? Let us make it fun!\' Enthusiastic, story-driven, playful.',
-      textEs: '\'¡Espera a que les cuentes a tus amigas sobre esto! Van a estar TAN celosas. Vas a estar en el brunch como \'¿Oh, esto? Algo que compré en Andorra.\' Entonces — ¿hacemos la experiencia completa o empezamos con lo esencial? ¡Hagámoslo divertido!\' Entusiasta, impulsado por historias, juguetón.',
+      text: '\'Wait until you tell your friends about this! They are going to be SO jealous. You will be at brunch like \'Oh this? Just something I picked up in {locationName}.\' So — are we doing the full experience or starting with the essentials? Let us make it fun!\' Enthusiastic, story-driven, playful.',
+      textEs: '\'¡Espera a que les cuentes a tus amigas sobre esto! Van a estar TAN celosas. Vas a estar en el brunch como \'¿Oh, esto? Algo que compré en {locationName}.\' Entonces — ¿hacemos la experiencia completa o empezamos con lo esencial? ¡Hagámoslo divertido!\' Entusiasta, impulsado por historias, juguetón.',
     },
     {
             type: 'divider'
@@ -1810,64 +1774,64 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'ANALYTICAL → Use data, respect their process, give space',
-        'DRIVER → Be fast, be direct, respect their time',
-        'AMIABLE → Build rapport, create warmth, involve feelings',
-        'EXPRESSIVE → Match enthusiasm, tell stories, paint pictures'
+        'THE INTERROGATOR → Know your product, answer straight, then go quiet',
+        'THE RUSHER → Fast, two numbers, one question',
+        'THE SWEETHEART → Be a person first, sell second',
+        'THE SHOWMAN → Match the volume, give her the story'
       ],
       itemsEs: [
-          'ANALÍTICO → Usa datos, respeta su proceso, dé espacio',
-          'CONDUCTOR → Sé rápido, sé directo, respeta su tiempo',
-          'AMABLE → Construye rapport, crea calidez, involucra sentimientos',
-          'EXPRESIVO → Empareja entusiasmo, cuenta historias, pinta cuadros',
+          'EL INTERROGADOR → Sábete el producto, contesta a pelo y luego cállate',
+          'EL ACELERADO → Rápido, dos números, una pregunta',
+          'EL SIMPÁTICO → Primero sé una persona, luego vende',
+          'EL SHOWMAN → Súbete al volumen y dale la historia',
         ],
     },
     {
             type: 'tip',
-      text: 'Most people are a blend of two types. A Driver-Analytical wants fast facts. An Amiable-Expressive wants warm stories. Read the primary type first, then blend in the secondary. Flexibility is the superpower.',
-      textEs: 'La mayoría de las personas son una mezcla de dos tipos. Un Conductor-Analítico quiere hechos rápidos. Un Amable-Expresivo quiere historias cálidas. Lee el tipo primario primero, luego integra el secundario. La flexibilidad es el superpoder.',
+      text: 'Most people are two of these at once. An Interrogator in a hurry wants the facts fast. A Sweetheart who is also a Showman wants forty minutes and will spend three hundred. Read whichever one is louder, then borrow from the other.',
+      textEs: 'Casi todo el mundo es dos de estos a la vez. Un Interrogador con prisa quiere los datos rápido. Un Simpático que además es Showman quiere cuarenta minutos y se gasta trescientos. Lee el que suene más fuerte y cógele algo al otro.',
     },
     {
             type: 'quote',
-      text: 'The golden rule of sales is not \'treat everyone the same.\' It is \'treat everyone how THEY want to be treated.\' Personality types show you the way.',
-      textEs: 'La regla de oro de las ventas no es \'trata a todos igual.\' Es \'trata a todos como ELLOS quieren ser tratados.\' Los tipos de personalidad te muestran el camino.',
+      text: 'One pitch, said the same way to everybody who walks past, misses most of them. Same words, four different speeds.',
+      textEs: 'Un solo discurso, dicho igual a todo el que pasa, se deja a la mayoría por el camino. Las mismas palabras, a cuatro velocidades distintas.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
     ],
     quiz: [
     {
-      question: 'Which approach works best with an Analytical buyer?',
+      question: 'The Interrogator picks up the box and starts reading. What do you do?',
       options: [
-        'High-energy enthusiasm and storytelling',
-        'Facts, evidence, and respect for their decision-making process',
-        'Fast, direct results with no small talk',
-        'Emotional connection and warm rapport'
+        'Talk over the reading so you keep control of the conversation',
+        'Answer straight, then let them read and go quiet',
+        'Move them off the ingredients and back onto how it feels',
+        'Tell them everybody asks that and it is all completely natural'
       ],
       correctIndex: 1,
-      explanation: 'Analytical buyers want facts, evidence, and proof. They need to understand how things work before committing. Respect their thoroughness and give them space to decide.',
+      explanation: 'The silence is homework, not boredom. Know your product, answer without hesitating, then stop talking. They close themselves more often than you would think.',
     },
     {
-      question: 'How should you handle a Driver personality type?',
+      question: 'What does the Rusher want from you?',
       options: [
-        'Build extensive rapport before pitching',
-        'Be fast, direct, and results-focused with binary choices',
-        'Tell stories and paint pictures',
-        'Give them lots of detailed information'
+        'A bit of chat first so the sale does not feel cold',
+        'Three options laid out so they can weigh them up properly',
+        'Two numbers and one question',
+        'A long, careful explanation of how the treatment works'
       ],
-      correctIndex: 1,
-      explanation: 'Drivers are time-pressed and decisive. They want quick results, clear options, and respect for their schedule. Skip the small talk, get to the demo and close fast.',
+      correctIndex: 2,
+      explanation: 'Beat them to the rush, give the result before the speech, then two numbers and one question. Every extra sentence is a reason to leave.',
     },
     {
-      question: 'Why is it important to adapt your style to different personality types?',
+      question: 'What is the Showman actually buying?',
       options: [
-        'It is not important — one pitch works for everyone',
-        'Because different types respond to different communication styles, and mismatching creates resistance',
-        'Because the manager requires it',
-        'Because it makes the job more interesting'
+        'The lowest price she can talk you down to today',
+        'Proof that the ingredients are worth what you are asking',
+        'A story she can tell at brunch',
+        'A quiet treatment with as little fuss as possible'
       ],
-      correctIndex: 1,
-      explanation: 'Different personality types process information and make decisions differently. Using the wrong approach with the wrong type creates resistance — like speaking the wrong language. Adaptation is the key to precision selling.',
+      correctIndex: 2,
+      explanation: 'She is not buying a cream. Match her volume, make it an event, and let her talk — every sentence she says out loud is one you do not have to.',
     }
     ],
   },
@@ -1890,45 +1854,45 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Price anchoring is one of the most powerful tools in sales psychology. The first price a customer hears becomes their mental anchor — the reference point against which all other prices are judged. If you start with €50, €300 sounds expensive. If you start with €500, €300 sounds like a bargain. The product hasn\'t changed. Only the anchor has. This is why we ALWAYS state the Europe price before the Andorra price.',
-      textEs: 'El anclaje de precio es una de las herramientas más poderosas de la psicología de ventas. El primer precio que escucha un cliente se convierte en su ancla mental — el punto de referencia contra el cual se juzgan todos los demás precios. Si empiezas con €50, €300 suena caro. Si empiezas con €500, €300 suena una ganga. El producto no ha cambiado. Solo cambió el ancla. Por eso SIEMPRE decimos el precio de Europa antes que el de Andorra.',
+      text: 'Price anchoring is one of the most powerful tools in sales psychology. The first price a customer hears becomes their mental anchor — the reference point against which all other prices are judged. If you start with {currency}50, {currency}300 sounds expensive. If you start with {currency}500, {currency}300 sounds like a bargain. The product hasn\'t changed. Only the anchor has. This is why we ALWAYS state the Europe price before the {locationName} price.',
+      textEs: 'El anclaje de precio es una de las herramientas más poderosas de la psicología de ventas. El primer precio que escucha un cliente se convierte en su ancla mental — el punto de referencia contra el cual se juzgan todos los demás precios. Si empiezas con {currency}50, {currency}300 suena caro. Si empiezas con {currency}500, {currency}300 suena una ganga. El producto no ha cambiado. Solo cambió el ancla. Por eso SIEMPRE decimos el precio de Europa antes que el de {locationName}.',
     },
     {
             type: 'keypoint',
-      text: 'The anchor sets the frame. Frame the product as a €500 item that happens to cost €300 in Andorra, and it feels like a steal. Frame it as a €300 item, and it feels like a purchase decision. Always anchor HIGH.',
-      textEs: 'El ancla marca el marco. Enmarca el producto como algo de €500 que por casualidad cuesta €300 en Andorra, y se siente como un robo. Enmárcalo como algo de €300, y se siente como una decisión de compra. Siempre ancla ALTO.',
+      text: 'The anchor sets the frame. Frame the product as a {currency}500 item that happens to cost {currency}300 in {locationName}, and it feels like a steal. Frame it as a {currency}300 item, and it feels like a purchase decision. Always anchor HIGH.',
+      textEs: 'El ancla marca el marco. Enmarca el producto como algo de {currency}500 que por casualidad cuesta {currency}300 en {locationName}, y se siente como un robo. Enmárcalo como algo de {currency}300, y se siente como una decisión de compra. Siempre ancla ALTO.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'The Contrast Principle: How €500 Makes €300 Feel Cheap',
-      textEs: 'El Principio de Contraste: Cómo €500 Hace que €300 se Sienta Barato',
+      text: 'The Contrast Principle: How {currency}500 Makes {currency}300 Feel Cheap',
+      textEs: 'El Principio de Contraste: Cómo {currency}500 Hace que {currency}300 se Sienta Barato',
     },
     {
             type: 'paragraph',
-      text: 'The contrast principle states that we perceive things differently depending on what we compare them to. A 20kg weight feels light if you first lift a 40kg weight. A €300 price feels cheap if you first hear €500. This isn\'t manipulation — it\'s how human perception works.',
-      textEs: 'El principio de contraste establece que percibimos las cosas de manera diferente dependiendo de con qué las comparemos. Una pesa de 20kg se siente ligera si primero levantaste una de 40kg. Un precio de €300 se siente barato si primero escuchaste €500. Esto no es manipulación — así funciona la percepción humana.',
+      text: 'The contrast principle states that we perceive things differently depending on what we compare them to. A 20kg weight feels light if you first lift a 40kg weight. A {currency}300 price feels cheap if you first hear {currency}500. This isn\'t manipulation — it\'s how human perception works.',
+      textEs: 'El principio de contraste establece que percibimos las cosas de manera diferente dependiendo de con qué las comparemos. Una pesa de 20kg se siente ligera si primero levantaste una de 40kg. Un precio de {currency}300 se siente barato si primero escuchaste {currency}500. Esto no es manipulación — así funciona la percepción humana.',
     },
     {
             type: 'script',
-      text: '\'Across Europe, this treatment goes for around €500. It\'s expensive because it works instantly and lasts long-term. But here in Andorra — you know how special it is here — we\'re a tax haven, so instead of €500, we charge only €300.\' The customer doesn\'t hear \'€300 product.\' They hear \'€500 product for €300.\' That\'s a €200 win.',
-      textEs: '\'En toda Europa, este tratamiento cuesta alrededor de €500. Es caro porque funciona al instante y dura a largo plazo. Pero aquí en Andorra — ya sabes lo especial que es este lugar — somos un paraíso fiscal, así que en vez de €500, cobramos solo €300.\' El cliente no escucha \'producto de €300.\' Escucha \'producto de €500 por €300.\' Eso es un ahorro de €200.',
+      text: '\'Across Europe, this treatment goes for around {currency}500. It\'s expensive because it works instantly and lasts long-term. But here in {locationName} — you know how special it is here — instead of {currency}500, we charge only {currency}300.\' The customer doesn\'t hear \'{currency}300 product.\' They hear \'{currency}500 product for {currency}300.\' That\'s a {currency}200 win.',
+      textEs: '\'En toda Europa, este tratamiento cuesta alrededor de {currency}500. Es caro porque funciona al instante y dura a largo plazo. Pero aquí en {locationName} — ya sabes lo especial que es este lugar — en vez de {currency}500, cobramos solo {currency}300.\' El cliente no escucha \'producto de {currency}300.\' Escucha \'producto de {currency}500 por {currency}300.\' Eso es un ahorro de {currency}200.',
     },
     {
             type: 'bullets',
       items: [
-        'STEP 1 — ESTABLISH EUROPE PRICE: \'Around Europe this goes for €200\' (Peeling) or \'€500\' (Syringe) or \'€100 each\' (Scrub/Butter). This is the anchor.',
-        'STEP 2 — EXPLAIN WHY IT\'S EXPENSIVE: Brief justification — \'because it works,\' \'because it\'s proven,\' \'dermatologist recommended.\' This validates the high anchor.',
-        'STEP 3 — DELIVER THE ANDORRA ADVANTAGE: \'But here in Andorra, because we\'re a tax haven...\' This is the magic phrase. It\'s TRUE. It\'s verifiable. It frames the lower price as a location advantage, not a product discount.',
-        'STEP 4 — STATE THE ANDORRA PRICE: \'...it\'s only €150.\' After hearing €500, €150 doesn\'t just sound lower. It sounds like a completely different category of purchase.'
+        'STEP 1 — ESTABLISH EUROPE PRICE: \'Around Europe this goes for {currency}200\' (Peeling) or \'{currency}500\' (Syringe) or \'{currency}80 each\' (Scrub/Butter/Nail Kit). This is the anchor.',
+        'STEP 2 — SAY WHY IT COSTS THAT: One line, no more — \'because it works,\' \'because it lasts a year,\' \'because you see it in two minutes.\' That is what holds the big number up.',
+        'STEP 3 — SWING IT ACROSS: \'But here in {locationName}...\' That is the whole bridge. Say it like you are letting them in on where the good prices live. No apology, no explanation — just the pause, then the number.',
+        'STEP 4 — STATE THE LOCAL PRICE: \'...it\'s only {currency}300.\' After hearing {currency}500, {currency}300 doesn\'t just sound lower. It sounds like a completely different category of purchase.'
       ],
       itemsEs: [
-          'PASO 1 — ESTABLECE EL PRECIO DE EUROPA: \'En Europa esto cuesta alrededor de €200\' (Peeling) o \'€500\' (Jeringa) o \'€100 cada uno\' (Exfoliante/Mantequilla). Esta es el ancla.',
-          'PASO 2 — EXPLICA POR QUÉ ES CARO: Justificación breve — \'porque funciona,\' \'porque está comprobado,\' \'recomendado por dermatólogos.\' Esto valida el ancla alto.',
-          'PASO 3 — ENTREGA LA VENTAJA DE ANDORRA: \'Pero aquí en Andorra, porque somos un paraíso fiscal...\' Esta es la frase mágica. Es VERDAD. Es verificable. Enmarca el precio más bajo como una ventaja de ubicación, no como un descuento del producto.',
-          'PASO 4 — DICE EL PRECIO DE ANDORRA: \'...es solo €150.\' Después de escuchar €500, €150 no solo suena más bajo. Suena como una categoría de compra completamente diferente.',
+          'PASO 1 — ESTABLECE EL PRECIO DE EUROPA: \'En Europa esto cuesta alrededor de {currency}200\' (Peeling) o \'{currency}500\' (Jeringa) o \'{currency}80 cada uno\' (Exfoliante/Body Butter/Kit de Uñas). Esta es el ancla.',
+          'PASO 2 — DI POR QUÉ CUESTA ESO: Una frase, no más — \'porque funciona\', \'porque te dura un año\', \'porque lo ves en dos minutos\'. Eso es lo que sostiene el número grande.',
+          'PASO 3 — PÁSALO AL OTRO LADO: \'Pero aquí en {locationName}...\' Ese es todo el puente. Dilo como quien les está contando dónde viven los precios buenos. Sin disculpas, sin explicaciones — solo la pausa, y luego el número.',
+          'PASO 4 — DI EL PRECIO LOCAL: \'...es solo {currency}300.\' Después de escuchar {currency}500, {currency}300 no solo suena más bajo. Suena como una categoría de compra completamente diferente.',
         ],
     },
     {
@@ -1936,31 +1900,31 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'When to Mention the Tax Haven',
-      textEs: 'Cuándo Mencionar el Paraíso Fiscal',
+      text: 'When to Deliver the Price Gap',
+      textEs: 'Cuándo Dar la Diferencia de Precio',
     },
     {
             type: 'paragraph',
-      text: 'The tax-haven angle is your credibility booster. It explains WHY the price is lower without devaluing the product. But timing matters:',
-      textEs: 'El ángulo del paraíso fiscal es tu potenciador de credibilidad. Explica POR QUÉ el precio es más bajo sin devaluar el producto. Pero el momento importa:',
+      text: 'The price gap is your credibility booster. It shows what this costs elsewhere without devaluing the product. But timing matters:',
+      textEs: 'La diferencia de precio es tu potenciador de credibilidad. Enseña lo que esto cuesta en otros sitios sin devaluar el producto. Pero el momento importa:',
     },
     {
             type: 'bullets',
       items: [
-        'BEST: Right after the Europe price, before stating the Andorra price. \'Around Europe it\'s €500... but here in Andorra, because we\'re a tax haven, it\'s €300.\' The tax haven explains the discount before they question product quality.',
-        'GOOD: During the initial stop. \'Come try this — prices are amazing because Andorra is a tax haven!\' Sets expectation early.',
-        'LESS EFFECTIVE: After they\'ve already heard the price. If you say \'It\'s €300\' first, then mention the tax haven, it feels like an excuse, not an explanation.'
+        'BEST: Immediately after the Europe price, with no pause in between. \'Around Europe it\'s {currency}500... but here in {locationName}, it\'s {currency}300.\' The two numbers land together, before they question product quality.',
+        'GOOD: During the initial stop. \'Come try this — the prices here in {locationName} are amazing!\' Sets expectation early.',
+        'LESS EFFECTIVE: After they\'ve already heard the price. If you say \'It\'s {currency}300\' first, then bring up the Europe price, it feels like an excuse, not a comparison.'
       ],
       itemsEs: [
-          'MEJOR: Justo después del precio de Europa, antes de decir el precio de Andorra. \'En Europa cuesta €500... pero aquí en Andorra, porque somos un paraíso fiscal, es €300.\' El paraíso fiscal explica el descuento antes de que cuestionen la calidad del producto.',
-          'BUENO: Durante la parada inicial. \'¡Ven a probar esto — los precios son increíbles porque Andorra es un paraíso fiscal!\' Establece la expectativa desde el principio.',
-          'MENOS EFECTIVO: Después de que ya escucharon el precio. Si dices \'Es €300\' primero, y luego mencionas el paraíso fiscal, se siente como una excusa, no como una explicación.',
+          'MEJOR: Justo después del precio de Europa, sin pausa entre medias. \'En Europa cuesta {currency}500... pero aquí en {locationName}, cuesta {currency}300.\' Los dos números caen juntos, antes de que cuestionen la calidad del producto.',
+          'BUENO: Durante la parada inicial. \'¡Ven a probar esto — los precios aquí en {locationName} son increíbles!\' Establece la expectativa desde el principio.',
+          'MENOS EFECTIVO: Después de que ya escucharon el precio. Si dices \'Es {currency}300\' primero, y luego sacas el precio de Europa, se siente como una excusa, no como una comparación.',
         ],
     },
     {
             type: 'tip',
-      text: 'Never apologize for the price. Never say \'I know it\'s expensive\' or \'It\'s a lot, but...\' These phrases undermine the anchor. State the Europe price confidently, explain the tax-haven advantage matter-of-factly, and let the contrast do the work.',
-      textEs: 'Nunca te disculpes por el precio. Nunca digas \'Sé que es caro\' o \'Es mucho, pero...\' Estas frases debilitan el ancla. Di el precio de Europa con confianza, explica la ventaja del paraíso fiscal con naturalidad, y deja que el contraste haga el trabajo.',
+      text: 'Never apologize for the price. Never say \'I know it\'s expensive\' or \'It\'s a lot, but...\' These phrases undermine the anchor. State the Europe price confidently, give the {locationName} price matter-of-factly, and let the contrast do the work.',
+      textEs: 'Nunca te disculpes por el precio. Nunca digas \'Sé que es caro\' o \'Es mucho, pero...\' Estas frases debilitan el ancla. Di el precio de Europa con confianza, da el precio de {locationName} con naturalidad, y deja que el contraste haga el trabajo.',
     },
     {
             type: 'divider'
@@ -1973,25 +1937,26 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'STARTING WITH THE LOW PRICE: \'It\'s only €50!\' Now €50 is the anchor, and if you try to upsell to €120, it feels like a huge jump. Always anchor high first.',
-        'MENTIONING THE COST PRICE: \'We buy this for €30 and sell it for €60.\' This destroys perceived value. Customers don\'t care about your margins. They care about what they get.',
+        'STARTING WITH THE LOW PRICE: \'It\'s only {currency}50!\' Now {currency}50 is the anchor, and if you try to upsell to {currency}120, it feels like a huge jump. Always anchor high first.',
+        'MENTIONING THE COST PRICE: \'We buy this for {currency}30 and sell it for {currency}60.\' This destroys perceived value. Customers don\'t care about your margins. They care about what they get.',
         'APOLOGETIC FRAMING: \'I know it\'s expensive, but...\' This tells the customer they should feel bad about the price. Instead: \'This is a premium product because it delivers premium results.\'',
-        'COMPARING TO CHEAP ALTERNATIVES: \'This is better than drugstore cream.\' Now you\'ve anchored to drugstore prices. Compare to luxury alternatives instead: \'This replaces a €200 salon treatment.\'',
+        'COMPARING TO CHEAP ALTERNATIVES: \'This is better than drugstore cream.\' Now you\'ve anchored to drugstore prices. Compare to luxury alternatives instead: \'This replaces a {currency}200 salon treatment.\'',
         'GIVING THE DISCOUNT FIRST: \'It\'s 50% off!\' Now they wonder what the original price was and why it\'s discounted so heavily. Lead with full price, then reveal the savings.'
       ],
       itemsEs: [
-          'EMPEZAR CON EL PRECIO BAJO: \'¡Es solo €50!\' Ahora €50 es el ancla, y si intentas vender algo adicional por €120, se siente como un salto enorme. Siempre ancla alto primero.',
-          'MENTIONAR EL PRECIO DE COSTO: \'Compramos esto en €30 y lo vendemos en €60.\' Esto destruye el valor percibido. A los clientes no les importan tus márgenes. Les importa lo que reciben.',
+          'EMPEZAR CON EL PRECIO BAJO: \'¡Es solo {currency}50!\' Ahora {currency}50 es el ancla, y si intentas vender algo adicional por {currency}120, se siente como un salto enorme. Siempre ancla alto primero.',
+          'MENTIONAR EL PRECIO DE COSTO: \'Compramos esto en {currency}30 y lo vendemos en {currency}60.\' Esto destruye el valor percibido. A los clientes no les importan tus márgenes. Les importa lo que reciben.',
           'ENMARCADO APOLOGÉTICO: \'Sé que es caro, pero...\' Esto le dice al cliente que debería sentirse mal por el precio. En su lugar: \'Este es un producto premium porque ofrece resultados premium.\'',
-          'COMPARAR CON ALTERNATIVAS BARATAS: \'Esto es mejor que la crema de la farmacia.\' Ahora anclaste a precios de farmacia. Compara con alternativas de lujo en su lugar: \'Esto reemplaza un tratamiento de salón de €200.\'',
+          'COMPARAR CON ALTERNATIVAS BARATAS: \'Esto es mejor que la crema de la farmacia.\' Ahora anclaste a precios de farmacia. Compara con alternativas de lujo en su lugar: \'Esto reemplaza un tratamiento de salón de {currency}200.\'',
           'DAR EL DESCUENTO PRIMERO: \'¡50% de descuento!\' Ahora se preguntan cuál era el precio original y por qué está tan rebajado. Empieza con el precio completo, luego revela el ahorro.',
         ],
     },
     {
             type: 'comparison',
-      left: { label: 'Weak Anchoring', text: '\'This peeling is €100. It\'s a good deal.\' No contrast. No frame. The customer evaluates €100 against their general sense of what skincare should cost.' },
-      leftEs: { label: 'Anclaje Débil', text: '\'Este peeling cuesta €100. Es buen precio.\' Sin contraste. Sin marco. El cliente evalúa €100 contra su idea general de lo que debería costar el cuidado de la piel.' },
-      right: { label: 'Strong Anchoring', text: '\'Around Europe this goes for €200. But here in Andorra, because we\'re a tax haven, it\'s only €100 — that\'s 50% off the Europe price just for being here.\' The customer evaluates €100 against €200. It feels like a €100 win.' }
+      left: { label: 'Weak Anchoring', text: '\'This peeling is {currency}100. It\'s a good deal.\' No contrast. No frame. The customer evaluates {currency}100 against their general sense of what skincare should cost.' },
+      leftEs: { label: 'Anclaje Débil', text: '\'Este peeling cuesta {currency}100. Es buen precio.\' Sin contraste. Sin marco. El cliente evalúa {currency}100 contra su idea general de lo que debería costar el cuidado de la piel.' },
+      right: { label: 'Strong Anchoring', text: '\'Around Europe this goes for {currency}200. But here in {locationName}, it\'s only {currency}100 — that\'s 50% off the Europe price just for being here.\' The customer evaluates {currency}100 against {currency}200. It feels like a {currency}100 win.' },
+      rightEs: { label: 'Anclaje Fuerte', text: '\'Por Europa esto cuesta {currency}200. Pero aquí en {locationName}, son solo {currency}100 — un 50% menos que el precio de Europa solo por estar aquí.\' El cliente evalúa {currency}100 contra {currency}200. Se siente como ganar {currency}100.' }
     },
     {
             type: 'quote',
@@ -2003,32 +1968,32 @@ export const lessons: Record<string, Lesson> = {
     ],
     quiz: [
     {
-      question: 'Why should you always state the Europe price before the Andorra price?',
+      question: 'Why should you always state the Europe price before the local price?',
       options: [
         'Because Europe prices are more accurate',
-        'Because the first price heard becomes the mental anchor that makes the Andorra price feel like a bargain',
+        'Because the first price heard becomes the mental anchor that makes the local price feel like a bargain',
         'Because customers prefer European pricing',
         'Because it\'s required by law'
       ],
       correctIndex: 1,
-      explanation: 'The first price heard becomes the mental anchor. When a customer hears €500 first, €300 feels like a bargain. If they hear €300 first, they evaluate it against their general sense of skincare pricing, which is less favorable.',
+      explanation: 'The first price heard becomes the mental anchor. When a customer hears {currency}500 first, {currency}300 feels like a bargain. If they hear {currency}300 first, they evaluate it against their general sense of skincare pricing, which is less favorable.',
     },
     {
-      question: 'What is the role of the \'tax haven\' phrase in price anchoring?',
+      question: 'What is the role of the price comparison in price anchoring?',
       options: [
-        'It makes Andorra sound special',
-        'It explains WHY the price is lower without devaluing the product quality',
-        'It confuses the customer',
-        'It justifies high prices'
+        'It hides the local price until they have already agreed to buy',
+        'It gives them a reference point without cheapening the product',
+        'It leaves you room to drop further later in the haggle',
+        'It proves the product is worth more than we charge for it'
       ],
       correctIndex: 1,
-      explanation: 'The tax-haven phrase explains the price difference as a location advantage (true and verifiable) rather than implying the product itself is discounted or lower quality. It maintains value perception.',
+      explanation: 'The gap reads as where they happen to be standing, not as money off. Sounding special is exactly the effect you want — it just is not the mechanism. A discounted product is a cheaper product in their head; a {locationName} price is not.',
     },
     {
       question: 'Which of these is a price anchoring mistake?',
       options: [
         'Starting with the Europe price',
-        'Mentioning the tax-haven advantage',
+        'Giving the Europe price and the {locationName} price side by side',
         'Starting with the low price or apologizing for the cost',
         'Using the contrast principle'
       ],
@@ -2041,8 +2006,9 @@ export const lessons: Record<string, Lesson> = {
     id: 'prod-2',
     categoryId: 'products',
     title: 'The Two-Choice Framework',
-    titleEs: 'La Demo de Un Ojo',
+    titleEs: 'El Marco de Dos Opciones',
     subtitle: 'Why two options beat one — changing \'yes or no\' into \'which one\'',
+    subtitleEs: 'Por qué dos opciones ganan a una — cambiar \'¿sí o no?\' por \'¿cuál?\'',
     duration: '10 min',
     icon: 'GitFork',
     order: 2,
@@ -2073,13 +2039,13 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'This is based on a well-studied cognitive bias called \'choice architecture.\' When people face a binary yes/no decision, the default is often \'no\' (status quo bias). But when faced with multiple options within a category, they evaluate which option fits them better — implicitly accepting the category itself.',
-      textEs: 'Esto se basa en un sesgo cognitivo bien estudiado llamado \'arquitectura de elección.\' Cuando las personas enfrentan una decisión binaria de sí/no, la respuesta por defecto suele ser \'no\' (sesgo del statu quo). Pero cuando enfrentan múltiples opciones dentro de una categoría, evalúan cuál opción se ajusta mejor a ellos — aceptando implícitamente la categoría misma.',
+      text: 'Ask somebody if they want it and they can just say no, because no is free. Ask them which one they want and they are already picking. You never put \'do you buy\' in the air. You put \'the single or the double\' in the air, and let them answer the easy one.',
+      textEs: 'Pregúntale a alguien si lo quiere y te puede decir que no sin más, porque el no sale gratis. Pregúntale cuál quiere y ya está eligiendo. Nunca pones en el aire \'¿lo compras?\'. Pones en el aire \'¿la individual o la doble?\', y les dejas contestar a la fácil.',
     },
     {
             type: 'script',
-      text: 'Single option: \'The syringe is €210.\' Customer thinks: \'€210? That\'s a lot. I don\'t know if I need this. No thanks.\' Two options: \'You can take the single syringe for €210 with a gift, or the double for €300 and treat your forehead and upper lip too. Which works better for you?\' Customer thinks: \'Hmm, do I want the single or double? The double makes more sense...\' See the difference? They went from \'Should I buy?\' to \'Which one?\'',
-      textEs: 'Opción única: \'La jeringa cuesta €210.\' El cliente piensa: \'¿€210? Eso es mucho. No sé si necesito esto. No, gracias.\' Dos opciones: \'Puedes llevarte la jeringa individual por €210 con un regalo, o la doble por €300 y tratar tu frente y labio superior también. ¿Cuál te funciona mejor?\' El cliente piensa: \'Hmm, ¿quiero la individual o la doble? La doble tiene más sentido...\' ¿Ves la diferencia? Pasaron de \'¿Debería comprar?\' a \'¿Cuál?\'',
+      text: 'Single option: \'The syringe is {currency}210.\' Customer thinks: \'{currency}210? That\'s a lot. I don\'t know if I need this. No thanks.\' Two options: \'You can take the single syringe for {currency}210 with a gift, or the double for {currency}300 and treat your forehead and upper lip too. Which works better for you?\' Customer thinks: \'Hmm, do I want the single or double? The double makes more sense...\' See the difference? They went from \'Should I buy?\' to \'Which one?\'',
+      textEs: 'Opción única: \'La jeringa cuesta {currency}210.\' El cliente piensa: \'¿{currency}210? Eso es mucho. No sé si necesito esto. No, gracias.\' Dos opciones: \'Puedes llevarte la jeringa individual por {currency}210 con un regalo, o la doble por {currency}300 y tratar tu frente y labio superior también. ¿Cuál te funciona mejor?\' El cliente piensa: \'Hmm, ¿quiero la individual o la doble? La doble tiene más sentido...\' ¿Ves la diferencia? Pasaron de \'¿Debería comprar?\' a \'¿Cuál?\'',
     },
     {
             type: 'divider'
@@ -2097,15 +2063,15 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        'OPTION 1 — THE VALUE CHOICE: Lower price point with a smaller gift or no gift. This captures budget-conscious buyers. Example: Syringe at €210 + one gift.',
-        'OPTION 2 — THE FULL CHOICE: Standard or higher price with a bigger gift or added value. This captures buyers who want the complete experience. Example: Syringe at €300 + second syringe free.',
-        'THE CONTRAST: The gap between options should be clear but not extreme. €210 vs €300 is a meaningful difference. €210 vs €250 is too close — it creates decision paralysis.',
+        'OPTION 1 — THE VALUE CHOICE: Lower price point with a smaller gift or no gift. This captures budget-conscious buyers. Example: Syringe at {currency}210 + one gift.',
+        'OPTION 2 — THE FULL CHOICE: Standard or higher price with a bigger gift or added value. This captures buyers who want the complete experience. Example: Syringe at {currency}300 + second syringe free.',
+        'THE CONTRAST: The gap between options should be clear but not extreme. {currency}210 vs {currency}300 is a meaningful difference. {currency}210 vs {currency}250 is too close — it creates decision paralysis.',
         'THE DEFAULT: If you sense hesitation, guide them toward Option 1: \'Most people start with Option 1 — it\'s a great entry point.\' This simplifies their decision.'
       ],
       itemsEs: [
-          'OPCIÓN 1 — LA OPCIÓN DE VALOR: Punto de precio más bajo con un regalo más pequeño o sin regalo. Esto captura a compradores conscientes del presupuesto. Ejemplo: Jeringa en €210 + un regalo.',
-          'OPCIÓN 2 — LA OPCIÓN COMPLETA: Precio estándar o más alto con un regalo más grande o valor agregado. Esto captura a compradores que quieren la experiencia completa. Ejemplo: Jeringa en €300 + segunda jeringa gratis.',
-          'EL CONTRASTE: La brecha entre opciones debe ser clara pero no extrema. €210 vs €300 es una diferencia significativa. €210 vs €250 está demasiado cerca — crea parálisis de decisión.',
+          'OPCIÓN 1 — LA OPCIÓN DE VALOR: Punto de precio más bajo con un regalo más pequeño o sin regalo. Esto captura a compradores conscientes del presupuesto. Ejemplo: Jeringa en {currency}210 + un regalo.',
+          'OPCIÓN 2 — LA OPCIÓN COMPLETA: Precio estándar o más alto con un regalo más grande o valor agregado. Esto captura a compradores que quieren la experiencia completa. Ejemplo: Jeringa en {currency}300 + segunda jeringa gratis.',
+          'EL CONTRASTE: La brecha entre opciones debe ser clara pero no extrema. {currency}210 vs {currency}300 es una diferencia significativa. {currency}210 vs {currency}250 está demasiado cerca — crea parálisis de decisión.',
           'LA OPCIÓN POR DEFECTO: Si sientes hesitación, guíalos hacia la Opción 1: \'La mayoría empieza con la Opción 1 — es un excelente punto de entrada.\' Esto simplifica su decisión.',
         ],
     },
@@ -2120,16 +2086,16 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'SYRINGE: Option 1 — €210 (single syringe + gift). Option 2 — €300 (two syringes + Day & Night Cream free). One is entry-level value; the other is the complete experience.',
-        'PEELING: Option 1 — €100 (single peeling + Dead Sea Scrub gift). Option 2 — €150 (peeling + Day & Night Cream free). Budget-conscious vs. skincare routine builders.',
-        'SCRUB & BUTTER: Option 1 — €60 (Buy 1 Get 1 — Scrub + Body Butter). Option 2 — €120 (Buy 2 Get 1 — trio with Nail Kit or Cleanser). Casual buyer vs. serious self-care or gift shopper.',
-        'NAIL KIT: Option 1 — €60 (Buy 1 Get 1 — mix with Scrub or Butter). Option 2 — €120 (Buy 2 Get 1 — three full kits for gifting).'
+        'SYRINGE: Option 1 — {currency}210 (single syringe + gift). Option 2 — {currency}300 (two syringes + Day & Night Cream free). One is entry-level value; the other is the complete experience.',
+        'PEELING: Option 1 — {currency}100 (single peeling + Dead Sea Scrub gift). Option 2 — {currency}150 (peeling + Day & Night Cream free). Budget-conscious vs. skincare routine builders.',
+        'SCRUB & BUTTER: Option 1 — {currency}60 (Buy 1 Get 1 — Scrub + Body Butter). Option 2 — {currency}120 (Buy 2 Get 1 — trio with Nail Kit or Cleanser). Casual buyer vs. serious self-care or gift shopper.',
+        'NAIL KIT: Option 1 — {currency}60 (Buy 1 Get 1 — mix with Scrub or Butter). Option 2 — {currency}120 (Buy 2 Get 1 — three full kits for gifting).'
       ],
       itemsEs: [
-          'JERINGA: Opción 1 — €210 (jeringa individual + regalo). Opción 2 — €300 (dos jeringas + Crema Día y Noche gratis). Una es valor de entrada; la otra es la experiencia completa.',
-          'PEELING: Opción 1 — €100 (peeling individual + Exfoliante del Mar Muerto de regalo). Opción 2 — €150 (peeling + Crema Día y Noche gratis). Conscientes del presupuesto vs. constructores de rutina de cuidado de la piel.',
-          'EXFOLIANTE & MANTEQUILLA: Opción 1 — €60 (Compra 1 Lleva 1 — Exfoliante + Mantequilla Corporal). Opción 2 — €120 (Compra 2 Lleva 1 — trío con Kit de Uñas o Limpiador). Comprador casual vs. cuidado personal serio o comprador de regalos.',
-          'KIT DE UÑAS: Opción 1 — €60 (Compra 1 Lleva 1 — mezcla con Exfoliante o Mantequilla). Opción 2 — €120 (Compra 2 Lleva 1 — tres kits completos para regalo).',
+          'JERINGA: Opción 1 — {currency}210 (jeringa individual + regalo). Opción 2 — {currency}300 (dos jeringas + Crema Día y Noche gratis). Una es valor de entrada; la otra es la experiencia completa.',
+          'PEELING: Opción 1 — {currency}100 (peeling individual + Exfoliante del Mar Muerto de regalo). Opción 2 — {currency}150 (peeling + Crema Día y Noche gratis). Conscientes del presupuesto vs. constructores de rutina de cuidado de la piel.',
+          'EXFOLIANTE & MANTEQUILLA: Opción 1 — {currency}60 (Compra 1 Lleva 1 — Exfoliante + Mantequilla Corporal). Opción 2 — {currency}120 (Compra 2 Lleva 1 — trío con Kit de Uñas o Limpiador). Comprador casual vs. cuidado personal serio o comprador de regalos.',
+          'KIT DE UÑAS: Opción 1 — {currency}60 (Compra 1 Lleva 1 — mezcla con Exfoliante o Mantequilla). Opción 2 — {currency}120 (Compra 2 Lleva 1 — tres kits completos para regalo).',
         ],
     },
     {
@@ -2147,8 +2113,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'We have three options. The basic scrub alone is €30. The Scrub + Body Butter duo is €60. Or the full trio with the Nail Kit is €120.\' The €30 option makes the €60 option look like much better value. The €120 option makes the €60 option look like a smart, budget-friendly choice. Most people pick the middle — which is exactly what you want.',
-      textEs: '\'Tenemos tres opciones. El exfoliante básico solo cuesta €30. El dúo de Exfoliante + Mantequilla Corporal es €60. O el trío completo con el Kit de Uñas es €120.\' La opción de €30 hace que la opción de €60 se vea como mucho mejor valor. La opción de €120 hace que la opción de €60 se vea como una elección inteligente y amigable con el presupuesto. La mayoría elige la del medio — que es exactamente lo que quieres.',
+      text: '\'We have three options. A single Scrub on its own is {currency}60. The Scrub + Body Butter duo is also {currency}60 — Buy 1, Get 1. Or the full trio with the Nail Kit is {currency}120.\' The single at {currency}60 makes the duo look unmissable. The {currency}120 trio then makes the {currency}60 duo look like a smart, budget-friendly choice. Most people pick the middle — which is exactly what you want.',
+      textEs: '\'Tenemos tres opciones. Un Exfoliante solo cuesta {currency}60. El dúo de Exfoliante + Body Butter también son {currency}60 — Compra 1, Lleva 1. O el trío completo con el Kit de Uñas son {currency}120.\' El individual a {currency}60 hace que el dúo parezca imperdible. Luego el trío de {currency}120 hace que el dúo de {currency}60 parezca una elección inteligente y ajustada al presupuesto. La mayoría elige la del medio — que es exactamente lo que quieres.',
     },
     {
             type: 'tip',
@@ -2171,13 +2137,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'CLEAR BUDGET CONSTRAINT: If they visibly hesitate at €300, immediately pivot to €210. Don\'t make them reject both options.',
+        'CLEAR BUDGET CONSTRAINT: If they visibly hesitate at {currency}300, immediately pivot to {currency}210. Don\'t make them reject both options.',
         'CLEAR GIFT SHOPPER: If they\'re buying for three sisters, Option 2 (Buy 2 Get 1) is obvious. Don\'t overcomplicate.',
         'CLEAR PREMIUM BUYER: If they\'re carrying luxury bags and show zero price sensitivity, lead with Option 2 or even an upsell beyond it.',
         'UNCERTAIN BUYER: When genuinely unsure, default to Option 1. It\'s easier to say yes to, and they can always upgrade later.'
       ],
       itemsEs: [
-          'RESTRICCIÓN DE PRESUPUESTO CLARA: Si dudan visiblemente ante €300, pivota inmediatamente a €210. No los hagas rechazar ambas opciones.',
+          'RESTRICCIÓN DE PRESUPUESTO CLARA: Si dudan visiblemente ante {currency}300, pivota inmediatamente a {currency}210. No los hagas rechazar ambas opciones.',
           'COMPRADOR DE REGALOS CLARO: Si están comprando para tres hermanas, la Opción 2 (Compra 2 Lleva 1) es obvia. No la compliques.',
           'COMPRADOR PREMIUM CLARO: Si traen bolsas de lujo y muestran cero sensibilidad al precio, empieza con la Opción 2 o incluso una venta adicional más allá.',
           'COMPRADOR INCIERTO: Cuando estén genuinamente inseguros, usa la Opción 1 por defecto. Es más fácil decir que sí, y siempre pueden mejorar después.',
@@ -2212,7 +2178,7 @@ export const lessons: Record<string, Lesson> = {
         'Only showing the expensive option first'
       ],
       correctIndex: 1,
-      explanation: 'The decoy effect involves adding a third option (like a basic €30 scrub) that makes the target option (€60 duo) look like better value by comparison. Most customers pick the middle option.',
+      explanation: 'The decoy effect involves adding an option that exists only to flatter another one. A single Scrub at {currency}60 makes the Buy 1 Get 1 duo — also {currency}60 — look unmissable, and that in turn makes the {currency}120 trio feel like the real value. Most customers pick the middle option.',
     },
     {
       question: 'What should you do when a customer clearly has budget constraints?',
@@ -2305,22 +2271,22 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        'STEP 1 — FULL OFFER: Present both options at full value. \'Option 1: €210 with a gift. Option 2: €300 with two syringes and creams.\' This is your ceiling.',
-        'STEP 2 — REMOVE THE GIFT: If they hesitate on €210: \'You know what, let me make it easier. I\'ll take away the gift — that\'s €35 value — and bring the syringe to €175.\' They save money; you lose a gift, not margin.',
-        'STEP 3 — THE VOUCHER CLOSE: If they still hesitate: \'Alright, I can do something a bit crazy — just this once. With a 20% voucher, I can bring the single syringe to €140. But only on the single one, not the combo.\' This feels exclusive and final.',
-        'STEP 4 — THE FLOOR: Your absolute minimum. Know it and never cross it. If they won\'t buy at €140, they weren\'t going to buy at any price. Let them go graciously.'
+        'STEP 1 — FULL OFFER: Present both options at full value. \'Option 1: {currency}210 with a gift. Option 2: {currency}300 with two syringes and creams.\' This is your ceiling.',
+        'STEP 2 — REMOVE THE GIFT: If they hesitate on {currency}210: \'You know what, let me make it easier. I\'ll take away the gift — that\'s {currency}35 value — and bring the syringe to {currency}175.\' They save money; you lose a gift, not margin.',
+        'STEP 3 — THE VOUCHER CLOSE: If they still hesitate: \'Alright, I can do something a bit crazy — just this once. With a 20% voucher, I can bring the single syringe to {currency}140. But only on the single one, not the combo.\' This feels exclusive and final.',
+        'STEP 4 — THE FLOOR: Your absolute minimum is {currency}100 on the syringe — {currency}140 is the voucher rung, not the bottom. Know both and never cross the floor. If they won\'t buy at {currency}100, they weren\'t going to buy at any price. Let them go graciously.'
       ],
       itemsEs: [
-          'PASO 1 — OFERTA COMPLETA: Presenta ambas opciones a valor completo. \'Opción 1: €210 con regalo. Opción 2: €300 con dos jeringas y cremas.\' Este es tu techo.',
-          'PASO 2 — QUITA EL REGALO: Si dudan con €210: \'Sabes qué, déjame hacerlo más fácil. Quito el regalo — eso es un valor de €35 — y dejo la jeringa en €175.\' Ellos ahorran dinero; tú pierdes un regalo, no margen.',
-          'PASO 3 — EL CIERRE CON VOUCHER: Si aún dudan: \'Está bien, puedo hacer algo un poco loco — solo esta vez. Con un voucher del 20%, puedo dejar la jeringa individual en €140. Pero solo en la individual, no en el combo.\' Esto se siente exclusivo y definitivo.',
-          'PASO 4 — EL PISO: Tu mínimo absoluto. Conócelo y nunca lo cruces. Si no compran en €140, no iban a comprar a ningún precio. Déjalos ir amablemente.',
+          'PASO 1 — OFERTA COMPLETA: Presenta ambas opciones a valor completo. \'Opción 1: {currency}210 con regalo. Opción 2: {currency}300 con dos jeringas y cremas.\' Este es tu techo.',
+          'PASO 2 — QUITA EL REGALO: Si dudan con {currency}210: \'Sabes qué, déjame hacerlo más fácil. Quito el regalo — eso es un valor de {currency}35 — y dejo la jeringa en {currency}175.\' Ellos ahorran dinero; tú pierdes un regalo, no margen.',
+          'PASO 3 — EL CIERRE CON VOUCHER: Si aún dudan: \'Está bien, puedo hacer algo un poco loco — solo esta vez. Con un voucher del 20%, puedo dejar la jeringa individual en {currency}140. Pero solo en la individual, no en el combo.\' Esto se siente exclusivo y definitivo.',
+          'PASO 4 — EL PISO: Tu mínimo absoluto son {currency}100 en la jeringa — {currency}140 es el peldaño del cupón, no el fondo. Conoce los dos y nunca cruces el piso. Si no compran en {currency}100, no iban a comprar a ningún precio. Déjalos ir amablemente.',
         ],
     },
     {
             type: 'script',
-      text: '\'So Option 1 is €210 with a gift...\' [Watch their face. Shock?] \'...or, you know what, let me remove the gift — that\'s €35 — and bring it to €175 just for you.\' [Watch again. Still hesitant?] \'Listen, I just checked, and I can do a one-time voucher that brings it to €140. But just this once, and only on the single syringe.\' Three steps, each feeling like a personal favor.',
-      textEs: '\'Entonces la Opción 1 es €210 con regalo...\' [Observa su rostro. ¿Sorpresa?] \'...o, sabes qué, déjame quitar el regalo — son €35 — y dejarlo en €175 solo para ti.\' [Observa otra vez. ¿Aún dudosos?] \'Escucha, acabo de revisar, y puedo hacer un voucher de una sola vez que lo deja en €140. Pero solo esta vez, y solo en la jeringa individual.\' Tres pasos, cada uno sintiéndose como un favor personal.',
+      text: '\'So Option 1 is {currency}210 with a gift...\' [Watch their face. Shock?] \'...or, you know what, let me remove the gift — that\'s {currency}35 — and bring it to {currency}175 just for you.\' [Watch again. Still hesitant?] \'Listen, I just checked, and I can do a one-time voucher that brings it to {currency}140. But just this once, and only on the single syringe.\' Three steps, each feeling like a personal favor.',
+      textEs: '\'Entonces la Opción 1 es {currency}210 con regalo...\' [Observa su rostro. ¿Sorpresa?] \'...o, sabes qué, déjame quitar el regalo — son {currency}35 — y dejarlo en {currency}175 solo para ti.\' [Observa otra vez. ¿Aún dudosos?] \'Escucha, acabo de revisar, y puedo hacer un voucher de una sola vez que lo deja en {currency}140. Pero solo esta vez, y solo en la jeringa individual.\' Tres pasos, cada uno sintiéndose como un favor personal.',
     },
     {
             type: 'divider'
@@ -2339,7 +2305,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Descale (Drop Price)', text: 'Use when: Customer shows price shock, mentions budget constraints, seems genuinely interested but can\'t afford the price, is comparing to a cheaper alternative. Remove gifts gradually to find their price point.' },
       leftEs: { label: 'Reducir (Bajar Precio)', text: 'Úsalo cuando: El cliente muestra sorpresa por el precio, menciona restricciones de presupuesto, parece genuinamente interesado pero no puede pagar el precio, está comparando con una alternativa más barata. Quita regalos gradualmente para encontrar su punto de precio.' },
-      right: { label: 'Upscale (Add Value)', text: 'Use when: Customer shows no price sensitivity, carries luxury bags, expresses love for the product, is buying gifts for multiple people. Add a cream, add a second syringe, create a bundle. They\'re willing to spend — help them.' }
+      right: { label: 'Upscale (Add Value)', text: 'Use when: Customer shows no price sensitivity, carries luxury bags, expresses love for the product, is buying gifts for multiple people. Add a cream, add a second syringe, create a bundle. They\'re willing to spend — help them.' },
+      rightEs: { label: 'Subir (Añadir Valor)', text: 'Úsalo cuando: el cliente no muestra sensibilidad al precio, lleva bolsas de lujo, dice que le encanta el producto, está comprando regalos para varias personas. Añade una crema, añade una segunda jeringa, monta un pack. Están dispuestos a gastar — ayúdales.' }
     },
     {
             type: 'divider'
@@ -2351,26 +2318,26 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'One of the most effective techniques is reframing a removed gift as \'store credit.\' Instead of saying \'I\'ll remove the Scrub,\' say \'I\'ll take away the Scrub — we value it at €25 — and use that as store credit to bring your price down.\' This feels like you\'re being creative on their behalf, not just removing value.',
-      textEs: 'Una de las técnicas más efectivas es reencuadrar un regalo removido como \'crédito de tienda.\' En lugar de decir \'Quito el Exfoliante,\' di \'Quito el Exfoliante — lo valoramos en €25 — y uso eso como crédito de tienda para bajar tu precio.\' Esto se siente como si estuvieras siendo creativo en su beneficio, no solo removiendo valor.',
+      text: 'One of the most effective techniques is reframing a removed gift as \'store credit.\' Instead of saying \'I\'ll remove the Scrub,\' say \'I\'ll take the Scrub out and put its value straight back to you as store credit to bring your price down.\' This feels like you\'re being creative on their behalf, not just removing value.',
+      textEs: 'Una de las técnicas más efectivas es reencuadrar un regalo removido como \'crédito de tienda.\' En lugar de decir \'Quito el Exfoliante,\' di \'Saco el Exfoliante y te devuelvo su valor como crédito de tienda para bajar tu precio.\' Esto se siente como si estuvieras siendo creativo en su beneficio, no solo removiendo valor.',
     },
     {
             type: 'script',
-      text: '\'I totally understand. Let me make it easy — I can take away the Scrub, we charge €25 for it anyway, so let\'s just use it as store credit. This way I can make it €75 for you.\' The word \'credit\' makes them feel smart for saving. Not poor for hesitating.',
-      textEs: '\'Te entiendo completamente. Déjame hacerlo fácil — puedo quitar el Exfoliante, de todos modos cobramos €25 por él, así que usemos eso como crédito de tienda. Así puedo dejarlo en €75 para ti.\' La palabra \'crédito\' los hace sentir inteligentes por ahorrar. No pobres por dudar.',
+      text: '\'Listen, I know, I know. Let me make it easy — I\'ll take the Scrub out and put its value straight back to you as credit. That brings it to {currency}70 for you.\' The word \'credit\' makes them feel clever for saving. Not skint for hesitating.',
+      textEs: '\'Mira, ya lo sé, ya lo sé. Deja que te lo ponga fácil — te saco el Exfoliante y te devuelvo su valor como crédito. Eso te lo deja en {currency}70.\' La palabra \'crédito\' les hace sentirse listos por ahorrar. No pobres por dudar.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Never Going Below Minimum',
-      textEs: 'Nunca Bajar del Mínimo',
+      text: 'The Wall',
+      textEs: 'El Muro',
     },
     {
             type: 'paragraph',
-      text: 'Your floor price is your professional boundary. Here\'s why it matters:',
-      textEs: 'Tu precio mínimo es tu límite profesional. Aquí te decimos por qué importa:',
+      text: 'Your floor is the wall. Below it you are working for free, and they can smell it on you. Here is why it matters:',
+      textEs: 'Tu mínimo es el muro. Por debajo de ahí estás trabajando gratis, y se te nota. Por esto importa:',
     },
     {
             type: 'bullets',
@@ -2389,8 +2356,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'Know your minimums for every product by heart: Syringe €140 (voucher close), Peeling €50 (voucher close), Scrub €30 (single), Nail Kit €30 (single). These are your floors. Practice saying no to going lower — \'I wish I could, but that\'s genuinely the best I can do.\'',
-      textEs: 'Conoce tus mínimos para cada producto de memoria: Jeringa €140 (cierre con voucher), Peeling €50 (cierre con voucher), Exfoliante €30 (individual), Kit de Uñas €30 (individual). Estos son tus pisos. Practica decir que no a bajar más — \'Ojalá pudiera, pero ese es genuinamente lo mejor que puedo hacer.\'',
+      text: 'Know your minimums by heart: Syringe {currency}100 (absolute floor — {currency}140 is the voucher close, one rung above it), Peeling {currency}50, Scrub {currency}30 (single), Nail Kit {currency}30 (single). That is the wall. Learn to say no with a smile instead of an apology: \'You are killing me. Honestly, at that price I am paying for the privilege — this is where I stop.\' Say it once, laugh, and go quiet. The silence does the rest.',
+      textEs: 'Aprende de memoria tus mínimos: Jeringa {currency}100 (mínimo absoluto — {currency}140 es el cierre con cupón, un escalón por encima), Peeling {currency}50, Exfoliante {currency}30 (individual), Kit de Uñas {currency}30 (individual). Ese es el muro. Aprende a decir que no con una sonrisa, no pidiendo perdón: \'Me estás matando. De verdad, a ese precio pago yo por trabajar — aquí es donde me planto.\' Dilo una vez, ríete y cállate. El silencio hace el resto.',
     },
     {
             type: 'quote',
@@ -2421,7 +2388,7 @@ export const lessons: Record<string, Lesson> = {
         'It confuses the customer'
       ],
       correctIndex: 1,
-      explanation: 'Reframing a removed gift as \'store credit\' (e.g., \'the Scrub is €25, so I\'ll use that as credit\') makes the price reduction feel like a creative solution on their behalf, not just removing value.',
+      explanation: 'Reframing a removed gift as \'store credit\' (e.g., \'let me take the Scrub out and give you its value back as credit\') makes the price reduction feel like a creative solution on their behalf, not just removing value.',
     },
     {
       question: 'Why should you never go below your minimum floor price?',
@@ -2512,23 +2479,23 @@ export const lessons: Record<string, Lesson> = {
         'STEP 1 — DROP YOUR VOICE: Lower your volume slightly. This signals that what you\'re about to say is exclusive, maybe even a little secretive. Loud announcements feel public and therefore less special.',
         'STEP 2 — THE SETUP: \'Alright, alright... listen, I just checked something, and I can do a small crazy offer for you. But you can\'t be greedy, okay?\' This frames the offer as something YOU\'RE doing for THEM, not a standard discount.',
         'STEP 3 — THE LIMITATION: \'I can\'t do this on the big option — only on the single one.\' Limitations increase perceived value. If you could do it on everything, it\'s not special. Limiting it makes it feel real.',
-        'STEP 4 — THE PRICE: \'So remember I told you without the gift it\'s €175? If you use this small 20% discount voucher, it brings it down to €140. But this is a one-time thing — next time, it goes back to normal.\'',
+        'STEP 4 — THE PRICE: \'So remember I told you without the gift it\'s {currency}175? If you use this small 20% discount voucher, it brings it down to {currency}140. But this is a one-time thing — next time, it goes back to normal.\'',
         'STEP 5 — THE TWO PROMISES: \'You just promise me two things, okay? One: you\'ll actually use it. Two: if you\'re happy, you\'ll tell your friends about us.\' This creates commitment and plants a referral seed.',
         'STEP 6 — THE WHATSAPP BRIDGE: \'You use WhatsApp, right? Perfect. You\'ll have my number and email — just let me know if you need anything.\' Transforms transaction into relationship.'
       ],
       itemsEs: [
           'PASO 1 — BAJA LA VOZ: Baja ligeramente tu volumen. Esto señala que lo que estás a punto de decir es exclusivo, tal vez incluso un poco secreto. Los anuncios en voz alta se sienten públicos y por tanto menos especiales.',
-          'PASO 2 — LA PREPARACIÓN: \'Está bien, está bien... escucha, acabo de revisar algo, y puedo hacer una pequeña oferta loca para ti. Pero no puedes ser codicioso, ¿okay?\' Esto enmarca la oferta como algo que TÚ estás haciendo por ELLOS, no como un descuento estándar.',
+          'PASO 2 — LA PREPARACIÓN: \'Está bien, está bien... escucha, acabo de revisar algo, y puedo hacer una pequeña oferta loca para ti. Pero no puedes ser codicioso, ¿vale?\' Esto enmarca la oferta como algo que TÚ estás haciendo por ELLOS, no como un descuento estándar.',
           'PASO 3 — LA LIMITACIÓN: \'No puedo hacer esto en la opción grande — solo en la individual.\' Las limitaciones aumentan el valor percibido. Si pudieras hacerlo en todo, no sería especial. Limitarlo lo hace sentir real.',
-          'PASO 4 — EL PRECIO: \'Entonces recuerda que te dije que sin el regalo es €175? Si usas este pequeño voucher de descuento del 20%, lo baja a €140. Pero esto es de una sola vez — la próxima vez, vuelve a lo normal.\'',
-          'PASO 5 — LAS DOS PROMESAS: \'Solo me prometes dos cosas, ¿okay? Una: que realmente lo usarás. Dos: si estás feliz, le contarás a tus amigos sobre nosotros.\' Esto crea compromiso y siembra una semilla de referido.',
+          'PASO 4 — EL PRECIO: \'Entonces recuerda que te dije que sin el regalo es {currency}175? Si usas este pequeño voucher de descuento del 20%, lo baja a {currency}140. Pero esto es de una sola vez — la próxima vez, vuelve a lo normal.\'',
+          'PASO 5 — LAS DOS PROMESAS: \'Solo me prometes dos cosas, ¿vale? Una: que realmente lo usarás. Dos: si estás feliz, le contarás a tus amigos sobre nosotros.\' Esto crea compromiso y siembra una semilla de referido.',
           'PASO 6 — EL PUENTE DE WHATSAPP: \'¿Usas WhatsApp, verdad? Perfecto. Tendrás mi número y email — solo avísame si necesitas algo.\' Transforma la transacción en relación.',
         ],
     },
     {
             type: 'script',
-      text: '\'Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can\'t be greedy, okay? I can\'t do this on the double syringe, only on the single one. So remember I told you it\'s €175 without the gift? If you use this small 20% voucher, I can bring it down to €140. But this is a one-time thing — next time, it goes back to normal. You just promise me two things: you\'ll actually use it, and if you love it, you\'ll tell your friends. Deal?\'',
-      textEs: '\'Está bien, está bien... escucha, acabo de revisar, y puedo hacer algo un poco loco para ti. Pero no puedes ser codicioso, ¿okay? No puedo hacer esto en la jeringa doble, solo en la individual. Entonces recuerda que te dije que es €175 sin el regalo? Si usas este pequeño voucher del 20%, puedo dejarlo en €140. Pero esto es de una sola vez — la próxima vez, vuelve a lo normal. Solo me prometes dos cosas: que realmente lo usarás, y si te encanta, le contarás a tus amigos. ¿Trato?\'',
+      text: '\'Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can\'t be greedy, okay? I can\'t do this on the double syringe, only on the single one. So remember I told you it\'s {currency}175 without the gift? If you use this small 20% voucher, I can bring it down to {currency}140. But this is a one-time thing — next time, it goes back to normal. You just promise me two things: you\'ll actually use it, and if you love it, you\'ll tell your friends. Deal?\'',
+      textEs: '\'Está bien, está bien... escucha, acabo de revisar, y puedo hacer algo un poco loco para ti. Pero no puedes ser codicioso, ¿vale? No puedo hacer esto en la jeringa doble, solo en la individual. Entonces recuerda que te dije que es {currency}175 sin el regalo? Si usas este pequeño voucher del 20%, puedo dejarlo en {currency}140. Pero esto es de una sola vez — la próxima vez, vuelve a lo normal. Solo me prometes dos cosas: que realmente lo usarás, y si te encanta, le contarás a tus amigos. ¿Trato?\'',
     },
     {
             type: 'divider'
@@ -2542,15 +2509,15 @@ export const lessons: Record<string, Lesson> = {
             type: 'bullets',
       items: [
         'THE FRIENDLY VERSION: \'Okay, I\'m going to do something I probably shouldn\'t... but you seem so lovely, and I really want you to have this. Just don\'t tell my boss!\' Playful, conspiratorial.',
-        'THE PROFESSIONAL VERSION: \'I have some flexibility on the single item. Let me see what I can do... Okay, with our promotional voucher, I can bring the single syringe to €140. This is the best available rate.\' Measured, credible.',
-        'THE URGENT VERSION: \'I only have one voucher left today, and honestly, I\'ve been saving it for someone who really appreciates the product. That\'s you. €140, just this once.\' Scarcity + personalization.',
-        'THE RELATIONSHIP VERSION: \'I want you to be a happy customer who comes back. So here\'s what I\'ll do — €140 on the single one, and you have my WhatsApp for anything you need later.\' Long-term focus.'
+        'THE STRAIGHT VERSION: \'Alright, let me check something... right. I have got one voucher left and it only works on the single. That takes it to {currency}140. That is the number, I cannot do better than that.\' For the one who does not want the wink.',
+        'THE URGENT VERSION: \'I only have one voucher left today, and honestly, I\'ve been saving it for someone who really appreciates the product. That\'s you. {currency}140, just this once.\' Scarcity + personalization.',
+        'THE RELATIONSHIP VERSION: \'I want you to be a happy customer who comes back. So here\'s what I\'ll do — {currency}140 on the single one, and you have my WhatsApp for anything you need later.\' Long-term focus.'
       ],
       itemsEs: [
-          'LA VERSIÓN AMIGABLE: \'Okay, voy a hacer algo que probablemente no debería... pero pareces tan encantador, y realmente quiero que tengas esto. ¡Solo no le digas a mi jefe!\' Juguetona, conspirativa.',
-          'LA VERSIÓN PROFESIONAL: \'Tengo algo de flexibilidad en el artículo individual. Déjame ver qué puedo hacer... Está bien, con nuestro voucher promocional, puedo dejar la jeringa individual en €140. Esta es la mejor tarifa disponible.\' Medida, creíble.',
-          'LA VERSIÓN URGENTE: \'Solo me queda un voucher hoy, y honestamente, lo he estado guardando para alguien que realmente aprecie el producto. Ese eres tú. €140, solo esta vez.\' Escasez + personalización.',
-          'LA VERSIÓN DE RELACIÓN: \'Quiero que seas un cliente feliz que regrese. Así que esto es lo que haré — €140 en la individual, y tendrás mi WhatsApp para cualquier cosa que necesites después.\' Enfoque a largo plazo.',
+          'LA VERSIÓN AMIGABLE: \'Vale, voy a hacer algo que probablemente no debería... pero pareces tan encantador, y realmente quiero que tengas esto. ¡Solo no le digas a mi jefe!\' Juguetona, conspirativa.',
+          'LA VERSIÓN DIRECTA: \'Vale, déjame mirar una cosa... eso es. Me queda un cupón y solo vale para la individual. Eso la deja en {currency}140. Ese es el número, no te lo puedo dejar mejor.\' Para el que no quiere el guiño.',
+          'LA VERSIÓN URGENTE: \'Solo me queda un voucher hoy, y honestamente, lo he estado guardando para alguien que realmente aprecie el producto. Ese eres tú. {currency}140, solo esta vez.\' Escasez + personalización.',
+          'LA VERSIÓN DE RELACIÓN: \'Quiero que seas un cliente contento que vuelva. Así que esto es lo que haré — {currency}140 en la individual, y tendrás mi WhatsApp para cualquier cosa que necesites después.\' Enfoque a largo plazo.',
         ],
     },
     {
@@ -2565,7 +2532,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Use the Voucher Close', text: 'Customer loves the product but hesitates on price. They\'ve seen the demo, they\'re engaged, but need a final nudge. They say \'I need to think about it.\' You sense genuine interest held back by budget.' },
       leftEs: { label: 'Usa el Cierre con Voucher', text: 'El cliente ama el producto pero duda con el precio. Han visto la demostración, están comprometidos, pero necesitan un empujón final. Dicen \'Necesito pensarlo.\' Sientes interés genuino frenado por el presupuesto.' },
-      right: { label: 'Don\'t Use the Voucher Close', text: 'Customer shows no interest in the product. They haven\'t engaged with the demo. Price isn\'t the issue — the product is. Using the voucher close here devalues the product for no reason. Save it for the right moment.' }
+      right: { label: 'Don\'t Use the Voucher Close', text: 'Customer shows no interest in the product. They haven\'t engaged with the demo. Price isn\'t the issue — the product is. Using the voucher close here devalues the product for no reason. Save it for the right moment.' },
+      rightEs: { label: 'No Uses el Cierre del Cupón', text: 'El cliente no muestra ningún interés en el producto. No ha entrado en la demo. El problema no es el precio — es el producto. Usar aquí el cierre del cupón devalúa el producto sin ningún motivo. Guárdalo para el momento adecuado.' }
     },
     {
             type: 'tip',
@@ -2635,13 +2603,13 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Upselling isn\'t greed — it\'s service. When a customer loves the syringe demo, offering them the second syringe for their forehead completes their experience. When a customer buys the scrub, suggesting the body butter that pairs with it makes their purchase more effective. Cross-selling and upselling are about COMPLETING the customer\'s journey, not extracting more money.',
-      textEs: 'La venta adicional no es avaricia — es servicio. Cuando a un cliente le fascina la demostración de la jeringa, ofrecerle la segunda para su frente completa su experiencia. Cuando un cliente compra el exfoliante, sugerirle la crema corporal que complementa su compra la hace más efectiva. La venta cruzada y la venta adicional se tratan de COMPLETAR el viaje del cliente, no de sacarle más dinero.',
+      text: 'When somebody\'s eyes go during the demo, that is not the end of the sale — that is the middle of it. She has seen what happened to one eye and the other one is still sitting there. He liked the scrub, and the butter goes with it. You are not squeezing anybody. You are noticing what has already happened and finishing the job.',
+      textEs: 'Cuando a alguien se le encienden los ojos en la demo, eso no es el final de la venta — es la mitad. Ha visto lo que ha pasado en un ojo y el otro sigue ahí. A él le ha gustado el exfoliante, y la manteca va con eso. No estás exprimiendo a nadie. Estás viendo lo que ya ha pasado y terminando el trabajo.',
     },
     {
             type: 'keypoint',
-      text: 'The key to ethical upselling: only upsell when the customer is genuinely delighted. If they liked the product but weren\'t blown away, pushing for more creates resentment. If their eyes lit up during the demo, NOT offering more is actually doing them a disservice.',
-      textEs: 'La clave de la venta adicional ética: solo vende más cuando el cliente esté genuinamente encantado. Si le gustó el producto pero no quedó maravillado, presionar por más genera resentimiento. Si sus ojos brillaron durante la demostración, NO ofrecerle más es en realidad hacerle un flaco favor.',
+      text: 'If their eyes went — sell them more. That is not greed, that is the moment. If they went polite and quiet, take the money and let them go happy; pushing a flat customer just makes them regret the first one on the way home. Delight is your green light. Anything less and you close what you have got.',
+      textEs: 'Si se le han encendido los ojos — véndele más. Eso no es avaricia, es el momento. Si se ha quedado educada y callada, coge el dinero y déjala irse contenta; presionar a una clienta apagada solo hace que se arrepienta de la primera de camino a casa. El entusiasmo es tu luz verde. Con menos que eso, cierras lo que ya tienes.',
     },
     {
             type: 'divider'
@@ -2697,21 +2665,21 @@ export const lessons: Record<string, Lesson> = {
         '\'Since you\'re already doing the eyes, let\'s give the rest of the face a glow too.\' — Natural extension from one product to related areas.',
         '\'You know what would make this even better? The body butter with the same Dead Sea minerals. Your hands felt amazing — imagine your whole body.\' — Sensory bridge.',
         '\'Since you\'re buying for your mom, what about your sister? The Nail Kit is perfect for her too, and it\'s small enough to travel with.\' — Gift expansion.',
-        '\'This is our most popular combo — the peeling for weekly treatment and the scrub for your body. Together they\'re €X, which saves you €Y.\' — Bundle logic.',
+        '\'This is our most popular combo — the peeling for weekly treatment and the scrub for your body. Together they\'re {currency}X, which saves you {currency}Y.\' — Bundle logic.',
         '\'You clearly love quality skincare. Can I show you what I personally use with this? It\'s my secret weapon.\' — Personal recommendation bridge.'
       ],
       itemsEs: [
           '"Ya que estás haciendo los ojos, vamos a darle brillo al resto del rostro también." — Extensión natural de un producto a áreas relacionadas.',
           '"¿Sabes qué haría esto aún mejor? La crema corporal con los mismos minerales del Mar Muerto. Tus manos se sintieron increíbles — imagina todo tu cuerpo." — Puente sensorial.',
           '"Ya que estás comprando para tu mamá, ¿qué tal tu hermana? El Kit de Uñas también es perfecto para ella, y es lo suficientemente pequeño para viajar." — Expansión de regalo.',
-          '"Este es nuestro combo más popular — el peeling para tratamiento semanal y el exfoliante para tu cuerpo. Juntos cuestan €X, lo que te ahorra €Y." — Lógica de paquete.',
+          '"Este es nuestro combo más popular — el peeling para tratamiento semanal y el exfoliante para tu cuerpo. Juntos cuestan {currency}X, lo que te ahorra {currency}Y." — Lógica de paquete.',
           '"Claramente te encanta el cuidado de la piel de calidad. ¿Puedo mostrarte lo que yo uso personalmente con esto? Es mi arma secreta." — Puente de recomendación personal.',
         ],
     },
     {
             type: 'script',
-      text: '\'Since you\'re already getting the syringe for your eyes, the most popular upgrade is adding the second one for your forehead and upper lip. Most people don\'t realize the forehead shows age just as much as the eyes. For €90 more, you\'re getting the complete treatment. Does that make sense?\' Logic + value + gentle close.',
-      textEs: '"Ya que ya estás llevando la jeringa para tus ojos, la actualización más popular es agregar la segunda para tu frente y labio superior. La mayoría de la gente no se da cuenta de que la frente muestra la edad tanto como los ojos. Por €90 más, obtienes el tratamiento completo. ¿Tiene sentido?" Lógica + valor + cierre suave.',
+      text: '\'Since you\'re already getting the syringe for your eyes, the most popular upgrade is adding the second one for your forehead and upper lip. Most people don\'t realize the forehead shows age just as much as the eyes. For {currency}90 more, you\'re getting the complete treatment. Does that make sense?\' Logic + value + gentle close.',
+      textEs: '"Ya que ya estás llevando la jeringa para tus ojos, la actualización más popular es agregar la segunda para tu frente y labio superior. La mayoría de la gente no se da cuenta de que la frente muestra la edad tanto como los ojos. Por {currency}90 más, obtienes el tratamiento completo. ¿Tiene sentido?" Lógica + valor + cierre suave.',
     },
     {
             type: 'divider'
@@ -2732,13 +2700,13 @@ export const lessons: Record<string, Lesson> = {
         '\'Since you\'re already getting the Peeling...\' (Acknowledge their current decision — validates their choice)',
         '\'...the scrub uses the same Dead Sea minerals but for your body...\' (Introduce the complementary product with familiar framing)',
         '\'...and together they create a complete weekly routine...\' (Paint the full picture — lifestyle upgrade, not just another product)',
-        '\'...I can do both for €X instead of €Y...\' (Add value — bundle pricing makes the upsell feel smart, not excessive)'
+        '\'...I can do both for {currency}X instead of {currency}Y...\' (Add value — bundle pricing makes the upsell feel smart, not excessive)'
       ],
       itemsEs: [
           '"Ya que ya estás llevando el Peeling..." (Reconoce su decisión actual — valida su elección)',
           '"...el exfoliante usa los mismos minerales del Mar Muerto pero para tu cuerpo..." (Introduce el producto complementario con un enfoque familiar)',
           '"...y juntos crean una rutina semanal completa..." (Pinta el panorama completo — mejora de estilo de vida, no solo otro producto)',
-          '"...puedo hacer ambos por €X en vez de €Y..." (Agrega valor — el precio de paquete hace que la venta adicional se sienta inteligente, no excesiva)',
+          '"...puedo hacer ambos por {currency}X en vez de {currency}Y..." (Agrega valor — el precio de paquete hace que la venta adicional se sienta inteligente, no excesiva)',
         ],
     },
     {
@@ -2759,13 +2727,13 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'THE COMPLETE ROUTINE: \'This is your full face-and-body care for the year. One purchase, everything you need.\' Simplicity is compelling.',
         'THE GIFT BUNDLE: \'Three gifts, one purchase, done with Christmas shopping.\' Gift buyers love efficiency.',
-        'THE SAVINGS FRAME: \'Together they\'re €X, which saves you €Y versus buying separately.\' Even small savings feel smart.',
+        'THE SAVINGS FRAME: \'Together they\'re {currency}X, which saves you {currency}Y versus buying separately.\' Even small savings feel smart.',
         'THE EXPERIENCE FRAME: \'This isn\'t just products — it\'s a spa experience at home.\' Elevates the purchase from transaction to lifestyle.'
       ],
       itemsEs: [
           'LA RUTINA COMPLETA: "Este es tu cuidado completo de rostro y cuerpo para todo el año. Una compra, todo lo que necesitas." La simplicidad es convincente.',
           'EL PAQUETE DE REGALOS: "Tres regalos, una compra, listos las compras de Navidad." A los compradores de regalos les encanta la eficiencia.',
-          'EL ENFOQUE DE AHORRO: "Juntos cuestan €X, lo que te ahorra €Y comparado con comprar por separado." Incluso los ahorros pequeños se sienten inteligentes.',
+          'EL ENFOQUE DE AHORRO: "Juntos cuestan {currency}X, lo que te ahorra {currency}Y comparado con comprar por separado." Incluso los ahorros pequeños se sienten inteligentes.',
           'EL ENFOQUE DE EXPERIENCIA: "Esto no son solo productos — es una experiencia de spa en casa." Eleva la compra de transacción a estilo de vida.',
         ],
     },
@@ -2796,13 +2764,13 @@ export const lessons: Record<string, Lesson> = {
           'REACCIÓN INDIFERENTE: Si dijeron "Está bonito" sin entusiasmo, una venta adicional se sentirá agresiva. No estaban convencidos del primer producto.',
           'OPOSICIÓN DE LA PAREJA: Si su pareja era escéptica sobre el primer producto, agregar más desatará un veto. Asegura la primera venta.',
           'PRESIÓN DE TIEMPO: Si van con prisa y aceptaron el producto base solo para seguir adelante, agregar complejidad mata el trato.',
-          'COMPRADORES DE UN SOLO ARTÍCULO: Algunas personas vinieron por una cosa y quieren una cosa. Respeta su simplicidad. Un cliente feliz de un solo artículo regresa. Un cliente presionado a comprar varios no.',
+          'COMPRADORES DE UN SOLO ARTÍCULO: Algunas personas vinieron por una cosa y quieren una cosa. Respeta su simplicidad. Un cliente feliz de un solo artículo vuelve. Un cliente presionado a comprar varios no.',
         ],
     },
     {
             type: 'quote',
-      text: 'Upselling is not about getting more money. It\'s about giving more value to someone who wants it. When the desire is real, the upsell is service. When the desire is pushed, the upsell is greed.',
-      textEs: 'La venta adicional no se trata de obtener más dinero. Se trata de dar más valor a alguien que lo quiere. Cuando el deseo es real, la venta adicional es servicio. Cuando el deseo es forzado, la venta adicional es avaricia.',
+      text: 'You don\'t talk anyone into a second one. You notice they already want it.',
+      textEs: 'A nadie le convences de llevarse el segundo. Te das cuenta de que ya lo quiere.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
@@ -2868,7 +2836,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'keypoint',
       text: 'Every person who walks past your door has a product that\'s optimal for them. Your job is to identify it in 10 seconds and deliver the perfect pitch. Matching = higher conversion, higher satisfaction, and higher return visits.',
-      textEs: 'Cada persona que pasa por tu puerta tiene un producto que es óptimo para ella. Tu trabajo es identificarlo en 10 segundos y dar el pitch perfecto. El emparejamiento = mayor conversión, mayor satisfacción y más visitas de regreso.',
+      textEs: 'Cada persona que pasa por tu puerta tiene un producto que es óptimo para ella. Tu trabajo es identificarlo en 10 segundos y dar el pitch perfecto. El emparejamiento = mayor conversión, mayor satisfacción y más visitas de vuelta.',
     },
     {
             type: 'divider'
@@ -2922,14 +2890,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'DRY SKIN: Peeling (removes dead layers, allows better cream absorption) + Scrub (Dead Sea minerals hydrate) + Body Butter (rich moisture). Avoid: nothing — all products work for dry skin.',
         'OILY SKIN: Peeling (weekly deep clean, reduces oil buildup) + Syringe (eye area typically not oily). Scrub is fine in moderation. Body Butter may feel heavy — suggest smaller amounts.',
-        'SENSITIVE SKIN: Lead with the gentle approach. Peeling is dermatologist-recommended for sensitivity and eczema. Emphasize the \'natural, no chemicals\' angle. Do a small patch test first.',
+        'SENSITIVE SKIN: Lead with the gentle approach and go slowly. Emphasize the \'natural, no chemicals\' angle. A tiny bit on the inside of the wrist first, and stop at the first sign of anything.',
         'MATURE SKIN (50+): Syringe (collagen stimulation, visible anti-aging) + Peeling (restores glow that diminishes with age) + rich Body Butter. Focus on results and investment in self-care.',
         'YOUNG SKIN (20s): Peeling (prevention, weekly glow) + Nail Kit (fun, affordable, giftable). Syringe may feel unnecessary unless they have specific eye concerns.'
       ],
       itemsEs: [
           'PIEL SECA: Peeling (elimina capas muertas, permite mejor absorción de la crema) + Exfoliante (los minerales del Mar Muerto hidratan) + Crema Corporal (humedad intensa). Evitar: nada — todos los productos funcionan para piel seca.',
           'PIEL GRASA: Peeling (limpieza profunda semanal, reduce acumulación de grasa) + Jeringa (el área de los ojos típicamente no es grasa). El exfoliante está bien con moderación. La crema corporal puede sentirse pesada — sugiere cantidades más pequeñas.',
-          'PIEL SENSIBLE: Empieza con el enfoque suave. El Peeling es recomendado por dermatólogos para sensibilidad y eczema. Enfatiza el ángulo de "natural, sin químicos". Haz una pequeña prueba de parche primero.',
+          'PIEL SENSIBLE: Empieza con el enfoque suave y ve despacio. Enfatiza el ángulo de "natural, sin químicos". Primero un poquito en la parte de dentro de la muñeca, y a la mínima cosa, lo dejas.',
           'PIEL MADURA (50+): Jeringa (estimulación de colágeno, anti-edad visible) + Peeling (restaura el brillo que disminuye con la edad) + Crema Corporal rica. Enfócate en resultados e inversión en el cuidado personal.',
           'PIEL JOVEN (20s): Peeling (prevención, brillo semanal) + Kit de Uñas (divertido, asequible, regalable). La Jeringa puede sentirse innecesaria a menos que tengan preocupaciones específicas en los ojos.',
         ],
@@ -2946,7 +2914,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Younger Customers (20s-30s)', text: 'Lead with: Peeling (prevention + glow) or Nail Kit (affordable + fun). Frame as: Self-care ritual, Instagram-worthy results, smart prevention. Avoid: Heavy anti-aging language. They don\'t relate to \'wrinkles\' yet.' },
       leftEs: { label: 'Clientes Jóvenes (20-30s)', text: 'Empieza con: Peeling (prevención + brillo) o Kit de Uñas (asequible + divertido). Enmarca como: Ritual de cuidado personal, resultados dignos de Instagram, prevención inteligente. Evita: Lenguaje fuerte anti-edad. Todavía no se identifican con "arrugas".' },
-      right: { label: 'Mature Customers (40s+)', text: 'Lead with: Syringe (visible anti-aging) or Peeling (restores radiance). Frame as: Investment in yourself, proven results, dermatologist-recommended. Emphasize: The visible difference in the mirror. They know their skin and notice changes.' }
+      right: { label: 'Mature Customers (40s+)', text: 'Lead with: Syringe (visible anti-aging) or Peeling (restores radiance). Frame as: Investment in yourself, results you can see today. Emphasize: The visible difference in the mirror. They know their skin and notice changes.' },
+      rightEs: { label: 'Clientes Maduras (40+)', text: 'Empieza con: Jeringa (antiedad visible) o Peeling (devuelve la luminosidad). Enfócalo como: inversión en ti misma, resultados que se ven hoy mismo. Enfatiza: la diferencia visible en el espejo. Conocen su piel y notan los cambios.' }
     },
     {
             type: 'divider'
@@ -2964,20 +2933,20 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'SPANISH: Peeling or Scrub (value-conscious, respond to tax-haven savings). Emphasize: \'Smart shopping in Andorra.\'',
-        'FRENCH: Syringe or Peeling (skincare-savvy, appreciate quality and science). Emphasize: Ingredients, dermatologist recommendation, European quality.',
+        'SPANISH: Peeling or Scrub (value-conscious, respond to the price gap). Emphasize: \'Smart shopping in {locationName}.\'',
+        'FRENCH: Syringe or Peeling (skincare-savvy, appreciate quality). Emphasize: Ingredients, where it comes from, European quality.',
         'BRITISH: Scrub or Nail Kit (love sensory experiences, appreciate humor, gift-buyers). Emphasize: Fun demo, Christmas gifts, bargain pricing.',
         'EASTERN EUROPEAN: Syringe (premium positioning, visible results, status). Emphasize: #1 best-seller, luxury treatment, European prestige.',
         'ASIAN: Peeling or Syringe (ingredient-conscious, results-driven). Emphasize: Science, natural ingredients, visible before/after.',
-        'GERMAN/DUTCH: Peeling or Scrub (practical, quality-focused). Emphasize: Value per use, long-lasting, dermatologist-approved.'
+        'GERMAN/DUTCH: Peeling or Scrub (practical, quality-focused). Emphasize: Value per use, how long one bottle lasts, nothing wasted.'
       ],
       itemsEs: [
-          'ESPAÑOLES: Peeling o Exfoliante (conscientes del valor, responden a ahorros de paraíso fiscal). Enfatiza: "Compras inteligentes en Andorra".',
-          'FRANCESES: Jeringa o Peeling (conocedores de cuidado de la piel, aprecian calidad y ciencia). Enfatiza: Ingredientes, recomendación de dermatólogo, calidad europea.',
+          'ESPAÑOLES: Peeling o Exfoliante (conscientes del valor, responden a la diferencia de precio). Enfatiza: "Compras inteligentes en {locationName}".',
+          'FRANCESES: Jeringa o Peeling (entienden de cosmética, aprecian la calidad). Enfatiza: Ingredientes, de dónde viene, calidad europea.',
           'BRITÁNICOS: Exfoliante o Kit de Uñas (aman experiencias sensoriales, aprecian el humor, compradores de regalos). Enfatiza: Demo divertida, regalos de Navidad, precios de ganga.',
           'EUROPEOS DEL ESTE: Jeringa (posicionamiento premium, resultados visibles, estatus). Enfatiza: #1 más vendido, tratamiento de lujo, prestigio europeo.',
           'ASIÁTICOS: Peeling o Jeringa (conscientes de ingredientes, enfocados en resultados). Enfatiza: Ciencia, ingredientes naturales, antes/después visible.',
-          'ALEMANES/NEERLANDESES: Peeling o Exfoliante (prácticos, enfocados en calidad). Enfatiza: Valor por uso, duradero, aprobado por dermatólogos.',
+          'ALEMANES/NEERLANDESES: Peeling o Exfoliante (prácticos, enfocados en calidad). Enfatiza: Valor por uso, lo que dura un bote, que no se desperdicia nada.',
         ],
     },
     {
@@ -2996,22 +2965,22 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'EYES LOOK TIRED → SYRINGE (€140-€300)',
-        'YOUNG + GLOW-FOCUSED → PEELING (€50-€150)',
-        'DRY SKIN / WINTER → SCRUB (€30-€120)',
-        'NATURAL NAILS → NAIL KIT (€30-€120)',
-        'CHRISTMAS GIFTS → SCRUB/NAIL KIT COMBO (€60-€120)',
-        'LUXURY SHOPPER → SYRINGE → PEELING UPSALE (€300+)',
-        'SKEPTICAL MAN → SCRUB (practical, sensory, €30-€60)'
+        'EYES LOOK TIRED → SYRINGE ({currency}100-{currency}300)',
+        'YOUNG + GLOW-FOCUSED → PEELING ({currency}50-{currency}150)',
+        'DRY SKIN / WINTER → SCRUB ({currency}30-{currency}120)',
+        'NATURAL NAILS → NAIL KIT ({currency}30-{currency}120)',
+        'CHRISTMAS GIFTS → SCRUB/NAIL KIT COMBO ({currency}60-{currency}120)',
+        'LUXURY SHOPPER → SYRINGE → PEELING UPSALE ({currency}300+)',
+        'SKEPTICAL MAN → SCRUB (practical, sensory, {currency}30-{currency}60)'
       ],
       itemsEs: [
-          'OJOS SE VEN CANCADOS → JERINGA (€140-€300)',
-          'JOVEN + ENFOQUE EN BRILLO → PEELING (€50-€150)',
-          'PIEL SECA / INVIERNO → EXFOLIANTE (€30-€120)',
-          'UÑAS NATURALES → KIT DE UÑAS (€30-€120)',
-          'REGALOS DE NAVIDAD → COMBO EXFOLIANTE/KIT DE UÑAS (€60-€120)',
-          'COMPRADOR DE LUJO → JERINGA → VENTA ADICIONAL DE PEELING (€300+)',
-          'HOMBRE ESCÉPTICO → EXFOLIANTE (práctico, sensorial, €30-€60)',
+          'OJOS SE VEN CANSADOS → JERINGA ({currency}100-{currency}300)',
+          'JOVEN + ENFOQUE EN BRILLO → PEELING ({currency}50-{currency}150)',
+          'PIEL SECA / INVIERNO → EXFOLIANTE ({currency}30-{currency}120)',
+          'UÑAS NATURALES → KIT DE UÑAS ({currency}30-{currency}120)',
+          'REGALOS DE NAVIDAD → COMBO EXFOLIANTE/KIT DE UÑAS ({currency}60-{currency}120)',
+          'COMPRADOR DE LUJO → JERINGA → VENTA ADICIONAL DE PEELING ({currency}300+)',
+          'HOMBRE ESCÉPTICO → EXFOLIANTE (práctico, sensorial, {currency}30-{currency}60)',
         ],
     },
     {
@@ -3021,8 +2990,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'quote',
-      text: 'Matching the right product isn\'t about stereotypes. It\'s about observation, empathy, and giving each person exactly what they need. That\'s how you become a trusted advisor, not just a seller.',
-      textEs: 'Emparejar el producto correcto no se trata de estereotipos. Se trata de observación, empatía y dar a cada persona exactamente lo que necesita. Así es como te conviertes en un asesor de confianza, no solo en un vendedor.',
+      text: 'Anyone can recite four products. The skill is looking at somebody for ten seconds and knowing which one goes in their hand. Get that right and you are not selling to them — you are handing them the thing they came for without knowing it.',
+      textEs: 'Recitar cuatro productos lo hace cualquiera. La gracia está en mirar a alguien diez segundos y saber cuál le va en la mano. Acierta con eso y no les estás vendiendo — les estás dando lo que venían a buscar sin saberlo.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
@@ -3087,8 +3056,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'keypoint',
-      text: 'The objection handling framework: Acknowledge → Reframe → Provide solution → Close. Never argue. Never dismiss. Always validate their concern first, then guide them to a new perspective.',
-      textEs: 'El marco de manejo de objeciones: Reconocer → Reenmarcar → Proporcionar solución → Cerrar. Nunca discutas. Nunca descartes. Siempre valida su preocupación primero, luego guíalos hacia una nueva perspectiva.',
+      text: 'Four beats, every time: take it → turn it round → show them something → put the question back. You never argue and you never go stiff. You take the objection like you have heard it a hundred times, because you have.',
+      textEs: 'Cuatro tiempos, siempre: encájalo → dale la vuelta → enséñales algo → devuélveles la pregunta. Ni discutes ni te pones tieso. Coges la objeción como quien la ha oído cien veces, porque la has oído.',
     },
     {
             type: 'divider'
@@ -3101,16 +3070,16 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        '\'IT\'S TOO EXPENSIVE\' → \'I completely understand. Let me break it down: this lasts a full year. That\'s less than €3 per week. How much is your daily coffee? This costs less and lasts far longer. Which option works better for your budget?\' (Reframe as cost-per-use, then offer choices.)',
-        '\'I CAN GET CHEAPER ONLINE\' → \'You absolutely can find cheaper products online. But can you try them first? See the result in 2 minutes? This is the experience you\'re paying for — knowing it works before you buy. Plus, you have my WhatsApp if you ever need anything. Try getting that from a website.\' (Value of experience + service.)',
-        '\'I WASN\'T PLANNING TO SPEND THIS MUCH TODAY\' → \'I totally get it — neither was my last customer! But she tried it, saw the result, and realized it\'s an investment, not an impulse buy. This isn\'t something you\'ll replace next month. It\'s a year of results. Want me to show you what she saw?\' (Normalize + reframe as investment + curiosity.)',
-        '\'I DON\'T HAVE CASH\' → \'No problem at all! We take all cards, Apple Pay, Google Pay — whatever works for you.\' (Remove the payment barrier immediately.)'
+        '\'IT\'S TOO EXPENSIVE\' → \'Listen, I know, I know. But look at it properly: this lasts you the year. That is less than {currency}3 a week — cheaper than your coffee, and it is still working in June. Which of the two suits you better?\' (Shrink it to what it costs a week, then give them a choice.)',
+        '\'I CAN GET CHEAPER ONLINE\' → \'Course you can. Can you try it first though? See it on your own face, in two minutes, before you spend a penny? That is what you are paying for. Try getting that off a website.\' (Trying it is the bit the internet cannot do.)',
+        '\'I WASN\'T PLANNING TO SPEND THIS MUCH TODAY\' → \'Nobody ever is — my last customer wasn\'t either! She tried it, saw her own eye in the mirror, and that was the end of it. This is not something you replace next month. Want to see what she saw?\' (Normalise it, then hand it straight back to curiosity.)',
+        '\'I DON\'T HAVE CASH\' → \'Not a problem at all — cards, Apple Pay, Google Pay, whatever you have got on you.\' (Kill the payment barrier before it grows legs.)'
       ],
       itemsEs: [
-          '"ES DEMASIADO CARO" → "Lo entiendo perfectamente. Déjame explicarlo: esto dura un año completo. Eso es menos de €3 por semana. ¿Cuánto cuesta tu café diario? Esto cuesta menos y dura mucho más. ¿Qué opción funciona mejor para tu presupuesto?" (Reenmarca como costo por uso, luego ofrece opciones.)',
-          '"PUEDO ENCONTRAR MÁS BARATO EN LÍNEA" → "Absolutamente puedes encontrar productos más baratos en línea. Pero, ¿puedes probarlos primero? ¿Ver el resultado en 2 minutos? Esta es la experiencia por la que estás pagando — saber que funciona antes de comprar. Además, tienes mi WhatsApp si alguna vez necesitas algo. Intenta obtener eso de un sitio web." (Valor de la experiencia + servicio.)',
-          '"NO TENÍA PLANEADO GASTAR TANTO HOY" → "Lo entiendo totalmente — ¡mi última cliente tampoco! Pero ella lo probó, vio el resultado y se dio cuenta de que es una inversión, no una compra por impulso. Esto no es algo que reemplazarás el mes que viene. Es un año de resultados. ¿Quieres que te muestre lo que ella vio?" (Normaliza + reenmarca como inversión + curiosidad.)',
-          '"NO TENGO EFECTIVO" → "¡Ningún problema! Aceptamos todas las tarjetas, Apple Pay, Google Pay — lo que funcione para ti." (Elimina la barrera de pago inmediatamente.)',
+          '"ES DEMASIADO CARO" → "Mira, ya lo sé, ya lo sé. Pero míralo bien: esto te dura el año. Son menos de {currency}3 a la semana — más barato que tu café, y en junio sigue funcionando. ¿Cuál de las dos te va mejor?" (Redúcelo a lo que cuesta por semana y dales a elegir.)',
+          '"LO ENCUENTRO MÁS BARATO EN INTERNET" → "Claro que sí. ¿Pero lo puedes probar antes? ¿Verlo en tu propia cara, en dos minutos, antes de soltar un euro? Eso es lo que estás pagando. A ver quién te da eso en una página web." (Probarlo es lo que internet no puede hacer.)',
+          '"NO TENÍA PENSADO GASTARME TANTO HOY" → "Nadie lo tiene pensado — ¡mi última clienta tampoco! Lo probó, se vio el ojo en el espejo, y se acabó la historia. Esto no es algo que cambies el mes que viene. ¿Quieres ver lo que vio ella?" (Normalízalo y devuélvelo directo a la curiosidad.)',
+          '"NO LLEVO EFECTIVO" → "No pasa nada — tarjeta, Apple Pay, Google Pay, lo que lleves encima." (Quita la barrera del pago antes de que crezca.)',
         ],
     },
     {
@@ -3124,16 +3093,16 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        '\'I ALREADY HAVE CREAM AT HOME\' → \'That\'s great — this isn\'t a cream! It\'s completely different. Your cream hydrates; this removes dead skin layers so your cream works 10 times better. They work together. Think of this as the prep step your routine is missing.\' (Differentiate, don\'t compete.)',
-        '\'I\'VE NEVER HEARD OF THIS BRAND\' → \'That\'s actually why I\'m here — to introduce it! We\'re a boutique brand, not a mass-market label. That\'s why you can only find us in select locations like Andorra. Smaller brand, better ingredients, real results. Let the demo speak for itself.\' (Reframe boutique as exclusive advantage.)',
-        '\'I DON\'T BELIEVE IT WORKS\' → \'I love that you\'re skeptical — that means you\'re smart. Don\'t believe me. Believe your own eyes. Two minutes, one demo, you be the judge. If you don\'t see a difference, I\'ll be the first to say it\'s not for you. Deal?\' (Validate skepticism + challenge + low risk.)',
-        '\'IT\'S PROBABLY FULL OF CHEMICALS\' → \'Actually, it\'s the opposite! 100% natural, no parabens, no chemicals, no injections. That\'s exactly why dermatologists recommend it. Want to see the ingredient list?\' (Correct with facts, not defensiveness.)'
+        '\'I ALREADY HAVE CREAM AT HOME\' → \'Good — this is not a cream! Completely different thing. Your cream hydrates; this takes the dead layer off first so your cream actually gets in. They go together. This is the step your routine is missing.\' (Differentiate, do not compete.)',
+        '\'I\'VE NEVER HEARD OF THIS BRAND\' → \'That is exactly why I am standing out here! We are small — you will not find us in a supermarket. Smaller name, better stuff in the tube. Don\'t take my word for it, give me your hand.\' (Small is the advantage, then get off the subject and onto the demo.)',
+        '\'I DON\'T BELIEVE IT WORKS\' → \'Good. I love a sceptic, it means you are actually paying attention. Don\'t believe me — believe the mirror. Two minutes, one hand. If you don\'t see it, I will be the first to tell you to keep your money. Deal?\' (Agree with them, then put the proof in their hand.)',
+        '\'IT\'S PROBABLY FULL OF CHEMICALS\' → \'Other way round — no parabens, nothing harsh, no needles anywhere near you. Here, the list is on the box, have a proper look at it.\' (Answer it flat and give them the box.)'
       ],
       itemsEs: [
-          '"YA TENGO CREMA EN CASA" → "¡Eso es genial — esto no es una crema! Es completamente diferente. Tu crema hidrata; esto elimina capas de piel muerta para que tu crema funcione 10 veces mejor. Trabajan juntas. Piensa en esto como el paso de preparación que le falta a tu rutina." (Diferencia, no compitas.)',
-          '"NUNCA HE OÍDO DE ESTA MARCA" → "¡Eso es exactamente por qué estoy aquí — para presentarla! Somos una marca boutique, no una etiqueta de mercado masivo. Por eso solo nos puedes encontrar en ubicaciones selectas como Andorra. Marca más pequeña, mejores ingredientes, resultados reales. Deja que la demostración hable por sí sola." (Reenmarca boutique como ventaja exclusiva.)',
-          '"NO CREO QUE FUNCIONE" → "Me encanta que seas escéptica — eso significa que eres inteligente. No me creas a mí. Cree en tus propios ojos. Dos minutos, una demostración, tú eres el juez. Si no ves una diferencia, seré el primero en decir que no es para ti. ¿Trato?" (Valida el escepticismo + desafío + bajo riesgo.)',
-          '"PROBABLEMENTE ESTÁ LLENO DE QUÍMICOS" → "¡De hecho, es todo lo contrario! 100% natural, sin parabenos, sin químicos, sin inyecciones. Por eso exactamente los dermatólogos lo recomiendan. ¿Quieres ver la lista de ingredientes?" (Corrige con hechos, no defensivamente.)',
+          '"YA TENGO CREMA EN CASA" → "Mejor — ¡esto no es una crema! Es otra cosa. Tu crema hidrata; esto quita antes la capa muerta para que tu crema entre de verdad. Van juntas. Este es el paso que le falta a tu rutina." (Diferénciate, no compitas.)',
+          '"NUNCA HE OÍDO ESTA MARCA" → "¡Por eso mismo estoy yo aquí fuera! Somos pequeños, no nos vas a encontrar en un supermercado. Nombre más pequeño, mejor producto dentro del tubo. No me creas a mí: dame la mano." (Lo pequeño es la ventaja, y de ahí directo a la demo.)',
+          '"NO ME CREO QUE FUNCIONE" → "Bien. Me encantan los escépticos, quiere decir que estás atenta de verdad. No me creas a mí, cree al espejo. Dos minutos, una mano. Si no lo ves, seré la primera en decirte que te guardes el dinero. ¿Trato?" (Dales la razón y ponles la prueba en la mano.)',
+          '"SEGURO QUE ESTÁ LLENO DE QUÍMICOS" → "Al revés — sin parabenos, nada agresivo, y ni una aguja cerca de ti. Toma, la lista está en la caja, míratela bien." (Contéstalo a pelo y dales la caja.)',
         ],
     },
     {
@@ -3147,16 +3116,16 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        '\'I NEED TO ASK MY HUSBAND/WIFE\' → \'Of course! But can I ask — do you love it? Because if YOU love it, let\'s get his opinion. Sir, come see what I just showed your wife!\' (Involve the partner immediately — don\'t let them leave.)',
-        '\'I\'LL THINK ABOUT IT AND COME BACK\' → \'I totally understand. But honestly? Most people who say they\'ll come back don\'t. Not because they don\'t love it — because life gets busy. And this offer is only here today. If you know you love it, why wait?\' (Gentle urgency + truth.)',
-        '\'I NEED TO COMPARE PRICES\' → \'Smart shopping! But here\'s the thing — you can\'t compare this to anything else because there\'s nothing like it. And the price you see here only exists in Andorra. Once you cross that border, it\'s €500. This is a now-or-never price.\' (Tax-haven urgency.)',
-        '\'I DON\'T HAVE TIME RIGHT NOW\' → \'I totally get it — you\'re busy. How about this: 60 seconds. Not even 2. I\'ll do the demo on one hand. If you don\'t feel the difference immediately, you walk away. Deal?\' (Time-bound offer removes the barrier.)'
+        '\'I NEED TO ASK MY HUSBAND/WIFE\' → \'Of course. But do YOU like it? Because if you like it, let us get him over here. Sir! Come and see what I have just done to one of your wife\'s eyes!\' (Get the partner into the conversation before anybody walks anywhere.)',
+        '\'I\'LL THINK ABOUT IT AND COME BACK\' → \'What is there to think about? You told me you like it, you told me you would use it. You are not going to walk up the street and come back to a better price. It\'s not a mortgage at the end of the day.\' (Hand them back their own words and shrink the decision to its real size.)',
+        '\'I NEED TO COMPARE PRICES\' → \'Compare it to what? There is nothing else like it on this street. And this price lives here — cross the border and you are back to {currency}500.\' (Let the location do the work for you.)',
+        '\'I DON\'T HAVE TIME RIGHT NOW\' → \'I know, I know, you are in a rush. Sixty seconds. Not two minutes — sixty seconds, one hand. If you don\'t feel it straight away you walk off and I will not say another word.\' (Put a number on it and the barrier shrinks.)'
       ],
       itemsEs: [
-          '"NECESITO PREGUNTARLE A MI ESPOSO/ESPOSA" → "¡Por supuesto! Pero permíteme preguntar — ¿te encanta? Porque si A TI te encanta, vamos a obtener su opinión. ¡Señor, venga a ver lo que acabo de mostrarle a su esposa!" (Involucra a la pareja inmediatamente — no dejes que se vayan.)',
-          '"LO VOY A PENSAR Y REGRESO" → "Lo entiendo totalmente. Pero, ¿honestamente? La mayoría de la gente que dice que regresará no lo hace. No porque no les encante — porque la vida se pone ocupada. Y esta oferta solo está aquí hoy. Si sabes que te encanta, ¿por qué esperar?" (Urgencia suave + verdad.)',
-          '"NECESITO COMPARAR PRECIOS" → "¡Compra inteligente! Pero aquí está la cosa — no puedes comparar esto con nada más porque no hay nada como esto. Y el precio que ves aquí solo existe en Andorra. Una vez que cruces esa frontera, son €500. Este es un precio de ahora o nunca." (Urgencia de paraíso fiscal.)',
-          '"NO TENGO TIEMPO AHORA" → "Lo entiendo totalmente — estás ocupada. ¿Qué tal esto? 60 segundos. Ni siquiera 2. Te hago la demostración en una mano. Si no sientes la diferencia inmediatamente, te vas. ¿Trato?" (La oferta con límite de tiempo elimina la barrera.)',
+          '"TENGO QUE PREGUNTARLE A MI MARIDO/MUJER" → "Claro. ¿Pero a TI te gusta? Porque si a ti te gusta, lo llamamos. ¡Señor! ¡Venga a ver lo que le acabo de hacer a su mujer en un ojo!" (Mete a la pareja en la conversación antes de que nadie se mueva de ahí.)',
+          '"ME LO PIENSO Y VUELVO" → "¿Qué te tienes que pensar? Me has dicho que te gusta, me has dicho que lo usarías. No vas a dar una vuelta por la calle y volver con un precio mejor. Tampoco es una hipoteca." (Devuélveles sus propias palabras y reduce la decisión a su tamaño real.)',
+          '"QUIERO COMPARAR PRECIOS" → "¿Compararlo con qué? En esta calle no hay nada parecido. Y este precio vive aquí: cruzas la frontera y vuelves a {currency}500." (Que trabaje el sitio por ti.)',
+          '"AHORA NO TENGO TIEMPO" → "Ya lo sé, ya lo sé, vas con prisa. Sesenta segundos. Ni dos minutos: sesenta segundos y una mano. Si no lo notas al momento, te vas y no te digo ni una palabra más." (Ponle un número y la barrera se encoge.)',
         ],
     },
     {
@@ -3170,16 +3139,16 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        '\'I DON\'T HAVE TIME FOR A SKINCARE ROUTINE\' → \'That\'s exactly why you\'ll love this. It\'s once a week. Five minutes. One bottle lasts a year. It\'s the lowest time investment for the highest return in skincare. Less time than you spend brushing your teeth daily.\' (Reframe as time-saving.)',
-        '\'I\'M TRAVELING AND DON\'T WANT TO CARRY MORE\' → \'Perfect timing, actually! This is exactly what your skin needs after travel — the Dead Sea minerals rehydrate brutally. And it\'s small enough for your carry-on. Plus, you can\'t get this price anywhere else. Get it now while you\'re here.\' (Turn travel into an advantage.)',
-        '\'I\'M ALLERGIC TO EVERYTHING\' → \'I appreciate you telling me. The good news is this is 100% natural — no synthetic fragrances, no harsh chemicals. But let me do a small patch test on your wrist first. If there\'s any reaction, we stop immediately. Sound fair?\' (Safety first + confidence in product.)',
-        '\'I NEVER BUY FROM STREET SELLERS\' → \'I totally get that! I\'m not a street seller — I\'m a brand ambassador. This is our boutique shop right here. Come inside, sit down, have a proper experience. No pressure, just results. If you don\'t love it, no problem.\' (Reframe from street to boutique.)'
+        '\'I DON\'T HAVE TIME FOR A SKINCARE ROUTINE\' → \'Perfect, neither do I. Once a week, five minutes, one bottle sees you through the year. That is the whole thing. Less faff than painting your nails.\' (Turn the objection into the argument.)',
+        '\'I\'M TRAVELLING AND DON\'T WANT TO CARRY MORE\' → \'It is smaller than your sunglasses, look. And honestly, after a week of planes and air conditioning your skin wants it more than usual. Goes in the hand luggage and you forget it is there.\' (Make the travel the reason.)',
+        '\'I\'M ALLERGIC TO EVERYTHING\' → \'Thanks for telling me — let us go slowly, then. A tiny bit on the inside of your wrist first, and we see how you get on. Anything at all and we stop there.\' (Slow right down. Do not sell through it.)',
+        '\'I NEVER BUY FROM STREET SELLERS\' → \'Fair enough — but I am not selling you anything out here, am I? Come inside, sit down, let me do one hand. If you hate it you have lost two minutes.\' (Do not argue with it. Move the whole thing indoors.)'
       ],
       itemsEs: [
-          '"NO TENGO TIEMPO PARA UNA RUTINA DE CUIDADO DE LA PIEL" → "¡Por eso exactamente te encantará esto. Es una vez por semana. Cinco minutos. Una botella dura un año. Es la inversión de tiempo más baja para el retorno más alto en cuidado de la piel. Menos tiempo del que pasas cepillándote los dientes diariamente." (Reenmarca como ahorro de tiempo.)',
-          '"ESTOY VIAJANDO Y NO QUIERO CARGAR MÁS COSAS" → "¡Justo a tiempo, de hecho! Esto es exactamente lo que tu piel necesita después de viajar — los minerales del Mar Muerto rehidratan intensamente. Y es lo suficientemente pequeño para tu equipaje de mano. Además, no puedes conseguir este precio en ningún otro lado. Consíguelo ahora mientras estás aquí." (Convierte el viaje en una ventaja.)',
-          '"SOY ALÉRGICA A TODO" → "Aprecio que me lo digas. La buena noticia es que esto es 100% natural — sin fragancias sintéticas, sin químicos agresivos. Pero déjame hacerte primero una pequeña prueba de parche en tu muñeca. Si hay cualquier reacción, paramos inmediatamente. ¿Te parece justo?" (Seguridad primero + confianza en el producto.)',
-          '"NUNCA COMPRÓ A VENDEDORES DE CALLE" → "¡Lo entiendo totalmente! No soy una vendedora de calle — soy embajadora de la marca. Esta es nuestra tienda boutique aquí mismo. Pasa, siéntate, ten una experiencia adecuada. Sin presión, solo resultados. Si no te encanta, ningún problema." (Reenmarca de calle a boutique.)',
+          '"NO TENGO TIEMPO PARA UNA RUTINA DE PIEL" → "Perfecto, yo tampoco. Una vez por semana, cinco minutos, un bote te dura el año. Eso es todo. Menos lío que pintarte las uñas." (Convierte la objeción en el argumento.)',
+          '"ESTOY DE VIAJE Y NO QUIERO CARGAR MÁS" → "Es más pequeño que tus gafas de sol, mira. Y encima, después de una semana de aviones y aire acondicionado tu piel lo pide más que nunca. Va en el equipaje de mano y ni te enteras." (Que el viaje sea el motivo.)',
+          '"SOY ALÉRGICA A TODO" → "Gracias por decírmelo, pues vamos despacio. Primero un poquito en la parte de dentro de la muñeca y vemos qué tal. A la mínima cosa, lo dejamos." (Baja el ritmo del todo. No vendas por encima de eso.)',
+          '"YO NUNCA COMPRO A VENDEDORES DE CALLE" → "Me parece bien — pero aquí fuera no te estoy vendiendo nada, ¿no? Pasa, siéntate y te hago una mano. Si no te gusta, has perdido dos minutos." (No discutas con eso. Métete dentro con todo.)',
         ],
     },
     {
@@ -3193,16 +3162,16 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        '\'I FEEL GUILTY SPENDING MONEY ON MYSELF\' → \'I hear this all the time. But listen — you work hard, you take care of everyone else, when was the last time you did something just for YOU? This isn\'t selfish. It\'s self-care. And you deserve it.\' (Emotional reframe — guilt into deservingness.)',
-        '\'I BOUGHT SOMETHING LAST TIME AND NEVER USED IT\' → \'I totally understand. That\'s why I ask for two promises: that you\'ll actually use it, and that you\'ll tell your friends if you love it. Most of my customers text me within a week saying they\'re obsessed. I think you will too.\' (Accountability + social proof.)',
-        '\'I\'M NOT THE TYPE TO BUY LUXURY THINGS\' → \'You know what? The best customers are the ones who don\'t usually splurge. Because when they do, they actually appreciate it. This isn\'t about being fancy — it\'s about feeling good when you look in the mirror. Everyone deserves that.\' (Democratize luxury.)',
-        '\'MY PRODUCT AT HOME WORKS FINE\' → \'That\'s great! This doesn\'t replace what works — it makes it work BETTER. Think of it like this: you have a good car, but wouldn\'t you rather drive on a freshly paved road? This is the road. Your cream is the car. Together, perfection.\' (Complement, don\'t compete.)'
+        '\'I FEEL GUILTY SPENDING MONEY ON MYSELF\' → \'I hear that ten times a day, and always from the ones who do everything for everybody else. When was the last time you bought something that was only for you? Exactly. It\'s not a mortgage.\' (Permission, said light.)',
+        '\'I BOUGHT SOMETHING LAST TIME AND NEVER USED IT\' → \'Then promise me two things: that you actually use it, and that if you love it you tell your friends. That is the whole deal.\' (Two small promises land better than one big reassurance.)',
+        '\'I\'M NOT THE TYPE TO BUY LUXURY THINGS\' → \'Neither am I, and look at me. The ones who never treat themselves are the ones who enjoy it most when they do. This is not about being posh. It is about liking what you see in the mirror.\' (Take the posh out of it.)',
+        '\'MY PRODUCT AT HOME WORKS FINE\' → \'Then keep using it! This does not replace it, it goes before it. A good cream on a face that has just been cleared is a completely different thing.\' (Complement, do not compete.)'
       ],
       itemsEs: [
-          '"ME SIENTO CULPABLE GASTANDO DINERO EN MÍ" → "Escucho esto todo el tiempo. Pero escucha — trabajas duro, cuidas de todos los demás, ¿cuándo fue la última vez que hiciste algo solo para TI? Esto no es egoísta. Es cuidado personal. Y te lo mereces." (Reenfoque emocional — culpa en merecimiento.)',
-          '"LA ÚLTIMA VEZ COMPRÉ ALGO Y NUNCA LO USÉ" → "Lo entiendo totalmente. Por eso pido dos promesas: que realmente lo usarás, y que les dirás a tus amigas si te encanta. La mayoría de mis clientes me escriben dentro de una semana diciendo que están obsesionadas. Creo que tú también lo estarás." (Responsabilidad + prueba social.)',
-          '"NO SOY DEL TIPO QUE COMPRA COSAS DE LUJO" → "¿Sabes qué? Los mejores clientes son los que usualmente no se dan gustos. Porque cuando lo hacen, realmente lo aprecian. Esto no se trata de ser fancy — se trata de sentirte bien cuando te ves en el espejo. Todos merecen eso." (Democratiza el lujo.)',
-          '"MI PRODUCTO EN CASA FUNCIONA BIEN" → "¡Eso es genial! Esto no reemplaza lo que funciona — lo hace funcionar MEJOR. Piénsalo así: tienes un buen carro, pero ¿no preferirías manejar en una carretera recién pavimentada? Esta es la carretera. Tu crema es el carro. Juntos, perfección." (Complementa, no compitas.)',
+          '"ME SIENTO CULPABLE GASTANDO EN MÍ" → "Eso lo oigo diez veces al día, y siempre de las que lo hacen todo por los demás. ¿Cuándo fue la última vez que te compraste algo solo para ti? Exacto. Tampoco es una hipoteca." (Permiso, dicho ligero.)',
+          '"LA ÚLTIMA VEZ COMPRÉ ALGO Y NO LO USÉ" → "Pues prométeme dos cosas: que lo usas de verdad, y que si te encanta se lo cuentas a tus amigas. Ese es todo el trato." (Dos promesas pequeñas calan más que una gran garantía.)',
+          '"NO SOY DE COMPRAR COSAS DE LUJO" → "Yo tampoco, y mírame. Las que nunca se dan un capricho son las que más lo disfrutan cuando lo hacen. Esto no va de ser pija. Va de que te guste lo que ves en el espejo." (Quítale lo pijo.)',
+          '"LO QUE USO EN CASA ME VA BIEN" → "¡Pues sigue usándolo! Esto no lo sustituye, va antes. Una buena crema sobre una cara recién limpia es otra cosa completamente distinta." (Complementa, no compitas.)',
         ],
     },
     {
@@ -3221,22 +3190,22 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        'ACKNOWLEDGE: \'I completely understand.\' \'That\'s totally fair.\' \'I hear this all the time.\' Validation disarms defensiveness.',
-        'REFRAME: Show them a different way to see the situation. Cost-per-use. Investment vs. expense. Experience vs. product.',
-        'PROVIDE PROOF OR SOLUTION: Demo result, social proof, alternative option, or logical breakdown.',
-        'SOFT CLOSE: \'Does that help?\' \'Which option works better?\' \'Want to see what I mean?\' Give them a path forward.'
+        'TAKE IT: \'Listen, I know, I know...\' \'Ah, don\'t worry about that.\' \'Fair enough.\' You have heard it a hundred times. Let them see that on your face.',
+        'TURN IT ROUND: Give them another way to look at it. Per week, not per bottle. A year, not a purchase. Two minutes, not a commitment.',
+        'SHOW THEM SOMETHING: The mirror, their own hand, the box, the last customer. Anything at all beats more talking.',
+        'PUT THE QUESTION BACK: \'Which one suits you better?\' \'Want to see what I mean?\' Never leave a silence they can fill with a no.'
       ],
       itemsEs: [
-          'RECONOCER: "Lo entiendo perfectamente." "Eso es totalmente justo." "Escucho esto todo el tiempo." La validación desarma la defensiva.',
-          'REENMARCAR: Muéstrales una forma diferente de ver la situación. Costo por uso. Inversión vs. gasto. Experiencia vs. producto.',
-          'PROPORCIONAR PRUEBA O SOLUCIÓN: Resultado de demostración, prueba social, opción alternativa o desglose lógico.',
-          'CIERRE SUAVE: "¿Eso ayuda?" "¿Qué opción funciona mejor?" "¿Quieres ver a qué me refiero?" Dale un camino hacia adelante.',
+          'ENCÁJALO: "Mira, ya lo sé, ya lo sé..." "Ah, no te preocupes por eso." "Me parece bien." Lo has oído cien veces. Que se te note en la cara.',
+          'DALE LA VUELTA: Dales otra forma de mirarlo. Por semana, no por bote. Un año, no una compra. Dos minutos, no un compromiso.',
+          'ENSÉÑALES ALGO: El espejo, su propia mano, la caja, la clienta anterior. Cualquier cosa es mejor que seguir hablando.',
+          'DEVUÉLVELES LA PREGUNTA: "¿Cuál te va mejor?" "¿Quieres ver a qué me refiero?" Nunca dejes un silencio que puedan rellenar con un no.',
         ],
     },
     {
             type: 'tip',
-      text: 'The most powerful phrase in objection handling: \'I completely understand.\' These three words validate the customer\'s concern without agreeing with it. They create psychological safety. Once the customer feels heard, they\'re open to hearing your perspective.',
-      textEs: 'La frase más poderosa en el manejo de objeciones: "Lo entiendo perfectamente." Estas tres palabras validan la preocupación del cliente sin estar de acuerdo con ella. Crean seguridad psicológica. Una vez que el cliente se siente escuchado, está abierto a escuchar tu perspectiva.',
+      text: 'The move is: do not flinch. Whatever they throw at you, you take it like you have heard it a hundred times — because you have. \'Listen, I know, I know...\' \'Ah, don\'t worry about that.\' \'It\'s not a mortgage at the end of the day.\' You are not agreeing with them and you are not arguing with them. You are waving it off warm and carrying straight on to the next thing.',
+      textEs: 'La jugada es: no te achantes. Te tiren lo que te tiren, lo coges como quien lo ha oído cien veces — porque lo has oído. "Mira, ya lo sé, ya lo sé..." "Ah, no te preocupes por eso." "Tampoco es una hipoteca." Ni les das la razón ni discutes con ellos. Lo apartas con buen rollo y sigues directo a lo siguiente.',
     },
     {
             type: 'quote',
@@ -3248,15 +3217,15 @@ export const lessons: Record<string, Lesson> = {
     ],
     quiz: [
     {
-      question: 'What is the four-step objection handling framework?',
+      question: 'What are the four beats of an objection?',
       options: [
-        'Argue → Convince → Pressure → Close',
-        'Acknowledge → Reframe → Provide solution → Close',
+        'Argue → Convince → Wear them down → Close the sale anyway',
+        'Take it → Turn it round → Show them → Ask again',
         'Ignore → Discount → Give up → Walk away',
         'Agree → Agree → Agree → Accept no'
       ],
       correctIndex: 1,
-      explanation: 'The framework is: Acknowledge (validate their concern), Reframe (show a new perspective), Provide solution (proof, demo, or alternative), and Close (give them a path forward).',
+      explanation: 'Take it like you have heard it a hundred times, give them another way to look at it, show them something instead of saying more, then put the question back so they cannot fill the silence with a no.',
     },
     {
       question: 'How should you respond to \'I already have cream at home\'?',
@@ -3270,15 +3239,15 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'Don\'t compete with their cream — complement it. Position your product as the prep step that makes their existing cream work 10x better. They\'re not replacing; they\'re enhancing.',
     },
     {
-      question: 'Why is \'I completely understand\' such a powerful phrase in objection handling?',
+      question: 'They hit you with an objection. What is the first thing you do?',
       options: [
-        'It ends the conversation',
-        'It validates the customer\'s concern without agreeing with it, creating psychological safety',
-        'It means you agree with their objection',
-        'It confuses the customer'
+        'Explain in detail why the objection is mistaken',
+        'Take it like you have heard it a hundred times',
+        'Drop a rung on the price before they ask you to',
+        'Repeat the objection back to them word for word'
       ],
       correctIndex: 1,
-      explanation: '\'I completely understand\' validates the customer\'s feelings without conceding the point. It creates psychological safety that opens them to hearing your perspective.',
+      explanation: 'Do not flinch. \'Listen, I know, I know...\' \'Ah, don\'t worry about that.\' You are not agreeing and you are not arguing — you are waving it off warm and carrying straight on.',
     }
     ],
   },
@@ -3288,7 +3257,7 @@ export const lessons: Record<string, Lesson> = {
     title: 'The WhatsApp Close & Follow-Up',
     titleEs: 'El Cierre de WhatsApp y Seguimiento',
     subtitle: 'Turning one sale into a relationship — follow-up templates, client books, and referral strategies',
-    subtitleEs: 'El seguimiento cierra la mitad de las ventas',
+    subtitleEs: 'Convertir una venta en una relación — plantillas de seguimiento, libro de clientes y referencias',
     duration: '10 min',
     icon: 'MessageSquare',
     order: 8,
@@ -3301,13 +3270,13 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'A one-time sale is good. A returning customer is gold. A referring customer is a gold mine. The WhatsApp close transforms a single transaction into an ongoing relationship — and relationships are where real money is made. A customer who buys once might spend €150. A customer who returns three times and refers two friends might spend €1,000+ over their lifetime. That\'s the math that matters.',
-      textEs: 'Una venta única es buena. Un cliente que regresa es oro. Un cliente que refiere es una mina de oro. El cierre de WhatsApp transforma una transacción única en una relación continua — y las relaciones son donde se hace el dinero real. Un cliente que compra una vez podría gastar €150. Un cliente que regresa tres veces y refiere a dos amigos podría gastar €1,000+ a lo largo de su vida. Esa es la matemática que importa.',
+      text: 'A one-time sale is good. A returning customer is gold. A referring customer is a gold mine. The WhatsApp close transforms a single transaction into an ongoing relationship — and relationships are where real money is made. A customer who buys once might spend {currency}150. A customer who returns three times and refers two friends might spend {currency}1,000+ over their lifetime. That\'s the math that matters.',
+      textEs: 'Una venta única es buena. Un cliente que vuelve es oro. Un cliente que refiere es una mina de oro. El cierre de WhatsApp transforma una transacción única en una relación continua — y las relaciones son donde se hace el dinero real. Un cliente que compra una vez podría gastar {currency}150. Un cliente que vuelve tres veces y refiere a dos amigos podría gastar {currency}1,000+ a lo largo de su vida. Esa es la matemática que importa.',
     },
     {
             type: 'keypoint',
-      text: 'The WhatsApp close isn\'t just about having their number. It\'s about becoming their personal beauty advisor — the person they text when they need more product, when they have a question, when they\'re planning their next Andorra trip. You become their connection to the brand.',
-      textEs: 'El cierre de WhatsApp no se trata solo de tener su número. Se trata de convertirte en su asesor de belleza personal — la persona a la que escriben cuando necesitan más producto, cuando tienen una pregunta, cuando están planeando su próximo viaje a Andorra. Te conviertes en su conexión con la marca.',
+      text: 'The WhatsApp close isn\'t just about having their number. It\'s about becoming their personal beauty advisor — the person they text when they need more product, when they have a question, when they\'re planning their next {locationName} trip. You become their connection to the brand.',
+      textEs: 'El cierre de WhatsApp no se trata solo de tener su número. Se trata de convertirte en su asesor de belleza personal — la persona a la que escriben cuando necesitan más producto, cuando tienen una pregunta, cuando están planeando su próximo viaje a {locationName}. Te conviertes en su conexión con la marca.',
     },
     {
             type: 'divider'
@@ -3327,20 +3296,20 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'THE SETUP: \'You use WhatsApp, right? Perfect.\' This assumes they use it (most people do) and frames the exchange as natural.',
         'THE EXCHANGE: \'Give me your number and I\'ll send you my contact — if you ever need anything, want to reorder, or have questions about how to use it, just message me directly.\' This positions the connection as SERVICE, not marketing.',
-        'THE IMMEDIATE VALUE: Send a message RIGHT THEN while they\'re still in the shop. \'Hi [Name]! It\'s [Your Name] from Zero Lines in Andorra. Here\'s my number — save it! If you need anything at all, I\'m here. Enjoy your new products!\' This confirms the number works and establishes the channel immediately.',
+        'THE IMMEDIATE VALUE: Send a message RIGHT THEN while they\'re still in the shop. \'Hi [Name]! It\'s [Your Name] from Zero Lines in {locationName}. Here\'s my number — save it! If you need anything at all, I\'m here. Enjoy your new products!\' This confirms the number works and establishes the channel immediately.',
         'THE TWO PROMISES: \'Promise me two things: you\'ll actually use it, and if you love it, you\'ll tell your friends about us.\' These two promises create accountability and plant the referral seed.'
       ],
       itemsEs: [
           'LA CONFIGURACIÓN: "¿Usas WhatsApp, verdad? Perfecto." Esto asume que lo usan (la mayoría de la gente sí) y enmarca el intercambio como natural.',
           'EL INTERCAMBIO: "Dame tu número y te envío mi contacto — si alguna vez necesitas algo, quieres reordenar, o tienes preguntas sobre cómo usarlo, solo escríbeme directamente." Esto posiciona la conexión como SERVICIO, no como marketing.',
-          'EL VALOR INMEDIATO: Envía un mensaje EN ESE MOMENTO mientras todavía están en la tienda. "¡Hola [Nombre]! Soy [Tu Nombre] de Zero Lines en Andorra. Aquí está mi número — ¡guárdalo! Si necesitas algo en absoluto, aquí estoy. ¡Disfruta tus nuevos productos!" Esto confirma que el número funciona y establece el canal inmediatamente.',
+          'EL VALOR INMEDIATO: Envía un mensaje EN ESE MOMENTO mientras todavía están en la tienda. "¡Hola [Nombre]! Soy [Tu Nombre] de Zero Lines en {locationName}. Aquí está mi número — ¡guárdalo! Si necesitas algo en absoluto, aquí estoy. ¡Disfruta tus nuevos productos!" Esto confirma que el número funciona y establece el canal inmediatamente.',
           'LAS DOS PROMESAS: "Prométeme dos cosas: que realmente lo usarás, y si te encanta, que les contarás a tus amigos sobre nosotros." Estas dos promesas crean responsabilidad y plantan la semilla de la referencia.',
         ],
     },
     {
             type: 'script',
-      text: '\'You use WhatsApp, right? Perfect. Give me your number — I\'ll send you my contact right now. If you ever need to reorder, have questions about how to use it, or just want to say hi when you\'re back in Andorra, I\'m here. Here\'s my number too. We\'re officially friends now!\' [Send message immediately while they\'re in the shop.]',
-      textEs: '"¿Usas WhatsApp, verdad? Perfecto. Dame tu número — te envío mi contacto ahora mismo. Si alguna vez necesitas reordenar, tienes preguntas sobre cómo usarlo, o solo quieres saludar cuando regreses a Andorra, aquí estoy. Aquí está mi número también. ¡Ya somos amigos oficialmente!" [Envía el mensaje inmediatamente mientras están en la tienda.]',
+      text: '\'You use WhatsApp, right? Perfect. Give me your number — I\'ll send you my contact right now. If you ever need to reorder, have questions about how to use it, or just want to say hi when you\'re back in {locationName}, I\'m here. Here\'s my number too. We\'re officially friends now!\' [Send message immediately while they\'re in the shop.]',
+      textEs: '"¿Usas WhatsApp, verdad? Perfecto. Dame tu número — te envío mi contacto ahora mismo. Si alguna vez necesitas reordenar, tienes preguntas sobre cómo usarlo, o solo quieres saludar cuando vuelvas a {locationName}, aquí estoy. Aquí está mi número también. ¡Ya somos amigos oficialmente!" [Envía el mensaje inmediatamente mientras están en la tienda.]',
     },
     {
             type: 'divider'
@@ -3358,18 +3327,18 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'DAY 1 — THE CHECK-IN: \'Hi [Name]! Hope you\'re enjoying Andorra. Just wanted to check — did you try the [product] yet? Any questions? I\'m here if you need me!\' (Shows you care, opens dialogue.)',
+        'DAY 1 — THE CHECK-IN: \'Hi [Name]! Hope you\'re enjoying {locationName}. Just wanted to check — did you try the [product] yet? Any questions? I\'m here if you need me!\' (Shows you care, opens dialogue.)',
         'DAY 3 — THE TIP: \'Hey [Name]! Pro tip for the [product]: use it at night before bed so it has time to work its magic while you sleep. Let me know how it goes!\' (Adds value, keeps connection alive.)',
         'DAY 7 — THE LOVE CHECK: \'Hi [Name]! It\'s been a week — how are you loving the [product]? Have people noticed the difference? I bet they have!\' (Encourages them to reflect on results and share positive feelings.)',
-        'DAY 14 — THE REORDER NUDGE: \'Hey [Name]! If you\'re running low on anything or want to grab another before your next trip, just let me know. I can hold something for you!\' (Plants the reorder seed without pressure.)',
-        'MONTH 3 — THE RETURNING CUSTOMER: \'Hi [Name]! Missing Andorra yet? When you\'re planning your next trip, let me know — I have some new products I think you\'ll love. Plus, I\'ll have a little surprise waiting for you!\' (Creates anticipation for return visit.)'
+        'DAY 14 — THE REORDER NUDGE: \'Hey [Name]! If you\'re running low on anything, message me and I\'ll tell you exactly what we have in.\' (Opens the door to a reorder. Notice what it does not do: promise to hold anything, or promise a price, on a day you might not even be working.)',
+        'MONTH 3 — THE RETURNING CUSTOMER: \'Hi [Name]! Missing {locationName} yet? When you\'re planning your next trip, let me know — we have some lovely new bits in I think you\'ll go mad for.\' (Keeps you in their head without promising them anything somebody else has to honour.)'
       ],
       itemsEs: [
-          'DÍA 1 — EL CHECK-IN: "¡Hola [Nombre]! Espero que estés disfrutando Andorra. Solo quería checar — ¿ya probaste el [producto]? ¿Alguna pregunta? ¡Aquí estoy si me necesitas!" (Muestra que te importa, abre el diálogo.)',
+          'DÍA 1 — EL CHECK-IN: "¡Hola [Nombre]! Espero que estés disfrutando {locationName}. Solo quería comprobar — ¿ya probaste el [producto]? ¿Alguna pregunta? ¡Aquí estoy si me necesitas!" (Muestra que te importa, abre el diálogo.)',
           'DÍA 3 — EL TIP: "¡Hola [Nombre]! Tip pro para el [producto]: úsalo en la noche antes de dormir para que tenga tiempo de hacer su magia mientras duermes. ¡Dime cómo te va!" (Agrega valor, mantiene la conexión viva.)',
           'DÍA 7 — EL CHECK DE ENCANTO: "¡Hola [Nombre]! Ya hace una semana — ¿cómo te está gustando el [producto]? ¿La gente ha notado la diferencia? ¡Apuesto a que sí!" (Los anima a reflexionar sobre resultados y compartir sentimientos positivos.)',
-          'DÍA 14 — EL EMPUJÓN DE REORDEN: "¡Hola [Nombre]! Si se te está acabando algo o quieres agarrar otro antes de tu próximo viaje, solo avísame. ¡Puedo guardarte algo!" (Planta la semilla de reorden sin presión.)',
-          'MES 3 — EL CLIENTE QUE REGRESA: "¡Hola [Nombre]! ¿Ya extrañas Andorra? Cuando estés planeando tu próximo viaje, avísame — tengo algunos productos nuevos que creo que te encantarán. ¡Además, tendré una pequeña sorpresa esperándote!" (Crea anticipación para la visita de regreso.)',
+          'DÍA 14 — EL EMPUJÓN DE REPOSICIÓN: "¡Hola [Nombre]! Si se te está acabando algo, escríbeme y te digo justo lo que tenemos." (Abre la puerta a que repita. Fíjate en lo que no hace: prometer que le guardas nada, ni un precio, para un día en el que a lo mejor ni trabajas.)',
+          'MES 3 — EL CLIENTE QUE VUELVE: "¡Hola [Nombre]! ¿Ya echas de menos {locationName}? Cuando estés planeando el próximo viaje, avísame — nos han entrado cosas nuevas preciosas que creo que te van a volver loca." (Te mantiene en su cabeza sin prometerle nada que luego tenga que cumplir otro.)',
         ],
     },
     {
@@ -3393,13 +3362,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'SAVE EVERY NUMBER: Every customer who gives you their WhatsApp goes into your client book. No exceptions. Even the small €30 scrub buyers.',
+        'SAVE EVERY NUMBER: Every customer who gives you their WhatsApp goes into your client book. No exceptions. Even the small {currency}30 scrub buyers.',
         'ADD NOTES: After each sale, add a quick note: \'Maria — bought syringe, from Madrid, skiing trip, husband was skeptical but loved the result.\' These notes make future conversations personal.',
         'SEGMENT YOUR LIST: Mark customers by product purchased, location, and buying behavior. Your syringe customers are different from your scrub customers. Your gift buyers are different from your self-buyers.',
         'TRACK INTERACTIONS: Note who responded, who didn\'t, who asked questions, who referred friends. This data tells you who your best relationship customers are.'
       ],
       itemsEs: [
-          'GUARDA CADA NÚMERO: Cada cliente que te dé su WhatsApp entra en tu libro de clientes. Sin excepciones. Incluso los compradores pequeños de exfoliante de €30.',
+          'GUARDA CADA NÚMERO: Cada cliente que te dé su WhatsApp entra en tu libro de clientes. Sin excepciones. Incluso los compradores pequeños de exfoliante de {currency}30.',
           'AGREGA NOTAS: Después de cada venta, agrega una nota rápida: "María — compró jeringa, de Madrid, viaje de esquí, el esposo era escéptico pero amó el resultado." Estas notas hacen que las conversaciones futuras sean personales.',
           'SEGMENTA TU LISTA: Marca clientes por producto comprado, ubicación y comportamiento de compra. Tus clientes de jeringa son diferentes a tus clientes de exfoliante. Tus compradores de regalos son diferentes a tus compradores personales.',
           'RASTREA INTERACCIONES: Anota quién respondió, quién no, quién hizo preguntas, quién refirió amigos. Estos datos te dicen quiénes son tus mejores clientes de relación.',
@@ -3416,25 +3385,25 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Return Customer Techniques',
-      textEs: 'Técnicas para Clientes que Regresan',
+      textEs: 'Técnicas para Clientes que Vuelven',
     },
     {
             type: 'paragraph',
       text: 'Getting a customer to return is significantly easier than finding a new one. Here\'s how to encourage repeat visits:',
-      textEs: 'Hacer que un cliente regrese es significativamente más fácil que encontrar uno nuevo. Así es como fomentar visitas repetidas:',
+      textEs: 'Hacer que un cliente vuelva es significativamente más fácil que encontrar uno nuevo. Así es como fomentar visitas repetidas:',
     },
     {
             type: 'bullets',
       items: [
-        'THE EXCLUSIVE RETURN OFFER: \'When you come back, mention my name and I\'ll have a little something special waiting for you.\' Creates anticipation and exclusivity.',
+        'THE COME-BACK LINE: \'We\'re here all season — come and see us next time you\'re over.\' Warm, and it costs nobody anything. Do not promise them a gift or a price for a day you might not be working.',
         'THE NEW PRODUCT TEASE: \'We\'re getting a new line next month that I think you\'ll love. I\'ll message you when it arrives.\' Gives them a reason to stay connected.',
         'THE COMPLEMENTARY PRODUCT SUGGESTION: \'You have the syringe for your eyes. Next time, try the peeling for your face — they\'re incredible together.\' Plants the seed for an upsell on their return.',
         'THE PERSONAL CONNECTION: Remember details. \'How was your ski trip?\' \'Did your daughter like the Nail Kit?\' Personal memory creates loyalty stronger than any discount.'
       ],
       itemsEs: [
-          'LA OFERTA EXCLUSIVA DE REGRESO: "Cuando regreses, menciona mi nombre y tendré algo especial esperándote." Crea anticipación y exclusividad.',
+          'LA FRASE DE VUELTA: "Estamos aquí toda la temporada — pasaos a vernos la próxima vez que vengáis." Cercano, y no le cuesta nada a nadie. No les prometas un regalo ni un precio para un día en el que a lo mejor no trabajas.',
           'EL TEASER DE NUEVO PRODUCTO: "Vamos a recibir una nueva línea el mes que viene que creo que te encantará. Te escribo cuando llegue." Les da una razón para mantenerse conectados.',
-          'LA SUGERENCIA DE PRODUCTO COMPLEMENTARIO: "Ya tienes la jeringa para tus ojos. La próxima vez, prueba el peeling para tu rostro — son increíbles juntos." Planta la semilla para una venta adicional en su regreso.',
+          'LA SUGERENCIA DE PRODUCTO COMPLEMENTARIO: "Ya tienes la jeringa para tus ojos. La próxima vez, prueba el peeling para tu rostro — son increíbles juntos." Planta la semilla para una venta adicional en su vuelta.',
           'LA CONEXIÓN PERSONAL: Recuerda detalles. "¿Cómo estuvo tu viaje de esquí?" "¿A tu hija le gustó el Kit de Uñas?" La memoria personal crea lealtad más fuerte que cualquier descuento.',
         ],
     },
@@ -3456,14 +3425,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'THE IMMEDIATE ASK: During the two promises at close: \'If you love it, tell your friends about us.\' This plants the seed.',
         'THE RESULTS-BASED ASK: After they text you positively: \'I\'m so glad you love it! If you have any friends who\'d enjoy the same result, send them my way. I\'ll take great care of them too.\'',
-        'THE INCENTIVIZED ASK: \'Refer a friend who buys something, and next time you\'re in, I\'ll have a free gift waiting for you.\' Small incentive creates reciprocity.',
-        'THE SOCIAL PROOF ASK: \'Most of my new customers come from referrals. If you know anyone heading to Andorra, I\'d love to meet them!\' Makes asking feel natural, not salesy.'
+        'THE INCENTIVE IS YOU: \'Send them to me and I\'ll look after them exactly the way I looked after you.\' Your name and your service are the incentive. Never a gift or a price for a day you might not be working — that is a promise somebody else has to keep.',
+        'THE SOCIAL PROOF ASK: \'Most of my new customers come from referrals. If you know anyone heading to {locationName}, I\'d love to meet them!\' Makes asking feel natural, not salesy.'
       ],
       itemsEs: [
           'LA PREGUNTA INMEDIATA: Durante las dos promesas al cerrar: "Si te encanta, cuéntales a tus amigos sobre nosotros." Esto planta la semilla.',
           'LA PREGUNTA BASADA EN RESULTADOS: Después de que te escriban positivamente: "¡Me alegra tanto que te encante! Si tienes amigas que disfrutarían el mismo resultado, mándamelas. Yo también las cuidaré muy bien."',
-          'LA PREGUNTA INCENTIVADA: "Refiere a una amiga que compre algo, y la próxima vez que vengas, tendré un regalo gratis esperándote." Un pequeño incentivo crea reciprocidad.',
-          'LA PREGUNTA DE PRUEBA SOCIAL: "La mayoría de mis nuevos clientes vienen de referencias. Si conoces a alguien que vaya a Andorra, ¡me encantaría conocerlos!" Hace que pedir se sienta natural, no como venta.',
+          'EL INCENTIVO ERES TÚ: "Mándamelas y las cuido exactamente igual que te he cuidado a ti." Tu nombre y tu trato son el incentivo. Nunca un regalo ni un precio para un día en el que a lo mejor no trabajas — eso es una promesa que tiene que cumplir otro.',
+          'LA PREGUNTA DE PRUEBA SOCIAL: "La mayoría de mis nuevos clientes vienen de referencias. Si conoces a alguien que vaya a {locationName}, ¡me encantaría conocerlos!" Hace que pedir se sienta natural, no como venta.',
         ],
     },
     {
@@ -3492,7 +3461,7 @@ export const lessons: Record<string, Lesson> = {
           'NO HAGAS SPAM: Máximo un mensaje por semana. Los mensajes diarios no solicitados te hacen que te bloqueen.',
           'NO SEAS MUY VENDEDOR: Empieza con valor, cuidado y tips. Los mensajes de venta deben ser 1 de 5, no 5 de 5.',
           'NO IGNORES LAS RESPUESTAS: Si responden, responde tú. Una conversación es de dos vías.',
-          'NO COMPARTAS SU NÚMERO: Nunca des el contacto de un cliente a colegas o gerentes sin permiso. La confianza es todo.',
+          'NO COMPARTAS SU NÚMERO: Nunca des el contacto de un cliente a colegas o encargados sin permiso. La confianza es todo.',
           'NO ENVÍES MENSAJES A HORAS RARAS: Respeta su zona horaria. Un mensaje a las 11pm se siente invasivo.',
         ],
     },
@@ -3544,6 +3513,7 @@ export const lessons: Record<string, Lesson> = {
     id: 'psych-1',
     categoryId: 'psychology',
     title: 'The \'Luxury Aggressor\' Identity',
+    titleEs: 'La Identidad del \'Agresor de Lujo\'',
     subtitle: 'How to think of yourself as a premium brand ambassador, not a pushy seller',
     subtitleEs: 'No eres un vendedor insistente. Eres un curador de transformación.',
     duration: '8 min',
@@ -3558,13 +3528,13 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'The word \'aggressive\' scares people. But in luxury sales, aggression doesn\'t mean pushing — it means approaching with certainty. You are not begging. You are offering a carefully selected experience to someone who deserves it. The \'Luxury Aggressor\' is someone who combines the fearlessness of street sales with the polish of a Tiffany & Co. ambassador.',
-      textEs: 'La palabra \'agresivo\' asusta a la gente. Pero en ventas de lujo, la agresion no significa presionar — significa acercarse con certeza. No estas rogando. Estas ofreciendo una experiencia cuidadosamente seleccionada a alguien que se la merece. El \'Agresivo de Lujo\' es alguien que combina la audacia de las ventas de calle con el refinamiento de un embajador de Tiffany & Co.',
+      text: 'The word \'aggressive\' scares people. In this job it does not mean pushing. It means going at it with certainty. You are not begging anybody for anything — you run this bit of pavement, and you are offering something that most people walk straight past. Warm, quick, enjoying yourself. Not apologising and not chasing.',
+      textEs: 'La palabra \'agresivo\' asusta a la gente. En este trabajo no significa presionar. Significa ir con seguridad. No le estás rogando nada a nadie — este trozo de acera lo llevas tú, y estás ofreciendo algo por delante de lo que casi todo el mundo pasa de largo. Cálido, rápido, disfrutando. Sin pedir perdón y sin perseguir a nadie.',
     },
     {
             type: 'keypoint',
       text: 'The mindset shift: You\'re not interrupting someone\'s day — you\'re enhancing it. The products you sell deliver visible, immediate results. You\'re doing them a favor by stopping them.',
-      textEs: 'El cambio de mentalidad: No estas interrumpiendo el dia de alguien — lo estas mejorando. Los productos que vendes ofrecen resultados visibles e inmediatos. Les estas haciendo un favor al detenerlos.',
+      textEs: 'El cambio de mentalidad: No estas interrumpiendo el día de alguien — lo estas mejorando. Los productos que vendes ofrecen resultados visibles e inmediatos. Les estas haciendo un favor al detenerlos.',
     },
     {
             type: 'divider'
@@ -3592,23 +3562,23 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'The Identity Reframe Exercise',
-      textEs: 'El Ejercicio de Reenfoque de Identidad',
+      text: 'The Mirror Drill',
+      textEs: 'El Ejercicio del Espejo',
     },
     {
             type: 'paragraph',
-      text: 'Before your next shift, stand in front of a mirror and say this out loud:',
-      textEs: 'Antes de tu siguiente turno, parate frente al espejo y di esto en voz alta:',
+      text: 'Before your next shift, stand in front of the mirror and say your opener out loud twenty times. Not an affirmation — the actual line you are going to use on a stranger in an hour:',
+      textEs: 'Antes de tu siguiente turno, ponte delante del espejo y di tu apertura en voz alta veinte veces. No es un mantra — es la frase de verdad que le vas a soltar a un desconocido dentro de una hora:',
     },
     {
             type: 'script',
-      text: '\'I am the gatekeeper to an exclusive experience. I don\'t chase — I invite. My products transform how people look and feel. When I stop someone, I\'m offering them something most tourists walk right past. I am a Luxury Aggressor.\'',
-      textEs: '\'Soy el guardian de una experiencia exclusiva. No persigo — invito. Mis productos transforman como se ven y sienten las personas. Cuando detengo a alguien, les estoy ofreciendo algo que la mayoria de turistas deja pasar. Soy un Agresivo de Lujo.\'',
+      text: '\'Listen, I know you\'re in a rush, but can I ask you something real quick, because you look so good?\'',
+      textEs: '\'Mira, sé que vas con prisa, ¿pero te puedo preguntar una cosa rapidísima? Es que te veo muy bien.\'',
     },
     {
             type: 'tip',
-      text: 'Say it even if it feels silly. Your brain doesn\'t know the difference between practiced confidence and real confidence. After a week of this, it becomes who you are.',
-      textEs: 'Dilo incluso si te parece tonto. Tu cerebro no sabe la diferencia entre confianza practicada y confianza real. Despues de una semana de hacer esto, se convierte en quien eres.',
+      text: 'Twenty times. Somewhere around the twelfth it stops sounding like a line and starts sounding like you, and that is the entire point of the drill. A stranger can hear the difference from three metres away.',
+      textEs: 'Veinte veces. Por la número doce deja de sonar a frase hecha y empieza a sonar a ti, y ese es todo el objetivo del ejercicio. Un desconocido nota la diferencia desde tres metros.',
     },
     {
             type: 'divider'
@@ -3616,21 +3586,21 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Practical Techniques',
-      textEs: 'Tecnicas Practicas',
+      textEs: 'Técnicas Practicas',
     },
     {
             type: 'bullets',
       items: [
-        'Dress the part: Your appearance is your first credibility signal. Polish your shoes. Style your hair. Look like you belong in a premium boutique — because you do.',
+        'Dress the part: You are the first thing they judge. Clean shoes, hair done, shirt right. Look like somebody worth stopping for and they stop.',
         'Language matters: Say \'I\'d love to show you something\' not \'Can I show you something?\' The first is an invitation. The second is a question they can reject.',
         'Posture check: Shoulders back, chin up, smile in your eyes. Practice power poses in the stockroom before your shift.',
         'The pause: After you deliver your opener, pause. Let silence work. The Luxury Aggressor doesn\'t rush — they command attention, then let it land.'
       ],
       itemsEs: [
-          'Viste la parte: Tu apariencia es tu primera senal de credibilidad. Lustra tus zapatos. Arregla tu cabello. Ve como si pertenecieras a una boutique premium — porque asi es.',
+          'Viste el papel: Lo primero que juzgan eres tú. Zapatos limpios, el pelo arreglado, la camisa en su sitio. Parece alguien por quien merece la pena pararse y se paran.',
           'El lenguaje importa: Di \'Me encantaria mostrarte algo\' no \'Puedo mostrarte algo?\' La primera es una invitacion. La segunda es una pregunta que pueden rechazar.',
           'Revisa tu postura: Hombros hacia atras, barbilla arriba, sonrisa en tus ojos. Practica poses de poder en el almacen antes de tu turno.',
-          'La pausa: Despues de lanzar tu apertura, pausa. Deja que el silencio haga su trabajo. El Agresivo de Lujo no se apresura — comanda la atencion, y luego deja que caiga.',
+          'La pausa: Después de lanzar tu apertura, pausa. Deja que el silencio haga su trabajo. El Agresivo de Lujo no se apresura — comanda la atención, y luego deja que caiga.',
         ],
     },
     {
@@ -3644,7 +3614,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'Even the Luxury Aggressor gets ignored. The difference? They don\'t flinch. A rejected invitation isn\'t a reflection on you — it\'s a reflection on their timing, mood, or preoccupations. Maintain your posture. Smile at the next person. Your energy doesn\'t dip because one person said no.',
-      textEs: 'Incluso el Agresivo de Lujo es ignorado. La diferencia? No se inmutan. Una invitacion rechazada no es un reflejo de ti — es un reflejo de su tiempo, su estado de animo o sus preocupaciones. Manten tu postura. Sonrie a la siguiente persona. Tu energia no decae porque una persona dijo no.',
+      textEs: 'Incluso el Agresivo de Lujo es ignorado. La diferencia? No se inmutan. Una invitacion rechazada no es un reflejo de ti — es un reflejo de su tiempo, su estado de animo o sus preocupaciones. Manten tu postura. Sonrie a la siguiente persona. Tu energía no decae porque una persona dijo no.',
     },
     {
             type: 'quote',
@@ -3655,8 +3625,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'Watch videos of luxury retail staff at stores like Chanel, Dior, or high-end jewelers. Notice how they move, how they stand, how they speak. Copy what feels natural. Adapt it to your energy.',
-      textEs: 'Mira videos de personal de tiendas de lujo en lugares como Chanel, Dior, o joyerias de alta gama. Observa como se mueven, como se paran, como hablan. Copia lo que se sienta natural. Adaptalo a tu energia.',
+      text: 'Watch the best seller on this street for one shift. Not the words — how they stand while they wait, how fast they let somebody go, what they do with their hands. Take the two things that would feel natural coming out of you and leave the rest.',
+      textEs: 'Observa un turno entero al que mejor vende de esta calle. No las palabras — cómo se planta mientras espera, lo rápido que deja marchar a alguien, qué hace con las manos. Cógete las dos cosas que te saldrían naturales a ti y deja el resto.',
     }
     ],
     quiz: [
@@ -3710,17 +3680,17 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'header',
       text: 'Energy Sells Before Words Do',
-      textEs: 'Tu Energia Vende Antes que tus Palabras',
+      textEs: 'Tu Energía Vende Antes que tus Palabras',
     },
     {
             type: 'paragraph',
       text: 'Customers feel your energy from 5 meters away. Before they hear your voice, before they see your smile, they sense your vibration. Tired, heavy energy repels. Light, excited energy attracts. This isn\'t mystical — it\'s neuroscience. Humans have mirror neurons that cause us to emotionally sync with people around us. Your mood literally becomes their mood.',
-      textEs: 'Los clientes sienten tu energia a 5 metros de distancia. Antes de escuchar tu voz, antes de ver tu sonrisa, sienten tu vibracion. La energia cansada y pesada repele. La energia ligera y entusiasmada atrae. No es mistico — es neurociencia. Los seres humanos tenemos neuronas espejo que nos hacen sincronizarnos emocionalmente con las personas a nuestro alrededor. Tu estado de animo literalmente se convierte en el de ellos.',
+      textEs: 'Los clientes sienten tu energía a 5 metros de distancia. Antes de escuchar tu voz, antes de ver tu sonrisa, sienten tu vibracion. La energía cansada y pesada repele. La energía ligera y entusiasmada atrae. No es mistico — es neurociencia. Los seres humanos tenemos neuronas espejo que nos hacen sincronizarnos emocionalmente con las personas a nuestro alrededor. Tu estado de animo literalmente se convierte en el de ellos.',
     },
     {
             type: 'keypoint',
       text: 'Energy is more important than script, product knowledge, or pricing. A salesperson with great energy and average skills will outsell a tired expert every single time.',
-      textEs: 'La energia es mas importante que el guion, el conocimiento del producto o los precios. Un vendedor con gran energia y habilidades promedio vendera mas que un experto cansado, cada vez.',
+      textEs: 'La energía es mas importante que el guion, el conocimiento del producto o los precios. Un vendedor con gran energía y habilidades promedio vendera mas que un experto cansado, cada vez.',
     },
     {
             type: 'divider'
@@ -3728,12 +3698,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'The Energy Lifecycle of a Shift',
-      textEs: 'El Ciclo de Energia de un Turno',
+      textEs: 'El Ciclo de Energía de un Turno',
     },
     {
             type: 'paragraph',
       text: 'Most salespeople\'s energy follows a predictable curve: high at opening, dipping after the first hour, crashing mid-day, then a small recovery before closing. Top performers break this curve deliberately. Here\'s how:',
-      textEs: 'La energia de la mayoria de los vendedores sigue una curva predecible: alta al inicio, bajando despues de la primera hora, cayendo a mitad del dia, y luego una pequena recuperacion antes de cerrar. Los mejores rompen esta curva deliberadamente. Asi es como:',
+      textEs: 'La energía de la mayoria de los vendedores sigue una curva predecible: alta al inicio, bajando después de la primera hora, cayendo a mitad del día, y luego una pequena recuperacion antes de cerrar. Los mejores rompen esta curva deliberadamente. Asi es como:',
     },
     {
             type: 'numbered',
@@ -3747,11 +3717,11 @@ export const lessons: Record<string, Lesson> = {
       ],
       itemsEs: [
           'PRE-TURNO (30 min antes): Abastece tu cuerpo. Come una comida ligera rica en proteinas — no carbohidratos pesados que te hagan sentir lento. Hidratate. Escucha musica que te motive. Haz 2 minutos de jumping jacks o shadow boxing para despertar tu sistema nervioso.',
-          'HORA DE APERTURA (alerta maxima): Usala sabiamente. Tus primeras detenciones marcan el tono para todo el dia. Sonrie a CADA persona que pase, incluso si no las detienes. Esto genera momentum.',
-          'MEDIA MANANA (primer bajon): Aqui es cuando la rotacion de 4 minutos te salva. Usa tu tiempo adentro para recargarte — no revisando tu celular, sino tomando 5 respiraciones profundas, bebiendo agua y celebrando cualquier pequena victoria hasta ahora.',
+          'HORA DE APERTURA (alerta maxima): Usala sabiamente. Tus primeras detenciones marcan el tono para todo el día. Sonrie a CADA persona que pase, incluso si no las detienes. Esto genera momentum.',
+          'MEDIA MANANA (primer bajon): Aquí es cuando la rotacion de 4 minutos te salva. Usa tu tiempo adentro para recargarte — no mirando el móvil, sino tomando 5 respiraciones profundas, bebiendo agua y celebrando cualquier pequena victoria hasta ahora.',
           'PERIODO DE COMIDA: Come ligero. Una comida pesada matara tu tarde. Ensaladas, proteina, fruta. Evita la trampa de la pasta y el pan.',
-          'BAJON DE LA TARDE (la zona de peligro 2-4pm): Aqui es donde las ventas se ganan o se pierden. Parate mas derecho. Muevete mas rapido. Habla mas fuerte. Eleva conscientemente cada accion fisica — tu cerebro sigue a tu cuerpo.',
-          'HORA DE PODER (ultimos 90 minutos): Termina fuerte. El empuje final del dia a menudo tiene a los mejores clientes — ya terminaron de comprar y estan listos para ser vendidos. Pon todo lo que te queda.',
+          'BAJON DE LA TARDE (la zona de peligro 2-4pm): Aquí es donde las ventas se ganan o se pierden. Parate mas derecho. Muevete mas rápido. Habla mas fuerte. Eleva conscientemente cada acción física — tu cerebro sigue a tu cuerpo.',
+          'HORA DE PODER (ultimos 90 minutos): Termina fuerte. El empuje final del día a menudo tiene a los mejores clientes — ya terminaron de comprar y están listos para ser vendidos. Pon todo lo que te queda.',
         ],
     },
     {
@@ -3765,12 +3735,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'The 4-minute door rotation isn\'t just fair — it\'s energy management genius. Knowing you only have 4 minutes outside before switching keeps your intensity high. It\'s like interval training for sales. You sprint, recover, sprint again. This prevents the burnout that kills most street sellers by hour 3.',
-      textEs: 'La rotacion de puerta de 4 minutos no es solo justa — es una genialidad de manejo de energia. Saber que solo tienes 4 minutos afuera antes de cambiar mantiene tu intensidad alta. Es como entrenamiento por intervalos para ventas. Corres, recuperas, corres de nuevo. Esto previene el agotamiento que mata a la mayoria de los vendedores de calle a la hora 3.',
+      textEs: 'La rotacion de puerta de 4 minutos no es solo justa — es una genialidad de manejo de energía. Saber que solo tienes 4 minutos afuera antes de cambiar mantiene tu intensidad alta. Es como entrenamiento por intervalos para ventas. Corres, recuperas, corres de nuevo. Esto previene el agotamiento que mata a la mayoria de los vendedores de calle a la hora 3.',
     },
     {
             type: 'tip',
       text: 'During your 4 minutes outside, give 100% energy to every person you stop. During your inside time, consciously lower your shoulders, unclench your jaw, and breathe. This oscillation keeps you fresh all day.',
-      textEs: 'Durante tus 4 minutos afuera, da el 100% de tu energia a cada persona que detengas. Durante tu tiempo adentro, baja conscientemente tus hombros, relaja la mandibula y respira. Esta oscilacion te mantiene fresco todo el dia.',
+      textEs: 'Durante tus 4 minutos afuera, da el 100% de tu energía a cada persona que detengas. Durante tu tiempo adentro, baja conscientemente tus hombros, relaja la mandibula y respira. Esta oscilacion te mantiene fresco todo el día.',
     },
     {
             type: 'divider'
@@ -3778,30 +3748,31 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'The \'Fake It Till You Make It\' Technique',
-      textEs: 'La Tecnica \'Finge Hasta Que Lo Logres\'',
+      textEs: 'La Técnica \'Finge Hasta Que Lo Logres\'',
     },
     {
             type: 'paragraph',
-      text: 'Some days you just don\'t have it. You didn\'t sleep well. You\'re fighting with your partner. You\'re hungover. Here\'s the truth: your body can trick your brain. Research shows that acting energetic actually creates energy. Stand tall → feel more confident. Smile → feel happier. Speak loudly → feel more alert.'
+      text: 'Some days you just don\'t have it. You didn\'t sleep well. You\'re fighting with your partner. You\'re hungover. Here\'s the truth: your body can trick your brain. Research shows that acting energetic actually creates energy. Stand tall → feel more confident. Smile → feel happier. Speak loudly → feel more alert.',
+      textEs: 'Hay días en los que simplemente no lo tienes. No has dormido bien. Estás discutiendo con tu pareja. Vas con resaca. La verdad es esta: tu cuerpo puede engañar a tu cerebro. Los estudios demuestran que actuar con energía crea energía de verdad. Ponte recto → te sientes más seguro. Sonríe → te sientes más contento. Habla alto → te sientes más despierto.'
     },
     {
             type: 'script',
       text: '\'Even on my worst days, I play a character. I am High-Energy Salesperson. I smile bigger. I move faster. I speak with more enthusiasm. And within 30 minutes, I\'m not playing anymore — I actually feel it.\'',
-      textEs: '\'Incluso en mis peores dias, interpreto un personaje. Soy el Vendedor de Alta Energia. Sonrio mas grande. Me muevo mas rapido. Hablo con mas entusiasmo. Y dentro de 30 minutos, ya no estoy actuando — realmente lo siento.\'',
+      textEs: '\'Incluso en mis peores días, interpreto un personaje. Soy el Vendedor de Alta Energía. Sonrio mas grande. Me muevo mas rápido. Hablo con mas entusiasmo. Y dentro de 30 minutos, ya no estoy actuando — realmente lo siento.\'',
     },
     {
             type: 'bullets',
       items: [
-        'POWER POSE: Before your shift, stand with hands on hips and chest open for 2 minutes. It literally changes your cortisol/testosterone balance.',
+        'POWER POSE: Two minutes before your shift, hands on hips, chest open, chin up. Feels ridiculous, works anyway — you walk out onto the pavement already standing like somebody worth stopping for.',
         'THE SMILE LOOP: Force a wide smile for 10 seconds. Your brain releases dopamine and serotonin. Repeat every hour.',
         'MUSIC TRIGGERS: Create a 3-song playlist that always hypes you up. Listen during breaks.',
         'VOICE PROJECTION: Speak 20% louder than normal. Projecting energy through your voice makes you feel more energetic.'
       ],
       itemsEs: [
-          'POSE DE PODER: Antes de tu turno, parate con las manos en las caderas y el pecho abierto por 2 minutos. Literalmente cambia tu balance de cortisol/testosterona.',
+          'POSE DE PODER: Dos minutos antes del turno, manos en las caderas, pecho abierto, barbilla arriba. Es ridículo y funciona igual — sales a la acera ya plantado como alguien por quien merece la pena pararse.',
           'EL CICLO DE SONRISA: Fuerza una sonrisa amplia por 10 segundos. Tu cerebro libera dopamina y serotonina. Repite cada hora.',
           'DETONANTES MUSICALES: Crea una lista de 3 canciones que siempre te motiven. Escuchalas durante los descansos.',
-          'PROYECCION DE VOZ: Habla 20% mas fuerte de lo normal. Proyectar energia a traves de tu voz te hace sentir mas energetico.',
+          'PROYECCION DE VOZ: Habla 20% mas fuerte de lo normal. Proyectar energía a traves de tu voz te hace sentir mas energetico.',
         ],
     },
     {
@@ -3810,7 +3781,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Hydration, Nutrition & Physical Maintenance',
-      textEs: 'Hidratacion, Nutricion y Mantenimiento Fisico',
+      textEs: 'Hidratacion, Nutricion y Mantenimiento Físico',
     },
     {
             type: 'paragraph',
@@ -3820,16 +3791,14 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'Water: Drink at least 500ml every 2 hours. Dehydration is the #1 cause of afternoon fatigue.',
-        'Protein snacks: Nuts, protein bars, boiled eggs. Sustained energy without the crash.',
-        'Fresh fruit: Natural sugars for quick energy plus fiber to prevent crashes.',
-        'Avoid heavy lunches: They redirect blood from your brain to your stomach. You\'ll feel foggy and slow.'
+        'Water, not coffee. Your voice goes rough by two o\'clock otherwise, and your voice is what you sell with.',
+        'Something to pick at between customers — nuts, a bit of fruit. Small and often beats one big go.',
+        'Eat light at lunch. A proper plate of pasta at midday and you have sold your afternoon to somebody else.'
       ],
       itemsEs: [
-          'Agua: Bebe al menos 500ml cada 2 horas. La deshidratacion es la causa #1 de fatiga en la tarde.',
-          'Botanas de proteina: Nueces, barras de proteina, huevos hervidos. Energia sostenida sin el bajon.',
-          'Fruta fresca: Azucares naturales para energia rapida mas fibra para prevenir bajones.',
-          'Evita comidas pesadas: Redirigen sangre de tu cerebro a tu estomago. Te sentiras nublado y lento.',
+          'Agua, no café. Si no, a las dos de la tarde tienes la voz rota, y la voz es con lo que vendes.',
+          'Algo para picar entre clientes — frutos secos, un poco de fruta. Poco y a menudo gana a un atracón.',
+          'Come ligero a mediodía. Un buen plato de pasta a la hora de comer y le has vendido la tarde a otro.',
         ],
     },
     {
@@ -3840,7 +3809,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'quote',
       text: 'Your energy introduces you before you even speak. Make sure it\'s saying the right thing.',
-      textEs: 'Tu energia te presenta antes de que siquiera hables. Asegurate de que este diciendo lo correcto.',
+      textEs: 'Tu energía te presenta antes de que siquiera hables. Asegurate de que este diciendo lo correcto.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
@@ -3885,7 +3854,9 @@ export const lessons: Record<string, Lesson> = {
     id: 'psych-3',
     categoryId: 'psychology',
     title: 'Confidence When You Don\'t Feel It',
+    titleEs: 'Confianza Cuando No La Sientes',
     subtitle: 'Body language hacks, the \'act as if\' technique, and why customers can smell insecurity',
+    subtitleEs: 'Trucos de lenguaje corporal, la técnica de \'actúa como si\', y por qué el cliente huele la inseguridad',
     duration: '10 min',
     icon: 'Shield',
     order: 3,
@@ -3917,7 +3888,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'Your body speaks louder than your words. Before you even open your mouth, customers have judged your credibility from your posture, movement, and facial expression. Here are the specific adjustments that create instant confidence perception:',
-      textEs: 'Tu cuerpo habla mas fuerte que tus palabras. Antes de que siquiera abras la boca, los clientes han juzgado tu credibilidad por tu postura, movimiento y expresion facial. Aqui estan los ajustes especificos que crean percepcion de confianza instantanea:',
+      textEs: 'Tu cuerpo habla mas fuerte que tus palabras. Antes de que siquiera abras la boca, los clientes han juzgado tu credibilidad por tu postura, movimiento y expresion facial. Aquí están los ajustes especificos que crean percepcion de confianza instantanea:',
     },
     {
             type: 'bullets',
@@ -3931,10 +3902,10 @@ export const lessons: Record<string, Lesson> = {
       ],
       itemsEs: [
           'POSICION DE HOMBROS: Lleva tus hombros hacia atras y abajo. Esto abre tu pecho, mejora la respiracion y senala dominancia sin agresion. Practica esto cada vez que caminas por la puerta.',
-          'CONTACTO VISUAL: Manten el contacto visual por 2-3 segundos a la vez. Romper el contacto visual demasiado rapido senala nerviosismo. Mantenerlo demasiado tiempo se siente agresivo. El punto ideal es una conexion breve y confiada.',
+          'CONTACTO VISUAL: Manten el contacto visual por 2-3 segundos a la vez. Romper el contacto visual demasiado rápido senala nerviosismo. Mantenerlo demasiado tiempo se siente agresivo. El punto ideal es una conexion breve y confiada.',
           'SONRIE CON TUS OJOS: Una sonrisa genuina arruga las esquinas de tus ojos (sonrisa de Duchenne). Una sonrisa falsa de solo boca desencadena desconfianza en el cliente. Piensa en algo que genuinamente te hace feliz antes de acercarte.',
           'PALMAS ABIERTAS: Manten tus manos visibles con las palmas ligeramente abiertas. Esta es una senal biologica antigua de \'no tengo armas.\' Desencadena confianza subconsciente.',
-          'MOVIMIENTOS LENTOS: La gente nerviosa se mueve rapido y a tirones. La gente confiada se mueve deliberadamente. Ralentiza tus gestos un 20%. Pausa entre movimientos.',
+          'MOVIMIENTOS LENTOS: La gente nerviosa se mueve rápido y a tirones. La gente confiada se mueve deliberadamente. Ralentiza tus gestos un 20%. Pausa entre movimientos.',
           'POSTURA ESTABLE: Evita cambiar tu peso de pie a pie. Planta tus pies al ancho de los hombros. Esta postura \'enraizada\' senala estabilidad y certeza.',
         ],
     },
@@ -3944,7 +3915,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'The \'Act As If\' Technique',
-      textEs: 'La Tecnica \'Actua Como Si\'',
+      textEs: 'La Técnica \'Actua Como Si\'',
     },
     {
             type: 'paragraph',
@@ -3954,12 +3925,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'When I first started, I wasn\'t confident at all. So I picked a character — I imagined I was a famous actress playing the role of a badass saleswoman. I copied her posture, her voice, her walk. After two weeks, I wasn\'t acting anymore. I had become her.\'',
-      textEs: '\'Cuando empece, no era nada confiada. Asi que elegi un personaje — imagine que era una actriz famosa interpretando el papel de una vendedora increible. Copie su postura, su voz, su caminar. Despues de dos semanas, ya no estaba actuando. Me habia convertido en ella.\'',
+      textEs: '\'Cuando empece, no era nada confiada. Asi que elegi un personaje — imagine que era una actriz famosa interpretando el papel de una vendedora increible. Copie su postura, su voz, su caminar. Después de dos semanas, ya no estaba actuando. Me había convertido en ella.\'',
     },
     {
             type: 'tip',
       text: 'This is not about being fake. It\'s about rapid behavioral learning. By mimicking confident behaviors, you build the neural pathways that make confidence natural. Within 30 days of consistent practice, the \'act\' becomes authentic.',
-      textEs: 'Esto no se trata de ser falso. Se trata de aprendizaje conductual rapido. Al imitar comportamientos confiados, construyes las vias neuronales que hacen que la confianza sea natural. Dentro de 30 dias de practica constante, el \'acto\' se vuelve autentico.',
+      textEs: 'Esto no se trata de ser falso. Se trata de aprendizaje conductual rápido. Al imitar comportamientos confiados, construyes las vias neuronales que hacen que la confianza sea natural. Dentro de 30 días de practica constante, el \'acto\' se vuelve autentico.',
     },
     {
             type: 'divider'
@@ -3971,28 +3942,50 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'The deepest source of confidence is knowing you\'re ready. A prepared salesperson walks differently. They know they can handle any question, any objection, any situation. Here\'s your preparation checklist:',
-      textEs: 'La fuente mas profunda de confianza es saber que estas listo. Un vendedor preparado camina diferente. Saben que pueden manejar cualquier pregunta, cualquier objecion, cualquier situacion. Aqui esta tu lista de verificacion de preparacion:',
+      text: 'The deepest source of confidence is knowing you\'re ready. A prepared salesperson walks differently. But ready on day one and ready after a week are two different lists, and ticking nothing on your first shift is not a sign you are behind. Start with the day-one list:',
+      textEs: 'La fuente más profunda de confianza es saber que estás listo. Un vendedor preparado camina diferente. Pero estar listo el primer día y estarlo después de una semana son dos listas distintas, y no marcar nada en tu primer turno no significa que vayas atrasado. Empieza por la lista del primer día:',
     },
     {
             type: 'checklist',
       items: [
-        'I can pitch all 4 products from memory without hesitation',
-        'I know every price point and offer combination by heart',
-        'I have 3 different openers for each product ready to go',
-        'I\'ve practiced the demo on myself or a teammate until it\'s smooth',
-        'I know 5 common objections and my responses to each',
-        'I\'ve rehearsed my voucher close until it feels natural',
+        'I know where to stand and when to start the approach — the 2-metre rule and the 3-second rule',
+        'I have 3 different openers ready to go without thinking about them',
+        'I\'ve practiced one demo on myself or a teammate until it\'s smooth',
         'I know my daily target and my personal best — and I\'m committed to beating it'
       ],
       itemsEs: [
-          'Puedo presentar los 4 productos de memoria sin dudar',
-          'Se cada punto de precio y combinacion de oferta de memoria',
-          'Tengo 3 aperturas diferentes para cada producto listas para usar',
-          'He practicado la demo en mi mismo o un companero hasta que salga fluida',
-          'Se 5 objeciones comunes y mis respuestas para cada una',
-          'He ensayado mi cierre con cupon hasta que se sienta natural',
-          'Se mi meta diaria y mi mejor marca personal — y estoy comprometido a superarla',
+          'Sé dónde colocarme y cuándo empezar el acercamiento — la regla de 2 metros y la regla de los 3 segundos',
+          'Tengo 3 aperturas distintas listas para soltarlas sin pensar',
+          'He practicado una demo conmigo mismo o con un compañero hasta que sale fluida',
+          'Sé mi objetivo diario y mi mejor marca personal — y me he comprometido a superarla',
+        ],
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'By the End of Your First Week',
+      textEs: 'Para el Final de Tu Primera Semana',
+    },
+    {
+            type: 'paragraph',
+      text: 'These four are not day-one items. Each one lives in a lesson further up the ladder, named below, and you tick it once you have done that lesson — not before:',
+      textEs: 'Estos cuatro no son del primer día. Cada uno vive en una lección más arriba en la escalera, que te indicamos abajo, y lo marcas cuando hayas hecho esa lección — no antes:',
+    },
+    {
+            type: 'checklist',
+      items: [
+        'I can pitch all 4 products from memory without hesitation — Price Anchoring Psychology',
+        'I know every price point and offer combination by heart — Price Anchoring Psychology and The Two-Choice Framework',
+        'I know 5 common objections and my responses to each — Objection Handling Library',
+        'I\'ve rehearsed my voucher close until it feels natural — The Voucher Close'
+      ],
+      itemsEs: [
+          'Puedo presentar los 4 productos de memoria sin dudar — Psicología del Anclaje de Precio',
+          'Me sé todos los precios y combinaciones de oferta de memoria — Psicología del Anclaje de Precio y El Marco de Dos Opciones',
+          'Me sé 5 objeciones comunes y mi respuesta para cada una — Biblioteca de Manejo de Objeciones',
+          'He ensayado mi cierre con cupón hasta que sale natural — El Cierre con Voucher'
         ],
     },
     {
@@ -4001,7 +3994,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Vocal Confidence Techniques',
-      textEs: 'Tecnicas de Confianza Vocal',
+      textEs: 'Técnicas de Confianza Vocal',
     },
     {
             type: 'bullets',
@@ -4012,8 +4005,8 @@ export const lessons: Record<string, Lesson> = {
         'BREATHING: Take a full breath before speaking. Shallow breathing creates shaky voices. Deep diaphragmatic breathing creates resonance and stability.'
       ],
       itemsEs: [
-          'VOLUMEN: Habla 15-20% mas fuerte que tu voz normal de conversacion. Las voces bajas senalan incertidumbre. Las voces proyectadas comandan atencion.',
-          'RITMO: La gente nerviosa habla rapido. Ralentiza tu habla un 20%. Las pausas se sienten mas largas para ti que para el oyente. Una pausa de 2 segundos suena pensativa, no incomoda.',
+          'VOLUMEN: Habla 15-20% mas fuerte que tu voz normal de conversación. Las voces bajas senalan incertidumbre. Las voces proyectadas comandan atención.',
+          'RITMO: La gente nerviosa habla rápido. Ralentiza tu habla un 20%. Las pausas se sienten mas largas para ti que para el oyente. Una pausa de 2 segundos suena pensativa, no incomoda.',
           'TONO DESCENDENTE: Termina las oraciones con un tono ligeramente mas bajo. El tono ascendente (entonacion ascendente al final de las afirmaciones) suena como si estuvieras preguntando, lo que socava la autoridad.',
           'RESPIRACION: Toma una respiracion completa antes de hablar. La respiracion superficial crea voces temblorosas. La respiracion diafragmatica profunda crea resonancia y estabilidad.',
         ],
@@ -4021,7 +4014,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'tip',
       text: 'Record yourself pitching on your phone. Listen back. Most people are shocked at how uncertain they sound. Do this weekly and track your improvement. Within a month, you\'ll hear the transformation.',
-      textEs: 'Grabate haciendo tu presentacion en tu celular. Escuchate de vuelta. La mayoria de la gente se sorprende de lo inseguro que suena. Haz esto semanalmente y rastrea tu mejora. Dentro de un mes, escucharas la transformacion.',
+      textEs: 'Grabate haciendo tu presentacion con el móvil. Escuchate de vuelta. La mayoria de la gente se sorprende de lo inseguro que suena. Haz esto semanalmente y rastrea tu mejora. Dentro de un mes, escucharas la transformacion.',
     },
     {
             type: 'quote',
@@ -4052,7 +4045,7 @@ export const lessons: Record<string, Lesson> = {
         'LOWER THE STAKES: Tell yourself \'I\'m just practicing.\' This removes the pressure and lets you be playful again.'
       ],
       itemsEs: [
-          'ALAJATE: Pide un rapido descanso de 2 minutos al bano. Echate agua fria en la cara. El reinicio fisico desencadena un reinicio mental.',
+          'ALAJATE: Pide un rápido descanso de 2 minutos al bano. Echate agua fria en la cara. El reinicio físico desencadena un reinicio mental.',
           'RECUERDA UNA VICTORIA: Piensa en tu mejor venta de todos los tiempos. Siente ese momento de nuevo. Recuerda que SI eres capaz.',
           'AJUSTA UNA COSA: No intentes arreglarlo todo. Elige UN comportamiento — quizas tu postura, quizas tu sonrisa — y enfocate solo en eso para los siguientes 3 clientes.',
           'REDUCE LAS APUESTAS: Dite a ti mismo \'solo estoy practicando.\' Esto elimina la presion y te deja ser jugueton de nuevo.',
@@ -4061,7 +4054,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'tip',
       text: 'Create a \'confidence anchor\' — a physical gesture paired with a powerful memory. For example, touching your thumb and forefinger together while remembering your best sale. After practicing this 20 times, the gesture alone triggers confidence.',
-      textEs: 'Crea un \'ancla de confianza\' — un gesto fisico emparejado con un recuerdo poderoso. Por ejemplo, juntar tu pulgar e indice mientras recuerdas tu mejor venta. Despues de practicar esto 20 veces, el gesto solo desencadena confianza.',
+      textEs: 'Crea un \'ancla de confianza\' — un gesto físico emparejado con un recuerdo poderoso. Por ejemplo, juntar tu pulgar e indice mientras recuerdas tu mejor venta. Después de practicar esto 20 veces, el gesto solo desencadena confianza.',
     }
     ],
     quiz: [
@@ -4104,8 +4097,9 @@ export const lessons: Record<string, Lesson> = {
     id: 'psych-4',
     categoryId: 'psychology',
     title: 'Rejection-Proof Mindset',
-    titleEs: 'La Urgencia de Cierre',
+    titleEs: 'Mentalidad a Prueba de Rechazo',
     subtitle: 'Why \'no\' is training. The numbers game. How top sellers process rejection.',
+    subtitleEs: 'Por qué un \'no\' es entrenamiento. El juego de los números. Cómo encajan el rechazo los mejores.',
     duration: '8 min',
     icon: 'Shield',
     order: 4,
@@ -4119,7 +4113,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'If you stop 100 people in a day, and 80 ignore you, 15 say \'no thanks,\' and 5 buy — you\'ve had a GREAT day. But most people don\'t see the 95 rejections as the path to 5 wins. They see 95 failures. That perspective destroys performance. The rejection-proof mindset sees every interaction as data, not drama.',
-      textEs: 'Si detienes a 100 personas en un dia, y 80 te ignoran, 15 dicen \'no gracias,\' y 5 compran — has tenido un GRAN dia. Pero la mayoria de la gente no ve los 95 rechazos como el camino a 5 victorias. Ven 95 fracasos. Esa perspectiva destruye el desempeno. La mentalidad a prueba de rechazo ve cada interaccion como datos, no como drama.',
+      textEs: 'Si detienes a 100 personas en un día, y 80 te ignoran, 15 dicen \'no gracias,\' y 5 compran — has tenido un GRAN día. Pero la mayoria de la gente no ve los 95 rechazos como el camino a 5 victorias. Ven 95 fracasos. Esa perspectiva destruye el desempeno. La mentalidad a prueba de rechazo ve cada interaccion como datos, no como drama.',
     },
     {
             type: 'keypoint',
@@ -4137,13 +4131,14 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'The best baseball hitters in history fail 70% of the time. A .300 batting average — failing 7 out of 10 times — is considered excellent. In sales, a 5-10% close rate makes you a top earner. You\'re not failing 90-95% of the time. You\'re succeeding at a rate that most people would consider elite performance.',
-      textEs: 'Los mejores bateadores de beisbol en la historia fallan el 70% del tiempo. Un promedio de bateo de .300 — fallar 7 de cada 10 veces — se considera excelente. En ventas, una tasa de cierre del 5-10% te convierte en un top de ganancias. No estas fallando el 90-95% del tiempo. Estas teniendo exito a una tasa que la mayoria de la gente consideraria desempeno de elite.',
+      textEs: 'Los mejores bateadores de beisbol en la historia fallan el 70% del tiempo. Un promedio de bateo de .300 — fallar 7 de cada 10 veces — se considera excelente. En ventas, una tasa de cierre del 5-10% te convierte en un top de ganancias. No estas fallando el 90-95% del tiempo. Estas teniendo éxito a una tasa que la mayoria de la gente consideraria desempeno de elite.',
     },
     {
             type: 'comparison',
       left: { label: 'Amateur Mindset', text: '\'I\'m terrible. 20 people said no today. I suck at this. Maybe I\'m not cut out for sales.\' Each rejection feels personal and builds a story of failure.' },
       leftEs: { label: 'Mentalidad de Aficionado', text: '\'Soy terrible. 20 personas dijeron que no hoy. Soy malisimo en esto. Quizas no sirvo para ventas.\' Cada rechazo se siente personal y construye una historia de fracaso.' },
-      right: { label: 'Pro Mindset', text: '\'20 rejections today means I\'m 20% closer to my next close. My ratio holds at 1 in 15. Two more stops and I\'ll likely hit a sale.\' Each rejection is data confirming the ratio.' }
+      right: { label: 'Pro Mindset', text: '\'20 rejections today means I\'m 20% closer to my next close. My ratio holds at 1 in 15. Two more stops and I\'ll likely hit a sale.\' Each rejection is data confirming the ratio.' },
+      rightEs: { label: 'Mentalidad Profesional', text: '\'20 rechazos hoy significan que estoy un 20% más cerca de mi próximo cierre. Mi ratio se mantiene en 1 de cada 15. Dos paradas más y probablemente cierro una venta.\' Cada rechazo es un dato que confirma el ratio.' }
     },
     {
             type: 'divider'
@@ -4156,7 +4151,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'The most powerful mental habit in sales is instantaneous reset. The moment a customer walks away, that interaction is erased. It doesn\'t exist anymore. Your total focus shifts to the next person approaching. This is how top sellers maintain energy through 8 hours of rejection.',
-      textEs: 'El habito mental mas poderoso en ventas es el reinicio instantaneo. En el momento en que un cliente se aleja, esa interaccion se borra. Ya no existe. Tu enfoque total se traslada a la siguiente persona que se acerque. Asi es como los mejores vendedores mantienen energia a traves de 8 horas de rechazo.',
+      textEs: 'El habito mental mas poderoso en ventas es el reinicio instantaneo. En el momento en que un cliente se aleja, esa interaccion se borra. Ya no existe. Tu enfoque total se traslada a la siguiente persona que se acerque. Asi es como los mejores vendedores mantienen energía a traves de 8 horas de rechazo.',
     },
     {
             type: 'script',
@@ -4166,7 +4161,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'tip',
       text: 'Practice the \'next\' technique literally. After every rejection — verbal or just being ignored — say the word \'next\' quietly to yourself. This creates a mental reset ritual that becomes automatic.',
-      textEs: 'Practica la tecnica del \'siguiente\' literalmente. Despues de cada rechazo — verbal o simplemente ser ignorado — di la palabra \'siguiente\' en voz baja para ti mismo. Esto crea un ritual de reinicio mental que se vuelve automatico.',
+      textEs: 'Practica la técnica del \'siguiente\' literalmente. Después de cada rechazo — verbal o simplemente ser ignorado — di la palabra \'siguiente\' en voz baja para ti mismo. Esto crea un ritual de reinicio mental que se vuelve automático.',
     },
     {
             type: 'divider'
@@ -4188,19 +4183,19 @@ export const lessons: Record<string, Lesson> = {
         'Personal problems: Fights, health issues, stress. They\'re not really there.'
       ],
       itemsEs: [
-          'Van con prisa: Reunion, reserva, cansados de comprar. No habia nada que pudieras haber hecho.',
+          'Van con prisa: Reunion, reserva, cansados de comprar. No había nada que pudieras haber hecho.',
           'Acaban de gastar dinero: El agotamiento del presupuesto es real. El mejor pitch del mundo no abrira una cartera vacia.',
-          'No estan en mood de comprar hoy: Algunos dias la gente solo mira. La misma persona podria comprar con entusiasmo manana.',
+          'No están en mood de comprar hoy: Algunos días la gente solo mira. La misma persona podría comprar con entusiasmo manana.',
           'Tuvieron una mala experiencia con un vendedor anterior: Estas pagando por el error de alguien mas.',
           'No compran nada de vacaciones: Algunas personas tienen una regla de \'no compras de viaje\'.',
-          'Estan abrumados: Demasiadas opciones, demasiada informacion. Se bloquean.',
-          'Problemas personales: Peleas, problemas de salud, estres. Realmente no estan ahi.',
+          'Están abrumados: Demasiadas opciones, demasiada informacion. Se bloquean.',
+          'Problemas personales: Peleas, problemas de salud, estres. Realmente no están ahi.',
         ],
     },
     {
             type: 'keypoint',
       text: 'When you internalize that rejection is almost never personal, you stop carrying it. The customer isn\'t rejecting YOU. They\'re rejecting the interaction, the timing, or their own readiness.',
-      textEs: 'Cuando interiorizas que el rechazo casi nunca es personal, dejas de cargar con el. El cliente no te esta rechazando a TI. Estan rechazando la interaccion, el momento, o su propia disposicion.',
+      textEs: 'Cuando interiorizas que el rechazo casi nunca es personal, dejas de cargar con el. El cliente no te esta rechazando a TI. Están rechazando la interaccion, el momento, o su propia disposicion.',
     },
     {
             type: 'divider'
@@ -4208,12 +4203,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'How Top Sellers Process a Bad Day',
-      textEs: 'Como los Mejores Vendedores Procesan un Mal Dia',
+      textEs: 'Como los Mejores Vendedores Procesan un Mal Día',
     },
     {
             type: 'paragraph',
       text: 'Even the best have terrible days. Here\'s the protocol that separates pros from amateurs:',
-      textEs: 'Incluso los mejores tienen dias terribles. Aqui esta el protocolo que separa a los profesionales de los aficionados:',
+      textEs: 'Incluso los mejores tienen días terribles. Aquí esta el protocolo que separa a los profesionales de los aficionados:',
     },
     {
             type: 'numbered',
@@ -4225,11 +4220,11 @@ export const lessons: Record<string, Lesson> = {
         'TALK TO TEAMMATES: Everyone has bad days. Sharing yours normalizes it. Hearing that your colleague also got rejected 30 times makes you feel less alone.'
       ],
       itemsEs: [
-          'NO TE LO LLEVES A CASA: En el momento en que fichas tu salida, el dia se acabo. No repitas los rechazos en tu cabeza toda la noche. Ese dia ya no existe.',
-          'ENCUENTRA UNA VICTORIA: Incluso en el peor dia, encuentra UNA cosa que hiciste bien. Quizas tu apertura fue fluida. Quizas tu demo estuvo genial aunque no compraron. Enfocate en eso.',
-          'ANALIZA PATRONES: Si te estan rechazando mas de lo usual, busca patrones. Esta baja tu energia? Estas deteniendo a las personas equivocadas? Tu apertura esta cansada? Arregla la mecanica, no tu autoestima.',
-          'DUERMETELO: Un mal dia se siente como una crisis a las 6pm y a menudo no significa nada a la manana siguiente. Nunca tomes decisiones de carrera basadas en un mal turno.',
-          'HABLA CON TUS COMPANEROS: Todos tienen malos dias. Compartir los tuyos lo normaliza. Escuchar que tu companero tambien fue rechazado 30 veces te hace sentir menos solo.',
+          'NO TE LO LLEVES A CASA: En el momento en que fichas tu salida, el día se acabo. No repitas los rechazos en tu cabeza toda la noche. Ese día ya no existe.',
+          'ENCUENTRA UNA VICTORIA: Incluso en el peor día, encuentra UNA cosa que hiciste bien. Quizas tu apertura fue fluida. Quizas tu demo estuvo genial aunque no compraron. Enfocate en eso.',
+          'ANALIZA PATRONES: Si te están rechazando mas de lo usual, busca patrones. Esta baja tu energía? Estas deteniendo a las personas equivocadas? Tu apertura esta cansada? Arregla la mecanica, no tu autoestima.',
+          'DUERMETELO: Un mal día se siente como una crisis a las 6pm y a menudo no significa nada a la manana siguiente. Nunca tomes decisiones de carrera basadas en un mal turno.',
+          'HABLA CON TUS COMPANEROS: Todos tienen malos días. Compartir los tuyos lo normaliza. Escuchar que tu companero también fue rechazado 30 veces te hace sentir menos solo.',
         ],
     },
     {
@@ -4238,12 +4233,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'subheader',
       text: 'Turning a Bad Day Around',
-      textEs: 'Cambiar un Mal Dia',
+      textEs: 'Cambiar un Mal Día',
     },
     {
             type: 'paragraph',
       text: 'Sometimes you can actually SAVE a bad day. Here\'s the emergency turnaround protocol:',
-      textEs: 'A veces puedes realmente SALVAR un mal dia. Aqui esta el protocolo de emergencia para darle la vuelta:',
+      textEs: 'A veces puedes realmente SALVAR un mal día. Aquí esta el protocolo de emergencia para darle la vuelta:',
     },
     {
             type: 'bullets',
@@ -4254,16 +4249,16 @@ export const lessons: Record<string, Lesson> = {
         'ASK A TEAMMATE TO WATCH YOU: Sometimes you have a blind spot. A colleague might notice you\'re rushing, or your posture has collapsed, or you\'re not making eye contact. External feedback is gold.'
       ],
       itemsEs: [
-          'CAMBIA UNA COSA: Si has estado usando la misma apertura todo el dia y te rechazan, cambiala completamente. La energia nueva rompe el patron.',
+          'CAMBIA UNA COSA: Si has estado usando la misma apertura todo el día y te rechazan, cambiala completamente. La energía nueva rompe el patron.',
           'APUNTA A DIFERENTES PERSONAS: Si has estado deteniendo a mujeres solas y fallando, prueba con parejas. O viceversa. Diferentes demografias responden a diferentes energias.',
           'VUELVE A LO BASICO: Cuando todo se desmorona, simplifica. Deja de pensar demasiado. Sonrie, haz contacto visual, lanza tu apertura mas limpia. Los fundamentos arreglan los bajones.',
-          'PIDE A UN COMPANERO QUE TE OBSERVE: A veces tienes un punto ciego. Un colega podria notar que te estas apresurando, o que tu postura se ha derrumbado, o que no estas haciendo contacto visual. La retroalimentacion externa es oro.',
+          'PIDE A UN COMPANERO QUE TE OBSERVE: A veces tienes un punto ciego. Un colega podría notar que te estas apresurando, o que tu postura se ha derrumbado, o que no estas haciendo contacto visual. La retroalimentacion externa es oro.',
         ],
     },
     {
             type: 'quote',
       text: 'The only difference between a top seller and a quitter is that the top seller kept going through the days they wanted to quit.',
-      textEs: 'La unica diferencia entre un top vendedor y alguien que se rinde es que el top vendedor siguio adelante en los dias que quiso rendirse.',
+      textEs: 'La única diferencia entre un top vendedor y alguien que se rinde es que el top vendedor siguio adelante en los días que quiso rendirse.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     },
@@ -4341,13 +4336,13 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'The Science of Emotional Contagion',
-      textEs: 'La Ciencia del Contagio Emocional',
+      text: 'You Catch It Off Each Other',
+      textEs: 'Se Contagia y Ya Está',
     },
     {
             type: 'paragraph',
-      text: 'Research by psychologists Elaine Hatfield and others shows that emotional contagion occurs in three stages: mimicry (unconsciously copying facial expressions), feedback (your brain reads your own facial expression and generates matching emotions), and synchronization (both people end up in the same emotional state).',
-      textEs: 'Las investigaciones de las psicólogas Elaine Hatfield y otros muestran que el contagio emocional ocurre en tres etapas: la imitación (copiar inconscientemente las expresiones faciales), la retroalimentación (tu cerebro lee tu propia expresión facial y genera emociones coincidentes) y la sincronización (ambas personas terminan en el mismo estado emocional).',
+      text: 'You already know this one. Stand next to somebody in a foul mood for two minutes and you are in one. Customers catch yours before you have opened your mouth — from three metres, straight off your face. Come out heavy and they go guarded. Come out light and they come closer. That is the whole lesson.',
+      textEs: 'Esto ya te lo sabes. Ponte dos minutos al lado de alguien de mal humor y ya estás de mal humor. Los clientes te lo pillan antes de que abras la boca — desde tres metros, directamente de la cara. Sal pesado y se ponen a la defensiva. Sal ligero y se acercan. Esa es toda la lección.',
     },
     {
             type: 'paragraph',
@@ -4399,7 +4394,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'High Energy / Excitement', text: 'Best for: Groups, holiday shoppers, first sales of the day, younger customers, high-traffic periods. Creates urgency and fun. Risks: Can overwhelm introverts or analytical buyers. Can feel pushy if overdone.' },
       leftEs: { label: 'Alta Energía / Entusiasmo', text: 'Ideal para: Grupos, compradores de temporada, primeras ventas del día, clientes jóvenes, períodos de alto tráfico. Crea urgencia y diversión. Riesgos: Puede abrumar a compradores introvertidos o analíticos. Puede sentirse agresivo si se exagera.' },
-      right: { label: 'Calm / Warm Energy', text: 'Best for: Couples, older customers, serious buyers, afternoon lulls, luxury positioning. Creates trust and sophistication. Risks: Can feel low-energy if you\'re not genuinely present. Requires excellent listening skills.' }
+      right: { label: 'Calm / Warm Energy', text: 'Best for: Couples, older customers, serious buyers, afternoon lulls, luxury positioning. Creates trust and sophistication. Risks: Can feel low-energy if you\'re not genuinely present. Requires excellent listening skills.' },
+      rightEs: { label: 'Energía Tranquila / Cercana', text: 'Mejor para: parejas, clientes mayores, compradores serios, las horas muertas de la tarde, posicionamiento de lujo. Genera confianza y sofisticación. Riesgos: puede parecer falta de energía si no estás de verdad presente. Requiere una escucha excelente.' }
     },
     {
             type: 'tip',
@@ -4472,15 +4468,15 @@ export const lessons: Record<string, Lesson> = {
     ],
     quiz: [
     {
-      question: 'How does emotional contagion work according to psychological research?',
+      question: 'When does a customer first pick up your mood?',
       options: [
-        'Customers consciously analyze your body language',
-        'Through mimicry, feedback, and synchronization between people',
-        'Only through verbal communication',
-        'It doesn\'t exist — it\'s just a theory'
+        'Once you have been chatting for a minute or two',
+        'Before you have said a word',
+        'Only when you tell them how your day is going',
+        'After the demo, when they see the result in the mirror'
       ],
       correctIndex: 1,
-      explanation: 'Research shows emotional contagion works in three stages: mimicry (copying expressions), feedback (brain generates matching emotions from your own expressions), and synchronization (both people end up in the same emotional state).',
+      explanation: 'They catch it off your face from three metres, before you open your mouth. Come out heavy and they go guarded; come out light and they come closer.',
     },
     {
       question: 'When is calm, warm energy most appropriate?',
@@ -4525,8 +4521,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'You can\'t pour from an empty cup. A salesperson running on 4 hours of sleep, fast food, and no exercise is a salesperson running at 40% capacity. The job demands energy, clarity, emotional stability, and presence — all of which are built OUTSIDE the shop. Investing in your physical and mental wellbeing isn\'t indulgent. It\'s professional development.',
-      textEs: 'No puedes dar de lo que no tienes. Un vendedor que funciona con 4 horas de sueño, comida rápida y sin ejercicio es un vendedor que rinde al 40% de su capacidad. El trabajo exige energía, claridad, estabilidad emocional y presencia — todo lo cual se construye FUERA de la tienda. Invertir en tu bienestar físico y mental no es un lujo. Es desarrollo profesional.',
+      text: 'A seller on four hours\' sleep, a bad lunch and no daylight is a seller who is slow on the door and flat in the chair. Everything you turn up with was built outside the shop. And you are on commission: a bad night costs you real money the next day. That is the whole argument.',
+      textEs: 'Un vendedor con cuatro horas de sueño, una mala comida y sin ver la luz del día es un vendedor lento en la puerta y apagado en la silla. Todo lo que traes puesto se ha construido fuera de la tienda. Y estás a comisión: una mala noche te cuesta dinero de verdad al día siguiente. Ese es todo el argumento.',
     },
     {
             type: 'keypoint',
@@ -4549,13 +4545,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'Your emotional resilience drops by 60%. Rejections hurt more.',
+        'Your skin gets thinner. The same no that bounced off you at ten in the morning stings at six.',
         'Your facial expressions become flatter and less genuine. Customers notice.',
         'Your verbal fluency decreases. Words don\'t come as easily.',
         'Your motivation and drive plummet. You stop more hesitantly.'
       ],
       itemsEs: [
-          'Tu resiliencia emocional cae un 60%. Los rechazos duelen más.',
+          'Se te pone la piel más fina. El mismo no que a las diez de la mañana te resbalaba, a las seis escuece.',
           'Tus expresiones faciales se vuelven más planas y menos genuinas. Los clientes se dan cuenta.',
           'Tu fluidez verbal disminuye. Las palabras no salen tan fácilmente.',
           'Tu motivación y empuje se desploman. Te detienes de forma más vacilante.',
@@ -4660,33 +4656,31 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'Building a Growth Mindset: Books, Podcasts & Learning',
-      textEs: 'Construyendo una Mentalidad de Crecimiento: Libros, Podcasts y Aprendizaje',
+      text: 'Where You Actually Learn This',
+      textEs: 'Dónde se Aprende Esto de Verdad',
     },
     {
             type: 'paragraph',
-      text: 'The best salespeople are perpetual learners. They read, listen, and constantly expand their understanding of human psychology, communication, and business. Here are recommended resources:',
-      textEs: 'Los mejores vendedores son aprendices perpetuos. Leen, escuchan y expanden constantemente su comprensión de la psicología humana, la comunicación y los negocios. Aquí hay recursos recomendados:',
+      text: 'You will not find this job in a book. You will find it about four metres away from you, every single shift:',
+      textEs: 'Este trabajo no lo vas a encontrar en un libro. Lo tienes a unos cuatro metros de ti, en cada turno:',
     },
     {
             type: 'bullets',
       items: [
-        'BOOKS: \'Influence\' by Robert Cialdini (the science of persuasion), \'How to Win Friends and Influence People\' by Dale Carnegie (classic rapport building), \'Mindset\' by Carol Dweck (growth vs. fixed mindset), \'The Psychology of Selling\' by Brian Tracy (sales-specific strategies), \'Atomic Habits\' by James Clear (building better routines)',
-        'PODCASTS: Sales-focused podcasts for daily motivation and new techniques. Listen during your commute or while getting ready for work.',
-        'VIDEO CONTENT: Watch TED talks on body language, persuasion, and confidence. Amy Cuddy\'s talk on power posing is particularly relevant.',
-        'LEARN FROM OTHER INDUSTRIES: Great ideas come from cross-pollination. Watch how luxury hotels greet guests. Study how Apple Store employees approach customers. Notice what great restaurant servers do to create experiences.'
+        'WATCH THE BEST SELLER ON THIS STREET FOR ONE SHIFT: Not what they say — what they do with their hands, and how quickly they let somebody go. Four hours of that beats four books.',
+        'GO AND BE A CUSTOMER SOMEWHERE: A shop, a market, a bar. Notice the exact thing that made you stop, and the exact thing that made you want to leave. Steal the first one, never do the second.',
+        'STEAL FROM OTHER TRADES: How a good waiter reads a table before anybody has ordered. How a doorman greets somebody he has never met. Same job as yours, different uniform.'
       ],
       itemsEs: [
-          'LIBROS: \'Influencia\' de Robert Cialdini (la ciencia de la persuasión), \'Cómo Ganar Amigos e Influir sobre las Personas\' de Dale Carnegie (construcción clásica de rapport), \'Mindset\' de Carol Dweck (mentalidad de crecimiento vs. fija), \'La Psicología de la Venta\' de Brian Tracy (estrategias específicas de ventas), \'Hábitos Atómicos\' de James Clear (construcción de mejores rutinas)',
-          'PODCASTS: Podcasts enfocados en ventas para motivación diaria y nuevas técnicas. Escúchalos durante tu traslado o mientras te preparas para el trabajo.',
-          'CONTENIDO EN VIDEO: Ve pláticas TED sobre lenguaje corporal, persuasión y confianza. La plática de Amy Cuddy sobre posturas de poder es particularmente relevante.',
-          'APRENDE DE OTRAS INDUSTRIAS: Las grandes ideas vienen de la polinización cruzada. Observa cómo los hoteles de lujo reciben a sus huéspedes. Estudia cómo los empleados de Apple Store se acercan a los clientes. Fíjate qué hacen los grandes meseros para crear experiencias.',
+          'OBSERVA UN TURNO ENTERO AL QUE MEJOR VENDE DE ESTA CALLE: No lo que dice — lo que hace con las manos, y lo rápido que deja marchar a alguien. Cuatro horas de eso valen más que cuatro libros.',
+          'VE A SER CLIENTE A ALGÚN SITIO: Una tienda, un mercado, un bar. Fíjate en qué te hizo pararte exactamente, y en qué te dio ganas de irte. Róbate lo primero y no hagas nunca lo segundo.',
+          'RÓBALE A OTROS OFICIOS: Cómo un buen camarero lee una mesa antes de que nadie haya pedido. Cómo un portero saluda a alguien a quien no ha visto en su vida. El mismo trabajo que el tuyo con otro uniforme.',
         ],
     },
     {
             type: 'tip',
-      text: 'Set a learning goal: one book per month, or one podcast episode per day during your commute. In 6 months, you\'ll have absorbed more sales knowledge than most people acquire in years. Small daily learning compounds into massive advantage.',
-      textEs: 'Establece una meta de aprendizaje: un libro al mes, o un episodio de podcast al día durante tu traslado. En 6 meses, habrás absorbido más conocimiento de ventas que la mayoría de las personas adquiere en años. El aprendizaje diario pequeño se acumula en una ventaja masiva.',
+      text: 'One thing a week. Watch one person, or go and be a customer once, and take exactly one thing away from it. In six months that is twenty-odd moves that are yours, and not one of them came out of a book.',
+      textEs: 'Una cosa por semana. Observa a una persona, o vete a ser cliente una vez, y llévate exactamente una cosa. En seis meses eso son veintitantas jugadas que son tuyas, y ninguna ha salido de un libro.',
     },
     {
             type: 'quote',
@@ -4736,8 +4730,9 @@ export const lessons: Record<string, Lesson> = {
     id: 'psych-7',
     categoryId: 'psychology',
     title: 'The Science of Persuasion',
-    titleEs: 'Anclaje de Precio',
+    titleEs: 'La Ciencia de la Persuasión',
     subtitle: 'Cialdini\'s 6 principles applied to YOUR floor — with real examples for each',
+    subtitleEs: 'Los 6 principios de Cialdini aplicados a TU calle — con un ejemplo real de cada uno',
     duration: '10 min',
     icon: 'Brain',
     order: 7,
@@ -4755,8 +4750,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'keypoint',
-      text: 'These principles aren\'t tricks or manipulation. They are fundamental aspects of human social psychology. Using them ethically means creating genuine win-win situations where customers get real value and you earn your commission.',
-      textEs: 'Estos principios no son trucos ni manipulación. Son aspectos fundamentales de la psicología social humana. Usarlos de forma ética significa crear situaciones de ganar-ganar genuinas donde los clientes obtienen valor real y tú ganas tu comisión.',
+      text: 'None of this is new. Every trader in every market on earth has been using these six since long before anybody gave them names — Cialdini just wrote them down and got famous for it. You are already doing three of them by accident. Here is what all six sound like on your pavement.',
+      textEs: 'Nada de esto es nuevo. Todos los vendedores de todos los mercados del mundo llevan usando estas seis desde mucho antes de que nadie les pusiera nombre — Cialdini solo las escribió y se hizo famoso. Tres de ellas ya las estás haciendo sin darte cuenta. Aquí tienes cómo suenan las seis en tu acera.',
     },
     {
             type: 'divider'
@@ -4810,13 +4805,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'THE TAX HAVEN ADVANTAGE: \'Around Europe this is €500, but here in Andorra, because we\'re a tax haven, it\'s only €300.\' The scarcity of the tax-haven pricing creates urgency — they can\'t get this price at home.',
+        'THE PRICE GAP: \'Around Europe this is {currency}500, but here in {locationName}, it\'s only {currency}300.\' The scarcity of that {currency}300 price creates urgency — they can\'t get it at home.',
         'SEASONAL OFFERS: \'This Christmas offer ends soon, and I\'d hate for you to miss it.\' Time-limited scarcity pushes decision-making.',
         'LIMITED STOCK: \'I only have two samples left\' or \'These sell out every weekend.\' Physical scarcity increases perceived value.',
         'THE VOUCHER CLOSE: \'I can only do this once, just for you.\' Personal scarcity — a unique opportunity that won\'t repeat.'
       ],
       itemsEs: [
-          'LA VENTAJA DEL PARAÍSO FISCAL: \'En toda Europa esto cuesta €500, pero aquí en Andorra, porque somos un paraíso fiscal, cuesta solo €300.\' La escasez del precio de paraíso fiscal crea urgencia — no pueden obtener este precio en su país.',
+          'LA DIFERENCIA DE PRECIO: \'En toda Europa esto cuesta {currency}500, pero aquí en {locationName}, cuesta solo {currency}300.\' La escasez de ese precio de {currency}300 crea urgencia — no pueden conseguirlo en su país.',
           'OFERTAS DE TEMPORADA: \'Esta oferta de Navidad termina pronto, y odiaría que te la pierdas.\' La escasez de tiempo limitado empuja la toma de decisiones.',
           'STOCK LIMITADO: \'Solo me quedan dos muestras\' o \'Estos se agotan cada fin de semana.\' La escasez física aumenta el valor percibido.',
           'EL CIERRE CON CUPÓN: \'Solo puedo hacer esto una vez, solo para ti.\' Escasez personal — una oportunidad única que no se repetirá.',
@@ -4826,7 +4821,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Weak Scarcity', text: '\'You should buy this while you\'re here.\' Vague, generic, no specific reason to act now. Customers ignore it.' },
       leftEs: { label: 'Escasez Débil', text: '\'Deberías comprar esto mientras estás aquí.\' Vago, genérico, sin razón específica para actuar ahora. Los clientes lo ignoran.' },
-      right: { label: 'Strong Scarcity', text: '\'This price only exists in Andorra. When you cross the border, it goes back to €500. That\'s a €200 savings you only get today, right here.\' Specific, verifiable, personal.' }
+      right: { label: 'Strong Scarcity', text: '\'This price only exists in {locationName}. When you cross the border, it goes back to {currency}500. That\'s a {currency}200 savings you only get today, right here.\' Specific, verifiable, personal.' },
+      rightEs: { label: 'Escasez Fuerte', text: '\'Este precio solo existe en {locationName}. En cuanto cruzas la frontera, vuelve a {currency}500. Son {currency}200 de ahorro que solo consigues hoy, aquí mismo.\' Concreto, comprobable, personal.' }
     },
     {
             type: 'divider'
@@ -4838,19 +4834,19 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'People defer to experts and credible sources. When a doctor recommends a treatment, we listen. When you position yourself as a skincare expert, customers listen. Authority is built through:',
-      textEs: 'Las personas ceden ante expertos y fuentes creíbles. Cuando un doctor recomienda un tratamiento, escuchamos. Cuando te posicionas como un experto en cuidado de la piel, los clientes escuchan. La autoridad se construye a través de:',
+      text: 'People listen to whoever clearly knows what they are doing. Authority on a kiosk is not a certificate on the wall — it is volume and hands. You have done this a hundred times today and it shows in how you hold their wrist. Authority is built through:',
+      textEs: 'La gente escucha a quien se ve claramente que sabe lo que hace. La autoridad en un puesto de calle no es un título en la pared — son volumen y manos. Hoy has hecho esto cien veces y se te nota en cómo les coges la muñeca. La autoridad se construye con:',
     },
     {
             type: 'bullets',
       items: [
-        'KNOWLEDGE: Knowing the ingredients, the science, the dermatologist recommendations. \'This contains Dead Sea minerals — the lowest place on Earth with the highest mineral concentration.\'',
+        'KNOWLEDGE: Knowing what is in it without having to check. \'This is Dead Sea mineral salt — lowest place on Earth, highest mineral concentration there is.\'',
         'CONFIDENT DELIVERY: Experts don\'t hesitate. They don\'t say \'um\' and \'I think.\' They state facts clearly: \'This is our #1 seller across Europe.\'',
         'VISUAL CREDIBILITY: Looking professional, well-groomed, and polished. Your appearance IS your authority signal.',
         'SOCIAL PROOF: \'I\'ve done this demo over 20 times today, and the reaction is always the same.\' Your experience IS authority.'
       ],
       itemsEs: [
-          'CONOCIMIENTO: Saber los ingredientes, la ciencia, las recomendaciones de dermatólogos. \'Esto contiene minerales del Mar Muerto — el lugar más bajo de la Tierra con la mayor concentración de minerales.\'',
+          'CONOCIMIENTO: Saberte lo que lleva sin tener que mirarlo. \'Esto es sal mineral del Mar Muerto — el sitio más bajo de la Tierra, la mayor concentración de minerales que hay.\'',
           'ENTREGA CON CONFIANZA: Los expertos no dudan. No dicen \'emmm\' ni \'yo creo\'. Enuncian hechos con claridad: \'Este es nuestro producto #1 en toda Europa.\'',
           'CREDIBILIDAD VISUAL: Verse profesional, bien arreglado y pulido. Tu apariencia ES tu señal de autoridad.',
           'PRUEBA SOCIAL: \'He hecho esta demostración más de 20 veces hoy, y la reacción siempre es la misma.\' Tu experiencia ES autoridad.',
@@ -4858,8 +4854,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'Dermatologists actually recommend this for eczema and psoriasis. It\'s not just beauty — it\'s science-backed skin health.\' This positions the product as medically endorsed, not just cosmetically appealing.',
-      textEs: '\'Los dermatólogos realmente recomiendan esto para el eczema y la psoriasis. No es solo belleza — es salud de la piel respaldada por la ciencia.\' Esto posiciona el producto como respaldado médicamente, no solo como cosméticamente atractivo.',
+      text: '\'I have done this on about forty faces today. I know exactly how it goes on skin like yours.\' That is your authority, and nobody can argue with it — it happened, they watched you do it, and it is nobody\'s opinion but your own hands.',
+      textEs: '\'Hoy lo he hecho en unas cuarenta caras. Sé exactamente cómo queda en una piel como la tuya.\' Esa es tu autoridad, y no hay quien la discuta — ha pasado, te han visto hacerlo, y no es la opinión de nadie más que de tus propias manos.',
     },
     {
             type: 'divider'
@@ -4951,7 +4947,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'script',
       text: '\'I did this demo for a woman earlier who said she\'d \'think about it.\' She came back an hour later and bought two. Once you feel the difference, it stays with you.\' This story creates social proof AND plants the seed that they might come back too.',
-      textEs: '\'Le hice esta demostración a una mujer hace rato que dijo que lo \'pensaría\'. Regresó una hora después y compró dos. Una vez que sientes la diferencia, se queda contigo.\' Esta historia crea prueba social Y planta la semilla de que ellos también podrían regresar.',
+      textEs: '\'Le hice esta demostración a una mujer hace rato que dijo que lo \'pensaría\'. Volvió una hora después y compró dos. Una vez que sientes la diferencia, se queda contigo.\' Esta historia crea prueba social Y planta la semilla de que ellos también podrían volver.',
     },
     {
             type: 'quote',
@@ -4974,15 +4970,15 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'Reciprocity is the principle that people feel obliged to give back when they receive something. A free hand massage is a gift that creates a psychological pull to reciprocate by listening to your pitch or making a purchase.',
     },
     {
-      question: 'How does the tax-haven pricing activate the scarcity principle?',
+      question: 'How does the {locationName} price activate the scarcity principle?',
       options: [
-        'It makes the product seem rare',
-        'It creates a unique price advantage that only exists in Andorra and cannot be replicated elsewhere',
+        'It makes the product seem rare and hard to find in any other shop',
+        'It is a price that only exists in {locationName}, nowhere else',
         'It makes customers feel special',
         'It creates time pressure'
       ],
       correctIndex: 1,
-      explanation: 'The tax-haven pricing creates genuine scarcity — the €300 price only exists in Andorra. Customers cannot get this price at home, making the opportunity geographically limited and rare.',
+      explanation: 'The {currency}300 price only exists in {locationName} — back home the same product is {currency}500. Customers cannot get this price once they cross the border, making the opportunity geographically limited and rare.',
     },
     {
       question: 'Why is getting a small \'yes\' early in the interaction powerful?',
@@ -5074,15 +5070,15 @@ export const lessons: Record<string, Lesson> = {
             type: 'bullets',
       items: [
         'THE AFTER-ACTION REVIEW: After every interaction — yes OR no — ask yourself three questions: What did I notice about this person? What did I do? What was the result? Write it down. This forces your brain to process patterns.',
-        'THE CUSTOMER LOG: Keep a small notebook. For each customer: nationality (if known), approximate age, what they were wearing, who they were with, what product you demoed, what objection they gave, did they buy. Over weeks, patterns emerge.',
+        'THE ONE THAT GOT AWAY: At the end of the shift, write down two — the one that got away and the one that landed. Not their age, not what they were wearing. The moment. The exact second she went from \'no thanks\' to laughing, or the exact second you lost her. That is the only bit worth keeping.',
         'STUDY YOUR WINS: What did your buyers have in common? Were they couples? Did they carry luxury bags? Were they in a certain age range? Your best customers have patterns.',
         'STUDY YOUR LOSSES EQUALLY: What did non-buyers have in common? Were they in a rush? Were they on their phones? Did they have kids? Understanding who WON\'T buy is as valuable as understanding who will.'
       ],
       itemsEs: [
           'LA REVISIÓN POST-ACCIÓN: Después de cada interacción — sí O no — hazte tres preguntas: ¿Qué noté de esta persona? ¿Qué hice? ¿Cuál fue el resultado? Escríbelo. Esto obliga a tu cerebro a procesar patrones.',
-          'EL REGISTRO DE CLIENTES: Lleva una libreta pequeña. Para cada cliente: nacionalidad (si se sabe), edad aproximada, qué traía puesto, con quién estaba, qué producto demostraste, qué objeción presentaron, compraron. Con el tiempo, emergen patrones.',
+          'LA QUE SE TE ESCAPÓ: Al final del turno apunta dos — la que se te escapó y la que entró. Ni la edad, ni la ropa. El momento. El segundo exacto en que pasó de \'no, gracias\' a reírse, o el segundo exacto en que la perdiste. Eso es lo único que merece la pena guardar.',
           'ESTUDIA TUS VICTORIAS: ¿Qué tenían en común tus compradores? ¿Eran parejas? ¿Traían bolsas de lujo? ¿Eran de cierto rango de edad? Tus mejores clientes tienen patrones.',
-          'ESTUDIA TUS DERROTAS POR IGUAL: ¿Qué tenían en común los que no compraron? ¿Estaban apurados? ¿Estaban en su teléfono? ¿Traían niños? Entender quién NO comprará es tan valioso como entender quién sí.',
+          'ESTUDIA TUS DERROTAS POR IGUAL: ¿Qué tenían en común los que no compraron? ¿Estaban con prisa? ¿Estaban en su teléfono? ¿Traían niños? Entender quién NO comprará es tan valioso como entender quién sí.',
         ],
     },
     {
@@ -5090,37 +5086,33 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'Reading Micro-Signals: The Language of the Body',
-      textEs: 'Leyendo Micro-Señales: El Lenguaje del Cuerpo',
+      text: 'Watch Her Hands, Not Her Mouth',
+      textEs: 'Mírale las Manos, No la Boca',
     },
     {
             type: 'paragraph',
-      text: 'Micro-signals are tiny, often unconscious cues that reveal what someone is really thinking. They happen in milliseconds. A master salesperson reads these automatically:',
-      textEs: 'Las micro-señales son pistas diminutas, a menudo inconscientes, que revelan lo que alguien realmente está pensando. Ocurren en milisegundos. Un vendedor maestro las lee automáticamente:',
+      text: 'People tell you what they have decided long before they say it, and almost never with words. Four tells, and you can catch all four while you are still talking:',
+      textEs: 'La gente te dice lo que ha decidido mucho antes de decirlo, y casi nunca con palabras. Cuatro señales, y las pillas todas mientras sigues hablando:',
     },
     {
             type: 'bullets',
       items: [
-        'EYE DIRECTION: Looking up and to the left often indicates visual imagination (they\'re picturing the result). Looking down indicates internal dialogue (they\'re thinking through the logic). Rapid eye movement between you and the product indicates interest.',
-        'MICRO-EXPRESSIONS: A brief flash of surprise when you mention the price (they expected higher). A quick eyebrow raise when you show the demo result (they\'re impressed but trying to hide it). These flashes reveal true feelings beneath the polite mask.',
-        'POSTURE SHIFTS: Leaning in = interest. Crossing arms after the price = resistance. Relaxing shoulders after the offer = acceptance. The body reveals the decision before the mouth does.',
-        'TOUCHING THE FACE: Touching the cheek or chin while looking at the product = they\'re imagining themselves using it. A very positive signal.',
-        'BREATHING CHANGES: A held breath when you show the price, then a release = relief (they can afford it). Shallow breathing = anxiety about the price.',
-        'VOICE TONE CHANGES: Higher pitch when asking questions = excitement. Lower, slower speech = thoughtful consideration (often a buying signal). Flat tone = disengagement.'
+        'SHE HASN\'T STOPPED TOUCHING HER OWN HANDS: Or the spot you treated, or the mirror. She is already yours. You just have not said the number yet.',
+        'SHE ASKS THE PRICE BEFORE YOU OFFER IT: That is not a question. That is a yes with a price attached. Answer it straight away and go to the two options.',
+        'THE ARMS FOLD THE SECOND YOU SAY THE NUMBER: That is the price, not the product. Do not explain the product again — go down a rung and put something in the bag.',
+        'THE PHONE COMES OUT TWICE: You have lost her. Be lovely about it and let her go — that is what she remembers, and her sister is behind her tomorrow.'
       ],
       itemsEs: [
-          'DIRECCIÓN DE LA MIRADA: Mirar hacia arriba y a la izquierda a menudo indica imaginación visual (se están imaginando el resultado). Mirar hacia abajo indica diálogo interno (están pensando la lógica). El movimiento rápido de ojos entre tú y el producto indica interés.',
-          'MICRO-EXPRESIONES: Un breve destello de sorpresa cuando mencionas el precio (esperaban algo más alto). Un rápido levantamiento de ceja cuando muestras el resultado de la demostración (están impresionados pero intentando ocultarlo). Estos destellos revelan los sentimientos verdaderos bajo la máscara de cortesía.',
-          'CAMBIOS DE POSTURA: Inclinarse hacia adelante = interés. Cruzar brazos después del precio = resistencia. Relajar hombros después de la oferta = aceptación. El cuerpo revela la decisión antes de que la boca lo haga.',
-          'TOCARSE LA CARA: Tocarse la mejilla o barbilla mientras miran el producto = se están imaginando usándolo. Una señal muy positiva.',
-          'CAMBIOS EN LA RESPIRACIÓN: Contener la respiración cuando muestras el precio, luego soltarla = alivio (lo pueden pagar). Respiración superficial = ansiedad sobre el precio.',
-          'CAMBIOS EN EL TONO DE VOZ: Tono más alto al hacer preguntas = emoción. Habla más baja y lenta = consideración reflexiva (a menudo una señal de compra). Tono plano = desconexión.',
+          'NO HA PARADO DE TOCARSE LAS MANOS: O la zona que le has tratado, o el espejo. Ya es tuya. Lo único que falta es que digas el número.',
+          'TE PREGUNTA EL PRECIO ANTES DE QUE SE LO DIGAS: Eso no es una pregunta. Es un sí con un precio pegado. Contéstale al momento y ve a las dos opciones.',
+          'SE CRUZA DE BRAZOS EN CUANTO DICES EL NÚMERO: Es el precio, no el producto. No le vuelvas a explicar el producto — baja un escalón y mete algo en la bolsa.',
+          'SACA EL MÓVIL DOS VECES: La has perdido. Sé encantador y déjala marchar — eso es lo que se lleva, y mañana su hermana viene detrás.',
         ],
     },
     {
             type: 'tip',
-      text: 'Don\'t try to read all micro-signals at once. Pick ONE signal per week to focus on. For example, week 1: notice when customers lean in vs. lean back. Week 2: watch for face-touching. Within 2 months, you\'ll be reading the full picture automatically.',
-      textEs: 'No intentes leer todas las micro-señales a la vez. Elige UNA señal por semana para enfocarte. Por ejemplo, semana 1: nota cuándo los clientes se inclinan hacia adelante vs. hacia atrás. Semana 2: observa cuándo se tocan la cara. En 2 meses, estarás leyendo el panorama completo automáticamente.',
+      text: 'Do not try to watch all four at once. Take the hands first — it is the easiest one to see and the one that tells you the most. Once you catch that without thinking about it, add the next.',
+      textEs: 'No intentes fijarte en las cuatro a la vez. Empieza por las manos — es la más fácil de ver y la que más te dice. Cuando la pilles sin pensarlo, añade la siguiente.',
     },
     {
             type: 'divider'
@@ -5150,8 +5142,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'I can see you\'re thinking about it — that\'s smart. Here\'s my WhatsApp. If you have any questions later, or if you want to come back and try something else, just message me. No pressure at all.\' This plants a seed, builds a bridge, and respects their signals.',
-      textEs: '\'Veo que lo estás pensando — eso es inteligente. Aquí está mi WhatsApp. Si tienes preguntas más tarde, o si quieres regresar y probar algo más, solo escríbeme. Ninguna presión.\' Esto planta una semilla, construye un puente y respeta sus señales.',
+      text: '\'I can see you\'re thinking about it — so tell me what about. You told me you like it. You told me you\'d use it. So it\'s the price, my love. Say the number out loud and let me see what I can do.\' Read the signals, absolutely — but read them so you know which line to reach for, not so you know when to open the door for her.',
+      textEs: '\'Veo que lo estás pensando — pues dime en qué. Me has dicho que te gusta. Me has dicho que lo usarías. Entonces es el precio, cariño. Dime tú el número en voz alta y a ver qué puedo hacer.\' Lee las señales, por supuesto — pero léelas para saber qué frase sacar, no para saber cuándo abrirle la puerta.',
     },
     {
             type: 'divider'
@@ -5171,13 +5163,13 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'THE IGNORE: \'They were walking fast, looking at their phone, carrying coffee. I probably should have let them pass.\' → Lesson: Match stopping effort to customer receptivity.',
         'THE \'NO THANKS\': \'They smiled but kept walking. Good energy but bad timing.\' → Lesson: My approach was warm but they\'re in a rush. Speed up the opener next time.',
-        'THE DEMO, NO BUY: \'They loved the nail kit demo but said it was too expensive even at €30.\' → Lesson: Either a price objection to work through, or genuinely no budget. Note the signals for future reference.',
+        'THE DEMO, NO BUY: \'They loved the nail kit demo but said it was too expensive even at {currency}30.\' → Lesson: Either a price objection to work through, or genuinely no budget. Note the signals for future reference.',
         'THE CLOSE: \'They bought the syringe after I involved the husband in the demo.\' → Lesson: Partner engagement was the key factor. Replicate that approach with couples.'
       ],
       itemsEs: [
           'EL QUE IGNORA: \'Caminaban rápido, mirando su teléfono, cargando café. Probablemente debería haberlos dejado pasar.\' → Lección: Adapta tu esfuerzo de detención a la receptividad del cliente.',
-          'EL \'NO GRACIAS\': \'Sonrieron pero siguieron caminando. Buena energía pero mal timing.\' → Lección: Mi acercamiento fue cálido pero están apurados. Acelera el acercamiento la próxima vez.',
-          'LA DEMO, SIN COMPRA: \'Les encantó la demostración del kit de uñas pero dijeron que era muy caro incluso a €30.\' → Lección: O es una objeción de precio para trabajar, o genuinamente no tienen presupuesto. Toma nota de las señales para referencia futura.',
+          'EL \'NO GRACIAS\': \'Sonrieron pero siguieron caminando. Buena energía pero mal timing.\' → Lección: Mi acercamiento fue cálido pero están con prisa. Acelera el acercamiento la próxima vez.',
+          'LA DEMO, SIN COMPRA: \'Les encantó la demostración del kit de uñas pero dijeron que era muy caro incluso a {currency}30.\' → Lección: O es una objeción de precio para trabajar, o genuinamente no tienen presupuesto. Toma nota de las señales para referencia futura.',
           'EL CIERRE: \'Compraron la jeringa después de involucrar al esposo en la demostración.\' → Lección: El compromiso de la pareja fue el factor clave. Replica ese acercamiento con parejas.',
         ],
     },
@@ -5256,6 +5248,11 @@ export const lessons: Record<string, Lesson> = {
             type: 'keypoint',
       text: 'The 2-metre rule: Start your approach when the customer is 2 metres away from your zone. Any closer and they feel ambushed. Any farther and they don\'t hear you or process your presence in time.',
       textEs: 'La regla de 2 metros: Empieza tu acercamiento cuando el cliente está a 2 metros de tu zona. Más cerca y se sienten emboscados. Más lejos y no te escuchan o no procesan tu presencia a tiempo.',
+    },
+    {
+            type: 'keypoint',
+      text: 'The 3-second rule: 2 metres is WHERE, 3 seconds is WHEN. From the moment someone enters your zone you have about three seconds to start the approach. Wait longer and they have already filed you as staff and built the \'just looking\' wall before you say a word — and the pause gives your own hesitation time to grow. Three seconds is not a rush: eye contact, smile, first word, in that order.',
+      textEs: 'La regla de los 3 segundos: los 2 metros son el DÓNDE, los 3 segundos son el CUÁNDO. Desde que alguien entra en tu zona tienes unos tres segundos para empezar el acercamiento. Si esperas más, ya te han catalogado como personal de tienda y han levantado el muro del \'solo miro\' antes de que digas nada — y esa pausa le da tiempo a tu propia duda para crecer. Tres segundos no es ir con prisa: contacto visual, sonrisa y primera palabra, en ese orden.',
     },
     {
             type: 'divider'
@@ -5386,7 +5383,8 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'Slow Walkers (Window Shoppers)', text: 'Approach early (2.5-3 metres). They have time. Use a warm, extended opener. Build rapport before the pitch. They respond to connection.' },
       leftEs: { label: 'Caminantes Lentos (Curiosos de Escaparates)', text: 'Acércate temprano (2.5-3 metros). Tienen tiempo. Usa un abridor cálido y extendido. Construye rapport antes del pitch. Responden a la conexión.' },
-      right: { label: 'Fast Walkers (Purposeful)', text: 'Hit at exactly 2 metres with a fast, intriguing opener. \'Two seconds — you have to see this!\' They need energy and intrigue to break stride. You have 3 words to hook them.' }
+      right: { label: 'Fast Walkers (Purposeful)', text: 'Hit at exactly 2 metres with a fast, intriguing opener. \'Two seconds — you have to see this!\' They need energy and intrigue to break stride. You have 3 words to hook them.' },
+      rightEs: { label: 'Los Que Van Rápido (Con Rumbo)', text: 'Entra justo a los 2 metros con una apertura rápida e intrigante. \'¡Dos segundos — tienes que ver esto!\' Necesitan energía e intriga para romper el paso. Tienes 3 palabras para engancharlos.' }
     },
     {
             type: 'tip',
@@ -5485,11 +5483,11 @@ export const lessons: Record<string, Lesson> = {
         'NAIL FOCUS: \'I love that you keep your nails natural — they look so healthy! Speaking of nails, I have something you\'ll adore...\'',
         'STYLE: \'That jacket is incredible — you clearly know quality. Speaking of quality, let me show you something amazing...\'',
         'ENERGY: \'You have such a warm smile! I can tell you\'re having a great day. Can I make it even better with a quick gift?\'',
-        'COUPLE COMPLIMENT: \'You two look like you\'re having the best vacation! I have something that will make your Andorra trip even more memorable...\'',
+        'COUPLE COMPLIMENT: \'You two look like you\'re having the best vacation! I have something that will make your {locationName} trip even more memorable...\'',
         'BAG COMPLEMENT: \'That bag is stunning — is it [brand]? You clearly appreciate the finer things. Let me show you my favorite luxury find here...\'',
         'CONFIDENCE: \'I love your confidence — you walk like you own the street! Quick question: do you ever get dry skin from the mountain air?\'',
         'EYE FOCUS: \'You have beautiful eyes! Let me show you something that makes them look even more incredible...\'',
-        'SHOE APPRECIATION: \'Those boots are perfect for Andorra! Stylish AND practical. Let me give you a quick spa moment for your hands to match...\'',
+        'SHOE APPRECIATION: \'Those boots are perfect for a day walking around {locationName}! Stylish AND practical. Let me give you a quick spa moment for your hands to match...\'',
         'FAMILY WARMTH: \'Your family is adorable! Are you all having a wonderful time? I have something that makes an amazing family gift...\'',
         'ELEGANCE: \'You look so elegant — like you just stepped out of a magazine! Let me show you the secret to that just-returned-from-spa glow...\'',
         'VITAMIN D (TAN): \'That vacation glow is everything! Where were you? ... Let me show you how to keep that skin looking incredible...\'',
@@ -5502,11 +5500,11 @@ export const lessons: Record<string, Lesson> = {
           'FOCO EN UÑAS: \'Me encanta que mantengas tus uñas naturales — ¡se ven tan saludables! Hablando de uñas, tengo algo que te va a encantar...\'',
           'ESTILO: \'Esa chaqueta es increíble — claramente conoces de calidad. Hablando de calidad, déjame mostrarte algo asombroso...\'',
           'ENERGÍA: \'¡Tienes una sonrisa tan cálida! Se nota que estás teniendo un gran día. ¿Puedo hacerlo aún mejor con un regalito rápido?\'',
-          'CUMPLIDO A PAREJA: \'¡Ustedes dos se ven como si estuvieran teniendo las mejores vacaciones! Tengo algo que hará tu viaje a Andorra aún más memorable...\'',
+          'CUMPLIDO A PAREJA: \'¡Vosotros dos parecéis estar teniendo las mejores vacaciones! Tengo algo que hará tu viaje a {locationName} aún más memorable...\'',
           'COMPLEMENTO DE BOLSA: \'Esa bolsa es impresionante — ¿es [brand]? Claramente aprecias las cosas finas. Déjame mostrarte mi hallazgo de lujo favorito aquí...\'',
           'CONFIANZA: \'Me encanta tu confianza — ¡caminas como si la calle fuera tuya! Pregunta rápida: ¿alguna vez se te reseca la piel por el aire de la montaña?\'',
           'FOCO EN OJOS: \'¡Tienes unos ojos hermosos! Déjame mostrarte algo que los hace ver aún más increíbles...\'',
-          'APRECIACIÓN DE ZAPATOS: \'¡Esas botas son perfectas para Andorra! Estilosas Y prácticas. Déjame darte un momento spa rápido para tus manos a juego...\'',
+          'APRECIACIÓN DE ZAPATOS: \'¡Esas botas son perfectas para un día andando por {locationName}! Estilosas Y prácticas. Déjame darte un momento spa rápido para tus manos a juego...\'',
           'CALIDEZ FAMILIAR: \'¡Tu familia es adorable! ¿Todos la están pasando maravillosamente? Tengo algo que es un regalo familiar increíble...\'',
           'ELEGANCIA: \'¡Te ves tan elegante — como si salieras de una revista! Déjame mostrarte el secreto para ese brillo de recién salida del spa...\'',
           'VITAMINA D (BRONCEADO): \'¡Ese bronceado vacacional lo es todo! ¿Dónde estuviste? ... Déjame mostrarte cómo mantener esa piel luciendo increíble...\'',
@@ -5531,7 +5529,7 @@ export const lessons: Record<string, Lesson> = {
         'IT\'S DELIVERED WITH EYE CONTACT: Look them in the eye. Smile genuinely. Pause for 1 second after the compliment. Let it land. Then transition.'
       ],
       itemsEs: [
-          'ES ESPECÍFICO: \'Linda chaqueta\' es débil. \'Esa chaqueta verde oliva resalta tus ojos perfectamente\' es fuerte. Especificidad = observación = real.',
+          'ES ESPECÍFICO: \'Qué chaqueta más bonita\' es débil. \'Esa chaqueta verde oliva resalta tus ojos perfectamente\' es fuerte. Especificidad = observación = real.',
           'ES SOBRE SU ELECCIÓN: Cumplimenta cosas que eligieron (ropa, accesorios, cuidado personal) no cosas con las que nacieron (a menos que sean ojos — esos funcionan universalmente).',
           'CONDUCE NATURALMENTE AL PRODUCTO: Los mejores cumplidos tienen un puente. \'Uñas hermosas\' → Kit de Uñas. \'Piel radiante\' → Peeling. \'Gusto de calidad\' → Cualquier producto. El puente debe sentirse natural, no forzado.',
           'SE ENTREGA CON CONTACTO VISUAL: Míralos a los ojos. Sonríe genuinamente. Pausa 1 segundo después del cumplido. Déjalo caer. Luego transiciona.',
@@ -5696,7 +5694,7 @@ export const lessons: Record<string, Lesson> = {
         'EL RETO: \'Dos minutos. Si no te encanta, me puedes decir que soy terrible en mi trabajo. ¿Trato?\'',
         'EL DRAMÁTICO: \'¡ALTO! ¡No me hagas perseguirte! ... Ok, no te voy a perseguir porque sería raro. Pero en serio, dos segundos.\'',
         'EL TOQUE DE REALIDAD: \'Sé que estás pensando \'otro más.\' Yo pienso lo mismo cuando camino por esta calle en mi día libre.\'',
-        'EL GANCHO DE CURIOSIDAD: \'¿Te puedo preguntar algo? ¿Qué te hizo voltear aquí ahorita? ... ¡Exacto! Tus instintos son buenos. Ven a ver por qué.\''
+        'EL GANCHO DE CURIOSIDAD: \'¿Te puedo preguntar algo? ¿Qué te ha hecho girarte ahora mismo? ... ¡Exacto! Tus instintos son buenos. Ven a ver por qué.\''
       ]
     },
     {
@@ -5755,8 +5753,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'Test humor with a light comment first. If they smile or laugh, escalate. If they don\'t react, pivot immediately to a warm, professional tone. Don\'t keep trying to be funny — it becomes awkward.',
-      textEs: 'Prueba el humor con un comentario ligero primero. Si sonríen o se ríen, escala. Si no reaccionan, pivota inmediatamente a un tono cálido y profesional. No sigas intentando ser gracioso — se vuelve incómodo.'
+      text: 'Try a light one first. If they smile, go further. If the joke dies, don\'t chase it — just go straight and quick instead. \'Fair enough. Thirty seconds, then, and I\'ll let you get on.\' Warm, fast, no sulking. The dead joke costs you nothing; going stiff about it costs you the sale.',
+      textEs: 'Prueba primero con algo ligero. Si sonríen, sube la apuesta. Si el chiste se muere, no lo persigas — ve directo y rápido. \'Vale, vale. Treinta segundos y te dejo seguir.\' Cálido, rápido, sin enfurruñarte. El chiste muerto no te cuesta nada; ponerte tieso por eso te cuesta la venta.'
     },
     {
             type: 'divider'
@@ -5850,15 +5848,15 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'Self-deprecating humor is safest because it shows confidence and vulnerability without risking offense. You\'re the punchline, never the customer.',
     },
     {
-      question: 'What should you do if a customer doesn\'t laugh at your first humorous attempt?',
+      question: 'The joke dies. What do you do?',
       options: [
-        'Try harder with more jokes',
-        'Pivot immediately to a warm, professional tone',
+        'Try harder and land a bigger joke on them',
+        'Go straight and quick instead',
         'Give up on that customer',
         'Make a more extreme joke'
       ],
       correctIndex: 1,
-      explanation: 'If humor doesn\'t land on the first attempt, pivot immediately. Don\'t keep trying — it becomes awkward. Read the customer\'s receptivity and adapt your approach.',
+      explanation: 'Don\'t chase a dead joke. \'Fair enough. Thirty seconds, then, and I\'ll let you get on.\' The dead joke costs you nothing; going stiff about it costs you the sale.',
     }
     ],
   },
@@ -5867,8 +5865,8 @@ export const lessons: Record<string, Lesson> = {
     categoryId: 'stopping',
     title: 'The Urgency Stop',
     titleEs: 'La Parada de Urgencia',
-    subtitle: 'Creating FOMO — ethical urgency vs. pushy pressure',
-    subtitleEs: 'Crea FOMO sin presionar',
+    subtitle: 'Urgency that lands and urgency that dies',
+    subtitleEs: 'La urgencia que entra y la urgencia que se muere',
     duration: '8 min',
     icon: 'Clock',
     order: 4,
@@ -5881,13 +5879,13 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Urgency is one of the oldest and most effective sales tools because it works with human psychology. When people feel that an opportunity is limited — in time, quantity, or availability — they act faster. Without urgency, decisions get postponed indefinitely. With urgency, decisions happen NOW. The key is creating genuine urgency without being manipulative or pushy.',
-      textEs: 'La urgencia es una de las herramientas de venta más antiguas y efectivas porque funciona con la psicología humana. Cuando la gente siente que una oportunidad es limitada — en tiempo, cantidad o disponibilidad — actúa más rápido. Sin urgencia, las decisiones se posponen indefinidamente. Con urgencia, las decisiones pasan AHORA. La clave es crear urgencia genuina sin ser manipulador o agresivo.'
+      text: 'Urgency is the oldest tool on the street, and it works because a decision with no deadline never gets made. \'I\'ll think about it\' is not a maybe, it is a no with better manners. Give them a reason for it to be today and they decide today.',
+      textEs: 'La urgencia es la herramienta más antigua de la calle, y funciona porque una decisión sin fecha límite no se toma nunca. \'Me lo pienso\' no es un quizá, es un no con mejores modales. Dales un motivo para que sea hoy y deciden hoy.'
     },
     {
             type: 'keypoint',
-      text: 'Ethical urgency means highlighting real, verifiable limitations. Pushy pressure means inventing false scarcity. Customers can smell fake urgency. Real urgency creates excitement. Fake urgency creates resistance.',
-      textEs: 'La urgencia ética significa destacar limitaciones reales y verificables. La presión agresiva significa inventar escasez falsa. Los clientes huelen la urgencia falsa. La urgencia real crea emoción. La urgencia falsa crea resistencia.'
+      text: 'Urgency is a performance and everybody knows it. \'Two left.\' \'That\'s gone at closing.\' \'I\'ve already done this once today.\' That is the street, and they are enjoying it every bit as much as you are. The one line you never cross: never promise something the shop has to honour after they have walked out. Everything else is yours to play with.',
+      textEs: 'La urgencia es un espectáculo y todo el mundo lo sabe. \'Me quedan dos.\' \'Eso se acaba al cerrar.\' \'Hoy ya lo he hecho una vez.\' Eso es la calle, y ellos lo disfrutan tanto como tú. La única línea que no se cruza: no prometas nunca algo que la tienda tenga que cumplir cuando ya se hayan ido. Todo lo demás es tuyo para jugar.'
     },
     {
             type: 'divider'
@@ -5900,18 +5898,18 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        'TIME-BASED URGENCY: \'We\'re closing in 30 minutes\' or \'This offer ends today.\' Real, verifiable time limits. The customer knows these are true and acts accordingly.',
-        'QUANTITY-BASED URGENCY: \'I only have two samples left\' or \'We sold out of this scent last weekend.\' Limited availability creates competition instinct.',
-        'LOCATION-BASED URGENCY: \'This price only exists in Andorra. Once you cross the border, it\'s back to €500.\' The tax-haven advantage IS genuine scarcity.',
-        'SEASONAL URGENCY: \'Christmas is two weeks away and these are our most popular gifts. I\'d hate for you to miss out.\' Seasonal relevance creates natural deadlines.',
-        'EXPERIENTIAL URGENCY: \'You\'ve already felt the difference. You know it works. This result is waiting for you — why wait?\' The demo itself creates urgency because they\'ve experienced the value.'
+        'TIME: \'We\'re closing in half an hour.\' \'That offer\'s gone tonight.\' A deadline turns a maybe into a decision, which is the only thing you are after.',
+        'QUANTITY: \'I\'ve only got two left.\' \'That scent went in a weekend.\' Nobody wants to be the one who missed it. Say it flat, like it is just information.',
+        'LOCATION: \'The syringe is {currency}300 here. Cross the border and it is back to {currency}500.\' The strongest one you have, because it does not even need selling.',
+        'SEASON: \'Christmas is in two weeks and this is the easiest present you will buy all month.\' The calendar does the pushing for you.',
+        'THE DEMO ITSELF: \'You have already felt it. You know what it does. What exactly are you going to think about?\' The best urgency of the lot, because they made it themselves.'
       ],
       itemsEs: [
-        'URGENCIA POR TIEMPO: \'Cerramos en 30 minutos\' o \'Esta oferta termina hoy.\' Límites de tiempo reales y verificables. El cliente sabe que son ciertos y actúa en consecuencia.',
-        'URGENCIA POR CANTIDAD: \'Solo me quedan dos muestras\' o \'Se agotó este aroma el fin de semana pasado.\' La disponibilidad limitada crea instinto de competencia.',
-        'URGENCIA POR UBICACIÓN: \'Este precio solo existe en Andorra. Una vez que cruces la frontera, vuelve a €500.\' La ventaja del paraíso fiscal ES escasez genuina.',
-        'URGENCIA POR TEMPORADA: \'La Navidad está en dos semanas y estos son nuestros regalos más populares. Odiaría que te lo pierdas.\' La relevancia de temporada crea plazos naturales.',
-        'URGENCIA POR EXPERIENCIA: \'Ya sentiste la diferencia. Sabes que funciona. Este resultado te está esperando — ¿por qué esperar?\' La demo misma crea urgencia porque han experimentado el valor.'
+        'TIEMPO: \'Cerramos en media hora.\' \'Esa oferta se acaba esta noche.\' Una fecha límite convierte un quizá en una decisión, que es lo único que buscas.',
+        'CANTIDAD: \'Solo me quedan dos.\' \'Ese aroma voló en un fin de semana.\' Nadie quiere ser el que se lo pierde. Dilo a pelo, como si fuera información y ya está.',
+        'SITIO: \'La jeringa son {currency}300 aquí. Cruzas la frontera y vuelve a {currency}500.\' La más fuerte que tienes, porque ni siquiera hay que venderla.',
+        'TEMPORADA: \'La Navidad es en dos semanas y este es el regalo más fácil que vas a comprar este mes.\' El calendario empuja por ti.',
+        'LA PROPIA DEMO: \'Ya lo has notado. Ya sabes lo que hace. ¿Qué te tienes que pensar exactamente?\' La mejor de todas, porque se la han montado ellos solos.'
       ]
     },
     {
@@ -5927,14 +5925,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         '\'I only have two samples of our best-seller left — want to see what everyone\'s been talking about?\' (Quantity scarcity)',
         '\'We\'re closing soon, but I can squeeze you in for a 2-minute demo that\'ll blow your mind.\' (Time pressure + value)',
-        '\'This offer literally ends when we close tonight. I know, it sounds like a sales line, but check the sign — it\'s real.\' (Transparency builds trust)',
+        '\'This offer\'s gone when we close tonight. I know, I know, it sounds like a sales line — have a look at the sign.\' (Naming the trick and doing it anyway lands better than either on its own)',
         '\'The last customer bought our last two scrubs in this scent. Want to see what the hype is about before the rest are gone?\' (Social proof + scarcity)',
         '\'You\'re here at the perfect time — we just restocked the syringe after selling out all weekend. But they go fast.\' (Fresh availability creates urgency)'
       ],
       itemsEs: [
         '\'Solo me quedan dos muestras de nuestro más vendido — ¿quieres ver de qué ha estado hablando todo el mundo?\' (Escasez por cantidad)',
         '\'Cerramos pronto, pero te puedo hacer espacio para una demo de 2 minutos que te volará la cabeza.\' (Presión de tiempo + valor)',
-        '\'Esta oferta literalmente termina cuando cerremos esta noche. Lo sé, suena a frase de vendedor, pero checa el letrero — es real.\' (La transparencia genera confianza)',
+        '\'Esta oferta se acaba cuando cerremos esta noche. Ya lo sé, ya lo sé, suena a frase de vendedor — mira el cartel.\' (Cantar el truco y hacerlo igual entra mejor que cualquiera de las dos cosas por separado)',
         '\'El último cliente se llevó nuestros últimos dos exfoliantes de este aroma. ¿Quieres ver de qué va el hype antes de que se acaben el resto?\' (Prueba social + escasez)',
         '\'Llegaste en el momento perfecto — acabamos de reabastecer la jeringa después de agotarse todo el fin de semana. Pero se van rápido.\' (La disponibilidad fresca crea urgencia)'
       ]
@@ -5944,76 +5942,76 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'Ethical Urgency vs. Pushy Pressure',
-      textEs: 'Urgencia Ética vs. Presión Agresiva',
+      text: 'Urgency That Lands vs. Urgency That Dies',
+      textEs: 'La Urgencia Que Entra vs. La Que Se Muere',
     },
     {
             type: 'comparison',
-      left: { label: 'Ethical Urgency (Good)', text: 'Based on real facts. \'We\'re closing in 20 minutes\' when you actually are. Creates excitement and motivation. Customer feels informed, not pressured. Respects their decision-making.' },
-      leftEs: { label: 'Urgencia Ética (Buena)', text: 'Basada en hechos reales. \'Cerramos en 20 minutos\' cuando de verdad cierras. Crea emoción y motivación. El cliente se siente informado, no presionado. Respeta su toma de decisiones.' },
-      right: { label: 'Pushy Pressure (Bad)', text: 'Based on lies or manipulation. \'This is the last one\' when there are 20 more in the back. Creates anxiety and resentment. Customer feels trapped and manipulated. Destroys trust and referrals.' },
-      rightEs: { label: 'Presión Agresiva (Mala)', text: 'Basada en mentiras o manipulación. \'Este es el último\' cuando hay 20 más atrás. Crea ansiedad y resentimiento. El cliente se siente atrapado y manipulado. Destruye la confianza y las referencias.' }
+      left: { label: 'Urgency That Lands', text: 'Specific, and said straight. \'Two left.\' \'That\'s gone at closing.\' Straight face, half a smile, then you carry on as if you had mentioned the weather. And the second they say no you drop it completely — \'Fine, fine, I tried. Enjoy your day.\' Dropping it instantly is what makes the next one land.' },
+      leftEs: { label: 'La Urgencia Que Entra', text: 'Concreta, y dicha a pelo. \'Me quedan dos.\' \'Eso se acaba al cerrar.\' Cara seria, media sonrisa, y sigues como si hubieras hablado del tiempo. Y en cuanto te dicen que no, lo sueltas del todo — \'Vale, vale, lo he intentado. Que disfrutes del día.\' Soltarlo al momento es lo que hace que funcione la siguiente.' },
+      right: { label: 'Urgency That Dies', text: 'Vague and limp — \'you should really get it while you are here.\' Nothing to take hold of. Or said apologetically, eyes down, like you do not believe it yourself. Or worst of all, repeated after they have already said no, which turns two seconds of theatre into somebody following them up the street.' },
+      rightEs: { label: 'La Urgencia Que Se Muere', text: 'Vaga y sin fuerza — \'deberías llevártelo ya que estás aquí\'. No hay de dónde coger. O dicha pidiendo perdón, con la mirada baja, como si tú tampoco te lo creyeras. O peor todavía, repetida después de que ya te han dicho que no, que convierte dos segundos de teatro en alguien siguiéndolos por la calle.' }
     },
     {
             type: 'tip',
-      text: 'The best urgency is REAL urgency. If you actually are low on stock, say so. If the offer actually ends today, say so. When urgency is verifiable, it works. When it\'s fabricated, customers sense it and trust evaporates.',
-      textEs: 'La mejor urgencia es la urgencia REAL. Si de verdad te estás quedando sin stock, dilo. Si la oferta de verdad termina hoy, dilo. Cuando la urgencia es verificable, funciona. Cuando es fabricada, los clientes lo sienten y la confianza se evapora.'
+      text: 'It is all in the delivery. Same six words land or die depending on whether you say them like a fact or like a favour you are begging for. And there is one hard line underneath all of it: never promise anything the shop has to honour once they are out of the door — no coming back tomorrow, no ask-for-me-by-name, no money back. You will be on a different pitch and somebody else has to have that argument.',
+      textEs: 'Todo está en cómo lo dices. Las mismas seis palabras entran o se mueren según las sueltes como un dato o como un favor que estás suplicando. Y debajo de todo hay una línea que no se cruza: no prometas nada que la tienda tenga que cumplir cuando ya estén fuera — nada de vuelve mañana, nada de pregunta por mí, nada de te devuelvo el dinero. Tú estarás en otro sitio y la discusión se la come otro.'
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Seasonal Urgency: Christmas & Ski Season',
-      textEs: 'Urgencia Estacional: Navidad y Temporada de Esquí',
+      text: 'Seasonal Urgency: Christmas & Peak Season',
+      textEs: 'Urgencia Estacional: Navidad y Temporada Alta',
     },
     {
             type: 'paragraph',
-      text: 'Andorra\'s peak season (November-February) creates natural urgency that you should leverage:',
-      textEs: 'La temporada alta de Andorra (noviembre-febrero) crea urgencia natural que debes aprovechar:'
+      text: 'Peak season (November-February) creates natural urgency that you should leverage:',
+      textEs: 'La temporada alta (noviembre-febrero) crea urgencia natural que debes aprovechar:'
     },
     {
             type: 'bullets',
       items: [
         'CHRISTMAS SHOPPING: \'This is the easiest Christmas gift you\'ll buy. Everyone loves it, it\'s unisex, and it actually gets used.\' Gift purchases have a natural deadline — December 25th.',
-        'LAST-MINUTE GIFTS: \'Christmas is in 5 days. If you\'re still looking for gifts, this is your answer. Small, elegant, and under €60.\'',
-        'SKI SEASON: \'After a day on the slopes, your skin is so dry from the mountain air. This is what the locals use to recover.\' Seasonal relevance creates immediate need.',
+        'LAST-MINUTE GIFTS: \'Christmas is in 5 days. If you\'re still looking for gifts, this is your answer. Small, elegant, and under {currency}60.\'',
+        'SKI SEASON (mountain shops only): \'After a day on the slopes, your skin is so dry from the mountain air. This is what the locals use to recover.\' Seasonal relevance creates immediate need.',
         'WEEKEND RUSH: \'Weekends are crazy here. I\'d hate for you to come back and find your scent sold out.\' Weekend timing creates shopping pressure.'
       ],
       itemsEs: [
         'COMPRAS NAVIDEÑAS: \'Este es el regalo de Navidad más fácil que vas a comprar. A todos les encanta, es unisex, y de verdad se usa.\' Las compras de regalo tienen una fecha límite natural — el 25 de diciembre.',
-        'REGALOS DE ÚLTIMO MINUTO: \'La Navidad es en 5 días. Si todavía buscas regalos, esta es tu respuesta. Pequeño, elegante, y menos de €60.\'',
-        'TEMPORADA DE ESQUÍ: \'Después de un día en las pistas, tu piel queda súper seca por el aire de la montaña. Esto es lo que usan los locales para recuperarse.\' La relevancia de temporada crea necesidad inmediata.',
-        'LOCURA DE FIN DE SEMANA: \'Los fines de semana son una locura aquí. Odiaría que regresaras y encontraras tu aroma agotado.\' El timing de fin de semana crea presión de compra.'
+        'REGALOS DE ÚLTIMO MINUTO: \'La Navidad es en 5 días. Si todavía buscas regalos, esta es tu respuesta. Pequeño, elegante, y menos de {currency}60.\'',
+        'TEMPORADA DE ESQUÍ (solo tiendas de montaña): \'Después de un día en las pistas, tu piel queda súper seca por el aire de la montaña. Esto es lo que usan los locales para recuperarse.\' La relevancia de temporada crea necesidad inmediata.',
+        'LOCURA DE FIN DE SEMANA: \'Los fines de semana son una locura aquí. Me sabría fatal que volvieras y encontraras tu aroma agotado.\' El timing de fin de semana crea presión de compra.'
       ]
     },
     {
             type: 'script',
-      text: '\'Look, I\'m not going to give you the fake pressure thing. But I will tell you the truth: we sold 40 of these yesterday, and I have 8 left. The weekend rush starts tomorrow. If you know you want it, I\'d grab it now. If you\'re not sure, no pressure — but I can\'t guarantee it\'ll be here tomorrow.\' Honest, transparent urgency. This builds trust while creating motivation.',
-      textEs: '\'Mira, no te voy a dar la presión falsa. Pero te voy a decir la verdad: vendimos 40 de estos ayer, y me quedan 8. La locura de fin de semana empieza mañana. Si sabes que lo quieres, yo lo agarraría ahora. Si no estás seguro, sin presión — pero no te garantizo que esté aquí mañana.\' Urgencia honesta y transparente. Esto construye confianza mientras crea motivación.'
+      text: '\'Look, I\'m not going to do the whole hard sell on you. I\'ll just tell you where we are: I had a pile of these yesterday and I have got eight left. The weekend starts tomorrow. If you want it, take it now. If you\'re not sure, honestly, no pressure — but I can\'t promise it\'ll be here tomorrow.\' Notice how it works: you take the pressure off with one hand and put the deadline down with the other, and they hear the second half.',
+      textEs: '\'Mira, no te voy a dar el rollo de vendedor. Te digo dónde estamos y ya: ayer tenía un montón de estos y me quedan ocho. El fin de semana empieza mañana. Si lo quieres, llévatelo ahora. Si no lo tienes claro, de verdad, sin presión — pero no te puedo prometer que mañana siga aquí.\' Fíjate en cómo funciona: con una mano les quitas la presión y con la otra les pones la fecha límite, y lo que oyen es la segunda parte.'
     },
     {
             type: 'quote',
       text: 'Urgency isn\'t about pressuring people. It\'s about helping them overcome procrastination. The customer who genuinely wants your product but leaves to \'think about it\' often never returns. Urgency helps them make the decision they already want to make.',
-      textEs: 'La urgencia no se trata de presionar a la gente. Se trata de ayudarles a superar la procrastinación. El cliente que genuinamente quiere tu producto pero se va a \'pensarlo\' a menudo nunca regresa. La urgencia les ayuda a tomar la decisión que ya quieren tomar.',
+      textEs: 'La urgencia no se trata de presionar a la gente. Se trata de ayudarles a superar la procrastinación. El cliente que genuinamente quiere tu producto pero se va a \'pensarlo\' a menudo nunca vuelve. La urgencia les ayuda a tomar la decisión que ya quieren tomar.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines'
     }
     ],
     quiz: [
     {
-      question: 'What is the difference between ethical urgency and pushy pressure?',
+      question: 'What separates urgency that lands from urgency that dies?',
       options: [
-        'There is no difference',
-        'Ethical urgency is based on real facts; pushy pressure uses lies or manipulation',
-        'Ethical urgency is more aggressive',
-        'Pushy pressure works better'
+        'Whether the customer already wanted the product before you spoke',
+        'The delivery, and dropping it the moment they say no',
+        'How many different urgency lines you manage to use in a row',
+        'Whether you say it before or after you have given them the price'
       ],
       correctIndex: 1,
-      explanation: 'Ethical urgency highlights real, verifiable limitations (actual closing time, real stock levels). Pushy pressure invents false scarcity. Customers detect fake urgency and trust evaporates.',
+      explanation: 'Same six words land or die on the delivery. Specific, straight face, half a smile — and dropped the second they say no. \'Fine, fine, I tried. Enjoy your day.\'',
     },
     {
-      question: 'Which type of urgency is the tax-haven pricing advantage?',
+      question: 'Which type of urgency is the {locationName} price gap?',
       options: [
         'Time-based urgency',
         'Location-based urgency',
@@ -6021,7 +6019,7 @@ export const lessons: Record<string, Lesson> = {
         'Seasonal urgency'
       ],
       correctIndex: 1,
-      explanation: 'The tax-haven pricing is location-based urgency. The €300 price only exists in Andorra. Once the customer crosses the border, the price goes back to €500. This is genuine, verifiable scarcity.',
+      explanation: 'The price gap is location-based urgency. The syringe is {currency}300 in {locationName}. Once the customer crosses the border, it goes back to {currency}500. This is genuine, verifiable scarcity.',
     },
     {
       question: 'Why does urgency help customers who genuinely want your product?',
@@ -6040,8 +6038,9 @@ export const lessons: Record<string, Lesson> = {
     id: 'stop-5',
     categoryId: 'stopping',
     title: 'Product-Specific Stops',
-    titleEs: 'La Parada de Curiosidad',
+    titleEs: 'Paradas Según el Producto',
     subtitle: 'Detailed scripts for each product matched to the person\'s visible traits',
+    subtitleEs: 'Guiones para cada producto según lo que ves en la persona',
     duration: '10 min',
     icon: 'Sparkles',
     order: 5,
@@ -6138,19 +6137,19 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Best targets: dry hands (especially in winter), people mentioning the mountain air, eczema or dry skin concerns, gift buyers, couples (great unisex product).',
-      textEs: 'Mejores objetivos: manos secas (especialmente en invierno), personas que mencionan el aire de la montaña, eccema o preocupaciones por piel seca, compradores de regalos, parejas (excelente producto unisex).',
+      text: 'Best targets: dry or cracked hands (especially in winter), people mentioning the mountain air, gift buyers, couples (great unisex product).',
+      textEs: 'Mejores objetivos: manos secas o agrietadas (sobre todo en invierno), gente que menciona el aire de la montaña, compradores de regalos, parejas (producto unisex buenísimo).',
     },
     {
             type: 'bullets',
       items: [
-        'THE DRY SKIN QUESTION: \'Do you ever get dry skin? Ugh, I know — it\'s the worst. You know what? Let me give you something amazing. Come!\' This classic opener works because almost everyone has dry skin, especially in Andorra.',
+        'THE DRY SKIN QUESTION: \'Do you ever get dry skin? Ugh, I know — it\'s the worst. You know what? Let me give you something amazing. Come!\' This classic opener works because almost everyone has dry skin, especially after a day of travelling.',
         'THE SENSORY HOOK: \'Want to feel something incredible? This is from the Dead Sea — lowest place on Earth, highest mineral concentration. Your hands have never felt this soft.\'',
         'THE GIFT ANGLE: \'Looking for Christmas gifts? This is our most popular one — everyone loves it, it\'s unisex, and it\'s actually useful. Feel this...\'',
         'THE COVID LEGACY: \'Since Covid, everyone\'s hands are so dry from sanitizer. This became our #1 seller — people were like, \'Finally something that actually helps!\'\''
       ],
       itemsEs: [
-          'LA PREGUNTA DE LA PIEL SECA: \'¿Alguna vez te reseca la piel? Uf, lo sé, es lo peor. ¿Sabes qué? Déjame darte algo increíble. ¡Ven!\' Esta apertura clásica funciona porque casi todo el mundo tiene la piel seca, especialmente en Andorra.',
+          'LA PREGUNTA DE LA PIEL SECA: \'¿Alguna vez te reseca la piel? Uf, lo sé, es lo peor. ¿Sabes qué? Déjame darte algo increíble. ¡Ven!\' Esta apertura clásica funciona porque casi todo el mundo tiene la piel seca, especialmente después de un día viajando.',
           'EL GANCHO SENSORIAL: \'¿Quieres sentir algo increíble? Esto es del Mar Muerto, el lugar más bajo de la Tierra, la concentración mineral más alta. Tus manos nunca se han sentido tan suaves.\'',
           'EL ÁNGULO DEL REGALO: \'¿Buscas regalos de Navidad? Este es el más popular, a todo el mundo le encanta, es unisex, y de verdad es útil. Siente esto...\'',
           'EL LEGADO DEL COVID: \'Desde el Covid, las manos de todos están muy resecas por el sanitizante. Este se convirtió en nuestro #1 en ventas, la gente decía, \'¡Por fin algo que de verdad ayuda!\'\'',
@@ -6204,22 +6203,22 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Sometimes you can offer multiple products in one stop. Here\'s when to combine:',
-      textEs: 'A veces puedes ofrecer múltiples productos en una sola parada. Aquí te decimos cuándo combinarlos:',
+      text: 'Sometimes you can offer multiple products in one stop. The totals below are not four separate prices — {currency}120 is the Buy 2, Get 1 Free bundle and {currency}60 is the Buy 1, Get 1 Free bundle, which is why they repeat. Here\'s when to combine:',
+      textEs: 'A veces puedes ofrecer varios productos en una sola parada. Los totales de abajo no son cuatro precios distintos: {currency}120 es el paquete Compra 2, Llévate 1 Gratis y {currency}60 es el paquete Compra 1, Llévate 1 Gratis, por eso se repiten. Aquí te decimos cuándo combinarlos:',
     },
     {
             type: 'bullets',
       items: [
-        'THE CLASSIC TRIO (€120): Scrub + Body Butter + Nail Kit. Best for: gift shoppers, couples, people who want variety.',
-        'THE SPA TRIO (€120): Scrub + Body Butter + Face Cleanser. Best for: self-care focused customers, people interested in routines.',
-        'THE SMART DUO (€60): Scrub + Nail Kit. Best for: budget-conscious buyers, the Nail Kit already includes cream.',
-        'THE SCENT DUO (€60): Scrub + Body Butter. Best for: people who love the sensory experience of the scrub demo.'
+        'THE CLASSIC TRIO ({currency}120): Scrub + Body Butter + Nail Kit. Best for: gift shoppers, couples, people who want variety.',
+        'THE SPA TRIO ({currency}120): Scrub + Body Butter + Face Cleanser. Best for: self-care focused customers, people interested in routines.',
+        'THE SMART DUO ({currency}60): Scrub + Nail Kit. Best for: budget-conscious buyers, the Nail Kit already includes cream.',
+        'THE SCENT DUO ({currency}60): Scrub + Body Butter. Best for: people who love the sensory experience of the scrub demo.'
       ],
       itemsEs: [
-          'EL TRÍO CLÁSICO (€120): Exfoliante + Body Butter + Kit de Uñas. Ideal para: compradores de regalos, parejas, personas que quieren variedad.',
-          'EL TRÍO SPA (€120): Exfoliante + Body Butter + Limpiador Facial. Ideal para: clientes enfocados en el autocuidado, personas interesadas en rutinas.',
-          'EL DÚO INTELIGENTE (€60): Exfoliante + Kit de Uñas. Ideal para: compradores conscientes del presupuesto, el Kit de Uñas ya incluye crema.',
-          'EL DÚO AROMÁTICO (€60): Exfoliante + Body Butter. Ideal para: personas que aman la experiencia sensorial de la demo del exfoliante.',
+          'EL TRÍO CLÁSICO ({currency}120): Exfoliante + Body Butter + Kit de Uñas. Ideal para: compradores de regalos, parejas, personas que quieren variedad.',
+          'EL TRÍO SPA ({currency}120): Exfoliante + Body Butter + Limpiador Facial. Ideal para: clientes enfocados en el autocuidado, personas interesadas en rutinas.',
+          'EL DÚO INTELIGENTE ({currency}60): Exfoliante + Kit de Uñas. Ideal para: compradores conscientes del presupuesto, el Kit de Uñas ya incluye crema.',
+          'EL DÚO AROMÁTICO ({currency}60): Exfoliante + Body Butter. Ideal para: personas que aman la experiencia sensorial de la demo del exfoliante.',
         ],
     },
     {
@@ -6275,8 +6274,9 @@ export const lessons: Record<string, Lesson> = {
     id: 'stop-6',
     categoryId: 'stopping',
     title: 'The Recovery Stop',
-    titleEs: 'La Parada de Grupo',
+    titleEs: 'La Parada de Recuperación',
     subtitle: 'What to do when they say \'no\' — second attempts, seed planting, and graceful exits',
+    subtitleEs: 'Qué hacer cuando dicen \'no\' — segundos intentos, sembrar la idea y salir con elegancia',
     duration: '8 min',
     icon: 'RotateCcw',
     order: 6,
@@ -6289,13 +6289,13 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Most salespeople hear \'no thanks\' and immediately give up. Top performers know that \'no\' often means \'not yet,\' \'not this product,\' \'not from this angle,\' or simply \'I need a moment.\' A recovery stop is your second chance — and second chances convert at surprising rates when handled well. The recovery isn\'t about being pushy; it\'s about being persistent with grace.',
-      textEs: 'La mayoría de los vendedores escuchan \'no gracias\' y se rinden de inmediato. Los mejores saben que \'no\' a menudo significa \'aún no,\' \'no este producto,\' \'no desde este ángulo,\' o simplemente \'necesito un momento.\' Una parada de recuperación es tu segunda oportunidad, y las segundas oportunidades convierten a tasas sorprendentes cuando se manejan bien. La recuperación no se trata de ser insistente; se trata de ser persistente con elegancia.',
+      text: 'Most sellers hear \'no thanks\' and that is the end of it. But \'no\' out here usually means \'not yet\', or \'not that one\', or \'you caught me mid-thought\'. The recovery is the one more line you throw after the no — not to wear anybody down, but to find out whether the no was real.',
+      textEs: 'La mayoría de los vendedores oyen \'no, gracias\' y ahí se acaba todo. Pero aquí fuera el \'no\' casi siempre quiere decir \'ahora no\', o \'ese no\', o \'me has pillado pensando en otra cosa\'. La recuperación es esa frase de más que sueltas después del no — no para desgastar a nadie, sino para averiguar si el no iba en serio.',
     },
     {
             type: 'keypoint',
-      text: 'Statistics show that 44% of salespeople give up after one \'no.\' Yet 80% of sales require at least five follow-up contacts. The salesperson who recovers gracefully after rejection outperforms the one who quits on the first \'no.\'',
-      textEs: 'Las estadísticas muestran que el 44% de los vendedores se rinden después de un \'no.\' Sin embargo, el 80% de las ventas requieren al menos cinco contactos de seguimiento. El vendedor que se recupera con elegancia después del rechazo supera al que se rinde con el primer \'no.\'',
+      text: 'That first \'no thanks\' is not a decision. They said it before they had even heard you — it is a reflex, the same as saying \'fine\' when somebody asks how you are. It costs you one more line to find out whether they meant it. Most sellers on this street never spend that line. That is your edge.',
+      textEs: 'Ese primer \'no, gracias\' no es una decisión. Lo han dicho antes incluso de escucharte — es un acto reflejo, igual que decir \'bien\' cuando te preguntan qué tal estás. Te cuesta una frase más averiguar si lo decían en serio. Casi ningún vendedor de esta calle gasta esa frase. Ahí está tu ventaja.',
     },
     {
             type: 'divider'
@@ -6345,15 +6345,15 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'THE HUMOR RECOVERY: \'I know, I know — you weren\'t planning to stop today. But I promise you, this is the one time you\'ll be glad you did. Thirty seconds?\' Humor disarms the automatic \'no.\'',
         'THE CURIOSITY HOOK: \'I get it — you\'re busy. But can I ask you something? When was the last time a stranger showed you something that actually impressed you?\' Curiosity overrides rejection.',
-        'THE TIME-RESPECTFUL RECOVERY: \'I totally understand. How about this — I won\'t even explain. Just let me do the demo. If you don\'t love it in 30 seconds, you walk away. Deal?\' Removes the risk of being trapped in a long pitch.',
+        'THE TIME RECOVERY: \'Ah, don\'t worry about it. How about this — I won\'t even explain anything. Just let me do it. If you don\'t love it in thirty seconds, you walk off. Deal?\' Takes away the fear of being stuck with you for ten minutes.',
         'THE SOCIAL PROOF RECOVERY: \'You know what? Every single person who just walked past me said the same thing. And every single one who came back to try it bought something. I\'m just saying...\' Creates intrigue through social proof.',
         'THE GIFT REFRAME: \'I know you weren\'t looking for it, but I want to GIVE you something. No purchase, no catch. Just a free hand treatment because your hands deserve it.\' Reframing as a gift removes the sales pressure.'
       ],
       itemsEs: [
           'LA RECUPERACIÓN CON HUMOR: \'Lo sé, lo sé, no planeabas parar hoy. Pero te prometo que esta es la única vez en la que te alegrarás de haberlo hecho. ¿Treinta segundos?\' El humor desarma el \'no\' automático.',
           'EL GANCHO DE LA CURIOSIDAD: \'Lo entiendo, estás ocupado. Pero ¿puedo preguntarte algo? ¿Cuándo fue la última vez que un desconocido te mostró algo que realmente te impresionó?\' La curiosidad anula el rechazo.',
-          'LA RECUPERACIÓN RESPETUOSA DEL TIEMPO: \'Lo entiendo perfectamente. ¿Qué tal esto? Ni siquiera voy a explicar. Solo déjame hacer la demo. Si no te encanta en 30 segundos, te vas. ¿Trato?\' Elimina el riesgo de quedar atrapado en un pitch largo.',
-          'LA RECUPERACIÓN CON PRUEBA SOCIAL: \'¿Sabes qué? Cada persona que acaba de pasar a mi lado dijo lo mismo. Y cada una de las que regresaron a probarlo compró algo. Solo digo...\' Crea intriga a través de la prueba social.',
+          'LA RECUPERACIÓN POR TIEMPO: \'Ah, no te preocupes por eso. ¿Qué tal esto? No te explico nada. Déjame hacerlo y ya está. Si no te encanta en treinta segundos, te vas. ¿Trato?\' Les quita el miedo a quedarse contigo diez minutos.',
+          'LA RECUPERACIÓN CON PRUEBA SOCIAL: \'¿Sabes qué? Cada persona que acaba de pasar a mi lado dijo lo mismo. Y cada una de las que volvieron a probarlo compró algo. Solo digo...\' Crea intriga a través de la prueba social.',
           'EL replanteo COMO REGALO: \'Sé que no lo estabas buscando, pero quiero DARTE algo. Sin compra, sin truco. Solo un tratamiento de manos gratis porque tus manos lo merecen.\' Replantearlo como un regalo elimina la presión de venta.',
         ],
     },
@@ -6375,15 +6375,15 @@ export const lessons: Record<string, Lesson> = {
       items: [
         '\'You\'re breaking my heart! Just kidding — but seriously, you\'re missing out.\'',
         '\'Okay, but when you walk past our shop later and see everyone smiling inside, you\'ll wonder what you missed.\'',
-        '\'I\'ll be here all day. When you change your mind after seeing someone else\'s results, come find me!\'',
+        '\'Go on then. But I\'m telling you now — you\'ll be thinking about me over dinner.\' (Cheeky, and it does not hand them a reason to postpone.)',
         '\'My manager is watching — can you at least pretend to be interested for 10 seconds?\' (Self-deprecating humor that creates connection.)',
         '\'That\'s the fourth \'no\' in a row. You\'re all going to make me cry!\' (Playful, not desperate.)'
       ],
       itemsEs: [
           '\'¡Me estás rompiendo el corazón! Es broma, pero en serio, te estás perdiendo de algo.\'',
           '\'Está bien, pero cuando pases frente a nuestra tienda más tarde y veas a todos sonriendo adentro, te preguntarás qué te perdiste.\'',
-          '\'Estaré aquí todo el día. ¡Cuando cambies de opinión después de ver los resultados de alguien más, ven a buscarme!\'',
-          '\'Mi gerente está viendo, ¿puedes al menos fingir interés por 10 segundos?\' (Humor autocrítico que crea conexión.)',
+          '\'Venga, vale. Pero te aviso — vas a estar pensando en mí durante la cena.\' (Con guasa, y sin darles una excusa para dejarlo para luego.)',
+          '\'Mi encargado está viendo, ¿puedes al menos fingir interés por 10 segundos?\' (Humor autocrítico que crea conexión.)',
           '\'Ese es el cuarto \'no\' seguido. ¡Todos me van a hacer llorar!\' (Juguetón, no desesperado.)',
         ],
     },
@@ -6397,32 +6397,32 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'The Seed Planting Technique',
-      textEs: 'La Técnica de Sembrar la Semilla',
+      text: 'The Last Line You Leave Them With',
+      textEs: 'La Última Frase Que Les Dejas',
     },
     {
             type: 'paragraph',
-      text: 'Sometimes the best recovery is no recovery at all. Sometimes you plant a seed and let it grow:',
-      textEs: 'A veces la mejor recuperación es no recuperar en absoluto. A veces siembras una semilla y dejas que crezca:',
+      text: 'If the second attempt lands, you are back in business. If it genuinely does not, the last line still matters — but it is a line that buys you one more second here, never one that arms them to deal with you some other day:',
+      textEs: 'Si el segundo intento entra, ya estás otra vez dentro. Y si de verdad no entra, la última frase sigue importando — pero es una frase que te compra un segundo más aquí, nunca una que les dé con qué dejarte para otro día:',
     },
     {
             type: 'script',
-      text: '\'No problem at all! Enjoy your day in Andorra. But hey — when you see someone walk out of our shop with that \'wow\' look on their face, remember I offered!\' This plants a seed of curiosity. They might walk past later, see a happy customer, and come back. It happens more than you think.',
-      textEs: '\'¡Ningún problema! Disfruta tu día en Andorra. Pero oye, cuando veas a alguien salir de nuestra tienda con esa cara de \'wow\', ¡recuerda que te lo ofrecí!\' Esto siembra una semilla de curiosidad. Pueden pasar más tarde, ver a un cliente feliz, y regresar. Pasa más de lo que crees.',
+      text: '\'No problem at all! Enjoy your day in {locationName}. But hey — when you see someone walk out of our shop with that \'wow\' look on their face, remember I offered!\' Said with a grin over your shoulder, this turns people round on the spot more often than any pitch does. Deliver it like a joke, not like a goodbye.',
+      textEs: '\'¡No pasa nada! Disfruta el día en {locationName}. Pero oye — cuando veas a alguien salir de nuestra tienda con esa cara de \'guau\', ¡acuérdate de que te lo ofrecí!\' Dicho con una sonrisa por encima del hombro, esto hace que se den la vuelta ahí mismo más que ningún discurso. Suéltalo como una broma, no como una despedida.',
     },
     {
             type: 'bullets',
       items: [
-        'GIVE THEM A CARD OR FLYER: Physical reminders work. Something they can put in their pocket and consider later.',
-        'MENTION YOUR LOCATION: \'We\'re right here — number 15. If you change your mind, just pop in.\' Makes returning feel easy.',
-        'REFERENCE A SPECIFIC PRODUCT: \'If you find yourself thinking about glowing skin later, ask for the Peeling. That\'s the one everyone comes back for.\'',
-        'LEAVE THE DOOR OPEN: \'No pressure at all. If you pass by later and feel like it, I\'ll be here. I\'d love to show you then.\' Warm, non-desperate, inviting.'
+        'NOTHING GOES IN THEIR POCKET: No card, no flyer, no price written on anything. It feels helpful and it is the most expensive thing you can hand a person — you have just given them permission to go and think about it somewhere you are not standing.',
+        'POINT AT THE TABLE, NOT AT TOMORROW: \'It is two steps. Put your hand on it and then tell me no.\' A tiny, specific ask beats an open invitation every single time.',
+        'NAME THE THING THEY WERE LOOKING AT: \'You did not take your eyes off that peeling. Sixty seconds and you will know.\' Being properly seen is what turns a walker around.',
+        'IF THE NO IS REAL, MEAN IT: \'Fair enough, gorgeous — have a lovely day.\' Warm, quick, nothing attached to it. Then straight back to the pavement, because the next one is already walking past you.'
       ],
       itemsEs: [
-          'DALES UNA TARJETA O FOLLETO: Los recordatorios físicos funcionan. Algo que puedan guardar en su bolsillo y considerar más tarde.',
-          'MENCIONA TU UBICACIÓN: \'Estamos justo aquí, el número 15. Si cambias de opinión, solo entra.\' Hace que regresar se sienta fácil.',
-          'Haz REFERENCIA A UN PRODUCTO ESPECÍFICO: \'Si te encuentras pensando en piel radiante más tarde, pide el Peeling. Ese es por el que todos regresan.\'',
-          'DEJA LA PUERTA ABIERTA: \'Ninguna presión en absoluto. Si pasas más tarde y te apetece, estaré aquí. Me encantaría mostrártelo entonces.\' Cálido, no desesperado, invitante.',
+          'QUE NO SE LLEVEN NADA EN EL BOLSILLO: Ni tarjeta, ni folleto, ni el precio apuntado en ningún sitio. Parece un detalle y es lo más caro que le puedes dar a nadie — acabas de darle permiso para irse a pensarlo donde tú no estás.',
+          'SEÑALA LA MESA, NO EL MAÑANA: \'Si son dos pasos. Pon la mano aquí y luego me dices que no.\' Una petición pequeña y concreta gana siempre a una invitación abierta.',
+          'NOMBRA LO QUE ESTABAN MIRANDO: \'No le has quitado el ojo de encima al peeling. Sesenta segundos y lo sabes.\' Que se sientan vistos de verdad es lo que hace que se den la vuelta.',
+          'SI EL NO ES DE VERDAD, QUE SEA DE VERDAD: \'Nada, guapa, que tengas buen día.\' Con cariño, rápido y sin nada colgando. Y vuelta a la acera, que el siguiente ya está pasando por delante.',
         ],
     },
     {
@@ -6441,14 +6441,14 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'ONE RECOVERY ATTEMPT: If they say no and you try one recovery, that\'s professional persistence.',
+        'ONE RECOVERY ATTEMPT: One more line after the no. That is the whole point of this lesson and it costs you nothing.',
         'TWO RECOVERY ATTEMPTS: If the first recovery fails and they seem receptive, a second (different) approach is acceptable.',
         'THREE OR MORE: This is pushing. If two attempts fail, let them go gracefully. Pursuing further damages your reputation and the shop\'s reputation.',
         'BODY LANGUAGE SIGNALS: Crossed arms, stepping away, flat expression, no engagement — these are definitive \'stop\' signals. Respect them immediately.',
         'VERBAL SHUTDOWN: \'Please leave me alone,\' \'I said no,\' or aggressive language means immediate disengagement. Smile, apologize, and step back.'
       ],
       itemsEs: [
-          'UN INTENTO DE RECUPERACIÓN: Si dicen que no e intentas una recuperación, eso es persistencia profesional.',
+          'UN INTENTO DE RECUPERACIÓN: Una frase más después del no. De eso va toda esta lección y no te cuesta nada.',
           'DOS INTENTOS DE RECUPERACIÓN: Si la primera recuperación falla y parecen receptivos, un segundo enfoque (diferente) es aceptable.',
           'TRES O MÁS: Esto es ser insistente. Si dos intentos fallan, déjalos ir con elegancia. Seguir insistiendo daña tu reputación y la reputación de la tienda.',
           'SEÑALES DE LENGUAJE CORPORAL: Brazos cruzados, alejarse, expresión plana, sin interacción, estas son señales definitivas de \'detente.\' respétalas de inmediato.',
@@ -6465,15 +6465,15 @@ export const lessons: Record<string, Lesson> = {
     ],
     quiz: [
     {
-      question: 'According to research, what percentage of sales require at least five follow-up contacts?',
+      question: 'Why is the first \'no thanks\' worth one more line?',
       options: [
-        '20%',
-        '44%',
-        '80%',
-        '95%'
+        'Because most people give in if you keep at them long enough',
+        'Because it is usually a reflex, said before they heard you',
+        'Because the shop counts every approach you make in a shift',
+        'Because a customer who says no twice is ready to be closed'
       ],
-      correctIndex: 2,
-      explanation: 'Research shows 80% of sales require at least five follow-up contacts, yet 44% of salespeople give up after one \'no.\' Persistence with grace is a massive competitive advantage.',
+      correctIndex: 1,
+      explanation: 'The first no comes out before they have processed a word you said — the same as saying \'fine\' when somebody asks how you are. One more line finds out whether they meant it, and most sellers never spend it.',
     },
     {
       question: 'What is the \'seed planting\' technique?',
@@ -6490,12 +6490,12 @@ export const lessons: Record<string, Lesson> = {
       question: 'How many recovery attempts should you generally make before letting go?',
       options: [
         'As many as it takes',
-        'One to two attempts maximum, then let go gracefully',
+        'One, or two if they are still smiling — then let it go',
         'Never attempt recovery — respect the first no',
-        'Five or more — statistics say persistence pays'
+        'Five or more, because insisting is what wears people down'
       ],
       correctIndex: 1,
-      explanation: 'One recovery attempt is professional persistence. Two is acceptable if they seem receptive. Three or more is pushing into harassment territory. Know when to walk away gracefully.',
+      explanation: 'One more line is free. A second one is fine if they are still with you. A third turns a bit of banter into somebody following them up the street, and that is the shop\'s reputation, not just yours.',
     }
     ],
   },
@@ -6543,14 +6543,14 @@ export const lessons: Record<string, Lesson> = {
             type: 'bullets',
       items: [
         'HIGH ENERGY or CALM? Do you naturally speak fast, move quickly, and radiate enthusiasm? Or are you more measured, warm, and steady? Both work — but forcing calm when you\'re energetic (or vice versa) feels fake.',
-        'DIRECT or INDIRECT? Do you prefer getting straight to the point? Or do you like building rapport first, easing into the pitch? Drivers can be direct. Amiables should build connection first.',
-        'HUMOR-DRIVEN or SERIOUS? Are you naturally funny? Do people laugh around you? If yes, humor is your weapon. If not, warmth and professionalism are just as powerful.',
+        'DIRECT or INDIRECT? Straight to the point, or a bit of chat first? Some of you go in hard and some of you need to warm them up. Both work. Faking the other one does not.',
+        'HUMOUR or STRAIGHT? Are you actually funny? Do people laugh around you? If yes, that is your weapon. If not, do not force it — warm and straight sells just as much, and a forced joke sells nothing.',
         'VERBAL or PHYSICAL? Some sellers captivate with words — smooth talkers. Others captivate with the demo — the product does the talking. Know which one you are.'
       ],
       itemsEs: [
           '¿ALTA ENERGÍA o CALMA? ¿Hablas rápido naturalmente, te mueves con rapidez, y irradias entusiasmo? ¿O eres más mesurado, cálido, y constante? Ambos funcionan, pero forzar la calma cuando eres enérgico (o viceversa) se siente falso.',
-          '¿DIRECTO o INDIRECTO? ¿Prefieres ir directo al grano? ¿O te gusta primero construir una conexión, entrando suavemente al pitch? Los determinados pueden ser directos. Los amigables deberían construir conexión primero.',
-          '¿HUMOR o SERIEDAD? ¿Eres naturalmente gracioso? ¿La gente ríe a tu alrededor? Si sí, el humor es tu arma. Si no, la calidez y el profesionalismo son igual de poderosos.',
+          '¿DIRECTO o CON RODEOS? ¿Al grano, o un poco de charla primero? Algunos entráis a saco y otros necesitáis calentarlo antes. Las dos cosas funcionan. Fingir la otra no.',
+          '¿HUMOR o SERIEDAD? ¿Eres gracioso de verdad? ¿La gente se ríe contigo? Si sí, esa es tu arma. Si no, no lo fuerces — cálido y directo vende igual, y un chiste forzado no vende nada.',
           '¿VERBAL o FÍSICO? Algunos vendedores cautivan con palabras, grandes conversadores. Otros cautivan con la demo, el producto habla por sí mismo. Saber cuál eres tú.',
         ],
     },
@@ -6586,42 +6586,41 @@ export const lessons: Record<string, Lesson> = {
             type: 'comparison',
       left: { label: 'High-Energy Approach', text: '\'HEY! Oh my gosh, you have to see this! Come here, come here — two minutes, I promise you\'ll freak out!\' Works brilliantly for some. Exhausting and off-putting for others. Use when the situation matches your natural enthusiasm.' },
       leftEs: { label: 'Enfoque de Alta Energía', text: '\'¡HEY! ¡Dios mío, tienes que ver esto! ¡Ven aquí, ven aquí, dos minutos, te prometo que te vas a alucinar!\' Funciona brillantemente para algunos. Agotador y repelente para otros. Úsalo cuando la situación coincida con tu entusiasmo natural.' },
-      right: { label: 'Calm Approach', text: '\'Excuse me — I know you\'re busy, but I have something that might surprise you. Just two minutes, and if you don\'t love it, no hard feelings.\' Warm, respectful, confident. Some customers prefer this 100% of the time.' }
+      right: { label: 'Calm Approach', text: '\'Excuse me — I know you\'re busy, but I have something that might surprise you. Just two minutes, and if you don\'t love it, no hard feelings.\' Warm, respectful, confident. Some customers prefer this 100% of the time.' },
+      rightEs: { label: 'Acercamiento Tranquilo', text: '\'Perdona — sé que vas liado, pero tengo algo que a lo mejor te sorprende. Solo dos minutos, y si no te encanta, no pasa nada.\' Cálido, respetuoso, seguro. Hay clientes que prefieren esto el 100% de las veces.' }
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Testing Different Styles',
-      textEs: 'Probando Diferentes Estilos',
+      text: 'One Morning, Two Hours',
+      textEs: 'Una Mañana, Dos Horas',
     },
     {
             type: 'paragraph',
-      text: 'Finding your style requires experimentation. Here\'s a systematic approach:',
-      textEs: 'Encontrar tu estilo requiere experimentación. Aquí hay un enfoque sistemático:',
+      text: 'You can find this out in a morning. You do not need a month of it:',
+      textEs: 'Esto lo averiguas en una mañana. No hace falta un mes:',
     },
     {
             type: 'numbered',
       items: [
-        'WEEK 1 — OBSERVE: Don\'t experiment yet. Just watch your teammates. Notice what each person does. What feels natural to you when you watch? What makes you cringe? Your reactions are data.',
-        'WEEK 2 — TEST HIGH ENERGY: Even if you\'re calm, try one high-energy shift. Ramp up your enthusiasm. Speak louder. Move faster. See what happens. Track your stops and closes.',
-        'WEEK 3 — TEST CALM ENERGY: Now try the opposite. Slow down. Speak softly. Build rapport before pitching. Track the difference in customer response.',
-        'WEEK 4 — TEST DIRECT vs. INDIRECT: Try shifts where you get straight to the point vs. shifts where you build connection first. Which feels better? Which gets better results?',
-        'WEEK 5 — BLEND: By now you know what works. Create YOUR hybrid — the style that blends your natural personality with the techniques that got the best results.'
+        'DO AN HOUR LOUD: Big, fast, straight in. Louder than is comfortable. Count how many came through the door.',
+        'DO AN HOUR QUIET: Slow it right down, warm it up, get them talking before you get to the product. Count again.',
+        'READ YOUR OWN NUMBERS: One of those two hours beat the other, and it will not always be the one you expected. That is your answer, and it took you a morning.',
+        'THEN STOP TESTING AND GO: Lean into whichever won and stop worrying about the other one. You can borrow bits off it later, once the main thing is second nature.'
       ],
       itemsEs: [
-          'SEMANA 1 — OBSERVA: No experimentes todavía. Solo observa a tus compañeros. Nota lo que hace cada persona. ¿Qué se siente natural para ti al observar? ¿Qué te hace sentir incómodo? Tus reacciones son datos.',
-          'SEMANA 2 — PRUEBA ALTA ENERGÍA: Incluso si eres tranquilo, prueba un turno de alta energía. Aumenta tu entusiasmo. Habla más fuerte. Muévete más rápido. Ve qué pasa. Registra tus paradas y cierres.',
-          'SEMANA 3 — PRUEBA ENERGÍA TRANQUILA: Ahora prueba lo opuesto. Baja la velocidad. Habla suavemente. Construye conexión antes de hacer el pitch. Registra la diferencia en la respuesta del cliente.',
-          'SEMANA 4 — PRUEBA DIRECTO vs. INDIRECTO: Prueba turnos donde vas directo al grano vs. turnos donde construyes conexión primero. ¿Cuál se siente mejor? ¿Cuál da mejores resultados?',
-          'SEMANA 5 — MEZCLA: Ahora ya sabes qué funciona. Crea TU híbrido, el estilo que mezcla tu personalidad natural con las técnicas que dieron los mejores resultados.',
+          'HAZ UNA HORA A LO GRANDE: Alto, rápido, entrando a saco. Más alto de lo que te resulta cómodo. Cuenta cuántos entraron por la puerta.',
+          'HAZ UNA HORA TRANQUILA: Baja el ritmo del todo, ponlo cálido, hazles hablar antes de llegar al producto. Cuenta otra vez.',
+          'LEE TUS PROPIOS NÚMEROS: Una de esas dos horas le ha ganado a la otra, y no siempre es la que esperabas. Esa es tu respuesta, y te ha costado una mañana.',
+          'Y AHORA DEJA DE PROBAR Y VE: Tira por la que ha ganado y olvídate de la otra. Ya le cogerás cosas más adelante, cuando lo principal te salga solo.',
         ],
     },
     {
             type: 'tip',
-      text: 'Track your numbers by style. Write down: energy level (1-10), approach type (direct/indirect), and result. After two weeks of tracking, patterns will emerge. Let data guide your style development, not just feelings.',
-      textEs: 'Registra tus números por estilo. Anota: nivel de energía (1-10), tipo de enfoque (directo/indirecto), y resultado. Después de dos semanas de registro, surgirán patrones. Deja que los datos guíen el desarrollo de tu estilo, no solo los sentimientos.',
+      text: 'Two numbers at the end of each hour: how many you stopped, and how many sat down. That is all the tracking you need. The feeling lies about which hour went better — you will swear the loud one flopped and then find it did not. The numbers do not lie.',
+      textEs: 'Dos números al final de cada hora: a cuántos paraste y cuántos se sentaron. Con eso te sobra. La sensación miente sobre qué hora ha ido mejor — jurarías que la hora a lo grande fue un desastre y luego resulta que no. Los números no mienten.',
     },
     {
             type: 'divider'
@@ -6634,7 +6633,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'This is uncomfortable but incredibly valuable. Ask a teammate to record a few of your stops on your phone. Then watch the footage. You\'ll notice things you never knew you did:',
-      textEs: 'Esto es incómodo pero increíblemente valioso. Pídele a un compañero que te grabe algunas de tus paradas en tu celular. Luego mira el video. Notarás cosas que nunca supiste que hacías:',
+      textEs: 'Esto es incómodo pero increíblemente valioso. Pídele a un compañero que te grabe algunas de tus paradas con el móvil. Luego mira el video. Notarás cosas que nunca supiste que hacías:',
     },
     {
             type: 'bullets',
@@ -6707,15 +6706,15 @@ export const lessons: Record<string, Lesson> = {
       explanation: 'The top performer has found a style that fits their unique personality, humor, energy, and voice. Your style should be the best version of YOU, not a clone of someone else.',
     },
     {
-      question: 'What is the recommended method for testing different stopping styles?',
+      question: 'What is the fastest way to find your own stopping style?',
       options: [
-        'Switch styles randomly every hour',
-        'Systematically test one style per week and track your results',
-        'Only use the style that feels most comfortable immediately',
-        'Copy each teammate for one day'
+        'Copy whatever the top seller on the street does',
+        'An hour loud, an hour quiet, then count',
+        'Stick with whichever one feels most comfortable',
+        'Try a different style every hour for a month'
       ],
       correctIndex: 1,
-      explanation: 'Systematic testing over weeks with tracked results lets you compare what works. Test high energy, calm energy, direct and indirect approaches, then blend what worked best into your unique hybrid.',
+      explanation: 'Do an hour loud, do an hour quiet, count how many came through the door. One of those hours beat the other, and it took you a morning instead of a month.',
     },
     {
       question: 'Why is recording yourself valuable for style development?',
@@ -6730,12 +6729,27 @@ export const lessons: Record<string, Lesson> = {
     }
     ],
   },
+
+  // The two practice shelves. They live in their own files because they are
+  // 20 lessons on their own, but they are ordinary `Lesson` records and belong
+  // in the same registry — `getLesson`, `getLessonsForCategory` and every page
+  // that reads `lessons` resolve them exactly like the 31 above.
+  ...scenarioLessons,
+  ...objectionLessons,
+  ...closingLessons,
 };
 
-// ── Helper functions ──
-export function getCategory(id: string): Category | undefined {
-  return categories.find((c) => c.id === id);
+// The lesson quizzes are maintained in their own file — bilingual, and with the
+// correct answer's position spread evenly across the four slots. Inline, every
+// answer was option B (84.9%) and also the longest option, so the quiz could be
+// passed by always tapping the long B. Overlay them onto the lessons that carry
+// one; a lesson with no override keeps whatever it declared.
+for (const [id, quiz] of Object.entries(LESSON_QUIZZES)) {
+  const lesson = lessons[id];
+  if (lesson) lesson.quiz = quiz;
 }
+
+// ── Helper functions ──
 
 export function getLessonsForCategory(categoryId: string): Lesson[] {
   const cat = getCategory(categoryId);
