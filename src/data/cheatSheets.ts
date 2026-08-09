@@ -727,8 +727,8 @@ export const SCRIPTS: ScriptCard[] = [
     answers: 'skin',
     title: '"It will not suit my skin"',
     titleEs: '"No le va a ir bien a mi piel"',
-    text: `"Nothing to worry about, my love. It is all natural — no chemicals, no parabens, nothing in there to upset anybody's skin. And this is not another moisturiser you slap on every morning. It is something completely different — you do it once a week. Once. Give me your hand and see for yourself."`,
-    textEs: `"No tienes nada de qué preocuparte, cariño. Es todo natural — sin químicos, sin parabenos, nada que le pueda irritar la piel a nadie. Y esto no es otra crema para ponerte cada mañana. Es algo completamente distinto — se usa una vez a la semana. Una. Dame la mano y lo ves tú misma."`,
+    text: `"Nothing to worry about, my love. All natural — no chemicals, no parabens, nothing in there to upset anybody. The most sensitive skin in the world can take this. I have had women use it going through the worst treatment you can imagine, when they could not put a drop of anything else on their face. And this is not another moisturiser you slap on every morning — completely different thing, once a week. Once. Give me your hand."`,
+    textEs: `"No tienes nada de qué preocuparte, cariño. Todo natural — sin químicos, sin parabenos, nada que le pueda molestar a nadie. La piel más sensible del mundo aguanta esto. He tenido a mujeres usándolo mientras pasaban por el peor tratamiento que te puedas imaginar, cuando no se podían poner ni una gota de nada más en la cara. Y esto no es otra crema para ponerte cada mañana — es otra cosa completamente distinta, una vez a la semana. Una. Dame la mano."`,
   },
   {
     /* The two questions that make every later objection answerable. Ask them
