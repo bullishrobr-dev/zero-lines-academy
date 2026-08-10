@@ -1,0 +1,1 @@
+import{J as o}from"./index-BAiwYWUq.js";function l(){const{currency:r,locationName:c}=o();return{replacePlaceholders:e=>e&&e.replace(/\{\{currency\}\}/g,r).replace(/\{\{location\}\}/g,c),currency:r,location:c}}export{l as u};
