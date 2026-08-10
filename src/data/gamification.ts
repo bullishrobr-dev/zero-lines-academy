@@ -122,6 +122,15 @@ export interface AchievementSource {
   getTotalCompletion: () => number;
   getCurrentStreak: () => number;
   quizScores: Record<string, number>;
+  /*
+   * Lifetime numbers from the journal. Optional because plenty of callers only
+   * hold progress — but without them every artefact in this case was a lesson
+   * or a quiz condition, and a seller could sell a syringe and watch "Closer"
+   * stay locked. In a sales app the trophy case rewarded reading only.
+   */
+  totalSales?: number;
+  totalStops?: number;
+  bestDaySales?: number;
 }
 
 /** Visual weight in the trophy case — how loudly an artefact is allowed to shout. */
@@ -204,9 +213,9 @@ export const ACHIEVEMENTS: Achievement[] = [
     condition: (p) => p.getCurrentStreak() >= 7,
   },
   {
-    id: 'closer',
-    nameKey: 'achCloser',
-    descKey: 'achCloserDesc',
+    id: 'ten-sold',
+    nameKey: 'achTenSales',
+    descKey: 'achTenSalesDesc',
     icon: Award,
     rarity: 'rare',
     condition: (p) => CLOSING_LESSON_IDS.every((id) => p.getLessonCompletion(id)),
@@ -226,6 +235,40 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: Trophy,
     rarity: 'legendary',
     condition: (p) => p.getTotalCompletion() === 100,
+  },
+  /* ── The floor ──────────────────────────────────────────────────────────
+     These are the only four an hour of reading cannot unlock. */
+  {
+    id: 'first-sale',
+    nameKey: 'achFirstSale',
+    descKey: 'achFirstSaleDesc',
+    icon: Target,
+    rarity: 'common',
+    condition: (p) => (p.totalSales ?? 0) >= 1,
+  },
+  {
+    id: 'closer',
+    nameKey: 'achCloser',
+    descKey: 'achCloserDesc',
+    icon: Trophy,
+    rarity: 'rare',
+    condition: (p) => (p.totalSales ?? 0) >= 10,
+  },
+  {
+    id: 'big-day',
+    nameKey: 'achBigDay',
+    descKey: 'achBigDayDesc',
+    icon: Zap,
+    rarity: 'legendary',
+    condition: (p) => (p.bestDaySales ?? 0) >= 5,
+  },
+  {
+    id: 'worked-the-floor',
+    nameKey: 'achWorkedTheFloor',
+    descKey: 'achWorkedTheFloorDesc',
+    icon: Flame,
+    rarity: 'rare',
+    condition: (p) => (p.totalStops ?? 0) >= 100,
   },
 ];
 

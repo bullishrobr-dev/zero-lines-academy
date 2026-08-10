@@ -26,7 +26,16 @@
 // mirror, and a mirror failing must never cost the seller XP or break a screen.
 // ─────────────────────────────────────────────────────────────
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  useContext,
+  createContext,
+  createElement,
+  type ReactNode,
+} from 'react';
 /* Metadata, not lesson bodies. This hook runs on every screen in the app, so
    importing the full lesson corpus here put all 741 KB of it on the critical
    path of the home screen. Nothing below reads a lesson's sections or quiz. */
@@ -119,6 +128,16 @@ export interface UseProgressReturn extends ProgressState {
    * reward for that surface was already claimed.
    */
   awardXP: (kind: string, amount: number, title: string) => boolean;
+  /**
+   * XP for something that happens many times a day — a stop, a sale.
+   *
+   * Deliberately NOT awardXP(): that one is keyed `<kind>:<date>` and pays once
+   * per day, which is right for the dose and the check-in and completely wrong
+   * for the floor. Street activity used to be written to a SEPARATE key that no
+   * screen ever read, so a seller could log a {currency}300 syringe and watch
+   * their XP, their level and their leaderboard rank all stay at zero.
+   */
+  awardRepeatXP: (amount: number, title: string) => void;
   completeDailyChallenge: (xpReward?: number) => void;
   isDailyChallengeCompleted: () => boolean;
   resetProgress: () => void;
@@ -321,7 +340,26 @@ export function reconcileRecords(device: DeviceRecords, server: db.ServerRecords
 }
 
 // ── Hook ──
-export function useProgress(): UseProgressReturn {
+/*
+ * ── WHY THIS IS A PROVIDER AND NOT JUST A HOOK ──────────────────────────────
+ *
+ * Ten components call useProgress(). As a plain hook that meant ten INDEPENDENT
+ * copies of XP, streak, lesson progress and the activity log, each with its own
+ * useState, each writing the same localStorage keys and none of them ever
+ * learning about the others' writes. Complete a lesson on one screen and the
+ * home screen kept the old total until a reload.
+ *
+ * That shape is also what produced the worst bug this app has had: LessonView
+ * did not use this hook at all. It hand-wrote `zl_lesson_progress`, which set
+ * the completed flag without paying the XP — and because completeLesson() only
+ * pays when the lesson is NOT already flagged, the quiz that ran afterwards
+ * skipped the award too. Every lesson in the app was worth nothing, silently,
+ * and no typecheck or guard could see it because it was a valid setItem.
+ *
+ * One instance, mounted once in App.tsx, is the fix for both. The exported
+ * useProgress() keeps its exact signature, so no call site changed.
+ */
+function useProgressState(): UseProgressReturn {
   /*
    * State is seeded with lazy initialisers rather than loaded in a mount
    * effect. localStorage is synchronous, so there is nothing to wait for, and
@@ -892,6 +930,31 @@ export function useProgress(): UseProgressReturn {
     [updateStreak]
   );
 
+  const awardRepeatXP = useCallback(
+    (amount: number, title: string): void => {
+      if (!Number.isFinite(amount) || amount <= 0) return;
+      setTotalXP((prev) => {
+        const newXP = prev + amount;
+        saveJSON(LS_XP, newXP);
+        return newXP;
+      });
+      updateStreak();
+      setActivityLog((log) => {
+        const newItem: ActivityItem = {
+          id: `street-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+          type: 'challenge',
+          title,
+          xpEarned: amount,
+          timestamp: new Date().toISOString(),
+        };
+        const updatedLog = [newItem, ...log].slice(0, 100);
+        saveJSON(LS_ACTIVITY_LOG, updatedLog);
+        return updatedLog;
+      });
+    },
+    [updateStreak]
+  );
+
   const completeDailyChallenge = useCallback(
     (xpReward = 20) => {
       const today = getToday();
@@ -1003,6 +1066,7 @@ export function useProgress(): UseProgressReturn {
     setUserName: setUserNameWrapper,
     getUserName,
     awardXP,
+    awardRepeatXP,
     completeDailyChallenge,
     isDailyChallengeCompleted,
     resetProgress,
@@ -1016,4 +1080,17 @@ export function useProgress(): UseProgressReturn {
     isLessonUnlocked: isLessonUnlockedWrapper,
     getTierCompletion: getTierCompletionWrapper,
   };
+}
+
+const ProgressContext = createContext<UseProgressReturn | null>(null);
+
+export function ProgressProvider({ children }: { children: ReactNode }) {
+  const value = useProgressState();
+  return createElement(ProgressContext.Provider, { value }, children);
+}
+
+export function useProgress(): UseProgressReturn {
+  const ctx = useContext(ProgressContext);
+  if (!ctx) throw new Error('useProgress must be used inside <ProgressProvider>');
+  return ctx;
 }

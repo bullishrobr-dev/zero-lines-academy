@@ -36,9 +36,20 @@ function getStoredLanguage(): Language {
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(getStoredLanguage);
 
-  // Persist language to localStorage
+  /* Guarded, unlike the version that shipped.
+     ThemeContext and LocationContext both wrap this identical write in a
+     try/catch; this one did not — and LanguageProvider sits ABOVE ErrorBoundary
+     in App.tsx, so the throw escaped the boundary entirely. A seller whose 5 MB
+     quota was full, or who had site data blocked, got a permanent white screen
+     with no error card and no way to diagnose it. Measured: 0 characters
+     rendered, uncaught pageerror, nothing on screen. */
   useEffect(() => {
-    localStorage.setItem(LS_LANGUAGE_KEY, language);
+    try {
+      localStorage.setItem(LS_LANGUAGE_KEY, language);
+    } catch {
+      // Full or blocked. The language still works for this session; losing the
+      // preference is survivable, crashing the whole app is not.
+    }
   }, [language]);
 
   const setLanguage = useCallback((lang: Language) => {

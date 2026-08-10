@@ -50,11 +50,23 @@ export interface XPAward {
   timestamp: number;
 }
 
+/*
+ * What the floor is worth, against a lesson's 100-150.
+ *
+ * These used to be 5 and 10 — and they were written to a key no screen read, so
+ * in practice a sale was worth nothing at all. Even once routed to the real
+ * total, 10 against a lesson's 100 meant one lesson outranked ten sales on the
+ * leaderboard the two shops race on. In a sales app, the seller reading on the
+ * bus beat the seller working the floor, publicly.
+ *
+ * A sale is now worth more than half a lesson, and a good day on the floor
+ * beats a few lessons — which is the order the owner actually wants. Lessons
+ * are still worth doing; they are just no longer the fastest way up the board.
+ */
 export const XP_VALUES = {
-  // A stop is now "they are inside the shop", which is real work — worth more
-  // than the old pavement-approach stop it replaces.
-  stop: 5,
-  sale: 10,
+  /** They are inside the shop — real work, and the hard part of the job. */
+  stop: 10,
+  sale: 60,
 } as const;
 
 // Prices are BASE prices from src/data/pricing.ts (the single source of truth).

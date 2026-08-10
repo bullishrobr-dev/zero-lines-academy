@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useMemo } from 'react';
 import { XP_VALUES, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
 import type { StreetSession, DailySummary, XPAward } from '../types/streetTracker';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useProgress } from './useProgress';
 import { isDatabaseConfigured } from '../backend/supabaseClient';
 import * as db from '../backend/db';
 
@@ -89,6 +90,7 @@ export function useStreetTracker() {
   const [xpAwards, setXpAwards] = useState<XPAward[]>(loadXPAwards);
 
   const { user } = useAuthContext();
+  const { awardRepeatXP } = useProgress();
   const userId = user?.id ?? '';
   const syncing = isDatabaseConfigured && userId !== '';
 
@@ -125,16 +127,23 @@ export function useStreetTracker() {
         void db.recordSale(userId, type, productId, amount).catch(() => {});
       }
 
-      const award: XPAward = {
-        activity: type === 'stop' ? 'Brought someone in' : 'Made a sale',
-        points: XP_VALUES[type],
-        timestamp: Date.now(),
-      };
+      const points = XP_VALUES[type];
+      const activity = type === 'stop' ? 'Brought someone in' : 'Made a sale';
+      const award: XPAward = { activity, points, timestamp: Date.now() };
       setXpAwards((prev) => [...prev, award]);
+
+      /* And into the XP the seller actually SEES.
+         This log was written to `zl_street_xp`, which the home screen, the
+         profile, the level and the leaderboard have never read — they all read
+         `zl_xp`. So a seller could log a sale and watch every number in the app
+         stay exactly where it was, while checking in was worth 5. The journal
+         is the best-built thing here and it was paid in a currency that bought
+         nothing. */
+      awardRepeatXP(points, activity);
 
       return entry;
     },
-    [syncing, userId]
+    [syncing, userId, awardRepeatXP]
   );
 
   /**
@@ -234,6 +243,35 @@ export function useStreetTracker() {
     [sessions]
   );
 
+  /**
+   * Lifetime floor totals, for the trophy case.
+   *
+   * Every achievement in the app was a lesson or a quiz condition — not one
+   * referenced a sale, a stop or a customer. A seller could sell a syringe and
+   * watch "Closer" stay locked. These are what let selling unlock something.
+   */
+  const getStreetTotals = useCallback((): {
+    totalSales: number;
+    totalStops: number;
+    bestDaySales: number;
+  } => {
+    /* Counted by `type`, exactly as aggregateDay() does. Counting
+       `outcome === 'sold'` instead would quietly disagree with every other
+       number in the app, because a sale is logged as its own entry. */
+    let totalSales = 0;
+    let totalStops = 0;
+    const byDay = new Map<string, number>();
+    for (const s of sessions) {
+      if (s.type === 'stop') totalStops += 1;
+      if (s.type === 'sale') {
+        totalSales += 1;
+        byDay.set(s.date, (byDay.get(s.date) ?? 0) + 1);
+      }
+    }
+    const bestDaySales = byDay.size ? Math.max(...byDay.values()) : 0;
+    return { totalSales, totalStops, bestDaySales };
+  }, [sessions]);
+
   const getWeekSummary = useCallback((): DailySummary[] => {
     const result: DailySummary[] = [];
     for (let i = 6; i >= 0; i--) result.push(aggregateDay(sessions, daysAgoKey(i)));
@@ -287,6 +325,7 @@ export function useStreetTracker() {
     resolveEncounter,
     getDailySummary,
     getWeekSummary,
+    getStreetTotals,
     getPersonalBest,
     getTotalXP,
     getStreak,

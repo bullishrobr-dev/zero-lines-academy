@@ -11,6 +11,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { LocationProvider } from './contexts/LocationContext';
 import { AuthProvider, useAuthContext } from './contexts/AuthContext';
+import { ProgressProvider } from './hooks/useProgress';
 
 /* ── Lazy-loaded pages for code splitting ── */
 const AuthPage          = lazy(() => import('./pages/AuthPage'));
@@ -160,6 +161,12 @@ export default function App() {
         <AuthProvider>
           {/* LocationProvider reads the signed-in user, so it must sit inside AuthProvider. */}
           <LocationProvider>
+            {/* One instance of the progress state, not one per screen.
+                useProgress() was a plain hook with ten call sites, so XP, the
+                streak and lesson progress existed in ten copies that never
+                learned about each other's writes — finish a lesson and the home
+                screen kept the old total until a reload. */}
+            <ProgressProvider>
             <ErrorBoundary>
               <Layout>
                 <Suspense fallback={<LoadingScreen />}>
@@ -216,6 +223,7 @@ export default function App() {
                 <PrefetchNavRoutes />
               </Layout>
             </ErrorBoundary>
+            </ProgressProvider>
           </LocationProvider>
         </AuthProvider>
       </LanguageProvider>

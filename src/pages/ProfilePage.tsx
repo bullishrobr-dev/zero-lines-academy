@@ -45,6 +45,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { useProgress } from '@/hooks/useProgress';
+import { useStreetTracker } from '@/hooks/useStreetTracker';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCurrency } from '@/utils/currency';
@@ -222,6 +223,7 @@ function Artefact({
 export default function ProfilePage() {
   const navigate = useNavigate();
   const progress = useProgress();
+  const { getStreetTotals } = useStreetTracker();
   const { language, t } = useLanguage();
   const { currency, locationName } = useCurrency();
   const authCtx = useAuthContext();
@@ -256,7 +258,16 @@ export default function ProfilePage() {
   const accuracy = progress.getAccuracyRate();
   const activityLog = progress.getActivityLog();
 
-  const unlockedIds = useMemo(() => getUnlockedAchievementIds(progress), [progress]);
+  /* The trophy case needs the floor as well as the coursework. Without these
+     every artefact was a lesson or quiz condition, so selling a syringe
+     unlocked nothing. */
+  /* Memoised, because getStreetTotals() returns a fresh object each call and an
+     unmemoised one would re-evaluate every artefact on every render. */
+  const streetTotals = useMemo(() => getStreetTotals(), [getStreetTotals]);
+  const unlockedIds = useMemo(
+    () => getUnlockedAchievementIds({ ...progress, ...streetTotals }),
+    [progress, streetTotals]
+  );
   const unlockedKey = unlockedIds.join(',');
   const unlockedCount = unlockedIds.length;
 

@@ -330,11 +330,48 @@ const inputClass =
 type Status = 'onTrack' | 'needsPush' | 'atRisk' | 'notStarted';
 
 /** Only ever called for people this device has records for. */
+/*
+ * ── THIS USED TO SCORE READING, AND EVERYONE FAILED ─────────────────────────
+ *
+ * It read one number: `emp.progress`, the fraction of all 56 lessons a seller
+ * had tapped through. So a brand-new hire was mathematically red on their first
+ * day no matter how well they sold, and a seller who had finished both of the
+ * tiers open to them — twelve lessons, 92% quiz average — was labelled
+ * "Falling behind". Every seller on the test roster came back red, and a red dot
+ * that everybody wears is a red dot nobody reads.
+ *
+ * It now reads the two things a manager actually coaches on:
+ *
+ *   FLOOR   conversion over the last 7 days — who is getting people to buy.
+ *           This is the real job, and it is already in the data (db.ts pulls
+ *           seven days of stops and sales per seller).
+ *   PACE    whether they are still learning at all — but only as a tiebreak,
+ *           and never enough on its own to call somebody at risk.
+ *
+ * Anyone with no floor data yet is judged on pace alone, because calling a
+ * first-week hire "at risk" for not having sold anything tells you nothing you
+ * did not already know.
+ */
 function getStatus(emp: EmployeeProgress): { key: Status; dot: string } {
+  if (!emp.hasData && emp.completedLessons === 0) {
+    return { key: 'notStarted', dot: 'bg-line-strong' };
+  }
+
+  const worked = emp.street.stops > 0;
+
+  if (worked) {
+    // Sold to at least one in five they got inside — that is a working seller.
+    if (emp.street.conversion >= 20) return { key: 'onTrack', dot: 'bg-success' };
+    // Bringing people in and not closing them is the coachable case, and the
+    // one this screen exists to surface.
+    if (emp.street.conversion >= 8) return { key: 'needsPush', dot: 'bg-warning' };
+    return { key: 'atRisk', dot: 'bg-danger' };
+  }
+
+  // No floor data. Judge on movement through the training only.
   if (emp.completedLessons === 0) return { key: 'notStarted', dot: 'bg-line-strong' };
-  if (emp.progress >= 70) return { key: 'onTrack', dot: 'bg-success' };
-  if (emp.progress >= 40) return { key: 'needsPush', dot: 'bg-warning' };
-  return { key: 'atRisk', dot: 'bg-danger' };
+  if (emp.progress >= 40) return { key: 'onTrack', dot: 'bg-success' };
+  return { key: 'needsPush', dot: 'bg-warning' };
 }
 
 /* ── Page ── */

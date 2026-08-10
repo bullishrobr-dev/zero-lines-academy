@@ -44,6 +44,7 @@ import { celebrateLessonComplete } from '../utils/confetti';
 import { haptic } from '../utils/haptics';
 import { useCurrency } from '../utils/currency';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProgress } from '../hooks/useProgress';
 import LessonSection from '../components/LessonSection';
 import TipCard from '../components/TipCard';
 import KeyPointCard from '../components/KeyPointCard';
@@ -361,6 +362,7 @@ export default function LessonView() {
   const [condensed, setCondensed] = useState(false);
   const { sub } = useCurrency();
   const { language, t } = useLanguage();
+  const { completeLesson } = useProgress();
   const isEs = language === 'es';
 
   const lesson = useMemo(() => (lessonId ? getLesson(lessonId) : undefined), [lessonId]);
@@ -445,15 +447,29 @@ export default function LessonView() {
     };
   }, [lessonId]);
 
+  /*
+   * ── THIS USED TO HAND-WRITE localStorage, AND IT COST EVERY LESSON ITS XP ──
+   *
+   * The old body did `p[lesson.id] = true; localStorage.setItem(...)` directly,
+   * bypassing useProgress entirely. That set the completed flag without paying
+   * the XP, without advancing the streak and without logging the activity.
+   *
+   * Worse, it was unrecoverable. The "Take the quiz" button renders ONLY in the
+   * isCompleted branch, so the only route to a quiz was through this button —
+   * and completeLesson() pays only when the lesson is NOT already flagged. By
+   * the time the quiz called it, the flag was set and the award was skipped.
+   * All 56 lessons, 100-150 XP each: roughly 6,400 XP that no seller could ever
+   * earn. The tick appeared, the confetti fired, the tier unlocked, and they
+   * were paid nothing — and nothing in the build could see it, because a plain
+   * setItem is perfectly valid code.
+   */
   const handleMarkComplete = useCallback(() => {
     if (!lesson || isCompleted) return;
-    const p = getProgress();
-    p[lesson.id] = true;
-    localStorage.setItem('zl_lesson_progress', JSON.stringify(p));
+    completeLesson(lesson.id, lesson.xpReward);
     setIsCompleted(true);
     haptic('medium');
     celebrateLessonComplete();
-  }, [lesson, isCompleted]);
+  }, [lesson, isCompleted, completeLesson]);
 
   if (!lesson || !category) return <Navigate to="/home" replace />;
 

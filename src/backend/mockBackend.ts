@@ -18,6 +18,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import type { User, UserRole, UserLocation, LessonProgress, QuizResult, TeamStats } from './types';
+import { LESSON_META } from '@/data/lessonMeta';
 import { ACCOUNTS, accountId, findAccount, type Account } from '../data/accounts';
 import { hashPassword, verifierMatches } from '../utils/credentials';
 import { isDatabaseConfigured } from './supabaseClient';
@@ -46,7 +47,12 @@ const LS_QUIZZES = 'zl_backend_quiz_results';
  * behind the lesson routes; importing it here would pull it into the initial
  * bundle for every user.
  */
-export const TOTAL_LESSON_COUNT = 51;
+/* Read from the generated metadata rather than typed by hand.
+   It was 51 while the app shipped 56 lessons, so every percentage on the
+   manager dashboard was inflated by about 10% and anyone who finished the
+   curriculum would have shown over 100%. A hardcoded count of a thing that
+   grows is a number that is always slightly wrong. */
+export const TOTAL_LESSON_COUNT = Object.keys(LESSON_META).length;
 
 // ── Helpers ──
 function loadJSON<T>(key: string, fallback: T): T {
