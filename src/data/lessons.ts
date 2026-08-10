@@ -5146,8 +5146,8 @@ export const lessons: Record<string, Lesson> = {
     categoryId: 'stopping',
     title: 'The First Sequence',
     titleEs: 'La Primera Secuencia',
-    subtitle: 'Stood ready, get the look, close the gap, the gift, then turn and walk — the order everything else is built on',
-    subtitleEs: 'Colocado, consigue la mirada, acorta la distancia, el regalo, y date la vuelta y anda — el orden sobre el que se construye todo lo demás',
+    subtitle: 'Stood ready, get the look, close the gap, the gift, turn and walk, and sit them down — the order everything else is built on',
+    subtitleEs: 'Colocado, consigue la mirada, acorta la distancia, el regalo, date la vuelta y anda, y siéntalos — el orden sobre el que se construye todo lo demás',
     duration: '12 min',
     icon: 'Target',
     order: 1,
@@ -5381,6 +5381,43 @@ export const lessons: Record<string, Lesson> = {
         textEs: `Nunca andas a su lado y nunca los acompañas. Andas tú primero y los llamas.`,
       },
       {
+        type: 'keypoint',
+        text: `And if they still do not come — it is what it is. You did the sequence, you did it properly, you gave it everything you had. That one is not on you. Do not carry her to the next person; the next person has not done anything wrong. This is the one bit of comfort in this job you are allowed to reach for, and you are only allowed to reach for it because you actually did the work.`,
+        textEs: `Y si aun así no vienen — pues es lo que hay. Has hecho la secuencia, la has hecho bien, le has puesto todo lo que tenías. Esa no va contigo. No te la lleves a la siguiente persona; la siguiente no te ha hecho nada. Este es el único consuelo que te puedes permitir en este trabajo, y te lo puedes permitir solo porque de verdad has hecho el trabajo.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 9 — They came in. Now the day starts.',
+        textEs: 'Paso 9 — Han entrado. Ahora empieza el día.',
+      },
+      {
+        type: 'paragraph',
+        text: `The chairs are ready before anybody reaches them. Not pulled out while she stands there watching you clear a seat — ready, because the ten seconds you spend sorting furniture is the ten seconds she uses to remember she was going somewhere.`,
+        textEs: `Las sillas están listas antes de que nadie llegue. No las saques mientras ella está ahí de pie mirando cómo despejas un sitio — listas, porque los diez segundos que pasas colocando muebles son los diez segundos que ella usa para acordarse de que iba a algún sitio.`,
+      },
+      {
+        type: 'bullets',
+        items: [
+          'FACING INTO THE SHOP: never facing the street. If she can see the pavement moving past, she starts thinking about being back out on it.',
+          'A CHAIR FOR HIM TOO: if there are two of them, both sit. A partner left standing behind her gets bored, and the bored one is the one who says "come on, we should go".',
+          'SIT HER DOWN AND START: no pause, no "so…", no shuffling. She is in the chair, you have got her hand, and you are already talking.',
+        ],
+        itemsEs: [
+          'MIRANDO HACIA DENTRO: nunca hacia la calle. Si ve la acera pasando por delante, empieza a pensar en volver a salir a ella.',
+          'UNA SILLA PARA ÉL TAMBIÉN: si son dos, se sientan los dos. Una pareja que se queda de pie detrás se aburre, y el aburrido es el que dice "venga, que nos tenemos que ir".',
+          'SIÉNTALA Y EMPIEZA: sin pausa, sin "bueno…", sin dar vueltas. Está en la silla, le tienes la mano cogida, y ya estás hablando.',
+        ],
+      },
+      {
+        type: 'keypoint',
+        text: `That is the sequence finished and the sale not yet started. Everything from here — the demo, the two yeses, the number, the ladder — is a different lesson. But none of it ever happens for a seller who cannot do these nine steps, which is why this is the one to learn first and the one to come back to when a week goes badly.`,
+        textEs: `Ahí se acaba la secuencia y todavía no ha empezado la venta. Todo lo que viene ahora — la demo, los dos síes, el número, la escalera — es otra lección. Pero nada de eso le pasa nunca a un vendedor que no sabe hacer estos nueve pasos, y por eso esta es la primera que hay que aprenderse y a la que hay que volver cuando una semana sale mal.`,
+      },
+      {
         type: 'divider',
       },
 
@@ -5400,7 +5437,8 @@ export const lessons: Record<string, Lesson> = {
           '"REALLY? NO WAY.": be impressed, top it, find the common ground.',
           'THE SMALL GIFT: say it, turn around, walk in. Do not check.',
           'INSIDE THE SHOP: look back and call them — "it\'s two seconds, I promise."',
-          'TURN ROUND AND WALK AGAIN. Then go and find the next one.',
+          'TURN ROUND AND WALK AGAIN. If they still do not come, it is what it is — you did it all.',
+          'THEY CAME IN: chairs already set, backs to the street, one for him as well. Start.',
         ],
         itemsEs: [
           'COLOCADO: la muestra en la mano, el paso libre, fuera donde te vean.',
@@ -5411,12 +5449,13 @@ export const lessons: Record<string, Lesson> = {
           '"¿EN SERIO? NO ME LO CREO.": que te impresione, remátalo, busca algo en común.',
           'EL REGALITO: lo dices, te giras, entras. No compruebes nada.',
           'YA DENTRO: mira atrás y llámalos — "son dos segundos, os lo prometo".',
-          'TE GIRAS Y ANDAS OTRA VEZ. Y luego vas a por el siguiente.',
+          'TE GIRAS Y ANDAS OTRA VEZ. Si aun así no vienen, es lo que hay — lo has hecho todo.',
+          'HAN ENTRADO: las sillas ya puestas, de espaldas a la calle, una para él también. A empezar.',
         ],
       },
       {
         type: 'tip',
-        text: 'Do not practise this in bits. Say the whole thing out loud before your shift, in order — greeting, sample, the rush line, "really? no way", the gift, turn, walk. It is about twenty seconds start to finish. You run it whole because the order IS the technique: any one of those lines on its own is just a nice thing said to a stranger.',
+        text: 'Do not practise this in bits. Say the whole thing out loud before your shift, in order — greeting, sample, the rush line, "really? no way", the gift, turn, walk. Then the chairs. It is about twenty seconds start to finish. You run it whole because the order IS the technique: any one of those lines on its own is just a nice thing said to a stranger.',
         textEs: 'No practiques esto a trozos. Dilo entero en voz alta antes del turno, en orden — saludo, muestra, lo de la prisa, "¿en serio? no me lo creo", el regalo, te giras y andas. Son unos veinte segundos de principio a fin. Se hace entero porque el orden ES la técnica: cualquiera de esas frases suelta es solo algo majo que le dices a un desconocido.',
       },
       {

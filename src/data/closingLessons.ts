@@ -438,6 +438,16 @@ export const closingLessons: Record<string, Lesson> = {
         text: `Put them in the chair facing into the shop — facing the wall — never facing the street. If they can see the pavement moving past, they start thinking about being back out on it. Take the street out of their eyeline and you have their whole attention.`,
         textEs: `Siéntalos en la silla mirando hacia dentro de la tienda — hacia la pared — nunca hacia la calle. Si ven el movimiento de la acera, empiezan a pensar en volver a ella. Quita la calle de su campo de visión y tienes toda su atención.`,
       },
+      {
+        type: 'keypoint',
+        text: `Have the chairs ready before anybody gets to them. Sorting furniture while she stands there watching is ten seconds of nothing happening, and ten seconds of nothing happening is exactly long enough for her to remember she was on her way somewhere.`,
+        textEs: `Ten las sillas puestas antes de que llegue nadie. Colocar muebles mientras ella está ahí de pie mirando son diez segundos en los que no pasa nada, y diez segundos en los que no pasa nada son justo lo que necesita para acordarse de que iba a algún sitio.`,
+      },
+      {
+        type: 'keypoint',
+        text: `And if there are two of them, set out two chairs. A partner left standing behind her has nothing to do but wait, and a bored man behind the chair is the most common reason a good demo ends in "come on, we should get going". Sit him down and he is part of it instead of waiting for it to finish.`,
+        textEs: `Y si son dos, saca dos sillas. Una pareja que se queda de pie detrás no tiene nada que hacer salvo esperar, y un hombre aburrido detrás de la silla es el motivo más habitual de que una buena demo acabe en "venga, que nos tenemos que ir". Siéntalo y pasa a formar parte, en vez de estar esperando a que acabe.`,
+      },
 
       {
         type: 'divider',
