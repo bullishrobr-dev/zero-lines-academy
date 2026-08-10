@@ -747,13 +747,13 @@ export const lessons: Record<string, Lesson> = {
     sections: [
     {
             type: 'header',
-      text: 'Couples Close at Twice the Rate — If You Know How to Work Them',
-      textEs: 'Las Parejas Cierran al Doble de la Tasa — Si Sabes Cómo Manejarlas',
+      text: 'A Couple Is Two Sales or Two Vetoes — Never One of Each',
+      textEs: 'Una Pareja Son Dos Ventas o Dos Vetos — Nunca Una de Cada',
     },
     {
             type: 'paragraph',
-      text: 'A solo shopper makes decisions alone. A couple makes decisions together — and that dynamic is either your greatest asset or your biggest obstacle. When you engage both partners skillfully, they validate each other\'s buying decision. When you ignore one partner, they become a silent veto. Couples who both feel included close at nearly double the rate of solo shoppers.',
-      textEs: 'Un comprador solo toma decisiones solo. Una pareja toma decisiones juntos — y esa dinámica es tu mayor activo o tu mayor obstáculo. Cuando involucras a ambas parejas hábilmente, se validan la decisión de compra mutuamente. Cuando ignoras a una pareja, se convierte en un veto silencioso. Las parejas en las que ambos se sienten incluidos cierran a casi el doble de la tasa de los compradores solos.',
+      text: 'A person on their own decides on their own. A couple decides out loud, in front of you, and that changes everything. Bring both of them in and they talk each other INTO it — she wants it, he says "go on, treat yourself", and now the decision has two people behind it instead of one. Leave one of them standing there like furniture and you have created a silent veto: bored, ignored, and one sigh away from "come on, we said we were meeting them at six." The mechanism is that simple, and it is why you never let a partner go quiet.',
+      textEs: 'Una persona sola decide sola. Una pareja decide en voz alta, delante de ti, y eso lo cambia todo. Métetelos a los dos y se convencen el uno al otro — ella lo quiere, él dice "venga, date un capricho", y ahora la decisión tiene a dos personas detrás en vez de a una. Deja a uno ahí de pie como un mueble y te has fabricado un veto silencioso: aburrido, ignorado, y a un suspiro de "venga, que habíamos quedado a las seis". El mecanismo es así de simple, y por eso nunca dejas que una pareja se calle.',
     },
     {
             type: 'keypoint',
@@ -1201,8 +1201,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'comparison',
-      left: { label: 'Closed Questions (Weak)', text: '\'Do you use cream?\' — Yes/No answer. Ends conversation. Reveals nothing. \'Do you like it?\' — \'It\'s nice.\' Dead end. \'Have you been to {locationName} before?\' — \'Yes.\' Nothing to work with.' },
-      leftEs: { label: 'Preguntas Cerradas (Débiles)', text: '\'¿Usas crema?\' — Respuesta sí/no. Termina la conversación. No revela nada. \'¿Te gusta?\' — \'Está bonito.\' Callejón sin salida. \'¿Has estado en {locationName} antes?\' — \'Sí.\' Nada con qué trabajar.' },
+      left: { label: 'Closed Questions (Weak)', text: '\'Do you use cream?\' — Yes/No answer. Ends conversation. Reveals nothing. \'Are you enjoying your holiday?\' — \'Yes.\' Nowhere to go next. \'Have you been to {locationName} before?\' — \'Yes.\' Nothing to work with.' },
+      leftEs: { label: 'Preguntas Cerradas (Débiles)', text: '\'¿Usas crema?\' — Respuesta sí/no. Termina la conversación. No revela nada. \'¿Estás disfrutando las vacaciones?\' — \'Sí.\' No hay por dónde seguir. \'¿Has estado en {locationName} antes?\' — \'Sí.\' Nada con qué trabajar.' },
       right: { label: 'Open Questions (Powerful)', text: '\'What do you use on your skin?\' — Reveals routine, spending, and concerns. \'What do you think of the result?\' — Gets them talking about feelings. \'What brings you to {locationName}?\' — Opens connection opportunities.' },
       rightEs: { label: 'Preguntas Abiertas (Potentes)', text: '\'¿Qué usas para la piel?\' — Revela rutina, gasto y preocupaciones. \'¿Qué te parece el resultado?\' — Les hace hablar de lo que sienten. \'¿Qué te trae por {locationName}?\' — Abre oportunidades de conexión.' }
     },
@@ -1210,6 +1210,11 @@ export const lessons: Record<string, Lesson> = {
             type: 'tip',
       text: 'Start with open questions. Use closed questions only to confirm what you\'ve learned (\'So you use a night cream already — that\'s great\'). Open questions gather intelligence; closed questions confirm understanding.',
       textEs: 'Empieza con preguntas abiertas. Usa preguntas cerradas solo para confirmar lo que has aprendido (\'Así que ya usas una crema de noche — eso es genial\'). Las preguntas abiertas recopilan inteligencia; las preguntas cerradas confirman entendimiento.',
+    },
+    {
+            type: 'keypoint',
+      text: 'ONE BIG EXCEPTION, and it is the most important question in the shop. In the demo, with the mirror in her hand, you ask \'Do you like it?\' and then \'If you had it at home, would you use it?\' — both closed, both on purpose. You are not after a conversation there. You are after the word yes, out loud, in her own voice, because in two minutes you are going to hand it straight back to her. Open questions are for the pavement, where you are still learning who she is. The two yeses are for the chair, where you are putting something on the record. See The Demo And The Two Yeses.',
+      textEs: 'UNA EXCEPCIÓN GRANDE, y es la pregunta más importante de la tienda. En la demo, con el espejo en su mano, le preguntas \'¿Te gusta?\' y luego \'¿Si lo tuvieras en casa, lo usarías?\' — las dos cerradas, y a propósito. Ahí no buscas conversación. Buscas la palabra sí, en voz alta, con su propia voz, porque dentro de dos minutos se la vas a devolver. Las preguntas abiertas son para la acera, donde todavía estás averiguando quién es. Los dos síes son para la silla, donde estás dejando algo grabado. Mira La Demo y los Dos Síes.',
     },
     {
             type: 'divider'
@@ -3254,221 +3259,103 @@ export const lessons: Record<string, Lesson> = {
   'prod-8': {
     id: 'prod-8',
     categoryId: 'products',
-    title: 'The WhatsApp Close & Follow-Up',
-    titleEs: 'El Cierre de WhatsApp y Seguimiento',
-    subtitle: 'Turning one sale into a relationship — follow-up templates, client books, and referral strategies',
-    subtitleEs: 'Convertir una venta en una relación — plantillas de seguimiento, libro de clientes y referencias',
-    duration: '10 min',
+    title: 'The Number, And Then Let It Go',
+    titleEs: 'El Número, y Luego Suéltalo',
+    subtitle: 'Take it if the moment offers it, send one message while she is standing there, then get back on the floor',
+    subtitleEs: 'Cógelo si el momento lo pide, manda un mensaje mientras sigue ahí, y vuelve a la sala',
+    duration: '4 min',
     icon: 'MessageSquare',
     order: 8,
     xpReward: 150,
     sections: [
     {
             type: 'header',
-      text: 'The Sale Is Just the Beginning of the Relationship',
-      textEs: 'La Venta es Solo el Comienzo de la Relación',
+      text: 'There Is No Follow-Up in This Job',
+      textEs: 'En Este Trabajo No Hay Seguimiento',
     },
     {
             type: 'paragraph',
-      text: 'A one-time sale is good. A returning customer is gold. A referring customer is a gold mine. The WhatsApp close transforms a single transaction into an ongoing relationship — and relationships are where real money is made. A customer who buys once might spend {currency}150. A customer who returns three times and refers two friends might spend {currency}1,000+ over their lifetime. That\'s the math that matters.',
-      textEs: 'Una venta única es buena. Un cliente que vuelve es oro. Un cliente que refiere es una mina de oro. El cierre de WhatsApp transforma una transacción única en una relación continua — y las relaciones son donde se hace el dinero real. Un cliente que compra una vez podría gastar {currency}150. Un cliente que vuelve tres veces y refiere a dos amigos podría gastar {currency}1,000+ a lo largo de su vida. Esa es la matemática que importa.',
+      text: 'Somewhere in your head there is a picture of a client book: names, notes, birthdays, a message on day three and another on day seven. Forget it. That is a job in a salon where people live down the road. Yours is a kiosk in a shopping centre and the woman in your chair flies home on Tuesday. You will almost certainly never see her again, and no message you send her next week will change that.',
+      textEs: 'En algún sitio de tu cabeza hay una foto de un libro de clientes: nombres, notas, cumpleaños, un mensaje el día tres y otro el día siete. Olvídalo. Eso es un trabajo en un salón donde la gente vive en la misma calle. El tuyo es un kiosco en un centro comercial y la mujer de tu silla vuela a casa el martes. Con toda probabilidad no la vas a volver a ver, y ningún mensaje que le mandes la semana que viene va a cambiar eso.',
     },
     {
             type: 'keypoint',
-      text: 'The WhatsApp close isn\'t just about having their number. It\'s about becoming their personal beauty advisor — the person they text when they need more product, when they have a question, when they\'re planning their next {locationName} trip. You become their connection to the brand.',
-      textEs: 'El cierre de WhatsApp no se trata solo de tener su número. Se trata de convertirte en su asesor de belleza personal — la persona a la que escriben cuando necesitan más producto, cuando tienen una pregunta, cuando están planeando su próximo viaje a {locationName}. Te conviertes en su conexión con la marca.',
+      text: 'Which is exactly why the only follow-up that ever works happens while she is still standing in front of you. Everything you were going to do on day three, you do in the ninety seconds after she pays — or you do not do it at all.',
+      textEs: 'Y justo por eso el único seguimiento que funciona ocurre mientras ella todavía está delante de ti. Todo lo que ibas a hacer el día tres, lo haces en los noventa segundos después de que pague — o no lo haces nunca.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'The WhatsApp Close: During the Sale',
-      textEs: 'El Cierre de WhatsApp: Durante la Venta',
+      text: 'Take the Number Only If the Moment Offers It',
+      textEs: 'Coge el Número Solo Si el Momento lo Pide',
     },
     {
             type: 'paragraph',
-      text: 'The WhatsApp exchange should feel natural and mutual, not one-sided. Here\'s how to set it up:',
-      textEs: 'El intercambio de WhatsApp debe sentirse natural y mutuo, no unilateral. Así es como configurarlo:',
-    },
-    {
-            type: 'numbered',
-      items: [
-        'THE SETUP: \'You use WhatsApp, right? Perfect.\' This assumes they use it (most people do) and frames the exchange as natural.',
-        'THE EXCHANGE: \'Give me your number and I\'ll send you my contact — if you ever need anything, want to reorder, or have questions about how to use it, just message me directly.\' This positions the connection as SERVICE, not marketing.',
-        'THE IMMEDIATE VALUE: Send a message RIGHT THEN while they\'re still in the shop. \'Hi [Name]! It\'s [Your Name] from Zero Lines in {locationName}. Here\'s my number — save it! If you need anything at all, I\'m here. Enjoy your new products!\' This confirms the number works and establishes the channel immediately.',
-        'THE TWO PROMISES: \'Promise me two things: you\'ll actually use it, and if you love it, you\'ll tell your friends about us.\' These two promises create accountability and plant the referral seed.'
-      ],
-      itemsEs: [
-          'LA CONFIGURACIÓN: "¿Usas WhatsApp, verdad? Perfecto." Esto asume que lo usan (la mayoría de la gente sí) y enmarca el intercambio como natural.',
-          'EL INTERCAMBIO: "Dame tu número y te envío mi contacto — si alguna vez necesitas algo, quieres reordenar, o tienes preguntas sobre cómo usarlo, solo escríbeme directamente." Esto posiciona la conexión como SERVICIO, no como marketing.',
-          'EL VALOR INMEDIATO: Envía un mensaje EN ESE MOMENTO mientras todavía están en la tienda. "¡Hola [Nombre]! Soy [Tu Nombre] de Zero Lines en {locationName}. Aquí está mi número — ¡guárdalo! Si necesitas algo en absoluto, aquí estoy. ¡Disfruta tus nuevos productos!" Esto confirma que el número funciona y establece el canal inmediatamente.',
-          'LAS DOS PROMESAS: "Prométeme dos cosas: que realmente lo usarás, y si te encanta, que les contarás a tus amigos sobre nosotros." Estas dos promesas crean responsabilidad y plantan la semilla de la referencia.',
-        ],
+      text: 'She is paid, delighted, holding the bag, laughing at something you said. THAT is when you ask, and only then. If the moment is flat, skip it — a number squeezed out of somebody who is already halfway to the door is a number that never gets used, and asking for it turns a lovely ending into a bit of admin.',
+      textEs: 'Ha pagado, está encantada, tiene la bolsa en la mano y se está riendo de algo que has dicho. ESE es el momento de pedirlo, y solo ese. Si el momento está plano, sáltatelo — un número sacado a alguien que ya está a medio camino de la puerta es un número que no se usa nunca, y pedirlo convierte un final bonito en papeleo.',
     },
     {
             type: 'script',
-      text: '\'You use WhatsApp, right? Perfect. Give me your number — I\'ll send you my contact right now. If you ever need to reorder, have questions about how to use it, or just want to say hi when you\'re back in {locationName}, I\'m here. Here\'s my number too. We\'re officially friends now!\' [Send message immediately while they\'re in the shop.]',
-      textEs: '"¿Usas WhatsApp, verdad? Perfecto. Dame tu número — te envío mi contacto ahora mismo. Si alguna vez necesitas reordenar, tienes preguntas sobre cómo usarlo, o solo quieres saludar cuando vuelvas a {locationName}, aquí estoy. Aquí está mi número también. ¡Ya somos amigos oficialmente!" [Envía el mensaje inmediatamente mientras están en la tienda.]',
+      text: '\'You use WhatsApp, right? Give me your number — I\'ll send you mine right now, so if you ever have a question about how to use it you\'ve got a human instead of a website.\'',
+      textEs: '"¿Usas WhatsApp, no? Dame tu número — te mando el mío ahora mismo, así si algún día tienes una duda de cómo usarlo tienes a una persona y no a una página web."',
     },
     {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'Follow-Up Message Templates',
-      textEs: 'Plantillas de Mensajes de Seguimiento',
-    },
-    {
-            type: 'paragraph',
-      text: 'These are word-for-word templates you can use. Adapt them to your voice:',
-      textEs: 'Estas son plantillas palabra por palabra que puedes usar. Adáptalas a tu voz:',
-    },
-    {
-            type: 'bullets',
-      items: [
-        'DAY 1 — THE CHECK-IN: \'Hi [Name]! Hope you\'re enjoying {locationName}. Just wanted to check — did you try the [product] yet? Any questions? I\'m here if you need me!\' (Shows you care, opens dialogue.)',
-        'DAY 3 — THE TIP: \'Hey [Name]! Pro tip for the [product]: use it at night before bed so it has time to work its magic while you sleep. Let me know how it goes!\' (Adds value, keeps connection alive.)',
-        'DAY 7 — THE LOVE CHECK: \'Hi [Name]! It\'s been a week — how are you loving the [product]? Have people noticed the difference? I bet they have!\' (Encourages them to reflect on results and share positive feelings.)',
-        'DAY 14 — THE REORDER NUDGE: \'Hey [Name]! If you\'re running low on anything, message me and I\'ll tell you exactly what we have in.\' (Opens the door to a reorder. Notice what it does not do: promise to hold anything, or promise a price, on a day you might not even be working.)',
-        'MONTH 3 — THE RETURNING CUSTOMER: \'Hi [Name]! Missing {locationName} yet? When you\'re planning your next trip, let me know — we have some lovely new bits in I think you\'ll go mad for.\' (Keeps you in their head without promising them anything somebody else has to honour.)'
-      ],
-      itemsEs: [
-          'DÍA 1 — EL CHECK-IN: "¡Hola [Nombre]! Espero que estés disfrutando {locationName}. Solo quería comprobar — ¿ya probaste el [producto]? ¿Alguna pregunta? ¡Aquí estoy si me necesitas!" (Muestra que te importa, abre el diálogo.)',
-          'DÍA 3 — EL TIP: "¡Hola [Nombre]! Tip pro para el [producto]: úsalo en la noche antes de dormir para que tenga tiempo de hacer su magia mientras duermes. ¡Dime cómo te va!" (Agrega valor, mantiene la conexión viva.)',
-          'DÍA 7 — EL CHECK DE ENCANTO: "¡Hola [Nombre]! Ya hace una semana — ¿cómo te está gustando el [producto]? ¿La gente ha notado la diferencia? ¡Apuesto a que sí!" (Los anima a reflexionar sobre resultados y compartir sentimientos positivos.)',
-          'DÍA 14 — EL EMPUJÓN DE REPOSICIÓN: "¡Hola [Nombre]! Si se te está acabando algo, escríbeme y te digo justo lo que tenemos." (Abre la puerta a que repita. Fíjate en lo que no hace: prometer que le guardas nada, ni un precio, para un día en el que a lo mejor ni trabajas.)',
-          'MES 3 — EL CLIENTE QUE VUELVE: "¡Hola [Nombre]! ¿Ya echas de menos {locationName}? Cuando estés planeando el próximo viaje, avísame — nos han entrado cosas nuevas preciosas que creo que te van a volver loca." (Te mantiene en su cabeza sin prometerle nada que luego tenga que cumplir otro.)',
-        ],
-    },
-    {
-            type: 'tip',
-      text: 'Space your messages appropriately. One message in the first week, then one more after two weeks, then monthly at most. Too many messages feels spammy. Too few feels forgotten. Quality over quantity.',
-      textEs: 'Espacia tus mensajes apropiadamente. Un mensaje en la primera semana, luego otro después de dos semanas, luego máximo mensual. Demasiados mensajes se sienten spam. Muy pocos se sienten olvidados. Calidad sobre cantidad.',
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'Building Your Client Book',
-      textEs: 'Construyendo tu Libro de Clientes',
-    },
-    {
-            type: 'paragraph',
-      text: 'A client book is your most valuable sales asset. It\'s your personal database of customers who know, like, and trust you. Here\'s how to build and manage it:',
-      textEs: 'Un libro de clientes es tu activo de ventas más valioso. Es tu base de datos personal de clientes que te conocen, quieren y confían en ti. Así es como construirlo y manejarlo:',
-    },
-    {
-            type: 'bullets',
-      items: [
-        'SAVE EVERY NUMBER: Every customer who gives you their WhatsApp goes into your client book. No exceptions. Even the small {currency}30 scrub buyers.',
-        'ADD NOTES: After each sale, add a quick note: \'Maria — bought syringe, from Madrid, skiing trip, husband was skeptical but loved the result.\' These notes make future conversations personal.',
-        'SEGMENT YOUR LIST: Mark customers by product purchased, location, and buying behavior. Your syringe customers are different from your scrub customers. Your gift buyers are different from your self-buyers.',
-        'TRACK INTERACTIONS: Note who responded, who didn\'t, who asked questions, who referred friends. This data tells you who your best relationship customers are.'
-      ],
-      itemsEs: [
-          'GUARDA CADA NÚMERO: Cada cliente que te dé su WhatsApp entra en tu libro de clientes. Sin excepciones. Incluso los compradores pequeños de exfoliante de {currency}30.',
-          'AGREGA NOTAS: Después de cada venta, agrega una nota rápida: "María — compró jeringa, de Madrid, viaje de esquí, el esposo era escéptico pero amó el resultado." Estas notas hacen que las conversaciones futuras sean personales.',
-          'SEGMENTA TU LISTA: Marca clientes por producto comprado, ubicación y comportamiento de compra. Tus clientes de jeringa son diferentes a tus clientes de exfoliante. Tus compradores de regalos son diferentes a tus compradores personales.',
-          'RASTREA INTERACCIONES: Anota quién respondió, quién no, quién hizo preguntas, quién refirió amigos. Estos datos te dicen quiénes son tus mejores clientes de relación.',
-        ],
+            type: 'keypoint',
+      text: 'Then send it THERE, in front of her, before she stands up. One message, two lines, done: who you are and where you are. If you wait until later you will not do it, and if she has typed a digit wrong nobody will ever find out.',
+      textEs: 'Y mándalo AHÍ, delante de ella, antes de que se levante. Un mensaje, dos líneas, y ya: quién eres y dónde estás. Si lo dejas para luego no lo vas a hacer, y si se ha equivocado en un número no se va a enterar nadie.',
     },
     {
             type: 'script',
-      text: 'After each sale, quickly note in your phone: \'Name: Maria. Product: Syringe Option 1. From: Madrid. Trip: Skiing. Notes: Husband loved the result, buying for daughter next time. Follow up: Day 3, Day 7.\' This takes 30 seconds and pays dividends.',
-      textEs: 'Después de cada venta, anota rápidamente en tu teléfono: "Nombre: María. Producto: Jeringa Opción 1. De: Madrid. Viaje: Esquí. Notas: Al esposo le encantó el resultado, comprará para su hija la próxima vez. Seguimiento: Día 3, Día 7." Esto toma 30 segundos y da dividendos.',
+      text: '\'Hi [Name] — it\'s [Your Name] from the shop in {locationName}. Save that. Any questions at all, message me. Enjoy it!\'',
+      textEs: '"Hola [Nombre] — soy [Tu Nombre], de la tienda de {locationName}. Guárdalo. Cualquier duda, me escribes. ¡Disfrútalo!"',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Return Customer Techniques',
-      textEs: 'Técnicas para Clientes que Vuelven',
+      text: 'The Two Promises — Your Whole Referral Strategy',
+      textEs: 'Las Dos Promesas — Toda tu Estrategia de Recomendación',
     },
     {
             type: 'paragraph',
-      text: 'Getting a customer to return is significantly easier than finding a new one. Here\'s how to encourage repeat visits:',
-      textEs: 'Hacer que un cliente vuelva es significativamente más fácil que encontrar uno nuevo. Así es como fomentar visitas repetidas:',
+      text: 'You do not chase referrals for weeks. You ask once, at the top of her mood, while the bag is still in her hand — and then you never mention it again. Two things, said light, half a joke:',
+      textEs: 'No persigues recomendaciones durante semanas. Lo pides una vez, en lo más alto de su alegría, con la bolsa todavía en la mano — y luego no lo vuelves a mencionar. Dos cosas, dichas ligeras, medio en broma:',
     },
     {
-            type: 'bullets',
-      items: [
-        'THE COME-BACK LINE: \'We\'re here all season — come and see us next time you\'re over.\' Warm, and it costs nobody anything. Do not promise them a gift or a price for a day you might not be working.',
-        'THE NEW PRODUCT TEASE: \'We\'re getting a new line next month that I think you\'ll love. I\'ll message you when it arrives.\' Gives them a reason to stay connected.',
-        'THE COMPLEMENTARY PRODUCT SUGGESTION: \'You have the syringe for your eyes. Next time, try the peeling for your face — they\'re incredible together.\' Plants the seed for an upsell on their return.',
-        'THE PERSONAL CONNECTION: Remember details. \'How was your ski trip?\' \'Did your daughter like the Nail Kit?\' Personal memory creates loyalty stronger than any discount.'
-      ],
-      itemsEs: [
-          'LA FRASE DE VUELTA: "Estamos aquí toda la temporada — pasaos a vernos la próxima vez que vengáis." Cercano, y no le cuesta nada a nadie. No les prometas un regalo ni un precio para un día en el que a lo mejor no trabajas.',
-          'EL TEASER DE NUEVO PRODUCTO: "Vamos a recibir una nueva línea el mes que viene que creo que te encantará. Te escribo cuando llegue." Les da una razón para mantenerse conectados.',
-          'LA SUGERENCIA DE PRODUCTO COMPLEMENTARIO: "Ya tienes la jeringa para tus ojos. La próxima vez, prueba el peeling para tu rostro — son increíbles juntos." Planta la semilla para una venta adicional en su vuelta.',
-          'LA CONEXIÓN PERSONAL: Recuerda detalles. "¿Cómo estuvo tu viaje de esquí?" "¿A tu hija le gustó el Kit de Uñas?" La memoria personal crea lealtad más fuerte que cualquier descuento.',
-        ],
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'Asking for Referrals',
-      textEs: 'Pidiendo Referencias',
-    },
-    {
-            type: 'paragraph',
-      text: 'Referrals are the highest-quality leads you can get. A referred customer trusts you before they even meet you. Here\'s how to ask:',
-      textEs: 'Las referencias son los prospectos de más alta calidad que puedes obtener. Un cliente referido confía en ti antes incluso de conocerte. Así es como pedirlas:',
-    },
-    {
-            type: 'numbered',
-      items: [
-        'THE IMMEDIATE ASK: During the two promises at close: \'If you love it, tell your friends about us.\' This plants the seed.',
-        'THE RESULTS-BASED ASK: After they text you positively: \'I\'m so glad you love it! If you have any friends who\'d enjoy the same result, send them my way. I\'ll take great care of them too.\'',
-        'THE INCENTIVE IS YOU: \'Send them to me and I\'ll look after them exactly the way I looked after you.\' Your name and your service are the incentive. Never a gift or a price for a day you might not be working — that is a promise somebody else has to keep.',
-        'THE SOCIAL PROOF ASK: \'Most of my new customers come from referrals. If you know anyone heading to {locationName}, I\'d love to meet them!\' Makes asking feel natural, not salesy.'
-      ],
-      itemsEs: [
-          'LA PREGUNTA INMEDIATA: Durante las dos promesas al cerrar: "Si te encanta, cuéntales a tus amigos sobre nosotros." Esto planta la semilla.',
-          'LA PREGUNTA BASADA EN RESULTADOS: Después de que te escriban positivamente: "¡Me alegra tanto que te encante! Si tienes amigas que disfrutarían el mismo resultado, mándamelas. Yo también las cuidaré muy bien."',
-          'EL INCENTIVO ERES TÚ: "Mándamelas y las cuido exactamente igual que te he cuidado a ti." Tu nombre y tu trato son el incentivo. Nunca un regalo ni un precio para un día en el que a lo mejor no trabajas — eso es una promesa que tiene que cumplir otro.',
-          'LA PREGUNTA DE PRUEBA SOCIAL: "La mayoría de mis nuevos clientes vienen de referencias. Si conoces a alguien que vaya a {locationName}, ¡me encantaría conocerlos!" Hace que pedir se sienta natural, no como venta.',
-        ],
+            type: 'script',
+      text: '\'Promise me two things. One: you actually use it — once a week, not once a year. Two: if you love it, you tell your friends where you got it.\'',
+      textEs: '"Prométeme dos cosas. Una: que lo usas de verdad — una vez a la semana, no una vez al año. Dos: que si te encanta, le cuentas a tus amigas dónde lo has comprado."',
     },
     {
             type: 'tip',
-      text: 'The best time to ask for a referral is immediately after a customer expresses happiness. When they text \'I love the syringe!\' — that\'s your moment. Strike while the emotional high is fresh.',
-      textEs: 'El mejor momento para pedir una referencia es inmediatamente después de que un cliente expresa felicidad. Cuando escriben "¡Amo la jeringa!" — ese es tu momento. Golpea mientras la emoción está fresca.',
+      text: 'That is the entire ask, and the reason it works is the timing, not the wording. Somebody who is delighted and holding a bag will say yes to it and mean it. The same sentence, sent as a message eleven days later, is just a stranger asking a favour.',
+      textEs: 'Eso es toda la petición, y lo que la hace funcionar es el momento, no las palabras. Alguien encantado y con la bolsa en la mano te va a decir que sí y lo va a decir en serio. Esa misma frase, mandada por mensaje once días después, es un desconocido pidiendo un favor.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'What NOT to Do on WhatsApp',
-      textEs: 'Qué NO Hacer en WhatsApp',
+      text: 'If She Messages You, Be a Person',
+      textEs: 'Si Te Escribe, Sé una Persona',
     },
     {
-            type: 'bullets',
-      items: [
-        'DON\'T SPAM: One message per week MAX. Unsolicited daily messages get you blocked.',
-        'DON\'T BE TOO SALESY: Lead with value, care, and tips. Sales messages should be 1 in 5, not 5 in 5.',
-        'DON\'T IGNORE RESPONSES: If they reply, reply back. A conversation is two-way.',
-        'DON\'T SHARE THEIR NUMBER: Never give a customer\'s contact to colleagues or managers without permission. Trust is everything.',
-        'DON\'T MESSAGE AT ODD HOURS: Respect their time zone. A 11pm message feels invasive.'
-      ],
-      itemsEs: [
-          'NO HAGAS SPAM: Máximo un mensaje por semana. Los mensajes diarios no solicitados te hacen que te bloqueen.',
-          'NO SEAS MUY VENDEDOR: Empieza con valor, cuidado y tips. Los mensajes de venta deben ser 1 de 5, no 5 de 5.',
-          'NO IGNORES LAS RESPUESTAS: Si responden, responde tú. Una conversación es de dos vías.',
-          'NO COMPARTAS SU NÚMERO: Nunca des el contacto de un cliente a colegas o encargados sin permiso. La confianza es todo.',
-          'NO ENVÍES MENSAJES A HORAS RARAS: Respeta su zona horaria. Un mensaje a las 11pm se siente invasivo.',
-        ],
+            type: 'paragraph',
+      text: 'Some of them do write. Not many, but some — a question about how often, a photo of their eyes, a friend arriving next week. Answer them properly and quickly, like a human being, and lead with the help rather than the sell. That is the whole policy. What you do not do is turn it into a campaign: no schedule, no templates, no chasing people who did not reply. One unanswered message is her telling you she is done, and the correct response is to leave her alone.',
+      textEs: 'Alguna sí escribe. No muchas, pero alguna — una duda de cada cuánto, una foto de los ojos, una amiga que llega la semana que viene. Contéstales bien y rápido, como una persona, y empieza por ayudar y no por vender. Esa es toda la política. Lo que no haces es convertirlo en una campaña: sin calendario, sin plantillas, sin perseguir a quien no ha contestado. Un mensaje sin respuesta es ella diciéndote que ya está, y lo correcto es dejarla en paz.',
+    },
+    {
+            type: 'keypoint',
+      text: 'And never promise anything the shop has to honour on a day you might not be working — no held stock, no kept price, no gift waiting at the counter. You will be somewhere else and a colleague will be having that argument for you.',
+      textEs: 'Y no prometas nunca nada que la tienda tenga que cumplir un día en el que a lo mejor tú no trabajas — ni producto guardado, ni un precio reservado, ni un regalo esperando en el mostrador. Tú estarás en otro sitio y un compañero tendrá esa discusión por ti.',
     },
     {
             type: 'quote',
-      text: 'A customer who leaves with your WhatsApp number doesn\'t just leave with a product. They leave with a relationship. And relationships are the only thing that compounds in sales.',
-      textEs: 'Un cliente que se va con tu número de WhatsApp no solo se va con un producto. Se va con una relación. Y las relaciones son lo único que se compone en las ventas.',
+      text: 'The number is a nice thing to have. It is not the sale, it was never the sale, and thirty seconds spent tidying your contacts is thirty seconds you were not on the floor stopping somebody.',
+      textEs: 'El número está bien tenerlo. No es la venta, nunca fue la venta, y treinta segundos ordenando contactos son treinta segundos que no has pasado en la calle parando a alguien.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
@@ -4098,8 +3985,8 @@ export const lessons: Record<string, Lesson> = {
     categoryId: 'psychology',
     title: 'Rejection-Proof Mindset',
     titleEs: 'Mentalidad a Prueba de Rechazo',
-    subtitle: 'Why \'no\' is training. The numbers game. How top sellers process rejection.',
-    subtitleEs: 'Por qué un \'no\' es entrenamiento. El juego de los números. Cómo encajan el rechazo los mejores.',
+    subtitle: 'The real numbers, the honest check, and when you actually get to put a no down',
+    subtitleEs: 'Los números de verdad, la comprobación honesta, y cuándo puedes soltar un no',
     duration: '8 min',
     icon: 'Shield',
     order: 4,
@@ -4107,38 +3994,60 @@ export const lessons: Record<string, Lesson> = {
     sections: [
     {
             type: 'header',
-      text: 'Every \'No\' Is a Step Closer to \'Yes\'',
-      textEs: 'Cada \'No\' es un Paso Mas Cerca del \'Si\'',
+      text: 'Most of Them Say No — And You Still Have One Question to Answer',
+      textEs: 'La Mayoría Dice Que No — Y Aun Así Te Queda Una Pregunta',
     },
     {
             type: 'paragraph',
-      text: 'If you stop 100 people in a day, and 80 ignore you, 15 say \'no thanks,\' and 5 buy — you\'ve had a GREAT day. But most people don\'t see the 95 rejections as the path to 5 wins. They see 95 failures. That perspective destroys performance. The rejection-proof mindset sees every interaction as data, not drama.',
-      textEs: 'Si detienes a 100 personas en un día, y 80 te ignoran, 15 dicen \'no gracias,\' y 5 compran — has tenido un GRAN día. Pero la mayoria de la gente no ve los 95 rechazos como el camino a 5 victorias. Ven 95 fracasos. Esa perspectiva destruye el desempeno. La mentalidad a prueba de rechazo ve cada interaccion como datos, no como drama.',
+      text: 'If you step in front of 100 people in a day, around 80 will not even look at you, 15 will say \'no thanks\', and a handful will buy. Those are the real numbers and nobody tells you them on your first day. But do not read them as comfort, because they are not comfort. Read them the other way round: if almost nobody stops, and most of the ones who do stop never buy, then the person already sitting in your chair is a rare thing. There is no queue of them behind her. You do not hurry her, you do not get bored halfway through her, and you do not let her wander off to have a think about it.',
+      textEs: 'Si te pones delante de 100 personas en un día, unas 80 ni te van a mirar, 15 te dirán \'no, gracias\', y unas pocas comprarán. Esos son los números de verdad y nadie te los cuenta el primer día. Pero no los leas como consuelo, porque no son consuelo. Léelos al revés: si casi nadie para, y de los que paran casi ninguno compra, entonces la persona que ya está sentada en tu silla es algo raro. No hay una cola de ellas esperando detrás. Ni la metes prisa, ni te aburres a mitad de camino, ni la dejas irse a pensárselo.',
     },
     {
             type: 'keypoint',
-      text: 'Top performers know their numbers. If your close rate is 5%, then every \'no\' is 5% of a \'yes.\' A string of 10 rejections isn\'t failure — it\'s statistical progress toward your next sale.',
-      textEs: 'Los mejores desempenos conocen sus numeros. Si tu tasa de cierre es del 5%, entonces cada \'no\' es el 5% de un \'si.\' Una serie de 10 rechazos no es fracaso — es progreso estadistico hacia tu siguiente venta.',
+      text: 'Good sellers do know their numbers, and knowing them helps: if you close 1 in 15, then fourteen noes in a row is the shape of the job and not a verdict on you. But that only holds up if you genuinely gave those fourteen everything you had. The number is not a licence. Said BEFORE a demo, \'most of them say no anyway\' is not perspective — it is an excuse, and it is the most expensive sentence a seller can learn.',
+      textEs: 'Los buenos vendedores sí se saben sus números, y saberlos ayuda: si cierras 1 de cada 15, catorce noes seguidos son la forma del trabajo y no un veredicto sobre ti. Pero eso solo se sostiene si de verdad les diste todo a esos catorce. El número no es una licencia. Dicho ANTES de una demo, \'total, la mayoría dice que no\' no es perspectiva — es una excusa, y es la frase más cara que puede aprender un vendedor.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Reframe: The Baseball Batting Average',
-      textEs: 'Reencuadre: El Promedio de Bateo del Beisbol',
+      text: 'Before You Put It Down: The Honest Check',
+      textEs: 'Antes de Soltarlo: La Comprobación Honesta',
     },
     {
             type: 'paragraph',
-      text: 'The best baseball hitters in history fail 70% of the time. A .300 batting average — failing 7 out of 10 times — is considered excellent. In sales, a 5-10% close rate makes you a top earner. You\'re not failing 90-95% of the time. You\'re succeeding at a rate that most people would consider elite performance.',
-      textEs: 'Los mejores bateadores de beisbol en la historia fallan el 70% del tiempo. Un promedio de bateo de .300 — fallar 7 de cada 10 veces — se considera excelente. En ventas, una tasa de cierre del 5-10% te convierte en un top de ganancias. No estas fallando el 90-95% del tiempo. Estas teniendo éxito a una tasa que la mayoria de la gente consideraria desempeno de elite.',
+      text: 'When somebody walks without buying, there is exactly one useful question and it is not \'what is wrong with me\'. It is: did I actually give that everything? Not \'was I nice\'. Not \'did I try\'. Everything. Answer it honestly and one of two things happens — either you have just found something to fix for the price of a single sale, which is cheap, or the answer really is \'I did all of it\', and then it is not on you at all.',
+      textEs: 'Cuando alguien se va sin comprar, hay exactamente una pregunta útil y no es \'qué me pasa a mí\'. Es: ¿le he dado de verdad todo lo que tengo? No \'he sido amable\'. No \'lo he intentado\'. Todo. Contéstala en serio y pasa una de dos cosas — o acabas de encontrar algo que arreglar al precio de una sola venta, que es barato, o la respuesta es de verdad \'lo he hecho todo\', y entonces no es culpa tuya en absoluto.',
+    },
+    {
+            type: 'checklist',
+      items: [
+        'Did I say anything wrong, or promise something I should not have?',
+        'Did I skip a step — the hand, the one eye, the mirror, the two yeses, the ask?',
+        'Did I go quiet after the price, or get nervous and fill the silence?',
+        'Did I get lazy in the middle, once I had decided they were not buying?',
+        'Did I work the whole ladder, or stop early to save myself the effort?'
+      ],
+      itemsEs: [
+          '¿He dicho algo que no debía, o he prometido algo que no toca?',
+          '¿Me he saltado un paso — la mano, el ojo, el espejo, los dos síes, el pedir?',
+          '¿Me he callado después del precio, o me he puesto nervioso y lo he llenado de ruido?',
+          '¿Me he vuelto perezoso a mitad, cuando ya había decidido que no iban a comprar?',
+          '¿He trabajado la escalera entera, o he parado antes para ahorrarme el esfuerzo?',
+        ],
+    },
+    {
+            type: 'keypoint',
+      text: 'If one of those is a yes, that is your lesson and it was a good day — you got it for free and it cost you one sale. Write it down and take it out to the next person. If none of them is a yes, put it down and go. That is the deal, and it only works in that order.',
+      textEs: 'Si alguna de esas es un sí, ahí tienes tu lección y ha sido un buen día — te la has llevado gratis y solo te ha costado una venta. Apúntala y sácala con la siguiente persona. Si ninguna es un sí, suéltalo y sigue. Ese es el trato, y solo funciona en ese orden.',
     },
     {
             type: 'comparison',
-      left: { label: 'Amateur Mindset', text: '\'I\'m terrible. 20 people said no today. I suck at this. Maybe I\'m not cut out for sales.\' Each rejection feels personal and builds a story of failure.' },
-      leftEs: { label: 'Mentalidad de Aficionado', text: '\'Soy terrible. 20 personas dijeron que no hoy. Soy malisimo en esto. Quizas no sirvo para ventas.\' Cada rechazo se siente personal y construye una historia de fracaso.' },
-      right: { label: 'Pro Mindset', text: '\'20 rejections today means I\'m 20% closer to my next close. My ratio holds at 1 in 15. Two more stops and I\'ll likely hit a sale.\' Each rejection is data confirming the ratio.' },
-      rightEs: { label: 'Mentalidad Profesional', text: '\'20 rechazos hoy significan que estoy un 20% más cerca de mi próximo cierre. Mi ratio se mantiene en 1 de cada 15. Dos paradas más y probablemente cierro una venta.\' Cada rechazo es un dato que confirma el ratio.' }
+      left: { label: 'Amateur Mindset', text: '\'I\'m terrible. 20 people said no today. I suck at this. Maybe I\'m not cut out for sales.\' No list, no check — just a story of failure that gets carried to the next customer.' },
+      leftEs: { label: 'Mentalidad de Aficionado', text: '\'Soy un desastre. Hoy me han dicho que no 20 personas. Se me da fatal. A lo mejor no sirvo para vender.\' Sin lista, sin comprobación — solo una historia de fracaso que se lleva al siguiente cliente.' },
+      right: { label: 'Pro Mindset', text: '\'Twenty noes today. I ran the list on every one of them and I did the job. My ratio holds at 1 in 15. A couple more stops and I am probably due.\' Each rejection is data — once it has been checked.' },
+      rightEs: { label: 'Mentalidad Profesional', text: '\'Hoy veinte noes. He repasado la lista con cada uno y he hecho mi trabajo. Mi ratio se mantiene en 1 de cada 15. Un par de paradas más y me toca.\' Cada rechazo es un dato — una vez comprobado.' }
     },
     {
             type: 'divider'
@@ -4150,8 +4059,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'The most powerful mental habit in sales is instantaneous reset. The moment a customer walks away, that interaction is erased. It doesn\'t exist anymore. Your total focus shifts to the next person approaching. This is how top sellers maintain energy through 8 hours of rejection.',
-      textEs: 'El habito mental mas poderoso en ventas es el reinicio instantaneo. En el momento en que un cliente se aleja, esa interaccion se borra. Ya no existe. Tu enfoque total se traslada a la siguiente persona que se acerque. Asi es como los mejores vendedores mantienen energía a traves de 8 horas de rechazo.',
+      text: 'The reset is the habit that keeps you alive through eight hours of this — but it comes SECOND, never first. The order is: they walk, you run the five questions in your head while they are still reaching the door, and only then do you wipe it and turn to the next person. Reset without the check is just forgetting, and a seller who forgets every no makes the same mistake for a year without noticing. Reset after the check is what lets you stay warm all day.',
+      textEs: 'El reinicio es el hábito que te mantiene vivo durante ocho horas de esto — pero va el SEGUNDO, nunca el primero. El orden es: se van, repasas las cinco preguntas en la cabeza mientras todavía llegan a la puerta, y solo entonces lo borras y te giras hacia la siguiente persona. Reiniciar sin comprobar es simplemente olvidar, y un vendedor que se olvida de cada no comete el mismo fallo durante un año sin enterarse. Reiniciar después de comprobar es lo que te deja seguir simpático todo el día.',
     },
     {
             type: 'script',
@@ -4160,42 +4069,43 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'Practice the \'next\' technique literally. After every rejection — verbal or just being ignored — say the word \'next\' quietly to yourself. This creates a mental reset ritual that becomes automatic.',
-      textEs: 'Practica la técnica del \'siguiente\' literalmente. Después de cada rechazo — verbal o simplemente ser ignorado — di la palabra \'siguiente\' en voz baja para ti mismo. Esto crea un ritual de reinicio mental que se vuelve automático.',
+      text: 'Practise it as two beats, not one. Beat one: the five questions, honestly, in the time it takes them to reach the door. Beat two: say \'next\' under your breath and mean it. Most sellers only ever learn beat two, and that is exactly why somebody can work this floor for a year and finish it no better than they started.',
+      textEs: 'Practícalo en dos tiempos, no en uno. Tiempo uno: las cinco preguntas, en serio, en lo que tardan en llegar a la puerta. Tiempo dos: dices \'siguiente\' en voz baja y lo dices de verdad. La mayoría solo aprende el tiempo dos, y por eso alguien puede pasarse un año en esta sala y acabarlo igual que lo empezó.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Why Customers Say No (Hint: It\'s Almost Never About You)',
-      textEs: 'Por que los Clientes Dicen No (Pista: Casi Nunca se Trata de Ti)',
+      text: 'When the List Comes Back Clean',
+      textEs: 'Cuando la Lista Sale Limpia',
+    },
+    {
+            type: 'paragraph',
+      text: 'You have been through the five and there is nothing on any of them. You did the demo properly, you got the two yeses, you asked for the money, you worked the ladder all the way to the bottom, you stayed warm to the last second — and she still walked. Fine. Then it is one of these, and not one of them is a thing you could have done differently:',
+      textEs: 'Has repasado las cinco y no hay nada en ninguna. Hiciste la demo bien, conseguiste los dos síes, pediste el dinero, bajaste la escalera hasta abajo del todo, estuviste simpático hasta el último segundo — y aun así se fue. Vale. Entonces es una de estas, y ninguna es algo que tú pudieras haber hecho distinto:',
     },
     {
             type: 'bullets',
       items: [
-        'They\'re in a hurry: Meeting, reservation, tired from shopping. Nothing you could have done.',
-        'They just spent money: Budget exhaustion is real. The best pitch in the world won\'t open an empty wallet.',
-        'They\'re not in a buying mood today: Some days people browse. Same person might buy enthusiastically tomorrow.',
-        'They had a bad experience with a previous salesperson: You\'re paying for someone else\'s mistake.',
-        'They don\'t buy anything on vacation: Some people have a \'no purchases while traveling\' rule.',
-        'They\'re overwhelmed: Too many options, too much information. They shut down.',
-        'Personal problems: Fights, health issues, stress. They\'re not really there.'
+        'They are genuinely in a rush: a meeting, a reservation, a coach going in ten minutes. Nothing you say beats a departure time.',
+        'They have already spent it: budget exhaustion is real, and the best demo in the world will not open an empty wallet.',
+        'They do not buy anything on a trip: some people have that rule and they keep it, and it was decided before they met you.',
+        'They walked in on somebody else\'s bad day: a row an hour ago, bad news this morning. They were never really in the chair.',
+        'They are just a bad customer: enjoyed the free treatment, said yes to everything, was never going to pay. They exist. Part of the game.'
       ],
       itemsEs: [
-          'Van con prisa: Reunion, reserva, cansados de comprar. No había nada que pudieras haber hecho.',
-          'Acaban de gastar dinero: El agotamiento del presupuesto es real. El mejor pitch del mundo no abrira una cartera vacia.',
-          'No están en mood de comprar hoy: Algunos días la gente solo mira. La misma persona podría comprar con entusiasmo manana.',
-          'Tuvieron una mala experiencia con un vendedor anterior: Estas pagando por el error de alguien mas.',
-          'No compran nada de vacaciones: Algunas personas tienen una regla de \'no compras de viaje\'.',
-          'Están abrumados: Demasiadas opciones, demasiada informacion. Se bloquean.',
-          'Problemas personales: Peleas, problemas de salud, estres. Realmente no están ahi.',
+          'Van de verdad con prisa: una reunión, una reserva, un autobús que sale en diez minutos. Contra una hora de salida no hay frase que valga.',
+          'Ya se lo han gastado: el presupuesto agotado es real, y la mejor demo del mundo no abre una cartera vacía.',
+          'No compran nada de viaje: hay gente con esa regla y la cumple, y eso lo decidieron antes de conocerte.',
+          'Te han caído en el mal día de otro: una bronca hace una hora, una mala noticia esta mañana. Nunca estuvieron de verdad en la silla.',
+          'Son simplemente un mal cliente: han disfrutado del tratamiento gratis, han dicho que sí a todo y nunca iban a pagar. Los hay. Forma parte del juego.',
         ],
     },
     {
             type: 'keypoint',
-      text: 'When you internalize that rejection is almost never personal, you stop carrying it. The customer isn\'t rejecting YOU. They\'re rejecting the interaction, the timing, or their own readiness.',
-      textEs: 'Cuando interiorizas que el rechazo casi nunca es personal, dejas de cargar con el. El cliente no te esta rechazando a TI. Están rechazando la interaccion, el momento, o su propia disposicion.',
+      text: 'That is the absolution — and notice where it sits. At the END, after the list, never before the demo. You do not get to reach for it first. A seller who starts the shift already telling themselves \'most of them say no anyway\' has taken the comfort without doing the work, and it will cost them every close-run sale of the day. The full version of this lives in It Is Not On You — If You Did Everything.',
+      textEs: 'Esa es la absolución — y fíjate dónde está. Al FINAL, después de la lista, nunca antes de la demo. No puedes echar mano de ella la primera. Un vendedor que empieza el turno diciéndose \'total, la mayoría dice que no\' se ha quedado el consuelo sin hacer el trabajo, y le va a costar todas las ventas ajustadas del día. La versión completa está en No Es Culpa Tuya — Si Lo Hiciste Todo.',
     },
     {
             type: 'divider'
@@ -4526,8 +4436,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'keypoint',
-      text: 'Your commission is directly tied to your energy. If you earn 25-30% commission, every 10% improvement in your daily performance (from better sleep, nutrition, or exercise) translates to real money — potentially hundreds of euros per month.',
-      textEs: 'Tu comisión está directamente ligada a tu energía. Si ganas del 25-30% de comisión, cada 10% de mejora en tu rendimiento diario (por mejor sueño, nutrición o ejercicio) se traduce en dinero real — potencialmente cientos de euros al mes.',
+      text: 'You are on commission, so the maths is not complicated: tired means slower on the door, flatter in the chair, quicker to give up on the ladder. Every one of those is a sale you would otherwise have had, and the sales you lose that way are not on the customer. Sleep is not self-care here. It is stock.',
+      textEs: 'Estás a comisión, así que la cuenta no tiene misterio: cansado significa más lento en la puerta, más apagado en la silla y más rápido en rendirte con la escalera. Cada una de esas cosas es una venta que habrías tenido, y las ventas que pierdes así no son culpa del cliente. Aquí dormir no es cuidarse. Es mercancía.',
     },
     {
             type: 'divider'

@@ -1,4 +1,27 @@
-import React, { useState } from 'react';
+// ─────────────────────────────────────────────────────────────────────────────
+// SaleLogModal — the sheet that records what a customer actually paid.
+//
+// ── WHAT WAS WRONG ──────────────────────────────────────────────────────────
+// Picking a product pre-filled its BASE price and dropped the seller into a
+// number field. Tap "Syringe" and the amount read 300 — but the whole method is
+// the ladder walking 300 → 210 → 175 → 140 → 100, and the owner's own voucher
+// scene ends at 140. So every laddered sale (which is most of them) needed the
+// field cleared and re-typed one-handed, standing up, often with the customer
+// still at the counter. Anyone who did not bother re-typing booked 300 for a
+// 140 sale, and that number is what the manager dashboard reports as revenue.
+//
+// ── WHAT THIS IS NOW ────────────────────────────────────────────────────────
+// Picking a product offers ITS OWN ladder rungs as one-tap chips, straight out
+// of src/data/pricing.ts — the same numbers the cheat sheet teaches, so the
+// price a seller walked down to is always one of the buttons in front of them.
+// Nothing is pre-filled: a wrong number that is already sitting in the box gets
+// saved, an empty one gets looked at.
+//
+// "Other" is still there for the odd amount (a bundle, a haggle, "Multiple"),
+// and it is the only path that opens a keyboard.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Coins, X } from 'lucide-react';
 import { celebrateSaleLogged } from '../utils/confetti';
@@ -6,6 +29,7 @@ import { haptic } from '../utils/haptics';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import { PRODUCTS } from '../types/streetTracker';
+import { LADDERS, type ProductId } from '../data/pricing';
 
 interface SaleLogModalProps {
   isOpen: boolean;
@@ -19,6 +43,8 @@ const COPY = {
   en: {
     title: 'Log a sale',
     selectProduct: 'Product',
+    paid: 'What did they pay?',
+    other: 'Other',
     amount: (c: string) => `Amount (${c})`,
     note: 'Note (optional)',
     notePlaceholder: 'Hesitant at first, then loved the demo…',
@@ -32,6 +58,8 @@ const COPY = {
   es: {
     title: 'Registrar venta',
     selectProduct: 'Producto',
+    paid: '¿Cuánto ha pagado?',
+    other: 'Otro',
     amount: (c: string) => `Importe (${c})`,
     note: 'Nota (opcional)',
     notePlaceholder: 'Dudaba al principio, luego le encantó la demo…',
@@ -41,6 +69,25 @@ const COPY = {
     submitXP: '+10 XP',
   },
 };
+
+/**
+ * Every price this product is really sold at, highest first.
+ *
+ * The base price plus every rung of its ladder, de-duplicated on the AMOUNT —
+ * the syringe's "two for 300" and its plain 300 are two different offers but
+ * one number, and a money field only cares about the number. The Europe anchor
+ * is deliberately absent: it is the strike-through we quote, never a price
+ * anybody pays.
+ *
+ * "Multiple" has no ladder of its own, so it gets no chips and goes straight to
+ * the manual field — which is exactly what it is for.
+ */
+function ladderRungAmounts(productId: string): number[] {
+  if (!(productId in LADDERS)) return [];
+  const ladder = LADDERS[productId as ProductId];
+  const amounts = new Set<number>([ladder.base, ladder.floor, ...ladder.steps.map((s) => s.price)]);
+  return [...amounts].sort((a, b) => b - a);
+}
 
 /**
  * The form lives in its own component so it is MOUNTED only while the sheet is
@@ -60,13 +107,29 @@ const SaleForm: React.FC<{
   const [selectedProduct, setSelectedProduct] = useState('');
   const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
+  /* The manual field is opened by hand, never by default. A number field that
+     is already on screen is an invitation to type, and typing one-handed on a
+     shop floor is the thing this sheet exists to avoid. */
+  const [manual, setManual] = useState(false);
 
-  // Picking a product pre-fills its list price. This is an event, not a
-  // synchronisation, so it belongs here rather than in an effect.
+  const rungs = useMemo(() => ladderRungAmounts(selectedProduct), [selectedProduct]);
+
+  /* Picking a product is an event, not a synchronisation, so it belongs here
+     rather than in an effect. It no longer pre-fills anything: the old
+     behaviour put the BASE price in the box for a sale that almost always
+     closed lower down the ladder, and a wrong number already in the box is a
+     number that gets saved. A product with no ladder ("Multiple") opens the
+     manual field straight away, because there is nothing to tap instead. */
   const selectProduct = (id: string) => {
     setSelectedProduct(id);
-    const product = PRODUCTS.find((p) => p.id === id);
-    setAmount(product && product.price > 0 ? String(product.price) : '');
+    setAmount('');
+    setManual(ladderRungAmounts(id).length === 0);
+  };
+
+  const chooseRung = (value: number) => {
+    haptic('light');
+    setAmount(String(value));
+    setManual(false);
   };
 
   const numAmount = parseFloat(amount);
@@ -119,28 +182,81 @@ const SaleForm: React.FC<{
         })}
       </div>
 
-      {/* Amount */}
-      <label htmlFor="sale-amount" className="mb-2 block text-overline text-ink-3">
-        {t.amount(currency)}
-      </label>
-      <div className="relative mb-4">
-        <span
-          className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-h4 text-ink-2"
-          aria-hidden="true"
-        >
-          {currency}
-        </span>
-        <input
-          id="sale-amount"
-          type="number"
-          inputMode="decimal"
-          min={0}
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="0"
-          className="h-14 w-full rounded-card border border-line-strong bg-surface-sunken pl-10 pr-4 text-h4 font-semibold text-ink placeholder:text-ink-3"
-        />
-      </div>
+      {/* ── Amount ──
+          Chips first, keyboard only on request. The rungs come from the
+          product's own ladder, so the number a seller walked down to during the
+          demo is already a button by the time they get here. */}
+      {selectedProduct !== '' && (
+        <>
+          <p className="mb-2 text-overline text-ink-3">{rungs.length > 0 ? t.paid : t.amount(currency)}</p>
+          {rungs.length > 0 && (
+            <div className={`flex flex-wrap gap-2 ${manual ? 'mb-3' : 'mb-5'}`}>
+              {rungs.map((rung) => {
+                const active = !manual && amount === String(rung);
+                return (
+                  <motion.button
+                    key={rung}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => chooseRung(rung)}
+                    whileTap={{ scale: 0.94 }}
+                    className={`min-h-touch min-w-[4.5rem] rounded-card border px-4 text-h4 font-semibold tabular-nums transition-colors ${
+                      active
+                        ? 'border-teal bg-teal-tint text-teal-strong'
+                        : 'border-line-strong bg-surface-sunken text-ink'
+                    }`}
+                  >
+                    {price(rung)}
+                  </motion.button>
+                );
+              })}
+              {/* The odd amount — a haggle, a bundle, a rounded-up total. */}
+              <motion.button
+                type="button"
+                aria-pressed={manual}
+                onClick={() => {
+                  haptic('light');
+                  setManual(true);
+                  setAmount('');
+                }}
+                whileTap={{ scale: 0.94 }}
+                className={`min-h-touch rounded-card border px-4 text-body font-semibold transition-colors ${
+                  manual
+                    ? 'border-teal bg-teal-tint text-teal-strong'
+                    : 'border-line bg-surface text-ink-2'
+                }`}
+              >
+                {t.other}
+              </motion.button>
+            </div>
+          )}
+
+          {manual && (
+            <div className="relative mb-5">
+              <label htmlFor="sale-amount" className="sr-only">
+                {t.amount(currency)}
+              </label>
+              <span
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-h4 text-ink-2"
+                aria-hidden="true"
+              >
+                {currency}
+              </span>
+              <input
+                id="sale-amount"
+                type="number"
+                inputMode="decimal"
+                min={0}
+                autoFocus
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="0"
+                className="h-14 w-full rounded-card border border-line-strong bg-surface-sunken pl-10 pr-4 text-h4 font-semibold text-ink placeholder:text-ink-3"
+              />
+            </div>
+          )}
+        </>
+      )}
 
       {/* Note */}
       <label htmlFor="sale-note" className="mb-2 block text-overline text-ink-3">

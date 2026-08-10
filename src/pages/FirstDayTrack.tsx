@@ -106,10 +106,10 @@ const STEPS_EN: StepData[] = [
   },
   {
     title: 'Hand over like a pro',
-    body: "You brought them to the door — now seal the handover. Walk them in confidently and introduce them to the nearest specialist: 'This is [name], they will take great care of you.' Then stay nearby and listen. Watch how the specialist talks. That is your next lesson. For now, celebrate every person you got inside. That is a win. Repeat fifty times and you will be unstoppable.",
+    body: "You brought them to the door — now seal the handover. You walk in FIRST and you call them after you: 'Come on, it's two seconds.' Never beside them, never behind them shepherding them in — walking someone in feels like being taken somewhere, walking ahead feels like following someone who has something. Once you are both inside, introduce them to the nearest specialist: 'This is [name], they will take great care of you.' Then stay nearby and listen. Watch how the specialist talks. That is your next lesson. For now, celebrate every person you got inside. That is a win. Repeat fifty times and you will be unstoppable.",
     cta: 'I am ready — take me to training',
     tips: [
-      'Walk them in — do not just point at the door.',
+      'You go first and call them in. Never escort, never walk beside.',
       'Introduce them to a specialist by name.',
       'Stay and observe — you learn by watching.',
       'Every person inside is a win. Count your wins.',
@@ -178,10 +178,10 @@ const STEPS_ES: StepData[] = [
   },
   {
     title: 'Pásalos como un profesional',
-    body: "Los has traído hasta la puerta — ahora cierra el traspaso. Entra con ellos con confianza y preséntalos a la especialista más cercana: 'Esta es [nombre], te va a cuidar de maravilla.' Luego quédate cerca y escucha. Fíjate en cómo habla. Esa es tu siguiente lección. Por ahora, celebra a cada persona que has metido dentro. Eso es una victoria. Repítelo cincuenta veces y serás imparable.",
+    body: "Los has traído hasta la puerta — ahora cierra el traspaso. Entras tú PRIMERO y los llamas desde dentro: 'Venga, que son dos segundos.' Nunca a su lado, nunca detrás empujándolos — acompañar a alguien parece que lo estás llevando a algún sitio; ir delante parece que siguen a alguien que tiene algo. Cuando ya estáis dentro, preséntalos a la especialista más cercana: 'Esta es [nombre], te va a cuidar de maravilla.' Luego quédate cerca y escucha. Fíjate en cómo habla. Esa es tu siguiente lección. Por ahora, celebra a cada persona que has metido dentro. Eso es una victoria. Repítelo cincuenta veces y serás imparable.",
     cta: '¡Estoy listo! Llévame a la formación',
     tips: [
-      'Entra con ellos — no señales la puerta y ya.',
+      'Entras tú primero y los llamas. Ni los acompañes ni vayas a su lado.',
       'Preséntalos a una especialista por su nombre.',
       'Quédate y observa — se aprende mirando.',
       'Cada persona dentro es una victoria. Cuenta tus victorias.',

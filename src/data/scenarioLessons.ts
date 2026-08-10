@@ -162,7 +162,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "Sábete la norma de la tienda antes de que pase, porque con una despedida de soltera gritándote en la cara no vas a pensar con claridad. Y luego fíate de tu instinto: si te huele a lío, es un lío. Y echa la cuenta: veinte minutos con ella son veinte minutos que le quitas a la mujer sobria que pasa por delante y que se habría llevado dos. Dejar ir a esta no es perder una venta. Es no comprar un problema con el dinero de la tienda.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'She is slurring, her card is already out, and she wants it on her face. What do you take?',
+        questionEs: 'Arrastra las palabras, ya ha sacado la tarjeta y lo quiere en la cara. ¿Qué le coges?',
+        options: [
+          'The card — she is an adult and she has decided',
+          'The card, but do the demo on her hand instead',
+          'Nothing today, and tell her mates she is being a nightmare',
+          'Nothing. Be lovely, send her off happy, back to work',
+        ],
+        optionsEs: [
+          'La tarjeta — es adulta y ya lo ha decidido',
+          'La tarjeta, pero le haces la demo en la mano',
+          'Nada hoy, y les dices a sus amigas que es un desastre',
+          'Nada. Sé encantador, despídela contenta y a trabajar',
+        ],
+        correctIndex: 3,
+        explanation:
+          'Next week the bank pulls the money straight back out, the shop swallows it, and she tells everyone she got done. All that work for nothing.',
+        explanationEs:
+          'La semana que viene el banco saca el dinero otra vez, se lo come la tienda y ella va contando que la timaron. Todo ese trabajo para nada.',
+      },
+      {
+        question: 'If you show her anything at all, where does the product go?',
+        questionEs: 'Si le enseñas algo, ¿dónde va el producto?',
+        options: [
+          'On the wrinkle she keeps pointing at, carefully',
+          'On her hand, so she can wash it off afterwards',
+          'On your own hand, or nowhere at all',
+          'On her face but only a little, so she can see it works',
+        ],
+        optionsEs: [
+          'En la arruga que no para de señalar, con cuidado',
+          'En su mano, así se lo puede lavar después',
+          'En tu propia mano, o en ningún sitio',
+          'En la cara pero solo un poco, para que vea que funciona',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Product on a drunk woman is a scene with three phones pointing at it, and you are the one in the video.',
+        explanationEs:
+          'Producto en una borracha es un numerito con tres móviles apuntando, y el del vídeo eres tú.',
+      },
+      {
+        question: 'Her mates are laughing at the state of her. What do you do?',
+        questionEs: 'Sus amigas se están riendo de cómo va. ¿Qué haces?',
+        options: [
+          'Join in — matching the energy keeps the group with you',
+          'Stay out of it, be decent, and let the street see that',
+          'Tell them off, then get on with the demo you were doing',
+          'Use it — a bit of teasing is what gets a hen group buying',
+        ],
+        optionsEs: [
+          'Apuntarte — seguirles el rollo te mantiene al grupo',
+          'No entrar, ser decente, y que la calle lo vea',
+          'Reñirles y seguir con la demo que estabas haciendo',
+          'Aprovecharlo — un poco de guasa es lo que hace comprar',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Everybody on that pavement is watching how you treat the one who cannot look after herself, and deciding whether to stop at your table later.',
+        explanationEs:
+          'Todo el mundo en esa acera está mirando cómo tratas a la que no se puede cuidar sola, y decidiendo si luego para en tu mesa.',
+      },
+    ],
   },
 
   "S2": {
@@ -280,7 +344,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "Una demo que se muere delante de gente es el mejor anuncio del día, siempre que te pongas curioso en vez de asustado. Ya dan por hecho que las demos buenas están amañadas. Lo que no se puede fingir es ver a alguien gestionarlo cuando sale mal. Evítalo cuando puedas — pregunta por la crema antes de tocar una cara, limpia bien la zona, trabaja en un sitio que hayas mirado de verdad. Y quédate con esto: un scrub de {currency}60 después de una demo muerta de {currency}300 sigue siendo una venta, sigue siendo una señora contenta, y sigue siendo una cara que mañana vuelve a pasar por delante.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'She says "See? It does not work, it is a con" and four people are listening. First words?',
+        questionEs: 'Suelta "¿Ves? No funciona, es un cuento" y hay cuatro personas escuchando. ¿Primeras palabras?',
+        options: [
+          '"You are right, that is not what I wanted either"',
+          '"It works on everybody, I do not know what is wrong here"',
+          '"Give it an hour and you will see it later on tonight"',
+          '"Well, you did not tell me you had sun cream on, did you"',
+        ],
+        optionsEs: [
+          '"Tienes razón, a mí tampoco me ha salido lo que quería"',
+          '"Le funciona a todo el mundo, no sé qué pasa aquí"',
+          '"Dale una hora y esta noche lo vas a notar"',
+          '"Ya, es que no me has dicho que llevabas crema solar"',
+        ],
+        correctIndex: 0,
+        explanation:
+          'Agreeing costs you nothing and takes the fight out of the air. Arguing with a mirror in front of an audience is a fight you cannot win.',
+        explanationEs:
+          'Darle la razón no te cuesta nada y le quita la bronca al momento. Discutir con un espejo delante de público es una pelea que no ganas.',
+      },
+      {
+        question: 'Four strangers are watching a demo go wrong. What are they actually judging?',
+        questionEs: 'Cuatro desconocidos están viendo cómo se tuerce una demo. ¿Qué están juzgando en realidad?',
+        options: [
+          'Whether the product does what you said it does',
+          'Whether the woman is being fair to you about it',
+          'How you handle it when it goes wrong in front of them',
+          'Whether the price you quoted was honest in the first place',
+        ],
+        optionsEs: [
+          'Si el producto hace lo que has dicho que hace',
+          'Si la señora está siendo justa contigo o no',
+          'Cómo lo gestionas cuando sale mal delante de ellos',
+          'Si el precio que has dicho era honesto desde el principio',
+        ],
+        correctIndex: 2,
+        explanation:
+          'They already assume the good demos are rigged. What nobody can fake is watching somebody handle it when it dies.',
+        explanationEs:
+          'Ya dan por hecho que las demos buenas están amañadas. Lo que no se puede fingir es ver a alguien gestionarla cuando se muere.',
+      },
+      {
+        question: 'Second attempt, cleaned skin, still nothing. What comes off the table?',
+        questionEs: 'Segundo intento, piel limpia, sigue sin pasar nada. ¿Qué quitas de la mesa?',
+        options: [
+          'Your energy — wind it down and let her go politely',
+          'The price — take a rung off to keep her interested',
+          'The mirror — put it away before anybody else looks in it',
+          'The syringe — get the scrub into her hand right now',
+        ],
+        optionsEs: [
+          'Tu energía — bájala y despídela con educación',
+          'El precio — baja un escalón para que no pierda interés',
+          'El espejo — guárdalo antes de que se mire alguien más',
+          'La jeringa — ponle el exfoliante en la mano ya',
+        ],
+        correctIndex: 3,
+        explanation:
+          'The scrub is the one nobody argues with, because you feel it on your hand in ten seconds. Change product before you lose the room.',
+        explanationEs:
+          'El exfoliante es el que no discute nadie, porque lo notas en la mano en diez segundos. Cambia de producto antes de perder al público.',
+      },
+    ],
   },
 
   "S3": {
@@ -398,7 +526,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "Una despedida de soltera es la mejor hora de tu semana. No conviertas nada de eso en promesas. Nada de \"mándame a una amiga y la próxima te lo compenso\", nada de descuentos que se le deban a alguien cuando ya se ha ido — tú no vas a estar y la discusión en el mostrador le toca a un compañero. Hazlo todo hoy: el precio de grupo, el regalo con el nombre de la novia, la cuenta atrás, las fotos. Y luego que se vayan a gritos y encantadas, porque un grupo que se va chillando es un anuncio andando por mitad de la calle con camisetas iguales.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'Six of them, all shouting "do me next". How do you run it?',
+        questionEs: 'Seis, y todas gritando "ahora yo". ¿Cómo lo montas?',
+        options: [
+          'Six quick demos at once so nobody stands about waiting',
+          'One at a time, loud, with all of them watching each one',
+          'The bride only, then take the money and move them on',
+          'Split them with a colleague so you get through them faster',
+        ],
+        optionsEs: [
+          'Seis demos rápidas a la vez para que nadie espere',
+          'De una en una, alto, y que todas miren cada demo',
+          'Solo la novia, cobras y las mandas para adelante',
+          'Repartirlas con un compañero para ir más rápido',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Six bad demos sell nothing. One brilliant one, with five of them watching and counting, sells the other five for you.',
+        explanationEs:
+          'Seis demos malas no venden nada. Una buenísima, con cinco mirando y contando, te vende las otras cinco.',
+      },
+      {
+        question: 'One of them has decided she is against it. What do you do with her?',
+        questionEs: 'Una ha decidido que va en contra. ¿Qué haces con ella?',
+        options: [
+          'Work on her hardest — turn her and the rest follow',
+          'Tell the others she is spoiling it for everybody',
+          'Ask her to wait somewhere else while you finish with the group',
+          '"You do not have to do anything — just lend me your friends"',
+        ],
+        optionsEs: [
+          'Ir a por ella con todo — si la giras, van las demás',
+          'Decirles a las otras que se lo está fastidiando a todas',
+          'Pedirle que espere en otro sitio mientras acabas con el grupo',
+          '"Tú no tienes que hacer nada — solo préstame a tus amigas"',
+        ],
+        correctIndex: 3,
+        explanation:
+          'Let her off and she stops working against you. Fight her and she kills the whole group for fun.',
+        explanationEs:
+          'Suéltala y deja de trabajar en tu contra. Pelea con ella y te revienta al grupo entero por diversión.',
+      },
+      {
+        question: 'Six women, all asking the price at once. What do you give them?',
+        questionEs: 'Seis mujeres preguntando el precio a la vez. ¿Qué les das?',
+        options: [
+          'A different deal for each one, based on what she will pay',
+          'Full price each — with six of them you really do not need to bend at all',
+          'Cheapest for the bride and everybody else pays the usual',
+          'One number for the lot, and a gift with the bride\'s name on',
+        ],
+        optionsEs: [
+          'Un trato distinto a cada una, según lo que vaya a pagar',
+          'Precio entero a cada una — siendo seis no te hace falta ceder nada',
+          'A la novia lo más barato y las demás pagan lo de siempre',
+          'Un número para todas y un regalo con el nombre de la novia',
+        ],
+        correctIndex: 3,
+        explanation:
+          'Six conversations about money become one decision they all cheer for. Let them sort out between themselves who puts in what.',
+        explanationEs:
+          'Seis conversaciones sobre dinero se convierten en una decisión que aplauden todas. Que se apañen ellas con quién pone qué.',
+      },
+    ],
   },
 
   "S4": {
@@ -516,7 +708,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "La defensa de verdad es la velocidad. Ponle la cara en el espejo en los primeros noventa segundos y ya no queda nada que interrumpir — una mujer que ya ha visto desaparecer su propia línea no se va con un papel doblado. Usa su nombre. Fíjate en algo concreto de ella. Él tiene un folleto y treinta segundos; tú tienes su mano en la tuya y dos minutos tratándola bien de verdad. Eso nunca fue una pelea justa, ni pretendía serlo.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'Another seller leans over her shoulder and tells her to come to his stall. Where do your eyes go?',
+        questionEs: 'Otro vendedor le habla por encima del hombro y le dice que se vaya a su puesto. ¿Dónde miras?',
+        options: [
+          'Stay on her — he is not worth turning your head for',
+          'Straight to him, so he knows you have seen him do it',
+          'To the floor, and carry on as if nothing was said',
+          'To your colleague, so somebody comes and moves him along',
+        ],
+        optionsEs: [
+          'En ella — él no merece ni que gires la cabeza',
+          'Directo a él, para que sepa que lo has visto',
+          'Al suelo, y sigues como si no se hubiera dicho nada',
+          'A tu compañero, para que venga alguien a apartarlo',
+        ],
+        correctIndex: 0,
+        explanation:
+          'The second you turn to face him it is two blokes arguing and she is the audience. Stay on her and he becomes background noise.',
+        explanationEs:
+          'En cuanto te giras hacia él, esto son dos tíos discutiendo y ella es el público. Quédate en ella y él se queda en ruido de fondo.',
+      },
+      {
+        question: 'He has put a flyer in her hand. What have you got that beats a flyer?',
+        questionEs: 'Le ha puesto un folleto en la mano. ¿Qué tienes tú que gane a un folleto?',
+        options: [
+          'A lower price than his, if you drop a rung right now',
+          'Her own face in the mirror and your hand on hers',
+          'A longer ingredient list and a sealed box to show her',
+          'The fact that you were talking to her first and he knows it',
+        ],
+        optionsEs: [
+          'Un precio más bajo que el suyo, si bajas un escalón ya',
+          'Su propia cara en el espejo y tu mano sobre la suya',
+          'Una lista de ingredientes más larga y una caja sellada',
+          'Que tú estabas hablando con ella primero y él lo sabe',
+        ],
+        correctIndex: 1,
+        explanation:
+          'He has got a flyer, you have got her face in a mirror. Say exactly that and let her decide which one is worth more.',
+        explanationEs:
+          'Él tiene un folleto, tú tienes su cara en un espejo. Díselo tal cual y que decida cuál vale más.',
+      },
+      {
+        question: 'She is genuinely torn and wants to go and look at his stall. What do you say?',
+        questionEs: 'Está dudando de verdad y quiere ir a ver el puesto de él. ¿Qué le dices?',
+        options: [
+          '"Do not bother, theirs is the cheap copy of this one"',
+          '"Fine — but if you leave now the price goes back up"',
+          '"Go on. Ask him to do it on your face now, like I did."',
+          '"Let me take another {currency}30 off and we will say no more"',
+        ],
+        optionsEs: [
+          '"No pierdas el tiempo, lo suyo es la copia barata"',
+          '"Vale — pero si te vas ahora el precio vuelve a subir"',
+          '"Anda, ve. Pídele que te lo haga en la cara, como yo."',
+          '"Te quito otros {currency}30 y no hablamos más del tema"',
+        ],
+        correctIndex: 2,
+        explanation:
+          'You already know he cannot do it on her face. Setting the test first means she ends up back at your table either way.',
+        explanationEs:
+          'Ya sabes que él no se lo puede hacer en la cara. Poner la prueba primero significa que acaba otra vez en tu mesa igualmente.',
+      },
+    ],
   },
 
   "S5": {
@@ -634,7 +890,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "El silencio no es un no. Mírale las manos, no la boca. ¿Sigue tocándose la zona? ¿Sigue aferrada al espejo? Ya se lo ha comprado, lo que pasa es que no te lo ha dicho. Ponle la caja en las manos, sonríe y no digas absolutamente nada. Y quédate con la regla de los tres segundos en la mano: si la sujeta tres segundos sin devolvértela, deja de hablar y empieza a envolver.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'Two minutes of silence, but she is still touching the spot you worked on. What is that?',
+        questionEs: 'Dos minutos callada, pero sigue tocándose la zona que le has trabajado. ¿Qué es eso?',
+        options: [
+          'A polite no she has not worked out how to say',
+          'Boredom — she is waiting for a gap to walk off in',
+          'Confusion — she needs the whole thing explaining to her again slowly',
+          'A yes she has not announced. Get the box into her hands',
+        ],
+        optionsEs: [
+          'Un no educado que todavía no sabe cómo decirte',
+          'Aburrimiento — está esperando un hueco para irse',
+          'Confusión — necesita que se lo expliques todo otra vez y despacio',
+          'Un sí que no ha anunciado. Ponle la caja en las manos',
+        ],
+        correctIndex: 3,
+        explanation:
+          'Watch her hands, not her mouth. Still touching, still holding the mirror, still looking at the box — those hands are saying yes.',
+        explanationEs:
+          'Mírale las manos, no la boca. Que sigue tocándose, que sigue con el espejo, que mira la caja — esas manos dicen que sí.',
+      },
+      {
+        question: 'You have to say something. Which question?',
+        questionEs: 'Tienes que decir algo. ¿Qué pregunta?',
+        options: [
+          '"So, what do you think of it then?"',
+          '"Any questions before you decide?"',
+          '"Shall I wrap one for you?"',
+          '"Do you want a think and see how you feel?"',
+        ],
+        optionsEs: [
+          '"¿Y qué te parece entonces?"',
+          '"¿Alguna duda antes de decidir?"',
+          '"¿Te envuelvo uno?"',
+          '"¿Quieres pensártelo y ver cómo lo ves?"',
+        ],
+        correctIndex: 2,
+        explanation:
+          'One of these takes a nod. The others ask a quiet person to make a speech in front of a stranger, and she will not.',
+        explanationEs:
+          'Una de estas se contesta asintiendo. Las otras le piden a una persona callada un discurso delante de un desconocido, y no lo va a hacer.',
+      },
+      {
+        question: 'She goes quiet, you get nervous. What is the one thing that loses this sale?',
+        questionEs: 'Ella se calla y tú te pones nervioso. ¿Qué es lo único que puede perder esta venta?',
+        options: [
+          'Standing there saying nothing while she decides',
+          'Filling the silence with another sentence, then another',
+          'Putting the box into her hands without a word said',
+          'Stepping back half a pace and tidying the table a moment',
+        ],
+        optionsEs: [
+          'Quedarte ahí sin decir nada mientras ella decide',
+          'Rellenar el silencio con otra frase, y luego otra',
+          'Ponerle la caja en las manos sin decir nada',
+          'Dar medio paso atrás y ordenar la mesa un momento',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Every extra sentence gives her something new to think about, and none of it is the mirror. Silence is not your enemy here.',
+        explanationEs:
+          'Cada frase de más le da algo nuevo en lo que pensar, y nada de eso es el espejo. Aquí el silencio no es tu enemigo.',
+      },
+    ],
   },
 
   "S6": {
@@ -752,7 +1072,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "Apréndete las llegadas. Sabe qué mañanas caen los grupos grandes y a qué hora tienen que estar de vuelta a bordo, porque \"tengo que estar en el puerto a las cuatro\" te dice exactamente cuánto tiempo tienes y cuánto puedes apretar. Y usa lo del souvenir — esta gente está harta de comprar cachivaches que acaban en un cajón. Un bote de algo que le dura meses le parece una compra lista, y lista es justo como quiere sentirse soltando {currency}300 en una calle en la que no ha estado nunca.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'She has two hours before the coach goes. What does that clock do for you?',
+        questionEs: 'Le quedan dos horas para que salga el autocar. ¿Qué hace ese reloj por ti?',
+        options: [
+          'It is a reason to do it now, said as a joke',
+          'It is a threat — remind her she will miss the coach',
+          'It is a problem — she has not got time for a demo',
+          'It is nothing to do with you, so never mention it at all',
+        ],
+        optionsEs: [
+          'Es un motivo para hacerlo ya, dicho en broma',
+          'Es una amenaza — recuérdale que pierde el autocar',
+          'Es un problema — no tiene tiempo para una demo',
+          'No es asunto tuyo, así que ni lo menciones nunca',
+        ],
+        correctIndex: 0,
+        explanation:
+          'Time is on your side as long as it stays a joke you share. "Hurry up, your coach!" is a stick, and she leaves.',
+        explanationEs:
+          'El tiempo juega a tu favor mientras siga siendo una broma compartida. "¡Corre, que se te va el autocar!" es un palo, y se va.',
+      },
+      {
+        question: 'Cruise passenger, ninety seconds of attention. What do you cut?',
+        questionEs: 'Pasajera de crucero, noventa segundos de atención. ¿Qué recortas?',
+        options: [
+          'The mirror — she has not got time to sit and look',
+          'The routine talk and the ingredients. Apply, count, mirror, price',
+          'The price — leave that until she has felt it properly',
+          'The demo itself — just tell her what it does and then take the money',
+        ],
+        optionsEs: [
+          'El espejo — no tiene tiempo de sentarse a mirarse',
+          'La charla de rutinas y los ingredientes. Aplica, cuenta, espejo, precio',
+          'El precio — déjalo para cuando lo haya notado bien',
+          'La demo — le cuentas lo que hace y le cobras directamente',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Three minutes becomes ninety seconds and the mirror never goes. What comes out is everything that was never selling anything.',
+        explanationEs:
+          'Los tres minutos se quedan en noventa segundos y el espejo no se quita nunca. Lo que sobra es todo lo que nunca vendió nada.',
+      },
+      {
+        question: 'She loves it, then says she will pop back after lunch. What do you know?',
+        questionEs: 'Le encanta, y luego te dice que se pasa después de comer. ¿Qué sabes tú?',
+        options: [
+          'She will, and she will bring somebody with her',
+          'She is being polite and does not want the thing',
+          'She means it, so make a note of what she wanted and who she was',
+          'She is on a boat tonight. It happens now or not at all',
+        ],
+        optionsEs: [
+          'Que sí, y que se va a traer a alguien con ella',
+          'Que está siendo educada y no lo quiere',
+          'Que lo dice en serio, apunta qué quería y quién era',
+          'Que esta noche está en un barco. O pasa ahora o no pasa',
+        ],
+        correctIndex: 3,
+        explanation:
+          'She is not back on Thursday and she is not back after lunch. Nothing gets held and nothing waits — it goes in the bag in that chair.',
+        explanationEs:
+          'Ni vuelve el jueves ni vuelve después de comer. Aquí no se guarda nada y no espera nada — va a la bolsa en esa silla.',
+      },
+    ],
   },
 
   "S7": {
@@ -870,7 +1254,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "Ten una bolsita de cosas de niños en la mesa — pegatinas, un mini cuaderno para colorear, una muestra que puedan aplastar. Te cuesta unos {currency}5 y te compra lo único que de verdad necesitas, que es la atención de ella. Y aprende a leer a la madre antes de que se tuerza: en cuanto los ojos se le empiezan a ir hacia el niño cada dos por tres, te quedan unos noventa segundos. Ve a por el crío en ese momento, no cuando ya está tirado en el suelo. Los buenos vendedores de esta calle no solo venden bien — ven lo que va a pasar y se mueven antes.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'The four-year-old is winding up and mum is reaching for her bag. Who do you deal with first?',
+        questionEs: 'El niño de cuatro años se está calentando y la madre ya coge el bolso. ¿A quién atiendes primero?',
+        options: [
+          'Mum — get to the mirror before the child kicks off',
+          'Neither — wait it out, they always calm down in the end',
+          'The child. A busy kid is a calm mother',
+          'Whoever is loudest, because that is what is stopping you',
+        ],
+        optionsEs: [
+          'A la madre — llega al espejo antes de que estalle el crío',
+          'A ninguno — aguanta, al final siempre se calman',
+          'Al niño. Un crío entretenido es una madre tranquila',
+          'Al que grite más, que es lo que te está frenando',
+        ],
+        correctIndex: 2,
+        explanation:
+          'He is the one deciding whether this sale happens. Get down to his height and put something in his hands.',
+        explanationEs:
+          'Él es quien decide si esta venta pasa o no. Ponte a su altura y ponle algo en las manos.',
+      },
+      {
+        question: 'What do you give the boy?',
+        questionEs: '¿Qué le das al niño?',
+        options: [
+          'A job — counting the sixty seconds out loud',
+          'A sweet, so he has something to get on with',
+          'A stern look, so mum knows you are on her side',
+          'The syringe to hold, because kids love shiny things',
+        ],
+        optionsEs: [
+          'Un trabajo — contar los sesenta segundos en alto',
+          'Un caramelo, para que tenga algo que hacer',
+          'Una mirada seria, para que la madre vea que la apoyas',
+          'La jeringa para sujetarla, que a los críos les encanta',
+        ],
+        correctIndex: 0,
+        explanation:
+          'Kids will do almost anything for somebody who treats them like staff. A child counting is a child not screaming.',
+        explanationEs:
+          'Los críos hacen casi cualquier cosa por alguien que los trata como personal. Un niño contando es un niño que no chilla.',
+      },
+      {
+        question: 'She likes it, but the child is on the floor screaming. What now?',
+        questionEs: 'A ella le gusta, pero el crío está en el suelo chillando. ¿Y ahora?',
+        options: [
+          'Short version, price, bag — she pays and she is out',
+          '"Have a walk round with him and pop back when he settles"',
+          '"Take my number and message me when you have decided"',
+          'Wait quietly until she has him calm, then start the pitch again',
+        ],
+        optionsEs: [
+          'Versión corta, precio, bolsa — paga y se va',
+          '"Dad una vuelta y os pasáis cuando se calme"',
+          '"Apúntate mi número y me escribes cuando lo decidas"',
+          'Esperar callado a que lo calme y empezar otra vez el discurso',
+        ],
+        correctIndex: 0,
+        explanation:
+          'She is not coming back today — she has a child and a timetable. It goes in the bag now, or you lose it now.',
+        explanationEs:
+          'Hoy no vuelve — tiene un niño y unos horarios. O va a la bolsa ahora, o lo pierdes ahora.',
+      },
+    ],
   },
 
   "S8": {
@@ -988,7 +1436,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "Ten una frase que digas siempre delante de la cámara, y que sea buena. \"Sesenta segundos. Mira la línea.\" Corta, para que la gente la repita. Y todo lo que pactes con un móvil, que se cierre en esa misma conversación — la etiqueta, el vídeo, el precio, todo terminado antes de que se vaya. En cuanto dices \"vuelve y te lo compenso\", le has regalado a un compañero una discusión en el mostrador en la que tú no vas a estar. La publicidad gratis tiene que salir gratis.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'The phone comes out mid-demo: "I am putting this on TikTok." What do you say?',
+        questionEs: 'Sale el móvil en mitad de la demo: "Esto lo subo a TikTok". ¿Qué dices?',
+        options: [
+          '"Give me a second to sort my hair out first"',
+          '"Yes. Film all of it — get my good side"',
+          '"Not while I am working, sorry about that"',
+          '"Fine, but do not put the price in the video"',
+        ],
+        optionsEs: [
+          '"Dame un segundo, que me arreglo el pelo"',
+          '"Sí. Grábalo todo — cógeme el lado bueno"',
+          '"Mientras trabajo no, lo siento"',
+          '"Vale, pero el precio no lo saques en el vídeo"',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Hesitating on camera reads as guilty on this street. Say yes like you mean it and the clip does the advertising for you.',
+        explanationEs:
+          'Dudar delante de la cámara suena a culpable en esta calle. Di que sí de verdad y el vídeo te hace la publicidad.',
+      },
+      {
+        question: 'She is filming. What has to be in the shot?',
+        questionEs: 'Está grabando. ¿Qué tiene que salir en cuadro?',
+        options: [
+          'Your face, from the good angle, for as long as possible',
+          'The card machine, so people know it is a real shop',
+          'Her before-and-after, and nothing else at all',
+          'The product, and where you are, said out loud',
+        ],
+        optionsEs: [
+          'Tu cara, desde el ángulo bueno, todo el rato posible',
+          'El datáfono, para que se vea que es una tienda real',
+          'Su antes y después, y nada más',
+          'El producto y dónde estás, dicho en voz alta',
+        ],
+        correctIndex: 3,
+        explanation:
+          'A video nobody can find is a video that sold nothing. Product in frame, shop behind you, and say where you are out loud.',
+        explanationEs:
+          'Un vídeo que nadie puede encontrar es un vídeo que no ha vendido nada. Producto en cuadro, tienda detrás y di dónde estás en alto.',
+      },
+      {
+        question: 'She offers to tag the shop. What do you trade for it?',
+        questionEs: 'Se ofrece a etiquetar la tienda. ¿Qué le das a cambio?',
+        options: [
+          'A voucher she can use the next time she is over',
+          'A free scrub posted out to her when the video goes up',
+          'Something off the price, right now, before she leaves',
+          'Your name at the counter so she is looked after next visit',
+        ],
+        optionsEs: [
+          'Un cupón para la próxima vez que venga por aquí',
+          'Un exfoliante gratis enviado cuando suba el vídeo',
+          'Algo del precio, ahora mismo, antes de que se vaya',
+          'Tu nombre en el mostrador para que la atiendan la próxima',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Every deal you make with a phone gets settled inside the same conversation. Anything owed after she walks off lands on a colleague.',
+        explanationEs:
+          'Todo lo que pactes con un móvil se cierra en esa misma conversación. Lo que quede a deber cuando se vaya le cae a un compañero.',
+      },
+    ],
   },
 
   "S9": {
@@ -1106,7 +1618,71 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "Dos jugadas, no hay más. O le pones algo en la mano, o lo sueltas del anzuelo. Decide rápido, porque cuanto más rato lleve ahí con los brazos cruzados, más difícil se pone. Lo que no haces nunca es ganar una discusión delante de su pareja. Y cuando se venga abajo, no te regodees ni le hagas decirlo en voz alta — dale la razón en algo al salir, y será él quien lleve la bolsa.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'He is behind her, arms folded, muttering that it is a scam. What do you do?',
+        questionEs: 'Él está detrás con los brazos cruzados, murmurando que es un timo. ¿Qué haces?',
+        options: [
+          'Answer him properly — facts will settle him down',
+          'Talk over him and keep her eyes on the mirror',
+          '"Give me your hand" — put something in it',
+          'Tell her not to let him decide what she can spend',
+        ],
+        optionsEs: [
+          'Contestarle en serio — los datos lo van a calmar',
+          'Hablar por encima de él y que ella mire el espejo',
+          '"Dame la mano" — ponle algo en ella',
+          'Decirle a ella que no deje que él decida su gasto',
+        ],
+        correctIndex: 2,
+        explanation:
+          'He does not want a debate, he wants proof he can feel. Nobody stays folded up while somebody is working on their hand.',
+        explanationEs:
+          'Él no quiere un debate, quiere una prueba que pueda notar. Nadie sigue con los brazos cruzados mientras le trabajan la mano.',
+      },
+      {
+        question: 'He clearly does not want to be involved at all. What is the kind way out?',
+        questionEs: 'Está claro que él no quiere estar metido en esto. ¿Cuál es la salida amable?',
+        options: [
+          'Ask him to hold the mirror so he has a job to do',
+          'Ask him what he thinks it is worth, then match it',
+          'Ignore him and speak only to her from here on',
+          '"Do not worry, it is ladies\' business anyway"',
+        ],
+        optionsEs: [
+          'Pedirle que sujete el espejo para que tenga tarea',
+          'Preguntarle cuánto cree que vale y ponerle ese precio',
+          'Ignorarlo y hablar solo con ella a partir de ahora',
+          '"No te preocupes, que esto es cosa de chicas"',
+        ],
+        correctIndex: 3,
+        explanation:
+          'Light, with a smile, and no edge on it. A man who has been let off the hook stops fighting you and gets his phone back out.',
+        explanationEs:
+          'Ligero, con una sonrisa y sin pica. Un hombre al que has soltado del anzuelo deja de pelearse contigo y saca otra vez el móvil.',
+      },
+      {
+        question: 'He keeps needling, so you knock {currency}40 off to shut him up. What have you taught him?',
+        questionEs: 'Sigue picando y le quitas {currency}40 para callarlo. ¿Qué le acabas de enseñar?',
+        options: [
+          'That being difficult moves your numbers',
+          'That you respect him and want him on side',
+          'That the product was overpriced to start with',
+          'That you would rather close today than hold the price at all',
+        ],
+        optionsEs: [
+          'Que ponerse borde te mueve los números',
+          'Que lo respetas y lo quieres de tu lado',
+          'Que el producto estaba caro desde el principio',
+          'Que prefieres cerrar hoy antes que aguantar el precio',
+        ],
+        correctIndex: 0,
+        explanation:
+          'Now he knows exactly which button moves the money, and he will press it all the way down to your floor.',
+        explanationEs:
+          'Ahora ya sabe qué botón mueve el dinero, y lo va a apretar hasta llegar a tu suelo.',
+      },
+    ],
   },
 
   "S10": {
@@ -1224,6 +1800,70 @@ export const scenarioLessons: Record<string, Lesson> = {
         textEs: "Ten una lista en el móvil: nombre, qué se llevó, cuándo, y una cosa personal — de dónde es, la boda, la hermana con el mismo problema. Tres meses después le dices \"¡María! ¿Qué tal la boda? ¿Te duró la jeringa todo el viaje?\" y no se va a creer que te acordaras. Ese es todo el programa de fidelización, y no cuesta nada. Eso sí, una norma: no se promete nada para la próxima. Ni cajas guardadas, ni precios que siguen en pie, ni \"pregunta por mí\" — igual ese día libras y le toca a otro quedarse ahí dando explicaciones. Dale todo hoy, y dáselo a lo grande.",
       },
     ],
-    quiz: [],
+    quiz: [
+      {
+        question: 'She is back three months later with a photo of her own face. What do you sell her?',
+        questionEs: 'Vuelve tres meses después con una foto de su propia cara. ¿Qué le vendes?',
+        options: [
+          'The same syringe again — it worked, so why change',
+          'The next thing up. Sit her down and demo the peeling',
+          'Everything on the table, while she is in the mood',
+          'Nothing yet — take her details and follow it up later',
+        ],
+        optionsEs: [
+          'La misma jeringa otra vez — funcionó, para qué cambiar',
+          'Lo siguiente. Siéntala y hazle la demo del peeling',
+          'Todo lo de la mesa, ya que viene con ganas',
+          'Nada todavía — apunta sus datos y ya la llamas',
+        ],
+        correctIndex: 1,
+        explanation:
+          'She does not want the same box again, she wants the next thing. She is already sold — the only way to lose this is to get greedy.',
+        explanationEs:
+          'No quiere la misma caja otra vez, quiere lo siguiente. Ya está vendida — la única forma de perderla es ponerte codicioso.',
+      },
+      {
+        question: 'She trusts you completely and she has already got her card out. Do you still do the demo?',
+        questionEs: 'Se fía de ti del todo y ya ha sacado la tarjeta. ¿Le haces la demo igual?',
+        options: [
+          'No — she has bought before, get straight to the price',
+          'No — doing it again suggests you do not believe her',
+          'Yes. Two minutes of somebody fussing over her face',
+          'Only if she asks, otherwise you are wasting her time',
+        ],
+        optionsEs: [
+          'No — ya ha comprado antes, ve directo al precio',
+          'No — repetirla parece que no te la crees',
+          'Sí. Dos minutos de que alguien le haga caso a su cara',
+          'Solo si lo pide, si no le estás quitando el tiempo',
+        ],
+        correctIndex: 2,
+        explanation:
+          'The demo is what she came back for. Two minutes of somebody making a fuss of her face is the whole loyalty scheme.',
+        explanationEs:
+          'La demo es a lo que ha vuelto. Dos minutos de que alguien le haga caso a su cara son todo el programa de fidelización.',
+      },
+      {
+        question: 'She is leaving with the bag. Which of these is safe to give her?',
+        questionEs: 'Se va con la bolsa. ¿Cuál de estas cosas puedes darle sin problema?',
+        options: [
+          'A price you promise will still be waiting on her next trip',
+          'One held behind the till with her name written on it',
+          'Your name to ask for so she gets looked after next time',
+          'The whole lot today — gift in the bag, price done',
+        ],
+        optionsEs: [
+          'Un precio que le prometes para su próximo viaje',
+          'Uno guardado en caja con su nombre escrito encima',
+          'Tu nombre para que pregunte y la cuiden la próxima',
+          'Todo hoy — regalo en la bolsa y precio cerrado',
+        ],
+        correctIndex: 3,
+        explanation:
+          'You might not be on that shift, and a colleague has to stand there and explain it. Give her everything today, and give it big.',
+        explanationEs:
+          'Igual ese día no estás tú y le toca a un compañero quedarse ahí dando explicaciones. Dale todo hoy, y dáselo a lo grande.',
+      },
+    ],
   },
 };

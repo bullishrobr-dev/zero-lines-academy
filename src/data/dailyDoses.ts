@@ -155,8 +155,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'mindset',
-        text: 'The 80/20 rule: 80% of people will say no. That\'s normal. Your job is to find the 20% who say yes. Every no gets you closer to a yes.',
-        textEs: 'La regla 80/20: El 80% de la gente dirá que no. Es normal. Tu trabajo es encontrar el 20% que dice sí. Cada no te acerca a un sí.',
+        text: 'The 80/20 rule: 80% of people will say no. That\'s normal. Your job is to find the 20% who say yes — and here is why that number matters. If four out of five walk, then the one who did NOT walk, the one already sitting in your chair, is rare. So you do not hurry her and you do not go lazy halfway through. The number is not there to make a bad day feel better. It is there to make you fight for the one you have got.',
+        textEs: 'La regla 80/20: el 80% de la gente dirá que no. Es normal. Tu trabajo es encontrar el 20% que dice sí — y aquí va por qué importa ese dato. Si cuatro de cada cinco se van, entonces la que NO se ha ido, la que ya está sentada en tu silla, es algo raro. Así que ni la metes prisa ni aflojas a mitad de camino. El dato no está para que un mal día duela menos. Está para que pelees por la que ya tienes.',
       },
     ],
     practicePrompt: 'Track your next 10 rejections. Note ONE thing about each (their body language, what they said, time of day). Look for patterns.',
@@ -179,8 +179,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"...I\'m actually working with a Swiss skincare brand today, and we just opened a pop-up down the road. Have you heard of Dead Sea minerals?"',
-        textEs: '"...de hecho estoy trabajando con una marca suiza de cuidado de la piel hoy, y acabamos de abrir un pop-up aquí cerca. ¿Has oído hablar de los minerales del Mar Muerto?"',
+        text: '"...I work with a Dead Sea skincare brand, and we just opened up down the road. Have you heard about Dead Sea minerals?"',
+        textEs: '"...yo trabajo con una marca de cosmética del Mar Muerto, y acabamos de abrir aquí al lado. ¿Has oído hablar de los minerales del Mar Muerto?"',
       },
       {
         type: 'tip',
@@ -649,8 +649,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: '"Hi there! I have to say — your partner is very lucky to be with someone who takes such good care of their skin. I\'m [Name], and I\'m showcasing Swiss skincare today. Can I show you both something really cool?"',
-        textEs: '"¡Hola! Te lo tengo que decir — tu pareja tiene suerte de estar con alguien que se cuida así la piel. Soy [Nombre] y hoy traigo cosmética suiza. ¿Os enseño una cosa? Es una pasada."',
+        text: '"Hi there! I have to say — your partner is very lucky to be with someone who takes such good care of their skin. I\'m [Name], and I work with Dead Sea minerals. Can I show you both something really cool?"',
+        textEs: '"¡Hola! Te lo tengo que decir — tu pareja tiene suerte de estar con alguien que se cuida así la piel. Soy [Nombre] y trabajo con minerales del Mar Muerto. ¿Os enseño una cosa? Es una pasada."',
       },
       {
         type: 'tip',

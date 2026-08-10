@@ -37,6 +37,7 @@ import {
   Moon,
   Trophy,
   Layers,
+  NotebookPen,
   type LucideIcon,
 } from 'lucide-react';
 import { useMemo, useState, useCallback, useRef } from 'react';
@@ -72,8 +73,11 @@ const COPY = {
     startTrainingSub: 'Six paths, 51 lessons — begin with the basics',
     nowLabel: 'Right now',
     onTheFloor: 'On the floor',
+    onTheFloorSub: 'The two things you open with a customer there',
     cheatSheets: 'Cheat sheets',
     cheatSheetsSub: 'Prices, scripts and closes — open mid-sale',
+    journal: 'Journal',
+    journalSub: 'Who came in, who bought, why the rest walked',
     logSale: 'Log a sale',
     logSaleSub: 'Track stops, brings and revenue',
     leaderboard: 'Leaderboard',
@@ -83,6 +87,7 @@ const COPY = {
     flashcards: 'Flashcards',
     quickPractice: 'Quick practice',
     quickPracticeSub: 'Got a few minutes? Sharpen your skills.',
+    streakNone: 'No streak',
     flashcardSprint: 'Flashcard sprint',
     flashcardSprintSub: '1 min · 5 cards',
     scenarioDrill: 'Scenario drill',
@@ -108,8 +113,11 @@ const COPY = {
     startTrainingSub: 'Seis caminos, 51 lecciones — empieza por lo básico',
     nowLabel: 'Ahora mismo',
     onTheFloor: 'En la calle',
+    onTheFloorSub: 'Lo que abres con el cliente delante',
     cheatSheets: 'Hojas de trucos',
     cheatSheetsSub: 'Precios, guiones y cierres — ábrelas en plena venta',
+    journal: 'Diario',
+    journalSub: 'Quién entró, quién compró y por qué se fueron los demás',
     logSale: 'Registrar venta',
     logSaleSub: 'Apunta paradas, entradas e ingresos',
     leaderboard: 'Clasificación',
@@ -130,6 +138,7 @@ const COPY = {
     streakMilestone: 'de racha — ¡no la sueltes!',
     challengeDone: 'Reto completado',
     doseDone: 'Dosis diaria leída',
+    streakNone: 'Sin racha',
   },
 } as const;
 
@@ -340,9 +349,10 @@ export default function HomeDashboard() {
   }, [todayProgress.checkedIn, todayProgress.reflected, nextLesson, c]);
 
   /* ── Quotes — demoted to a small footer card, still swipeable ──
-     Drawn WITHOUT replacement. Five independent getRandomQuote() calls will
-     collide often enough at 110 quotes (~9% of loads) that the carousel dots,
-     which are keyed by quote id, produced duplicate React keys. */
+     Drawn WITHOUT replacement. Five independent getRandomQuote() calls collide
+     often enough — and more so now the pool is the 54 in the owner's own voice
+     rather than 110 padded out with borrowed internet motivation — that the
+     carousel dots, which are keyed by quote id, produced duplicate React keys. */
   const [quotesList] = useState<Quote[]>(() => {
     const picked: Quote[] = [];
     const seen = new Set<string>();
@@ -449,21 +459,24 @@ export default function HomeDashboard() {
               <h1 className="mt-1 truncate text-display text-ink">{userName}</h1>
             </div>
 
-            {/* Streak flame */}
+            {/* Streak flame.
+                At zero this used to read "Start" — a bordered pill in the
+                top-right corner, wearing the shape of a primary action, that was
+                an inert <div> and did nothing when tapped. It is a readout, so it
+                reads out: 0, in the same place and the same shape as every other
+                value it can hold. */}
             <div
               className={`relative flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 ${
                 currentStreak > 0
                   ? 'bg-coral text-on-coral'
-                  : 'border border-line bg-surface text-ink-2'
+                  : 'border border-line bg-surface text-ink-3'
               }`}
             >
               <Flame size={18} aria-hidden="true" />
-              {currentStreak > 0 ? (
-                <span className="text-button tabular-nums">{animatedStreak}</span>
-              ) : (
-                <span className="text-caption">{t('start')}</span>
-              )}
-              <span className="sr-only">{c.dayStreak}</span>
+              <span className="text-button tabular-nums">{animatedStreak}</span>
+              <span className="sr-only">
+                {currentStreak > 0 ? c.dayStreak : c.streakNone}
+              </span>
             </div>
           </div>
 
@@ -533,9 +546,17 @@ export default function HomeDashboard() {
         animate="visible"
         className="space-y-7 px-5 pt-7"
       >
-        {/* ── Cheat sheets: the screen sellers need mid-sale ── */}
+        {/* ── On the floor ──
+             This section is named for the moment a seller is standing up with
+             somebody in front of them, and it used to contain the Leaderboard,
+             Quizzes and Exercises — none of which anyone opens on a floor —
+             while the JOURNAL, the one tool that is used there every few
+             minutes, was not in it at all and had no link on this screen.
+             Two cards now, and both of them are things you do with a customer
+             there. The three study shortcuts moved down to Quick practice,
+             which is where a seller on a break is already looking. ── */}
         <motion.section variants={itemVariants}>
-          <SectionHeading title={c.onTheFloor} />
+          <SectionHeading title={c.onTheFloor} hint={c.onTheFloorSub} />
           <motion.button
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/cheat-sheets')}
@@ -551,26 +572,20 @@ export default function HomeDashboard() {
             <ArrowRight size={20} className="shrink-0 text-coral-strong" aria-hidden="true" />
           </motion.button>
 
-          <div className="mt-3 grid grid-cols-3 gap-3">
-            <TileLink
-              icon={Trophy}
-              label={c.leaderboard}
-              tone="gold"
-              onClick={() => navigate('/leaderboard')}
-            />
-            <TileLink
-              icon={BrainCircuit}
-              label={t('homeQuickAccessQuizzes')}
-              tone="teal"
-              onClick={() => navigate('/quizzes')}
-            />
-            <TileLink
-              icon={Dumbbell}
-              label={t('homeQuickAccessExercises')}
-              tone="violet"
-              onClick={() => navigate('/exercises')}
-            />
-          </div>
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/street-tracker')}
+            className="surface-raised mt-3 flex w-full items-center gap-4 p-5 text-left"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-teal-tint text-teal-strong">
+              <NotebookPen size={24} aria-hidden="true" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-h4 text-ink">{c.journal}</span>
+              <span className="block text-caption text-ink-2">{c.journalSub}</span>
+            </span>
+            <ArrowRight size={20} className="shrink-0 text-teal-strong" aria-hidden="true" />
+          </motion.button>
         </motion.section>
 
         {/* ── The journal, read back. Renders nothing until there is a real
@@ -643,7 +658,11 @@ export default function HomeDashboard() {
           </motion.section>
         )}
 
-        {/* ── Quick practice ── */}
+        {/* ── Quick practice — the break-time shelf.
+             Quizzes, Exercises and the Leaderboard live here now rather than
+             under "On the floor". None of them is a floor tool, and the
+             Leaderboard still has no other inbound link in the app, so it keeps
+             its tile. ── */}
         <motion.section variants={itemVariants}>
           <SectionHeading title={c.quickPractice} hint={c.quickPracticeSub} />
           <div className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
@@ -667,6 +686,27 @@ export default function HomeDashboard() {
               subtitle={c.priceLadderSub}
               tone="violet"
               onClick={() => navigate('/quizzes')}
+            />
+          </div>
+
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            <TileLink
+              icon={BrainCircuit}
+              label={t('homeQuickAccessQuizzes')}
+              tone="teal"
+              onClick={() => navigate('/quizzes')}
+            />
+            <TileLink
+              icon={Dumbbell}
+              label={t('homeQuickAccessExercises')}
+              tone="violet"
+              onClick={() => navigate('/exercises')}
+            />
+            <TileLink
+              icon={Trophy}
+              label={c.leaderboard}
+              tone="gold"
+              onClick={() => navigate('/leaderboard')}
             />
           </div>
         </motion.section>

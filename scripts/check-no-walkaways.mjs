@@ -48,6 +48,23 @@ const WALKAWAY = [
   /while you (look|have a look) around/i,
   /hold (it|one|that) (for you )?at the counter/i,
   /business card/i,
+  /* Open-ended returns. "Come back whenever you like" reads warmer than "come
+     back tomorrow" and does exactly the same job, which is why the first
+     version of this list missed it. Same for "pop back", "drop back in" and
+     "the offer is not going anywhere". */
+  /(come|pop|drop|call) (back|in) (whenever|any ?time|if you|later|again)/i,
+  /(is|are)(n't| not) going anywhere/i,
+  /we'?re (open|here) (all|till|until|tomorrow)/i,
+  /have a (think|look) (about it )?and (come|pop|let)/i,
+  /(send|write|note) (you |them )?the price/i,
+  /think about it and (come|let|get)/i,
+
+  /vuelve cuando (quieras|te apetezca|lo tengas)/i,
+  /(vuelve|p[áa]sate) (m[áa]s tarde|otro rato|luego)/i,
+  /no se va a ninguna parte/i,
+  /aqu[ií] estaremos (ma[ñn]ana|luego|todo el d[ií]a)/i,
+  /te (mando|escribo|apunto) el precio/i,
+  /pi[eé]nsatelo y (vuelve|me dices|luego)/i,
 
   /vuelve (cuando|ma[ñn]ana|otro d[ií]a|luego)/i,
   /p[áa]sate cuando quieras/i,
@@ -82,6 +99,50 @@ const LAST_RESORT =
 
 /** Fields that NAME an objection rather than script the seller's answer. */
 const NAMING_FIELD = /^\s*(title|titleEs|question|questionEs|label|labelEs|head|headEs|name|nameEs)\s*:/;
+
+/**
+ * The objection-and-answer form the lesson bodies use:
+ *
+ *   'I'LL THINK ABOUT IT AND COME BACK' → 'What is there to think about? …'
+ *
+ * Everything left of the arrow is the CUSTOMER talking — the objection being
+ * answered, not a line the seller says. Only what follows the arrow is the
+ * seller's script, so that is the only part worth testing. Strip rather than
+ * exempt: a walkaway hiding in the ANSWER still has to fail.
+ */
+function sellerPart(line) {
+  const i = line.indexOf('→');
+  return i === -1 ? line : line.slice(i + 1);
+}
+
+/**
+ * Scored exercise choices — `{ text, feedback, score }` in generalExercises.ts
+ * and its siblings. A low-scoring choice is a wrong answer with the reasoning
+ * attached ("Giving a card means you will likely never see them again"), which
+ * is the guard's own argument, written out for the seller. The block above
+ * only understands quiz `options` + `correctIndex`, so this covers the other
+ * shape. A choice scoring well is a recommended line and stays in scope.
+ */
+const GOOD_ANSWER_SCORE = 60;
+function lowScoringChoiceLines(src) {
+  const exempt = new Set();
+  const lines = src.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    if (!/^\s*text(Es)?:\s*['"`]/.test(lines[i])) continue;
+    // Look ahead for this choice's score, stopping at the next choice.
+    for (let k = i + 1; k < Math.min(i + 12, lines.length); k++) {
+      /* Only a bare `text:` starts the NEXT choice. Breaking on `textEs:` too
+         would stop the search on the very next line, which is exactly how the
+         first version of this silently exempted nothing at all. */
+      if (/^\s*text:\s*['"`]/.test(lines[k])) break;
+      const m = lines[k].match(/^\s*score:\s*(\d+)/);
+      if (!m) continue;
+      if (Number(m[1]) < GOOD_ANSWER_SCORE) exempt.add(i + 1);
+      break;
+    }
+  }
+  return exempt;
+}
 
 /**
  * Lines that are WRONG ANSWERS in a quiz — there to be rejected, not said.
@@ -122,8 +183,10 @@ const hits = [];
 for (const file of walk(ROOT)) {
   const src = readFileSync(file, 'utf8');
   const exempt = distractorLines(src);
+  const lowScoring = lowScoringChoiceLines(src);
   const all = src.split('\n');
-  all.forEach((line, i) => {
+  all.forEach((raw, i) => {
+    const line = sellerPart(raw);
     if (/^\s*(\/\/|\*|\/\*)/.test(line)) return; // explanatory comments are not content
     if (NAMING_FIELD.test(line)) return; // naming the objection is not committing it
     /* A field whose value sits on the following line — `question:\n  "…"`. The
@@ -137,9 +200,10 @@ for (const file of walk(ROOT)) {
     if (LAST_RESORT.test(context)) return; // the rare A-to-Z-failed exit he allows
     if (SAFETY.test(context)) return;
     if (exempt.has(i + 1)) return; // a wrong answer, there to be rejected
+    if (lowScoring.has(i + 1)) return; // a scored exercise choice marked wrong
     for (const rx of WALKAWAY) {
       if (rx.test(line)) {
-        hits.push(`${file.replace(ROOT, 'src')}:${i + 1}  ${line.trim().slice(0, 130)}`);
+        hits.push(`${file.replace(ROOT, 'src')}:${i + 1}  ${raw.trim().slice(0, 130)}`);
         break;
       }
     }

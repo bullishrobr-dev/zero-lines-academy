@@ -3,10 +3,15 @@
 //
 // The academy had seven lessons on stopping someone in the street and eight on
 // product knowledge, and then a hole where the actual sale happens: the five
-// metres from the pavement to the chair, the moment you ask for the money, and
-// the ninety seconds between "yes" and "paid". Sellers were being taught how to
-// start a conversation and how to describe a syringe, and left to guess the
-// bit in between.
+// metres from the pavement to the chair, the demo itself, the moment you ask
+// for the money, and the ninety seconds between "yes" and "paid". Sellers were
+// being taught how to start a conversation and how to describe a syringe, and
+// left to guess the bit in between.
+//
+// The demo was the last piece of that hole to be filled, and the most expensive
+// one: "the two yeses" were quoted all over this app — in close-fault's
+// checklist, on the cheat sheets, in the nudges, in close-2's own answer to
+// "let me think about it" — and taught in no lesson anywhere. See `close-demo`.
 //
 // ── WHOSE WORDS THESE ARE ───────────────────────────────────────────────────
 // The owner's, dictated and kept in his voice rather than rewritten into
@@ -563,6 +568,240 @@ export const closingLessons: Record<string, Lesson> = {
     ],
   },
 
+  /*
+   * The hole the rest of the curriculum was built around, and nobody noticed.
+   *
+   * Seven lessons taught stopping, eight taught reading people, eight taught
+   * price and twenty taught objections — and not one taught the two minutes
+   * where a seller takes a stranger's hand, does one eye and puts a mirror in
+   * front of her. "The two yeses" were referenced in close-fault's honest
+   * checklist, on the cheat sheets, in the nudges and in the daily doses, and
+   * taught in no lesson anywhere. close-2's answer to "let me think about it"
+   * is literally "you already told me you like it, you told me you'd use it" —
+   * words the seller was never told to go and collect.
+   *
+   * So: the demo in the order it happens, with the two yeses as the POINT of
+   * it rather than a flourish on the end. The raw mechanics — look up, look
+   * down, the narrative, the reveal — are in syringeData.ts, and that script
+   * has no two-yeses step at all, which is exactly how they went missing.
+   */
+  'close-demo': {
+    id: 'close-demo',
+    categoryId: 'closing',
+    title: 'The Demo And The Two Yeses',
+    titleEs: 'La Demo y los Dos Síes',
+    subtitle: 'One hand, one eye, one mirror — and two words you will need later',
+    subtitleEs: 'Una mano, un ojo, un espejo — y dos palabras que vas a necesitar después',
+    duration: '6 min',
+    icon: 'Hand',
+    order: 3,
+    xpReward: 120,
+    sections: [
+      {
+        type: 'header',
+        text: 'The demo is not a demonstration',
+        textEs: 'La demo no es una demostración',
+      },
+      {
+        type: 'paragraph',
+        text: `She is in the chair, facing the wall, and you have got about two minutes. Everything before this was getting her here. Everything after this is a number. The bit in the middle is not you showing off a product — it is you taking a stranger's hand, doing one eye, putting a mirror in front of her, and getting two words out of her mouth that you are going to hand straight back to her the moment she wobbles on the price. Do those four things in that order and the rest of the sale is arithmetic.`,
+        textEs: `Está en la silla, mirando a la pared, y tienes unos dos minutos. Todo lo de antes era para traerla hasta aquí. Todo lo de después es un número. Lo del medio no es que tú enseñes un producto — es que coges la mano de una desconocida, le haces un ojo, le pones un espejo delante y le sacas dos palabras de la boca que le vas a devolver en cuanto tiemble con el precio. Haz esas cuatro cosas en ese orden y el resto de la venta es aritmética.`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'Take the hand. Do not ask twice.',
+        textEs: 'Coge la mano. No lo pidas dos veces.',
+      },
+      {
+        type: 'paragraph',
+        text: `You already asked once, out on the pavement, and she came in. That was your permission and you have got it. So you do not stand there going "would it be alright if I…?" — the second ask tells her there is something here to be nervous about, and now she is nervous. Put your hand out, palm up, and say it like it is the best part of your day. She gives it to you. They always do.`,
+        textEs: `Ya lo pediste una vez, fuera en la acera, y ella entró. Ese era tu permiso y ya lo tienes. Así que no te quedes ahí con un "¿te importa si...?" — la segunda vez que lo pides le estás diciendo que aquí hay algo por lo que ponerse nerviosa, y ya la has puesto nerviosa. Saca la mano, la palma hacia arriba, y dilo como si fuera lo mejor de tu día. Te la da. Siempre te la dan.`,
+      },
+      {
+        type: 'script',
+        text: `"Give me your hand — this is the good bit."`,
+        textEs: `"Dame la mano — esta es la parte buena."`,
+      },
+      {
+        type: 'keypoint',
+        text: `Touch is not a bonus here, it is the job. You cannot sell somebody their own face from a metre away. The second her hand is in yours she has stopped being a person walking past a kiosk and started being a person having something done for her — and people who are having something done for them do not walk out halfway through.`,
+        textEs: `Aquí tocar no es un extra, es el trabajo. No le puedes vender a alguien su propia cara desde un metro. En cuanto tiene la mano en la tuya deja de ser una persona que pasa por delante de un kiosco y pasa a ser una persona a la que le están haciendo algo — y a quien le están haciendo algo no se levanta y se va a la mitad.`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'One eye. Never two.',
+        textEs: 'Un ojo. Nunca dos.',
+      },
+      {
+        type: 'paragraph',
+        text: `Do one eye and stop. Not because you are being stingy — because the eye you have not touched is the best salesperson in this shop. It is sitting right there next to the one you did, on the same face, in the same light, and it argues for you without you opening your mouth. Do both for free and you have given away the whole result for nothing, and left yourself with a conversation instead of a comparison.`,
+        textEs: `Haz un ojo y para. No por tacaño — porque el ojo que no has tocado es el mejor vendedor de esta tienda. Está justo al lado del que sí has hecho, en la misma cara, con la misma luz, y discute por ti sin que tú abras la boca. Hazle los dos gratis y has regalado el resultado entero, y te has quedado con una conversación en vez de con una comparación.`,
+      },
+      {
+        type: 'script',
+        text: `"Look up for me — perfect. Now don't move. I'm only doing one, and you'll see why in a minute."`,
+        textEs: `"Mira hacia arriba — perfecto. Ahora no te muevas. Solo hago uno, y ahora verás por qué."`,
+      },
+      {
+        type: 'paragraph',
+        text: `And talk the whole way through it. Silence while you are touching somebody's face is a very long time. Tell her what it does, tell her it is once a week and five minutes, tell her one syringe sees her through the year. If there is a partner standing there, pull him in — "you watch this side, you're my witness." Nobody who is laughing is checking their watch.`,
+        textEs: `Y habla todo el rato. El silencio mientras le tocas la cara a alguien se hace larguísimo. Cuéntale qué hace, cuéntale que es una vez a la semana y cinco minutos, cuéntale que una jeringa le dura el año entero. Si hay una pareja ahí de pie, métela en el ajo — "tú vigila este lado, que eres mi testigo". Nadie que se está riendo mira el reloj.`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'The mirror — and then your mouth shuts',
+        textEs: 'El espejo — y luego te callas',
+      },
+      {
+        type: 'paragraph',
+        text: `This is the moment sellers talk over, and it costs them the sale. You hand her the mirror and you stop. Not a little pause — a proper silence, three or four seconds, while she finds it herself. The first sound in that gap has to come out of her, not out of you. If you narrate it, it is your opinion. If she finds it, it is a fact.`,
+        textEs: `Este es el momento que los vendedores pisan hablando, y les cuesta la venta. Le das el espejo y te callas. No una pausita — un silencio de verdad, tres o cuatro segundos, mientras lo encuentra ella sola. El primer sonido de ese hueco tiene que salir de ella, no de ti. Si se lo cuentas tú, es tu opinión. Si lo encuentra ella, es un hecho.`,
+      },
+      {
+        type: 'script',
+        text: `"Promise me you won't scream." (Give her the mirror. Say nothing.) … "Now look at the other one. Go on — compare them."`,
+        textEs: `"Prométeme que no vas a gritar." (Dale el espejo. No digas nada.) … "Ahora mira el otro. Venga — compáralos."`,
+      },
+      {
+        type: 'tip',
+        text: `Whatever she says first is what she actually walked in with — the bags, the tired look, the line she keeps pointing at. Keep it. You will be putting her own word back in front of her in about ninety seconds.`,
+        textEs: `Lo primero que diga es con lo que ha entrado de verdad — las bolsas, la cara de cansada, la arruguita que no para de señalar. Guárdatelo. Le vas a poner su propia palabra delante otra vez dentro de noventa segundos.`,
+      },
+
+      { type: 'divider' },
+      {
+        type: 'header',
+        text: 'The two yeses — this is the whole lesson',
+        textEs: 'Los dos síes — esta es toda la lección',
+      },
+      {
+        type: 'paragraph',
+        text: `Mirror still in her hand. Before any number, before the ladder, before anything at all, you ask her two questions. They are small, they are closed, and both times you wait for the actual word.`,
+        textEs: `El espejo todavía en su mano. Antes de ningún número, antes de la escalera, antes de nada, le haces dos preguntas. Son pequeñas, son cerradas, y las dos veces esperas a que salga la palabra.`,
+      },
+      {
+        type: 'script',
+        text: `"Do you like it?"`,
+        textEs: `"¿Te gusta?"`,
+      },
+      {
+        type: 'paragraph',
+        text: `Then wait. Do not fill it. Do not answer it for her with "you love it, don't you?" — that is you saying yes, not her, and you cannot quote yourself back at somebody. A nod is not enough either. You want the word, out loud, in her voice, because in two minutes you are going to repeat it to her.`,
+        textEs: `Y espera. No lo rellenes. No se lo contestes tú con un "te encanta, ¿a que sí?" — ese sí lo dices tú, no ella, y a nadie le puedes citar tus propias palabras. Con que asienta tampoco vale. Quieres la palabra, en voz alta, con su voz, porque dentro de dos minutos se la vas a repetir.`,
+      },
+      {
+        type: 'script',
+        text: `"And if you had it at home — would you actually use it? Be honest with me."`,
+        textEs: `"¿Y si lo tuvieras en casa — lo usarías de verdad? Sé sincera conmigo."`,
+      },
+      {
+        type: 'paragraph',
+        text: `"Be honest with me" is the bit doing the work. It hands her a clean, easy way to say no — which is precisely why she says yes. And on the rare day she says "honestly, probably not", she has just saved you six minutes and told you to stop selling and start chatting. Nothing lost.`,
+        textEs: `El "sé sincera conmigo" es lo que trabaja ahí. Le da una forma limpia y fácil de decir que no — que es justo por lo que dice que sí. Y el día raro que te diga "la verdad, seguramente no", te acaba de ahorrar seis minutos y te ha dicho que dejes de vender y te pongas a charlar. No has perdido nada.`,
+      },
+      {
+        type: 'keypoint',
+        text: `Once she has said both of them out loud, she has nothing left to object to except the price. That is the entire point of them. She cannot tell you it does not work — she just watched it work on her own face and said she liked it. She cannot tell you she would not use it — she said she would. All that is left is a number, and a number is the one thing you have a whole ladder for.`,
+        textEs: `En cuanto ha dicho los dos en voz alta, no le queda nada que objetar salvo el precio. Ese es todo el sentido. No te puede decir que no funciona — acaba de verlo funcionar en su propia cara y ha dicho que le gusta. No te puede decir que no lo usaría — ha dicho que sí. Solo queda un número, y un número es justo para lo que tienes una escalera entera.`,
+      },
+      {
+        type: 'tip',
+        text: `Yes, both of them are closed questions, and yes, you were taught to ask open ones. That is for the chat outside, where you are digging for information. Here you are not after a conversation — you are after a word on the record, in her own voice. Closed is the point.`,
+        textEs: `Sí, las dos son preguntas cerradas, y sí, te enseñaron a hacerlas abiertas. Eso es para la charla de fuera, donde estás rascando información. Aquí no buscas conversación — buscas una palabra grabada, con su propia voz. Que sea cerrada es lo que la hace funcionar.`,
+      },
+
+      { type: 'divider' },
+      {
+        type: 'subheader',
+        text: 'What it costs you to skip them',
+        textEs: 'Lo que te cuesta saltártelos',
+      },
+      {
+        type: 'paragraph',
+        text: `Every answer you get taught for later leans on those two words. "I have to think about it" — about what, exactly? If she never said she liked it, you have got nothing to give back, and you are down to arguing about a cream. "I'll ask my husband" — ask him what? You never got her to say she wanted it herself, so now it genuinely is his decision. Skip the two yeses and you spend the last five minutes defending a product, when you should be haggling over a number with somebody who has already decided she wants it.`,
+        textEs: `Todas las respuestas que te enseñan para después se apoyan en esas dos palabras. "Me lo tengo que pensar" — ¿pensar el qué, exactamente? Si nunca dijo que le gustaba, no tienes nada que devolverle, y te quedas discutiendo sobre una crema. "Se lo pregunto a mi marido" — ¿preguntarle el qué? Nunca conseguiste que dijera que lo quería ella, así que ahora sí que es decisión de él. Sáltate los dos síes y te pasas los últimos cinco minutos defendiendo un producto, cuando deberías estar regateando un número con alguien que ya ha decidido que lo quiere.`,
+      },
+      {
+        type: 'script',
+        text: `And when it comes: "You told me you like it. You told me you'd use it. So it isn't a question of whether — it's just which of the two suits you better."`,
+        textEs: `Y cuando llegue el momento: "Me has dicho que te gusta. Me has dicho que lo usarías. Así que no es si sí o si no — es simplemente cuál de las dos te va mejor."`,
+      },
+      {
+        type: 'tip',
+        text: `The whole demo in six moves: the hand, one eye, keep talking, the mirror, the silence, the two yeses. Then, and only then, the number. If a sale went wrong and you cannot work out where, start by asking yourself which of those six you skipped.`,
+        textEs: `La demo entera en seis movimientos: la mano, un ojo, sigue hablando, el espejo, el silencio, los dos síes. Y entonces, y solo entonces, el número. Si una venta se te ha torcido y no sabes dónde, empieza por preguntarte cuál de esos seis te saltaste.`,
+      },
+    ],
+    quiz: [
+      {
+        question: 'One eye done, mirror in her hand, she is delighted. What comes out of your mouth next?',
+        questionEs: 'Un ojo hecho, el espejo en su mano, está encantada. ¿Qué es lo siguiente que sale de tu boca?',
+        options: [
+          'The whole price ladder, starting from the Europe number',
+          'An offer to do the other eye for her as well',
+          'Do you like it — and would you use it at home',
+          'The full list of what is in it and how it works',
+        ],
+        optionsEs: [
+          'La escalera de precios entera, empezando por Europa',
+          'Ofrecerle hacerle también el otro ojo',
+          '¿Te gusta? — y ¿lo usarías en casa?',
+          'La lista completa de lo que lleva y cómo funciona',
+        ],
+        correctIndex: 2,
+        explanation:
+          'The two yeses come before any number. Once she has said both out loud, the only thing left she can object to is the price — and the price is what the ladder is for.',
+        explanationEs:
+          'Los dos síes van antes de cualquier número. Cuando ha dicho los dos en voz alta, lo único que le queda por objetar es el precio — y para el precio está la escalera.',
+      },
+      {
+        question: 'She says "yes, I like it" — then only nods when you ask if she would use it. What now?',
+        questionEs: 'Dice "sí, me gusta" — y luego solo asiente cuando le preguntas si lo usaría. ¿Y ahora?',
+        options: [
+          'Take the nod, it means the same thing, and go to the price',
+          'Ask again, lightly, and wait until she says the word',
+          'Answer it for her — "of course you would" — and carry on',
+          'Move on fast, before she has a chance to change her mind',
+        ],
+        optionsEs: [
+          'Coge el gesto, significa lo mismo, y ve al precio',
+          'Vuelve a preguntar, con ligereza, y espera a que lo diga',
+          'Contéstalo tú — "claro que sí" — y sigue adelante',
+          'Pasa rápido, antes de que le dé tiempo a cambiar de idea',
+        ],
+        correctIndex: 1,
+        explanation:
+          'You need the word, out loud, in her voice — because in two minutes you are going to repeat it back to her. You cannot hand somebody a nod, and you certainly cannot quote yourself.',
+        explanationEs:
+          'Necesitas la palabra, en voz alta, con su voz — porque dentro de dos minutos se la vas a repetir. Un gesto no se le puede devolver, y citarte a ti mismo menos todavía.',
+      },
+      {
+        question: 'She asks you to do the other eye too, before she has bought anything. What do you say?',
+        questionEs: 'Te pide que le hagas el otro ojo también, antes de haber comprado nada. ¿Qué le dices?',
+        options: [
+          'Do it — a delighted customer is worth more than any comparison could ever be',
+          'Do it, then push a rung higher up the ladder to cover the product you used',
+          'Not yet — the untreated eye is your proof, and it is still working for you',
+          'Say no flatly and change the subject before she gets a chance to ask again',
+        ],
+        optionsEs: [
+          'Hazlo — una clienta encantada vale más que cualquier comparación',
+          'Hazlo, y luego sube un escalón para cubrir el producto que has gastado',
+          'Todavía no — el ojo sin tratar es tu prueba, y sigue trabajando para ti',
+          'Dile que no en seco y cambia de tema antes de que insista otra vez',
+        ],
+        correctIndex: 2,
+        explanation:
+          'The untreated eye is the best salesperson in the shop — same face, same light, arguing for you. Give the whole result away for free and you are left with a conversation instead of a comparison.',
+        explanationEs:
+          'El ojo sin tratar es el mejor vendedor de la tienda — misma cara, misma luz, discutiendo por ti. Regala el resultado entero y te quedas con una conversación en vez de con una comparación.',
+      },
+    ],
+  },
+
   'close-2': {
     id: 'close-2',
     categoryId: 'closing',
@@ -572,7 +811,7 @@ export const closingLessons: Record<string, Lesson> = {
     subtitleEs: 'El momento en que la mayoría se calla, y no debería',
     duration: '4 min',
     icon: 'Coins',
-    order: 3,
+    order: 4,
     xpReward: 120,
     sections: [
       {
@@ -727,7 +966,7 @@ export const closingLessons: Record<string, Lesson> = {
     subtitleEs: 'Los noventa segundos entre el sí y el pago',
     duration: '4 min',
     icon: 'CreditCard',
-    order: 4,
+    order: 5,
     xpReward: 120,
     sections: [
       {
@@ -943,7 +1182,7 @@ export const closingLessons: Record<string, Lesson> = {
     subtitleEs: 'La mayoría dice que no. Eso es el trabajo, no tu fracaso',
     duration: '5 min',
     icon: 'Shield',
-    order: 5,
+    order: 6,
     xpReward: 120,
     sections: [
       {

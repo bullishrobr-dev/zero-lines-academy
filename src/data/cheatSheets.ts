@@ -922,6 +922,30 @@ export const SCRIPTS: ScriptCard[] = [
     textEs: `"La mayoría de nuestros clientes también. Pero cuando lo prueban me dicen que es completamente distinto. ¿Te enseño por qué en 30 segundos?"`,
   },
   {
+    /*
+     * The one promise in this whole app that the shop really does honour, and
+     * it was nowhere on this screen.
+     *
+     * A seller who is asked "what if it breaks?" mid-demo had to leave the cheat
+     * sheet, open the Nail Kit page and scroll ~6,800px to find it — so in
+     * practice they either half-remembered it or, worse, hedged. Hedging on the
+     * one guarantee that is TRUE is the expensive mistake here: it is a free
+     * close and it costs the shop a buffer.
+     *
+     * Words lifted verbatim from nailKitData.ts (the warranty pitch), minus its
+     * "and the best part —" lead-in, which only makes sense when you are still
+     * presenting the kit rather than answering a question. Same promise, same
+     * wording, so the product page and the cheat sheet cannot drift.
+     */
+    id: 'r-breaks',
+    category: 'objection',
+    product: 'nailkit',
+    title: '"What if it breaks?"',
+    titleEs: '"¿Y si se rompe?"',
+    text: `"The buffer has a lifetime warranty. No matter what happens — if it breaks, if it wears out, even if your dog eats it — you can exchange it in any of our stores worldwide." [Let them laugh — humour lowers the guard. Say it with total confidence: this one is real.]`,
+    textEs: `"La lima tiene garantía de por vida. No importa qué pase — si se rompe, si se desgasta, incluso si tu perro se la come — puedes cambiarla en cualquiera de nuestras tiendas en todo el mundo." [Déjales reír — el humor baja la guardia. Dilo con total confianza: esta va en serio.]`,
+  },
+  {
     id: 'r4',
     answers: 'looking',
     category: 'objection',

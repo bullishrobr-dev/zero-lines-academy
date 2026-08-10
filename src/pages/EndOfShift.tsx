@@ -1,8 +1,40 @@
-import { useState } from 'react';
+// ─────────────────────────────────────────────────────────────────────────────
+// EndOfShift — the two minutes at 6pm where the day turns into a lesson.
+//
+// It is no longer where the streak is won: the streak counts showing up, so it
+// was already banked at check-in this morning (see hooks/useDailyFlow.ts). This
+// screen is where the seller names the one that got away, which is the only
+// part of the day that makes the next one better.
+//
+// ── WHAT WAS WRONG ──────────────────────────────────────────────────────────
+// Seven required fields, two of them free-text essays, and a button that read
+// "Fill every field to submit" until every last one was done. The streak and the
+// XP both sat behind that wall, at the end of a shift, on a phone, standing up.
+//
+// Worse, the first question was "How many people did you stop?" — a PAVEMENT
+// count. The journal deliberately refuses to collect that number (see the note
+// at the top of types/streetTracker.ts: "it measured effort rather than result,
+// and nobody could count it honestly anyway"), so the app was refusing to let a
+// seller finish their day without a figure it says elsewhere is uncountable.
+// Every one of them was guessed, and a guessed number is worse than no number.
+//
+// ── WHAT THIS IS NOW ────────────────────────────────────────────────────────
+//  · The pavement question is gone.
+//  · The count of people brought inside is READ BACK from the journal, which
+//    has been counting them all day, one tap at a time. It stays editable — the
+//    journal misses the ones logged on paper — but nobody has to remember it.
+//  · Both essays are optional and say so.
+//  · The six slip chips stay REQUIRED, and they are the only long answer left.
+//    That is the owner's honest checklist and the single thing on this screen
+//    that makes a seller better; softening it would leave a comfort blanket
+//    with nothing attached, which is exactly what CLAUDE.md forbids.
+//  · The blocked button names what is missing instead of "fill every field".
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
-  Users,
   DoorOpen,
   Star,
   Zap,
@@ -16,6 +48,7 @@ import {
 } from 'lucide-react';
 import { useDailyFlow } from '../hooks/useDailyFlow';
 import { useProgress } from '../hooks/useProgress';
+import { useStreetTracker } from '../hooks/useStreetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { focusTechniques } from '../data/dailyDoses';
 
@@ -24,8 +57,9 @@ const COPY = {
   en: {
     title: 'Shift done',
     tagline: "Two minutes of reflection and it's yours to keep.",
-    q1: 'How many people did you stop?',
     q2: 'How many did you bring inside?',
+    fromJournal: 'Counted from your journal. Change it if you brought more in.',
+    optional: 'Optional',
     q3: 'Best moment of the day?',
     q3Placeholder: 'The compliment stop that landed perfectly…',
     q4: 'Biggest challenge?',
@@ -48,22 +82,23 @@ const COPY = {
     q6: 'Rate your energy',
     energy: ['Drained', 'Low', 'Okay', 'Good', 'Fully charged'],
     energyStar: (n: number) => `Rate energy ${n} out of 5`,
-    decreaseStops: 'One fewer stop',
-    increaseStops: 'One more stop',
     decreaseInside: 'One fewer brought inside',
     increaseInside: 'One more brought inside',
-    stopsLabel: 'People stopped',
     insideLabel: 'People brought inside',
     streakTitle: (n: number) => `${n}-day streak active`,
-    streakBody: 'Finish this reflection to keep it alive.',
+    streakBody: 'Already safe — you checked in this morning. This is the bit you keep.',
     submit: 'Complete reflection',
-    submitBlocked: 'Fill every field to submit',
-    xpNote: '+10 XP and your streak protected',
+    /* Naming the one thing that is missing, instead of "fill every field" and
+       leaving a tired seller to hunt for it. */
+    needSlip: 'Pick the one that got away',
+    needFocus: 'Answer the focus question',
+    needEnergy: 'Rate your energy',
+    xpNote: '+10 XP, and one thing worth taking to tomorrow',
     doneTitle: 'Reflection saved · +10 XP',
     streakKept: (n: number) => `${n}-day streak kept`,
     summary: "Today's summary",
-    stops: 'Stops',
     inside: 'Inside',
+    sales: 'Sales',
     conversion: 'Conversion',
     energyLabel: 'Energy',
     improving: 'You are improving. Keep pushing those numbers up.',
@@ -72,8 +107,9 @@ const COPY = {
   es: {
     title: 'Turno terminado',
     tagline: 'Dos minutos de reflexión y te los llevas.',
-    q1: '¿A cuántas personas has parado?',
     q2: '¿A cuántas has metido dentro?',
+    fromJournal: 'Contado desde tu diario. Cámbialo si metiste a más.',
+    optional: 'Opcional',
     q3: '¿El mejor momento del día?',
     q3Placeholder: 'El cumplido que funcionó perfecto…',
     q4: '¿Tu mayor reto?',
@@ -96,28 +132,33 @@ const COPY = {
     q6: 'Puntúa tu energía',
     energy: ['Agotada', 'Baja', 'Normal', 'Buena', 'A tope'],
     energyStar: (n: number) => `Puntuar energía ${n} de 5`,
-    decreaseStops: 'Una parada menos',
-    increaseStops: 'Una parada más',
     decreaseInside: 'Una persona menos dentro',
     increaseInside: 'Una persona más dentro',
-    stopsLabel: 'Personas paradas',
     insideLabel: 'Personas metidas dentro',
     streakTitle: (n: number) => `${n} días de racha activa`,
-    streakBody: 'Termina esta reflexión para mantenerla viva.',
+    streakBody: 'Ya está a salvo — has fichado esta mañana. Esto es lo que te llevas.',
     submit: 'Completar reflexión',
-    submitBlocked: 'Rellena todos los campos',
-    xpNote: '+10 XP y tu racha protegida',
+    needSlip: 'Elige la que se te escapó',
+    needFocus: 'Contesta a lo del foco',
+    needEnergy: 'Puntúa tu energía',
+    xpNote: '+10 XP, y una cosa que merece la pena llevarse a mañana',
     doneTitle: 'Reflexión guardada · +10 XP',
     streakKept: (n: number) => `${n} días de racha mantenida`,
     summary: 'Resumen de hoy',
-    stops: 'Paradas',
     inside: 'Dentro',
+    sales: 'Ventas',
     conversion: 'Conversión',
     energyLabel: 'Energía',
     improving: 'Vas mejorando. Sigue subiendo esos números.',
     redirecting: 'Te llevamos al panel…',
   },
 };
+
+/** Local date key — same convention as the journal and useProgress. */
+function todayKey(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
 
 /**
  * The five ways a seller loses a sale that were their own doing, plus the sixth
@@ -177,19 +218,27 @@ export default function EndOfShift() {
   const navigate = useNavigate();
   const { endOfShift, getCurrentStreak, todayState } = useDailyFlow();
   const { awardXP } = useProgress();
+  const { getDailySummary } = useStreetTracker();
   const { language } = useLanguage();
   const isEs = language === 'es';
   const t = COPY[isEs ? 'es' : 'en'];
 
-  const [stops, setStops] = useState('');
-  const [inside, setInside] = useState('');
+  /* The journal has been counting all day, one tap per person walked in. Asking
+     the seller to remember the same number at 6pm is asking them to guess at
+     something the app already knows. Read once, on mount: it becomes the
+     starting value of an editable field, not a value that keeps overwriting
+     what they typed. */
+  const journalToday = useMemo(() => getDailySummary(todayKey()), [getDailySummary]);
+
+  const [inside, setInside] = useState(String(journalToday.stops));
   const [bestMoment, setBestMoment] = useState('');
   const [challenge, setChallenge] = useState('');
   const [triedFocus, setTriedFocus] = useState<boolean | null>(null);
   /* The one that got away — see the `close-fault` lesson and CLAUDE.md. The
      owner's whole method is that a seller is absolved only AFTER the honest
      list, never before, so this sits at the end of the day rather than in the
-     middle of a shift where it would read as an excuse. */
+     middle of a shift where it would read as an excuse. It is the one answer on
+     this screen that is still required, and deliberately so. */
   const [slip, setSlip] = useState<SlipId | null>(null);
   const [energyRating, setEnergyRating] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -199,20 +248,32 @@ export default function EndOfShift() {
   const focus = focusTechniques.find((f) => f.id === focusId);
   const focusLabel = focus ? (isEs ? focus.labelEs : focus.label) : '';
 
-  const canSubmit =
-    stops !== '' &&
-    inside !== '' &&
-    bestMoment.trim().length > 0 &&
-    challenge.trim().length > 0 &&
-    triedFocus !== null &&
-    slip !== null &&
-    energyRating > 0;
+  /* Three taps, all of them single taps. The two essays are gone from this list
+     — a seller with nothing to write should not be locked out of their own
+     streak, and a forced sentence is a made-up sentence. */
+  const missing = slip === null
+    ? t.needSlip
+    : triedFocus === null
+      ? t.needFocus
+      : energyRating === 0
+        ? t.needEnergy
+        : null;
+  const canSubmit = missing === null;
 
   const handleSubmit = () => {
-    if (!canSubmit) return;
+    // Re-tested field by field rather than through `canSubmit`, so the compiler
+    // can see that neither of the two nullable answers is still null.
+    if (slip === null || triedFocus === null || energyRating === 0) return;
+    const insideCount = inside === '' ? 0 : Number(inside);
     endOfShift({
-      stops: Number(stops),
-      inside: Number(inside),
+      /* `stops` predates the journal, when it meant people halted on the
+         pavement. That count is not collected anywhere any more, and a STOP now
+         means someone who is inside the shop (types/streetTracker.ts) — the same
+         number as `inside`. Nothing in the app reads either field back; writing
+         the journal's real count into both is the only honest thing left to put
+         there, and beats storing a guess or a zero. */
+      stops: insideCount,
+      inside: insideCount,
       bestMoment: bestMoment.trim(),
       challenge: challenge.trim(),
       triedFocus,
@@ -261,27 +322,15 @@ export default function EndOfShift() {
               exit={{ opacity: 0, y: -16 }}
               className="space-y-6"
             >
-              {/* Stops */}
+              {/* Inside — prefilled from the journal, still editable.
+                  The pavement-stop counter that used to sit above this is gone:
+                  see the note at the top of this file. */}
               <motion.section custom={0} variants={section} initial="hidden" animate="visible">
-                <h2 className="mb-3 flex items-center gap-2 text-overline text-ink-3">
-                  <Users className="h-4 w-4 text-teal-strong" aria-hidden="true" />
-                  {t.q1}
-                </h2>
-                <CounterField
-                  value={stops}
-                  onChange={setStops}
-                  label={t.stopsLabel}
-                  decreaseLabel={t.decreaseStops}
-                  increaseLabel={t.increaseStops}
-                />
-              </motion.section>
-
-              {/* Inside */}
-              <motion.section custom={1} variants={section} initial="hidden" animate="visible">
-                <h2 className="mb-3 flex items-center gap-2 text-overline text-ink-3">
+                <h2 className="mb-1 flex items-center gap-2 text-overline text-ink-3">
                   <DoorOpen className="h-4 w-4 text-teal-strong" aria-hidden="true" />
                   {t.q2}
                 </h2>
+                <p className="mb-3 text-caption text-ink-2">{t.fromJournal}</p>
                 <CounterField
                   value={inside}
                   onChange={setInside}
@@ -291,11 +340,12 @@ export default function EndOfShift() {
                 />
               </motion.section>
 
-              {/* Best moment */}
+              {/* Best moment — optional */}
               <motion.section custom={2} variants={section} initial="hidden" animate="visible">
                 <label htmlFor="best-moment" className="mb-3 flex items-center gap-2 text-overline text-ink-3">
                   <Star className="h-4 w-4 text-gold-strong" aria-hidden="true" />
                   {t.q3}
+                  <span className="text-ink-3">· {t.optional}</span>
                 </label>
                 <textarea
                   id="best-moment"
@@ -307,11 +357,12 @@ export default function EndOfShift() {
                 />
               </motion.section>
 
-              {/* Challenge */}
+              {/* Challenge — optional */}
               <motion.section custom={3} variants={section} initial="hidden" animate="visible">
                 <label htmlFor="challenge" className="mb-3 flex items-center gap-2 text-overline text-ink-3">
                   <Zap className="h-4 w-4 text-coral-strong" aria-hidden="true" />
                   {t.q4}
+                  <span className="text-ink-3">· {t.optional}</span>
                 </label>
                 <textarea
                   id="challenge"
@@ -459,7 +510,7 @@ export default function EndOfShift() {
                   disabled={!canSubmit}
                   className={`w-full ${canSubmit ? 'btn-primary' : 'btn-quiet cursor-not-allowed opacity-60'}`}
                 >
-                  {canSubmit ? t.submit : t.submitBlocked}
+                  {canSubmit ? t.submit : missing}
                 </button>
                 {canSubmit && (
                   <motion.p
@@ -507,18 +558,23 @@ export default function EndOfShift() {
                   <TrendingUp className="h-4 w-4 text-teal-strong" aria-hidden="true" />
                   <span className="text-overline text-ink-3">{t.summary}</span>
                 </div>
+                {/* Conversion is sales ÷ people brought inside — of the ones you
+                    got in front of you, how many bought. It used to be
+                    inside ÷ pavement-stops, which measured effort against a
+                    number nobody could count. Sales come from the journal; the
+                    till already knows them and nobody should retype them. */}
                 <div className="grid grid-cols-2 gap-3">
-                  <SummaryTile label={t.stops} value={stops || '0'} />
                   <SummaryTile label={t.inside} value={inside || '0'} />
+                  <SummaryTile label={t.sales} value={String(journalToday.sales)} />
                   <SummaryTile
                     label={t.conversion}
-                    value={`${Number(stops) > 0 ? Math.round((Number(inside) / Number(stops)) * 100) : 0}%`}
+                    value={`${Number(inside) > 0 ? Math.round((journalToday.sales / Number(inside)) * 100) : 0}%`}
                   />
                   <SummaryTile label={t.energyLabel} value={`${energyRating}/5`} />
                 </div>
               </motion.div>
 
-              {Number(stops) >= Number(inside) * 2 && (
+              {journalToday.sales > 0 && (
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

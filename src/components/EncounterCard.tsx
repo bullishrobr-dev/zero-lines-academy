@@ -5,7 +5,12 @@
 // of the journal with a running timer and two fat buttons: Sold / Walked. It is
 // a visible loose end, which is exactly what makes the phone come back out.
 //
-// Two taps to close a walk-out, three for a sale. No typing is ever required.
+// Two taps to close a walk-out. A sale is five — Sold, what closed it, the
+// product, the price they actually paid, save — and NO typing, which is a claim
+// this comment used to make while the sale sheet sat a seller in front of a
+// number field with the wrong figure already in it. The price is a tap now: see
+// the ladder chips in SaleLogModal.tsx.
+//
 // Skip is offered at full weight and never guilt-tripped — a seller who feels
 // nagged starts tapping the same tile every time, and then the data is worthless.
 // ─────────────────────────────────────────────────────────────────────────────

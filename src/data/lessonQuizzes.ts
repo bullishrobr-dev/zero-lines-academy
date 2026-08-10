@@ -447,33 +447,38 @@ export const LESSON_QUIZZES: Record<string, QuizQuestion[]> = {
       explanationEs: "'Te entiendo perfectamente' valida lo que siente el cliente sin ceder en el fondo del asunto. Crea una seguridad psicológica que le abre a escuchar tu punto de vista.",
     },
   ],
+  /* Rewritten when prod-8 became "The Number, And Then Let It Go". The old
+     three were built on a client book — an ongoing relationship, a message
+     cadence, a referral asked for weeks later. The woman in the chair flies
+     home on Tuesday. Everything now happens in the ninety seconds after she
+     pays, or it does not happen. */
   "prod-8": [
     {
-      question: "Why is the WhatsApp close valuable beyond the initial sale?",
-      questionEs: "¿Por qué el cierre por WhatsApp vale más allá de la primera venta?",
-      options: ["It transforms a one-time transaction into an ongoing relationship with repeat and referral potential", "It mostly suits the shy customer who would far rather read a quick text than talk in person", "It mainly exists so that you can show your manager you really did your job out there today", "It simply piles more messaging work onto your day without once changing the actual size of the sale itself"],
-      optionsEs: ["Convierte una venta puntual en una relación continua con potencial de recompra y de recomendaciones", "Va sobre todo con el cliente tímido que prefiere leer un mensajito antes que hablar en persona", "Sobre todo sirve para poder demostrarle al jefe que de verdad hiciste tu trabajo ahí fuera hoy", "Solo te amontona más trabajo de mensajería al día sin cambiar ni una vez el tamaño real de la venta"],
-      correctIndex: 0,
-      explanation: "The WhatsApp close creates an ongoing channel for reordering, questions, and referrals. A returning customer is worth significantly more than a one-time buyer, and referred customers trust you before they even meet you.",
-      explanationEs: "El cierre por WhatsApp abre un canal continuo para recompras, dudas y recomendaciones. Un cliente que vuelve vale muchísimo más que uno de una sola vez, y quien llega recomendado ya confía en ti antes de conocerte.",
-    },
-    {
-      question: "What is the most important principle for WhatsApp follow-up messages?",
-      questionEs: "¿Cuál es el principio más importante en los mensajes de seguimiento por WhatsApp?",
-      options: ["Lead with value and care; sales messages should be rare", "Message as often as you can; frequency keeps you memorable", "Send everyone the same copied text; personalising takes far too long", "Reach out only when you have something to sell them; anything else wastes time"],
-      optionsEs: ["Empieza aportando valor y cariño; los mensajes de venta deben ser pocos", "Escribe todo lo que puedas; la frecuencia hace que te recuerden", "Manda a todos el mismo texto copiado; personalizar lleva demasiado tiempo", "Escribe solo cuando tengas algo que venderles; lo demás es perder el tiempo"],
-      correctIndex: 0,
-      explanation: "WhatsApp follow-up should lead with value, tips, and genuine care. Sales messages should be the minority. Too many sales-focused messages feel spammy and get you blocked.",
-      explanationEs: "El seguimiento por WhatsApp debe empezar por el valor, los consejos y el cariño de verdad. Los mensajes de venta tienen que ser minoría. Demasiados mensajes centrados en vender resultan spam y hacen que te bloqueen.",
-    },
-    {
-      question: "When is the best time to ask for a referral?",
-      questionEs: "¿Cuál es el mejor momento para pedir una recomendación?",
-      options: ["Only if they mention a friend to you first", "Before they've bought anything or even tried it", "Immediately after they express happiness with the product", "Several months later, once the excitement has faded"],
-      optionsEs: ["Solo si son ellos quienes mencionan a un amigo primero", "Antes de que hayan comprado o siquiera probado nada", "Justo después de que te digan lo contentos que están", "Varios meses después, cuando ya se ha apagado la emoción"],
+      question: "She has paid, she is delighted, she is holding the bag. You take her number. When does the first message go out?",
+      questionEs: "Ha pagado, está encantada, tiene la bolsa en la mano. Le coges el número. ¿Cuándo le mandas el primer mensaje?",
+      options: ["Tonight, so it lands when she has a quiet moment to read it", "In three days, once she has had a chance to try it properly", "Right there, in front of her, before she stands up", "Whenever she messages you first — you never open the conversation"],
+      optionsEs: ["Esta noche, para que le llegue en un rato tranquilo", "En tres días, cuando ya lo haya probado en condiciones", "Ahí mismo, delante de ella, antes de que se levante", "Cuando escriba ella — tú nunca abres la conversación"],
       correctIndex: 2,
-      explanation: "The best time to ask for a referral is when the customer is emotionally high — right after they text you positively about the product. Strike while their enthusiasm is fresh and genuine.",
-      explanationEs: "El mejor momento para pedir una recomendación es cuando el cliente está en su punto emocional más alto, justo después de que te escriba contento con el producto. Aprovecha mientras su entusiasmo es fresco y de verdad.",
+      explanation: "Send it there or you will not send it at all — and if she has typed a digit wrong, that is the only moment anyone will ever find out. Two lines: who you are and where you are.",
+      explanationEs: "Se lo mandas ahí o no se lo mandas nunca — y si se ha equivocado en un dígito, ese es el único momento en que alguien va a enterarse. Dos líneas: quién eres y dónde estás.",
+    },
+    {
+      question: "The sale is done but the moment has gone a bit flat — she is already half-turned towards the door. Do you ask for the number?",
+      questionEs: "La venta está hecha pero el momento se ha quedado plano — ya está medio girada hacia la puerta. ¿Le pides el número?",
+      options: ["No — skip it, and let her leave on a good ending instead", "Yes, always: a number is a number and you can warm her up later", "Yes, but ask for her email as well so you have a second way in", "Yes, and tell her you will send a reminder when it is time to reorder"],
+      optionsEs: ["No — sáltatelo, y deja que se vaya con un buen final", "Sí, siempre: un número es un número y ya la calentarás luego", "Sí, y pídele también el correo para tener una segunda vía", "Sí, y dile que le avisarás cuando toque reponer"],
+      correctIndex: 0,
+      explanation: "A number squeezed out of somebody halfway to the door never gets used, and asking turns a lovely ending into a bit of admin. Take it when the moment offers it and let it go when it does not.",
+      explanationEs: "Un número sacado a la fuerza a alguien que ya va hacia la puerta no se usa nunca, y pedirlo convierte un final bonito en papeleo. Cógelo cuando el momento lo ofrece y déjalo cuando no.",
+    },
+    {
+      question: "What is the whole referral strategy in this job?",
+      questionEs: "¿Cuál es toda la estrategia de recomendaciones en este trabajo?",
+      options: ["A message on day seven asking if she knows anyone who would like it", "A card with your number on it that she can pass to a friend", "A discount she can offer to somebody she sends to the shop", "Two promises, asked once, while the bag is still in her hand"],
+      optionsEs: ["Un mensaje al séptimo día preguntando si conoce a alguien a quien le guste", "Una tarjeta con tu número para que se la pase a una amiga", "Un descuento que pueda ofrecer a quien mande a la tienda", "Dos promesas, pedidas una vez, con la bolsa aún en la mano"],
+      correctIndex: 3,
+      explanation: "Use it once a week, and tell your friends where you got it. Said light, half a joke, at the top of her mood — then never mentioned again. The same sentence eleven days later is a stranger asking a favour.",
+      explanationEs: "Que lo use una vez por semana, y que cuente a sus amigas dónde lo ha comprado. Dicho suave, medio en broma, en su mejor momento — y no se vuelve a mencionar. Esa misma frase once días después es un desconocido pidiendo un favor.",
     },
   ],
   "psych-1": [
@@ -563,33 +568,39 @@ export const LESSON_QUIZZES: Record<string, QuizQuestion[]> = {
       explanationEs: "Un ancla de confianza es un gesto físico unido a un recuerdo potente que, tras practicarlo mucho, puede activar un estado de seguridad cuando quieras.",
     },
   ],
+  /* Rewritten when psych-4 became "the real numbers, the honest check". The
+     old three taught the opposite of the lesson above them: that a run of noes
+     is "statistical progress", that the reset comes first, and that rejection
+     is "almost never personal". All comfort, none of it earned. The absolution
+     in this shop is conditional — it comes AFTER the five questions, never
+     before the demo — so the quiz has to ask about the condition. */
   "psych-4": [
     {
-      question: "If your close rate is 5%, how should you view a string of 10 rejections?",
-      questionEs: "Si tu tasa de cierre es del 5%, ¿cómo deberías ver una racha de 10 rechazos?",
-      options: ["As a good reason to take a long break", "As proof that today is simply a bad day", "As a sign to completely change your pitch", "As statistical progress toward your next sale"],
-      optionsEs: ["Como una buena excusa para tomarte un descanso largo", "Como la prueba de que hoy es un mal día", "Como la señal de que debes cambiar todo tu pitch", "Como un avance estadístico hacia tu próxima venta"],
-      correctIndex: 3,
-      explanation: "With a 5% close rate, every 'no' is simply 5% of a 'yes.' A string of rejections is expected statistical progress toward your next close, not evidence of failure.",
-      explanationEs: "Con una tasa de cierre del 5%, cada 'no' es simplemente el 5% de un 'sí'. Una racha de rechazos es el avance estadístico normal hacia tu próximo cierre, no una prueba de fracaso.",
+      question: "You are about to walk up to somebody and you catch yourself thinking 'most of them say no anyway'. What is that thought?",
+      questionEs: "Vas a acercarte a alguien y te pillas pensando 'total, casi todos dicen que no'. ¿Qué es ese pensamiento?",
+      options: ["Healthy perspective that keeps the pressure off you", "An excuse, before you have done anything to earn it", "A sign you should pick an easier-looking customer", "The right frame if the shop has been quiet all morning"],
+      optionsEs: ["Perspectiva sana que te quita presión de encima", "Una excusa, antes de haber hecho nada para ganártela", "Señal de que deberías elegir un cliente más fácil", "El enfoque correcto si la tienda lleva toda la mañana muerta"],
+      correctIndex: 1,
+      explanation: "The numbers are real and they help — AFTER a demo you gave everything to. Said beforehand, the same sentence just gives you permission to go at this one at half speed, which is the most expensive habit a seller can pick up.",
+      explanationEs: "Los números son reales y ayudan — DESPUÉS de una demo en la que lo has dado todo. Dicho antes, esa misma frase solo te da permiso para ir a medio gas con esta, que es la costumbre más cara que puede coger un vendedor.",
     },
     {
-      question: "What is the 'next one' mentality?",
-      questionEs: "¿En qué consiste la mentalidad del 'siguiente'?",
-      options: ["Focusing on the next customer while ignoring the one in front of you", "Instantly resetting your focus to the next person after each rejection", "Rushing to stop the very next person regardless of who they are", "Planning tomorrow's shift in your head while you're still working today"],
-      optionsEs: ["Pensar en el próximo cliente mientras ignoras al que tienes delante", "Reiniciar al instante tu foco hacia la siguiente persona tras cada rechazo", "Lanzarte a parar a la siguiente persona sea quien sea", "Planear en tu cabeza el turno de mañana mientras aún trabajas hoy"],
-      correctIndex: 1,
-      explanation: "The 'next one' mentality is an instantaneous mental reset. The moment a customer walks away, that interaction is erased and total focus shifts to the next person approaching.",
-      explanationEs: "La mentalidad del 'siguiente' es un reinicio mental instantáneo. En cuanto un cliente se va, esa interacción se borra y toda tu atención pasa a la siguiente persona que se acerca.",
+      question: "She walks out without buying. What happens in your head, in what order?",
+      questionEs: "Se va sin comprar. ¿Qué pasa en tu cabeza, y en qué orden?",
+      options: ["Wipe it immediately, then go through what happened at the end of the shift", "Decide whether she was ever a real buyer, then forget the whole thing", "Run the five questions while she reaches the door, then wipe it and turn round", "Wipe it immediately — replaying it at all is what drags a seller down"],
+      optionsEs: ["Bórralo ya, y repasa lo que pasó al final del turno", "Decide si alguna vez iba a comprar de verdad, y olvídalo todo", "Repasa las cinco preguntas mientras llega a la puerta, bórralo y date la vuelta", "Bórralo ya — darle vueltas es justo lo que hunde a un vendedor"],
+      correctIndex: 2,
+      explanation: "Check, then reset — and only in that order. Reset without the check is just forgetting, and a seller who forgets every no makes the same mistake for a year without ever noticing it.",
+      explanationEs: "Comprobar, luego borrar — y solo en ese orden. Borrar sin comprobar es olvidar, y un vendedor que olvida cada no repite el mismo fallo durante un año sin enterarse.",
     },
     {
-      question: "Which of these is the LEAST likely reason a customer says 'no'?",
-      questionEs: "¿Cuál de estas es la razón MENOS probable por la que un cliente dice 'no'?",
-      options: ["They're worn out and overwhelmed from shopping", "They simply don't like you as a person", "They're in a hurry or have a reservation", "They rarely shop for extras while travelling"],
-      optionsEs: ["Va agotado y saturado de tanto comprar", "Simplemente no le caes bien como persona", "Tiene prisa o una reserva a una hora", "Casi nunca compra caprichos cuando está de viaje"],
-      correctIndex: 1,
-      explanation: "Rejection is almost never personal. Customers say no due to timing, budget, mood, travel habits, or overwhelm. Believing it's about your personality is the amateur mindset that destroys performance.",
-      explanationEs: "El rechazo casi nunca es personal. El cliente dice 'no' por el momento, el presupuesto, el humor, sus hábitos de viaje o el agobio. Creer que es por tu personalidad es la mentalidad de novato que hunde tu rendimiento.",
+      question: "You run the five questions and every one comes back clean. She still walked. Now what?",
+      questionEs: "Repasas las cinco preguntas y todas salen limpias. Aun así se ha ido. ¿Ahora qué?",
+      options: ["Put it down — that one is not on you, and go to the next person", "Assume you are missing something and run the list again", "Ask a colleague to watch your next demo before you take another customer", "Take the rest of the hour off the floor to get your head straight"],
+      optionsEs: ["Suéltalo — esa no va contigo, y a por la siguiente persona", "Da por hecho que se te escapa algo y repasa la lista otra vez", "Pide a un compañero que mire tu próxima demo antes de coger a otra clienta", "Tómate el resto de la hora fuera del suelo para despejarte"],
+      correctIndex: 0,
+      explanation: "That is the whole deal. If the list is clean you did the job, and the reason is hers — a rush, an empty wallet, a rule about not buying on holiday, or simply a bad customer. They exist, and they are part of the game.",
+      explanationEs: "Ese es el trato entero. Si la lista sale limpia, has hecho tu trabajo, y el motivo es suyo — prisa, cartera vacía, la norma de no comprar de viaje, o sencillamente una mala clienta. Existen, y forman parte del juego.",
     },
   ],
   "psych-5": [

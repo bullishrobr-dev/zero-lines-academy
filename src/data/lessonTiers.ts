@@ -38,6 +38,13 @@ export const LESSON_TIERS: Record<string, number> = {
   'prod-1': 4,
   'prod-6': 4,
   'connect-6': 4,
+  /* The demo itself — the hand, the one eye, the mirror, the two yeses. It has
+     to come before close-2, because close-2's answer to "let me think about
+     it" is nothing but the two yeses quoted back, and a seller who was never
+     taught to collect them has nothing to quote. Tier 4 had 7 lessons, so a
+     seller who had finished it sits at 7/8 = 88% — still over the 80% gate,
+     and nobody who is currently at 100% gets re-locked. */
+  'close-demo': 4,
   // Asking for the money needs the prices from prod-1, which is this tier.
   'close-2': 4,
 
@@ -81,12 +88,17 @@ export const TIER_NAMES: Record<number, { en: string; es: string }> = {
  * six-lesson tier would drop a seller who had finished it from 100% to 75% —
  * under the 80% gate — and re-lock the next tier they had already earned.
  * Adding one takes them to 86%, which re-locks nobody.
+ *
+ * `close-demo` grew tier 4 from 7 to 8 under the same rule and the same
+ * arithmetic: a seller sitting on all seven drops to 88%, still clear of the
+ * gate. A SECOND addition to tier 4 in the same release would take them to 78%
+ * and confiscate tier 5, so check this number before you add another one.
  */
 export const TIER_LESSON_COUNT: Record<number, number> = {
   1: 6,
   2: 6,
   3: 5,
-  4: 7,
+  4: 8,
   5: 7,
   6: 5,
 };

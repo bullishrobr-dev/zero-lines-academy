@@ -45,10 +45,18 @@ export const syringeData = {
     useLabelEs: 'Uso',
     useValue: 'Once/Week',
     useValueEs: '1 vez/semana',
+    /*
+     * One syringe is a YEAR of weekly treatments. That is the owner's own line
+     * and it is what demo step 5, the Quick Reference block and every
+     * cost-per-week reframe in the app already say. This tile used to read
+     * "6-18 Months", which is how long the RESULT holds, not how long the
+     * syringe lasts, so the top of the page taught a seller one number and the
+     * bottom of the same page taught them another.
+     */
     lastsLabel: 'Lasts',
     lastsLabelEs: 'Duraci\u00f3n',
-    lastsValue: '6-18 Months',
-    lastsValueEs: '6-18 Meses',
+    lastsValue: '1 Year',
+    lastsValueEs: '1 A\u00f1o',
     resultsLabel: 'Results',
     resultsLabelEs: 'Resultados',
     resultsValue: 'Instant',

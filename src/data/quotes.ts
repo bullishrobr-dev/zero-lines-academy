@@ -1,7 +1,36 @@
-// ─────────────────────────────────────────────────────────────
-// Zero Lines Academy — Motivational Quotes
-// 100+ quotes to inspire confidence, action, resilience & success
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// quotes.ts — the line at the bottom of the home screen.
+//
+// ── WHY THIS FILE IS HALF THE SIZE IT WAS ───────────────────────────────────
+// It held 110 quotes. Fifty-six of them were borrowed from Zig Ziglar, Brian
+// Tracy, Patricia Fripp, Roosevelt, Gretzky, Disney and the general internet,
+// and a good number taught the OPPOSITE of the way this shop sells:
+//
+//   "You don't close a sale; you open a relationship."
+//   "Stop selling. Start helping."
+//   "A satisfied customer is the best business strategy of all."
+//
+// That is advice for someone with a pipeline and a second meeting. Our seller
+// has a tourist who walked past a kiosk once, will never walk past it again,
+// and is standing in front of them RIGHT NOW. A relationship is not on offer;
+// the sale is the whole event. Telling a seller otherwise on the screen they
+// open before a shift is not neutral — it is coaching against the method they
+// are about to be measured on.
+//
+// The rest were generic motivation with no floor in them at all ("you miss 100%
+// of the shots you don't take"), which a seller has read a hundred times and
+// reads past.
+//
+// What is left is the 54 written in the owner's voice, attributed "Zero Lines".
+// They are about this job: the stop, the demo, the ladder, the next one after a
+// no. Fewer quotes, all of them ours.
+//
+// Words attributed to a real person are never rewritten here — a quote is
+// either theirs and accurate, or it is not in the file. Deleting was the only
+// honest option for the borrowed ones.
+//
+// Every quote carries its European-Spanish twin (informal "tú").
+// ─────────────────────────────────────────────────────────────────────────────
 
 export interface Quote {
   id: string;
@@ -10,62 +39,8 @@ export interface Quote {
   author: string;
 }
 
-// ── Confidence & Self-Belief (15) ──
+// ── Confidence & Self-Belief (6) ──
 const confidenceQuotes: Quote[] = [
-  {
-    id: 'conf-1',
-    text: "Believe you can and you're halfway there.",
-    textEs: 'Cree que puedes y ya estás a mitad de camino.',
-    author: 'Theodore Roosevelt',
-  },
-  {
-    id: 'conf-2',
-    text: "You are the only person on earth who can use your ability. It's an awesome responsibility.",
-    textEs: 'Eres la única persona en el mundo que puede usar tu habilidad. Es una responsabilidad increíble.',
-    author: 'Zig Ziglar',
-  },
-  {
-    id: 'conf-3',
-    text: 'Confidence is not "they will like me." Confidence is "I\'ll be fine if they don\'t."',
-    textEs: 'La confianza no es "les voy a caer bien". La confianza es "no pasa nada si no les caigo".',
-    author: 'Christina Grimmie',
-  },
-  {
-    id: 'conf-4',
-    text: 'The difference between who you are and who you want to be is what you do.',
-    textEs: 'La diferencia entre quien eres y quien quieres ser es lo que haces.',
-    author: 'Unknown',
-  },
-  {
-    id: 'conf-5',
-    text: 'Act as if what you do makes a difference. It does.',
-    textEs: 'Actúa como si lo que haces marcara la diferencia. Porque la marca.',
-    author: 'William James',
-  },
-  {
-    id: 'conf-6',
-    text: 'Your value does not decrease based on someone\'s inability to see your worth.',
-    textEs: 'Tu valor no disminuye por la incapacidad de alguien de ver tu valía.',
-    author: 'Unknown',
-  },
-  {
-    id: 'conf-7',
-    text: 'Doubt kills more dreams than failure ever will.',
-    textEs: 'La duda mata más sueños que el fracaso.',
-    author: 'Suzy Kassem',
-  },
-  {
-    id: 'conf-8',
-    text: 'You don\'t have to be great to start, but you have to start to be great.',
-    textEs: 'No tienes que ser grande para empezar, pero tienes que empezar para ser grande.',
-    author: 'Zig Ziglar',
-  },
-  {
-    id: 'conf-9',
-    text: 'The man who thinks he can and the man who thinks he can\'t are both right.',
-    textEs: 'El hombre que cree que puede y el que cree que no puede, ambos tienen razón.',
-    author: 'Henry Ford',
-  },
   {
     id: 'conf-10',
     text: 'Own the room. Not because you\'re the loudest, but because you\'re the most prepared.',
@@ -104,44 +79,8 @@ const confidenceQuotes: Quote[] = [
   },
 ];
 
-// ── Action & Taking Initiative (15) ──
+// ── Action & Taking Initiative (7) ──
 const actionQuotes: Quote[] = [
-  {
-    id: 'act-1',
-    text: 'The best way to get started is to quit talking and begin doing.',
-    textEs: 'La mejor manera de empezar es dejar de hablar y empezar a actuar.',
-    author: 'Walt Disney',
-  },
-  {
-    id: 'act-2',
-    text: 'Do not wait to strike till the iron is hot; but make it hot by striking.',
-    textEs: 'No esperes a que el hierro esté caliente; caliéntalo golpeando.',
-    author: 'William Butler Yeats',
-  },
-  {
-    id: 'act-3',
-    text: 'Action is the foundational key to all success.',
-    textEs: 'La acción es la clave fundamental de todo éxito.',
-    author: 'Pablo Picasso',
-  },
-  {
-    id: 'act-4',
-    text: 'You don\'t have to see the whole staircase, just take the first step.',
-    textEs: 'No tienes que ver toda la escalera, solo da el primer paso.',
-    author: 'Martin Luther King Jr.',
-  },
-  {
-    id: 'act-5',
-    text: 'Opportunities don\'t happen. You create them.',
-    textEs: 'Las oportunidades no suceden. Las creas tú.',
-    author: 'Chris Grosser',
-  },
-  {
-    id: 'act-6',
-    text: 'The secret of getting ahead is getting started.',
-    textEs: 'El secreto para salir adelante es empezar.',
-    author: 'Mark Twain',
-  },
   {
     id: 'act-7',
     text: 'Stop preparing. Start doing. The customer is walking past you right now.',
@@ -167,22 +106,10 @@ const actionQuotes: Quote[] = [
     author: 'Zero Lines',
   },
   {
-    id: 'act-11',
-    text: 'Motion creates emotion. Move, and the motivation will follow.',
-    textEs: 'El movimiento crea emoción. Muévete, y la motivación seguirá.',
-    author: 'Tony Robbins',
-  },
-  {
     id: 'act-12',
     text: 'The customer who just walked in doesn\'t care about your mood. They care about what you can show them.',
     textEs: 'Al cliente que acaba de entrar no le importa tu humor. Le importa lo que puedas mostrarle.',
     author: 'Zero Lines',
-  },
-  {
-    id: 'act-13',
-    text: 'You miss 100% of the shots you don\'t take.',
-    textEs: 'Fallas el 100% de los tiros que no lanzas.',
-    author: 'Wayne Gretzky',
   },
   {
     id: 'act-14',
@@ -198,50 +125,8 @@ const actionQuotes: Quote[] = [
   },
 ];
 
-// ── Resilience & Persistence (15) ──
+// ── Resilience & Persistence (7) ──
 const resilienceQuotes: Quote[] = [
-  {
-    id: 'res-1',
-    text: 'It does not matter how slowly you go as long as you do not stop.',
-    textEs: 'No importa lo lento que vayas, siempre que no te detengas.',
-    author: 'Confucius',
-  },
-  {
-    id: 'res-2',
-    text: 'Success is not final, failure is not fatal: it is the courage to continue that counts.',
-    textEs: 'El éxito no es definitivo, el fracaso no es fatal: lo que cuenta es el valor para continuar.',
-    author: 'Winston Churchill',
-  },
-  {
-    id: 'res-3',
-    text: 'The comeback is always stronger than the setback.',
-    textEs: 'La remontada siempre es más fuerte que el revés.',
-    author: 'Unknown',
-  },
-  {
-    id: 'res-4',
-    text: 'Fall seven times, stand up eight.',
-    textEs: 'Cáete siete veces, levántate ocho.',
-    author: 'Japanese Proverb',
-  },
-  {
-    id: 'res-5',
-    text: 'Tough times never last, but tough people do.',
-    textEs: 'Los tiempos difíciles no duran, pero la gente dura sí.',
-    author: 'Robert H. Schuller',
-  },
-  {
-    id: 'res-6',
-    text: 'Persistence is to the character of man as carbon is to steel.',
-    textEs: 'La persistencia es para el carácter del hombre lo que el carbono es para el acero.',
-    author: 'Napoleon Hill',
-  },
-  {
-    id: 'res-7',
-    text: 'You may encounter many defeats, but you must not be defeated.',
-    textEs: 'Puedes encontrar muchas derrotas, pero no debes ser derrotado.',
-    author: 'Maya Angelou',
-  },
   {
     id: 'res-8',
     text: 'A bad day on the floor is better than your best day at your old job. Learn from it.',
@@ -279,12 +164,6 @@ const resilienceQuotes: Quote[] = [
     author: 'Zero Lines',
   },
   {
-    id: 'res-14',
-    text: 'Never confuse a single defeat with a final defeat.',
-    textEs: 'Nunca confundas una derrota con la derrota definitiva.',
-    author: 'F. Scott Fitzgerald',
-  },
-  {
     id: 'res-15',
     text: 'Grit is the fuel. Talent is just the vehicle.',
     textEs: 'La determinación es el combustible. El talento es solo el vehículo.',
@@ -292,26 +171,8 @@ const resilienceQuotes: Quote[] = [
   },
 ];
 
-// ── Sales-Specific Motivation (15) ──
+// ── Sales-Specific Motivation (8) ──
 const salesQuotes: Quote[] = [
-  {
-    id: 'sale-1',
-    text: 'People don\'t buy what you do; they buy why you do it.',
-    textEs: 'La gente no compra lo que haces; compra por qué lo haces.',
-    author: 'Simon Sinek',
-  },
-  {
-    id: 'sale-2',
-    text: 'Every sale has five basic obstacles: no need, no money, no hurry, no desire, no trust.',
-    textEs: 'Cada venta tiene cinco obstáculos básicos: sin necesidad, sin dinero, sin prisa, sin deseo, sin confianza.',
-    author: 'Zig Ziglar',
-  },
-  {
-    id: 'sale-3',
-    text: 'Selling is essentially a transference of feeling.',
-    textEs: 'Vender es esencialmente una transferencia de sentimiento.',
-    author: 'Zig Ziglar',
-  },
   {
     id: 'sale-4',
     text: 'The best salespeople are problem solvers, not product pushers.',
@@ -329,24 +190,6 @@ const salesQuotes: Quote[] = [
     text: 'The demo is the sale. If they feel it, they buy it.',
     textEs: 'La demostración es la venta. Si lo sienten, lo compran.',
     author: 'Zero Lines',
-  },
-  {
-    id: 'sale-7',
-    text: 'Stop selling. Start helping. The numbers will follow.',
-    textEs: 'Deja de vender. Empieza a ayudar. Los números seguirán.',
-    author: 'Zig Ziglar',
-  },
-  {
-    id: 'sale-8',
-    text: 'A satisfied customer is the best business strategy of all.',
-    textEs: 'Un cliente satisfecho es la mejor estrategia de negocio de todas.',
-    author: 'Michael LeBoeuf',
-  },
-  {
-    id: 'sale-9',
-    text: 'Treat objections as requests for more information.',
-    textEs: 'Trata las objeciones como peticiones de más información.',
-    author: 'Brian Tracy',
   },
   {
     id: 'sale-10',
@@ -367,12 +210,6 @@ const salesQuotes: Quote[] = [
     author: 'Zero Lines',
   },
   {
-    id: 'sale-13',
-    text: 'The customer doesn\'t care how much you know until they know how much you care.',
-    textEs: 'Al cliente no le importa cuánto sabes hasta que sabe cuánto te importa.',
-    author: 'Theodore Roosevelt',
-  },
-  {
     id: 'sale-14',
     text: 'Stop waiting for the perfect customer. Every customer is perfect if you adapt.',
     textEs: 'Deja de esperar al cliente perfecto. Cada cliente es perfecto si te adaptas.',
@@ -386,26 +223,8 @@ const salesQuotes: Quote[] = [
   },
 ];
 
-// ── Energy & Enthusiasm (10) ──
+// ── Energy & Enthusiasm (5) ──
 const energyQuotes: Quote[] = [
-  {
-    id: 'nrg-1',
-    text: 'Enthusiasm is the sparkle in your eyes, the swing in your gait, the grip of your hand.',
-    textEs: 'El entusiasmo es el brillo de tus ojos, el brío de tu paso, la fuerza de tu apretón de manos.',
-    author: 'Henry Ford',
-  },
-  {
-    id: 'nrg-2',
-    text: 'Nothing great was ever achieved without enthusiasm.',
-    textEs: 'Nada grande se logró nunca sin entusiasmo.',
-    author: 'Ralph Waldo Emerson',
-  },
-  {
-    id: 'nrg-3',
-    text: 'Energy and persistence conquer all things.',
-    textEs: 'La energía y la persistencia conquistan todas las cosas.',
-    author: 'Benjamin Franklin',
-  },
   {
     id: 'nrg-4',
     text: 'Your energy is contagious. Infect the whole floor.',
@@ -425,12 +244,6 @@ const energyQuotes: Quote[] = [
     author: 'Zero Lines',
   },
   {
-    id: 'nrg-7',
-    text: 'The most powerful weapon on earth is the human soul on fire.',
-    textEs: 'El arma más poderosa de la tierra es el alma humana en llamas.',
-    author: 'Ferdinand Foch',
-  },
-  {
     id: 'nrg-8',
     text: 'Bring the fire. Every shift. Every stop. Every time.',
     textEs: 'Trae el fuego. Cada turno. Cada parada. Cada vez.',
@@ -442,46 +255,10 @@ const energyQuotes: Quote[] = [
     textEs: 'Tu energía atrae a tu gente. Sé magnético.',
     author: 'Zero Lines',
   },
-  {
-    id: 'nrg-10',
-    text: 'Passion is energy. Feel the power that comes from focusing on what excites you.',
-    textEs: 'La pasión es energía. Siente el poder que viene de centrarte en lo que te apasiona.',
-    author: 'Oprah Winfrey',
-  },
 ];
 
-// ── Rejection & Overcoming Fear (10) ──
+// ── Rejection & Overcoming Fear (5) ──
 const rejectionQuotes: Quote[] = [
-  {
-    id: 'rej-1',
-    text: 'I have not failed. I\'ve just found 10,000 ways that won\'t work.',
-    textEs: 'No he fracasado. Solo he encontrado 10.000 maneras que no funcionan.',
-    author: 'Thomas Edison',
-  },
-  {
-    id: 'rej-2',
-    text: 'Fear has two meanings: Forget Everything And Run, or Face Everything And Rise.',
-    textEs: 'El miedo tiene dos significados: Olvida Todo Y Corre, o Enfréntalo Todo Y Levántate.',
-    author: 'Zig Ziglar',
-  },
-  {
-    id: 'rej-3',
-    text: 'Rejection doesn\'t mean you aren\'t good enough; it means the other person failed to notice what you have to offer.',
-    textEs: 'El rechazo no significa que no seas lo suficientemente bueno; significa que la otra persona no supo ver lo que ofreces.',
-    author: 'Unknown',
-  },
-  {
-    id: 'rej-4',
-    text: 'The only thing we have to fear is fear itself.',
-    textEs: 'A lo único que tenemos que temer es al miedo mismo.',
-    author: 'Franklin D. Roosevelt',
-  },
-  {
-    id: 'rej-5',
-    text: 'Courage is resistance to fear, mastery of fear — not absence of fear.',
-    textEs: 'El coraje es resistencia al miedo, dominio del miedo — no ausencia de miedo.',
-    author: 'Mark Twain',
-  },
   {
     id: 'rej-6',
     text: '"No" is just a word. It has no power over you unless you give it power.',
@@ -514,49 +291,13 @@ const rejectionQuotes: Quote[] = [
   },
 ];
 
-// ── Success & Achievement (10) ──
+// ── Success & Achievement (4) ──
 const successQuotes: Quote[] = [
-  {
-    id: 'suc-1',
-    text: 'Success is the sum of small efforts, repeated day in and day out.',
-    textEs: 'El éxito es la suma de pequeños esfuerzos, repetidos día tras día.',
-    author: 'Robert Collier',
-  },
-  {
-    id: 'suc-2',
-    text: 'The only place where success comes before work is in the dictionary.',
-    textEs: 'El único lugar donde el éxito viene antes que el trabajo es en el diccionario.',
-    author: 'Vidal Sassoon',
-  },
-  {
-    id: 'suc-3',
-    text: 'Success usually comes to those who are too busy to be looking for it.',
-    textEs: 'El éxito suele llegar a quienes están demasiado ocupados para buscarlo.',
-    author: 'Henry David Thoreau',
-  },
-  {
-    id: 'suc-4',
-    text: 'Don\'t watch the clock; do what it does. Keep going.',
-    textEs: 'No mires el reloj; haz lo que él hace. Sigue adelante.',
-    author: 'Sam Levenson',
-  },
-  {
-    id: 'suc-5',
-    text: 'The harder you work for something, the greater you\'ll feel when you achieve it.',
-    textEs: 'Cuanto más te dejas la piel en algo, más grande te sientes cuando lo consigues.',
-    author: 'Unknown',
-  },
   {
     id: 'suc-6',
     text: 'Your income is directly proportional to the number of people you help and how well you help them.',
     textEs: 'Tus ingresos son directamente proporcionales al número de personas que ayudas y a lo bien que lo haces.',
     author: 'Zero Lines',
-  },
-  {
-    id: 'suc-7',
-    text: 'Champions aren\'t made in the ring. They\'re made in the practice that nobody sees.',
-    textEs: 'Los campeones no se hacen en el ring. Se hacen en la práctica que nadie ve.',
-    author: 'Muhammad Ali',
   },
   {
     id: 'suc-8',
@@ -578,7 +319,7 @@ const successQuotes: Quote[] = [
   },
 ];
 
-// ── Morning & Mindset Starters (10) ──
+// ── Morning & Mindset Starters (8) ──
 const morningQuotes: Quote[] = [
   {
     id: 'mor-1',
@@ -597,18 +338,6 @@ const morningQuotes: Quote[] = [
     text: 'Write down your goal for today. Now double it. That\'s your real target.',
     textEs: 'Escribe tu objetivo para hoy. Ahora dóblalo. Ese es tu objetivo de verdad.',
     author: 'Zero Lines',
-  },
-  {
-    id: 'mor-4',
-    text: 'Today I will do what others won\'t, so tomorrow I can accomplish what others can\'t.',
-    textEs: 'Hoy haré lo que otros no harán, para mañana lograr lo que otros no pueden.',
-    author: 'Jerry Rice',
-  },
-  {
-    id: 'mor-5',
-    text: 'Every morning we are born again. What we do today is what matters most.',
-    textEs: 'Cada mañana nacemos de nuevo. Lo que hacemos hoy es lo que más importa.',
-    author: 'Buddha',
   },
   {
     id: 'mor-6',
@@ -642,44 +371,8 @@ const morningQuotes: Quote[] = [
   },
 ];
 
-// ── Extra: Legendary Sales Quotes (10) ──
+// ── Closing the Sale (4) ──
 const legendaryQuotes: Quote[] = [
-  {
-    id: 'leg-1',
-    text: 'Sales are contingent upon the attitude of the salesman, not the attitude of the prospect.',
-    textEs: 'Las ventas dependen de la actitud del vendedor, no de la del cliente potencial.',
-    author: 'William Clement Stone',
-  },
-  {
-    id: 'leg-2',
-    text: 'Approach each customer with the idea of helping them solve a problem or achieve a goal, not of selling a product or service.',
-    textEs: 'Acércate a cada cliente con la idea de ayudarle a resolver un problema o lograr un objetivo, no de venderle un producto.',
-    author: 'Brian Tracy',
-  },
-  {
-    id: 'leg-3',
-    text: 'The most unprofitable item ever manufactured is an excuse.',
-    textEs: 'El artículo menos rentable jamás fabricado es una excusa.',
-    author: 'John Mason',
-  },
-  {
-    id: 'leg-4',
-    text: 'You don\'t close a sale; you open a relationship if you want to build a long-term, successful enterprise.',
-    textEs: 'No cierras una venta; abres una relación si quieres construir un negocio exitoso a largo plazo.',
-    author: 'Patricia Fripp',
-  },
-  {
-    id: 'leg-5',
-    text: 'There are no limits to what you can accomplish, except the limits you place on your own thinking.',
-    textEs: 'No hay límites para lo que puedes lograr, excepto los límites que pongas a tu propio pensamiento.',
-    author: 'Brian Tracy',
-  },
-  {
-    id: 'leg-6',
-    text: 'Big shots are only little shots who keep shooting.',
-    textEs: 'Los grandes triunfadores son solo pequeños triunfadores que siguen disparando.',
-    author: 'Christopher Morley',
-  },
   {
     id: 'leg-7',
     text: 'The secret of selling yourself is to have a product you truly believe in. And you, my friend, are that product.',

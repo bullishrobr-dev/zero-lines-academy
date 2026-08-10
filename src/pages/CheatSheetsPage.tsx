@@ -35,10 +35,30 @@
 // src/data/pricing.ts. Nothing here builds a price string by hand: `sub()`
 // resolves {currency}/{locationName} and the ladders format their own amounts,
 // so the spoken script and the price column can never disagree.
+//
+// ── WHY THE SUB-VIEWS ARE ROUTES ────────────────────────────────────────────
+// They used to be component state. Two taps deep — "They said…" → "Too
+// expensive" — the address bar still read #/cheat-sheets, which had three
+// consequences on a real phone, all measured:
+//
+//   · The phone's back gesture jumped straight out to #/home, losing BOTH
+//     levels, because as far as the browser was concerned nothing had happened
+//     since the seller arrived.
+//   · Tapping "Cheats" in the bottom nav did nothing at all — same URL, no
+//     navigation, so the screen stayed exactly where it was stuck.
+//   · The only way out was a 44px chevron in the top-LEFT corner, the furthest
+//     point on the screen from a right thumb, tapped twice.
+//
+// This is the one screen opened WITH A CUSTOMER STANDING THERE. Each level is
+// now a real URL — /cheat-sheets, /cheat-sheets/said, /cheat-sheets/said/price
+// — so back goes up exactly one level, the nav tab returns to the section root,
+// and the whole screen is reconstructible from the address. The `?said=` deep
+// link from Home's "biggest leak" card still works: it redirects onto the real
+// route so that entry point gets the same behaviour as every other.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useMemo, useState, type ReactNode } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, ArrowRight, BookOpen, ChevronDown, Eye, Lightbulb, MessageCircle,
@@ -48,14 +68,20 @@ import {
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import CheatSheetLadder from '../components/CheatSheetLadder';
-import CopyButton from '../components/CopyButton';
 import { WALK_REASONS, chipLabel } from '../data/encounterChips';
 import {
   ACCENT, BODY_LANGUAGE, BUYING_SIGNALS, CIALDINI, EMERGENCY_BLOCKS, LADDER_BY_ID, linesAnswering,
   PHRASES, PRODUCT_LADDERS, SCRIPTS, tr,
 } from '../data/cheatSheets';
 
-type Section = 'home' | 'said' | 'prices' | 'scripts' | 'panic' | 'psychology';
+type Section = 'said' | 'prices' | 'scripts' | 'panic' | 'psychology';
+
+/** The sections that are real URLs. Anything else falls back to the landing. */
+const SECTIONS: readonly Section[] = ['said', 'prices', 'scripts', 'panic', 'psychology'];
+
+function isSection(value: string | undefined): value is Section {
+  return value !== undefined && (SECTIONS as readonly string[]).includes(value);
+}
 
 /** One search hit, whatever kind of content it came from. */
 interface Hit {
@@ -67,14 +93,56 @@ interface Hit {
   tone?: 'good' | 'bad';
 }
 
-/** A quote the seller reads aloud, with its one-tap copy button. */
+/**
+ * A line the seller reads aloud.
+ *
+ * There is no copy-to-clipboard button on it any more. Every one of these is
+ * said out loud to a person who is standing in front of you; copying an
+ * objection answer in order to paste it to the woman whose hand you are
+ * holding is not a thing that happens. The buttons cost 44px of width on every
+ * card — eight and more of them on the Scripts screen alone — squeezing the one
+ * thing the card is for. The ladder cards keep theirs (CheatSheetLadder.tsx):
+ * a price genuinely does get sent to a colleague.
+ */
 function Spoken({ text }: { text: string }) {
-  return (
-    <div className="flex items-start gap-2">
-      <p className="flex-1 text-body text-ink">{text}</p>
-      <CopyButton text={text} />
-    </div>
-  );
+  return <p className="text-body text-ink">{text}</p>;
+}
+
+/*
+ * ── Search vocabulary ───────────────────────────────────────────────────────
+ * Measured misses, all of them returning nothing at all: `husband` (the corpus
+ * says "partner"), `marido` (it says "pareja"), `demasiado caro` (it says "muy
+ * caro", and a two-word query was matched as one literal string so it could
+ * never hit anything). A search that returns nothing mid-sale is a phone going
+ * back into a pocket.
+ *
+ * Each row is a set of words that mean the same thing on this floor. A query
+ * word matches when ANY word in its row appears, which also means the English
+ * word a Spanish-speaking seller has heard the owner use ("buffer") finds the
+ * Spanish copy ("lima") without either data file carrying the other's spelling.
+ * Written without accents because both sides are folded before comparison.
+ */
+const SEARCH_ALIASES: readonly (readonly string[])[] = [
+  ['partner', 'husband', 'wife', 'boyfriend', 'girlfriend'],
+  ['pareja', 'marido', 'mujer', 'esposo', 'esposa', 'novio', 'novia'],
+  ['buffer', 'lima'],
+  ['too', 'demasiado', 'muy'],
+];
+
+/**
+ * Lower-case and strip accents.
+ *
+ * A phone keyboard set to English cannot type ñ or í, and nobody switches
+ * layouts with a customer waiting — so "carino" has to find "cariño".
+ */
+function fold(text: string): string {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+/** A query word plus every word that means the same thing. */
+function expand(word: string): string[] {
+  const row = SEARCH_ALIASES.find((words) => words.includes(word));
+  return row ? [...row] : [word];
 }
 
 /**
@@ -122,22 +190,49 @@ export default function CheatSheetsPage() {
   const navigate = useNavigate();
   const isEs = language === 'es';
 
+  /* Where the seller is, read off the URL instead of held in state. Everything
+     below is derived from these two, which is what makes the back gesture, the
+     nav tab and a pasted link all behave the same way. */
+  const { section: sectionParam, reason: reasonParam } = useParams<{
+    section?: string;
+    reason?: string;
+  }>();
+
   /* `?said=price` opens straight on that objection's answers. It is how the
-     "biggest leak" card on Home hands off — the seller taps one button and the
-     lines are already on screen, rather than landing here and hunting. Read
-     once as the initial state so tapping Back inside the page still works. */
+     "biggest leak" card on Home and the journal's comeback card hand off — one
+     button, and the lines are already on screen. It now redirects onto the real
+     route (below) rather than being a second way of expressing the same screen,
+     so those two entry points get the working back button as well. */
   const [params] = useSearchParams();
   const deepLinked = params.get('said');
 
-  const [section, setSection] = useState<Section>(deepLinked ? 'said' : 'home');
+  const section: Section | 'home' = isSection(sectionParam) ? sectionParam : 'home';
+  /* 'none' — "nothing, they just left" — is not an objection and has no answer,
+     so it is not offered as a tile and is not addressable as a URL either.
+     Resolved to the plain id first and to the chip second: the id is the thing
+     the answer lookup below is keyed on, and keeping it a primitive is what
+     lets that lookup stay memoised. */
+  const reasonId =
+    section === 'said' &&
+    reasonParam &&
+    WALK_REASONS.some((r) => r.id === reasonParam && r.id !== 'none')
+      ? reasonParam
+      : undefined;
+  const selectedReason = reasonId
+    ? WALK_REASONS.find((r) => r.id === reasonId)
+    : undefined;
+
   const [search, setSearch] = useState('');
-  const [reason, setReason] = useState<string | null>(
-    deepLinked && WALK_REASONS.some((r) => r.id === deepLinked) ? deepLinked : null,
-  );
   const [scriptFilter, setScriptFilter] = useState('opening');
 
-  const q = search.toLowerCase().trim();
-  const searching = q.length > 0;
+  /* Every word of the query, each one expanded to the words that mean the same
+     thing. A row matches only if ALL of them are present somewhere in it, so
+     adding a word narrows the results the way a seller expects. */
+  const terms = useMemo(
+    () => fold(search).split(/\s+/).filter(Boolean).map(expand),
+    [search],
+  );
+  const searching = terms.length > 0;
 
   /* Memoised because the search below depends on it, and a fresh object every
      render would re-run the whole cross-content scan on every keystroke. */
@@ -155,10 +250,12 @@ export default function CheatSheetsPage() {
 
   // ── Search: one flat list across every kind of content ────────────────────
   const hits = useMemo<Hit[]>(() => {
-    if (!q) return [];
+    if (terms.length === 0) return [];
     const out: Hit[] = [];
-    const match = (...parts: (string | undefined)[]) =>
-      parts.filter(Boolean).join(' ').toLowerCase().includes(q);
+    const match = (...parts: (string | undefined)[]) => {
+      const haystack = fold(parts.filter(Boolean).join(' '));
+      return terms.every((alternates) => alternates.some((w) => haystack.includes(w)));
+    };
 
     for (const s of SCRIPTS) {
       const title = sub(tr(language, s.title, s.titleEs));
@@ -212,21 +309,21 @@ export default function CheatSheetsPage() {
       }
     }
     return out;
-  }, [q, language, sub, t, categoryLabel]);
+  }, [terms, language, sub, t, categoryLabel]);
 
   // ── "They said…" — the lines that answer one walk-away reason ─────────────
   const answersFor = useMemo(() => {
-    if (!reason) return { lines: [] as { key: string; label?: string; body: string }[] };
+    if (!reasonId) return { lines: [] as { key: string; label?: string; body: string }[] };
     /* Shared with the journal's comeback card — see linesAnswering() in
        cheatSheets.ts. Both screens answer the same objection, so they must read
        from the same selection rule, not two copies of it. */
-    const lines = linesAnswering(reason).map((l) => ({
+    const lines = linesAnswering(reasonId).map((l) => ({
       key: l.key,
       label: l.label ? tr(language, l.label, l.labelEs ?? l.label) : undefined,
       body: sub(tr(language, l.text, l.textEs)),
     }));
     return { lines };
-  }, [reason, language, sub]);
+  }, [reasonId, language, sub]);
 
   const scripts = useMemo(
     () =>
@@ -303,7 +400,7 @@ export default function CheatSheetsPage() {
     },
   ];
 
-  const sectionTitle: Record<Exclude<Section, 'home'>, string> = {
+  const sectionTitle: Record<Section, string> = {
     said: isEs ? 'Han dicho…' : 'They said…',
     prices: t('cheatSheetsPriceLadder'),
     scripts: t('cheatSheetsScripts'),
@@ -311,12 +408,31 @@ export default function CheatSheetsPage() {
     psychology: t('cheatSheetsPsychology'),
   };
 
-  const goHome = () => {
-    setSection('home');
-    setReason(null);
-  };
+  /* One level up, never "wherever you came from" — the parent of a screen is a
+     property of the screen, so a seller who arrived on an answer straight from
+     Home's biggest-leak card still steps up into the reason list. */
+  const upOneLevel = selectedReason ? '/cheat-sheets/said' : '/cheat-sheets';
 
-  const selectedReason = reason ? WALK_REASONS.find((r) => r.id === reason) : undefined;
+  /*
+   * URL clean-up, after every hook so the order is never conditional.
+   *
+   *  · `?said=x` is the old deep link: send it to the real route, replacing the
+   *    history entry so back still leaves the page in one step.
+   *  · A section or reason that does not exist (a stale bookmark, a typo, or
+   *    the 'none' chip which has no answer) drops to the nearest real screen
+   *    rather than rendering an empty one.
+   */
+  let redirectTo: string | null = null;
+  if (sectionParam === undefined && deepLinked) {
+    redirectTo = WALK_REASONS.some((r) => r.id === deepLinked && r.id !== 'none')
+      ? `/cheat-sheets/said/${deepLinked}`
+      : '/cheat-sheets/said';
+  } else if (sectionParam !== undefined && !isSection(sectionParam)) {
+    redirectTo = '/cheat-sheets';
+  } else if (reasonParam && !selectedReason) {
+    redirectTo = section === 'said' ? '/cheat-sheets/said' : '/cheat-sheets';
+  }
+  if (redirectTo) return <Navigate to={redirectTo} replace />;
 
   return (
     <div className="min-h-full bg-background">
@@ -333,7 +449,7 @@ export default function CheatSheetsPage() {
           <div className="mb-4 flex items-center gap-2">
             <button
               type="button"
-              onClick={selectedReason ? () => setReason(null) : goHome}
+              onClick={() => navigate(upOneLevel)}
               className="btn-icon shrink-0"
               aria-label={isEs ? 'Volver' : 'Back'}
             >
@@ -419,7 +535,7 @@ export default function CheatSheetsPage() {
                 key={tile.key}
                 type="button"
                 whileTap={{ scale: 0.97 }}
-                onClick={() => setSection(tile.key)}
+                onClick={() => navigate(`/cheat-sheets/${tile.key}`)}
                 className={`flex min-h-[104px] flex-col items-start justify-between rounded-card border border-line p-4 text-left ${
                   ACCENT[tile.accent].tint
                 } ${tile.wide ? 'col-span-2' : ''}`}
@@ -447,7 +563,7 @@ export default function CheatSheetsPage() {
                 key={r.id}
                 type="button"
                 whileTap={{ scale: 0.97 }}
-                onClick={() => setReason(r.id)}
+                onClick={() => navigate(`/cheat-sheets/said/${r.id}`)}
                 className="min-h-[68px] rounded-card border border-line bg-surface p-3.5 text-left text-body font-semibold text-ink"
               >
                 “{chipLabel(r, isEs)}”

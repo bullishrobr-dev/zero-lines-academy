@@ -72,10 +72,10 @@ export const categories: Category[] = [
     subtitle: 'From hello to paid',
     subtitleEs: 'Del hola al pago',
     description:
-      'You stopped them. Now what? These are the five metres from the pavement to the chair, the moment you ask for the money, and the ninety seconds between yes and paid. This is where sales are won and lost after all the hard work is already done.',
+      'You stopped them. Now what? These are the five metres from the pavement to the chair, the demo where you take her hand and collect the two yeses, the moment you ask for the money, and the ninety seconds between yes and paid. This is where sales are won and lost after all the hard work is already done.',
     icon: 'DoorOpen',
     accentColor: '#FF6B6B',
-    lessonOrder: ['close-market', 'close-1', 'close-2', 'close-3', 'close-fault'],
+    lessonOrder: ['close-market', 'close-1', 'close-demo', 'close-2', 'close-3', 'close-fault'],
   },
   {
     id: 'products',
