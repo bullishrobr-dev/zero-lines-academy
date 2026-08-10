@@ -119,9 +119,9 @@ const quizPriceLadder: GeneralQuiz = {
       optionsEs: ["{currency}50", "{currency}150", "{currency}35", "{currency}70"],
       correctIndex: 3,
       explanation:
-        "The peeling ladder is: {currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50. From {currency}100, the next step down is {currency}70. This is typically framed as 'removing the gift' or a 'special today-only' price. Know every rung so you never hesitate.",
+        "The peeling ladder is: {currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50. From {currency}100, the next step down is {currency}70 — and the reason is already built into the rung: the Dead Sea Scrub that came free with Offer 1 goes back, and you hand her its {currency}30 value as credit. {currency}100 minus {currency}30 is {currency}70. Never let a price fall on its own with no story attached. A number that just drops tells her you were making them up, and then she pushes for the next one.",
       explanationEs:
-        "La escalera del peeling es: {currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50. Desde {currency}100, el siguiente paso hacia abajo es {currency}70. Esto típicamente se enmarca como 'quitar el regalo' o un precio 'especial solo por hoy'. Conoce cada peldaño para nunca dudar."
+        "La escalera del peeling es: {currency}200 → {currency}150 → {currency}100 → {currency}70 → {currency}50. Desde {currency}100, el siguiente paso hacia abajo es {currency}70 — y el motivo ya viene dentro del escalón: el Exfoliante del Mar Muerto que iba de regalo con la Oferta 1 vuelve, y le devuelves sus {currency}30 como crédito. {currency}100 menos {currency}30 son {currency}70. Nunca dejes que un precio caiga solo, sin una historia detrás. Un número que baja porque sí le está diciendo que te los inventas, y entonces va a por el siguiente."
     },
     {
       question:
@@ -142,14 +142,14 @@ const quizPriceLadder: GeneralQuiz = {
       questionEs:
         "Una clienta quiere el Peeling Y el Exfoliante del Mar Muerto. ¿Qué le dices, y por qué no es una suma?",
       options: [
-        "{currency}160 — the Peeling base plus a full-price Scrub added on top",
-        "{currency}210 — the two products at their separate Europe anchor prices",
+        "{currency}210 — the Peeling base plus a full-price Scrub added on top",
+        "{currency}280 — the two products at their separate Europe anchor prices",
         "{currency}100 — Offer 1 on the Peeling, with the Scrub included as the gift",
         "{currency}50 — the Peeling voucher price, and the Scrub goes in free with it"
       ],
       optionsEs: [
-        "{currency}160 — la base del Peeling más un Exfoliante a precio completo encima",
-        "{currency}210 — los dos productos a sus precios ancla de Europa por separado",
+        "{currency}210 — la base del Peeling más un Exfoliante a precio completo encima",
+        "{currency}280 — los dos productos a sus precios ancla de Europa por separado",
         "{currency}100 — la Oferta 1 del Peeling, con el Exfoliante incluido de regalo",
         "{currency}50 — el precio con cupón del Peeling, y el Exfoliante entra gratis con él"
       ],
@@ -174,26 +174,26 @@ const quizPriceLadder: GeneralQuiz = {
     },
     {
       question:
-        "A customer is at {currency}140 for the syringe and asks for one more discount. What is your FINAL move?",
+        "A customer is at {currency}140 for the syringe and asks you, once, for one more discount. What is your move?",
       questionEs:
-        "Una cliente está en {currency}140 por la jeringa y pide un descuento más. ¿Cuál es tu movimiento FINAL?",
+        "Una cliente está en {currency}140 por la jeringa y te pide, una vez, un descuento más. ¿Qué haces?",
       options: [
-        "Offer {currency}140 + free scrub",
-        "Drop to {currency}100 — the absolute floor",
-        "Walk away and find another customer",
-        "Hold firm at {currency}140 and refuse to budge"
+        "Give her the {currency}100 floor there and then — she asked for it, a sale at the bottom rung is still a sale, and you would rather bank it than lose it",
+        "Hold {currency}140 and trade instead: 'That IS my voucher price. But pay me cash and I will drop a Scrub in the bag'",
+        "Tell her the price is the price, that there is honestly nothing at all you can do for her, and then just wait",
+        "Let her go — she has walked you down four rungs already and there is nothing left in this one for the shop"
       ],
       optionsEs: [
-        "Ofrecer {currency}140 + scrub gratis",
-        "Bajar a {currency}100 — el piso absoluto",
-        "Alejarte y buscar otra cliente",
-        "Mantener firme en {currency}140 y negarse a ceder"
+        "Darle el suelo de {currency}100 ahí mismo — te lo ha pedido, una venta en el último escalón sigue siendo una venta, y prefieres cobrarla a perderla del todo",
+        "Aguantar {currency}140 y cambiar de moneda: 'Ese ES mi precio con cupón. Pero págame en efectivo y te meto un Exfoliante en la bolsa'",
+        "Decirle que el precio es el precio, que de verdad no puedes hacer nada más por ella, y quedarte esperando",
+        "Dejarla ir — ya te ha bajado cuatro escalones y a la tienda no le queda nada en esta venta"
       ],
       correctIndex: 1,
       explanation:
-        "{currency}100 is the absolute floor for the syringe. When you reach this price, frame it as a final gesture: 'Look, I never do this, but you've been so lovely — I can do it for {currency}100, that's my last price.' This creates gratitude and often leads to add-on sales (scrub, nail kit) to make up margin.",
+        "She has asked ONCE. One ask does not buy a {currency}40 drop. Make her ask twice before you move once, or you have taught her that the numbers fall every time she pushes — and she will push all the way down. So the first answer at {currency}140 is not a number at all, it is a trade: cash, a second product, something extra in the bag. {currency}100 is a floor, not a step. It exists for the customer who is genuinely walking out of that door, and it is the last thing you say, never the second.",
       explanationEs:
-        "{currency}100 es el piso absoluto para la jeringa. Cuando llegues a este precio, enmárcalo como un gesto final: 'Mira, nunca hago esto, pero has sido tan amable — puedo dejártelo en {currency}100, ese es mi último precio.' Esto genera gratitud y a menudo lleva a ventas adicionales (scrub, kit de uñas) para recuperar margen."
+        "Te lo ha pedido UNA vez. Una petición no compra una bajada de {currency}40. Que te lo pida dos veces antes de moverte una, o le habrás enseñado que los números caen cada vez que empuja — y va a empujar hasta abajo. Así que la primera respuesta en {currency}140 no es un número, es un intercambio: efectivo, un segundo producto, algo más en la bolsa. {currency}100 es un suelo, no un escalón. Existe para la clienta que se está yendo de verdad por esa puerta, y es lo último que dices, nunca lo segundo."
     }
   ]
 };
@@ -649,13 +649,13 @@ const quizIngredients: GeneralQuiz = {
         "¿Por qué enfatizamos que nuestros productos vienen específicamente del Mar Muerto?",
       options: [
         "It sounds exotic and mysterious, and an unusual origin story is what makes a customer remember the product later",
-        "The Dead Sea has the highest mineral concentration of any body of water and is scientifically proven for skin therapy",
+        "The Dead Sea is the saltiest water on earth, and people have been travelling there for their skin for as long as anyone can remember",
         "It is the cheapest place to source minerals, which is how we can sell a professional product at a street price",
         "It is the only place with water that salty, so no other producer anywhere is able to make a comparable product"
       ],
       optionsEs: [
         "Suena exótico y misterioso, y una historia de origen poco común es lo que hace que la clienta recuerde el producto",
-        "El Mar Muerto tiene la concentración mineral más alta de cualquier cuerpo de agua y está científicamente probado para terapia de piel",
+        "El Mar Muerto es el agua más salada del planeta, y la gente lleva viajando allí por su piel desde que nadie recuerda",
         "Es el sitio más barato para conseguir minerales, que es como podemos vender un producto profesional a precio de calle",
         "Es el único lugar con agua tan salada, así que ningún otro fabricante puede hacer un producto comparable"
       ],
@@ -931,22 +931,22 @@ const quizTouristPsych: GeneralQuiz = {
       questionEs:
         "Una turista británica menciona que visita desde Londres. ¿Cuál es tu MEJOR ángulo de precio?",
       options: [
-        "In a London clinic this same treatment is over {currency}400 — here it is {currency}300 for exactly the same thing",
+        "Back home this is {currency}500 — here it is {currency}300, and that {currency}300 is a whole year of it",
         "This is cheaper than a coffee in London, so really you are not spending anything by the standards of where you live",
         "Everything is cheaper here because we are poorer than the UK, so your money simply stretches further while you are on holiday",
         "Don't worry about the price, just enjoy your vacation — you are only here once and you can work out the cost when you get home"
       ],
       optionsEs: [
-        "En una clínica de Londres este mismo tratamiento pasa de {currency}400 — aquí son {currency}300 por exactamente lo mismo",
+        "En tu país esto son {currency}500 — aquí son {currency}300, y esos {currency}300 son un año entero",
         "Esto es más barato que un café en Londres, así que en realidad no estás gastando nada para lo que se paga donde vives",
         "Aquí todo es más barato porque somos más pobres que el Reino Unido, así que tu dinero cunde más mientras estás de vacaciones",
         "No te preocupes por el precio, disfruta de las vacaciones — solo estás aquí una vez y ya harás cuentas al volver a casa"
       ],
       correctIndex: 0,
       explanation:
-        "Compare the price to what she would pay AT HOME, and let the two numbers do the rest — that argument is true in both of our shops. Never talk about which currency she is paying in or quote an exchange rate: you take the local currency, the amounts on your price list are the same numbers in either shop, and a seller who improvises a conversion is a seller who gets it wrong in front of the customer. Stick to what you can prove: clinic price at home, our price here.",
+        "Compare the price to what she would pay AT HOME, and let the two numbers do the rest — that argument is true in both of our shops. Use {currency}500, not a figure you invent on the spot: {currency}500 is the anchor every price in the ladder is read against, so shrinking it to {currency}400 shrinks every rung underneath it too. And never talk about which currency she is paying in or quote an exchange rate: you take the local currency, the amounts on your price list are the same numbers in either shop, and a seller who improvises a conversion is a seller who gets it wrong in front of the customer. Stick to what you can prove: clinic price at home, our price here.",
       explanationEs:
-        "Compara el precio con lo que pagaría EN SU PAÍS y deja que las dos cifras hagan el resto — ese argumento es cierto en nuestras dos tiendas. Nunca hables de en qué moneda paga ni improvises un tipo de cambio: tú cobras en la moneda local, las cifras de tu lista de precios son las mismas en las dos tiendas, y quien improvisa una conversión se equivoca delante de la clienta. Quédate con lo que puedes demostrar: el precio de clínica en su país, nuestro precio aquí."
+        "Compara el precio con lo que pagaría EN SU PAÍS y deja que las dos cifras hagan el resto — ese argumento es cierto en nuestras dos tiendas. Usa {currency}500, no una cifra que te inventes sobre la marcha: {currency}500 es el ancla contra la que se lee toda la escalera, así que encogerla a {currency}400 encoge también todos los escalones de abajo. Y nunca hables de en qué moneda paga ni improvises un tipo de cambio: tú cobras en la moneda local, las cifras de tu lista de precios son las mismas en las dos tiendas, y quien improvisa una conversión se equivoca delante de la clienta. Quédate con lo que puedes demostrar: el precio de clínica en su país, nuestro precio aquí."
     },
     {
       question:
@@ -1140,20 +1140,20 @@ const quizTouristPsych: GeneralQuiz = {
       options: [
         "Give her your card so she can contact you later, and tell her the price will still be waiting whenever she decides to come back",
         "Tell her to ask her friends what they think — send her a photo of the mirror result so she has something to show them",
-        "Remind her that 'thinking about it' means {currency}500+ plus shipping at home — right here, right now is her best price",
+        "Remind her that at home this is {currency}500 plus shipping — and she is already down at {currency}140 with you, today only",
         "Offer to hold the product until she decides, put her name on it, and tell her it will be behind the counter until closing time"
       ],
       optionsEs: [
         "Darle tu tarjeta para que te contacte después, y decirle que el precio seguirá esperando cuando decida volver",
         "Decirle que pregunte a sus amigas qué opinan — mándale una foto del resultado en el espejo para que tenga algo que enseñarles",
-        "Recordarle que 'pensarlo' significa pagar {currency}500+ más envío en su país — aquí y ahora es el mejor precio que tendrá",
+        "Recordarle que en su país esto son {currency}500 más envío — y que contigo ya está abajo, en {currency}140, y solo hoy",
         "Ofrecerte a guardarle el producto hasta que decida, ponerle su nombre y decirle que estará tras el mostrador hasta la hora de cierre"
       ],
       correctIndex: 2,
       explanation:
-        "'I need to think about it' is the #1 stalling tactic. For tourists, you have a UNIQUE weapon: SCARCITY of opportunity. She cannot 'think about it' and come back next week — she is LEAVING. Frame hesitation as active loss: every hour she waits, that price stays behind in {locationName}. 'At home you pay {currency}500 plus shipping. Right here, right now, it is {currency}100. This exact moment is your best deal.'",
+        "'I need to think about it' is the #1 stalling tactic, and with a tourist you have a weapon nobody else has: she is LEAVING. There is no next week for her — she is on a plane. But say the number you are actually standing on — do not leap from the {currency}500 anchor to the floor in one sentence, because a price that falls that far that fast tells her every number you have said today was invented. 'At home that is {currency}500 plus shipping and a three-week wait. You are at {currency}140 with me — gift off, my voucher on it, and that voucher dies at the door. So, card or cash?'",
       explanationEs:
-        "'Necesito pensarlo' es la táctica de demora #1. Para turistas, tienes un arma ÚNICA: ESCASEZ de oportunidad. Ella no puede 'pensarlo' y volver la semana que viene — se está YENDO. Enmarca la duda como pérdida activa: cada hora que espera, ese precio se queda en {locationName}. 'En casa pagas {currency}500 más envío. Aquí mismo, ahora mismo, es {currency}100. Este momento exacto es tu mejor oferta.'"
+        "'Necesito pensarlo' es la táctica de demora #1, y con una turista tienes un arma que no tiene nadie más: se está YENDO. No puede pensárselo y volver la semana que viene. Pero di el número en el que estás de verdad — no saltes del ancla de {currency}500 al suelo en una sola frase, porque un precio que cae tanto y tan rápido le está diciendo que todas las cifras de hoy te las has inventado. 'En tu país son {currency}500 más envío y tres semanas de espera. Conmigo estás en {currency}140 — sin regalo, con mi cupón, y ese cupón se muere en la puerta. ¿Tarjeta o efectivo?'"
     }
   ]
 };

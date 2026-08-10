@@ -85,8 +85,8 @@ export const NUDGES: Nudge[] = [
     kind: 'line',
     title: 'When she says "too expensive"',
     titleEs: 'Cuando te suelta "es muy caro"',
-    body: `In Europe {currency}${SYR_ANCHOR}. In {locationName}, {currency}${SYR_BASE}. Today, 30% off — {currency}${SYR_PROMO}. Always that order.`,
-    bodyEs: `En Europa {currency}${SYR_ANCHOR}. En {locationName}, {currency}${SYR_BASE}. Hoy, 30% menos — {currency}${SYR_PROMO}. Siempre ese orden.`,
+    body: `That is not the top of the ladder talking. By the time she says it you have already opened — {currency}${SYR_ANCHOR} in Europe, {currency}${SYR_BASE} here, {currency}${SYR_PROMO} today — so do not say those three again. Take the gift off, hold, and make her ask twice before you move once.`,
+    bodyEs: `Eso no lo dice desde arriba de la escalera. Cuando lo suelta ya has abierto tú — {currency}${SYR_ANCHOR} en Europa, {currency}${SYR_BASE} aquí, {currency}${SYR_PROMO} hoy — así que no repitas esos tres. Quita el regalo, aguanta, y que te lo pida dos veces antes de moverte una.`,
     route: '/syringe',
   },
   {

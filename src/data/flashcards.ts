@@ -216,9 +216,9 @@ export const flashcards: Flashcard[] = [
     lessonId: 'prod-7',
     categoryId: 'sales-psychology',
     question: 'How do you handle the "It\'s too expensive" objection with reframing?',
-    answer: 'Reframe cost as investment: "For under {currency}2 a week across a whole year, you get salon-grade skin. A coffee costs more."',
+    answer: 'Shrink the number you are STANDING on, never the one she already refused. Syringe at {currency}140: "Sixty applications, one a week, all year — a bit over {currency}2 a go." Peeling at {currency}100: "A year of treatments, under {currency}2 a week." Say the small number once, then stop talking.',
     questionEs: '¿Cómo rebates la objeción "Es muy caro" reencuadrando?',
-    answerEs: 'Reencuadra el coste como inversión: "Por menos de {currency}2 a la semana durante un año entero, tienes piel de salón. Un café cuesta más."',
+    answerEs: 'Encoge el número en el que ESTÁS, nunca el que ya ha rechazado. Jeringa a {currency}140: "Sesenta aplicaciones, una por semana, todo el año — poco más de {currency}2 cada vez." Peeling a {currency}100: "Un año de tratamientos, menos de {currency}2 a la semana." Di el número pequeño una vez y cállate.',
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -606,9 +606,9 @@ export const flashcards: Flashcard[] = [
     lessonId: 'prod-7',
     categoryId: 'product-mastery',
     question: 'How do you calculate and present the "per-use" value?',
-    answer: 'Break down longevity: "This bottle lasts a full year — 52 treatments for {currency}100. That\'s under {currency}2 a week, less than a coffee." Makes any price feel small.',
+    answer: 'Divide the rung you are on, and name the product. Peeling at {currency}100: "A whole year — 52 treatments, under {currency}2 a week." Syringe at {currency}140: "Sixty applications — a bit over {currency}2 each." Run the sum on {currency}300 and you get more than the coffee you are comparing it to.',
     questionEs: '¿Cómo calculas y presentas el valor "por uso"?',
-    answerEs: 'Desglosa la duración: "Este frasco dura un año entero — 52 tratamientos por {currency}100. Son menos de {currency}2 a la semana, menos que un café." Hace que cualquier precio parezca pequeño.',
+    answerEs: 'Divide el escalón en el que estás, y di qué producto es. Peeling a {currency}100: "Un año entero — 52 tratamientos, menos de {currency}2 a la semana." Jeringa a {currency}140: "Sesenta aplicaciones — poco más de {currency}2 cada una." Si haces la cuenta con {currency}300 te sale más caro que el café con el que lo comparas.',
   },
   {
     id: 'pm-6-1',
@@ -642,9 +642,9 @@ export const flashcards: Flashcard[] = [
     lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'What is the "Salon vs. Home" comparison for the Peeling?',
-    answer: '"A salon peel costs {currency}200+, takes an appointment, and may irritate. This gives the same glow at home for {currency}100, and it\'s gentler."',
+    answer: 'Use the anchor you can stand behind, not an invented salon bill: "In Europe this same bottle is {currency}200 and a clinic wants an appointment for it. Here it is {currency}100 with the Dead Sea scrub in the bag — and you do it at home, in your dressing gown, whenever you like."',
     questionEs: '¿Cuál es la comparación "Salón vs. Casa" para el Peeling?',
-    answerEs: '"Un peeling en salón cuesta {currency}200+, necesitas cita y puede irritar. Esto da el mismo brillo en casa por {currency}100, y es más suave."',
+    answerEs: 'Usa el ancla que puedes defender, no una factura de salón inventada: "En Europa este mismo bote son {currency}200 y en una clínica encima te piden cita. Aquí son {currency}100 con el exfoliante del Mar Muerto en la bolsa — y te lo haces en casa, en bata, cuando te dé la gana."',
   },
   {
     id: 'pm-8-1',

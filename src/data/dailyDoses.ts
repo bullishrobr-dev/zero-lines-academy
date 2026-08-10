@@ -155,8 +155,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'mindset',
-        text: 'The 80/20 rule: 80% of people will say no. That\'s normal. Your job is to find the 20% who say yes — and here is why that number matters. If four out of five walk, then the one who did NOT walk, the one already sitting in your chair, is rare. So you do not hurry her and you do not go lazy halfway through. The number is not there to make a bad day feel better. It is there to make you fight for the one you have got.',
-        textEs: 'La regla 80/20: el 80% de la gente dirá que no. Es normal. Tu trabajo es encontrar el 20% que dice sí — y aquí va por qué importa ese dato. Si cuatro de cada cinco se van, entonces la que NO se ha ido, la que ya está sentada en tu silla, es algo raro. Así que ni la metes prisa ni aflojas a mitad de camino. El dato no está para que un mal día duela menos. Está para que pelees por la que ya tienes.',
+        text: 'Most of the people you step in front of will not stop, and most of the ones who do stop will not buy. That is the shape of the job and nobody tells you on your first day — but do not read it as comfort, because it is not. Read it the other way round. If almost nobody stops, then the one who did NOT walk, the one already sitting in your chair, is a rare thing, and there is no queue of them behind her. So you do not hurry her and you do not go lazy halfway through. It is not there to make a bad day feel better. It is there to make you fight for the one you have got.',
+        textEs: 'La mayoría de la gente delante de la que te pongas no va a parar, y de las que paran la mayoría no va a comprar. Esa es la forma del trabajo y nadie te lo cuenta el primer día — pero no lo leas como consuelo, porque no lo es. Léelo al revés. Si casi nadie para, entonces la que NO se ha ido, la que ya está sentada en tu silla, es algo raro, y detrás de ella no hay cola. Así que ni la metes prisa ni aflojas a mitad de camino. No está para que un mal día duela menos. Está para que pelees por la que ya tienes.',
       },
     ],
     practicePrompt: 'Track your next 10 rejections. Note ONE thing about each (their body language, what they said, time of day). Look for patterns.',
@@ -348,8 +348,8 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'technique',
-        text: 'Never lead with the price. Anchor HIGH first. Compare your product to luxury alternatives that cost 3x more. Then your price feels like a steal.',
-        textEs: 'Nunca empieces con el precio. Ancla ALTO primero. Compara tu producto con alternativas de lujo que cuestan 3 veces más. Entonces tu precio parece una ganga.',
+        text: 'Never lead with the price. Anchor HIGH first. Compare it to what the same thing costs in a salon or a clinic. Then your price feels like a steal.',
+        textEs: 'Nunca empieces con el precio. Ancla ALTO primero. Compara tu producto con lo que cuesta lo mismo en un salón o en una clínica. Entonces tu precio parece una ganga.',
         highlight: '{currency}300 feels cheap the second after you said {currency}500.',
         highlightEs: '{currency}300 parece barato justo después de decir {currency}500.',
       },
@@ -437,10 +437,10 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'mindset',
-        text: '"Too expensive" is a GOOD objection. It means they WANT it, they just need help justifying it. Your job: reframe the value, not lower the price.',
-        textEs: '"Demasiado caro" es una BUENA objeción. Significa que LO QUIEREN, solo necesitan ayuda para justificarlo. Tu trabajo: reformular el valor, no bajar el precio.',
-        highlight: '"Too expensive" = "I want it but need permission."',
-        highlightEs: '"Demasiado caro" = "Lo quiero pero necesito permiso."',
+        text: '"Too expensive" is a GOOD objection — nobody haggles over something they do not want. But hear WHERE it comes from. Almost nobody says it at the top price. By the time those words are out of her you have already walked her down, so do not spend your best line defending a number she stopped being asked for two rungs ago. Shrink the number you are STANDING on, and make the next one land like something you did for her.',
+        textEs: '"Demasiado caro" es una BUENA objeción — nadie regatea por algo que no quiere. Pero escucha de DÓNDE sale. Casi nadie lo dice en el precio de arriba. Cuando te suelta eso ya la has bajado por la escalera, así que no gastes tu mejor frase defendiendo un número que dejaste de pedirle hace dos escalones. Encoge el número en el que ESTÁS, y haz que el siguiente le llegue como algo que has hecho tú por ella.',
+        highlight: 'Nobody argues about money at the top of the ladder.',
+        highlightEs: 'Nadie discute de dinero en lo alto de la escalera.',
       },
       {
         type: 'script',
@@ -449,8 +449,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'technique',
-        text: 'The COST-PER-WEEK REFRAME: break any price into what it costs while it lasts. The Peeling at {currency}100 lasts a year — under {currency}2 a week. The Syringe at {currency}300 lasts a year too — under {currency}6 a week. Compare it to something they buy every week. It shrinks the price in their mind.',
-        textEs: 'EL REENCUADRE DE COSTE POR SEMANA: divide cualquier precio entre el tiempo que dura. El Peeling a {currency}100 dura un año — menos de {currency}2 a la semana. La Jeringa a {currency}300 también dura un año — menos de {currency}6 a la semana. Compáralo con algo que compren cada semana. Encoge el precio en su cabeza.',
+        text: 'The COST-PER-WEEK REFRAME: break the price into what it costs while it lasts — and do the sum on the rung you are STANDING on, never on one she has already refused. The Peeling at {currency}100 is a year of treatments: under {currency}2 a week. The Syringe at {currency}140 is a year too: under {currency}3 a week, a bit over {currency}2 an application. Run the same calculator on {currency}300 and you get more than the coffee you are comparing it to — and you have just played her back a number she said no to.',
+        textEs: 'EL REENCUADRE DE COSTE POR SEMANA: divide el precio entre lo que dura — y haz la cuenta en el escalón donde ESTÁS, nunca en uno que ya ha rechazado. El Peeling a {currency}100 es un año de tratamientos: menos de {currency}2 a la semana. La Jeringa a {currency}140 también es un año: menos de {currency}3 a la semana, poco más de {currency}2 por aplicación. Saca la calculadora con los {currency}300 y te sale más caro que el café con el que lo comparas — y encima le repites un número al que ya te ha dicho que no.',
       },
     ],
     practicePrompt: 'When you hear "too expensive" today, use the cost-per-week reframe. Track your conversion rate on this specific objection.',
@@ -553,24 +553,24 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'mindset',
-        text: 'Budget is real. Respect it. But remember: people find money for things they VALUE. Your job: increase the perceived value until it exceeds the price.',
-        textEs: 'El presupuesto es real. Respétalo. Pero recuerda: la gente encuentra dinero para cosas que VALORAN. Tu trabajo: aumentar el valor percibido hasta que supere el precio.',
-        highlight: 'Value perception > Price point. Always.',
-        highlightEs: 'Percepción de valor > Punto de precio. Siempre.',
+        text: 'Budget is real. Respect it — and then hear what it is actually telling you. She is still standing there, and nobody haggles over something they do not want. "I am on a budget" does not get said at {currency}300; it gets said once you have already walked her down. So you are not fighting for your first price any more. You are fighting for your last one. Find the rung she can say yes to, give her a reason for it, and take the yes before she moves.',
+        textEs: 'El presupuesto es real. Respétalo — y luego escucha lo que en realidad te está diciendo. Sigue ahí plantada, y nadie regatea por algo que no quiere. "Voy justa de dinero" no se dice en {currency}300; se dice cuando ya la has bajado por la escalera. Así que ya no peleas por tu primer precio. Peleas por el último. Encuentra el escalón al que puede decir que sí, dale un motivo, y llévate el sí antes de que se mueva.',
+        highlight: 'Nobody says "I am on a budget" at the top price. Find the rung — do not defend the number.',
+        highlightEs: 'Nadie dice "voy justa" en el precio de arriba. Busca el escalón — no defiendas el número.',
       },
       {
         type: 'script',
-        text: '"I totally get budgets. Let me ask you this: how much do you spend on skincare in a year? {currency}200? {currency}300? This one product replaces three others. So you\'re actually SAVING money while getting better results."',
-        textEs: '"Entiendo totalmente los presupuestos. Te pregunto una cosa: ¿cuánto te gastas al año en cuidarte la piel? ¿{currency}200? ¿{currency}300? Este producto sustituye a otros tres. O sea que en realidad AHORRAS dinero y encima el resultado es mejor."',
+        text: '"I hear you, my love — so let us stop pretending we are still at the box price. [Voice down, quick look at the door] Gift off, my voucher on it: {currency}140. Sixty applications in there, one a week — that is you covered until next summer for a bit over {currency}2 a go. That is not a budget decision, that is one coffee. So — card or cash?"',
+        textEs: '"Te escucho, cariño — así que dejemos de hacer como si siguiéramos en el precio de la caja. [Baja la voz, mirada rápida a la puerta] Sin regalo, con mi cupón: {currency}140. Ahí dentro hay sesenta aplicaciones, una por semana — tienes hasta el verano que viene por poco más de {currency}2 cada vez. Eso no es una decisión de presupuesto, eso es un café. Entonces, ¿tarjeta o efectivo?"',
       },
       {
         type: 'technique',
-        text: 'The REPLACEMENT MATH: Show how your product replaces multiple products they already buy. 1 product = 3 replaced = net savings.',
-        textEs: 'LA CUENTA DE LA SUSTITUCIÓN: Enseña cómo tu producto sustituye a varios de los que ya compran. 1 producto = 3 sustituidos = ahorro neto.',
+        text: 'THE LAST RUNG, WITH A REASON: a budget customer is answered by moving, not by arguing — but every move carries a reason or she learns the numbers fall whenever she pushes. Gift comes off. Voucher goes on. Scrub goes back as credit. And {currency}100 is a floor, not a plan: get there in ten seconds and you have taught her that pushing works, and she will push every single time.',
+        textEs: 'EL ÚLTIMO ESCALÓN, CON UN MOTIVO: a una clienta con presupuesto se le contesta moviéndote, no discutiendo — pero cada movimiento lleva un motivo o aprende que los números caen cada vez que empuja. Se quita el regalo. Se pone el cupón. El exfoliante vuelve como crédito. Y {currency}100 es un suelo, no un plan: si llegas ahí en diez segundos le has enseñado que empujar funciona, y va a empujar siempre.',
       },
     ],
-    practicePrompt: 'Use the replacement math on 3 budget-objection clients today. Track if reframing as "savings" changes the outcome.',
-    practicePromptEs: 'Usa hoy la cuenta de la sustitución con 3 clientas que te pongan pegas de presupuesto. Registra si reformular como "ahorro" cambia el resultado.',
+    practicePrompt: 'On every budget objection today, write down which rung you were standing on when you heard it. If the answer is ever {currency}300, you moved too slowly earlier in the sale.',
+    practicePromptEs: 'Hoy, en cada objeción de presupuesto, apunta en qué escalón estabas cuando la oíste. Si alguna vez la respuesta es {currency}300, es que te has movido demasiado despacio antes.',
     xpReward: 20,
   },
   {

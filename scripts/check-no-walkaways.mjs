@@ -58,6 +58,12 @@ const WALKAWAY = [
   /have a (think|look) (about it )?and (come|pop|let)/i,
   /(send|write|note) (you |them )?the price/i,
   /think about it and (come|let|get)/i,
+  /* "Plant a seed and let them go" — the politest walkaway in the language,
+     and it was being taught as the ROUTINE read of crossed arms after a price.
+     Crossed arms after a price is the ladder asking to be walked. */
+  /plant(ing)? a seed (for|and)/i,
+  /let (them|her|him) go (gracefully|warmly|politely|with a smile)/i,
+  /(walk|move) (them|her|him) (on|along) (gently|politely)/i,
 
   /vuelve cuando (quieras|te apetezca|lo tengas)/i,
   /(vuelve|p[áa]sate) (m[áa]s tarde|otro rato|luego)/i,
@@ -65,6 +71,8 @@ const WALKAWAY = [
   /aqu[ií] estaremos (ma[ñn]ana|luego|todo el d[ií]a)/i,
   /te (mando|escribo|apunto) el precio/i,
   /pi[eé]nsatelo y (vuelve|me dices|luego)/i,
+  /(planta|siembra) (una )?semilla (para|y|de cara)/i,
+  /d[eé]jal[oa]s? ir (con elegancia|con calidez|con una sonrisa)/i,
 
   /vuelve (cuando|ma[ñn]ana|otro d[ií]a|luego)/i,
   /p[áa]sate cuando quieras/i,
@@ -95,7 +103,7 @@ const SAFETY = /SAFETY|seguridad|broken skin|inflamed|piel (da[ñn]ada|irritada)
  * is explicitly about that moment, "come back whenever" is his own line.
  */
 const LAST_RESORT =
-  /nothing (else )?work|if nothing|si no funciona|last resort|[úu]ltimo recurso|let (them|her|him) go|d[eé]jal[oa] ir|tried everything|lo has intentado todo/i;
+  /nothing (else )?work|if nothing|si no funciona|last resort|[úu]ltimo recurso|let (them|her|him) go|d[eé]jal[oa]s? ir|tried everything|lo has intentado todo/i;
 
 /** Fields that NAME an objection rather than script the seller's answer. */
 const NAMING_FIELD = /^\s*(title|titleEs|question|questionEs|label|labelEs|head|headEs|name|nameEs)\s*:/;

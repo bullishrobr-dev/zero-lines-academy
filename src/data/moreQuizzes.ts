@@ -194,32 +194,32 @@ const quizSyringeDeep: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation:
-        "Hyaluronic acid is a naturally occurring molecule in our skin that can hold up to 1,000 times its molecular weight in water. As we age, our natural HA levels drop. The syringe replenishes this, drawing moisture into the skin and plumping wrinkles from the inside out. This is a scientifically-backed fact that builds massive credibility. Never over-promise — the '1000x water' fact is impressive enough on its own.",
+        "Hyaluronic acid is already in her skin and it holds a huge amount of water for its weight — that is the whole story and it is the one you tell: it pulls moisture in and plumps the line from underneath. The other three options are the ones that come back on the shop. 'Removes wrinkles permanently', 'bleaches dark spots' and 'replaces sunscreen' are promises the product cannot keep and you are the one who will be standing there when she comes back about it. Talk it up all you like — that is the job — but do not dress it up as laboratory proof. You are a seller, not a scientist, and she can tell the difference.",
       explanationEs:
-        "El ácido hialurónico es una molécula que ocurre naturalmente en nuestra piel y puede retener hasta 1,000 veces su peso molecular en agua. Con la edad, nuestros niveles naturales de AH disminuyen. La jeringa los replenisca, atrayendo humedad hacia la piel y rellenando arrugas desde adentro hacia afuera. Este es un hecho respaldado científicamente que genera credibilidad masiva. Nunca prometas de más — el dato de '1000x agua' es lo suficientemente impresionante por sí solo."
+        "El ácido hialurónico ya está en su piel y retiene una cantidad enorme de agua para lo que pesa — esa es toda la historia y es la que cuentas: atrae la humedad y rellena la línea desde abajo. Las otras tres opciones son las que te acaban salpicando a la tienda. 'Elimina las arrugas para siempre', 'blanquea las manchas' y 'sustituye al protector solar' son promesas que el producto no puede cumplir y ahí vas a estar tú cuando vuelva a reclamarlas. Véndelo todo lo alto que quieras — eso es el trabajo — pero no lo disfraces de prueba de laboratorio. Eres vendedor, no científico, y ella nota la diferencia."
     },
     {
       question:
-        "A customer says, '{currency}300 is way too much for a cream!' How do you reframe the price using the 'cost per use' technique?",
+        "You are down at {currency}140 with the voucher on and she is still chewing on the number. How do you use 'cost per use' to close it?",
       questionEs:
-        "Una cliente dice: '¡{currency}300 es demasiado para una crema!' ¿Cómo reenmaras el precio usando la técnica de 'costo por uso'?",
+        "Estás abajo, en {currency}140 con el cupón puesto, y sigue dándole vueltas a la cifra. ¿Cómo usas el 'coste por uso' para cerrarlo?",
       options: [
         "It's actually cheap compared to a facelift",
-        "One syringe lasts a full year — 52 weekly treatments for {currency}300. That is under {currency}6 a week, less than one coffee",
+        "Sixty applications in that syringe, one a week — {currency}140 across a whole year is a bit over {currency}2 a go, less than the coffee in your hand",
         "You're not paying for cream, you're paying for confidence",
-        "If you buy three of them the price per syringe drops to {currency}175, which is a bargain"
+        "Do the sum on the {currency}300 instead, because the bigger the number you divide up the more impressive the saving is going to sound to her when you finally say it out loud"
       ],
       optionsEs: [
         "Es barato comparado con un lifting",
-        "Una jeringa dura un año entero — 52 tratamientos semanales por {currency}300. Son menos de {currency}6 a la semana, menos que un café",
+        "Sesenta aplicaciones en esa jeringa, una por semana — {currency}140 repartidos en un año es poco más de {currency}2 cada vez, menos que el café que llevas en la mano",
         "No estás pagando por crema, estás pagando por confianza",
-        "Si compras tres, el precio por jeringa baja a {currency}175, lo cual es una ganga"
+        "Haz la cuenta con los {currency}300, porque cuanto más grande sea el número que divides más impresionante le va a sonar el ahorro cuando por fin se lo digas en voz alta"
       ],
       correctIndex: 1,
       explanation:
-        "The 'cost per use' reframing is one of the most powerful price techniques in street sales. Breaking {currency}300 down to under {currency}6 a week makes it feel affordable and routine. The coffee comparison creates an instant mental benchmark everyone understands. Note the trap in the last option: {currency}175 is a single-syringe rung on the ladder, not a per-unit price for three — quoting it that way is a promise you cannot keep. Always calculate the real numbers in advance.",
+        "Do the sum on the rung you are STANDING on. {currency}140 across sixty weekly applications is a bit over {currency}2 a time — small, true, and it beats the coffee. Run the same calculator on {currency}300 and it comes out at more than that coffee, not less, so the comparison collapses in front of her AND you have played her back a number she already refused. Say the small number once, then shut up and let her finish the sum herself.",
       explanationEs:
-        "El reencuadre de 'coste por uso' es una de las técnicas de precio más poderosas en la venta de calle. Desglosar {currency}300 a menos de {currency}6 por semana lo hace sentir asequible y rutinario. La comparación con el café crea un punto de referencia mental instantáneo que todos entienden. Fíjate en la trampa de la última opción: {currency}175 es un escalón de jeringa individual, no un precio por unidad si compras tres — prometerlo así es una promesa que no puedes cumplir. Calcula siempre los números reales de antemano."
+        "Haz la cuenta en el escalón donde ESTÁS. {currency}140 entre sesenta aplicaciones semanales sale a poco más de {currency}2 cada vez — pequeño, cierto, y le gana al café. Saca la misma calculadora con {currency}300 y te sale más caro que ese café, no más barato, así que la comparación se te cae delante de ella Y encima le repites un número que ya ha rechazado. Di el número pequeño una vez, cállate y deja que termine ella la cuenta."
     },
     {
       question:
@@ -885,19 +885,19 @@ const quizNailKitPro: GeneralQuiz = {
         "Ignore the friend and keep pitching to the buyer — every second you spend on the friend is a second the buyer spends cooling off",
         "Tell the friend to mind her own business — it is not her hands, not her money, and she is only slowing the whole thing down",
         "Offer a discount if the friend stops talking — buy the silence with the voucher price and close before she can raise another objection. A cheap sale beats a lost one, and the friend will not argue with a number that low",
-        "'Great point! Regular polish is {currency}10 but chips in 2 days. This lasts 2 weeks, never chips, needs zero drying time, and saves {currency}200+ yearly on salon visits. Your friend is smart — she should try it too!'"
+        "'Great point! Regular polish chips in a couple of days. This lasts 2 weeks, never chips, needs zero drying time, and the buffer is guaranteed for life. Your friend is smart — she should try it too!'"
       ],
       optionsEs: [
         "Ignorar a la amiga y seguir con la compradora — cada segundo que le dedicas a la amiga es un segundo en que la compradora se enfría",
         "Decirle a la amiga que se meta en sus asuntos — no son sus manos ni su dinero, y solo está retrasando todo",
         "Ofrecer un descuento si la amiga deja de hablar — cómprale el silencio con el precio del cupón y cierra antes de que saque otra objeción. Una venta barata es mejor que ninguna, y con esa cifra la amiga no discute",
-        "¡Buen punto! El esmalte normal cuesta {currency}10 pero se desconcha en 2 días. Esto dura 2 semanas, nunca se desconcha, no necesita tiempo de secado, y ahorra {currency}200+ al año en visitas al salón. ¡Tu amiga es inteligente — ella también debería probarlo!"
+        "¡Buen punto! El esmalte normal se desconcha en un par de días. Esto dura 2 semanas, nunca se desconcha, no necesita tiempo de secado, y la lima tiene garantía de por vida. ¡Tu amiga es lista — debería probarlo ella también!"
       ],
       correctIndex: 3,
       explanation:
-        "This response is brilliant because it validates the friend's input ('great point!'), educates with facts (2 days vs 2 weeks, {currency}200+ savings), and converts the friend into a prospect ('she should try it too'). You're not arguing — you're agreeing AND upgrading. Turning skeptics into potential second sales is a master-level street skill. Never fight the friend — recruit them.",
+        "This response is strong because it validates the friend ('great point!'), answers with things you can actually show her (2 days versus 2 weeks, no drying time, the lifetime buffer warranty — the one promise in this shop that is real), and turns the friend into a second prospect. What it does NOT do is invent a yearly savings figure. Numbers you cannot prove are the fastest way to lose a room with two people in it: the friend is the one who will do the arithmetic out loud, and if it does not add up you have lost them both. Never fight the friend — recruit her.",
       explanationEs:
-        "Esta respuesta es brillante porque valida el aporte de la amiga ('¡buen punto!'), educa con hechos (2 días vs 2 semanas, ahorro de {currency}200+), y convierte a la amiga en prospecto ('ella también debería probarlo'). No estás discutiendo — estás acordando Y mejorando. Convertir escépticos en potenciales segundas ventas es una habilidad de nivel maestro en la calle. Nunca pelees con la amiga — reclútala."
+        "Esta respuesta es fuerte porque le da la razón a la amiga ('¡buen punto!'), contesta con cosas que puedes enseñar de verdad (2 días frente a 2 semanas, sin tiempo de secado, la garantía de por vida de la lima — la única promesa de esta tienda que es real) y convierte a la amiga en una segunda clienta. Lo que NO hace es inventarse una cifra de ahorro anual. Los números que no puedes demostrar son la forma más rápida de perder una conversación con dos personas: la amiga es la que va a hacer la cuenta en voz alta, y si no le sale las pierdes a las dos. Nunca pelees con la amiga — recluta."
     },
     {
       question:
@@ -975,21 +975,21 @@ const quizNailKitPro: GeneralQuiz = {
         "Una clienta dice: '{currency}60 parece caro para un pulidor de uñas.' ¿Cuál es la comparación de valor CORRECTA?",
       options: [
         "It's not expensive, you just don't understand quality yet — once you have used a professional buffer you will never go back",
-        "Other nail kits cost {currency}100+ in department stores, so at our price this is actually the cheap option on the street",
-        "If you think {currency}60 is expensive, you can't afford nice things — this is what a decent pair of shoes costs and it lasts far longer",
-        "One salon French manicure costs {currency}25-40 and lasts 1-2 weeks. This kit gives you 50+ manicures for {currency}60 — barely more than {currency}1 each. You save over {currency}1,200 per year"
+        "Never mind the {currency}60 — spread across all the years you are going to own this thing it costs you almost nothing, so the number on the box is not really the number that matters here at all",
+        "If you think {currency}60 is expensive then you cannot afford nice things — this is what a decent pair of shoes costs and it will still be working long after the shoes have gone",
+        "A salon French manicure is {currency}25-40 and lasts 1-2 weeks. This kit does 50+ of them for {currency}60 — about {currency}1 each, and the buffer is guaranteed for life"
       ],
       optionsEs: [
         "No es caro, es que todavía no entiendes de calidad — cuando uses un pulidor profesional no vuelves atrás",
-        "Otros kits de uñas cuestan {currency}100+ en grandes almacenes, así que a nuestro precio este es la opción barata de la calle",
-        "Si te parece caro {currency}60 no puedes permitirte cosas bonitas — es lo que cuestan unos zapatos decentes y esto dura mucho más",
-        "Una manicura francesa en salón cuesta {currency}25-40 y dura 1-2 semanas. Este kit te da 50+ manicuras por {currency}60 — apenas más de {currency}1 cada una. Ahorras más de {currency}1,200 al año"
+        "Olvídate de los {currency}60 — repartidos entre todos los años que vas a tener esto no te cuesta prácticamente nada, así que el número de la caja no es el número que importa aquí",
+        "Si te parece caro {currency}60 no puedes permitirte cosas bonitas — es lo que cuestan unos zapatos decentes y esto seguirá funcionando mucho después de que los zapatos se hayan ido",
+        "Una manicura francesa en salón son {currency}25-40 y dura 1-2 semanas. Este kit hace 50+ por {currency}60 — como {currency}1 cada una, y la lima tiene garantía de por vida"
       ],
       correctIndex: 3,
       explanation:
-        "The {currency}1,200/year savings number is a 'jaw-dropper' that reframes {currency}60 as pocket change. '50+ manicures' makes the product feel abundant, not scarce. The math is simple and verifiable — {currency}60 across 50 manicures really is about {currency}1 each. When you can quantify value this clearly, price objections dissolve. Always know your numbers.",
+        "The number that works is the one she can do in her head while you say it: {currency}60 across 50-odd manicures really is about {currency}1 each, against {currency}25-40 a time in a salon. What you do not do is inflate that into a yearly savings figure — nobody has fifty salon manicures in a year, so the moment she checks it the number falls apart, and it takes the rest of your pitch with it. Quote what you can prove and let her do the multiplying.",
       explanationEs:
-        "La cifra de ahorro de {currency}1,200 al año deja con la boca abierta y reencuadra {currency}60 como calderilla. '50+ manicuras' hace que el producto se sienta abundante, no escaso. La cuenta es simple y comprobable — {currency}60 entre 50 manicuras sale a cerca de {currency}1 cada una. Cuando cuantificas el valor así de claro, las objeciones de precio se disuelven. Conoce siempre tus números."
+        "El número que funciona es el que puede hacer ella de cabeza mientras hablas: {currency}60 entre unas 50 manicuras sale a cerca de {currency}1 cada una, frente a {currency}25-40 cada vez en un salón. Lo que no haces es inflarlo en una cifra de ahorro anual — nadie se hace cincuenta manicuras de salón al año, así que en cuanto lo comprueba el número se cae, y se lleva por delante todo lo demás que has dicho. Di lo que puedas demostrar y deja que multiplique ella."
     },
     {
       question:
@@ -1035,26 +1035,26 @@ const quizObjectionsChampion: GeneralQuiz = {
   questions: [
     {
       question:
-        "Customer: 'I'm on a really tight budget right now.' Which response is MOST likely to close the sale?",
+        "Customer: 'I'm on a really tight budget right now.' You have already walked her down to {currency}175 on the syringe. What closes it?",
       questionEs:
-        "Cliente: 'Estoy con un presupuesto muy ajustado ahora mismo.' ¿Qué respuesta es MÁS probable que cierre la venta?",
+        "Cliente: 'Estoy con un presupuesto muy ajustado ahora mismo.' Ya la has bajado a {currency}175 en la jeringa. ¿Qué lo cierra?",
       options: [
         "I understand — this isn't for everyone, and I would rather you spent your money on something you actually need this week",
-        "How much do you have? I'll take whatever you can give — tell me the number in your pocket and I will make the price fit it",
+        "I get it. So — gift off, my voucher on it: {currency}140. Sixty applications, one a week, a bit over {currency}2 a go. And if that is still not your week, the Peeling at {currency}100 does the same job for less",
         "Stop making excuses and invest in yourself — everybody says they are on a tight budget and then spends the same money on dinner that same evening without thinking about it twice",
-        "I get it. Here's the thing — the budget option IS the Peeling. One {currency}100 bottle is a whole year of treatments and replaces {currency}500+ in salon visits. It's actually saving you money"
+        "How much have you actually got on you? Tell me the number in your pocket and I will make the price fit whatever it is, because a small sale today beats no sale at all and at least she leaves here with something"
       ],
       optionsEs: [
         "Te entiendo — esto no es para todo el mundo, y prefiero que te gastes el dinero en algo que de verdad necesites esta semana",
-        "¿Cuánto llevas encima? Acepto lo que me puedas dar — dime la cifra que tienes en el bolsillo y ajusto el precio a eso",
+        "Te escucho. Venga — sin regalo, con mi cupón: {currency}140. Sesenta aplicaciones, una por semana, poco más de {currency}2 cada vez. Y si aun así no es tu semana, el Peeling a {currency}100 hace lo mismo por menos",
         "Deja de poner excusas e invierte en ti misma — todo el mundo dice que va justa de dinero y luego se gasta lo mismo en una cena esa misma noche sin pensárselo dos veces",
-        "Te entiendo. El caso es que la opción económica ES el Peeling. Un frasco de {currency}100 es un año entero de tratamientos y sustituye {currency}500+ en visitas al salón. De hecho te está ahorrando dinero"
+        "¿Cuánto llevas encima de verdad? Dime la cifra exacta que tienes ahí en el bolsillo y yo te ajusto el precio a lo que sea, porque una venta pequeña hoy siempre es mejor que ninguna y al menos se va de aquí con algo"
       ],
-      correctIndex: 3,
+      correctIndex: 1,
       explanation:
-        "This response validates their concern ('I get it') then completely reframes the purchase from 'expense' to 'savings.' The 'budget option IS the Peeling' is a powerful mental flip — and it points them at the product whose promo rung genuinely is {currency}100, so you are not quoting a floor price you should be holding back. When someone feels broke, offering them a way to SAVE money while still getting the product bypasses the budget objection entirely. You're not asking them to spend — you're showing them how to save.",
+        "'I'm on a tight budget' is not said at {currency}300. It comes out once you have already walked her down, so the answer is not a speech about value — it is the next rung with a reason attached: gift off, voucher on, {currency}140, and the arithmetic done on {currency}140 and nothing else. Moving her to a different product is your SECOND move, not your first: the Peeling's promo rung genuinely is {currency}100, so pointing her there costs you nothing you should be holding back. What you never do is ask her what she has in her pocket — that hands her the pen and she will write a smaller number than your floor.",
       explanationEs:
-        "Esta respuesta valida su preocupación ('te entiendo') y luego reencuadra la compra de 'gasto' a 'ahorro'. Lo de 'la opción económica ES el Peeling' es un giro mental potente — y le apunta al producto cuyo escalón de promoción es de verdad {currency}100, así que no sueltas un precio mínimo que deberías guardarte. Cuando alguien se siente sin dinero, ofrecerles una forma de AHORRAR dinero mientras obtienen el producto evade la objeción de presupuesto por completo. No les estás pidiendo que gasten — les estás mostrando cómo ahorrar."
+        "'Voy muy justa de dinero' no se dice en {currency}300. Sale cuando ya la has bajado por la escalera, así que la respuesta no es un discurso sobre el valor — es el siguiente escalón con un motivo pegado: fuera el regalo, dentro el cupón, {currency}140, y la cuenta hecha sobre {currency}140 y nada más. Cambiarla de producto es tu SEGUNDO movimiento, no el primero: el escalón de promoción del Peeling son de verdad {currency}100, así que mandarla ahí no te cuesta nada que debieras estar guardándote. Lo que no haces nunca es preguntarle cuánto lleva en el bolsillo — eso es darle el boli, y va a escribir un número más bajo que tu suelo."
     },
     {
       question:

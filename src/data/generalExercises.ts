@@ -111,9 +111,9 @@ const hesitantTouristExercise: Exercise = {
         text: '"No problem! Let me know if you need anything!" (You walk away)',
         textEs: '"¡Sin problema! ¡Avisadme si necesitáis algo!" (Te alejas)',
         feedback:
-          'You just gave up. "Let me know if you need anything" is the weakest response — 99% of people will never call you back. You lost the sale before it started.',
+          'You just gave up. "Let me know if you need anything" is the weakest thing you can say — nobody ever calls you back. You lost the sale before it started.',
         feedbackEs:
-          'Acabas de rendirte. "Avisadme si necesitáis algo" es la respuesta más débil — el 99% de la gente nunca te llamará. Perdiste la venta antes de empezar.',
+          'Acabas de rendirte. "Avisadme si necesitáis algo" es lo más flojo que puedes decir — no te llama nadie nunca. Perdiste la venta antes de empezar.',
         score: 0,
       },
       {
@@ -211,6 +211,81 @@ const priceObjectionExercise: Exercise = {
           'You dropped from {currency}300 to {currency}175 without trying Offer Option 1 ({currency}210 + gift) or Option 2 ({currency}300 + 2nd syringe free). You skipped two whole steps on the price ladder! Always work the ladder: {currency}300 → {currency}210/gift → {currency}300/2nd syringe → {currency}175 → {currency}140 → {currency}100.',
         feedbackEs:
           'Bajaste de {currency}300 a {currency}175 sin probar la Opción de Oferta 1 ({currency}210 + regalo) u Opción 2 ({currency}300 + 2ª jeringuilla gratis). ¡Te saltaste dos pasos enteros en la escalera de precios! Siempre trabaja la escalera: {currency}300 → {currency}210/regalo → {currency}300/2ª jeringuilla → {currency}175 → {currency}140 → {currency}100.',
+        score: 30,
+      },
+    ],
+  },
+};
+
+// ═════════════════════════════════════════════════════════════
+// EXERCISE 2b: The Fight at 140 — Role Play
+//
+// The companion to the exercise above, and the one that was missing.
+// A seller could finish every drill in this file and never once rehearse
+// the place a customer actually digs in. Nobody argues with you about
+// money at 300 — by the time she is arguing you have already walked her
+// down, so this one starts on the last rung before the floor.
+// Ladder (numbers only — see src/data/pricing.ts): 500 -> 300 -> 210
+// -> 175 -> 140 -> 100.
+// ═════════════════════════════════════════════════════════════
+const priceFightAt140Exercise: Exercise = {
+  id: 'ex-price-fight-140',
+  title: 'The Fight at {currency}140',
+  titleEs: 'La Pelea en {currency}140',
+  description:
+    'She is on the last rung before the floor and asks for one more discount. Practice the move that is not a number.',
+  descriptionEs:
+    'Está en el último escalón antes del suelo y te pide un descuento más. Practica el movimiento que no es un número.',
+  type: 'roleplay',
+  icon: 'Banknote',
+  xpReward: 35,
+  duration: '4 min',
+  durationEs: '4 min',
+  content: {
+    customerName: 'Dani',
+    customerProfile:
+      'A woman in her 40s who has been in your chair for twenty minutes. She said yes to both questions in the demo — she likes it, and she would use it at home. You have already taken the gift off at {currency}175 and put the voucher on at {currency}140. Her purse is open on her lap.',
+    customerProfileEs:
+      'Una mujer de unos 40 que lleva veinte minutos en tu silla. Dijo que sí a las dos preguntas de la demo — le gusta y lo usaría en casa. Ya le has quitado el regalo en {currency}175 y le has puesto el cupón en {currency}140. Tiene el monedero abierto en el regazo.',
+    scenario:
+      'Dani says: "Look, I love it, I really do. But I am on a budget this month. Can you not do a bit better than {currency}140 for me?" It is the first time she has asked. What do you do?',
+    scenarioEs:
+      'Dani dice: "Mira, me encanta, de verdad que sí. Pero este mes voy justa. ¿No me lo puedes dejar un poco mejor de {currency}140?" Es la primera vez que te lo pide. ¿Qué haces?',
+    responses: [
+      {
+        text: '"Go on then — {currency}100. That is the floor, I never do that for anybody." (You drop {currency}40 on the first ask)',
+        textEs: '"Venga, va — {currency}100. Ese es el suelo, yo eso no se lo hago a nadie." (Bajas {currency}40 a la primera petición)',
+        feedback:
+          'You just taught her that pushing works, and it took you one sentence. {currency}100 is a floor, not a step — it is for the customer who is genuinely on her way out of the door, and you get there after she has asked twice, not once. Worse, you have nothing left. She asks again and all you can say is no, which is exactly the conversation you were trying to avoid.',
+        feedbackEs:
+          'Le acabas de enseñar que empujar funciona, y has tardado una frase. {currency}100 es un suelo, no un escalón — es para la clienta que se está yendo de verdad por la puerta, y se llega ahí cuando te lo ha pedido dos veces, no una. Y encima te has quedado sin nada. Te lo pide otra vez y solo puedes decirle que no, que es justo la conversación que querías evitar.',
+        score: 20,
+      },
+      {
+        text: '"{currency}140 IS the good one, my love — that is the voucher, and I do not put that on everybody. [Slow right down] Sixty goes in that syringe, one a week, all the way to next summer. A bit over {currency}2 a time. [Beat] Tell you what: pay me cash and I will drop a Scrub in the bag for you. Deal?"',
+        textEs: '"Es que {currency}140 YA es el bueno, cariño — ese es el cupón, y no se lo pongo a todo el mundo. [Baja el ritmo] Sesenta usos en esa jeringa, uno por semana, hasta el verano que viene. Poco más de {currency}2 cada vez. [Pausa] Mira lo que hacemos: me pagas en efectivo y te meto un Exfoliante en la bolsa. ¿Trato?"',
+        feedback:
+          'PERFECT. She asked ONCE, and one ask does not buy a {currency}40 drop. So you did not give her a number — you gave her a reason the number is already good, then a trade. Note where the arithmetic is done: on {currency}140, the rung you are actually standing on, never on the {currency}300 she refused twenty minutes ago. And the Scrub costs the shop far less than the drop she was fishing for. If she asks a SECOND time, then you have a decision to make.',
+        feedbackEs:
+          'PERFECTO. Te lo ha pedido UNA vez, y una petición no compra una bajada de {currency}40. Así que no le has dado un número — le has dado un motivo por el que el número ya es bueno, y luego un intercambio. Fíjate dónde haces la cuenta: sobre {currency}140, el escalón en el que estás de verdad, nunca sobre los {currency}300 que rechazó hace veinte minutos. Y el Exfoliante le cuesta a la tienda mucho menos que la bajada que ella iba buscando. Si te lo pide una SEGUNDA vez, ahí ya tienes que decidir.',
+        score: 100,
+      },
+      {
+        text: '"Tell me what you had in mind and I will see if I can match it." (Said flat, as a real question, with no floor decided in your head)',
+        textEs: '"Dime tú qué tenías pensado y miro si te lo puedo hacer." (Dicho plano, como pregunta de verdad, sin tener decidido tu suelo)',
+        feedback:
+          'Asking her number is not the mistake — "let them win" in It Is a Market, Not a Pharmacy has you do exactly that, and it is the strongest move on the ladder. The mistake is asking it FLAT. Done properly you have already decided your floor, you ask, you let her say it, and then you hold — look at the syringe, look at the door, breathe out like it hurts — and collapse all at once with a reason, hands in the air, like she has beaten it out of you. Asked as a plain question with nothing behind it, she names a number under your floor and every figure you say after that sounds like you haggling upwards from hers.',
+        feedbackEs:
+          'Pedirle su número no es el fallo — "déjales ganar", en Esto es un Mercado, No una Farmacia, hace justo eso, y es la jugada más fuerte de la escalera. El fallo es pedirlo plano. Bien hecho ya tienes decidido tu suelo, se lo pides, dejas que lo diga, y aguantas — miras la jeringa, miras a la puerta, sueltas el aire como si te doliera — y te derrumbas de golpe con un motivo, manos arriba, como si te lo hubiera arrancado. Preguntado a secas y sin nada detrás, te dice un número por debajo de tu suelo y a partir de ahí cada cifra tuya suena a regateo hacia arriba desde la suya.',
+        score: 40,
+      },
+      {
+        text: '"{currency}140 is the price. There is nothing else I can do for you." (Arms folded, you wait)',
+        textEs: '"{currency}140 es el precio. No puedo hacer nada más por ti." (Brazos cruzados, esperas)',
+        feedback:
+          'A flat no with no reason and nothing offered. She has been sitting there twenty minutes and she has said yes twice — she is not pushing because she wants to win, she is pushing because she wants permission. Give her something that is not money: the cash price with a Scrub in the bag, a second product, anything. Holding the number is right; holding it with a folded-arms silence is how a sale that was nearly closed gets handed back to you.',
+        feedbackEs:
+          'Un no seco, sin motivo y sin ofrecer nada. Lleva veinte minutos ahí sentada y ya te ha dicho que sí dos veces — no empuja porque quiera ganar, empuja porque quiere permiso. Dale algo que no sea dinero: el precio en efectivo con un Exfoliante en la bolsa, un segundo producto, lo que sea. Aguantar el número está bien; aguantarlo con los brazos cruzados y en silencio es como se te devuelve una venta que ya estaba hecha.',
         score: 30,
       },
     ],
@@ -406,9 +481,9 @@ const peelingPriceDrill: Exercise = {
         textEs: 'Ofrecer Opción 2: "A {currency}150 incluiré nuestra Crema Día y Noche completamente gratis — eso son {currency}60 de regalo encima de tu peeling."',
         correct: false,
         explanation:
-          'Option 2 maintains the {currency}150 price by adding the Day & Night Cream free. But the customer already signaled hesitation at {currency}150 — she needs a price DROP, not just added value. Option 1 ({currency}100 + scrub) would be the better first move here.',
+          'Option 2 keeps {currency}150 and adds the Day & Night Cream. It is a real rung and it is not a stupid thing to say — but Offer 1 is simply the next beat of the pitch, the one every customer hears after the base price, so that is what she gets. Watch WHY you are moving, though: not because she went quiet, but because that is the offer. Below Offer 1 the rule changes — {currency}70 and {currency}50 are answers to an ask, and a silence is not an ask.',
         explanationEs:
-          'La Opción 2 mantiene el precio de {currency}150 añadiendo la Crema Día y Noche gratis. Pero la cliente ya mostró duda en {currency}150 — necesita una BAJADA de precio, no solo valor añadido. La Opción 1 ({currency}100 + exfoliante) sería el mejor primer movimiento aquí.',
+          'La Opción 2 mantiene los {currency}150 y añade la Crema de Día y Noche. Es un escalón real y no es ninguna tontería decirlo — pero la Oferta 1 es sencillamente el siguiente paso del pitch, el que oye toda clienta después del precio base, así que eso es lo que le toca. Ojo con el POR QUÉ te mueves: no porque se haya quedado callada, sino porque esa es la oferta. Por debajo de la Oferta 1 la regla cambia — {currency}70 y {currency}50 responden a una petición, y un silencio no es una petición.',
       },
     ],
   },
@@ -547,8 +622,8 @@ const orderPitchExercise: Exercise = {
         correctOrder: 4,
       },
       {
-        text: 'If they hesitate, offer Option 1 ({currency}210 + free gift) or Option 2 ({currency}300 + 2nd syringe free).',
-        textEs: 'Si dudan, ofrecer Opción 1 ({currency}210 + regalo gratis) u Opción 2 ({currency}300 + 2ª jeringuilla gratis).',
+        text: 'Put the two offers up as a choice: Option 1 ({currency}210 + free gift) or Option 2 ({currency}300 + 2nd syringe free). Not because they hesitated — everybody hears both.',
+        textEs: 'Poner las dos ofertas como una elección: Opción 1 ({currency}210 + regalo gratis) u Opción 2 ({currency}300 + 2ª jeringuilla gratis). No porque duden — las dos las oye todo el mundo.',
         correctOrder: 5,
       },
       {
@@ -792,6 +867,7 @@ const bodyLanguageExercise: Exercise = {
 export const generalExercises: Exercise[] = [
   hesitantTouristExercise,
   priceObjectionExercise,
+  priceFightAt140Exercise,
   giftShopperExercise,
   syringePriceDrill,
   peelingPriceDrill,

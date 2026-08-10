@@ -898,8 +898,14 @@ export const SCRIPTS: ScriptCard[] = [
     product: 'syringe',
     title: '"It is too expensive"',
     titleEs: '"Es muy caro"',
-    text: `"I hear you. In Europe this is {currency}${SYR_A}. Here in {locationName} it is {currency}${SYR_B}. And with today's offer I can do 30% off — that is {currency}${SYR_PROMO.price}. Let me see what else I can do..."`,
-    textEs: `"Te entiendo. En Europa esto cuesta {currency}${SYR_A}. Aquí en {locationName} son {currency}${SYR_B}. Y con la oferta de hoy puedo hacerte un 30% de descuento — son {currency}${SYR_PROMO.price}. Déjame ver qué más puedo hacer..."`,
+    /* This used to answer with the anchor, the base and the 30% promo — the top
+       three rungs of six. Nobody argues with you about money up there. By the
+       time those words come out of her you have already walked her down, so the
+       card is written where the fight actually happens: gift already off at
+       175, voucher on for 140, floor held back. Shrink the number you are
+       STANDING on, never the one she has already refused. */
+    text: `[You are not at the top of the ladder when you hear this — say the number you are actually on] "Too expensive next to what, my love? You are at {currency}${SYR_NO_GIFT.price} already — gift off, the syringe on its own. [Voice down, quick look at the door] Tell you what. I have a 20% voucher here and I am going to put it on you. But you are being greedy now, eh? {currency}${SYR_VOUCHER.price}. Sixty goes in that syringe, one a week, all the way to next summer — a bit over {currency}2 a time. And it dies the second you walk out of that door."`,
+    textEs: `[Cuando oyes esto ya no estás arriba de la escalera — di el número en el que estás de verdad] "¿Caro comparado con qué, cariño? Si ya estás en {currency}${SYR_NO_GIFT.price} — sin regalo, la jeringa sola. [Baja la voz, mirada rápida a la puerta] Mira lo que voy a hacer. Tengo aquí un cupón del 20% y te lo pongo. Pero qué morro tienes, ¿eh? {currency}${SYR_VOUCHER.price}. Sesenta usos en esa jeringa, uno por semana, hasta el verano que viene — poco más de {currency}2 cada vez. Y se muere en cuanto cruces esa puerta."`,
   },
   {
     id: 'r2b',
@@ -908,8 +914,12 @@ export const SCRIPTS: ScriptCard[] = [
     product: 'peeling',
     title: '"It is too expensive"',
     titleEs: '"Es muy caro"',
-    text: `"I hear you. In Europe this is {currency}${PEEL_A}. Here in {locationName} it is {currency}${PEEL_B}. And right now I can do half price — {currency}${PEEL_PROMO.price}, with a free Dead Sea scrub."`,
-    textEs: `"Te entiendo. En Europa esto cuesta {currency}${PEEL_A}. Aquí en {locationName} son {currency}${PEEL_B}. Y ahora mismo te lo puedo dejar a mitad de precio — {currency}${PEEL_PROMO.price}, con un exfoliante del Mar Muerto de regalo."`,
+    /* Same fix as r2, on the peeling ladder. She is not standing at the anchor
+       when she says this — she is at Offer 1 with the scrub in the bag. The
+       move down has a reason already built into it: the scrub comes back and
+       its value goes to her as credit. 50 stays in your pocket. */
+    text: `[Not the shelf price — the rung you are on] "You are at {currency}${PEEL_PROMO.price} already, gorgeous, with the Dead Sea scrub going in the bag with it. So listen: if the scrub is not for you I take it straight back as credit — that is {currency}${MIX_FLOOR.price} off — and the peeling on its own is {currency}${PEEL_NO_SCRUB.price}. Same bottle, same year of Sunday nights. Shall I wrap it?"`,
+    textEs: `[No el precio de la estantería — el escalón en el que estás] "Ya estás en {currency}${PEEL_PROMO.price}, guapa, con el exfoliante del Mar Muerto metido en la bolsa. Así que mira: si el exfoliante no es para ti te lo descuento como crédito — {currency}${MIX_FLOOR.price} menos — y el peeling solo se queda en {currency}${PEEL_NO_SCRUB.price}. El mismo bote, el mismo año entero. ¿Te lo envuelvo?"`,
   },
   {
     id: 'r2c',
@@ -918,8 +928,13 @@ export const SCRIPTS: ScriptCard[] = [
     product: 'scrub',
     title: '"It is too expensive"',
     titleEs: '"Es muy caro"',
-    text: `"I hear you. In Europe one of these is {currency}${MIX_A}. Here it is {currency}${MIX_B}. And with buy 2 get 1 free that is {currency}${MIX_B2G1.price} for ${MIX_B2G1.units} products — {currency}${eachOf(MIX_B2G1)} each."`,
-    textEs: `"Te entiendo. En Europa uno de estos cuesta {currency}${MIX_A}. Aquí son {currency}${MIX_B}. Y con compra 2 y llévate 1 gratis son {currency}${MIX_B2G1.price} por ${MIX_B2G1.units} productos — {currency}${eachOf(MIX_B2G1)} cada uno."`,
+    /* The old card answered "too expensive" by asking her for twice the money
+       ({currency}120 for three). On this ladder the answer to a price objection
+       is not a bigger basket and it is not a smaller number — it is buy one get
+       one, which halves what she pays each without you touching your price. The
+       30 floor stays in your pocket until she is genuinely leaving. */
+    text: `"You are haggling with me over a jar, my love. Look — one on its own is {currency}${MIX_B}, and I am not going to make you pay that for one. Buy one, get one: two of them, {currency}${MIX_B1G1.price}. One for you, one for whoever you like — {currency}${eachOf(MIX_B1G1)} each, and you have not stopped touching your hands since I put it on them." [She only wants ONE and she is genuinely leaving? Then {currency}${MIX_FLOOR.price} for the single — same money per jar, one jar out of the door instead of two. That is why you try this one first.]`,
+    textEs: `"Me estás regateando por un bote, cariño. Mira — uno solo son {currency}${MIX_B}, y no te voy a cobrar eso por uno. Compra uno y llévate otro: dos, {currency}${MIX_B1G1.price}. Uno para ti y otro para quien tú quieras — {currency}${eachOf(MIX_B1G1)} cada uno, y no paras de tocarte las manos desde que te lo puse." [¿Solo quiere UNO y se está yendo de verdad? Entonces {currency}${MIX_FLOOR.price} el individual — el mismo dinero por bote, pero sale uno por la puerta en vez de dos. Por eso esta la pruebas primero.]`,
   },
   {
     id: 'r2d',
@@ -928,8 +943,11 @@ export const SCRIPTS: ScriptCard[] = [
     product: 'nailkit',
     title: '"It is too expensive"',
     titleEs: '"Es muy caro"',
-    text: `"I hear you. In Europe this kit is {currency}${MIX_A}. Here in {locationName} it is {currency}${MIX_B}. And with buy 2 get 1 free that is {currency}${MIX_B2G1.price} for ${MIX_B2G1.units} complete kits."`,
-    textEs: `"Te entiendo. En Europa este kit cuesta {currency}${MIX_A}. Aquí en {locationName} son {currency}${MIX_B}. Y con compra 2 y llévate 1 gratis son {currency}${MIX_B2G1.price} por ${MIX_B2G1.units} kits completos."`,
+    /* Was answering a price objection by asking for double the money. Same fix
+       as r2c: buy one get one halves what each costs her and the number on your
+       list never moves. Floor held back. */
+    text: `"For everything that is in that box? One kit on its own is {currency}${MIX_B} — and I am not asking you for that. Take the kit and put a Scrub next to it, buy one get one, the pair of them {currency}${MIX_B1G1.price}. That is {currency}${eachOf(MIX_B1G1)} each and the buffer is guaranteed for life — break it, wear it out, bring it back, we swap it. Who is the second one for?"`,
+    textEs: `"¿Por todo lo que lleva esa caja? Un kit solo son {currency}${MIX_B} — y no te lo voy a cobrar. Coge el kit y ponle un Exfoliante al lado, compra uno y llévate otro, los dos por {currency}${MIX_B1G1.price}. Salen a {currency}${eachOf(MIX_B1G1)} cada uno y la lima tiene garantía de por vida — se rompe, se gasta, la traes y te la cambiamos. ¿Para quién es el segundo?"`,
   },
   {
     id: 'r3',
@@ -1227,9 +1245,12 @@ const EMERGENCY_OPENERS: EmergencyLine[] = [
 
 const EMERGENCY_CLOSES: EmergencyLine[] = [
   {
+    /* An emergency close happens at the BOTTOM of the ladder, not the top. This
+       used to offer 210 instead of 300 as a last resort, which is a rung you
+       passed twenty minutes ago. */
     id: 'ec1',
-    text: `"Today only — and I mean ONLY today — it is {currency}${SYR_PROMO.price} instead of {currency}${SYR_B}"`,
-    textEs: `"Solo hoy — y digo SOLO hoy — son {currency}${SYR_PROMO.price} en vez de {currency}${SYR_B}"`,
+    text: `"The voucher, then. {currency}${SYR_VOUCHER.price} instead of {currency}${SYR_NO_GIFT.price} — today, and only while you are stood in front of me"`,
+    textEs: `"Pues el cupón. {currency}${SYR_VOUCHER.price} en vez de {currency}${SYR_NO_GIFT.price} — hoy, y solo mientras estés aquí delante de mí"`,
   },
   {
     id: 'ec2',
@@ -1245,12 +1266,15 @@ const EMERGENCY_CLOSES: EmergencyLine[] = [
 
 const EMERGENCY_KILLERS: EmergencyLine[] = [
   {
+    /* An emergency is by definition late in the ladder, so this line is written
+       at the voucher rung with the floor named as what it is — the last thing
+       you say, to somebody who is genuinely walking. It used to quote 210. */
     id: 'ek1',
     answers: 'price',
     head: `"Too expensive"`,
     headEs: `"Muy caro"`,
-    text: `"Compared to what? A single Botox session in Europe is {currency}${SYR_A} and wears off. This is {currency}${SYR_PROMO.price} today and lasts months."`,
-    textEs: `"¿Comparado con qué? Una sola sesión de Botox en Europa cuesta {currency}${SYR_A} y se pasa. Esto son {currency}${SYR_PROMO.price} hoy y dura meses."`,
+    text: `"Compared to what, my love? One session of Botox back home is {currency}${SYR_A} and it wears off by Christmas. You are at {currency}${SYR_VOUCHER.price} with me — voucher on, gift off, a whole year in that syringe." [If she is genuinely walking, and only then] "{currency}${SYR_FLOOR.price}. That is the bottom, it is yours, and you tell nobody what you paid."`,
+    textEs: `"¿Comparado con qué, cariño? Una sesión de Bótox en tu país son {currency}${SYR_A} y se te pasa para Navidad. Conmigo estás en {currency}${SYR_VOUCHER.price} — con el cupón, sin regalo, un año entero en esa jeringa." [Si se está yendo de verdad, y solo entonces] "{currency}${SYR_FLOOR.price}. Ese es el fondo, es tuyo, y no le dices a nadie lo que has pagado."`,
   },
   {
     id: 'ek2',

@@ -1,3 +1,18 @@
+/*
+ * The six numbers this page renders were typed in by hand, one per rung, in a
+ * helper 460 lines away from the scripts that quote them. They happened to
+ * match pricing.ts — but "happened to" is the whole problem: change a rung in
+ * pricing.ts and this page keeps quoting yesterday's ladder with no build
+ * error. They are read out of the ladder now, same as every other screen.
+ */
+import { SYRINGE_LADDER } from './pricing';
+
+const RUNG = (id: string): number => {
+  const found = SYRINGE_LADDER.steps.find((s) => s.id === id);
+  if (!found) throw new Error(`pricing.ts has no syringe rung "${id}"`);
+  return found.price;
+};
+
 export interface PriceStep {
   price: string;
   label: string;
@@ -462,7 +477,7 @@ export function getLocalizedPriceSteps(
   const d = syringeData.priceSteps;
   return [
     {
-      price: `${currency}500`,
+      price: `${currency}${SYRINGE_LADDER.europeAnchor}`,
       label: isEs
         ? d.europeLabelEs
         : d.europeLabel,
@@ -478,7 +493,7 @@ export function getLocalizedPriceSteps(
       isHighlight: false,
     },
     {
-      price: `${currency}300`,
+      price: `${currency}${SYRINGE_LADDER.base}`,
       label: isEs
         ? d.locationLabelEs.replace('{locationName}', locationName)
         : d.locationLabel.replace('{locationName}', locationName),
@@ -494,7 +509,7 @@ export function getLocalizedPriceSteps(
       isHighlight: false,
     },
     {
-      price: `${currency}210`,
+      price: `${currency}${RUNG('promo')}`,
       label: isEs ? d.promoLabelEs : d.promoLabel,
       labelEs: d.promoLabelEs,
       description: isEs ? d.promoDescriptionEs : d.promoDescription,
@@ -506,7 +521,7 @@ export function getLocalizedPriceSteps(
       isHighlight: true,
     },
     {
-      price: `${currency}175`,
+      price: `${currency}${RUNG('no-gift')}`,
       label: isEs ? d.noGiftLabelEs : d.noGiftLabel,
       labelEs: d.noGiftLabelEs,
       description: isEs ? d.noGiftDescriptionEs : d.noGiftDescription,
@@ -518,7 +533,7 @@ export function getLocalizedPriceSteps(
       isHighlight: false,
     },
     {
-      price: `${currency}140`,
+      price: `${currency}${RUNG('voucher')}`,
       label: isEs ? d.voucherLabelEs : d.voucherLabel,
       labelEs: d.voucherLabelEs,
       description: isEs ? d.voucherDescriptionEs : d.voucherDescription,
@@ -531,7 +546,7 @@ export function getLocalizedPriceSteps(
       isHighlight: false,
     },
     {
-      price: `${currency}100`,
+      price: `${currency}${SYRINGE_LADDER.floor}`,
       label: isEs ? d.minimumLabelEs : d.minimumLabel,
       labelEs: d.minimumLabelEs,
       description: isEs ? d.minimumDescriptionEs : d.minimumDescription,

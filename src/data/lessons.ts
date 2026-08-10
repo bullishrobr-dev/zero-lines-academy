@@ -292,8 +292,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Reading spending power isn\'t about snobbery — it\'s about precision. Offering a {currency}300 syringe to someone with a {currency}50 budget wastes everyone\'s time. But missing a {currency}500 sale because you pitched the {currency}30 scrub to a wealthy buyer? That\'s leaving money on the table. The ability to read spending power lets you match the right product and price point to the right person.',
-      textEs: 'Leer el poder adquisitivo no es sobre esnobismo — es sobre precisión. Ofrecer una jeringa de {currency}300 a alguien con un presupuesto de {currency}50 es desperdiciar el tiempo de todos. ¿Pero perder una venta de {currency}500 porque le ofreciste el scrub de {currency}30 a un comprador adinerado? Eso es dejar dinero sobre la mesa. La habilidad de leer el poder adquisitivo te permite emparejar el producto y punto de precio correctos con la persona correcta.',
+      text: 'Reading spending power isn\'t about snobbery — it\'s about precision. And it does not tell you who to write off. Everybody hears the top of the ladder, because that is the method. What it tells you is where the fight is going to happen: with a careful spender you are not going to be arguing about {currency}300, you are going to be fighting for {currency}140, sometimes {currency}100 — and you fight just as hard for that one. Reading it the other way round costs you just as much: pitch the {currency}30 scrub at somebody in a real Cartier and you have left the whole syringe on the table.',
+      textEs: 'Leer el poder adquisitivo no va de esnobismo — va de precisión. Y no te dice a quién descartar. Todo el mundo oye la parte de arriba de la escalera, porque ese es el método. Lo que te dice es dónde va a estar la pelea: con alguien que mira el dinero no vas a discutir por {currency}300, vas a pelear por {currency}140, a veces por {currency}100 — y peleas igual de fuerte por esa. Leerlo al revés te cuesta lo mismo: le ofreces el exfoliante de {currency}30 a alguien con un Cartier de verdad y has dejado la jeringa entera encima de la mesa.',
     },
     {
             type: 'keypoint',
@@ -361,8 +361,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'The price gap is your universal equalizer. Even budget-conscious tourists perk up when they realize they\'re getting a {currency}500 product for {currency}300. Lead with the Europe price, then deliver the {locationName} price as a gift — not a discount.',
-      textEs: 'La diferencia de precio es tu ecualizador universal. Incluso los turistas conscientes del presupuesto se animan cuando se dan cuenta de que están obteniendo un producto de {currency}500 por {currency}300. Empieza con el precio de Europa, luego entrega el precio de {locationName} como un regalo — no como un descuento.',
+      text: 'The price gap is your universal equalizer — but do not expect it to close a careful spender on its own. {currency}500 into {currency}300 opens the conversation for everybody; it does not finish it for the one who is watching her money. She is going to keep talking to you until you are down at {currency}140, and that is fine, because that is where she buys. Lead with the Europe price, deliver the {locationName} price as a gift rather than a discount, and keep the rest of the ladder for the fight that is actually coming.',
+      textEs: 'La diferencia de precio es tu igualador universal — pero no esperes que cierre sola a quien mira el dinero. De {currency}500 a {currency}300 abre la conversación con cualquiera; no la termina con la que va contando. Esa va a seguir hablando contigo hasta que estés en {currency}140, y no pasa nada, porque ahí es donde compra. Empieza por el precio de Europa, dale el precio de {locationName} como un regalo y no como un descuento, y guárdate el resto de la escalera para la pelea que viene de verdad.',
     },
     {
             type: 'divider'
@@ -427,8 +427,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'tip',
-      text: 'When in doubt, lead with the syringe (flagship). If they recoil at the {currency}300 price point, you can always descale to the peeling or scrub. It\'s harder to upgrade someone who started at {currency}30 than to descale someone who started at {currency}300.',
-      textEs: 'Cuando dudes, empieza con la jeringa (producto estrella). Si se echan atrás con el precio de {currency}300, siempre puedes bajar al peeling o scrub. Es más difícil elevar a alguien que empezó en {currency}30 que bajar a alguien que empezó en {currency}300.',
+      text: 'When in doubt, lead with the syringe (flagship). A recoil at {currency}300 is not a reason to change product — the syringe has four more rungs underneath it before you ever reach for the peeling or the scrub, and the bottom of it is {currency}100. Work those first. It\'s harder to lift someone who started at {currency}30 than to walk down someone who started at {currency}300.',
+      textEs: 'Cuando dudes, empieza por la jeringa (el producto estrella). Que se echen atrás con {currency}300 no es motivo para cambiar de producto — la jeringa tiene cuatro escalones más por debajo antes de que toques el peeling o el exfoliante, y el último es {currency}100. Trabájalos primero. Es más difícil subir a quien empezó en {currency}30 que bajar a quien empezó en {currency}300.',
     },
     {
             type: 'quote',
@@ -817,13 +817,13 @@ export const lessons: Record<string, Lesson> = {
             type: 'numbered',
       items: [
         'INCLUDE HIM EARLY: Don\'t wait until the close. From the moment they\'re inside, make eye contact with him. Ask his opinion. \'Sir, you see what I mean about the eye area? You know how she sometimes says she looks tired even after sleeping well?\' This makes him an expert on HIS partner, not just an observer of your sale.',
-        'APPEAL TO HIS LOGIC: Men often respond to practical benefits. \'This lasts a whole year — one syringe, 52 treatments. That\'s less than {currency}6 per week for this result.\' Logic defuses skepticism.',
+        'APPEAL TO HIS LOGIC: A partner who has started doing sums out loud is not a top-of-the-ladder problem — by then you have already walked down, so answer him with the number you are actually standing on. \'One syringe is her whole year — about sixty treatments in there. At {currency}140 that is a bit over {currency}2 a go, and it is still working in June.\' Logic defuses skepticism.',
         'MAKE HIM THE HERO: Frame the purchase as something HE can give her. \'Imagine her waking up every morning looking this fresh — and she\'ll know it\'s because of you.\' Men love being the source of their partner\'s happiness.',
         'HUMOR DISARMS: A light joke directed at him breaks tension. \'Sir, don\'t worry — we\'re not changing her face, just making her eyes look like she slept twelve hours.\' Humor makes him smile, and a smiling man doesn\'t veto.'
       ],
       itemsEs: [
           'INCLÚYELO DESDE EL PRINCIPIO: No esperes hasta el cierre. Desde el momento en que están dentro, haz contacto visual con él. Pregúntale su opinión. "Señor, ¿ve lo que digo sobre el área del ojo? ¿Sabe cómo ella a veces dice que se ve cansada incluso después de dormir bien?" Esto lo convierte en experto sobre SU pareja, no solo en observador de tu venta.',
-          'APELA A SU LÓGICA: Los hombres a menudo responden a beneficios prácticos. "Esto dura todo un año — una jeringa, 52 tratamientos. Eso es menos de {currency}6 por semana por este resultado." La lógica desactiva el escepticismo.',
+          'APELA A SU LÓGICA: Una pareja que se pone a echar cuentas en voz alta no es un problema de arriba de la escalera — a esas alturas ya has bajado, así que contéstale con el número en el que estás de verdad. "Una jeringa le dura el año entero — ahí dentro hay unos sesenta tratamientos. A {currency}140 sale a poco más de {currency}2 cada uno, y en junio sigue funcionando." La lógica desactiva el escepticismo.',
           'HÁZLO EL HÉROE: Presenta la compra como algo que ÉL puede darle. "Imagínatela despertando cada mañana viéndose así de fresca — y ella sabrá que es gracias a ti." A los hombres les encanta ser la fuente de la felicidad de su pareja.',
           'EL HUMOR DESARMA: Una broma ligera dirigida a él rompe la tensión. "Señor, no se preocupe — no le cambiamos la cara, solo hacemos que sus ojos se vean como si hubiera dormido doce horas." El humor lo hace sonreír, y un hombre que sonríe no veta.',
         ],
@@ -1546,8 +1546,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: 'Customer: \'How long does one syringe last?\' (Buying signal!) You: \'A full year of treatments — 52 weeks. That\'s less than {currency}6 per week for this result. Shall I set one aside for you?\' Direct close. Don\'t oversell past this point.',
-      textEs: 'Cliente: \'¿Cuánto dura una jeringa?\' (¡Señal de compra!) Tú: \'Un año completo de tratamientos — 52 semanas. Eso es menos de {currency}6 por semana por este resultado. ¿Te guardo una?\' Cierre directo. No vendas de más después de este punto.',
+      text: 'Customer: \'How long does one syringe last?\' (Buying signal!) You: \'A full year — about sixty treatments in that one syringe. At {currency}300 that is five a go. Shall I wrap one for you?\' Direct close. Don\'t oversell past this point — and if she comes back at you on the number, that is when the ladder starts, not before.',
+      textEs: 'Cliente: \'¿Cuánto dura una jeringa?\' (¡Señal de compra!) Tú: \'Un año entero — unos sesenta tratamientos en esa jeringa. A {currency}300 sale a cinco cada uno. ¿Te la envuelvo?\' Cierre directo. No vendas de más a partir de aquí — y si te discute el número, ahí es donde empieza la escalera, no antes.',
     },
     {
             type: 'tip',
@@ -2077,15 +2077,15 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        'OPTION 1 — THE VALUE CHOICE: Lower price point with a smaller gift or no gift. This captures budget-conscious buyers. Example: Syringe at {currency}210 + one gift.',
+        'OPTION 1 — THE VALUE CHOICE: Lower price point with a smaller gift or no gift. Example: Syringe at {currency}210 + one gift. This is the cheaper of your two OPENING options — it is not the answer to a small budget. That answer lives further down the ladder.',
         'OPTION 2 — THE FULL CHOICE: Standard or higher price with a bigger gift or added value. This captures buyers who want the complete experience. Example: Syringe at {currency}300 + second syringe free.',
-        'THE CONTRAST: The gap between options should be clear but not extreme. {currency}210 vs {currency}300 is a meaningful difference. {currency}210 vs {currency}250 is too close — it creates decision paralysis.',
+        'THE CONTRAST: The gap between options should be clear but not extreme. {currency}210 vs {currency}300 is a meaningful difference. Do not put {currency}210 next to {currency}175 — that is the next rung down, and a rung is something you walk to with a reason, never a second item on a menu.',
         'THE DEFAULT: If you sense hesitation, guide them toward Option 1: \'Most people start with Option 1 — it\'s a great entry point.\' This simplifies their decision.'
       ],
       itemsEs: [
-          'OPCIÓN 1 — LA OPCIÓN DE VALOR: Punto de precio más bajo con un regalo más pequeño o sin regalo. Esto captura a compradores conscientes del presupuesto. Ejemplo: Jeringa en {currency}210 + un regalo.',
-          'OPCIÓN 2 — LA OPCIÓN COMPLETA: Precio estándar o más alto con un regalo más grande o valor agregado. Esto captura a compradores que quieren la experiencia completa. Ejemplo: Jeringa en {currency}300 + segunda jeringa gratis.',
-          'EL CONTRASTE: La brecha entre opciones debe ser clara pero no extrema. {currency}210 vs {currency}300 es una diferencia significativa. {currency}210 vs {currency}250 está demasiado cerca — crea parálisis de decisión.',
+          'OPCIÓN 1 — LA OPCIÓN DE VALOR: Precio más bajo con un regalo más pequeño o sin regalo. Ejemplo: Jeringa en {currency}210 + un regalo. Esta es la más barata de tus dos opciones DE SALIDA — no es la respuesta a un presupuesto justo. Esa respuesta está más abajo en la escalera.',
+          'OPCIÓN 2 — LA OPCIÓN COMPLETA: Precio estándar o más alto con un regalo más grande o valor añadido. Esto capta a quien quiere la experiencia completa. Ejemplo: Jeringa en {currency}300 + segunda jeringa gratis.',
+          'EL CONTRASTE: La diferencia entre opciones debe ser clara pero no extrema. {currency}210 frente a {currency}300 es una diferencia que se nota. No pongas {currency}210 al lado de {currency}175 — ese es el escalón siguiente, y a un escalón se baja con un motivo, nunca es el segundo plato de una carta.',
           'LA OPCIÓN POR DEFECTO: Si sientes hesitación, guíalos hacia la Opción 1: \'La mayoría empieza con la Opción 1 — es un excelente punto de entrada.\' Esto simplifica su decisión.',
         ],
     },
@@ -2151,13 +2151,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'CLEAR BUDGET CONSTRAINT: If they visibly hesitate at {currency}300, immediately pivot to {currency}210. Don\'t make them reject both options.',
+        'CLEAR BUDGET CONSTRAINT: She has told you money is tight. Do not read that as "show her Option 1" — {currency}210 is your second opening offer, not a budget answer and it will not touch her. It means this conversation is going to finish around {currency}140, maybe {currency}100. Present the two options anyway, because that is the method, then walk the ladder properly: she asks, you pause, you give a reason, you move one rung. Nobody gets shown the door for having a small budget.',
         'CLEAR GIFT SHOPPER: If they\'re buying for three sisters, Option 2 (Buy 2 Get 1) is obvious. Don\'t overcomplicate.',
         'CLEAR PREMIUM BUYER: If they\'re carrying luxury bags and show zero price sensitivity, lead with Option 2 or even an upsell beyond it.',
         'UNCERTAIN BUYER: When genuinely unsure, default to Option 1. It\'s easier to say yes to, and they can always upgrade later.'
       ],
       itemsEs: [
-          'RESTRICCIÓN DE PRESUPUESTO CLARA: Si dudan visiblemente ante {currency}300, pivota inmediatamente a {currency}210. No los hagas rechazar ambas opciones.',
+          'PRESUPUESTO JUSTO Y CLARO: Te ha dicho que el dinero va contado. No lo leas como "enséñale la Opción 1" — {currency}210 es tu segunda oferta de salida, no la respuesta a un presupuesto ajustado y a ella no la toca. Significa que esta conversación va a terminar por {currency}140, quizá por {currency}100. Preséntale las dos opciones igualmente, porque ese es el método, y luego baja la escalera como toca: ella pide, tú haces una pausa, das un motivo y bajas un escalón. A nadie se le enseña la puerta por tener poco presupuesto.',
           'COMPRADOR DE REGALOS CLARO: Si están comprando para tres hermanas, la Opción 2 (Compra 2 Lleva 1) es obvia. No la compliques.',
           'COMPRADOR PREMIUM CLARO: Si traen bolsas de lujo y muestran cero sensibilidad al precio, empieza con la Opción 2 o incluso una venta adicional más allá.',
           'COMPRADOR INCIERTO: Cuando estén genuinamente inseguros, usa la Opción 1 por defecto. Es más fácil decir que sí, y siempre pueden mejorar después.',
@@ -2231,8 +2231,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'keypoint',
-      text: 'The gradual descent: Start high, observe reactions, remove gifts to lower the price, but NEVER go below your floor price. Each step down should feel like a personalized solution, not a desperate discount.',
-      textEs: 'El descenso gradual: Empieza alto, observa las reacciones, quita regalos para bajar el precio, pero NUNCA bajes de tu precio mínimo. Cada paso hacia abajo debería sentirse como una solución personalizada, no como un descuento desesperado.',
+      text: 'The gradual descent: start high, wait to be ASKED, then remove a gift and come down one rung with a reason attached — and NEVER below your floor. Two things sellers get wrong here. They move on a facial expression instead of a question, which hands over money nobody asked for. And they answer "I am on a budget" as if it arrived at the top of the ladder. It never does. By the time anyone says that out loud you have already come down, so you are not defending {currency}300 — you are fighting for {currency}140, and sometimes for {currency}100.',
+      textEs: 'El descenso gradual: empieza arriba, espera a que te lo PIDAN, y entonces quita un regalo y baja un escalón con un motivo detrás — y NUNCA por debajo de tu mínimo. Aquí hay dos cosas que se hacen mal. Bajar por una cara en vez de por una pregunta, que es regalar dinero que nadie te ha pedido. Y contestar al "voy justa de dinero" como si eso llegara arriba de la escalera. No llega nunca. Cuando alguien dice eso en voz alta ya has bajado, así que no estás defendiendo {currency}300 — estás peleando por {currency}140, y a veces por {currency}100.',
     },
     {
             type: 'divider'
@@ -2285,22 +2285,27 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        'STEP 1 — FULL OFFER: Present both options at full value. \'Option 1: {currency}210 with a gift. Option 2: {currency}300 with two syringes and creams.\' This is your ceiling.',
-        'STEP 2 — REMOVE THE GIFT: If they hesitate on {currency}210: \'You know what, let me make it easier. I\'ll take away the gift — that\'s {currency}35 value — and bring the syringe to {currency}175.\' They save money; you lose a gift, not margin.',
-        'STEP 3 — THE VOUCHER CLOSE: If they still hesitate: \'Alright, I can do something a bit crazy — just this once. With a 20% voucher, I can bring the single syringe to {currency}140. But only on the single one, not the combo.\' This feels exclusive and final.',
-        'STEP 4 — THE FLOOR: Your absolute minimum is {currency}100 on the syringe — {currency}140 is the voucher rung, not the bottom. Know both and never cross the floor. If they won\'t buy at {currency}100, they weren\'t going to buy at any price. Let them go graciously.'
+        'STEP 1 — FULL OFFER: Present both options at full value. \'Option 1: {currency}210 with a gift. Option 2: {currency}300 with two syringes and creams.\' Say it warm, say it flat, then stop talking. This is your ceiling and everybody starts here — including the woman who has already told you money is tight.',
+        'STEP 2 — REMOVE THE GIFT, ONCE SHE ASKS: A face is not an ask. Wait until she has actually asked you for a better price, and asked twice. Then pause, look at the box, breathe out like it hurts, and give her a reason: \'Go on then — my last customer only took the one. I\'ll pull the gift out, that\'s {currency}35, and do it at {currency}175 for you.\' She saves money; you lose a gift, not margin.',
+        'STEP 3 — THE VOUCHER CLOSE, {currency}140: This is where the budget conversation actually happens — not up at {currency}300. She has pushed again, so drop your voice, glance at the door, make it a secret: \'Alright, I can do something a bit crazy, just this once. With a voucher, {currency}140. But you\'re being greedy — and only on the single, not the combo.\' There is no real voucher. It is the reason you needed in order to come down, invented on the spot, and it never leaves the shop with her.',
+        'STEP 4 — THE FLOOR, {currency}100: {currency}140 is the voucher rung; {currency}100 is the wall. Down here the arithmetic does more work than the theatre, so say it out loud — one syringe, about sixty treatments, a whole year, under {currency}2 a go. And hand the number over like it cost you something, because a last price that arrives easily does not sound like a last price. Never cross the floor. If she has fought you all the way to {currency}100 and still says no, and you have honestly given it everything, that is the one time you let her go — a last resort, never a plan.'
       ],
       itemsEs: [
-          'PASO 1 — OFERTA COMPLETA: Presenta ambas opciones a valor completo. \'Opción 1: {currency}210 con regalo. Opción 2: {currency}300 con dos jeringas y cremas.\' Este es tu techo.',
-          'PASO 2 — QUITA EL REGALO: Si dudan con {currency}210: \'Sabes qué, déjame hacerlo más fácil. Quito el regalo — eso es un valor de {currency}35 — y dejo la jeringa en {currency}175.\' Ellos ahorran dinero; tú pierdes un regalo, no margen.',
-          'PASO 3 — EL CIERRE CON VOUCHER: Si aún dudan: \'Está bien, puedo hacer algo un poco loco — solo esta vez. Con un voucher del 20%, puedo dejar la jeringa individual en {currency}140. Pero solo en la individual, no en el combo.\' Esto se siente exclusivo y definitivo.',
-          'PASO 4 — EL PISO: Tu mínimo absoluto son {currency}100 en la jeringa — {currency}140 es el peldaño del cupón, no el fondo. Conoce los dos y nunca cruces el piso. Si no compran en {currency}100, no iban a comprar a ningún precio. Déjalos ir amablemente.',
+          'PASO 1 — OFERTA COMPLETA: Presenta las dos opciones a valor completo. \'Opción 1: {currency}210 con regalo. Opción 2: {currency}300 con dos jeringas y cremas.\' Dilo con calor, dilo plano y luego cállate. Este es tu techo y aquí empieza todo el mundo — también la que ya te ha dicho que va justa de dinero.',
+          'PASO 2 — QUITA EL REGALO, CUANDO TE LO PIDA: Una cara no es una petición. Espera a que te pida un precio mejor de verdad, y que te lo pida dos veces. Entonces haz una pausa, mira la caja, suelta el aire como si doliera y dale un motivo: \'Venga, va — mi última clienta se llevó solo una. Te quito el regalo, que son {currency}35, y te la dejo en {currency}175.\' Ella ahorra dinero; tú pierdes un regalo, no margen.',
+          'PASO 3 — EL CIERRE CON CUPÓN, {currency}140: Aquí es donde pasa de verdad la conversación del presupuesto — no arriba en {currency}300. Ha vuelto a empujar, así que baja la voz, mira a la puerta y haz que sea un secreto: \'Vale, puedo hacer una cosa un poco loca, solo por esta vez. Con un cupón, {currency}140. Pero estás siendo codiciosa — y solo en la individual, no en el combo.\' No existe ningún cupón. Es el motivo que necesitabas para bajar, inventado en el momento, y no sale nunca de la tienda con ella.',
+          'PASO 4 — EL SUELO, {currency}100: {currency}140 es el escalón del cupón; {currency}100 es el muro. Aquí abajo las cuentas trabajan más que el teatro, así que dilo en voz alta — una jeringa, unos sesenta tratamientos, un año entero, menos de {currency}2 cada vez. Y entrégale el número como si te costara algo, porque un último precio que llega fácil no suena a último precio. No cruces nunca el suelo. Si te ha peleado hasta {currency}100 y aun así dice que no, y tú de verdad lo has dado todo, esa es la única vez que la dejas marchar — último recurso, nunca un plan.',
         ],
     },
     {
             type: 'script',
-      text: '\'So Option 1 is {currency}210 with a gift...\' [Watch their face. Shock?] \'...or, you know what, let me remove the gift — that\'s {currency}35 — and bring it to {currency}175 just for you.\' [Watch again. Still hesitant?] \'Listen, I just checked, and I can do a one-time voucher that brings it to {currency}140. But just this once, and only on the single syringe.\' Three steps, each feeling like a personal favor.',
-      textEs: '\'Entonces la Opción 1 es {currency}210 con regalo...\' [Observa su rostro. ¿Sorpresa?] \'...o, sabes qué, déjame quitar el regalo — son {currency}35 — y dejarlo en {currency}175 solo para ti.\' [Observa otra vez. ¿Aún dudosos?] \'Escucha, acabo de revisar, y puedo hacer un voucher de una sola vez que lo deja en {currency}140. Pero solo esta vez, y solo en la jeringa individual.\' Tres pasos, cada uno sintiéndose como un favor personal.',
+      text: '\'Option 1 is {currency}210 with the gift. Option 2 is {currency}300 and the second syringe comes with it.\' [Now stop talking.] — \'Is that the best you can do?\' That is once. Laugh it off: \'Whoa, whoa. I\'ve known you thirty seconds and you\'re already robbing me.\' — She asks again. That is twice, and NOW you move, once, with a reason on it: [pause, look at the box, breathe out] \'Go on then. My last customer only took the one. I\'ll pull the gift out, that\'s {currency}35, and do it at {currency}175 for you.\' Then stop talking again. One ask, one laugh, one rung.',
+      textEs: '\'La Opción 1 son {currency}210 con el regalo. La Opción 2 son {currency}300 y la segunda jeringa va incluida.\' [Y ahora te callas.] — \'¿Es lo mejor que puedes hacer?\' Eso es una. Quítatelo de encima con guasa: \'Eh, eh. Hace treinta segundos que te conozco y ya me estás robando.\' — Te lo vuelve a pedir. Eso son dos, y AHORA te mueves, una vez, con un motivo encima: [pausa, mira la caja, suelta el aire] \'Venga, va. Mi última clienta se llevó solo una. Te quito el regalo, que son {currency}35, y te la dejo en {currency}175.\' Y te callas otra vez. Una petición, una risa, un escalón.',
+    },
+    {
+            type: 'script',
+      text: 'And when she pushes a third time — this is the one that matters, because this is where the money conversation actually ends. Voice down, quick look at the door, lean in: \'Alright. I can do something a bit crazy, just this once. With a voucher — {currency}140. But you\'re being greedy, and I can only do it on the single one.\' Then hands off the table and let her have it. You are not announcing a discount, you are letting her win something. If she has genuinely fought you past that, {currency}100 is the wall — one syringe, sixty treatments, under {currency}2 a go — and you hand it over like it hurt.',
+      textEs: 'Y cuando empuje una tercera vez — esta es la que importa, porque aquí es donde se acaba de verdad la conversación del dinero. Baja la voz, mirada rápida a la puerta, acércate un poco: \'Vale. Puedo hacer una cosa un poco loca, solo por esta vez. Con un cupón — {currency}140. Pero estás siendo codiciosa, y solo te lo puedo hacer en la individual.\' Y luego manos fuera de la mesa y déjaselo. No estás anunciando un descuento, le estás dejando ganar algo. Si de verdad te ha peleado más allá de eso, {currency}100 es el muro — una jeringa, sesenta tratamientos, menos de {currency}2 cada vez — y se lo entregas como si te doliera.',
     },
     {
             type: 'divider'
@@ -2317,8 +2322,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'comparison',
-      left: { label: 'Descale (Drop Price)', text: 'Use when: Customer shows price shock, mentions budget constraints, seems genuinely interested but can\'t afford the price, is comparing to a cheaper alternative. Remove gifts gradually to find their price point.' },
-      leftEs: { label: 'Reducir (Bajar Precio)', text: 'Úsalo cuando: El cliente muestra sorpresa por el precio, menciona restricciones de presupuesto, parece genuinamente interesado pero no puede pagar el precio, está comparando con una alternativa más barata. Quita regalos gradualmente para encontrar su punto de precio.' },
+      left: { label: 'Descale (Drop Price)', text: 'Use when: she has ASKED you for a better price — and asked twice. Not when she pulls a face, not when she goes quiet, not when she looks like she cannot afford it. A face is not an ask, and money you hand over unasked teaches her the numbers move whenever she pushes. Then read what "money is tight" actually means: not that you should jump, but that this one is going to finish at {currency}140 or {currency}100. So go one rung at a time, put a reason on every rung, and keep something in your hand for the next ask.' },
+      leftEs: { label: 'Reducir (Bajar Precio)', text: 'Úsalo cuando: te haya PEDIDO un precio mejor — y te lo haya pedido dos veces. No cuando pone una cara, no cuando se queda callada, no cuando parece que no puede pagarlo. Una cara no es una petición, y el dinero que sueltas sin que te lo pidan le enseña que los números se mueven cada vez que empuja. Y luego lee lo que significa de verdad "voy justa": no que tengas que saltar, sino que esta acaba en {currency}140 o en {currency}100. Así que baja de escalón en escalón, pon un motivo en cada uno y guárdate algo para la siguiente petición.' },
       right: { label: 'Upscale (Add Value)', text: 'Use when: Customer shows no price sensitivity, carries luxury bags, expresses love for the product, is buying gifts for multiple people. Add a cream, add a second syringe, create a bundle. They\'re willing to spend — help them.' },
       rightEs: { label: 'Subir (Añadir Valor)', text: 'Úsalo cuando: el cliente no muestra sensibilidad al precio, lleva bolsas de lujo, dice que le encanta el producto, está comprando regalos para varias personas. Añade una crema, añade una segunda jeringa, monta un pack. Están dispuestos a gastar — ayúdales.' }
     },
@@ -2337,8 +2342,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'Listen, I know, I know. Let me make it easy — I\'ll take the Scrub out and put its value straight back to you as credit. That brings it to {currency}70 for you.\' The word \'credit\' makes them feel clever for saving. Not skint for hesitating.',
-      textEs: '\'Mira, ya lo sé, ya lo sé. Deja que te lo ponga fácil — te saco el Exfoliante y te devuelvo su valor como crédito. Eso te lo deja en {currency}70.\' La palabra \'crédito\' les hace sentirse listos por ahorrar. No pobres por dudar.',
+      text: 'That is the peeling coming off its {currency}100 offer, where the Scrub rides along as the gift: \'Listen, I know, I know. Let me make it easy — I\'ll take the Scrub out and put its value straight back to you as credit. That brings it to {currency}70 for you.\' The word \'credit\' makes them feel clever for saving. Not skint for hesitating. One rung, and only after they have asked.',
+      textEs: 'Eso es el peeling bajando de su oferta de {currency}100, donde el Exfoliante va incluido como regalo: \'Mira, ya lo sé, ya lo sé. Deja que te lo ponga fácil — te saco el Exfoliante y te devuelvo su valor como crédito. Eso te lo deja en {currency}70.\' La palabra \'crédito\' les hace sentirse listos por ahorrar. No pobres por dudar. Un escalón, y solo después de que lo hayan pedido.',
     },
     {
             type: 'divider'
@@ -2679,14 +2684,14 @@ export const lessons: Record<string, Lesson> = {
         '\'Since you\'re already doing the eyes, let\'s give the rest of the face a glow too.\' — Natural extension from one product to related areas.',
         '\'You know what would make this even better? The body butter with the same Dead Sea minerals. Your hands felt amazing — imagine your whole body.\' — Sensory bridge.',
         '\'Since you\'re buying for your mom, what about your sister? The Nail Kit is perfect for her too, and it\'s small enough to travel with.\' — Gift expansion.',
-        '\'This is our most popular combo — the peeling for weekly treatment and the scrub for your body. Together they\'re {currency}X, which saves you {currency}Y.\' — Bundle logic.',
+        '\'This is our most popular combo — the peeling for your face once a week, the scrub for your body. The peeling on its own is {currency}150. The two together are {currency}100. You pay less than the peeling costs and you walk out with both.\' — Bundle logic, with the real numbers on it.',
         '\'You clearly love quality skincare. Can I show you what I personally use with this? It\'s my secret weapon.\' — Personal recommendation bridge.'
       ],
       itemsEs: [
           '"Ya que estás haciendo los ojos, vamos a darle brillo al resto del rostro también." — Extensión natural de un producto a áreas relacionadas.',
           '"¿Sabes qué haría esto aún mejor? La crema corporal con los mismos minerales del Mar Muerto. Tus manos se sintieron increíbles — imagina todo tu cuerpo." — Puente sensorial.',
           '"Ya que estás comprando para tu mamá, ¿qué tal tu hermana? El Kit de Uñas también es perfecto para ella, y es lo suficientemente pequeño para viajar." — Expansión de regalo.',
-          '"Este es nuestro combo más popular — el peeling para tratamiento semanal y el exfoliante para tu cuerpo. Juntos cuestan {currency}X, lo que te ahorra {currency}Y." — Lógica de paquete.',
+          '"Este es nuestro combo más popular — el peeling para la cara una vez por semana, el exfoliante para el cuerpo. El peeling solo son {currency}150. Los dos juntos, {currency}100. Pagas menos de lo que cuesta el peeling y te llevas los dos." — Lógica de paquete, con los números de verdad.',
           '"Claramente te encanta el cuidado de la piel de calidad. ¿Puedo mostrarte lo que yo uso personalmente con esto? Es mi arma secreta." — Puente de recomendación personal.',
         ],
     },
@@ -2711,16 +2716,16 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        '\'Since you\'re already getting the Peeling...\' (Acknowledge their current decision — validates their choice)',
+        '\'Since you\'re already getting the Peeling...\' (Acknowledge their current decision — validates their choice. This is a customer who has said yes to the peeling and has NOT yet pushed you down the ladder. Somebody already sitting on the {currency}70 rung has had the scrub taken out on purpose; do not try to sell it back to her at a higher number.)',
         '\'...the scrub uses the same Dead Sea minerals but for your body...\' (Introduce the complementary product with familiar framing)',
         '\'...and together they create a complete weekly routine...\' (Paint the full picture — lifestyle upgrade, not just another product)',
-        '\'...I can do both for {currency}X instead of {currency}Y...\' (Add value — bundle pricing makes the upsell feel smart, not excessive)'
+        '\'...so I can do the two of them together for {currency}100, and the peeling on its own is {currency}150...\' (Add value with numbers off the ladder — never a figure you made up standing there)'
       ],
       itemsEs: [
-          '"Ya que ya estás llevando el Peeling..." (Reconoce su decisión actual — valida su elección)',
+          '"Ya que te estás llevando el Peeling..." (Reconoce su decisión y valídala. Esta es la clienta que está en el escalón de {currency}70, el que va sin el exfoliante.)',
           '"...el exfoliante usa los mismos minerales del Mar Muerto pero para tu cuerpo..." (Introduce el producto complementario con un enfoque familiar)',
           '"...y juntos crean una rutina semanal completa..." (Pinta el panorama completo — mejora de estilo de vida, no solo otro producto)',
-          '"...puedo hacer ambos por {currency}X en vez de {currency}Y..." (Agrega valor — el precio de paquete hace que la venta adicional se sienta inteligente, no excesiva)',
+          '"...así que te puedo hacer los dos juntos por {currency}100, y el peeling solo son {currency}150..." (Añade valor con números de la escalera — nunca una cifra que te inventes ahí de pie)',
         ],
     },
     {
@@ -2741,13 +2746,13 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'THE COMPLETE ROUTINE: \'This is your full face-and-body care for the year. One purchase, everything you need.\' Simplicity is compelling.',
         'THE GIFT BUNDLE: \'Three gifts, one purchase, done with Christmas shopping.\' Gift buyers love efficiency.',
-        'THE SAVINGS FRAME: \'Together they\'re {currency}X, which saves you {currency}Y versus buying separately.\' Even small savings feel smart.',
+        'THE SAVINGS FRAME: \'The peeling on its own is {currency}150. The two together are {currency}100.\' Both numbers are on the ladder, and the second one is smaller than the first, which is the whole argument. Say a number you can actually back up. A saving you invented is a saving they will not believe.',
         'THE EXPERIENCE FRAME: \'This isn\'t just products — it\'s a spa experience at home.\' Elevates the purchase from transaction to lifestyle.'
       ],
       itemsEs: [
           'LA RUTINA COMPLETA: "Este es tu cuidado completo de rostro y cuerpo para todo el año. Una compra, todo lo que necesitas." La simplicidad es convincente.',
           'EL PAQUETE DE REGALOS: "Tres regalos, una compra, listos las compras de Navidad." A los compradores de regalos les encanta la eficiencia.',
-          'EL ENFOQUE DE AHORRO: "Juntos cuestan {currency}X, lo que te ahorra {currency}Y comparado con comprar por separado." Incluso los ahorros pequeños se sienten inteligentes.',
+          'EL ENFOQUE DE AHORRO: "El peeling solo son {currency}150. Los dos juntos, {currency}100." Los dos números están en la escalera, y el segundo es más pequeño que el primero, que es todo el argumento. Di un número que puedas defender. Un ahorro inventado es un ahorro que no se creen.',
           'EL ENFOQUE DE EXPERIENCIA: "Esto no son solo productos — es una experiencia de spa en casa." Eleva la compra de transacción a estilo de vida.',
         ],
     },
@@ -3084,13 +3089,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        '\'IT\'S TOO EXPENSIVE\' → \'Listen, I know, I know. But look at it properly: this lasts you the year. That is less than {currency}3 a week — cheaper than your coffee, and it is still working in June. Which of the two suits you better?\' (Shrink it to what it costs a week, then give them a choice.)',
+        '\'IT\'S TOO EXPENSIVE\' → \'Listen, I know, I know. But look at where we are: {currency}140 for the whole year. Sixty treatments in that syringe — a bit over {currency}2 each, cheaper than your coffee, and it is still working in June. Which of the two suits you better?\' (Nobody says this at the top of the ladder, so say the number you are ACTUALLY on and shrink that one. Standing on {currency}175? Say {currency}175 — just under {currency}3 a treatment. The arithmetic only works if it matches the rung.)',
         '\'I CAN GET CHEAPER ONLINE\' → \'Course you can. Can you try it first though? See it on your own face, in two minutes, before you spend a penny? That is what you are paying for. Try getting that off a website.\' (Trying it is the bit the internet cannot do.)',
         '\'I WASN\'T PLANNING TO SPEND THIS MUCH TODAY\' → \'Nobody ever is — my last customer wasn\'t either! She tried it, saw her own eye in the mirror, and that was the end of it. This is not something you replace next month. Want to see what she saw?\' (Normalise it, then hand it straight back to curiosity.)',
         '\'I DON\'T HAVE CASH\' → \'Not a problem at all — cards, Apple Pay, Google Pay, whatever you have got on you.\' (Kill the payment barrier before it grows legs.)'
       ],
       itemsEs: [
-          '"ES DEMASIADO CARO" → "Mira, ya lo sé, ya lo sé. Pero míralo bien: esto te dura el año. Son menos de {currency}3 a la semana — más barato que tu café, y en junio sigue funcionando. ¿Cuál de las dos te va mejor?" (Redúcelo a lo que cuesta por semana y dales a elegir.)',
+          '"ES DEMASIADO CARO" → "Mira, ya lo sé, ya lo sé. Pero fíjate dónde estamos: {currency}140 por todo el año. Sesenta tratamientos en esa jeringa — poco más de {currency}2 cada uno, más barato que tu café, y en junio sigue funcionando. ¿Cuál de las dos te va mejor?" (Esto no lo dice nadie arriba de la escalera, así que di el número en el que ESTÁS de verdad y encoge ese. ¿Estás en {currency}175? Di {currency}175 — algo menos de {currency}3 por tratamiento. Las cuentas solo funcionan si cuadran con el escalón.)',
           '"LO ENCUENTRO MÁS BARATO EN INTERNET" → "Claro que sí. ¿Pero lo puedes probar antes? ¿Verlo en tu propia cara, en dos minutos, antes de soltar un euro? Eso es lo que estás pagando. A ver quién te da eso en una página web." (Probarlo es lo que internet no puede hacer.)',
           '"NO TENÍA PENSADO GASTARME TANTO HOY" → "Nadie lo tiene pensado — ¡mi última clienta tampoco! Lo probó, se vio el ojo en el espejo, y se acabó la historia. Esto no es algo que cambies el mes que viene. ¿Quieres ver lo que vio ella?" (Normalízalo y devuélvelo directo a la curiosidad.)',
           '"NO LLEVO EFECTIVO" → "No pasa nada — tarjeta, Apple Pay, Google Pay, lo que lleves encima." (Quita la barrera del pago antes de que crezca.)',
@@ -5051,12 +5056,12 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'GREEN LIGHTS (PUSH): Leaning in, touching the product, asking unprompted questions about usage or price, involving their partner positively, smiling with genuine eye crinkles, touching their face while looking at the product. These customers are warm — close with confidence.',
         'YELLOW LIGHTS (GENTLE): Hesitant questions, looking at partner for approval, saying \'it\'s nice but...\', touching the product but not committing. These customers need reassurance, not pressure. Use emotional connection and logic together.',
-        'RED LIGHTS (BACK OFF): Crossed arms after price, stepping back, checking phone repeatedly, flat responses, looking around for exit, partner shaking head subtly. These customers are not buying today. Plant a seed and let them go gracefully.'
+        'RED LIGHTS (BACK OFF): Crossed arms after price, stepping back, checking phone repeatedly, flat responses, looking around for exit, partner shaking head subtly. She is not saying no, she is saying not at that number. Stop selling the product and start moving the price: drop your voice, take something out, give her a reason. Crossed arms after a price is the ladder asking to be walked, not a customer asking to leave.'
       ],
       itemsEs: [
           'LUCES VERDES (PRESIONA): Inclinarse hacia adelante, tocar el producto, hacer preguntas espontáneas sobre uso o precio, involucrar positivamente a su pareja, sonreír con arrugas genuinas alrededor de los ojos, tocarse la cara mientras miran el producto. Estos clientes están calientes — cierra con confianza.',
           'LUCES AMARILLAS (SUAVE): Preguntas vacilantes, mirar a la pareja para aprobación, decir \'está bonito pero...\', tocar el producto pero no comprometerse. Estos clientes necesitan tranquilidad, no presión. Usa la conexión emocional y la lógica juntas.',
-          'LUCES ROJAS (RETROCEDE): Brazos cruzados después del precio, dar un paso atrás, revisar el teléfono repetidamente, respuestas planas, buscando la salida, pareja moviendo la cabeza sutilmente. Estos clientes no comprarán hoy. Planta una semilla y déjalos ir con elegancia.',
+          'LUCES ROJAS (RETROCEDE): Brazos cruzados después del precio, dar un paso atrás, revisar el teléfono repetidamente, respuestas planas, buscando la salida, pareja moviendo la cabeza sutilmente. No está diciendo que no, está diciendo que a ese número no. Deja de vender el producto y empieza a mover el precio: baja la voz, quita algo, dale un motivo. Los brazos cruzados después de un precio son la escalera pidiendo que la bajes, no una clienta pidiendo irse.',
         ],
     },
     {
@@ -6353,15 +6358,15 @@ export const lessons: Record<string, Lesson> = {
         'THE REFLEX NO: Automatic, without thinking. They didn\'t even process what you said. Response: Acknowledge and re-engage with humor or curiosity.',
         'THE RUSH NO: \'No thanks, I\'m in a hurry.\' They have somewhere to be. Response: Respect the time constraint, offer a faster alternative.',
         'THE SKEPTICAL NO: \'I don\'t believe you.\' They\'ve been burned before. Response: Social proof, evidence, or a no-risk trial.',
-        'THE BUDGET NO: \'I can\'t afford it.\' Real or perceived price barrier. Response: Emphasize value, offer a lower price point, or reframe as an investment.',
-        'THE POLITE NO: \'No thank you.\' Said gently, often with a smile. They\'re not interested but are being nice. Response: Plant a seed and let them go warmly.'
+        'THE BUDGET NO: \'I can\'t afford it.\' Nobody says this at the top of the ladder — by the time it lands you have already walked her down, so you are not defending {currency}300 any more, you are fighting for {currency}140 and sometimes {currency}100. Response: say the number you are actually standing on, put a reason on the next rung down, and make that last price sound like something you bent for her — not something that was sitting there. Never say \'come back when you can\' — she does not come back.',
+        'THE POLITE NO: \'No thank you.\' Said gently, often with a smile. They are not interested YET and they are being polite about it. Response: they have not heard a price, a product or a reason — so you have not been turned down, you have been brushed past. Give them the one line you have not used and put something in their hand.'
       ],
       itemsEs: [
           'EL NO REFLEJO: Automático, sin pensar. Ni siquiera procesaron lo que dijiste. Respuesta: Reconoce y vuelve a interactuar con humor o curiosidad.',
           'EL NO POR PRISA: \'No gracias, tengo prisa.\' Tienen algún lugar al que ir. Respuesta: Respeta la limitación de tiempo, ofrece una alternativa más rápida.',
           'EL NO ESCÉPTICO: \'No te creo.\' Los han quemado antes. Respuesta: Prueba social, evidencia, o una prueba sin riesgo.',
-          'EL NO POR PRESUPUESTO: \'No me lo puedo permitir.\' Barrera de precio real o percibida. Respuesta: Enfatiza el valor, ofrece un punto de precio más bajo, o replantéalo como una inversión.',
-          'EL NO EDUCADO: \'No, gracias.\' Dicho suavemente, a menudo con una sonrisa. No están interesados pero son amables. Respuesta: Siembra una semilla y déjalos ir con calidez.',
+          'EL NO POR DINERO: \'No me lo puedo permitir.\' Esto no lo dice nadie arriba de la escalera — cuando llega ya la has bajado, así que ya no estás defendiendo {currency}300, estás peleando por {currency}140 y a veces por {currency}100. Respuesta: di el número en el que estás de verdad, pon un motivo en el escalón siguiente y haz que ese último precio suene a algo que has doblado por ella — no a algo que ya estaba ahí. Nunca \'vuelve cuando puedas\'. No vuelve.',
+          'EL NO EDUCADO: \'No, gracias.\' Dicho suavemente, a menudo con una sonrisa. TODAVÍA no están interesados y encima son educados. Respuesta: no han oído ni precio, ni producto, ni motivo — así que no te han dicho que no, te han esquivado con buenos modales. Suelta la frase que aún no has usado y ponles algo en la mano.',
         ],
     },
     {
@@ -6494,8 +6499,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'quote',
-      text: 'The salesperson who knows when to walk away earns more respect than the one who never lets go. A graceful exit plants a seed for tomorrow. A desperate chase burns every bridge.',
-      textEs: 'El vendedor que sabe cuándo alejarse gana más respeto que el que nunca suelta. Una salida elegante siembra una semilla para mañana. Una persecución desesperada quema todos los puentes.',
+      text: 'Two lines after the no, and then you are done — not because they might come back tomorrow, they will not, but because you gave that one everything it was worth and the next one is already walking towards you. A desperate chase costs you the person behind them.',
+      textEs: 'Dos frases después del no y se acabó — no porque vayan a volver mañana, que no van a volver, sino porque a esa le has dado todo lo que valía y la siguiente ya viene andando hacia ti. Perseguir a la desesperada te cuesta la persona que venía detrás.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
