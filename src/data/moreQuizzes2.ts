@@ -244,22 +244,22 @@ const quizComplimentStop: GeneralQuiz = {
       questionEs:
         "Das un cumplido y la mujer sonríe brevemente pero sigue caminando. ¿Qué debes hacer?",
       options: [
-        "Let her go — she is not interested",
-        "Walk alongside her and match her pace while talking",
-        "Shout a louder compliment to get her attention",
-        "Block her path so she has to stop"
+        "Let her go — the smile was just politeness and she has already decided",
+        "Fall in beside her, match her pace and carry on talking as you walk",
+        "Get in front of her and stand in her way so that she has to stop",
+        "Move in with the sample and go straight into the rush line"
       ],
       optionsEs: [
-        "Déjala ir — no está interesada",
-        "Caminar a su lado y igualar su paso mientras hablas",
-        "Gritar un cumplido más fuerte para llamar su atención",
-        "Bloquear su camino para que tenga que parar"
+        "Dejarla ir — la sonrisa era pura educación y ya lo ha decidido",
+        "Ponerte a su lado, igualar su paso y seguir hablando mientras andáis",
+        "Adelantarla y plantarte en medio para que tenga que pararse",
+        "Acercarte con la muestra y entrar directo con lo de la prisa"
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "A brief smile is a GREEN LIGHT. Many women will keep walking out of habit or shyness, but a smile means the compliment landed. Walk alongside, match her pace, and say something like 'I know you're busy, but I have to ask — has anyone ever shown you the Dead Sea secret?' Movement + curiosity often gets them to pause.",
+        "A quick smile IS the look, and the look is the only thing you were waiting for. Now you move: close the distance, sample up, and go straight in — \"Listen, I know you're in a rush — but can I ask you something really quick? It's just that you look so good, I have to ask what you normally use on your skin.\" What you never do is fall in beside her and walk her down the floor. You do not walk next to people. You say your piece, and later it is you who walks first and she who follows.",
       explanationEs:
-        "Una sonrisa breve es una LUZ VERDE. Muchas mujeres seguirán caminando por hábito o timidez, pero una sonrisa significa que el cumplido funcionó. Camina a su lado, iguala su paso y di algo como 'Sé que estás ocupada, pero tengo que preguntar — ¿alguien te ha mostrado el secreto del Mar Muerto?' El movimiento + curiosidad a menudo las hace detenerse."
+        "Una sonrisa rápida ES la mirada, y la mirada es lo único que estabas esperando. Ahora te mueves: acortas la distancia, muestra en alto, y directo — \"Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel.\" Lo que no haces nunca es ponerte a su lado y acompañarla pasillo abajo. Al lado de la gente no se anda. Dices lo tuyo, y luego el que anda primero eres tú y la que sigue es ella."
     },
     {
       question:

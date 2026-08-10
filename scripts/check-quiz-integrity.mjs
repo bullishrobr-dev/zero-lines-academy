@@ -29,6 +29,15 @@ const otherQs = [...bank(M2), ...bank(M1), ...bank(G)];
 const all = [...lessonQs, ...otherQs].filter(q => Array.isArray(q?.options) && q.options.length);
 console.log(`      ${lessonQs.length} lesson questions + ${otherQs.length} standalone = ${all.length} total\n`);
 
+/* A lesson's inline `quiz` is optional, because LESSON_QUIZZES overlays it and
+   an inline quiz on an overlaid lesson is unreachable code. The cost of that
+   convenience is a lesson that has neither, which offers a "Take the quiz"
+   button attached to nothing. `L.lessons` is the MERGED set, so by the time we
+   see it the overlay has already been applied — an empty quiz here means no
+   quiz anywhere. */
+const quizless = Object.values(L.lessons).filter((l) => !l.quiz?.length).map((l) => l.id);
+ck('every lesson ends up with a quiz', quizless.length === 0, quizless.join(', '));
+
 ck('every correctIndex in range', all.every(q => q.correctIndex >= 0 && q.correctIndex < q.options.length));
 ck('no empty options', all.every(q => q.options.every(o => typeof o === 'string' && o.trim())));
 

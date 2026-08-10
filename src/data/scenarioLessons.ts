@@ -1240,8 +1240,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: [To your colleague] \"Marco! Have you still got the stickers?\" [To the child] \"Marco's got the special ones — go and see!\" [To her, as he runs two metres and stays in sight] \"Right. Two minutes of quiet. Let's not waste them. Give me your hand.\"",
-        textEs: "TÚ: [A tu compañero] \"¡Marco! ¿Te quedan pegatinas?\" [Al niño] \"¡Marco tiene las especiales — ve a verlas!\" [A ella, mientras el crío corre dos metros y sigue a la vista] \"Venga. Dos minutos de tranquilidad. No los desperdiciemos. Dame la mano.\"",
+        text: "YOU: [To your colleague] \"Marco! Have you still got the stickers?\" [To the child] \"Marco's got the special ones — go and see!\" [To her, as he runs over and stays in sight] \"Right. Two minutes of quiet. Let's not waste them. Give me your hand.\"",
+        textEs: "TÚ: [A tu compañero] \"¡Marco! ¿Te quedan pegatinas?\" [Al niño] \"¡Marco tiene las especiales — ve a verlas!\" [A ella, mientras el crío va corriendo y sigue a la vista] \"Venga. Dos minutos de tranquilidad. No los desperdiciemos. Dame la mano.\"",
       },
       {
         type: "subheader",

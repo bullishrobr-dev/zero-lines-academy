@@ -434,9 +434,9 @@ const matchTechniqueExercise: Exercise = {
         term: '3-Second Rule',
         termEs: 'Regla de los 3 Segundos',
         definition:
-          'Approach the customer within 3 seconds of them entering your zone, before they form a "just looking" defense.',
+          'The second they look at you, you have three seconds to raise the sample, close the distance and speak. Hesitate and the look is gone.',
         definitionEs:
-          'Acércate al cliente en los 3 segundos siguientes a que entre en tu zona, antes de que monte la defensa del "solo miro".',
+          'En cuanto te miran, tienes tres segundos para levantar la muestra, acortar la distancia y hablar. Si dudas, la mirada se te escapa.',
       },
       {
         term: 'Europe Price Anchor',

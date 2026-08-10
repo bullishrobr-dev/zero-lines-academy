@@ -461,57 +461,75 @@ export const SCRIPTS: ScriptCard[] = [
   /*
    * The owner's own approach, dictated in his words and kept in his voice.
    *
-   * The order matters and is the whole technique: get the LOOK before you take
-   * a step, name the rush before they can use it, ask a question you cannot
-   * answer for them, then turn and walk without checking. Split into separate
+   * The order matters and is the whole technique: get the LOOK from four or
+   * five metres before you take a step, name the rush before they can use it,
+   * ask a question you cannot answer for them, then turn and walk without
+   * checking. The sample landing or not landing changes nothing — the
+   * follow-up is identical either way. Split into separate
    * cards on purpose — mid-shift a seller wants the one line they are about to
    * say, not a paragraph to find their place in.
    */
   {
+    id: 'o-ready',
+    category: 'opening',
+    title: '1. Before anybody comes',
+    titleEs: '1. Antes de que venga nadie',
+    text: `Stand where they can see you, sample already in your hand. Not flat against the wall, not planted in the middle of the walkway blocking people. Ready before you need to be ready.`,
+    textEs: `Colócate donde te vean, con la muestra ya en la mano. Ni pegado a la pared, ni plantado en mitad del paso cortándole el camino a la gente. Listo antes de que haga falta.`,
+  },
+  {
     id: 'o-look',
     category: 'opening',
-    title: '1. Get the look before you move',
-    titleEs: '1. Consigue la mirada antes de moverte',
-    text: `"Hi guys, how you doing?" — and WAIT. Do not step, do not raise the sample. Only once they look at you do you lift it and start walking towards them.`,
-    textEs: `"Hola chicos, ¿qué tal?" — y ESPERA. No des un paso, no levantes la muestra. Solo cuando te miren la levantas y empiezas a andar hacia ellos.`,
+    title: '2. Get the look before you move',
+    titleEs: '2. Consigue la mirada antes de moverte',
+    text: `Four or five metres out, while they are still walking: "Hi guys, how you doing?" — and WAIT. Do not step, do not raise the sample. Only once they look at you do you lift it and start walking towards them.`,
+    textEs: `A cuatro o cinco metros, cuando todavía vienen andando: "Hola chicos, ¿qué tal?" — y ESPERA. No des un paso, no levantes la muestra. Solo cuando te miren la levantas y empiezas a andar hacia ellos.`,
+  },
+  {
+    id: 'o-coin',
+    category: 'opening',
+    title: '3. The sample is a coin toss',
+    titleEs: '3. La muestra es cara o cruz',
+    text: `They take it, lovely. They wave it away, nothing happens — you never asked them for anything, so you have not been rejected. Either way you are still stood in front of them and you go straight into the next line.`,
+    textEs: `Si la cogen, genial. Si la apartan con la mano, no pasa nada — no les has pedido nada, así que no te han rechazado. En los dos casos sigues plantado delante de ellos y vas directo a la frase siguiente.`,
   },
   {
     id: 'o-rush',
     category: 'opening',
-    title: '2. Name the rush before they can',
-    titleEs: '2. Nombra la prisa antes que ellos',
+    title: '4. Name the rush before they can',
+    titleEs: '4. Nombra la prisa antes que ellos',
     text: `"Listen, I know you're in a rush — but can I ask you something really quick? It's just that you look so good, I have to ask what you normally use on your skin."`,
     textEs: `"Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel."`,
   },
   {
     id: 'o-gift',
     category: 'opening',
-    title: '3. The gift, then turn and walk',
-    titleEs: '3. El regalo, y date la vuelta',
-    text: `"Really? No way. You know what — I'm going to give you a small gift. You're going to love it." Then turn and walk into the shop. Do NOT look back to see if they follow.`,
-    textEs: `"¿En serio? No me lo creo. ¿Sabes qué? Te voy a dar un regalito. Te va a encantar." Luego date la vuelta y entra en la tienda. NO mires atrás para ver si te siguen.`,
+    title: '5. The gift, then turn and walk',
+    titleEs: '5. El regalo, y date la vuelta',
+    text: `"Really? No way. You know what — just because you look so amazing, I'm going to give you a small gift. I think you're going to love it." Then turn and walk into the shop. Do NOT look back to see if they follow.`,
+    textEs: `"¿En serio? No me lo creo. ¿Sabes qué? Solo porque estás guapísima, te voy a hacer un regalito. Creo que te va a encantar." Luego date la vuelta y entra en la tienda. NO mires atrás para ver si te siguen.`,
   },
   {
     id: 'o-come',
     category: 'opening',
-    title: '4. Only now, look back',
-    titleEs: '4. Ahora sí, mira atrás',
-    text: `Once you are inside, turn your head. If they have not followed: "Come, guys, don't worry — it's really quick. You're going to love it."`,
-    textEs: `Una vez dentro, gira la cabeza. Si no te han seguido: "Venid, chicos, no os preocupéis — es rapidísimo. Os va a encantar."`,
+    title: '6. Only now, look back',
+    titleEs: '6. Ahora sí, mira atrás',
+    text: `Once you are inside, turn your head. If they are still on the pavement: "Come on guys, it's two seconds, I promise. Come." Then turn back round and keep walking.`,
+    textEs: `Una vez dentro, gira la cabeza. Si siguen en la acera: "Venga chicos, son dos segundos, os lo prometo. Venid." Y date la vuelta otra vez y sigue andando.`,
   },
   {
     id: 'o-doorway',
     category: 'opening',
-    title: '5. They stop in the doorway',
-    titleEs: '5. Se paran en la puerta',
-    text: `"Come on guys, it's two seconds of your time. I promise you need to see this."`,
-    textEs: `"Venga chicos, son dos segundos de vuestro tiempo. Os prometo que tenéis que ver esto."`,
+    title: '7. Never wait in the doorway',
+    titleEs: '7. Nunca te quedes esperando en la puerta',
+    text: `Say it, turn, walk — the walking is what persuades, because now there is nothing to say no to. Do not stand there watching them decide, and never walk them in beside you. You go first and you call them to come.`,
+    textEs: `Lo dices, te giras, andas — lo que convence es el andar, porque ya no hay nada a lo que decir que no. No te quedes ahí mirando cómo lo deciden, y nunca los metas andando a tu lado. Vas tú delante y los llamas.`,
   },
   {
     id: 'o-seat',
     category: 'opening',
-    title: '6. Sit them facing the wall',
-    titleEs: '6. Siéntalos mirando a la pared',
+    title: '8. Sit them facing the wall',
+    titleEs: '8. Siéntalos mirando a la pared',
     text: `Put them in the chair facing INTO the shop, never facing the street. If they can see the pavement moving, they start thinking about being back on it.`,
     textEs: `Siéntalos mirando HACIA DENTRO de la tienda, nunca hacia la calle. Si ven el movimiento de la acera, empiezan a pensar en volver a ella.`,
   },
@@ -1107,10 +1125,10 @@ export const CIALDINI: CialdiniPrinciple[] = [
     id: 'ci1',
     name: 'Give first',
     nameEs: 'Da tú primero',
-    description: 'The little gift at the door is not generosity, it is the hook. Once they have taken something off you, walking out feels rude.',
-    descriptionEs: 'El regalito de la entrada no es generosidad, es el anzuelo. En cuanto te han cogido algo, irse sin más les da corte.',
-    apply: '"Give me your hand — this one is on me." Sample, demo, little gift, before you have asked them for anything at all.',
-    applyEs: '"Dame la mano — esto te lo regalo." Muestra, demo, detalle, antes de haberles pedido absolutamente nada.',
+    description: 'The little gift is not generosity, it is the hook. Once they have taken something off you, walking out feels rude.',
+    descriptionEs: 'El regalito no es generosidad, es el anzuelo. En cuanto te han cogido algo, irse sin más les da corte.',
+    apply: '"You know what — just because you look so amazing, I\'m going to give you a small gift. I think you\'re going to love it." Promise it out on the street to move them, hand it over once they are in the chair. Sample, demo, gift — all before you have asked them for anything at all.',
+    applyEs: '"¿Sabes qué? Solo porque estás guapísima, te voy a hacer un regalito. Creo que te va a encantar." Prométeselo en la calle para moverlos, dáselo ya sentados. Muestra, demo, regalo — todo antes de haberles pedido absolutamente nada.',
   },
   {
     id: 'ci2',
@@ -1174,7 +1192,7 @@ export const BODY_LANGUAGE: TipPair[] = [
   { id: 'bl3', term: 'Mirror their posture', termEs: 'Imita su postura', meaning: 'They relax and never know why', meaningEs: 'Se relajan y no saben por qué' },
   { id: 'bl4', term: 'Smile like you mean it', termEs: 'Sonríe como si lo sintieras', meaning: 'A mouth-only smile reads as a salesman. Smile with the eyes or do not bother', meaningEs: 'La sonrisa de solo boca suena a vendedor. Sonríe con los ojos o no sonrías' },
   { id: 'bl5', term: 'Put the product in their hand', termEs: 'Ponles el producto en la mano', meaning: 'Once they hold it, ownership starts', meaningEs: 'En cuanto lo sostienen, empieza la sensación de propiedad' },
-  { id: 'bl6', term: 'Stand at an angle, not head-on', termEs: 'Ponte de lado, no de frente', meaning: 'Less confrontational, more inviting', meaningEs: 'Menos confrontación, más cercanía' },
+  { id: 'bl6', term: 'Come at them a bit from the side', termEs: 'Acércate un poco de lado', meaning: 'Nobody likes a stranger squared up in their face. Angled, never blocking the way', meaningEs: 'A nadie le gusta un desconocido plantado en la cara. De lado, y sin cortarle el paso' },
 ];
 
 export const BUYING_SIGNALS: TipPair[] = [

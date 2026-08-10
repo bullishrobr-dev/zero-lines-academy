@@ -65,7 +65,16 @@ export interface Lesson {
   order: number;
   xpReward: number;
   sections: ContentSection[];
-  quiz: QuizQuestion[];
+  /**
+   * Optional, because LESSON_QUIZZES in lessonQuizzes.ts overlays this field
+   * (see the merge loop at the bottom of this file). A lesson with an overlay
+   * entry has no use for an inline quiz — anything written here is code the
+   * app can never render, and it has cost real work twice now.
+   *
+   * A lesson with NEITHER an inline quiz nor an overlay entry would silently
+   * offer no quiz at all, so check-quiz-integrity.mjs fails the build on that.
+   */
+  quiz?: QuizQuestion[];
 }
 
 /* Category and the categories array now live in ./categories, so that a screen
@@ -1034,12 +1043,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'TELL THEM THEY LOOK GOOD: Straight out. \'Listen, I know you\'re in a rush, but can I ask you something real quick, because you look so good?\' It works because it is warm and it is fast, and because it needs a real answer. It is the best opening line on this street.',
+        'TELL THEM THEY LOOK GOOD: Straight out. \'Listen, I know you\'re in a rush — but can I ask you something really quick? It\'s just that you look so good, I have to ask what you normally use on your skin.\' It works because it is warm and it is fast, and because the tail on the end cannot be answered with a nod. It is the best opening line on this street.',
         'OR PICK SOMETHING THEY CHOSE: The scarf, the coat, the bag, the nails. Works just as well and you can see it from three metres. Use whichever one you spot first — do not stand there hunting for the perfect one.',
         'THE ONLY ONES THAT GO WRONG: Anything you would not say with their husband standing next to you — weight, age, anything about their body. That is the whole rule; everything else is fair. Then: eye contact, smile, say it, move. Do not hang about waiting for a thank you.'
       ],
       itemsEs: [
-          'DILES QUE ESTÁN GUAPÍSIMAS: A pelo. \'Mira, sé que vas con prisa, ¿pero te puedo preguntar una cosa rapidísima? Es que te veo muy bien.\' Funciona porque es cálido y es rápido, y porque pide una respuesta de verdad. Es la mejor apertura de esta calle.',
+          'DILES QUE ESTÁN GUAPÍSIMAS: A pelo. \'Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel.\' Funciona porque es cálido y es rápido, y porque el final no se contesta con un gesto de cabeza. Es la mejor apertura de esta calle.',
           'O ALGO QUE HAYAN ELEGIDO ELLAS: El pañuelo, el abrigo, el bolso, las uñas. Funciona igual de bien y lo ves desde tres metros. Usa lo primero que pilles — no te quedes ahí buscando el detalle perfecto.',
           'LAS ÚNICAS QUE SALEN MAL: Cualquier cosa que no dirías con su marido al lado — el peso, la edad, nada del cuerpo. Esa es toda la norma; el resto vale. Y luego: mirada, sonrisa, lo dices y sigues. No te quedes ahí esperando las gracias.',
         ],
@@ -3459,8 +3468,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'Listen, I know you\'re in a rush, but can I ask you something real quick, because you look so good?\'',
-      textEs: '\'Mira, sé que vas con prisa, ¿pero te puedo preguntar una cosa rapidísima? Es que te veo muy bien.\'',
+      text: '\'Listen, I know you\'re in a rush — but can I ask you something really quick? It\'s just that you look so good, I have to ask what you normally use on your skin.\'',
+      textEs: '\'Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel.\'',
     },
     {
             type: 'tip',
@@ -3571,8 +3580,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Customers feel your energy from 5 meters away. Before they hear your voice, before they see your smile, they sense your vibration. Tired, heavy energy repels. Light, excited energy attracts. This isn\'t mystical — it\'s neuroscience. Humans have mirror neurons that cause us to emotionally sync with people around us. Your mood literally becomes their mood.',
-      textEs: 'Los clientes sienten tu energía a 5 metros de distancia. Antes de escuchar tu voz, antes de ver tu sonrisa, sienten tu vibracion. La energía cansada y pesada repele. La energía ligera y entusiasmada atrae. No es mistico — es neurociencia. Los seres humanos tenemos neuronas espejo que nos hacen sincronizarnos emocionalmente con las personas a nuestro alrededor. Tu estado de animo literalmente se convierte en el de ellos.',
+      text: 'Customers feel your energy before you have said a word. Before they hear your voice, before they see your smile, they sense your vibration. Tired, heavy energy repels. Light, excited energy attracts. This isn\'t mystical — it\'s neuroscience. Humans have mirror neurons that cause us to emotionally sync with people around us. Your mood literally becomes their mood.',
+      textEs: 'Los clientes te notan la energía antes de que digas nada. Antes de escuchar tu voz, antes de ver tu sonrisa, sienten tu vibracion. La energía cansada y pesada repele. La energía ligera y entusiasmada atrae. No es mistico — es neurociencia. Los seres humanos tenemos neuronas espejo que nos hacen sincronizarnos emocionalmente con las personas a nuestro alrededor. Tu estado de animo literalmente se convierte en el de ellos.',
     },
     {
             type: 'keypoint',
@@ -3835,13 +3844,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'checklist',
       items: [
-        'I know where to stand and when to start the approach — the 2-metre rule and the 3-second rule',
+        'I know where to stand, how to get their attention while they are still four or five metres off, and the 3-second rule once they look at me',
         'I have 3 different openers ready to go without thinking about them',
         'I\'ve practiced one demo on myself or a teammate until it\'s smooth',
         'I know my daily target and my personal best — and I\'m committed to beating it'
       ],
       itemsEs: [
-          'Sé dónde colocarme y cuándo empezar el acercamiento — la regla de 2 metros y la regla de los 3 segundos',
+          'Sé dónde colocarme, cómo llamarles la atención cuando todavía están a cuatro o cinco metros, y la regla de los 3 segundos en cuanto me miran',
           'Tengo 3 aperturas distintas listas para soltarlas sin pensar',
           'He practicado una demo conmigo mismo o con un compañero hasta que sale fluida',
           'Sé mi objetivo diario y mi mejor marca personal — y me he comprometido a superarla',
@@ -5135,215 +5144,294 @@ export const lessons: Record<string, Lesson> = {
   'stop-1': {
     id: 'stop-1',
     categoryId: 'stopping',
-    title: 'The 2-Metre Rule & Timing',
-    titleEs: 'La Regla de 2 Metros y el Timing',
-    subtitle: 'Where to stand, when to start, and why starting too late means talking to their back',
-    subtitleEs: 'Posicionamiento y momento perfecto',
-    duration: '8 min',
+    title: 'The First Sequence',
+    titleEs: 'La Primera Secuencia',
+    subtitle: 'Stood ready, get the look, close the gap, the gift, then turn and walk — the order everything else is built on',
+    subtitleEs: 'Colocado, consigue la mirada, acorta la distancia, el regalo, y date la vuelta y anda — el orden sobre el que se construye todo lo demás',
+    duration: '12 min',
     icon: 'Target',
     order: 1,
     xpReward: 100,
     sections: [
-    {
-            type: 'header',
-      text: 'Distance and Timing Determine Everything',
-      textEs: 'La distancia y el timing lo determinan todo',
-    },
-    {
-            type: 'paragraph',
-      text: 'The stop doesn\'t begin when you speak. It begins when the customer first registers your presence. Your position, your eye contact, your body language — all of these are working before your first word. Master the physical setup and your words become ten times more effective.',
-      textEs: 'La parada no empieza cuando hablas. Empieza cuando el cliente percibe tu presencia por primera vez. Tu posición, tu contacto visual, tu lenguaje corporal — todo esto está trabajando antes de tu primera palabra. Domina el setup físico y tus palabras se vuelven diez veces más efectivas.',
-    },
-    {
-            type: 'keypoint',
-      text: 'The 2-metre rule: Start your approach when the customer is 2 metres away from your zone. Any closer and they feel ambushed. Any farther and they don\'t hear you or process your presence in time.',
-      textEs: 'La regla de 2 metros: Empieza tu acercamiento cuando el cliente está a 2 metros de tu zona. Más cerca y se sienten emboscados. Más lejos y no te escuchan o no procesan tu presencia a tiempo.',
-    },
-    {
-            type: 'keypoint',
-      text: 'The 3-second rule: 2 metres is WHERE, 3 seconds is WHEN. From the moment someone enters your zone you have about three seconds to start the approach. Wait longer and they have already filed you as staff and built the \'just looking\' wall before you say a word — and the pause gives your own hesitation time to grow. Three seconds is not a rush: eye contact, smile, first word, in that order.',
-      textEs: 'La regla de los 3 segundos: los 2 metros son el DÓNDE, los 3 segundos son el CUÁNDO. Desde que alguien entra en tu zona tienes unos tres segundos para empezar el acercamiento. Si esperas más, ya te han catalogado como personal de tienda y han levantado el muro del \'solo miro\' antes de que digas nada — y esa pausa le da tiempo a tu propia duda para crecer. Tres segundos no es ir con prisa: contacto visual, sonrisa y primera palabra, en ese orden.',
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'The Optimal Door Setup',
-      textEs: 'El posicionamiento óptimo en la puerta',
-    },
-    {
-            type: 'paragraph',
-      text: 'Your physical position at the door is the foundation of every stop. Here\'s how to position for maximum effect:',
-      textEs: 'Tu posición física en la puerta es la base de cada parada. Así es como te posicionas para máximo efecto:',
-    },
-    {
-            type: 'bullets',
-      items: [
-        'STAND SLIGHTLY FORWARD: Position yourself just outside the shop entrance, not flush against the wall. You need to be in the pedestrian\'s sight line, not hidden.',
-        'ANGLE YOUR BODY: Face 45 degrees toward the street, not directly at the shop. This signals openness to passersby rather than closed-off shop posture.',
-        'VISIBLE AND ACTIVE: Hold a product, arrange a display, or offer samples. Active hands signal engagement. Hands in pockets signal boredom.',
-        'CLEAR THE PATH: Make sure the entrance is unobstructed. If people have to navigate around you, the stop feels like an obstacle, not an invitation.'
-      ],
-      itemsEs: [
-          'POSICIÓNATE LIGERAMENTE ADELANTE: Colócate justo afuera de la entrada de la tienda, no pegado a la pared. Necesitas estar en la línea de visión del peatón, no escondido.',
-          'INCLINA TU CUERPO: Enfócate a 45 grados hacia la calle, no directo a la tienda. Esto señaliza apertura a los transeúntes en vez de postura cerrada de tienda.',
-          'VISIBLE Y ACTIVO: Sostén un producto, acomoda un exhibidor, u ofrece muestras. Las manos activas señalizan compromiso. Las manos en los bolsillos señalizan aburrimiento.',
-          'DESPEJA EL CAMINO: Asegúrate de que la entrada esté despejada. Si la gente tiene que rodearte, la parada se siente como un obstáculo, no como una invitación.',
+      {
+        type: 'header',
+        text: 'The basics of the basics',
+        textEs: 'Lo básico de lo básico',
+      },
+      {
+        type: 'paragraph',
+        text: `This is the first thing you learn and the last thing you stop using. It is one move from start to finish: you are stood ready, you get their attention while they are still walking, they look, you go, you give them a reason to follow you, and you walk in. Every other lesson in this app — the compliments, the demo, the ladder, the objections — is built on top of this one. Learn it in order and the rest has somewhere to sit. Skip it and you are just a person talking on a walkway.`,
+        textEs: `Esto es lo primero que aprendes y lo último que dejas de usar. Es un solo movimiento de principio a fin: estás colocado, les llamas la atención mientras todavía andan, te miran, vas, les das un motivo para seguirte, y entras. Todo lo demás en esta app — los cumplidos, la demo, la escalera, las objeciones — se construye encima de esto. Apréndetelo en orden y el resto tiene dónde apoyarse. Sáltatelo y solo eres alguien hablando en medio del pasillo.`,
+      },
+      {
+        type: 'keypoint',
+        text: `The whole technique is an order of operations. Do the steps in the wrong order and each one stops working.`,
+        textEs: `Toda la técnica es un orden de operaciones. Haz los pasos en el orden equivocado y cada uno deja de funcionar.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 1 — Be stood ready before anybody is near you',
+        textEs: 'Paso 1 — Estate colocado antes de que nadie se acerque',
+      },
+      {
+        type: 'paragraph',
+        text: `None of the rest works if you are flat against the wall with your hands in your pockets. Before anybody is in range you want to be somewhere they can see you, with the sample already in your hand, and the way past you clear.`,
+        textEs: `Nada de lo demás funciona si estás pegado a la pared con las manos en los bolsillos. Antes de que nadie esté a tiro tienes que estar donde te vean, con la muestra ya en la mano, y el paso libre.`,
+      },
+      {
+        type: 'bullets',
+        items: [
+          'WHERE THEY CAN SEE YOU: Out in front of the kiosk, not tucked against the wall. If they have to find you, you have already lost the first second.',
+          'SAMPLE ALREADY IN YOUR HAND: Loaded before you need it, every time. You do not want to be rummaging for it while the one you wanted walks past.',
+          'NOT IN THE DOORWAY: Beside the entrance, never filling it. A person who has to squeeze past you has already decided something about you.',
+          'HANDS DOING SOMETHING: Holding the sample, sorting the stand, moving. Hands in pockets reads as bored, and bored is invisible.',
         ],
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'The 2-Metre Strike Zone',
-      textEs: 'La Zona de Ataque de 2 Metros',
-    },
-    {
-            type: 'paragraph',
-      text: 'The 2-metre zone is your optimal engagement window. Here\'s the breakdown:',
-      textEs: 'La zona de 2 metros es tu ventana óptima de acercamiento. Aquí está el desglose:',
-    },
-    {
-            type: 'numbered',
-      items: [
-        '3+ METRES: Too far. Your voice won\'t carry well against street noise. They may not visually register you. Save your energy.',
-        '2 METRES: THE SWEET SPOT. Close enough for clear communication. Far enough that they have time to process you and adjust their pace. This is where you make eye contact and begin your opener.',
-        '1 METRE: AMBUSH ZONE. Too close for comfort. They feel trapped. Starting here makes you seem aggressive or desperate. If they\'re already this close, either they came to you (great) or you missed your window.',
-        'TALKING TO THEIR BACK: If you wait until they\'ve passed you, you\'re done. A person walking away is psychologically closed off. You might as well be talking to the wall.'
-      ],
-      itemsEs: [
-          '3+ METROS: Demasiado lejos. Tu voz no se oye bien contra el ruido de la calle. Puede que ni te registren visualmente. Guarda energía.',
-          '2 METROS: EL PUNTO DULCE. Lo suficientemente cerca para comunicación clara. Lo suficientemente lejos para que tengan tiempo de procesarte y ajustar su paso. Aquí es donde haces contacto visual y empiezas tu abridor.',
-          '1 METRO: ZONA DE EMBOSCADA. Demasiado cerca para su comodidad. Se sienten atrapados. Empezar aquí te hace ver agresivo o desesperado. Si ya están tan cerca, o vinieron a ti (excelente) o perdiste tu ventana.',
-          'HABLARLE A LA ESPALDA: Si esperas hasta que ya te pasaron, estás fuera. Una persona que camina alejándose está psicológicamente cerrada. Es como hablarle a la pared.',
+        itemsEs: [
+          'DONDE TE VEAN: Delante del kiosco, no metido contra la pared. Si te tienen que buscar, ya has perdido el primer segundo.',
+          'LA MUESTRA YA EN LA MANO: Lista antes de que haga falta, siempre. No quieres estar rebuscándola mientras la que te interesaba te pasa de largo.',
+          'NO EN LA PUERTA: Al lado de la entrada, nunca tapándola. Quien tiene que colarse por un hueco para pasar ya ha decidido algo sobre ti.',
+          'LAS MANOS HACIENDO ALGO: Sujeta la muestra, coloca el expositor, muévete. Las manos en los bolsillos se leen como aburrimiento, y el aburrimiento es invisible.',
         ],
-    },
-    {
-            type: 'tip',
-      text: 'Practice judging 2 metres visually. Find a spot outside your shop and mark it mentally. Stand there and note where 2 metres ends on the pavement. After a few days, you\'ll have a natural sense of the strike zone.',
-      textEs: 'Practica calcular 2 metros visualmente. Encuentra un punto afuera de tu tienda y márcalo mentalmente. Párate ahí y nota dónde terminan los 2 metros en el pavimento. Después de unos días, tendrás un sentido natural de la zona de ataque.',
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'Eye Contact Technique',
-      textEs: 'Técnica de Contacto Visual',
-    },
-    {
-            type: 'paragraph',
-      text: 'Eye contact is the trigger. Before you speak, your eyes do the work. Here\'s how to use eye contact effectively:',
-      textEs: 'El contacto visual es el detonante. Antes de hablar, tus ojos hacen el trabajo. Así es como usas el contacto visual efectivamente:',
-    },
-    {
-            type: 'bullets',
-      items: [
-        'CATCH AND HOLD: Make eye contact 2 metres out. Hold for 1-2 seconds. Smile with your eyes. This establishes human connection before words.',
-        'DON\'T STARE DOWN: Prolonged intense eye contact feels aggressive. 1-2 seconds is enough. Then shift to a natural gaze as you begin speaking.',
-        'THE THREE-PERSON RULE: If you\'re in a group area, make brief eye contact with multiple people. Don\'t lock onto one person exclusively unless they\'re clearly solo.',
-        'READ THEIR EYES: Eyes that meet yours with curiosity = receptive. Eyes that dart away = not interested. Eyes that widen slightly = surprised but open. Adjust your opener accordingly.'
-      ],
-      itemsEs: [
-          'ATRAE Y SOSTÉN: Haz contacto visual a 2 metros. Sostén por 1-2 segundos. Sonríe con los ojos. Esto establece conexión humana antes de las palabras.',
-          'NO LOS DESCIESFES: El contacto visual intenso y prolongado se siente agresivo. 1-2 segundos es suficiente. Luego cambia a una mirada natural cuando empieces a hablar.',
-          'LA REGLA DE TRES PERSONAS: Si estás en un área de grupo, haz contacto visual breve con varias personas. No te enfoques exclusivamente en una persona a menos que esté claramente sola.',
-          'LEE SUS OJOS: Ojos que encuentran los tuyos con curiosidad = receptivo. Ojos que se desvían = no interesado. Ojos que se abren ligeramente = sorprendido pero abierto. Ajusta tu abridor en consecuencia.',
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 2 — Get their attention from four or five metres',
+        textEs: 'Paso 2 — Llámales la atención a cuatro o cinco metros',
+      },
+      {
+        type: 'paragraph',
+        text: `Before you approach anybody with the sample, get their attention. You want them looking at you BEFORE you take a single step. Not while you walk — before. And do it early, while they are still four or five metres off and still walking. Wait until they are a couple of metres away and you have left it too late: by the time they have registered you and turned their head they are already level with you, and then they are past you.`,
+        textEs: `Antes de acercarte a nadie con la muestra, consigue su atención. Quieres que te estén mirando ANTES de dar un solo paso. No mientras andas — antes. Y hazlo pronto, cuando todavía están a cuatro o cinco metros y siguen andando. Si esperas a que estén a un par de metros, ya llegas tarde: para cuando te han visto y han girado la cabeza ya están a tu altura, y acto seguido te han pasado de largo.`,
+      },
+      {
+        type: 'script',
+        text: `"Hi guys, how you doing?"`,
+        textEs: `"Hola chicos, ¿qué tal?"`,
+      },
+      {
+        type: 'paragraph',
+        text: `A greeting or a compliment — either one does the job. What matters is that it goes out while they are still coming towards you, and that you stay exactly where you are while you say it. You do not move a foot yet. You are buying one thing with that sentence: their eyes.`,
+        textEs: `Un saludo o un cumplido — cualquiera de los dos vale. Lo que importa es que salga mientras todavía vienen hacia ti, y que tú no te muevas del sitio al decirlo. Todavía no vas a ninguna parte. Con esa frase estás comprando una sola cosa: su mirada.`,
+      },
+      {
+        type: 'bullets',
+        items: [
+          'EYES UP: They have to be able to catch your eye. A seller looking at their own shoes has given them nothing to look back at.',
+          'SMILE WITH YOUR EYES: A second, maybe two, and warm. Long enough to be a person, not long enough to be a stare.',
+          'IF THERE ARE TWO OF THEM, GREET BOTH: Do not lock onto one and leave the other one standing there bored. The bored one is the one who takes her away.',
+          'READ WHAT COMES BACK: Eyes that come to yours, go. Eyes that slide off and keep going, let them go and get set for the next one — you have lost nothing, because you have not moved.',
         ],
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'The Approach Angle',
-      textEs: 'El Ángulo de Acercamiento',
-    },
-    {
-            type: 'paragraph',
-      text: 'How you physically move toward a customer matters. Different angles create different psychological effects:',
-      textEs: 'Cómo te mueves físicamente hacia un cliente importa. Diferentes ángulos crean diferentes efectos psicológicos:',
-    },
-    {
-            type: 'bullets',
-      items: [
-        'FRONTAL APPROACH: Facing them directly. Highest engagement but can feel confrontational. Best when your energy is warm and inviting, not aggressive.',
-        'SIDE ANGLE: Approaching from a slight angle (45 degrees). Less confrontational. Natural for pedestrians who are walking past. Your opener feels like a friendly comment, not an interception.',
-        'PARALLEL WALK: Walking alongside them for 1-2 steps while talking, then slowing to invite them in. Works for people walking quickly. Matches their pace before redirecting it.',
-        'THE LEAD: Starting slightly ahead of them, turning as they approach, then leading inside. This is the most natural — you\'re not blocking them, you\'re inviting them to follow.'
-      ],
-      itemsEs: [
-          'ACERCAMIENTO FRONTAL: Enfrentándolos directamente. El mayor compromiso pero puede sentirse confrontacional. Mejor cuando tu energía es cálida e invitadora, no agresiva.',
-          'ÁNGULO LATERAL: Acercándote desde un ángulo ligero (45 grados). Menos confrontacional. Natural para peatones que están caminando. Tu abridor se siente como un comentario amistoso, no como una intercepción.',
-          'CAMINATA PARALELA: Caminando junto a ellos por 1-2 pasos mientras hablas, luego frenando para invitarlos a entrar. Funciona para gente que camina rápido. Empareja su ritmo antes de redirigirlo.',
-          'EL LIDERAZGO: Empezando ligeramente adelante de ellos, girando mientras se acercan, y luego guiándolos adentro. Este es el más natural — no les estás bloqueando el paso, les estás invitando a seguirte.',
+        itemsEs: [
+          'LA MIRADA ARRIBA: Tienen que poder cruzarla contigo. Un vendedor mirándose los zapatos no les ha dejado nada a lo que mirar.',
+          'SONRÍE CON LOS OJOS: Un segundo, o dos, y con buen rollo. Lo justo para parecer una persona, no tanto como para quedarte clavado mirándola.',
+          'SI VAN DOS, SALUDA A LOS DOS: No te enganches a una y dejes al otro ahí plantado aburriéndose. El aburrido es el que se la lleva.',
+          'LEE LO QUE TE DEVUELVEN: Ojos que van a los tuyos, adelante. Ojos que se escurren y siguen, déjalos ir y prepárate para el siguiente — no has perdido nada, porque no te has movido.',
         ],
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'Timing by Customer Speed',
-      textEs: 'Timing según la Velocidad del Cliente',
-    },
-    {
-            type: 'comparison',
-      left: { label: 'Slow Walkers (Window Shoppers)', text: 'Approach early (2.5-3 metres). They have time. Use a warm, extended opener. Build rapport before the pitch. They respond to connection.' },
-      leftEs: { label: 'Caminantes Lentos (Curiosos de Escaparates)', text: 'Acércate temprano (2.5-3 metros). Tienen tiempo. Usa un abridor cálido y extendido. Construye rapport antes del pitch. Responden a la conexión.' },
-      right: { label: 'Fast Walkers (Purposeful)', text: 'Hit at exactly 2 metres with a fast, intriguing opener. \'Two seconds — you have to see this!\' They need energy and intrigue to break stride. You have 3 words to hook them.' },
-      rightEs: { label: 'Los Que Van Rápido (Con Rumbo)', text: 'Entra justo a los 2 metros con una apertura rápida e intrigante. \'¡Dos segundos — tienes que ver esto!\' Necesitan energía e intriga para romper el paso. Tienes 3 palabras para engancharlos.' }
-    },
-    {
-            type: 'tip',
-      text: 'Watch their gait. Slow, meandering walkers are in browsing mode — prime targets. Fast, straight-line walkers are on a mission — only stop if you have something extremely compelling or if they give you eye contact first.',
-      textEs: 'Observa su forma de caminar. Los que caminan lento y sin rumbo están en modo exploración — objetivos principales. Los que caminan rápido en línea recta van con una misión — solo deténlos si tienes algo extremadamente convincente o si te hacen contacto visual primero.',
-    },
-    {
-            type: 'quote',
-      text: 'A stop is like a dance invitation. Your position, timing, and eye contact set the stage. Your opener is simply asking them to dance. If the setup is wrong, the words don\'t matter.',
-      textEs: 'Una parada es como una invitación a bailar. Tu posición, timing y contacto visual preparan el escenario. Tu abridor simplemente les pide bailar. Si el setup está mal, las palabras no importan.',
-      attribution: 'Zero Lines Method',
-      attributionEs: 'Método Zero Lines',
-    }
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 3 — They look. Now you move.',
+        textEs: 'Paso 3 — Te miran. Ahora te mueves.',
+      },
+      {
+        type: 'paragraph',
+        text: `If they look at you, now you raise the sample and start walking towards them. If they do not look, you have lost nothing — you did not commit. Walking at someone who has not looked at you is how you become a person to avoid.`,
+        textEs: `Si te miran, ahora levantas la muestra y empiezas a andar hacia ellos. Si no te miran, no has perdido nada — no te has comprometido. Andar hacia alguien que no te ha mirado es cómo te conviertes en una persona a evitar.`,
+      },
+      {
+        type: 'keypoint',
+        text: `The 3-second rule: the look is the WHEN. From the moment their eyes come to you, you have about three seconds to be moving. Longer than that and it cools — they have filed you as shop staff and put the 'just looking' wall up before you get a second sentence out, and the pause gives your own hesitation time to grow. Three seconds is not a rush. It is just not a wobble.`,
+        textEs: `La regla de los 3 segundos: la mirada es el CUÁNDO. Desde que sus ojos van a ti tienes unos tres segundos para estar ya en movimiento. Más de eso y se enfría — ya te han catalogado como personal de tienda y han levantado el muro del 'solo miro' antes de que te salga la segunda frase, y esa pausa le da tiempo a tu propia duda para crecer. Tres segundos no es ir con prisa. Es simplemente no dudar.`,
+      },
+      {
+        type: 'keypoint',
+        text: `And come at them a bit from the side. Not planted square in front of them, not up in their face, and never standing in the line they were walking. You want it to feel like somebody stepping in beside them for a second — not a checkpoint.`,
+        textEs: `Y ve hacia ellos un poco de lado. No plantado enfrente, no encima de su cara, y nunca en la línea por la que iban andando. Quieres que parezca que alguien se pone a su lado un segundo — no un control policial.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 4 — The sample is a coin toss',
+        textEs: 'Paso 4 — La muestra es cara o cruz',
+      },
+      {
+        type: 'keypoint',
+        text: `And when you do reach them, the sample itself is a coin toss — it does not matter which way it lands. They take it, lovely. They wave it away, nothing happens. You have not been rejected, because you never asked them for anything. Either way you are still stood in front of them and you carry straight on into the next step, exactly the same. Sellers lose people here by treating a refused sample as an answer. It is not an answer, it is a hand not moving.`,
+        textEs: `Y cuando llegues a su altura, la muestra es cara o cruz — da igual de qué lado caiga. Si la cogen, genial. Si la apartan con la mano, no pasa nada. No te han rechazado, porque no les has pedido nada. En los dos casos sigues plantado delante de ellos y pasas al siguiente paso igual. Aquí es donde los vendedores pierden gente: se toman una muestra rechazada como una respuesta. No es una respuesta, es una mano que no se ha movido.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 5 — Say the rush before they can',
+        textEs: 'Paso 5 — Di lo de la prisa antes que ellos',
+      },
+      {
+        type: 'paragraph',
+        text: `The single most common thing a person says to get away from you is "sorry, I'm in a rush." So say it first. Once it has come out of your mouth, it is no longer available as an escape — they cannot use a reason you have already accepted.`,
+        textEs: `Lo que más dice la gente para escaparse de ti es "perdona, voy con prisa". Así que dilo tú primero. Una vez que ha salido de tu boca, ya no les sirve de escape — no pueden usar una razón que tú ya has aceptado.`,
+      },
+      {
+        type: 'script',
+        text: `"Listen, I know you're in a rush — but can I ask you something really quick? It's just that you look so good, I have to ask what you normally use on your skin."`,
+        textEs: `"Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel."`,
+      },
+      {
+        type: 'paragraph',
+        text: `Two things are doing work in that sentence. The rush is pre-killed. And the question is a genuine compliment that they have to answer with a real answer — you cannot say yes or no to "what do you use?".`,
+        textEs: `Hay dos cosas trabajando en esa frase. La prisa está desactivada. Y la pregunta es un cumplido de verdad que les obliga a dar una respuesta real — a "¿qué usas?" no puedes contestar sí o no.`,
+      },
+      {
+        type: 'keypoint',
+        text: `This line runs whether they took the sample or not. Took it, waved it away, did not even look at it — same words, same warmth, same second. The sample was never the point. It was the excuse to be stood in front of them saying this.`,
+        textEs: `Esta frase va igual hayan cogido la muestra o no. La han cogido, la han apartado, ni la han mirado — las mismas palabras, el mismo buen rollo, el mismo segundo. La muestra nunca era el objetivo. Era la excusa para estar plantado delante de ellos diciendo esto.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 6 — Be impressed, whatever they say',
+        textEs: 'Paso 6 — Que te impresione, digan lo que digan',
+      },
+      {
+        type: 'paragraph',
+        text: `Whatever they answer, you are impressed by it. A big brand, olive oil, a cream her sister brought back, nothing at all — it does not matter. You are not marking her homework, you are finding a bit of common ground and handing her three seconds of feeling good about herself.`,
+        textEs: `Contesten lo que contesten, te parece impresionante. Una marca grande, aceite de oliva, una crema que le trajo su hermana, nada de nada — da igual. No le estás corrigiendo los deberes, estás buscando algo en común y regalándole tres segundos de sentirse bien.`,
+      },
+      {
+        type: 'script',
+        text: `"Really? No way."`,
+        textEs: `"¿En serio? No me lo creo."`,
+      },
+      {
+        type: 'paragraph',
+        text: `Then top it. Your mother uses the same one, your sister swears by it, you have heard of it and always wanted to try it. It costs you nothing and it turns a stranger being polite into two people having a conversation.`,
+        textEs: `Y luego remátalo. Tu madre usa la misma, tu hermana no la cambia por nada, la conoces y siempre has querido probarla. No te cuesta nada y convierte a una desconocida siendo educada en dos personas teniendo una conversación.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 7 — The gift, then turn around',
+        textEs: 'Paso 7 — El regalo, y date la vuelta',
+      },
+      {
+        type: 'paragraph',
+        text: `Now you give them a reason to move that costs them nothing.`,
+        textEs: `Ahora les das un motivo para moverse que no les cuesta nada.`,
+      },
+      {
+        type: 'script',
+        text: `"You know what — just because you look so amazing, I'm going to give you a small gift. I think you're going to love it."`,
+        textEs: `"¿Sabes qué? Solo porque estás guapísima, te voy a hacer un regalito. Creo que te va a encantar."`,
+      },
+      {
+        type: 'keypoint',
+        text: `Now turn around and walk into the shop. Do NOT check whether they are following you. Checking asks permission, and asking permission gives them the chance to say no. You do not give a damn whether they walk your route — you walk it, and you find out afterwards.`,
+        textEs: `Ahora date la vuelta y entra en la tienda. NO compruebes si te están siguiendo. Comprobar es pedir permiso, y pedir permiso les da la oportunidad de decir que no. Te da exactamente igual si hacen tu mismo camino — tú lo haces, y ya te enteras después.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'Step 8 — If they do not follow, nothing happens',
+        textEs: 'Paso 8 — Si no te siguen, no pasa nada',
+      },
+      {
+        type: 'paragraph',
+        text: `Same as the sample: nothing happens. You keep going, you get inside the shop, and only then do you turn your head and see who came. If they are still out on the pavement, call them in warmly. You are not begging; you are holding a door open.`,
+        textEs: `Igual que con la muestra: no pasa nada. Sigues andando, entras en la tienda, y solo entonces giras la cabeza y miras quién ha venido. Si siguen fuera en la acera, llámalos con buen rollo. No estás suplicando; estás sujetando una puerta abierta.`,
+      },
+      {
+        type: 'script',
+        text: `"Come on guys, it's two seconds, I promise. Come."`,
+        textEs: `"Venga chicos, son dos segundos, os lo prometo. Venid."`,
+      },
+      {
+        type: 'keypoint',
+        text: `Then turn back round and keep walking. Do not stand there watching them decide. Say it, turn, walk — and the walking is what does the persuading, because now there is nothing to say no to. A seller frozen with a hopeful face is asking permission again, and you have just spent seven steps not asking permission.`,
+        textEs: `Y date la vuelta otra vez y sigue andando. No te quedes ahí mirando cómo lo deciden. Lo dices, te giras, andas — y lo que convence es el andar, porque ya no hay nada a lo que decir que no. Un vendedor congelado con cara de ilusión está pidiendo permiso otra vez, y te acabas de pasar siete pasos sin pedir permiso.`,
+      },
+      {
+        type: 'paragraph',
+        text: `You never walk beside them and you never escort them. You walk first and you call them to come.`,
+        textEs: `Nunca andas a su lado y nunca los acompañas. Andas tú primero y los llamas.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'The whole thing, in order',
+        textEs: 'Todo seguido, en orden',
+      },
+      {
+        type: 'numbered',
+        items: [
+          'STOOD READY: sample in your hand, path clear, out where they can see you.',
+          'ATTENTION FROM FOUR OR FIVE METRES, while they are still walking. You do not move.',
+          'THEY LOOK: now you go. Sample up, and come at them a bit from the side.',
+          'THE SAMPLE: taken or waved away, it changes nothing at all.',
+          'THE RUSH, THEN THE QUESTION: "I know you\'re in a rush — what do you normally use on your skin?"',
+          '"REALLY? NO WAY.": be impressed, top it, find the common ground.',
+          'THE SMALL GIFT: say it, turn around, walk in. Do not check.',
+          'INSIDE THE SHOP: look back and call them — "it\'s two seconds, I promise."',
+          'TURN ROUND AND WALK AGAIN. Then go and find the next one.',
+        ],
+        itemsEs: [
+          'COLOCADO: la muestra en la mano, el paso libre, fuera donde te vean.',
+          'LES LLAMAS LA ATENCIÓN A CUATRO O CINCO METROS, mientras todavía andan. Tú no te mueves.',
+          'TE MIRAN: ahora vas. La muestra en alto, y acércate un poco de lado.',
+          'LA MUESTRA: la cojan o la aparten, no cambia absolutamente nada.',
+          'LA PRISA, Y LUEGO LA PREGUNTA: "sé que vas con prisa — ¿qué usas normalmente para la piel?"',
+          '"¿EN SERIO? NO ME LO CREO.": que te impresione, remátalo, busca algo en común.',
+          'EL REGALITO: lo dices, te giras, entras. No compruebes nada.',
+          'YA DENTRO: mira atrás y llámalos — "son dos segundos, os lo prometo".',
+          'TE GIRAS Y ANDAS OTRA VEZ. Y luego vas a por el siguiente.',
+        ],
+      },
+      {
+        type: 'tip',
+        text: 'Do not practise this in bits. Say the whole thing out loud before your shift, in order — greeting, sample, the rush line, "really? no way", the gift, turn, walk. It is about twenty seconds start to finish. You run it whole because the order IS the technique: any one of those lines on its own is just a nice thing said to a stranger.',
+        textEs: 'No practiques esto a trozos. Dilo entero en voz alta antes del turno, en orden — saludo, muestra, lo de la prisa, "¿en serio? no me lo creo", el regalo, te giras y andas. Son unos veinte segundos de principio a fin. Se hace entero porque el orden ES la técnica: cualquiera de esas frases suelta es solo algo majo que le dices a un desconocido.',
+      },
+      {
+        type: 'quote',
+        text: 'Everything else in this app is a variation on this one sequence. Learn the spine first, and then the compliments, the demo and the price all have somewhere to hang.',
+        textEs: 'Todo lo demás en esta app es una variación de esta misma secuencia. Apréndete la columna vertebral primero, y luego los cumplidos, la demo y el precio ya tienen dónde apoyarse.',
+        attribution: 'Zero Lines Method',
+        attributionEs: 'Método Zero Lines',
+      },
     ],
-    quiz: [
-    {
-      question: 'Why is the 2-metre zone considered the sweet spot for stopping?',
-      options: [
-        'It is closest to the shop door',
-        'Close enough for clear communication but far enough for them to process you naturally',
-        'It is where most customers walk',
-        'It is the legal requirement'
-      ],
-      correctIndex: 1,
-      explanation: 'The 2-metre zone is optimal because it is close enough for clear communication against street noise, but far enough that the customer has time to process your presence and adjust their pace naturally.',
-    },
-    {
-      question: 'What happens when you wait until a customer is only 1 metre away before stopping them?',
-      options: [
-        'They are more likely to stop because you are close',
-        'They feel ambushed and trapped — it creates a negative first impression',
-        'It does not matter as long as your opener is good',
-        'They appreciate your confidence'
-      ],
-      correctIndex: 1,
-      explanation: 'The 1-metre zone is the ambush zone. Starting this close makes customers feel trapped and creates a negative first impression. They feel intercepted rather than invited.',
-    },
-    {
-      question: 'What is the best approach angle for a fast-walking customer?',
-      options: [
-        'Direct frontal approach to block their path',
-        'A side angle or parallel walk that matches their pace before redirecting',
-        'Waiting until they pass then calling after them',
-        'Standing still and waving'
-      ],
-      correctIndex: 1,
-      explanation: 'For fast walkers, a side angle or parallel walk matches their pace and feels natural. Blocking their path creates resistance. Redirecting their momentum is more effective than stopping it.',
-    }
-    ],
+    /* No inline quiz. LESSON_QUIZZES['stop-1'] in lessonQuizzes.ts OVERLAYS
+       whatever sits here (see the merge loop at the bottom of this file), so
+       an inline quiz on this lesson is code the app can never render. Three
+       questions were written here during the rewrite and none of them would
+       have reached a seller. The live ones are in lessonQuizzes.ts. */
   },
   'stop-2': {
     id: 'stop-2',

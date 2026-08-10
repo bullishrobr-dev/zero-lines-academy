@@ -311,8 +311,8 @@ export const closingLessons: Record<string, Lesson> = {
     categoryId: 'closing',
     title: 'The Bring',
     titleEs: 'Meterlos Dentro',
-    subtitle: 'The five metres from the pavement to the chair',
-    subtitleEs: 'Los cinco metros de la acera a la silla',
+    subtitle: 'The walk from the pavement to the chair',
+    subtitleEs: 'El camino de la acera a la silla',
     duration: '5 min',
     icon: 'DoorOpen',
     order: 2,
@@ -325,8 +325,8 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'paragraph',
-        text: `You know how to stop someone. You know the product. The place most sales die is the bit between those two things — the five metres from where they are standing to the chair inside the shop. Get this wrong and you lose people you had already won.`,
-        textEs: `Sabes parar a alguien. Te sabes el producto. Donde más ventas se mueren es en lo que hay entre esas dos cosas — los cinco metros desde donde están de pie hasta la silla dentro de la tienda. Falla esto y pierdes a gente que ya tenías ganada.`,
+        text: `You know how to stop someone. You know the product. The place most sales die is the bit between those two things — the short walk from where they are standing to the chair inside the shop. Get this wrong and you lose people you had already won.`,
+        textEs: `Sabes parar a alguien. Te sabes el producto. Donde más ventas se mueren es en lo que hay entre esas dos cosas — el trocito que va desde donde están de pie hasta la silla dentro de la tienda. Falla esto y pierdes a gente que ya tenías ganada.`,
       },
       {
         type: 'keypoint',
@@ -393,8 +393,8 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'script',
-        text: `"Really? No way. You know what — I'm going to give you a small gift. You're going to love it."`,
-        textEs: `"¿En serio? No me lo creo. ¿Sabes qué? Te voy a dar un regalito. Te va a encantar."`,
+        text: `"Really? No way. You know what — just because you look so amazing, I'm going to give you a small gift. I think you're going to love it."`,
+        textEs: `"¿En serio? No me lo creo. ¿Sabes qué? Solo porque estás guapísima, te voy a hacer un regalito. Creo que te va a encantar."`,
       },
       {
         type: 'keypoint',
@@ -474,17 +474,6 @@ export const closingLessons: Record<string, Lesson> = {
       },
 
       {
-        type: 'subheader',
-        text: 'They freeze in the doorway',
-        textEs: 'Se quedan clavados en la puerta',
-      },
-      {
-        type: 'script',
-        text: `"Come on guys, it's two seconds of your time. I promise you need to see this."`,
-        textEs: `"Venga chicos, son dos segundos de vuestro tiempo. Os prometo que tenéis que ver esto."`,
-      },
-
-      {
         type: 'tip',
         text: `There are a hundred tricks on top of this, and you will build your own. But this is the skeleton: get the look, kill the rush, ask a real question, promise a gift, turn and walk, then look back. Learn it in that order before you start improvising on it.`,
         textEs: `Encima de esto hay cien trucos, y te construirás los tuyos. Pero este es el esqueleto: consigue la mirada, mata la prisa, haz una pregunta de verdad, promete un regalo, date la vuelta y anda, y luego mira atrás. Apréndetelo en ese orden antes de ponerte a improvisar.`,
@@ -540,13 +529,13 @@ export const closingLessons: Record<string, Lesson> = {
           'Glance back to check they are coming',
           'Wait at the door and hold it open for them',
           'Walk beside them so they do not feel alone',
-          'Walk in without looking back at all',
+          'Walk in without checking whether they are following',
         ],
         optionsEs: [
           'Miras atrás para comprobar que vienen',
           'Esperas en la puerta y se la sujetas abierta',
           'Andas a su lado para que no se sientan solos',
-          'Entras sin mirar atrás en ningún momento',
+          'Entras sin comprobar si te están siguiendo',
         ],
         correctIndex: 3,
         explanation:
