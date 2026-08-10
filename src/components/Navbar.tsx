@@ -25,13 +25,14 @@
 // larger footprint carry the emphasis instead.
 // ─────────────────────────────────────────────────────────────
 
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
   Home,
   GraduationCap,
   FileText,
   Trophy,
   NotebookPen,
+  Layers,
   type LucideIcon,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -42,6 +43,9 @@ interface NavItem {
   to: string;
   label: string;
   icon: LucideIcon;
+  /** The journal. Coral rather than teal, because it is the one you tap with
+      a customer walking away rather than between customers. */
+  accent?: boolean;
 }
 
 /* Routes that own the whole screen — onboarding, sign-in, the guided track. */
@@ -49,41 +53,37 @@ const HIDE_NAV_ON = ['/', '/auth', '/first-day'];
 
 export default function Navbar() {
   const location = useLocation();
-  const navigate = useNavigate();
   const { t, language } = useLanguage();
   const isEs = language === 'es';
 
   if (HIDE_NAV_ON.includes(location.pathname)) return null;
 
-  /* Labels stay short on purpose: at the 13px type floor a longer Spanish word
-     ("Cuestionarios") cannot fit a bottom-nav slot on a 390px screen. Quizzes
-     and Exercises are surfaced from the Home feed and Training hub instead. */
-  const leftItems: NavItem[] = [
+  /*
+   * SIX SLOTS, ONE ROW.
+   *
+   * The owner: "I do want the flashcards to go back to the footer… make the
+   * footer just six things, including the flashcards, on the bottom."
+   *
+   * It was five, with the journal as a raised coral disc in the middle. A
+   * sixth item cannot be added to that shape without going lopsided — three
+   * either side of a protruding centre is seven, not six — so the disc is
+   * gone and all six sit flat and equal. The journal keeps the coral, so it
+   * still reads as the thing you tap during a shift rather than between them;
+   * it just does not stick out of the bar any more.
+   *
+   * Labels stay short because six of them have to fit a 320px screen in
+   * Spanish. That is why Training is "Formación" and not "Entrenamiento", and
+   * why the type drops to 10px below 360px. Measured at 320/360/390 before
+   * this shipped — see the note on the label span.
+   */
+  const items: NavItem[] = [
     { to: '/home', label: t('navHome'), icon: Home },
     { to: '/training', label: t('navTraining'), icon: GraduationCap },
-  ];
-  /*
-   * Cheat Sheets took the slot flashcards used to hold.
-   *
-   * The owner's reasoning, and it is right: cheat sheets are the one screen
-   * opened WITH A CUSTOMER STANDING THERE, so it has to be one thumb away from
-   * wherever you are. Flashcards are study — they belong with the lessons, and
-   * they now have their own card at the top of the Training hub so nothing is
-   * stranded by this swap.
-   *
-   * Five slots, not six: at 320px the Spanish labels already run to the edge
-   * ("Formación", "Chuletas"), and a sixth would either truncate them or push
-   * the type below the 11px floor.
-   */
-  const rightItems: NavItem[] = [
+    { to: '/flashcards', label: isEs ? 'Tarjetas' : 'Cards', icon: Layers },
+    { to: '/street-tracker', label: isEs ? 'Diario' : 'Journal', icon: NotebookPen, accent: true },
     { to: '/cheat-sheets', label: isEs ? 'Chuletas' : 'Cheats', icon: FileText },
     { to: '/profile', label: t('navProfile'), icon: Trophy },
   ];
-
-  // The centre action is the journal, not a till. It is where a seller records
-  // who came in, who bought, and why the others walked.
-  const journalLabel = isEs ? 'Diario' : 'Journal';
-  const isTracking = location.pathname === '/street-tracker';
 
   /* Every slot is `justify-end`, so the five labels sit on one baseline even
      though the centre icon is a taller coral disc. */
@@ -93,8 +93,14 @@ export default function Navbar() {
       to={item.to}
       onClick={() => haptic('light')}
       className={({ isActive }) =>
-        `relative flex-1 min-w-touch flex flex-col items-center justify-end gap-1 rounded-card px-1 py-1 select-none transition-colors duration-200 ${
-          isActive ? 'text-teal-strong' : 'text-ink-3'
+        `relative flex-1 min-w-0 flex flex-col items-center justify-end gap-1 rounded-card px-0.5 py-1 select-none transition-colors duration-200 ${
+          isActive
+            ? item.accent
+              ? 'text-coral-strong'
+              : 'text-teal-strong'
+            : item.accent
+              ? 'text-coral-strong/80'
+              : 'text-ink-3'
         }`
       }
     >
@@ -103,20 +109,23 @@ export default function Navbar() {
           {isActive && (
             <motion.span
               layoutId="nav-indicator"
-              className="absolute inset-0 rounded-card bg-teal-tint"
+              className={`absolute inset-0 rounded-card ${item.accent ? 'bg-coral-tint' : 'bg-teal-tint'}`}
               transition={{ type: 'spring', stiffness: 420, damping: 34 }}
               aria-hidden="true"
             />
           )}
           <item.icon
-            size={22}
-            strokeWidth={isActive ? 2.4 : 1.8}
+            size={21}
+            strokeWidth={isActive || item.accent ? 2.3 : 1.8}
             className="relative z-10"
             aria-hidden="true"
           />
-          {/* 11px below 360px: five Spanish labels ("Formación", "Tarjetas")
-              collide at the 13px caption size on a 320px screen. */}
-          <span className="relative z-10 text-[11px] min-[360px]:text-[13px] font-semibold leading-4 tracking-tight">
+          {/* Six Spanish labels leave ~52px a slot at 320px and ~59px at 360px,
+              and "Formación" is the one that decides this: it fits 10px at both
+              and 12px only from about 380px up. Measured at 320/360/390 in both
+              languages — do not raise the type without re-measuring, and treat
+              truncate as the backstop rather than the plan. */}
+          <span className="relative z-10 w-full truncate text-center text-[10px] min-[380px]:text-[12px] font-semibold leading-4 tracking-tight">
             {item.label}
           </span>
         </>
@@ -142,35 +151,8 @@ export default function Navbar() {
       >
         {/* pb-safe alone is 0px on a device with no home indicator, which would
             leave the labels sitting on the very edge — hence the 6px floor. */}
-        <div className="flex h-full items-end gap-0.5 px-1.5 pt-1 pb-[calc(0.375rem+env(safe-area-inset-bottom,0px))]">
-          {leftItems.map(renderItem)}
-
-          {/* ── Centre action — the app's only link to the journal ── */}
-          <motion.button
-            type="button"
-            whileTap={{ scale: 0.94 }}
-            onClick={() => {
-              haptic('medium');
-              navigate('/street-tracker');
-            }}
-            aria-current={isTracking ? 'page' : undefined}
-            className={`relative flex-1 min-w-touch flex flex-col items-center justify-end gap-1 rounded-card px-1 py-1 transition-colors ${
-              isTracking ? 'text-coral-strong' : 'text-ink-3'
-            }`}
-          >
-            <span
-              className={`flex h-9 w-9 items-center justify-center rounded-full text-on-coral shadow-raised transition-colors ${
-                isTracking ? 'bg-coral-strong' : 'bg-coral'
-              }`}
-            >
-              <NotebookPen size={20} strokeWidth={2.2} aria-hidden="true" />
-            </span>
-            <span className="text-[11px] min-[360px]:text-[13px] font-semibold leading-4 tracking-tight">
-              {journalLabel}
-            </span>
-          </motion.button>
-
-          {rightItems.map(renderItem)}
+        <div className="flex h-full items-end gap-0 px-1 pt-1 pb-[calc(0.375rem+env(safe-area-inset-bottom,0px))]">
+          {items.map(renderItem)}
         </div>
       </div>
     </nav>

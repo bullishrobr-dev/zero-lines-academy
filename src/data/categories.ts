@@ -110,7 +110,21 @@ export const categories: Category[] = [
       'The drunk customer, the demo that fails in front of a crowd, the competitor who walks into your pitch, the toddler mid-tantrum. Every one of these will happen to you. These are the drills — read the situation, the moves, the words, and the mistakes that cost the sale — so the first time it happens is not the first time you have thought about it.',
     icon: 'Drama',
     accentColor: '#A16207',
-    lessonOrder: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10'],
+    /*
+     * Ordered by how often it actually happens on the floor, not by id.
+     *
+     * The owner read these and cut two outright: "Competitor Poaching Your
+     * Customer" ("you can remove this completely, that's not gonna happen")
+     * and "Customer Wants to Record You" ("we just don't need that"). Both are
+     * gone from scenarioLessons.ts rather than hidden here.
+     *
+     * The drunk customer and the hen party stay, but at the bottom — "we don't
+     * need the drunk customer, at least we definitely don't need it first."
+     * A seller opening this list should land on the demo that went wrong and
+     * the husband with his arms crossed, which are Tuesday afternoon, not on a
+     * stag do.
+     */
+    lessonOrder: ['S2', 'S9', 'S7', 'S6', 'S5', 'S10', 'S3', 'S1'],
   },
   {
     id: 'objections',

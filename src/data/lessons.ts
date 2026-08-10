@@ -6791,10 +6791,13 @@ for (const [id, quiz] of Object.entries(LESSON_QUIZZES)) {
 export function getLessonsForCategory(categoryId: string): Lesson[] {
   const cat = getCategory(categoryId);
   if (!cat) return [];
-  return cat.lessonOrder
-    .map((id) => lessons[id])
-    .filter(Boolean)
-    .sort((a, b) => a.order - b.order);
+  /* `lessonOrder` IS the order. It used to be mapped and then re-sorted by each
+     lesson's own numeric `order`, which silently threw the array away — so
+     curating the scenario list by hand did nothing on screen and the drunk
+     customer stayed at the top because its id happened to be S1. The two agree
+     for every category, so honouring the array changes nothing except that it
+     now actually works. */
+  return cat.lessonOrder.map((id) => lessons[id]).filter(Boolean);
 }
 
 export function getLesson(id: string): Lesson | undefined {

@@ -3,33 +3,55 @@
 // 6 tiers that unlock sequentially based on completion %
 // ─────────────────────────────────────────────────────────────
 
+/*
+ * ── WHY TIER 1 IS THE WHOLE OF THE ART OF STOPPING ──────────────────────────
+ * The owner's instruction, and it is how he actually trains people:
+ *
+ *   "Usually the first thing I teach people is the art of stopping. The art of
+ *    stopping should be tier 1, very important, because that's how it is."
+ *
+ * It used to be split: two stopping lessons in tier 1, four in tier 2 and one
+ * stranded in tier 3, with the mindset lessons taking the first slots. So a new
+ * starter read three lessons about rejection psychology before anything told
+ * them how to stop a human being — which is the only skill that matters on day
+ * one, because no stop means no anything.
+ *
+ * All seven now sit in tier 1, in order, starting with stop-1 (the sequence).
+ * The mindset and market lessons move to tier 2, where they land after the
+ * seller has something to apply them to.
+ *
+ * Moving lessons between tiers CANNOT re-lock anybody — see isTierUnlocked
+ * below, which now ratchets. Read that before you reshuffle this map again.
+ */
 export const LESSON_TIERS: Record<string, number> = {
-  // Tier 1: First Day (5 lessons) — Foundation
-  'psych-1': 1,
-  'psych-2': 1,
-  'psych-3': 1,
+  // ── Tier 1: The Art of Stopping (7) ──
+  // The first thing taught, and the last thing anybody stops needing.
   'stop-1': 1,
   'stop-2': 1,
-  // What kind of selling this is. A new starter who has not read it treats a
-  // market stall like a pharmacy and behaves accordingly.
-  'close-market': 1,
+  'stop-3': 1,
+  'stop-4': 1,
+  'stop-5': 1,
+  'stop-6': 1,
+  'stop-7': 1,
 
-  // Tier 2: Stopping Basics (5 lessons) — Core stopping
+  // ── Tier 2: The Head, and What Kind of Shop This Is (6) ──
+  // Now that they can stop somebody, the mindset has something to attach to.
+  'psych-1': 2,
+  'psych-2': 2,
+  'psych-3': 2,
   'psych-4': 2,
-  'stop-3': 2,
-  'stop-4': 2,
-  'stop-5': 2,
-  'stop-6': 2,
+  // What kind of selling this is. A starter who has not read it treats a market
+  // stall like a pharmacy and behaves accordingly.
+  'close-market': 2,
   // Bringing them from the pavement to the chair is the direct sequel to
-  // stopping them, so it belongs with stopping and not three tiers later.
+  // stopping them.
   'close-1': 2,
 
-  // Tier 3: Stopping Advanced (5 lessons) — Reading people
+  // ── Tier 3: Reading People (4) ──
   'connect-1': 3,
   'connect-2': 3,
   'connect-3': 3,
   'connect-4': 3,
-  'stop-7': 3,
 
   // Tier 4: Product Intro (6 lessons) — Product knowledge
   'connect-5': 4,
@@ -69,9 +91,9 @@ export const LESSON_TIERS: Record<string, number> = {
 };
 
 export const TIER_NAMES: Record<number, { en: string; es: string }> = {
-  1: { en: 'First Day', es: 'Primer Día' },
-  2: { en: 'Stopping Basics', es: 'Fundamentos de Parada' },
-  3: { en: 'Stopping Advanced', es: 'Parada Avanzada' },
+  1: { en: 'The Art of Stopping', es: 'El Arte de Parar' },
+  2: { en: 'The Head, and the Shop', es: 'La Cabeza, y la Tienda' },
+  3: { en: 'Reading People', es: 'Leer a la Gente' },
   4: { en: 'Product Intro', es: 'Introducción a Productos' },
   5: { en: 'Product Mastery', es: 'Dominio de Producto' },
   // Was 'Advanced Closing', which named something it did not contain: the
@@ -81,23 +103,19 @@ export const TIER_NAMES: Record<number, { en: string; es: string }> = {
 };
 
 /*
- * Kept in step with LESSON_TIERS by the unit test in scripts/.
+ * Kept in step with LESSON_TIERS by scripts/check-tiers.mjs.
  *
- * ONE closing lesson was added per tier on purpose. getTierCompletion divides
- * by the number of lessons actually mapped to a tier, so adding two to a
- * six-lesson tier would drop a seller who had finished it from 100% to 75% —
- * under the 80% gate — and re-lock the next tier they had already earned.
- * Adding one takes them to 86%, which re-locks nobody.
- *
- * `close-demo` grew tier 4 from 7 to 8 under the same rule and the same
- * arithmetic: a seller sitting on all seven drops to 88%, still clear of the
- * gate. A SECOND addition to tier 4 in the same release would take them to 78%
- * and confiscate tier 5, so check this number before you add another one.
+ * This used to carry a warning about arithmetic: adding a lesson to a tier
+ * lowers everyone's completion of it, and dropping under the 80% gate would
+ * confiscate the next tier from a seller who had already earned it. That is
+ * no longer a hazard — isTierUnlocked ratchets, so a tier that has ever been
+ * open stays open. Keep the counts honest anyway; they are what the progress
+ * ring on the Training hub divides by.
  */
 export const TIER_LESSON_COUNT: Record<number, number> = {
-  1: 6,
+  1: 7,
   2: 6,
-  3: 5,
+  3: 4,
   4: 8,
   5: 7,
   6: 5,
@@ -142,15 +160,43 @@ export function getTierCompletion(
   return Math.round((completed / tierLessons.length) * 100);
 }
 
+/**
+ * A tier a seller has already been inside stays open, whatever the map says
+ * afterwards.
+ *
+ * ── WHY ─────────────────────────────────────────────────────────────────────
+ * Unlocking used to be a pure function of the CURRENT map: tier N is open if
+ * 80% of tier N-1 is done. That is fine until the map moves — and the map moves
+ * every time the owner rethinks what a new starter should read first. Moving
+ * the seven stopping lessons into tier 1 took a seller who had finished the old
+ * tier 1 from 100% of it to 2 of 7, which under the old rule would have shut
+ * tier 2 in the face of somebody who had been studying there for a week.
+ *
+ * Taking something away from a seller who earned it is not a thing this app
+ * does. So the gate now also asks a question the map cannot invalidate: have
+ * they already completed a lesson at this level or beyond? You cannot have
+ * finished a lesson in a tier that was shut, so the answer being yes is proof
+ * the tier was open at the time — regardless of which tier that lesson sits in
+ * today.
+ *
+ * It needs no stored high-water mark and no migration: it is derived from the
+ * lesson progress that already exists on the device, so it works retroactively
+ * for everybody, and it can never desync from a second source of truth.
+ */
 export function isTierUnlocked(
   tierNumber: number,
   lessonProgress: Record<string, boolean>
 ): boolean {
-  // Tier 1 is always unlocked
+  // Tier 1 is always unlocked.
   if (tierNumber <= 1) return true;
-  // Tier N is unlocked if Tier N-1 has >= 80% completion
-  const prevTierCompletion = getTierCompletion(tierNumber - 1, lessonProgress);
-  return prevTierCompletion >= UNLOCK_THRESHOLD;
+
+  // The ordinary gate: 80% of the tier below.
+  if (getTierCompletion(tierNumber - 1, lessonProgress) >= UNLOCK_THRESHOLD) return true;
+
+  // The ratchet: anything finished at this level or above proves it was open.
+  return Object.keys(lessonProgress).some(
+    (id) => lessonProgress[id] && isLessonTiered(id) && LESSON_TIERS[id] >= tierNumber
+  );
 }
 
 export function isLessonUnlocked(

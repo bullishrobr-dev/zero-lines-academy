@@ -56,7 +56,7 @@ export const scenarioLessons: Record<string, Lesson> = {
     subtitleEs: "Sé encantador, no le cobres nada y sigue con tu día",
     duration: "4 min",
     icon: "AlertTriangle",
-    order: 1,
+    order: 8,
     xpReward: 100,
     sections: [
       {
@@ -238,7 +238,7 @@ export const scenarioLessons: Record<string, Lesson> = {
     subtitleEs: "La arruga no se ha movido y hay cuatro personas mirando",
     duration: "5 min",
     icon: "XCircle",
-    order: 2,
+    order: 1,
     xpReward: 100,
     sections: [
       {
@@ -420,7 +420,7 @@ export const scenarioLessons: Record<string, Lesson> = {
     subtitleEs: "Seis de ellas, tú solo, y una hora de ruido puro",
     duration: "5 min",
     icon: "PartyPopper",
-    order: 3,
+    order: 7,
     xpReward: 100,
     sections: [
       {
@@ -589,188 +589,6 @@ export const scenarioLessons: Record<string, Lesson> = {
           'Six conversations about money become one decision they all cheer for. Let them sort out between themselves who puts in what.',
         explanationEs:
           'Seis conversaciones sobre dinero se convierten en una decisión que aplauden todas. Que se apañen ellas con quién pone qué.',
-      },
-    ],
-  },
-
-  "S4": {
-    id: "S4",
-    categoryId: "scenarios",
-    title: "Competitor Poaching Your Customer",
-    titleEs: "Un Competidor Te Roba la Clienta",
-    subtitle: "Somebody else's seller walks into the middle of your demo",
-    subtitleEs: "El vendedor de otro se te mete en mitad de la demo",
-    duration: "4 min",
-    icon: "Sword",
-    order: 4,
-    xpReward: 100,
-    sections: [
-      {
-        type: "header",
-        text: "The Situation",
-        textEs: "La Situación",
-      },
-      {
-        type: "paragraph",
-        text: "You're mid-demo with a French tourist. She's asking questions, she's already half sold. Then another street seller — different brand, same pavement — comes over her shoulder: \"Madam, don't buy from them. Ours is cheaper and better. Come with me.\" He puts a flyer in her hand. She looks confused, and her body starts to turn towards him.",
-        textEs: "Estás a mitad de demo con una turista francesa. Está preguntando cosas, ya está medio vendida. Y entonces otro vendedor callejero — otra marca, la misma acera — le aparece por el hombro: \"Señora, no les compre a ellos. El nuestro es más barato y mejor. Venga conmigo.\" Le pone un folleto en la mano. Ella se queda descolocada y el cuerpo se le empieza a girar hacia él.",
-      },
-      {
-        type: "subheader",
-        text: "What To Do",
-        textEs: "Qué Hacer",
-      },
-      {
-        type: "numbered",
-        items: [
-          "DON'T LOOK AT HIM. The second you turn to face him it becomes two blokes arguing and she's the audience. Keep your eyes on her the whole time, like he isn't worth turning your head for.",
-          "STAY EXACTLY WHERE YOU ARE. You're already close to her and she's already in your hands — literally, if you're mid-demo. Don't step away to deal with him. Being near her is doing more work than anything you could say.",
-          "NAME IT ONCE, LIGHTLY. Pretending you didn't hear it looks rattled. One easy line — \"there's always somebody\" — and you're back on her. It says this happens all day and has never once bothered you.",
-          "PUT THE PROOF NEXT TO THE PAPER. He's got a flyer. You've got her own face in a mirror. Say exactly that and let her decide which one is worth more.",
-          "INVITE THE COMPARISON — ON YOUR GROUND. If she's genuinely torn, send her over yourself, but set the test first: ask him to do it on her face, right now, the way you just did. You already know he can't.",
-        ],
-        itemsEs: [
-          "NI LO MIRES. En cuanto te giras hacia él, esto son dos tíos discutiendo y ella es el público. No le quites los ojos de encima a ella, como si él no mereciera ni que gires la cabeza.",
-          "NO TE MUEVAS DE AHÍ. Ya estás cerca de ella y ya la tienes en tus manos — literalmente, si estás a mitad de demo. No te apartes para atenderlo a él. La cercanía está trabajando más que cualquier cosa que pudieras decir.",
-          "MENCIÓNALO UNA VEZ, A LA LIGERA. Hacer como que no lo has oído parece que te ha puesto nervioso. Una frase suelta — \"siempre hay alguno\" — y vuelves a ella. Eso dice que esto pasa todos los días y que no te ha molestado nunca.",
-          "PON LA PRUEBA AL LADO DEL PAPEL. Él tiene un folleto. Tú tienes su propia cara en un espejo. Díselo tal cual y deja que decida cuál vale más.",
-          "INVÍTALA A COMPARAR — EN TU TERRENO. Si de verdad está dudando, mándala tú mismo, pero pon la prueba antes: que se lo haga él en la cara, ahora mismo, como acabas de hacerlo tú. Ya sabes que no puede.",
-        ],
-      },
-      {
-        type: "subheader",
-        text: "What NOT To Do",
-        textEs: "Qué NO Hacer",
-      },
-      {
-        type: "bullets",
-        items: [
-          "Slag him off. \"Their stuff is rubbish\" tells her you're worried. Let the mirror say it for you.",
-          "Get territorial. Blocking him or raising your voice makes a scene, and tourists walk away from scenes. Then you've both lost her.",
-          "Beg. \"Please don't go, I'll drop the price\" tells her the price was never real and that you need her more than she needs you.",
-          "Pretend it never happened. She heard him. Carry on like nothing was said and she spends the next two minutes thinking about him instead of you.",
-        ],
-        itemsEs: [
-          "Ponerlo verde. \"Lo suyo es una porquería\" le está diciendo que estás preocupado. Que lo diga el espejo por ti.",
-          "Ponerte territorial. Cortarle el paso o subir la voz monta un numerito, y los turistas se van de los numeritos. Y entonces la habéis perdido los dos.",
-          "Suplicar. \"No te vayas, por favor, te bajo el precio\" le dice que el precio nunca fue real y que la necesitas tú a ella más que ella a ti.",
-          "Hacer como si no hubiera pasado. Ella lo ha oído. Si sigues como si no se hubiera dicho nada, se pasa los dos minutos siguientes pensando en él en vez de en ti.",
-        ],
-      },
-      {
-        type: "subheader",
-        text: "Script — There's Always Somebody",
-        textEs: "Guion — Siempre Hay Alguno",
-      },
-      {
-        type: "script",
-        text: "YOU: \"Ha. There's always somebody.\" [Don't look at him once. Eyes on her, carry on with what you were doing] \"He's got a flyer, my love. I've got your face. Have another look in that mirror and tell me which one you believe.\"",
-        textEs: "TÚ: \"Ja. Siempre hay alguno.\" [No lo mires ni una vez. Los ojos en ella, sigue con lo tuyo] \"Él tiene un folleto, guapa. Yo tengo tu cara. Vuelve a mirarte en ese espejo y me dices a cuál de los dos te crees.\"",
-      },
-      {
-        type: "subheader",
-        text: "Script — The Invitation to Compare",
-        textEs: "Guion — La Invitación a Comparar",
-      },
-      {
-        type: "script",
-        text: "YOU: \"Go on, listen to him, I don't mind at all. But ask him one thing first: ask him to do it on your face, right here, right now, like I just did.\" [Smile, hand her the mirror back] \"If he can, I'll walk you over there myself. We both know how this ends. Shall we finish?\"",
-        textEs: "TÚ: \"Anda, escúchalo, a mí no me importa nada. Pero pregúntale una cosa antes: que te lo haga a ti en la cara, aquí mismo, ahora, como acabo de hacerlo yo.\" [Sonríe, devuélvele el espejo] \"Si puede, te acompaño yo. Los dos sabemos cómo acaba esto. ¿Terminamos?\"",
-      },
-      {
-        type: "subheader",
-        text: "Script — The Quiet Boast",
-        textEs: "Guion — El Alarde Tranquilo",
-      },
-      {
-        type: "script",
-        text: "YOU: \"Three people bought this off me before lunch. Every one of them saw it on their own face first.\" [Tap the mirror] \"He doesn't worry me — I've already shown you, on you. Right. Are we doing one, or the pair?\"",
-        textEs: "TÚ: \"Tres personas me han comprado esto antes de comer. Todas lo vieron antes en su propia cara.\" [Da un golpecito al espejo] \"Él no me preocupa — a ti ya te lo he enseñado, en ti. Venga. ¿Nos llevamos una, o las dos?\"",
-      },
-      {
-        type: "subheader",
-        text: "Script — The Deflection with Humour",
-        textEs: "Guion — Quitárselo de Encima con Humor",
-      },
-      {
-        type: "script",
-        text: "YOU: \"Mate, I love the hustle, but I'm working here.\" [Said with a grin, still not properly looking at him. Then to her, quieter] \"See that? Everybody wants you today. Must be your lucky afternoon in {locationName}. Now — one, or do we do the pair?\"",
-        textEs: "TÚ: \"Colega, me encanta que le eches ganas, pero estoy trabajando.\" [Con una sonrisa, sin mirarlo del todo. Y luego a ella, más bajito] \"¿Ves? Hoy te quiere todo el mundo. Debe de ser tu tarde de suerte en {locationName}. Venga — ¿una, o nos llevamos las dos?\"",
-      },
-      {
-        type: "subheader",
-        text: "Before You Walk Away",
-        textEs: "Antes de Irte",
-      },
-      {
-        type: "tip",
-        text: "The real defence is speed. Get her face into the mirror inside the first ninety seconds and there's nothing left for anybody to interrupt — a woman who has already watched her own line go is not walking off with a folded bit of paper. Use her name. Notice something specific about her. He has a flyer and thirty seconds; you have her hand in yours and two minutes of being genuinely nice to her. That was never a fair fight and it was never meant to be.",
-        textEs: "La defensa de verdad es la velocidad. Ponle la cara en el espejo en los primeros noventa segundos y ya no queda nada que interrumpir — una mujer que ya ha visto desaparecer su propia línea no se va con un papel doblado. Usa su nombre. Fíjate en algo concreto de ella. Él tiene un folleto y treinta segundos; tú tienes su mano en la tuya y dos minutos tratándola bien de verdad. Eso nunca fue una pelea justa, ni pretendía serlo.",
-      },
-    ],
-    quiz: [
-      {
-        question: 'Another seller leans over her shoulder and tells her to come to his stall. Where do your eyes go?',
-        questionEs: 'Otro vendedor le habla por encima del hombro y le dice que se vaya a su puesto. ¿Dónde miras?',
-        options: [
-          'Stay on her — he is not worth turning your head for',
-          'Straight to him, so he knows you have seen him do it',
-          'To the floor, and carry on as if nothing was said',
-          'To your colleague, so somebody comes and moves him along',
-        ],
-        optionsEs: [
-          'En ella — él no merece ni que gires la cabeza',
-          'Directo a él, para que sepa que lo has visto',
-          'Al suelo, y sigues como si no se hubiera dicho nada',
-          'A tu compañero, para que venga alguien a apartarlo',
-        ],
-        correctIndex: 0,
-        explanation:
-          'The second you turn to face him it is two blokes arguing and she is the audience. Stay on her and he becomes background noise.',
-        explanationEs:
-          'En cuanto te giras hacia él, esto son dos tíos discutiendo y ella es el público. Quédate en ella y él se queda en ruido de fondo.',
-      },
-      {
-        question: 'He has put a flyer in her hand. What have you got that beats a flyer?',
-        questionEs: 'Le ha puesto un folleto en la mano. ¿Qué tienes tú que gane a un folleto?',
-        options: [
-          'A lower price than his, if you drop a rung right now',
-          'Her own face in the mirror and your hand on hers',
-          'A longer ingredient list and a sealed box to show her',
-          'The fact that you were talking to her first and he knows it',
-        ],
-        optionsEs: [
-          'Un precio más bajo que el suyo, si bajas un escalón ya',
-          'Su propia cara en el espejo y tu mano sobre la suya',
-          'Una lista de ingredientes más larga y una caja sellada',
-          'Que tú estabas hablando con ella primero y él lo sabe',
-        ],
-        correctIndex: 1,
-        explanation:
-          'He has got a flyer, you have got her face in a mirror. Say exactly that and let her decide which one is worth more.',
-        explanationEs:
-          'Él tiene un folleto, tú tienes su cara en un espejo. Díselo tal cual y que decida cuál vale más.',
-      },
-      {
-        question: 'She is genuinely torn and wants to go and look at his stall. What do you say?',
-        questionEs: 'Está dudando de verdad y quiere ir a ver el puesto de él. ¿Qué le dices?',
-        options: [
-          '"Do not bother, theirs is the cheap copy of this one"',
-          '"Fine — but if you leave now the price goes back up"',
-          '"Go on. Ask him to do it on your face now, like I did."',
-          '"Let me take another {currency}30 off and we will say no more"',
-        ],
-        optionsEs: [
-          '"No pierdas el tiempo, lo suyo es la copia barata"',
-          '"Vale — pero si te vas ahora el precio vuelve a subir"',
-          '"Anda, ve. Pídele que te lo haga en la cara, como yo."',
-          '"Te quito otros {currency}30 y no hablamos más del tema"',
-        ],
-        correctIndex: 2,
-        explanation:
-          'You already know he cannot do it on her face. Setting the test first means she ends up back at your table either way.',
-        explanationEs:
-          'Ya sabes que él no se lo puede hacer en la cara. Poner la prueba primero significa que acaba otra vez en tu mesa igualmente.',
       },
     ],
   },
@@ -966,7 +784,7 @@ export const scenarioLessons: Record<string, Lesson> = {
     subtitleEs: "Tres horas y media, cuatro idiomas, una silla",
     duration: "4 min",
     icon: "Timer",
-    order: 6,
+    order: 4,
     xpReward: 100,
     sections: [
       {
@@ -1148,7 +966,7 @@ export const scenarioLessons: Record<string, Lesson> = {
     subtitleEs: "Dos minutos de paz son toda la venta",
     duration: "4 min",
     icon: "Baby",
-    order: 7,
+    order: 3,
     xpReward: 100,
     sections: [
       {
@@ -1321,188 +1139,6 @@ export const scenarioLessons: Record<string, Lesson> = {
     ],
   },
 
-  "S8": {
-    id: "S8",
-    categoryId: "scenarios",
-    title: "Customer Wants to Record You",
-    titleEs: "La Clienta Quiere Grabarte",
-    subtitle: "A phone comes out mid-demo — that's free advertising, if you behave",
-    subtitleEs: "Sale un móvil en mitad de la demo — eso es publicidad gratis, si te portas bien",
-    duration: "3 min",
-    icon: "Video",
-    order: 8,
-    xpReward: 100,
-    sections: [
-      {
-        type: "header",
-        text: "The Situation",
-        textEs: "La Situación",
-      },
-      {
-        type: "paragraph",
-        text: "You're mid-demo and it's going beautifully. Then she pulls her phone out: \"I'm putting this on TikTok.\" Red dot, camera pointed at you, and now the people walking past slow down to see what's being filmed. This is the cheapest advertising you will ever get and the fastest way to embarrass yourself. Both at the same time.",
-        textEs: "Estás a mitad de demo y va de maravilla. Y entonces saca el móvil: \"Esto lo subo a TikTok.\" Punto rojo, cámara apuntándote, y la gente que pasa afloja el paso para ver qué se está grabando. Es la publicidad más barata que vas a conseguir en tu vida y la forma más rápida de hacer el ridículo. Las dos cosas a la vez.",
-      },
-      {
-        type: "subheader",
-        text: "What To Do",
-        textEs: "Qué Hacer",
-      },
-      {
-        type: "numbered",
-        items: [
-          "SAY YES, AND MEAN IT. Hesitating on camera looks like you've got something to hide. \"Go on then — get my good side. It's this one.\"",
-          "SLOW DOWN AND SPEAK UP. Your normal street patter is half mumble, half gesture, and it dies on video. Say the words properly, look at the phone once, and let the mirror do the ending.",
-          "GET WHERE YOU ARE INTO THE SHOT. Product in frame, shop behind you, and say it out loud: \"we're in {locationName}, sixty seconds, watch this.\" A video nobody can find is a video that sold nothing.",
-          "TRADE THE TAG FOR SOMETHING TODAY. \"Tag us and I'll take something off right now\" — settled and finished while she's stood in front of you, not something she comes back to claim next week.",
-          "ASK HER TO SEND IT TO YOU. Costs you nothing, takes ten seconds, and you end up with a clip of a real customer's real face that beats anything you'd ever film yourself.",
-        ],
-        itemsEs: [
-          "DI QUE SÍ, Y DILO EN SERIO. Dudar delante de la cámara parece que escondes algo. \"Venga, grábame — cógeme el lado bueno. Este.\"",
-          "BAJA EL RITMO Y HABLA MÁS ALTO. Tu charla normal de calle es medio murmullo y medio gesto, y en vídeo se muere. Vocaliza, mira una vez al móvil, y que el final lo ponga el espejo.",
-          "QUE SALGA DÓNDE ESTÁS. El producto en cuadro, la tienda detrás, y dilo en voz alta: \"estamos en {locationName}, sesenta segundos, mira esto.\" Un vídeo que nadie puede encontrar es un vídeo que no ha vendido nada.",
-          "CAMBIA LA ETIQUETA POR ALGO, HOY. \"Nos etiquetas y te quito algo ahora mismo\" — resuelto y cerrado mientras está delante de ti, no algo que venga a reclamar la semana que viene.",
-          "PÍDELE QUE TE LO MANDE. No te cuesta nada, tarda diez segundos, y acabas con un clip de la cara de verdad de una clienta de verdad que se come cualquier cosa que grabaras tú.",
-        ],
-      },
-      {
-        type: "subheader",
-        text: "What NOT To Do",
-        textEs: "Qué NO Hacer",
-      },
-      {
-        type: "bullets",
-        items: [
-          "Say no. On this street, refusing a camera reads as guilty. If you're doing nothing wrong, let her film.",
-          "Carry on exactly as normal. The camera changes the job. Clearer, slower, bigger — you're performing now, not chatting.",
-          "Let her film and post with no idea where she was. If nobody can tell where it was shot, you did the work for free.",
-          "Go shy. Awkward on camera kills the clip and kills the sale sat in front of you. Own it and both of them go better.",
-        ],
-        itemsEs: [
-          "Decir que no. En esta calle, negarte a que te graben suena a culpable. Si no estás haciendo nada malo, que grabe.",
-          "Seguir exactamente igual. La cámara cambia el trabajo. Más claro, más despacio, más grande — ahora estás actuando, no charlando.",
-          "Dejar que grabe y lo suba sin saber ni dónde estaba. Si nadie sabe dónde se grabó, has trabajado gratis.",
-          "Ponerte tímido. La vergüenza delante de la cámara se carga el vídeo y se carga la venta que tienes delante. Hazlo tuyo y salen mejor las dos cosas.",
-        ],
-      },
-      {
-        type: "subheader",
-        text: "Script — The Enthusiastic Yes",
-        textEs: "Guion — El Sí Entusiasta",
-      },
-      {
-        type: "script",
-        text: "YOU: \"YES. Film it, film all of it.\" [Pose, laugh at yourself] \"Get my good side — which is both of them, obviously. Right: tag where we are so your lot can actually find us, and I'll sort you out on the price before you go. Deal? Good. Now watch this line.\"",
-        textEs: "TÚ: \"¡SÍ! Graba, grábalo todo.\" [Posa, ríete de ti mismo] \"Cógeme el lado bueno — que son los dos, evidentemente. Venga: etiqueta dónde estamos para que los tuyos nos puedan encontrar, y yo te arreglo el precio antes de que te vayas. ¿Trato? Perfecto. Ahora mira esta línea.\"",
-      },
-      {
-        type: "subheader",
-        text: "Script — Get It In Frame",
-        textEs: "Guion — Que Salga en Cuadro",
-      },
-      {
-        type: "script",
-        text: "YOU: \"Course you can. Here —\" [Hold the product up to the lens for two seconds, then get it out of the way] \"— that's the hyaluronic syringe, and we're right here in {locationName}. Now watch what happens to this line in sixty seconds. Ready?\" [Then forget the camera and do the best demo of your day]",
-        textEs: "TÚ: \"Claro que sí. Toma —\" [Pon el producto delante del objetivo dos segundos y luego quítalo de en medio] \"— esta es la jeringa hialurónica, y estamos aquí mismo, en {locationName}. Ahora mira lo que le pasa a esta línea en sesenta segundos. ¿Lista?\" [Y ahora olvídate de la cámara y haz la mejor demo del día]",
-      },
-      {
-        type: "subheader",
-        text: "Script — The Trade, All Of It Today",
-        textEs: "Guion — El Trato, Todo Hoy",
-      },
-      {
-        type: "script",
-        text: "YOU: \"I'm all for it. Here's the deal, and all of it happens before you walk out of here: you tag us, you send me the clip, and I take something off the price right now.\" [Shake on it] \"Lovely. Come on then — let's give them something worth watching.\"",
-        textEs: "TÚ: \"Yo encantado. El trato es este, y pasa todo antes de que salgas de aquí: nos etiquetas, me mandas el vídeo, y yo te quito algo del precio ahora mismo.\" [Os dais la mano] \"Estupendo. Venga — vamos a darles algo que merezca la pena ver.\"",
-      },
-      {
-        type: "subheader",
-        text: "Script — If She'd Rather Not Film You",
-        textEs: "Guion — Si Prefiere No Grabarte",
-      },
-      {
-        type: "script",
-        text: "YOU: \"Honestly, no problem at all if you'd rather I wasn't in it.\" [Zero drama about it] \"Do me one favour though — film your own hand, or the mirror. And say where you are. That way your friends know where to come and you've still got the good bit.\"",
-        textEs: "TÚ: \"De verdad, no pasa absolutamente nada si prefieres que yo no salga.\" [Sin dramas] \"Pero hazme un favor: graba tu propia mano, o el espejo. Y di dónde estás. Así tus amigas saben dónde venir y tú te quedas con la parte buena.\"",
-      },
-      {
-        type: "subheader",
-        text: "Before You Walk Away",
-        textEs: "Antes de Irte",
-      },
-      {
-        type: "tip",
-        text: "Have one line you always say on camera, and make it a good one. \"Sixty seconds. Watch the line.\" Short enough that people repeat it. And keep every deal you make with a phone inside the same conversation — the tag, the clip, the price, all of it finished before she walks off. The second you say \"come back and I'll sort you out\", you've handed a colleague at that counter an argument you won't be there for. Free advertising should stay free.",
-        textEs: "Ten una frase que digas siempre delante de la cámara, y que sea buena. \"Sesenta segundos. Mira la línea.\" Corta, para que la gente la repita. Y todo lo que pactes con un móvil, que se cierre en esa misma conversación — la etiqueta, el vídeo, el precio, todo terminado antes de que se vaya. En cuanto dices \"vuelve y te lo compenso\", le has regalado a un compañero una discusión en el mostrador en la que tú no vas a estar. La publicidad gratis tiene que salir gratis.",
-      },
-    ],
-    quiz: [
-      {
-        question: 'The phone comes out mid-demo: "I am putting this on TikTok." What do you say?',
-        questionEs: 'Sale el móvil en mitad de la demo: "Esto lo subo a TikTok". ¿Qué dices?',
-        options: [
-          '"Give me a second to sort my hair out first"',
-          '"Yes. Film all of it — get my good side"',
-          '"Not while I am working, sorry about that"',
-          '"Fine, but do not put the price in the video"',
-        ],
-        optionsEs: [
-          '"Dame un segundo, que me arreglo el pelo"',
-          '"Sí. Grábalo todo — cógeme el lado bueno"',
-          '"Mientras trabajo no, lo siento"',
-          '"Vale, pero el precio no lo saques en el vídeo"',
-        ],
-        correctIndex: 1,
-        explanation:
-          'Hesitating on camera reads as guilty on this street. Say yes like you mean it and the clip does the advertising for you.',
-        explanationEs:
-          'Dudar delante de la cámara suena a culpable en esta calle. Di que sí de verdad y el vídeo te hace la publicidad.',
-      },
-      {
-        question: 'She is filming. What has to be in the shot?',
-        questionEs: 'Está grabando. ¿Qué tiene que salir en cuadro?',
-        options: [
-          'Your face, from the good angle, for as long as possible',
-          'The card machine, so people know it is a real shop',
-          'Her before-and-after, and nothing else at all',
-          'The product, and where you are, said out loud',
-        ],
-        optionsEs: [
-          'Tu cara, desde el ángulo bueno, todo el rato posible',
-          'El datáfono, para que se vea que es una tienda real',
-          'Su antes y después, y nada más',
-          'El producto y dónde estás, dicho en voz alta',
-        ],
-        correctIndex: 3,
-        explanation:
-          'A video nobody can find is a video that sold nothing. Product in frame, shop behind you, and say where you are out loud.',
-        explanationEs:
-          'Un vídeo que nadie puede encontrar es un vídeo que no ha vendido nada. Producto en cuadro, tienda detrás y di dónde estás en alto.',
-      },
-      {
-        question: 'She offers to tag the shop. What do you trade for it?',
-        questionEs: 'Se ofrece a etiquetar la tienda. ¿Qué le das a cambio?',
-        options: [
-          'A voucher she can use the next time she is over',
-          'A free scrub posted out to her when the video goes up',
-          'Something off the price, right now, before she leaves',
-          'Your name at the counter so she is looked after next visit',
-        ],
-        optionsEs: [
-          'Un cupón para la próxima vez que venga por aquí',
-          'Un exfoliante gratis enviado cuando suba el vídeo',
-          'Algo del precio, ahora mismo, antes de que se vaya',
-          'Tu nombre en el mostrador para que la atiendan la próxima',
-        ],
-        correctIndex: 2,
-        explanation:
-          'Every deal you make with a phone gets settled inside the same conversation. Anything owed after she walks off lands on a colleague.',
-        explanationEs:
-          'Todo lo que pactes con un móvil se cierra en esa misma conversación. Lo que quede a deber cuando se vaya le cae a un compañero.',
-      },
-    ],
-  },
-
   "S9": {
     id: "S9",
     categoryId: "scenarios",
@@ -1512,7 +1148,7 @@ export const scenarioLessons: Record<string, Lesson> = {
     subtitleEs: "El que está detrás de ella con los brazos cruzados",
     duration: "4 min",
     icon: "Frown",
-    order: 9,
+    order: 2,
     xpReward: 100,
     sections: [
       {
@@ -1694,7 +1330,7 @@ export const scenarioLessons: Record<string, Lesson> = {
     subtitleEs: "La venta más fácil de la semana vuelve ella sola",
     duration: "5 min",
     icon: "RefreshCw",
-    order: 10,
+    order: 6,
     xpReward: 100,
     sections: [
       {
