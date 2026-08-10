@@ -1,4 +1,38 @@
-import { useState, useCallback, useEffect } from 'react';
+/* ─────────────────────────────────────────────────────────────────────────────
+ * useDailyFlow — check in, today's dose, end-of-shift reflection, and the
+ * streak that runs through them.
+ *
+ * ── WHY THIS IS A PROVIDER AND NOT A PLAIN HOOK ─────────────────────────────
+ * It used to be a plain hook, and five components called it: the dose card, the
+ * dose modal, the home screen, the check-in screen, and ShiftNudges. Each call
+ * ran its own `useState(loadFlowState)`, so each held a private snapshot taken
+ * when it mounted. There is no storage event for same-document writes and
+ * nothing subscribed to anything, so those snapshots never reconciled.
+ *
+ * Two things that broke:
+ *
+ *   • The dose card and the dose modal sit in the same screen. The modal wrote
+ *     the completion into ITS copy; the card read completion from ITS OWN. The
+ *     tick could not appear until the card remounted.
+ *
+ *   • Worse, ShiftNudges is mounted in App.tsx OUTSIDE the router, so it lives
+ *     for the whole session and its snapshot is whatever was true at app open —
+ *     `checkedIn: false`. It gates every nudge on `getTodayProgress().checkedIn`.
+ *     A seller opened the app, checked in, worked a full shift, and the nudge
+ *     engine spent the day believing they had never come on shift. The feature
+ *     did not misfire; it never fired at all.
+ *
+ * One provider, one copy, everybody sees the same day.
+ * ─────────────────────────────────────────────────────────────────────────── */
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useContext,
+  createContext,
+  createElement,
+  type ReactNode,
+} from 'react';
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -104,17 +138,36 @@ function createFreshDayRecord(): DayRecord {
 
 interface StreakData {
   currentStreak: number;
-  lastFullFlowDate: string | null;
+  /**
+   * The last day this seller was counted as having shown up.
+   *
+   * It used to be `lastFullFlowDate` and it moved only when a seller did all
+   * three — check in, dose, reflection — on the same day. Almost nobody files
+   * the end-of-shift form every single day, so almost nobody ever had a streak:
+   * they turned up, checked in, worked, and the counter sat at zero. A streak
+   * that only rewards perfect days is not a streak, it is a trophy.
+   *
+   * Now it moves the moment they check in. Showing up is the thing being
+   * counted, because showing up is the thing the owner wants every morning.
+   * The old key is still read below so nobody's existing streak resets.
+   */
+  lastCountedDate: string | null;
 }
 
 function loadStreak(): StreakData {
   try {
     const raw = localStorage.getItem(STORAGE_KEY_STREAK);
-    if (raw) return JSON.parse(raw) as StreakData;
+    if (raw) {
+      const parsed = JSON.parse(raw) as Partial<StreakData> & { lastFullFlowDate?: string | null };
+      return {
+        currentStreak: parsed.currentStreak ?? 0,
+        lastCountedDate: parsed.lastCountedDate ?? parsed.lastFullFlowDate ?? null,
+      };
+    }
   } catch {
     // ignore
   }
-  return { currentStreak: 0, lastFullFlowDate: null };
+  return { currentStreak: 0, lastCountedDate: null };
 }
 
 function saveStreak(data: StreakData) {
@@ -138,9 +191,9 @@ function isYesterday(dateStr: string): boolean {
 
 
 
-// ─── Hook ────────────────────────────────────────────────────────
+// ─── State ───────────────────────────────────────────────────────
 
-export function useDailyFlow() {
+function useDailyFlowState() {
   const [state, setState] = useState<DailyFlowState>(loadFlowState);
   const [streak, setStreak] = useState<StreakData>(loadStreak);
 
@@ -152,6 +205,21 @@ export function useDailyFlow() {
   useEffect(() => {
     saveStreak(streak);
   }, [streak]);
+
+  /**
+   * Count today, once. Idempotent — calling it twice on the same day is a
+   * no-op, so it is safe from both check-in and the end-of-shift form.
+   */
+  const countToday = useCallback(() => {
+    setStreak((prev) => {
+      if (prev.lastCountedDate === TODAYS_DATE()) return prev;
+      const continued = prev.lastCountedDate !== null && isYesterday(prev.lastCountedDate);
+      return {
+        currentStreak: continued ? prev.currentStreak + 1 : 1,
+        lastCountedDate: TODAYS_DATE(),
+      };
+    });
+  }, []);
 
   // ─── Morning Check-In ─────────────────────────────────────────
 
@@ -165,8 +233,9 @@ export function useDailyFlow() {
           today: { ...todayRecord, xpEarned },
         };
       });
+      countToday();
     },
-    []
+    [countToday]
   );
 
   // ─── Complete Daily Dose ──────────────────────────────────────
@@ -193,52 +262,18 @@ export function useDailyFlow() {
 
   const endOfShift = useCallback(
     (data: ReflectionData) => {
-      setState((prev) => {
-        const xpEarned = prev.today.xpEarned + 10;
-        const updatedToday = {
-          ...prev.today,
-          reflection: data,
-          xpEarned,
-        };
-
-        // Check if this completes the full flow and update streak
-        const flowCompleted =
-          updatedToday.checkIn !== null &&
-          updatedToday.doseCompletedId !== null &&
-          updatedToday.reflection !== null;
-
-        if (flowCompleted) {
-          setStreak((prevStreak) => {
-            const lastDate = prevStreak.lastFullFlowDate;
-            let newStreak = prevStreak.currentStreak;
-
-            if (!lastDate) {
-              newStreak = 1;
-            } else if (isYesterday(lastDate) || lastDate === TODAYS_DATE()) {
-              // Continuing streak (or same day re-completion)
-              newStreak = prevStreak.currentStreak || 1;
-              if (lastDate !== TODAYS_DATE()) {
-                newStreak += 1;
-              }
-            } else {
-              // Streak broken
-              newStreak = 1;
-            }
-
-            return {
-              currentStreak: newStreak,
-              lastFullFlowDate: TODAYS_DATE(),
-            };
-          });
-        }
-
-        return {
-          ...prev,
-          today: updatedToday,
-        };
-      });
+      setState((prev) => ({
+        ...prev,
+        today: { ...prev.today, reflection: data, xpEarned: prev.today.xpEarned + 10 },
+      }));
+      /* Also counts the day, for the seller who never opens the check-in but
+         does write the shift up. The same-day guard makes it a no-op for
+         everyone else. This used to live INSIDE the setState updater, which
+         React is entitled to run twice — a reducer is not a place for a side
+         effect, however well the guard happened to hold. */
+      countToday();
     },
-    []
+    [countToday]
   );
 
   // ─── Queries ──────────────────────────────────────────────────
@@ -281,6 +316,23 @@ export function useDailyFlow() {
     getTodaysXp,
     todayState,
   };
+}
+
+// ─── Provider ────────────────────────────────────────────────────
+
+type DailyFlow = ReturnType<typeof useDailyFlowState>;
+
+const DailyFlowContext = createContext<DailyFlow | null>(null);
+
+export function DailyFlowProvider({ children }: { children: ReactNode }) {
+  const value = useDailyFlowState();
+  return createElement(DailyFlowContext.Provider, { value }, children);
+}
+
+export function useDailyFlow(): DailyFlow {
+  const ctx = useContext(DailyFlowContext);
+  if (!ctx) throw new Error('useDailyFlow must be used inside <DailyFlowProvider>');
+  return ctx;
 }
 
 // ─── Utility Hook for Components ─────────────────────────────────

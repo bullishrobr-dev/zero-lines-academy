@@ -12,6 +12,9 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { LocationProvider } from './contexts/LocationContext';
 import { AuthProvider, useAuthContext } from './contexts/AuthContext';
 import { ProgressProvider } from './hooks/useProgress';
+import { DailyFlowProvider } from './hooks/useDailyFlow';
+import { StreetTrackerProvider } from './hooks/useStreetTracker';
+import { ShiftNudgesProvider } from './hooks/useShiftNudges';
 
 /* ── Lazy-loaded pages for code splitting ── */
 const AuthPage          = lazy(() => import('./pages/AuthPage'));
@@ -167,6 +170,13 @@ export default function App() {
                 learned about each other's writes — finish a lesson and the home
                 screen kept the old total until a reload. */}
             <ProgressProvider>
+            {/* The same argument, for the rest of the state a shift touches.
+                Order matters: the street log awards XP through useProgress, and
+                the nudge engine asks both of the others whether the seller is
+                on shift with nobody in the chair. */}
+            <DailyFlowProvider>
+            <StreetTrackerProvider>
+            <ShiftNudgesProvider>
             <ErrorBoundary>
               <Layout>
                 <Suspense fallback={<LoadingScreen />}>
@@ -193,7 +203,18 @@ export default function App() {
                     <Route path="/nail-kit" element={<RequireAuth><NailKitPage /></RequireAuth>} />
                     <Route path="/exercises" element={<RequireAuth><ExercisesPage /></RequireAuth>} />
                     <Route path="/quizzes" element={<RequireAuth><QuizzesPage /></RequireAuth>} />
-                    <Route path="/cheat-sheets" element={<RequireAuth><CheatSheetsPage /></RequireAuth>} />
+                    {/* The cheat sheet's sub-views are real URLs —
+                        /cheat-sheets/said/price, /cheat-sheets/prices — so the
+                        phone's back gesture goes up ONE level instead of
+                        leaving the screen, and the Cheats tab in the bottom nav
+                        returns to the landing instead of doing nothing. Both
+                        segments are optional, so one route covers all three
+                        depths and the page redirects anything unrecognised.
+                        See the note at the top of CheatSheetsPage.tsx. */}
+                    <Route
+                      path="/cheat-sheets/:section?/:reason?"
+                      element={<RequireAuth><CheatSheetsPage /></RequireAuth>}
+                    />
                     <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
                     <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
                     <Route path="/first-day" element={<RequireAuth><FirstDayTrack /></RequireAuth>} />
@@ -223,6 +244,9 @@ export default function App() {
                 <PrefetchNavRoutes />
               </Layout>
             </ErrorBoundary>
+            </ShiftNudgesProvider>
+            </StreetTrackerProvider>
+            </DailyFlowProvider>
             </ProgressProvider>
           </LocationProvider>
         </AuthProvider>

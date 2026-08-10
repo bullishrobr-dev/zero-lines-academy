@@ -1,4 +1,29 @@
-import { useState, useCallback, useEffect, useMemo } from 'react';
+/* ─────────────────────────────────────────────────────────────────────────────
+ * useStreetTracker — the shift log: stops, sales, open encounters, the streak.
+ *
+ * A provider for the same reason useDailyFlow is one. Five components read it,
+ * and one of them — ShiftNudges — is mounted in App.tsx outside the router, so
+ * it lives for the whole session. As a plain hook that component's `sessions`
+ * array was whatever had been in storage at app open, for the rest of the day:
+ * it gates nudges on `openEncounter`, so it could not tell that the seller had
+ * a customer in the chair, which is the exact moment a buzz costs a sale.
+ *
+ * The sharper edge was the persistence. Every copy runs
+ * `useEffect(() => saveSessions(sessions), [sessions])`. A long-lived copy that
+ * only ever READ was one line away from writing its stale snapshot back over a
+ * full day of logged sales. Nothing reconciles copies — there is no storage
+ * event for same-document writes — so the newest write simply wins.
+ * ─────────────────────────────────────────────────────────────────────────── */
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useContext,
+  createContext,
+  createElement,
+  type ReactNode,
+} from 'react';
 import { XP_VALUES, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
 import type { StreetSession, DailySummary, XPAward } from '../types/streetTracker';
 import { useAuthContext } from '../contexts/AuthContext';
@@ -85,7 +110,7 @@ function aggregateDay(sessions: StreetSession[], key: string): DailySummary {
   return { date: key, stops, sales, revenue, conversionRate };
 }
 
-export function useStreetTracker() {
+function useStreetTrackerState() {
   const [sessions, setSessions] = useState<StreetSession[]>(loadSessions);
   const [xpAwards, setXpAwards] = useState<XPAward[]>(loadXPAwards);
 
@@ -330,4 +355,21 @@ export function useStreetTracker() {
     getTotalXP,
     getStreak,
   };
+}
+
+// ─── Provider ────────────────────────────────────────────────────────────────
+
+type StreetTracker = ReturnType<typeof useStreetTrackerState>;
+
+const StreetTrackerContext = createContext<StreetTracker | null>(null);
+
+export function StreetTrackerProvider({ children }: { children: ReactNode }) {
+  const value = useStreetTrackerState();
+  return createElement(StreetTrackerContext.Provider, { value }, children);
+}
+
+export function useStreetTracker(): StreetTracker {
+  const ctx = useContext(StreetTrackerContext);
+  if (!ctx) throw new Error('useStreetTracker must be used inside <StreetTrackerProvider>');
+  return ctx;
 }

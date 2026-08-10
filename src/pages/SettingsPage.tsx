@@ -213,7 +213,7 @@ export default function SettingsPage() {
    * wired to the real engine: it asks the OS for notification permission and
    * turns on the every-35-minutes prompt during shift hours.
    */
-  const nudges = useShiftNudges(false);
+  const nudges = useShiftNudges();
   const reminderEnabled = nudges.enabled;
 
   const displayName = authUser?.name || progress.getUserName() || t('profileSalesTrainee');

@@ -23,8 +23,19 @@
 // middle of an approach is a lost sale, which is the opposite of helping.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  createContext,
+  createElement,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { NUDGES, pickNudge, type Nudge } from '../data/nudges';
+import { useDailyFlow } from './useDailyFlow';
+import { useStreetTracker } from './useStreetTracker';
 
 const LS_ENABLED = 'zl_nudges_enabled';
 const LS_LAST_AT = 'zl_nudges_last_at';
@@ -103,11 +114,7 @@ export interface UseShiftNudges {
   sendNow: () => void;
 }
 
-/**
- * @param active  Only nudge a seller who is actually on shift (checked in) and
- *                not mid-encounter.
- */
-export function useShiftNudges(active: boolean): UseShiftNudges {
+function useShiftNudgesState(active: boolean): UseShiftNudges {
   const [enabled, setEnabled] = useState<boolean>(readEnabled);
   const [permission, setPermission] = useState<NudgePermission>(permissionNow);
   const [current, setCurrent] = useState<Nudge | null>(null);
@@ -202,4 +209,35 @@ export function useShiftNudges(active: boolean): UseShiftNudges {
   }, [enabled, current, show]);
 
   return { current, dismiss, enabled, permission, enable, disable, sendNow };
+}
+
+// ─── Provider ────────────────────────────────────────────────────────────────
+//
+// There is one nudge engine, and Settings has to be talking to that one. As a
+// plain hook, Settings ran a second copy: turning nudges on there set `enabled`
+// on a copy that was thrown away the moment the seller left the screen, while
+// the engine mounted in App.tsx carried on with the value it had read at boot.
+// The switch flipped, the toast appeared, and nothing happened until the app
+// was restarted.
+//
+// `active` also stops being a parameter. It is not a caller's opinion — it is a
+// fact about the shift (are they checked in, is someone in the chair), so the
+// provider reads it from the two hooks that own it. Settings used to pass
+// `false`, which meant a screen could quietly switch the engine off for as long
+// as it was open.
+
+const ShiftNudgesContext = createContext<UseShiftNudges | null>(null);
+
+export function ShiftNudgesProvider({ children }: { children: ReactNode }) {
+  const { getTodayProgress } = useDailyFlow();
+  const { openEncounter } = useStreetTracker();
+  const active = getTodayProgress().checkedIn && !openEncounter;
+  const value = useShiftNudgesState(active);
+  return createElement(ShiftNudgesContext.Provider, { value }, children);
+}
+
+export function useShiftNudges(): UseShiftNudges {
+  const ctx = useContext(ShiftNudgesContext);
+  if (!ctx) throw new Error('useShiftNudges must be used inside <ShiftNudgesProvider>');
+  return ctx;
 }

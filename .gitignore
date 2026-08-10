@@ -25,3 +25,6 @@ __pycache__/
 # Tooling caches
 .vite/
 coverage/
+
+# Local verification build (device-only shim) — never shipped
+dist-local
