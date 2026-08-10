@@ -341,8 +341,8 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'paragraph',
-        text: `Before you approach anybody with the sample, get their attention. You want them looking at you BEFORE you take a single step. Not while you walk — before.`,
-        textEs: `Antes de acercarte a nadie con la muestra, consigue su atención. Quieres que te estén mirando ANTES de dar un solo paso. No mientras andas — antes.`,
+        text: `Before you approach anybody with the sample, get their attention. You want them looking at you BEFORE you take a single step. Not while you walk — before. And do it early, while they are still four or five metres off and still walking. Wait until they are a couple of metres away and you have left it too late: by the time they have registered you and turned their head they are already level with you, and then they are past you.`,
+        textEs: `Antes de acercarte a nadie con la muestra, consigue su atención. Quieres que te estén mirando ANTES de dar un solo paso. No mientras andas — antes. Y hazlo pronto, cuando todavía están a cuatro o cinco metros y siguen andando. Si esperas a que estén a un par de metros, ya llegas tarde: para cuando te han visto y han girado la cabeza ya están a tu altura, y acto seguido te han pasado de largo.`,
       },
       {
         type: 'script',
@@ -353,6 +353,11 @@ export const closingLessons: Record<string, Lesson> = {
         type: 'paragraph',
         text: `If they look at you, now you raise the sample and start walking towards them. If they do not look, you have lost nothing — you did not commit. Walking at someone who has not looked at you is how you become a person to avoid.`,
         textEs: `Si te miran, ahora levantas la muestra y empiezas a andar hacia ellos. Si no te miran, no has perdido nada — no te has comprometido. Andar hacia alguien que no te ha mirado es cómo te conviertes en una persona a evitar.`,
+      },
+      {
+        type: 'keypoint',
+        text: `And when you do reach them, the sample itself is a coin toss — it does not matter which way it lands. They take it, lovely. They wave it away, nothing happens. You have not been rejected, because you never asked them for anything. Either way you are still stood in front of them and you carry straight on into the next step, exactly the same. Sellers lose people here by treating a refused sample as an answer. It is not an answer, it is a hand not moving.`,
+        textEs: `Y cuando llegues a su altura, la muestra es cara o cruz — da igual de qué lado caiga. Si la cogen, genial. Si la apartan con la mano, no pasa nada. No te han rechazado, porque no les has pedido nada. En los dos casos sigues plantado delante de ellos y pasas al siguiente paso igual. Aquí es donde los vendedores pierden gente: se toman una muestra rechazada como una respuesta. No es una respuesta, es una mano que no se ha movido.`,
       },
 
       {
@@ -409,8 +414,13 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'script',
-        text: `"Come, guys, don't worry — it's really quick. You're going to love it."`,
-        textEs: `"Venid, chicos, no os preocupéis — es rapidísimo. Os va a encantar."`,
+        text: `"Come on guys, it's two seconds, I promise. Come."`,
+        textEs: `"Venga chicos, son dos segundos, os lo prometo. Venid."`,
+      },
+      {
+        type: 'keypoint',
+        text: `Then turn back round and keep walking. Do not stand there in the doorway watching them decide. Say it, turn, walk — and the walking is what does the persuading, because now there is nothing to say no to. A seller frozen in the door with a hopeful face is asking permission again, and you have just spent four steps not asking permission.`,
+        textEs: `Y date la vuelta otra vez y sigue andando. No te quedes ahí en la puerta mirando cómo lo deciden. Lo dices, te giras, andas — y lo que convence es el andar, porque ya no hay nada a lo que decir que no. Un vendedor congelado en la puerta con cara de ilusión está pidiendo permiso otra vez, y te acabas de pasar cuatro pasos sin pedir permiso.`,
       },
       {
         type: 'paragraph',
