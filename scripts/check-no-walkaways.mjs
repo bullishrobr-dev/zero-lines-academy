@@ -97,13 +97,28 @@ const NEGATED =
 const SAFETY = /SAFETY|seguridad|broken skin|inflamed|piel (da[ñn]ada|irritada)|irritation|scarring|cicatri/i;
 
 /*
- * The one real exception the owner allows: you have gone A to Z, given it
- * everything, and it genuinely did not work. Then you let them go with a good
- * face. It is rare and it is a last resort, never a plan — but where the copy
- * is explicitly about that moment, "come back whenever" is his own line.
+ * THE THREE EXCEPTIONS. All three are the owner's own words, all three are
+ * narrow, and copy only gets the exemption when the surrounding lines say
+ * plainly which one it is in. See CLAUDE.md.
+ *
+ *  1. A to Z and it did not work — you gave it 100% and nothing landed.
+ *
+ *  2. The demo died in front of a crowd. "There is no point trying to sell to
+ *     a dead body. Get them out of the shop, and you continue with the next
+ *     one." Two seconds to fight it, and no pivot to another product.
+ *
+ *  3. She has been abandoned mid-demo — husband gone, friends gone, nobody
+ *     behind her. The only place in this app where "come back later" is right:
+ *     "Go think about it, see how it looks, come back later. I'll fix your
+ *     other eye, even if you don't buy anything." She leaves with one eye done
+ *     and a reason to walk back in, which is a hook rather than a polite exit.
+ *
+ * Deliberately NOT exempt: the seller who is bored, the customer who "looks
+ * like a time waster", anything softened with "gracefully". Those are the
+ * walkaways this guard exists for.
  */
 const LAST_RESORT =
-  /nothing (else )?work|if nothing|si no funciona|last resort|[úu]ltimo recurso|let (them|her|him) go|d[eé]jal[oa]s? ir|tried everything|lo has intentado todo/i;
+  /nothing (else )?work|if nothing|si no funciona|last resort|[úu]ltimo recurso|let (them|her|him) go|d[eé]jal[oa]s? ir|tried everything|lo has intentado todo|dead body|cuerpo (sin vida|muerto)|it is dead|est[áa] muert|died in front|se muri[óo] delante|abandon|abandonad|on her own|sola en la silla|nobody (behind|with) her|nadie detr[áa]s|husband (has )?(left|walked|gone)|el marido se ha ido|friends (have )?(left|gone)|las amigas se han ido/i;
 
 /** Fields that NAME an objection rather than script the seller's answer. */
 const NAMING_FIELD = /^\s*(title|titleEs|question|questionEs|label|labelEs|head|headEs|name|nameEs)\s*:/;

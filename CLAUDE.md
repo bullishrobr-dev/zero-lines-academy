@@ -46,9 +46,99 @@ is wrong, however polite it sounds. The card-with-the-price-written-on-it is
 the perfect example: it feels helpful, it feels professional, and it walks a
 customer who was ready to buy straight out of the door.
 
-**The only exception**, and it is rare: you have genuinely gone A to Z, given it
-100%, and nothing worked. Then you let them go. That is a last resort, never a
-plan, and never the "correct answer" in a quiz.
+**The exceptions.** There are exactly three, they are the owner's own words,
+and they are narrow. Anything that is not one of these is a walkaway.
+
+1. **A to Z, and it did not work.** You gave it 100%, you went through the
+   whole ladder, nothing landed. Then you let them go. A last resort, never a
+   plan, and never the "correct answer" in a quiz.
+
+2. **The demo died in front of a crowd.** The line did not move, she said "it's
+   a con" out loud, people are watching. You get two seconds to fight it — one
+   line, no more. If it is dead it is dead:
+
+   > "There is no point trying to sell to a dead body. Get them out of the
+   > shop, and you continue with the next one."
+
+   You do **not** pivot to another product to save it. Dragging a dead demo
+   through a scrub pitch in front of an audience loses the audience too.
+
+3. **She has been abandoned, mid-demo.** The husband walked off, the friends
+   walked off, she is sitting there on her own with nobody behind her. This is
+   the one case where she may genuinely need to go, and it is the only place in
+   the whole app where "come back later" is his line rather than a mistake:
+
+   > "Go think about it, see how it looks, come back later. I'll fix your other
+   > eye, even if you don't buy anything."
+
+   Note what makes it work: she leaves with one eye done and a reason to walk
+   back in. It is not a polite exit, it is a hook.
+
+## What we actually sell, and where a seller's job ends
+
+This was missing from the app for a long time and it changes what "a sale"
+means. The owner's words:
+
+> "The scrub, body butter and nail kit — those are completely beginner
+> products. It's only for people who are learning how to sell, or just want to
+> have some nice energy. The peeling is kind of in between. But the syringe is
+> what we usually sell, what we focus on, the star product."
+
+So the ladder of what matters is: **syringe first, always.** The peeling is the
+middle. The small products are training wheels and a bit of energy — they are
+not the target, and a lesson that treats a nail-kit sale as the goal is
+teaching a beginner to stay a beginner.
+
+**And the seller's job ends at the syringe.** It does not end at the money.
+
+> "If they sold a syringe, the whole point is to pass it to an upseller."
+
+The upseller sells the thing that is not in this manual at all: **red and
+infrared LED devices** — the alternative to a facelift, the thing that gets the
+body making its own collagen and elastin and lifts the face. That is a
+different job, done by a different person.
+
+What the seller does is the handover, and it is a script, not an introduction:
+
+> Present the upseller as a **specialist** who is only here for a short time,
+> and who is amazing at what he does. "Just because you got this, I'm going to
+> spoil you with a small gift." Then the question that does the work: "What is
+> more important for you, if you could get it lifted? The cheeks? The neck?
+> Would that make you happy?" Then: "Let me check with him, if you have one
+> second" — and you bring the upseller over, and he takes it from there.
+
+Two things follow from this that copy keeps getting wrong:
+
+- **An upsell is not the seller pitching a second product.** After a syringe
+  sale the seller does not start selling a scrub. They hand over. Any lesson
+  that has the seller cross-selling their way up from the syringe is describing
+  a job nobody here does.
+- **Selling the syringe is the win.** That is what a shift is measured on, what
+  the journal counts, and what a new seller is aiming at.
+
+## The first two weeks: you only stop
+
+> "People that are new in the job, all they do for the first two weeks is the
+> syringe. They don't do nothing else. They literally stop people and pass them
+> to other colleagues. They don't even do the demonstrations themselves. They
+> literally just stop."
+
+This is why The Art of Stopping is tier 1 and why it is the first thing anyone
+reads. For two weeks the entire job is: stop a stranger, bring them in, hand
+them to a colleague. No demo, no ladder, no close.
+
+It also settles the who-do-I-stop question, which the app used to answer with a
+filter — read their walk, skip the fast ones. That is wrong for a beginner:
+
+> "As a newbie, just try to stop everybody, just for the sake of practising.
+> With time you start to understand who to stop and who not to. But it's not
+> something I want to write directly."
+
+So: **a new seller stops everybody.** Selectivity is something experience gives
+you, not a rule the app hands out — and there is deliberately no list anywhere
+of who to skip. For the same reason, nothing in the app teaches spotting the
+customer who was never going to buy. Asked how a seller is meant to know that,
+the owner's answer was that they cannot, and that it only comes with time.
 
 ## The voucher is a device, not a gift
 
@@ -66,6 +156,52 @@ moment, with a small piece of theatre attached.
 just a customer leaving the shop with extra steps. Any copy that has the seller
 issuing a voucher "for next time", holding one at the counter, or telling
 someone the voucher will be waiting for them is wrong — rewrite it.
+
+## The second eye is a closing device
+
+You do one eye. The untouched one is your best argument, so you do not give it
+away — and the app used to be vague about when it ever gets done. It is not a
+favour. It is the cover for the price drop.
+
+> "I never do the other eye. Sometimes, within the speech, I say to do the
+> other eye in order to close."
+
+The move, at {currency}175, when you are trying to get her to yes before she
+stands up:
+
+> "You know what, let me fix your other eye real quick."
+
+**And while you are doing that eye, the voucher comes out** — the extra 20%,
+{currency}175 down to {currency}140. That is the whole point of it. Her face is
+tilted up, your hands are busy, the room feels finished, and the number moves
+inside a moment that is about something else.
+
+The rest of it:
+
+- **She pays for it, she gets it done.** No argument, no theatre.
+- **She asks for the second eye before buying?** Condition it: *"If you buy it,
+  I'll do the other one, yeah?"*
+- **She has been abandoned** — the husband and the friends have gone, she has
+  nobody with her. That is exception 3 under THE RULE above, and it is the one
+  time she leaves with one eye done and an open invitation.
+
+## Where the floor actually comes from
+
+The ladder is not the seller's to give away all the way down.
+
+> "You use the voucher once, usually 175 to 140, with the extra 20%. After
+> that, if it doesn't work, you go full market, call a manager, and get it to
+> 100. Usually you don't need two vouchers."
+
+So: **one voucher, once.** There is no second voucher — inventing another one
+tells her the first was invented too. Below {currency}140 the theatre changes:
+you go full market, and **the manager is the device that unlocks
+{currency}100**, not the seller's own generosity. A seller who can reach the
+floor on their own has no floor.
+
+The same answer covers the customer who walks back in months later having
+bought before: **call the manager**, or if he is not there, whoever on the
+floor has the most experience. It is not the seller's sale to price.
 
 ## The two yeses
 
