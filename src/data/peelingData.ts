@@ -128,8 +128,8 @@ export const peelingData = {
         step: '4',
         title: 'The Authority Builder',
         titleEs: 'El Constructor de Autoridad',
-        text: '"It\'s actually so good that dermatologists recommend it for eczema, psoriasis, dry skin, and even redness or sensitivity." That single line builds authority and trust — it\'s science-based, not sales-based.',
-        textEs: '"Es tan bueno que los dermatólogos lo recomiendan para eczema, psoriasis, piel seca, e incluso enrojecimiento o sensibilidad." Esa sola frase construye autoridad y confianza — está basada en ciencia, no en ventas.',
+        text: '"It\'s actually so good that people with the most difficult skin in the world use it — the driest, the most sensitive, the ones who cannot put anything on their face." That single line builds authority and trust — it\'s science-based, not sales-based.',
+        textEs: '"Es tan bueno que lo usa gente con la piel más difícil del mundo — la más seca, la más sensible, la que no se puede poner nada en la cara." Esa sola frase construye autoridad y confianza — está basada en ciencia, no en ventas.',
       },
       {
         step: '5',
@@ -237,8 +237,8 @@ export const peelingData = {
         icon: 'ShieldCheck',
         title: 'Mention dermatologists',
         titleEs: 'Menciona a los dermatólogos',
-        text: '"Dermatologists recommend it for eczema, psoriasis, dry skin, and redness." This builds instant authority.',
-        textEs: '"Los dermatólogos lo recomiendan para eczema, psoriasis, piel seca y enrojecimiento." Esto construye autoridad al instante.',
+        text: '"People with the most difficult skin in the world use this — the driest, the most sensitive." This builds instant authority.',
+        textEs: '"Lo usa gente con la piel más difícil del mundo — la más seca, la más sensible." Esto construye autoridad al instante.',
       },
       {
         icon: 'Calendar',

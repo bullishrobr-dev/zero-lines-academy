@@ -156,49 +156,49 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'Quick Signals: Red, Yellow, and Green',
-      textEs: 'Señales Rápidas: Rojo, Amarillo y Verde',
+      text: 'What the Scan Is For — and What It Is Not For',
+      textEs: 'Para Qué Sirve el Escaneo — y Para Qué No',
     },
     {
             type: 'comparison',
-      left: { label: 'GREEN (Stop Immediately)', text: 'Carrying luxury shopping bags, window-shopping slowly, well-dressed, good grooming, with a partner, smiling and chatting, looking at displays, no phone in hand. These people are in buying mode. Approach with confidence.' },
-      leftEs: { label: 'VERDE (Detente de Inmediato)', text: 'Cargando bolsas de compras de lujo, viendo escaparates despacio, bien vestidos, buena presentación, con una pareja, sonriendo y charlando, mirando los escaparates, sin teléfono en la mano. Estas personas están en modo de compra. Acércate con confianza.' },
-      right: { label: 'RED (Low Priority)', text: 'Walking fast with purpose, on phone call, pushing stroller with fussy baby, wearing headphones, carrying heavy bags (tired), frowning, checking watch repeatedly. These people are unlikely to stop. Let them pass or use a very light touch.' },
-      rightEs: { label: 'ROJO (Baja Prioridad)', text: 'Andando rápido y con rumbo, hablando por teléfono, empujando un carrito con un bebé inquieto, con auriculares puestos, cargando bolsas pesadas (cansados), con el ceño fruncido, mirando el reloj una y otra vez. Es poco probable que estas personas paren. Déjalas pasar o usa un toque muy suave.' }
+      left: { label: 'WHAT IT BUYS YOU', text: 'Your first sentence, and nothing else. Bags in her hands, you open on what she has already been buying. A serious watch, you open on quality and never on a bargain. Marching with somewhere to be, your line has to land in four words instead of twelve. The scan tells you HOW, never WHO.' },
+      leftEs: { label: 'PARA QUÉ SIRVE', text: 'Para tu primera frase, y para nada más. Bolsas en la mano, abres por lo que ya ha estado comprando. Un reloj serio, abres por calidad y nunca por ganga. A paso ligero y con prisa, tu frase tiene que caber en cuatro palabras en vez de doce. El escaneo te dice CÓMO, nunca A QUIÉN.' },
+      right: { label: 'WHAT IT DOES NOT BUY YOU', text: 'Permission to skip anybody. There is no such thing as a person who is not worth your fifteen seconds, and least of all while you are learning — you stop everybody, for the practice, and knowing who not to stop is something the years give you, not a list you get handed in week one.' },
+      rightEs: { label: 'PARA QUÉ NO SIRVE', text: 'Para saltarte a nadie. No existe la persona que no merezca tus quince segundos, y menos aún mientras estás aprendiendo — paras a todo el mundo, para practicar, y saber a quién no parar te lo dan los años, no una lista que te entregan la primera semana.' }
     },
     {
             type: 'keypoint',
-      text: 'YELLOW means caution and creativity. They\'re neutral — not obviously receptive but not closed off. Maybe they\'re dressed well but walking fast. Maybe they\'re with a partner who seems interested while they seem indifferent. These require your best stopping technique and often become your most satisfying wins.',
-      textEs: 'AMARILLO significa cautela y creatividad. Son neutrales — no son obviamente receptivos pero tampoco cerrados. Quizás están bien vestidos pero caminando rápido. Quizás están con una pareja que parece interesada mientras ellos parecen indiferentes. Estos requieren tu mejor técnica de detención y a menudo se convierten en tus victorias más satisfactorias.',
+      text: 'And when the scan gives you nothing — no bags, no watch, nothing you can hang a line on — you go anyway, with a plain warm opener. Half the people who end up sitting in your chair looked like absolutely nothing from four metres away. You never find that out by watching them walk past.',
+      textEs: 'Y cuando el escaneo no te da nada — ni bolsas, ni reloj, nada de donde tirar — vas igual, con una apertura sencilla y cálida. La mitad de la gente que acaba sentada en tu silla no parecía nada desde cuatro metros. Eso no lo averiguas nunca mirando cómo pasan de largo.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'The Grooming Signal',
-      textEs: 'La Señal de Cuidado Personal',
+      text: 'What Their Grooming Hands You',
+      textEs: 'Lo Que su Arreglo te Regala',
     },
     {
             type: 'paragraph',
-      text: 'One of the most reliable buying indicators is self-care. People who invest in their appearance are prime candidates for premium skincare:',
-      textEs: 'Uno de los indicadores de compra más confiables es el cuidado personal. Las personas que invierten en su apariencia son candidatas ideales para el cuidado de la piel premium:',
+      text: 'People spend money on the part of themselves they care about, and they wear the answer where you can see it. This is not a scoring system and it is not a shortlist — it is a shortcut to the right opening line:',
+      textEs: 'La gente se gasta el dinero en la parte de sí misma que le importa, y lleva la respuesta puesta donde tú la ves. Esto no es una puntuación ni una lista de elegidos — es un atajo hacia la frase correcta con la que abrir:',
     },
     {
             type: 'bullets',
       items: [
-        'WELL-MAINTAINED NAILS: Whether natural or polished, cared-for nails signal someone who values appearance. Perfect for the Nail Kit pitch.',
-        'QUALITY HAIR: Styled, colored, well-cut hair suggests investment in self-presentation.',
-        'SKIN QUALITY: Someone with good skin cares about skincare. Someone with skin concerns (redness, dryness, visible bags) has a PROBLEM you can solve.',
-        'TEETH: Straight, white teeth often correlate with overall self-care investment and disposable income.',
-        'MAKEUP APPLICATION: Skillful makeup (not overdone) shows someone who invests time in their appearance daily.'
+        'NAILS SHE LOOKS AFTER: natural or painted, she has already decided her hands matter. \'You always keep them natural? Come here, I want to show you something.\'',
+        'HAIR THAT HAS BEEN DONE: cut, coloured, blow-dried. Somebody who sits still for two hours in a salon will sit still for two minutes in your chair — say so, cheekily.',
+        'SKIN WITH A ROUTINE BEHIND IT: compliment it first, honestly, then go at the one thing nobody does. Somebody who already has a routine is somebody with a gap in it.',
+        'MAKEUP DONE WELL: she does this every morning and the eyes are where the time goes. Open there — it is the exact spot you are about to work on.',
+        'AND NONE OF IT RUNS BACKWARDS: bitten nails and a scraped-back ponytail tell you which line to open with, never to save your breath. Half of them are wearing a long flight, not a lack of interest, and you have no way of telling which from four metres.'
       ],
       itemsEs: [
-          'UÑAS BIEN CUIDADAS: Ya sean naturales o pintadas, las uñas cuidadas indican a alguien que valora su apariencia. Perfecto para el pitch del Kit de Uñas.',
-          'CABELLO DE CALIDAD: Cabello peinado, teñido, bien cortado sugiere inversión en la autopresentación.',
-          'CALIDAD DE LA PIEL: Alguien con buena piel se preocupa por el cuidado de la piel. Alguien con problemas de piel (enrojecimiento, sequedad, ojeras visibles) tiene un PROBLEMA que tú puedes resolver.',
-          'DIENTES: Dientes rectos y blancos a menudo se correlacionan con la inversión general en cuidado personal e ingresos disponibles.',
-          'APLICACIÓN DE MAQUILLAJE: Maquillaje bien aplicado (no exagerado) muestra a alguien que invierte tiempo en su apariencia diariamente.',
+          'UÑAS QUE SE CUIDA: naturales o pintadas, ya ha decidido que sus manos importan. "¿Siempre las llevas naturales? Ven, que te quiero enseñar una cosa."',
+          'PELO ARREGLADO: cortado, teñido, con brushing. Quien se está quieta dos horas en la peluquería se está quieta dos minutos en tu silla — díselo, con guasa.',
+          'PIEL CON UNA RUTINA DETRÁS: primero el cumplido, de verdad, y luego vas a por lo único que no hace nadie. Quien ya tiene una rutina es quien tiene un hueco en ella.',
+          'MAQUILLAJE BIEN PUESTO: esto lo hace cada mañana y donde se le va el tiempo es en los ojos. Abre por ahí — es justo la zona en la que vas a trabajar.',
+          'Y NADA DE ESTO FUNCIONA AL REVÉS: las uñas mordidas y la coleta tirante te dicen con qué frase abrir, nunca que te ahorres el aliento. La mitad llevan puesto un vuelo largo, no falta de interés, y desde cuatro metros no hay forma de saber cuál es cuál.',
         ],
     },
     {
@@ -237,41 +237,11 @@ export const lessons: Record<string, Lesson> = {
       attributionEs: 'Método Zero Lines',
     }
     ],
-    quiz: [
-    {
-      question: 'What does the \'C\' in the SCAN system stand for?',
-      options: [
-        'Clothing',
-        'Carry (shopping bags)',
-        'Cultural background',
-        'Conversation style'
-      ],
-      correctIndex: 1,
-      explanation: 'C stands for \'Carry\' — what shopping bags or items they\'re carrying. Bags from luxury stores signal buying mood and spending power.',
-    },
-    {
-      question: 'Which of these is a \'GREEN\' signal to stop immediately?',
-      options: [
-        'Walking fast and checking their watch',
-        'On a phone call, looking stressed',
-        'Carrying luxury shopping bags and window-shopping slowly',
-        'Pushing a stroller with a crying baby'
-      ],
-      correctIndex: 2,
-      explanation: 'Luxury shopping bags + slow window-shopping signals buying mode. The person is already spending and receptive to new experiences.',
-    },
-    {
-      question: 'Why is grooming quality a reliable buying indicator?',
-      options: [
-        'It means they\'re vain',
-        'It indicates someone who invests in their appearance and self-care',
-        'It shows they\'re wealthy',
-        'It means they wear makeup'
-      ],
-      correctIndex: 1,
-      explanation: 'People who invest in their appearance (nails, hair, skin, teeth) are prime candidates for premium skincare because they already value self-care and invest in it.',
-    }
-    ],
+    /* No inline quiz. LESSON_QUIZZES['connect-1'] OVERLAYS whatever sits here,
+       so this was unreachable code — and two of the three graded the old
+       traffic-light filter as correct ("which is a GREEN signal to stop
+       immediately", "grooming is a reliable buying indicator"). A beginner
+       stops everybody; the live copies of those two are in lessonQuizzes.ts. */
   },
   'connect-2': {
     id: 'connect-2',
@@ -697,6 +667,39 @@ export const lessons: Record<string, Lesson> = {
           'INGLÉS: Probablemente ya dominas el inglés, pero las frases específicas británicas ayudan: "Brilliant," "Lovely," "Absolutely," "Cheers" — refleja su vocabulario.',
           'RUSO (común entre visitantes del este de Europa): "Zdravstvuyte" (Hola), "Smotrite" (Mira), "Potryasayushche" (Increíble) — incluso intentar un saludo genera buena voluntad.',
         ],
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
+      text: 'When You Share No Language At All',
+      textEs: 'Cuando No Compartís Ni Un Idioma',
+    },
+    {
+            type: 'paragraph',
+      text: 'This is not the disaster a new seller thinks it is. A demo is a mirror and two hands, and most of what sells is happening on her face rather than in your sentences. For the rest of it you are not short of options:',
+      textEs: 'Esto no es el desastre que se imagina un vendedor nuevo. Una demo es un espejo y dos manos, y casi todo lo que vende está pasando en su cara y no en tus frases. Para lo demás no te faltan recursos:',
+    },
+    {
+            type: 'bullets',
+      items: [
+        'GOOGLE TRANSLATE, out loud and with no embarrassment about it. Type it, turn the phone round, let her type back. Half the time it gets a laugh, and the laugh is worth more than the sentence was.',
+        'THE PRODUCT PAGES EXIST ONLINE IN OTHER LANGUAGES. Pull one up and put the phone in her hand. She reads it in her own language while you get on with the eye.',
+        'NUMBERS NEED NO TRANSLATION. Show her the figure, then show her the next one as you come down. Nobody in the history of this shop has needed 300 turning into 210 explained to them.',
+        'AND THE REST IS TOUCHING, SMILING AND POINTING. The warmth is the language. Do it slower, not louder.'
+      ],
+      itemsEs: [
+          'GOOGLE TRANSLATE, en voz alta y sin ninguna vergüenza. Lo escribes, le giras el móvil, y que te conteste ella escribiendo. La mitad de las veces te llevas una risa, y la risa vale más que la frase.',
+          'LAS PÁGINAS DE PRODUCTO ESTÁN ONLINE EN OTROS IDIOMAS. Abre una y ponle el móvil en la mano. Ella lo lee en su idioma mientras tú sigues con el ojo.',
+          'LOS NÚMEROS NO NECESITAN TRADUCCIÓN. Le enseñas la cifra, y luego la siguiente según vas bajando. En la historia de esta tienda nadie ha necesitado que le expliquen que 300 pasa a 210.',
+          'Y EL RESTO ES TOCAR, SONREÍR Y SEÑALAR. La calidez es el idioma. Hazlo más despacio, no más alto.',
+        ],
+    },
+    {
+            type: 'tip',
+      text: 'What you never do is apologise for it, and you never go off hunting for a colleague who speaks her language while she sits there on her own. Get the phone out and carry on. She did not come in for a conversation, she came in because you promised her something on her face.',
+      textEs: 'Lo que no haces nunca es pedir perdón por ello, y tampoco te vas a buscar a un compañero que hable su idioma dejándola ahí sentada sola. Saca el móvil y sigue. No ha entrado a charlar, ha entrado porque le has prometido algo en su cara.',
     },
     {
             type: 'quote',
@@ -2153,14 +2156,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'CLEAR BUDGET CONSTRAINT: She has told you money is tight. Do not read that as "show her Option 1" — {currency}210 is your second opening offer, not a budget answer and it will not touch her. It means this conversation is going to finish around {currency}140, maybe {currency}100. Present the two options anyway, because that is the method, then walk the ladder properly: she asks, you pause, you give a reason, you move one rung. Nobody gets shown the door for having a small budget.',
         'CLEAR GIFT SHOPPER: If they\'re buying for three sisters, Option 2 (Buy 2 Get 1) is obvious. Don\'t overcomplicate.',
-        'CLEAR PREMIUM BUYER: If they\'re carrying luxury bags and show zero price sensitivity, lead with Option 2 or even an upsell beyond it.',
-        'UNCERTAIN BUYER: When genuinely unsure, default to Option 1. It\'s easier to say yes to, and they can always upgrade later.'
+        'CLEAR PREMIUM BUYER: If they are carrying luxury bags and do not blink at the number, lead with Option 2 and stay at the top of the ladder. Somebody who came out to spend does not need a discount — and once the syringe is sold you hand her to the specialist, you do not go reaching for something else off your own tray.',
+        'UNCERTAIN BUYER: When they are genuinely unsure, default to Option 1. It is easier to say yes to, and she can still move up while she is sitting in front of you.'
       ],
       itemsEs: [
           'PRESUPUESTO JUSTO Y CLARO: Te ha dicho que el dinero va contado. No lo leas como "enséñale la Opción 1" — {currency}210 es tu segunda oferta de salida, no la respuesta a un presupuesto ajustado y a ella no la toca. Significa que esta conversación va a terminar por {currency}140, quizá por {currency}100. Preséntale las dos opciones igualmente, porque ese es el método, y luego baja la escalera como toca: ella pide, tú haces una pausa, das un motivo y bajas un escalón. A nadie se le enseña la puerta por tener poco presupuesto.',
           'COMPRADOR DE REGALOS CLARO: Si están comprando para tres hermanas, la Opción 2 (Compra 2 Lleva 1) es obvia. No la compliques.',
-          'COMPRADOR PREMIUM CLARO: Si traen bolsas de lujo y muestran cero sensibilidad al precio, empieza con la Opción 2 o incluso una venta adicional más allá.',
-          'COMPRADOR INCIERTO: Cuando estén genuinamente inseguros, usa la Opción 1 por defecto. Es más fácil decir que sí, y siempre pueden mejorar después.',
+          'COMPRADOR PREMIUM CLARO: Si vienen cargados de bolsas de lujo y no pestañean con el número, empieza por la Opción 2 y quédate arriba en la escalera. Quien ha salido a gastar no necesita un descuento — y una vez vendida la jeringa se la pasas al especialista, no vas a por otra cosa de tu propia bandeja.',
+          'COMPRADOR INCIERTO: Cuando de verdad no lo tengan claro, tira de la Opción 1 por defecto. Es más fácil decirle que sí, y todavía puede subir mientras la tienes delante.',
         ],
     },
     {
@@ -2253,14 +2256,14 @@ export const lessons: Record<string, Lesson> = {
         'COMFORT SIGNAL: Brief nod, relaxed shoulders, slight smile, maintaining eye contact. They can afford it. Move to close.',
         'SHOCK SIGNAL: Eyes widen, sharp breath intake, head pulls back slightly. The price is higher than expected. You need to reframe value or prepare to descale.',
         'HIDDEN SHOCK: They maintain composure but glance at their partner, or their smile becomes fixed. They feel pressure to appear comfortable but are actually concerned. Watch for partner reactions.',
-        'REJECTION SIGNAL: Immediate step back, cross arms, shake head. Price is too high OR they weren\'t interested regardless. Don\'t chase too hard.',
+        'THE HARD NO SIGNAL: Immediate step back, arms fold, head shake. That is the number, not the product — she has just shown you where the top of her range is. Do not explain the product again and do not apologise. Go down a rung, take something out, give her a reason.',
         'THOUGHTFUL SIGNAL: They look down, touch chin, purse lips. They\'re calculating. Give them silence and space. This is often a buying signal disguised as hesitation.'
       ],
       itemsEs: [
           'SEÑAL DE CONFORT: Asentimiento breve, hombros relajados, leve sonrisa, manteniendo contacto visual. Pueden pagarlo. Ve al cierre.',
           'SEÑAL DE SORPRESA: Ojos se abren, respiración brusca, cabeza se echa hacia atrás ligeramente. El precio es más alto de lo esperado. Necesitas reencuadrar el valor o prepararte para reducir.',
           'SORPRESA OCULTA: Mantienen la compostura pero miran a su pareja, o su sonrisa se vuelve rígida. Sienten presión por parecer cómodos pero en realidad están preocupados. Observa las reacciones de su pareja.',
-          'SEÑAL DE RECHAZO: Paso hacia atrás inmediato, cruzar brazos, negar con la cabeza. El precio es demasiado alto O no estaban interesados de todos modos. No insistas demasiado.',
+          'SEÑAL DE NO ROTUNDO: Paso atrás inmediato, brazos cruzados, negar con la cabeza. Eso es el número, no el producto — acaba de enseñarte dónde está el techo de lo suyo. No le vuelvas a explicar el producto y no pidas perdón. Baja un escalón, quita algo, dale un motivo.',
           'SEÑAL DE REFLEXIÓN: Miran hacia abajo, tocan la barbilla, fruncen los labios. Están calculando. Dale silencio y espacio. Esta suele ser una señal de compra disfrazada de duda.',
         ],
     },
@@ -2288,13 +2291,13 @@ export const lessons: Record<string, Lesson> = {
         'STEP 1 — FULL OFFER: Present both options at full value. \'Option 1: {currency}210 with a gift. Option 2: {currency}300 with two syringes and creams.\' Say it warm, say it flat, then stop talking. This is your ceiling and everybody starts here — including the woman who has already told you money is tight.',
         'STEP 2 — REMOVE THE GIFT, ONCE SHE ASKS: A face is not an ask. Wait until she has actually asked you for a better price, and asked twice. Then pause, look at the box, breathe out like it hurts, and give her a reason: \'Go on then — my last customer only took the one. I\'ll pull the gift out, that\'s {currency}35, and do it at {currency}175 for you.\' She saves money; you lose a gift, not margin.',
         'STEP 3 — THE VOUCHER CLOSE, {currency}140: This is where the budget conversation actually happens — not up at {currency}300. She has pushed again, so drop your voice, glance at the door, make it a secret: \'Alright, I can do something a bit crazy, just this once. With a voucher, {currency}140. But you\'re being greedy — and only on the single, not the combo.\' There is no real voucher. It is the reason you needed in order to come down, invented on the spot, and it never leaves the shop with her.',
-        'STEP 4 — THE FLOOR, {currency}100: {currency}140 is the voucher rung; {currency}100 is the wall. Down here the arithmetic does more work than the theatre, so say it out loud — one syringe, about sixty treatments, a whole year, under {currency}2 a go. And hand the number over like it cost you something, because a last price that arrives easily does not sound like a last price. Never cross the floor. If she has fought you all the way to {currency}100 and still says no, and you have honestly given it everything, that is the one time you let her go — a last resort, never a plan.'
+        'STEP 4 — THE FLOOR, {currency}100, AND IT IS NOT YOURS TO GIVE: {currency}140 is the voucher rung and it is the last one you own. Below it you go full market and you CALL A MANAGER — the floor comes from him, not from you. That is not red tape, it is what makes it a floor: a seller who can reach {currency}100 on his own has no floor at all, and she will find that out. While you wait, the arithmetic does more work than the theatre — one syringe, about sixty treatments, a whole year, under {currency}2 a go. Never cross the floor. If she has fought you all the way to {currency}100 and still says no, and you have honestly given it everything, that is the one time you let her go — a last resort, never a plan.'
       ],
       itemsEs: [
           'PASO 1 — OFERTA COMPLETA: Presenta las dos opciones a valor completo. \'Opción 1: {currency}210 con regalo. Opción 2: {currency}300 con dos jeringas y cremas.\' Dilo con calor, dilo plano y luego cállate. Este es tu techo y aquí empieza todo el mundo — también la que ya te ha dicho que va justa de dinero.',
           'PASO 2 — QUITA EL REGALO, CUANDO TE LO PIDA: Una cara no es una petición. Espera a que te pida un precio mejor de verdad, y que te lo pida dos veces. Entonces haz una pausa, mira la caja, suelta el aire como si doliera y dale un motivo: \'Venga, va — mi última clienta se llevó solo una. Te quito el regalo, que son {currency}35, y te la dejo en {currency}175.\' Ella ahorra dinero; tú pierdes un regalo, no margen.',
           'PASO 3 — EL CIERRE CON CUPÓN, {currency}140: Aquí es donde pasa de verdad la conversación del presupuesto — no arriba en {currency}300. Ha vuelto a empujar, así que baja la voz, mira a la puerta y haz que sea un secreto: \'Vale, puedo hacer una cosa un poco loca, solo por esta vez. Con un cupón, {currency}140. Pero estás siendo codiciosa — y solo en la individual, no en el combo.\' No existe ningún cupón. Es el motivo que necesitabas para bajar, inventado en el momento, y no sale nunca de la tienda con ella.',
-          'PASO 4 — EL SUELO, {currency}100: {currency}140 es el escalón del cupón; {currency}100 es el muro. Aquí abajo las cuentas trabajan más que el teatro, así que dilo en voz alta — una jeringa, unos sesenta tratamientos, un año entero, menos de {currency}2 cada vez. Y entrégale el número como si te costara algo, porque un último precio que llega fácil no suena a último precio. No cruces nunca el suelo. Si te ha peleado hasta {currency}100 y aun así dice que no, y tú de verdad lo has dado todo, esa es la única vez que la dejas marchar — último recurso, nunca un plan.',
+          'PASO 4 — EL SUELO, {currency}100, Y NO ES TUYO PARA DARLO: los {currency}140 son el escalón del cupón y el último que llevas tú. Por debajo vas a mercado total y LLAMAS A UN ENCARGADO — el suelo lo pone él, no tú. Eso no es burocracia, es lo que lo convierte en suelo: un vendedor que llega a {currency}100 él solito no tiene suelo ninguno, y ella se va a enterar. Mientras esperas, las cuentas trabajan más que el teatro — una jeringa, unos sesenta tratamientos, un año entero, menos de {currency}2 cada vez.',
         ],
     },
     {
@@ -2606,237 +2609,172 @@ export const lessons: Record<string, Lesson> = {
   'prod-5': {
     id: 'prod-5',
     categoryId: 'products',
-    title: 'Cross-Selling & Upselling',
-    titleEs: 'Venta Cruzada y Venta Adicional',
-    subtitle: 'Reading the moment for an upsell, natural transitions, and when NOT to upsell',
-    subtitleEs: 'Vende más a cada cliente',
-    duration: '8 min',
-    icon: 'TrendingUp',
+    title: 'The Handover',
+    titleEs: 'El Traspaso',
+    subtitle: 'She bought the syringe. Your job is finished — now you pass her to the specialist',
+    subtitleEs: 'Ha comprado la jeringa. Tu trabajo se acaba ahí — ahora se la pasas al especialista',
+    duration: '6 min',
+    icon: 'Users',
     order: 5,
     xpReward: 100,
     sections: [
-    {
-            type: 'header',
-      text: 'If They Love It, Build On It. If They Don\'t, Don\'t.',
-      textEs: 'Si les encanta, construye sobre eso. Si no, no lo hagas.',
-    },
-    {
-            type: 'paragraph',
-      text: 'When somebody\'s eyes go during the demo, that is not the end of the sale — that is the middle of it. She has seen what happened to one eye and the other one is still sitting there. He liked the scrub, and the butter goes with it. You are not squeezing anybody. You are noticing what has already happened and finishing the job.',
-      textEs: 'Cuando a alguien se le encienden los ojos en la demo, eso no es el final de la venta — es la mitad. Ha visto lo que ha pasado en un ojo y el otro sigue ahí. A él le ha gustado el exfoliante, y la manteca va con eso. No estás exprimiendo a nadie. Estás viendo lo que ya ha pasado y terminando el trabajo.',
-    },
-    {
-            type: 'keypoint',
-      text: 'If their eyes went — sell them more. That is not greed, that is the moment. If they went polite and quiet, take the money and let them go happy; pushing a flat customer just makes them regret the first one on the way home. Delight is your green light. Anything less and you close what you have got.',
-      textEs: 'Si se le han encendido los ojos — véndele más. Eso no es avaricia, es el momento. Si se ha quedado educada y callada, coge el dinero y déjala irse contenta; presionar a una clienta apagada solo hace que se arrepienta de la primera de camino a casa. El entusiasmo es tu luz verde. Con menos que eso, cierras lo que ya tienes.',
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'Reading the Moment for an Upsell',
-      textEs: 'Leyendo el Momento para una Venta Adicional',
-    },
-    {
-            type: 'paragraph',
-      text: 'Upsell timing is everything. These are the signals that an upsell will be welcomed:',
-      textEs: 'El momento de la venta adicional lo es todo. Estas son las señales de que una venta adicional será bien recibida:',
-    },
-    {
-            type: 'bullets',
-      items: [
-        'THEIR EYES LIT UP: Genuine amazement during the demo. \'Wow!\' \'Oh my god!\' \'That\'s incredible!\' These are green lights.',
-        'THEY ASK ABOUT OTHER PRODUCTS: \'Do you have anything for...?\' They\'re already thinking beyond what you\'re showing. Guide them.',
-        'THEY MENTION GIFTS: \'This would be perfect for my sister.\' Gift buyers are multi-buyers. They\'re already in buying mode for others.',
-        'NO PRICE OBJECTION: When you present the offer and they don\'t blink at the price, they have room for more. Test with a gentle upsell.',
-        'THEY ASK ABOUT ROUTINES: \'So I use this and then what?\' They\'re imagining incorporating your products into their life. Fill in the gaps.'
-      ],
-      itemsEs: [
-          'SUS OJOS BRILLARON: Asombro genuino durante la demostración. "¡Wow!" "¡Dios mío!" "¡Increíble!" Estas son luces verdes.',
-          'PREGUNTAN POR OTROS PRODUCTOS: "¿Tienes algo para...?" Ya están pensando más allá de lo que les estás mostrando. Guíalos.',
-          'MENCIONAN REGALOS: "Esto le quedaría perfecto a mi hermana." Los compradores de regalos son compradores múltiples. Ya están en modo de compra para otros.',
-          'SIN OBJECIÓN DE PRECIO: Cuando presentas la oferta y no pestañean con el precio, tienen margen para más. Prueba con una venta adicional suave.',
-          'PREGUNTAN POR RUTINAS: "Entonces uso esto y después qué?" Se están imaginando incorporando tus productos a su vida. Llena esos espacios.',
+      {
+        type: 'header',
+        text: 'Your Job Ends at the Syringe',
+        textEs: 'Tu Trabajo se Acaba en la Jeringa',
+      },
+      {
+        type: 'paragraph',
+        text: `She has paid for the syringe. Somewhere in your head there is a voice saying go on then, sell her the scrub as well. Kill that voice. The syringe WAS the job and the job is done, and the next thing that happens to this woman is not another pot out of your tray — it is a different person, selling something you do not sell.`,
+        textEs: `Ha pagado la jeringa. En algún sitio de tu cabeza hay una voz que dice venga, véndele también el exfoliante. Mata esa voz. La jeringa ERA el trabajo y el trabajo está hecho, y lo siguiente que le pasa a esta mujer no es otro bote de tu bandeja — es otra persona, vendiendo algo que tú no vendes.`,
+      },
+      {
+        type: 'keypoint',
+        text: `An upsell in this shop is not you pitching a second product. It is a handover. If they sold a syringe, the whole point is to pass it to an upseller — and selling the syringe is the win. That is what your shift is counted in. What comes after it belongs to somebody else.`,
+        textEs: `Una venta adicional en esta tienda no eres tú soltando un segundo producto. Es un traspaso. Si has vendido una jeringa, la gracia es pasársela al que hace la venta adicional — y vender la jeringa es la victoria. Eso es lo que cuenta en tu turno. Lo que viene después es de otro.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'What the Specialist Sells',
+        textEs: 'Lo Que Vende el Especialista',
+      },
+      {
+        type: 'paragraph',
+        text: `Red and infrared LED devices. It is the alternative to a facelift: it gets the body making its own collagen and elastin, and it lifts the face. That is the whole of what you need to know and the whole of what you ever say about it — you are not the one selling it, and a half-remembered version out of your mouth makes his job harder, not easier.`,
+        textEs: `Aparatos de LED rojo e infrarrojo. Es la alternativa al lifting: hace que el cuerpo produzca su propio colágeno y elastina, y levanta la cara. Eso es todo lo que necesitas saber y todo lo que dices de ello — no eres tú quien lo vende, y una versión a medias saliendo de tu boca le complica el trabajo, no se lo facilita.`,
+      },
+      {
+        type: 'keypoint',
+        text: `And to her he is a specialist, never "the upseller". That is the word for the staff room. In front of a customer he is the one who does this, he is only here for a short while, and you are lucky he has a second.`,
+        textEs: `Y para ella es un especialista, nunca "el de la venta adicional". Esa palabra es para la trastienda. Delante de una clienta él es el que hace esto, está aquí poco tiempo, y tienes suerte de que tenga un segundo.`,
+      },
+      {
+        type: 'tip',
+        text: `You never put a price on it, you never promise a discount on it, and you never start explaining how it works. You are the person who tells her he is worth two minutes. He is the person who sells it. If she asks what it costs: "That is his — he will tell you in one second."`,
+        textEs: `Tú no le pones precio, no prometes ningún descuento y no te pones a explicar cómo funciona. Tú eres quien le dice que él merece dos minutos. Él es quien lo vende. Si te pregunta cuánto cuesta: "Eso es suyo — te lo dice él en un segundo."`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'The Handover, Line by Line',
+        textEs: 'El Traspaso, Frase por Frase',
+      },
+      {
+        type: 'paragraph',
+        text: `Four beats and about thirty seconds, and all of it happens while she is still sitting down and still delighted. Do not stand her up first. A woman on her feet with a bag in her hand is a woman already halfway to the door.`,
+        textEs: `Cuatro tiempos y unos treinta segundos, y todo pasa mientras sigue sentada y sigue encantada. No la levantes primero. Una mujer de pie con la bolsa en la mano ya va camino de la puerta.`,
+      },
+      {
+        type: 'numbered',
+        items: [
+          'BUILD HIM UP BEFORE SHE MEETS HIM: he is a specialist, he is only with us a short time, and he is amazing at what he does. You are not introducing a colleague — you are telling her she is about to meet somebody people wait for.',
+          'MAKE IT A GIFT, NOT A PITCH: "Just because you got this, I\'m going to spoil you with a small gift." She has just spent money. The very next thing out of your mouth should be you giving her something, not asking her for more. And the gift is his two minutes on her face — not something to drop in her bag on the way out.',
+          'ASK THE QUESTION THAT DOES THE WORK: "What is more important for you, if you could get it lifted? The cheeks? The neck?" Two options and both of them are a yes. Whichever she picks, she has said out loud what she would change about her own face.',
+          'THEN GO AND GET HIM: "Would that make you happy? Let me check with him, if you have one second." You walk, you bring him back, he takes it from there. She stays exactly where she is.',
         ],
-    },
-    {
-            type: 'tip',
-      text: 'The 30-second rule: If they express delight within 30 seconds of seeing the result, upsell. If their reaction is muted or delayed, don\'t. Delight is your upsell signal.',
-      textEs: 'La regla de los 30 segundos: Si expresan deleite dentro de los 30 segundos de ver el resultado, vende más. Si su reacción es tibia o tardía, no lo hagas. El deleite es tu señal de venta adicional.',
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'Natural Transition Phrases',
-      textEs: 'Frases de Transición Natural',
-    },
-    {
-            type: 'paragraph',
-      text: 'The transition to upsell should feel seamless, not like a new sales pitch. These phrases bridge naturally:',
-      textEs: 'La transición a la venta adicional debe sentirse natural, no como un nuevo pitch de ventas. Estas frases conectan de forma fluida:',
-    },
-    {
-            type: 'bullets',
-      items: [
-        '\'Since you\'re already doing the eyes, let\'s give the rest of the face a glow too.\' — Natural extension from one product to related areas.',
-        '\'You know what would make this even better? The body butter with the same Dead Sea minerals. Your hands felt amazing — imagine your whole body.\' — Sensory bridge.',
-        '\'Since you\'re buying for your mom, what about your sister? The Nail Kit is perfect for her too, and it\'s small enough to travel with.\' — Gift expansion.',
-        '\'This is our most popular combo — the peeling for your face once a week, the scrub for your body. The peeling on its own is {currency}150. The two together are {currency}100. You pay less than the peeling costs and you walk out with both.\' — Bundle logic, with the real numbers on it.',
-        '\'You clearly love quality skincare. Can I show you what I personally use with this? It\'s my secret weapon.\' — Personal recommendation bridge.'
-      ],
-      itemsEs: [
-          '"Ya que estás haciendo los ojos, vamos a darle brillo al resto del rostro también." — Extensión natural de un producto a áreas relacionadas.',
-          '"¿Sabes qué haría esto aún mejor? La crema corporal con los mismos minerales del Mar Muerto. Tus manos se sintieron increíbles — imagina todo tu cuerpo." — Puente sensorial.',
-          '"Ya que estás comprando para tu mamá, ¿qué tal tu hermana? El Kit de Uñas también es perfecto para ella, y es lo suficientemente pequeño para viajar." — Expansión de regalo.',
-          '"Este es nuestro combo más popular — el peeling para la cara una vez por semana, el exfoliante para el cuerpo. El peeling solo son {currency}150. Los dos juntos, {currency}100. Pagas menos de lo que cuesta el peeling y te llevas los dos." — Lógica de paquete, con los números de verdad.',
-          '"Claramente te encanta el cuidado de la piel de calidad. ¿Puedo mostrarte lo que yo uso personalmente con esto? Es mi arma secreta." — Puente de recomendación personal.',
+        itemsEs: [
+          'MÓNTALO ANTES DE QUE LO CONOZCA: es un especialista, está con nosotros poco tiempo y es un crack en lo suyo. No estás presentando a un compañero — le estás diciendo que va a conocer a alguien por el que la gente espera.',
+          'QUE SEA UN REGALO, NO UNA VENTA: "Solo porque te has llevado esto, te voy a mimar con un regalito." Acaba de gastarse el dinero. Lo siguiente que salga de tu boca tiene que ser tú dándole algo, no pidiéndole más. Y el regalo son sus dos minutos en su cara — no algo que meterle en la bolsa al salir.',
+          'HAZ LA PREGUNTA QUE TRABAJA SOLA: "¿Qué es más importante para ti, si pudieras levantarlo? ¿Los pómulos? ¿El cuello?" Dos opciones y las dos son un sí. Elija la que elija, ha dicho en voz alta qué se cambiaría de su propia cara.',
+          'Y AHORA VE A BUSCARLO: "¿Eso te haría feliz? Déjame consultarlo con él, si tienes un segundo." Andas, lo traes, y él coge el relevo. Ella se queda exactamente donde está.',
         ],
-    },
-    {
-            type: 'script',
-      text: '\'Since you\'re already getting the syringe for your eyes, the most popular upgrade is adding the second one for your forehead and upper lip. Most people don\'t realize the forehead shows age just as much as the eyes. For {currency}90 more, you\'re getting the complete treatment. Does that make sense?\' Logic + value + gentle close.',
-      textEs: '"Ya que ya estás llevando la jeringa para tus ojos, la actualización más popular es agregar la segunda para tu frente y labio superior. La mayoría de la gente no se da cuenta de que la frente muestra la edad tanto como los ojos. Por {currency}90 más, obtienes el tratamiento completo. ¿Tiene sentido?" Lógica + valor + cierre suave.',
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'The \'Since You\'re Already...\' Technique',
-      textEs: 'La Técnica de "Ya Que Estás..."',
-    },
-    {
-            type: 'paragraph',
-      text: 'This is the most powerful upsell framework because it frames the additional purchase as a natural extension of what they\'re already buying:',
-      textEs: 'Este es el marco de venta adicional más poderoso porque enmarca la compra adicional como una extensión natural de lo que ya están comprando:',
-    },
-    {
-            type: 'numbered',
-      items: [
-        '\'Since you\'re already getting the Peeling...\' (Acknowledge their current decision — validates their choice. This is a customer who has said yes to the peeling and has NOT yet pushed you down the ladder. Somebody already sitting on the {currency}70 rung has had the scrub taken out on purpose; do not try to sell it back to her at a higher number.)',
-        '\'...the scrub uses the same Dead Sea minerals but for your body...\' (Introduce the complementary product with familiar framing)',
-        '\'...and together they create a complete weekly routine...\' (Paint the full picture — lifestyle upgrade, not just another product)',
-        '\'...so I can do the two of them together for {currency}100, and the peeling on its own is {currency}150...\' (Add value with numbers off the ladder — never a figure you made up standing there)'
-      ],
-      itemsEs: [
-          '"Ya que te estás llevando el Peeling..." (Reconoce su decisión y valídala. Esta es la clienta que está en el escalón de {currency}70, el que va sin el exfoliante.)',
-          '"...el exfoliante usa los mismos minerales del Mar Muerto pero para tu cuerpo..." (Introduce el producto complementario con un enfoque familiar)',
-          '"...y juntos crean una rutina semanal completa..." (Pinta el panorama completo — mejora de estilo de vida, no solo otro producto)',
-          '"...así que te puedo hacer los dos juntos por {currency}100, y el peeling solo son {currency}150..." (Añade valor con números de la escalera — nunca una cifra que te inventes ahí de pie)',
+      },
+      {
+        type: 'script',
+        text: `"Listen — before you go. There is a guy here, a specialist, he is only with us a short time and honestly, he is amazing at what he does. And just because you got this, I'm going to spoil you with a small gift. Tell me one thing: what is more important for you, if you could get it lifted — the cheeks, or the neck? … Would that make you happy? Let me check with him, if you have one second."`,
+        textEs: `"Escucha — antes de que te vayas. Aquí hay un chico, un especialista, está con nosotros poco tiempo y de verdad, es un crack en lo suyo. Y solo porque te has llevado esto, te voy a mimar con un regalito. Dime una cosa: ¿qué es más importante para ti, si pudieras levantarlo — los pómulos, o el cuello? … ¿Eso te haría feliz? Déjame consultarlo con él, si tienes un segundo."`,
+      },
+      {
+        type: 'keypoint',
+        text: `Notice that she is never asked whether she wants to meet him. She is asked which part of her own face she would lift. By the time you walk off to fetch him she has already answered a question that only makes sense if she is staying in that chair.`,
+        textEs: `Fíjate en que nunca se le pregunta si quiere conocerlo. Se le pregunta qué parte de su cara se levantaría. Para cuando te vas a buscarlo, ya ha contestado a una pregunta que solo tiene sentido si se queda en esa silla.`,
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'What You Do Not Do After a Syringe',
+        textEs: 'Lo Que No Haces Después de una Jeringa',
+      },
+      {
+        type: 'bullets',
+        items: [
+          'DO NOT SELL A SECOND PRODUCT: no scrub, no body butter, no nail kit, no "since you are already having the eyes done". You are not building a basket. You are passing her on.',
+          'DO NOT SEND HER TO HIM: you go and get him. She stays sitting, with the bag in her hand. Anybody who stands up to be walked somewhere can just as easily walk out.',
+          'DO NOT PRICE HIS PRODUCT: you have no ladder for it and no permission to invent one. Guess a number and you have either undercut him or frightened her.',
+          'DO NOT DO HIS DEMO FOR HIM: two sentences about him and one question. Talk for two minutes about LED and you are doing his job badly, in front of him.',
+          'DO NOT LET IT COOL: this happens on top of her mood, in the same breath as the sale. Once she has stood up, straightened her coat and thanked you, the moment has gone.',
         ],
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'Bundle Psychology',
-      textEs: 'Psicología de los Paquetes',
-    },
-    {
-            type: 'paragraph',
-      text: 'Bundles work because they reframe the purchase from \'buying multiple things\' to \'getting a complete solution.\'',
-      textEs: 'Los paquetes funcionan porque reenmarcan la compra de "comprar varias cosas" a "obtener una solución completa".',
-    },
-    {
-            type: 'bullets',
-      items: [
-        'THE COMPLETE ROUTINE: \'This is your full face-and-body care for the year. One purchase, everything you need.\' Simplicity is compelling.',
-        'THE GIFT BUNDLE: \'Three gifts, one purchase, done with Christmas shopping.\' Gift buyers love efficiency.',
-        'THE SAVINGS FRAME: \'The peeling on its own is {currency}150. The two together are {currency}100.\' Both numbers are on the ladder, and the second one is smaller than the first, which is the whole argument. Say a number you can actually back up. A saving you invented is a saving they will not believe.',
-        'THE EXPERIENCE FRAME: \'This isn\'t just products — it\'s a spa experience at home.\' Elevates the purchase from transaction to lifestyle.'
-      ],
-      itemsEs: [
-          'LA RUTINA COMPLETA: "Este es tu cuidado completo de rostro y cuerpo para todo el año. Una compra, todo lo que necesitas." La simplicidad es convincente.',
-          'EL PAQUETE DE REGALOS: "Tres regalos, una compra, listos las compras de Navidad." A los compradores de regalos les encanta la eficiencia.',
-          'EL ENFOQUE DE AHORRO: "El peeling solo son {currency}150. Los dos juntos, {currency}100." Los dos números están en la escalera, y el segundo es más pequeño que el primero, que es todo el argumento. Di un número que puedas defender. Un ahorro inventado es un ahorro que no se creen.',
-          'EL ENFOQUE DE EXPERIENCIA: "Esto no son solo productos — es una experiencia de spa en casa." Eleva la compra de transacción a estilo de vida.',
+        itemsEs: [
+          'NO LE VENDAS UN SEGUNDO PRODUCTO: ni exfoliante, ni manteca corporal, ni kit de uñas, ni "ya que te estás haciendo los ojos". No estás llenando una cesta. La estás pasando.',
+          'NO LA MANDES A ÉL: vas tú a buscarlo. Ella se queda sentada, con la bolsa en la mano. Quien se levanta para que lo lleven a algún sitio también se puede ir por la puerta.',
+          'NO LE PONGAS PRECIO A SU PRODUCTO: no tienes escalera para eso ni permiso para inventarte una. Si te sacas un número, o le has bajado el precio a él o la has asustado a ella.',
+          'NO LE HAGAS LA DEMO: dos frases sobre él y una pregunta. Ponte dos minutos a hablar de LED y estarás haciendo su trabajo mal, y delante de él.',
+          'NO DEJES QUE SE ENFRÍE: esto va encima de su subidón, en el mismo aliento que la venta. Cuando ya se ha levantado, se ha colocado el abrigo y te ha dado las gracias, el momento se ha ido.',
         ],
-    },
-    {
-            type: 'divider'
-    },
-    {
-            type: 'subheader',
-      text: 'When NOT to Upsell',
-      textEs: 'Cuándo NO Hacer una Venta Adicional',
-    },
-    {
-            type: 'paragraph',
-      text: 'Knowing when NOT to upsell is as important as knowing how. Here are the red flags:',
-      textEs: 'Saber cuándo NO hacer una venta adicional es tan importante como saber cómo hacerla. Estas son las señales de alerta:',
-    },
-    {
-            type: 'bullets',
-      items: [
-        'BUDGET STRESS: If they visibly stressed about the base price, don\'t add more. Close what you can and let them leave happy.',
-        'INDIFFERENT REACTION: If they said \'It\'s nice\' without enthusiasm, an upsell will feel pushy. They weren\'t sold on the first product.',
-        'PARTNER OPPOSITION: If their partner was skeptical about the first product, adding more will trigger a veto. Secure the first sale.',
-        'TIME PRESSURE: If they\'re in a rush and agreed to the base product just to move on, adding complexity kills the deal.',
-        'SINGLE-ITEM SHOPPERS: Some people came in for one thing and want one thing. Respect their simplicity. A happy single-item customer returns. A pressured multi-item customer doesn\'t.'
-      ],
-      itemsEs: [
-          'ESTRÉS POR PRESUPUESTO: Si se notó estresados por el precio base, no agregues más. Cierra lo que puedas y déjalos irse felices.',
-          'REACCIÓN INDIFERENTE: Si dijeron "Está bonito" sin entusiasmo, una venta adicional se sentirá agresiva. No estaban convencidos del primer producto.',
-          'OPOSICIÓN DE LA PAREJA: Si su pareja era escéptica sobre el primer producto, agregar más desatará un veto. Asegura la primera venta.',
-          'PRESIÓN DE TIEMPO: Si van con prisa y aceptaron el producto base solo para seguir adelante, agregar complejidad mata el trato.',
-          'COMPRADORES DE UN SOLO ARTÍCULO: Algunas personas vinieron por una cosa y quieren una cosa. Respeta su simplicidad. Un cliente feliz de un solo artículo vuelve. Un cliente presionado a comprar varios no.',
+      },
+      {
+        type: 'divider',
+      },
+
+      {
+        type: 'subheader',
+        text: 'And Which Product Were You Selling Anyway?',
+        textEs: '¿Y Qué Producto Estabas Vendiendo, en Realidad?',
+      },
+      {
+        type: 'paragraph',
+        text: `Half the reason sellers reach for a second product is that nobody ever told them straight which one matters. So, straight: there is a hierarchy, and it is not four equal things on a tray.`,
+        textEs: `La mitad de las veces que un vendedor va a por un segundo producto es porque nadie le ha dicho claro cuál importa. Pues claro: hay una jerarquía, y no son cuatro cosas iguales en una bandeja.`,
+      },
+      {
+        type: 'bullets',
+        items: [
+          'THE SYRINGE IS THE STAR: it is what we sell, what we focus on, and what a good day is made of. Every stop you make out on that floor is aimed at it.',
+          'THE PEELING IS IN BETWEEN: a real sale and a good one, but not the one the shift is measured by.',
+          'THE SCRUB, THE BODY BUTTER AND THE NAIL KIT ARE BEGINNER PRODUCTS: they exist so you learn how to sell and so the shop has some nice energy in it. They are not the target. A seller who spends a happy year selling nail kits has spent a year not learning the job.',
         ],
-    },
-    {
-            type: 'quote',
-      text: 'You don\'t talk anyone into a second one. You notice they already want it.',
-      textEs: 'A nadie le convences de llevarse el segundo. Te das cuenta de que ya lo quiere.',
-      attribution: 'Zero Lines Method',
-      attributionEs: 'Método Zero Lines',
-    }
+        itemsEs: [
+          'LA JERINGA ES LA ESTRELLA: es lo que vendemos, en lo que nos centramos, y de lo que está hecho un buen día. Cada parada que haces ahí fuera apunta a eso.',
+          'EL PEELING ESTÁ EN MEDIO: una venta de verdad y una buena venta, pero no es la que mide el turno.',
+          'EL EXFOLIANTE, LA MANTECA CORPORAL Y EL KIT DE UÑAS SON PRODUCTOS DE PRINCIPIANTE: están para que aprendas a vender y para que la tienda tenga buen rollo. No son el objetivo. Un vendedor que se pasa un año la mar de contento vendiendo kits de uñas se ha pasado un año sin aprender el oficio.',
+        ],
+      },
+      {
+        type: 'tip',
+        text: `The handover is not a consolation prize for finishing early. It is the most valuable thirty seconds in the shop, because it is the only moment the specialist ever gets with a customer who has already said yes to something once today. Hand her over well and he will want your customers. That is worth having.`,
+        textEs: `El traspaso no es un premio de consolación por terminar pronto. Son los treinta segundos más valiosos de la tienda, porque es el único momento en que el especialista pilla a una clienta que ya le ha dicho que sí a algo hoy. Pásasela bien y va a querer a tus clientas. Eso vale mucho.`,
+      },
+      {
+        type: 'quote',
+        text: 'Selling the syringe is the win. What happens after it is somebody else\'s job — and the fastest way to lose both sales is to try to do his as well as yours.',
+        textEs: 'Vender la jeringa es la victoria. Lo que pasa después es trabajo de otro — y la forma más rápida de perder las dos ventas es intentar hacer la suya además de la tuya.',
+        attribution: 'Zero Lines Method',
+        attributionEs: 'Método Zero Lines',
+      },
     ],
-    quiz: [
-    {
-      question: 'What is the key signal that an upsell will be welcomed?',
-      options: [
-        'They ask about the price',
-        'They show genuine delight and amazement during the demo',
-        'They look at their watch',
-        'They ask about return policy'
-      ],
-      correctIndex: 1,
-      explanation: 'Genuine delight (eyes lighting up, exclamations of amazement) is the strongest signal that an upsell will be welcomed. If they loved the first product, offering more is service, not greed.',
-    },
-    {
-      question: 'What is the \'Since You\'re Already...\' technique?',
-      options: [
-        'A way to pressure customers',
-        'A framework that frames the upsell as a natural extension of their current purchase',
-        'A discount strategy',
-        'A way to rush the close'
-      ],
-      correctIndex: 1,
-      explanation: 'The \'Since you\'re already...\' technique acknowledges their current purchase and frames the upsell as a natural, logical extension. It validates their choice while introducing the next step.',
-    },
-    {
-      question: 'When should you NOT attempt to upsell?',
-      options: [
-        'When the customer shows budget stress or indifference to the first product',
-        'When the customer loved the demo',
-        'When the customer asks about other products',
-        'When the customer has no price objection'
-      ],
-      correctIndex: 0,
-      explanation: 'Never upsell when the customer showed budget stress, indifference, partner opposition, or time pressure. Secure the base sale and let them leave happy. A pressured customer doesn\'t return.',
-    }
-    ],
+    /* No inline quiz. LESSON_QUIZZES['prod-5'] OVERLAYS whatever sits here, so
+       an inline quiz on this lesson is code the app can never render. The live
+       three still ask about cross-selling — "when should you NOT upsell", "the
+       Since-You're-Already technique" — which this lesson no longer teaches and
+       the owner has ruled out. They need replacing in lessonQuizzes.ts. */
   },
   'prod-6': {
     id: 'prod-6',
     categoryId: 'products',
     title: 'Product Comparison Guide',
     titleEs: 'Guía de Comparación de Productos',
-    subtitle: 'When to pitch which product — skin type matching, age, tourist origin, and decision trees',
-    subtitleEs: 'Cuándo empujar qué producto',
+    subtitle: 'The syringe is the product — this is how you change the way in for each person',
+    subtitleEs: 'La jeringa es el producto — esto es cómo cambias la forma de entrar con cada persona',
     duration: '10 min',
     icon: 'GitCompare',
     order: 6,
@@ -2844,51 +2782,51 @@ export const lessons: Record<string, Lesson> = {
     sections: [
     {
             type: 'header',
-      text: 'The Right Product to the Right Person at the Right Time',
-      textEs: 'El Producto Correcto para la Persona Correcta en el Momento Correcto',
+      text: 'One Product. A Lot of Different Ways In.',
+      textEs: 'Un Producto. Muchas Formas Distintas de Entrar.',
     },
     {
             type: 'paragraph',
-      text: 'A 25-year-old solo female traveler has different skincare needs than a 55-year-old couple on a luxury vacation. A French tourist interested in ingredients needs a different pitch than a British tourist buying Christmas gifts. Product matching isn\'t random — it\'s strategic. This lesson gives you decision trees to quickly determine which product to lead with.',
-      textEs: 'Una viajera soltera de 25 años tiene necesidades de cuidado de la piel diferentes a las de una pareja de 55 años en vacaciones de lujo. Un turista francés interesado en los ingredientes necesita un pitch diferente al de un turista británico comprando regalos de Navidad. El emparejamiento de productos no es aleatorio — es estratégico. Esta lección te da árboles de decisión para determinar rápidamente con qué producto empezar.',
+      text: 'A 25-year-old travelling on her own and a couple in their fifties on a luxury trip do not get the same words out of you. A French customer who wants to know what is in it does not get the same pitch as a British couple buying Christmas presents. But they all get the same product first. This lesson is not four doors — it is one door and a dozen ways to knock on it.',
+      textEs: 'Una chica de 25 años que viaja sola y una pareja de cincuenta y tantos en un viaje de lujo no reciben las mismas palabras de tu boca. Un cliente francés que quiere saber qué lleva dentro no recibe el mismo discurso que una pareja británica comprando regalos de Navidad. Pero todos reciben el mismo producto primero. Esta lección no son cuatro puertas — es una puerta y doce formas de llamar a ella.',
     },
     {
             type: 'keypoint',
-      text: 'Every person who walks past your door has a product that\'s optimal for them. Your job is to identify it in 10 seconds and deliver the perfect pitch. Matching = higher conversion, higher satisfaction, and higher return visits.',
-      textEs: 'Cada persona que pasa por tu puerta tiene un producto que es óptimo para ella. Tu trabajo es identificarlo en 10 segundos y dar el pitch perfecto. El emparejamiento = mayor conversión, mayor satisfacción y más visitas de vuelta.',
+      text: 'The syringe is what we sell and what we focus on. The peeling is in between. The scrub, the body butter and the nail kit are beginner products — they are there so you learn how to sell and so the shop has some nice energy in it. So the question is almost never WHICH product. It is which sentence gets this particular person into the chair for the eyes.',
+      textEs: 'La jeringa es lo que vendemos y en lo que nos centramos. El peeling está en medio. El exfoliante, la manteca corporal y el kit de uñas son productos de principiante — están para que aprendas a vender y para que la tienda tenga buen rollo. Así que la pregunta casi nunca es QUÉ producto. Es qué frase sienta a esta persona concreta en la silla para los ojos.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Quick Decision Tree: Which Product to Lead With',
-      textEs: 'Árbol de Decisión Rápido: Con Qué Producto Empezar',
+      text: 'Which Door You Open On',
+      textEs: 'Por Qué Puerta Entras',
     },
     {
             type: 'paragraph',
-      text: 'Follow this flow chart mentally for each customer:',
-      textEs: 'Sigue este diagrama de flujo mentalmente para cada cliente:',
+      text: 'Same product every time. What changes is the first sentence:',
+      textEs: 'El mismo producto siempre. Lo que cambia es la primera frase:',
     },
     {
             type: 'numbered',
       items: [
-        'VISIBLE EYE CONCERNS? (Bags, crow\'s feet, tired eyes) → LEAD WITH SYRINGE. Immediate visual result. High perceived value. Premium price point.',
-        'YOUNG (20s-30s) + GOOD SKIN? → LEAD WITH PEELING. Prevention-focused, glow-enhancing, weekly ritual appeal. Or NAIL KIT for visible natural nails.',
-        'DRY SKIN SIGNS? (Flaky, dull, mentions dryness) → LEAD WITH SCRUB. Sensory demo is immediate and universally appealing.',
-        'NATURAL NAILS + NO POLISH? → LEAD WITH NAIL KIT. Fast demo, visible result, gift potential.',
-        'BUYING GIFTS? → LEAD WITH SCRUB/NAIL KIT COMBO. Lower price points, unisex appeal, easy gifting.',
-        'MALE CUSTOMER OR SKEPTICAL PARTNER? → LEAD WITH SCRUB. Unisex, no beauty stigma, feels practical rather than cosmetic.',
-        'LUXURY BUYER? (Designer bags, expensive watch) → LEAD WITH SYRINGE. Premium positioning matches their expectations.'
+        'VISIBLE EYE CONCERNS? (Bags, crow\'s feet, tired eyes.) Straight at it, warmly. One eye, two minutes, the mirror. The result does the arguing for you and you barely have to talk.',
+        'NOTHING OBVIOUS TO FIX? Still the syringe — you just come in somewhere else. \'You look after yourself, I can see it. Let me show you the one thing nobody does.\' Nobody needs a problem to want a better face.',
+        'YOUNG + GOOD SKIN? Do not sell her a wrinkle she has not got. The angle is the glow and the late night, not the years — and it is still the eyes she sits down for.',
+        'LUXURY SIGNALS? (Good watch, good bag, already carrying shopping.) Premium all the way, no discount language in your opener. Somebody who came out to spend does not want to hear about a bargain in the first ten seconds.',
+        'SKEPTICAL PARTNER STANDING THERE? You do not change the product, you change who you are talking to. Get him in early — a chair, a hand, a question — before he gets bored. Only if he is genuinely bad energy do you turn fully to her.',
+        'BUYING GIFTS? Sell her the eyes first, for herself, while she is in the chair. Gifts are what you talk about after somebody has already said yes to something.',
+        'STILL LEARNING, OR THE FLOOR HAS GONE FLAT? That is what the scrub and the nail kit are for. Quick, sensory, easy to say yes to, and the fastest way there is to learn what a yes feels like in your hands.'
       ],
       itemsEs: [
-          '¿OJOS VISIBLEMENTE AFECTADOS? (Bolsas, patas de gallo, ojos cansados) → EMPIEZA CON LA JERINGA. Resultado visual inmediato. Alto valor percibido. Punto de precio premium.',
-          '¿JOVEN (20-30s) + BUENA PIEL? → EMPIEZA CON EL PEELING. Enfoque en prevención, realza el brillo, apela al ritual semanal. O el KIT DE UÑAS para uñas naturales visibles.',
-          '¿SIGNOS DE PIEL SECA? (Descamación, opaca, menciona sequedad) → EMPIEZA CON EL EXFOLIANTE. La demostración sensorial es inmediata y universalmente atractiva.',
-          '¿UÑAS NATURALES + SIN ESMALTE? → EMPIEZA CON EL KIT DE UÑAS. Demostración rápida, resultado visible, potencial de regalo.',
-          '¿COMPRANDO REGALOS? → EMPIEZA CON EL COMBO EXFOLIANTE/KIT DE UÑAS. Puntos de precio más bajos, atractivo unisex, fácil de regalar.',
-          '¿CLIENTE HOMBRE O PAREJA ESCÉPTICA? → EMPIEZA CON EL EXFOLIANTE. Unisex, sin estigma de belleza, se siente práctico en lugar de cosmético.',
-          '¿COMPRADOR DE LUJO? (Bolsas de diseñador, reloj caro) → EMPIEZA CON LA JERINGA. El posicionamiento premium coincide con sus expectativas.',
+          '¿OJOS VISIBLEMENTE AFECTADOS? (Bolsas, patas de gallo, ojos cansados.) Directo, con buen rollo. Un ojo, dos minutos, el espejo. El resultado discute por ti y casi no tienes ni que hablar.',
+          '¿NADA EVIDENTE QUE ARREGLAR? Igualmente la jeringa — solo entras por otro sitio. "Se nota que te cuidas. Déjame enseñarte lo único que no hace nadie." Nadie necesita un problema para querer una cara mejor.',
+          '¿JOVEN + BUENA PIEL? No le vendas una arruga que no tiene. El ángulo es el brillo y la noche larga, no los años — y sigue sentándose por los ojos.',
+          '¿SEÑALES DE LUJO? (Buen reloj, buen bolso, ya viene cargada de bolsas.) Todo premium, y en tu apertura ni una palabra de descuentos. Quien ha salido a gastar no quiere oír hablar de gangas en los primeros diez segundos.',
+          '¿PAREJA ESCÉPTICA AHÍ PLANTADA? No cambias de producto, cambias con quién hablas. Métele pronto — una silla, una mano, una pregunta — antes de que se aburra. Solo si de verdad tiene mala energía te giras del todo hacia ella.',
+          '¿COMPRANDO REGALOS? Véndele primero los ojos, para ella, mientras está en la silla. De regalos se habla cuando alguien ya ha dicho que sí a algo.',
+          '¿TODAVÍA APRENDIENDO, O LA SALA ESTÁ MUERTA? Para eso están el exfoliante y el kit de uñas. Rápidos, sensoriales, fáciles de aceptar, y la forma más rápida que hay de aprender cómo se siente un sí en las manos.',
         ],
     },
     {
@@ -2911,14 +2849,14 @@ export const lessons: Record<string, Lesson> = {
         'OILY SKIN: Peeling (weekly deep clean, reduces oil buildup) + Syringe (eye area typically not oily). Scrub is fine in moderation. Body Butter may feel heavy — suggest smaller amounts.',
         'SENSITIVE SKIN: Lead with the gentle approach and go slowly. Emphasize the \'natural, no chemicals\' angle. A tiny bit on the inside of the wrist first, and stop at the first sign of anything.',
         'MATURE SKIN (50+): Syringe (collagen stimulation, visible anti-aging) + Peeling (restores glow that diminishes with age) + rich Body Butter. Focus on results and investment in self-care.',
-        'YOUNG SKIN (20s): Peeling (prevention, weekly glow) + Nail Kit (fun, affordable, giftable). Syringe may feel unnecessary unless they have specific eye concerns.'
+        'YOUNG SKIN (20s): Same syringe, different words — the eyes are the first place a late night shows on anybody, and she can see the difference in the mirror as fast as her mother can. Peeling is the glow story. The nail kit is a lovely easy yes while you are still finding your feet.'
       ],
       itemsEs: [
           'PIEL SECA: Peeling (elimina capas muertas, permite mejor absorción de la crema) + Exfoliante (los minerales del Mar Muerto hidratan) + Crema Corporal (humedad intensa). Evitar: nada — todos los productos funcionan para piel seca.',
           'PIEL GRASA: Peeling (limpieza profunda semanal, reduce acumulación de grasa) + Jeringa (el área de los ojos típicamente no es grasa). El exfoliante está bien con moderación. La crema corporal puede sentirse pesada — sugiere cantidades más pequeñas.',
           'PIEL SENSIBLE: Empieza con el enfoque suave y ve despacio. Enfatiza el ángulo de "natural, sin químicos". Primero un poquito en la parte de dentro de la muñeca, y a la mínima cosa, lo dejas.',
           'PIEL MADURA (50+): Jeringa (estimulación de colágeno, anti-edad visible) + Peeling (restaura el brillo que disminuye con la edad) + Crema Corporal rica. Enfócate en resultados e inversión en el cuidado personal.',
-          'PIEL JOVEN (20s): Peeling (prevención, brillo semanal) + Kit de Uñas (divertido, asequible, regalable). La Jeringa puede sentirse innecesaria a menos que tengan preocupaciones específicas en los ojos.',
+          'PIEL JOVEN (20s): La misma jeringa, otras palabras — los ojos son el primer sitio donde se le nota a cualquiera una noche larga, y ella ve la diferencia en el espejo igual de rápido que su madre. El peeling es la historia del brillo. El kit de uñas es un sí fácil y majo mientras te vas soltando.',
         ],
     },
     {
@@ -2931,41 +2869,41 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'comparison',
-      left: { label: 'Younger Customers (20s-30s)', text: 'Lead with: Peeling (prevention + glow) or Nail Kit (affordable + fun). Frame as: Self-care ritual, Instagram-worthy results, smart prevention. Avoid: Heavy anti-aging language. They don\'t relate to \'wrinkles\' yet.' },
-      leftEs: { label: 'Clientes Jóvenes (20-30s)', text: 'Empieza con: Peeling (prevención + brillo) o Kit de Uñas (asequible + divertido). Enmarca como: Ritual de cuidado personal, resultados dignos de Instagram, prevención inteligente. Evita: Lenguaje fuerte anti-edad. Todavía no se identifican con "arrugas".' },
-      right: { label: 'Mature Customers (40s+)', text: 'Lead with: Syringe (visible anti-aging) or Peeling (restores radiance). Frame as: Investment in yourself, results you can see today. Emphasize: The visible difference in the mirror. They know their skin and notice changes.' },
-      rightEs: { label: 'Clientes Maduras (40+)', text: 'Empieza con: Jeringa (antiedad visible) o Peeling (devuelve la luminosidad). Enfócalo como: inversión en ti misma, resultados que se ven hoy mismo. Enfatiza: la diferencia visible en el espejo. Conocen su piel y notan los cambios.' }
+      left: { label: 'Younger Customers (20s-30s)', text: 'Same syringe, different words. Talk about the glow, the late night, the photograph — not the years, which she does not think she has yet. The eyes still get her into the chair, because the result is instant and she can see it herself. Avoid heavy anti-aging language.' },
+      leftEs: { label: 'Clientes Jóvenes (20-30s)', text: 'La misma jeringa, otras palabras. Háblale del brillo, de la noche larga, de la foto — no de los años, que ella cree que todavía no tiene. Los ojos siguen siendo lo que la sienta, porque el resultado es instantáneo y lo ve ella misma. Evita el lenguaje duro de antiedad.' },
+      right: { label: 'Mature Customers (40s+)', text: 'Straight at it. The visible difference in the mirror, one eye against the other, an investment in herself. She knows her own skin and notices every change, so the demo argues for you — say less and get out of its way.' },
+      rightEs: { label: 'Clientes Maduras (40+)', text: 'Directo. La diferencia visible en el espejo, un ojo contra el otro, una inversión en ella misma. Conoce su piel y nota cada cambio, así que la demo discute por ti — habla menos y quítate de en medio.' }
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'Tourist Origin → Product Matching',
-      textEs: 'Origen del Turista → Emparejamiento de Producto',
+      text: 'Tourist Origin → Which Angle',
+      textEs: 'Origen del Turista → Qué Ángulo',
     },
     {
             type: 'paragraph',
-      text: 'Different nationalities have different skincare cultures and preferences:',
-      textEs: 'Diferentes nacionalidades tienen diferentes culturas de cuidado de la piel y preferencias:',
+      text: 'Same syringe, same chair, same ladder. What moves is what you put the weight on:',
+      textEs: 'La misma jeringa, la misma silla, la misma escalera. Lo que cambia es dónde pones el peso:',
     },
     {
             type: 'bullets',
       items: [
-        'SPANISH: Peeling or Scrub (value-conscious, respond to the price gap). Emphasize: \'Smart shopping in {locationName}.\'',
-        'FRENCH: Syringe or Peeling (skincare-savvy, appreciate quality). Emphasize: Ingredients, where it comes from, European quality.',
-        'BRITISH: Scrub or Nail Kit (love sensory experiences, appreciate humor, gift-buyers). Emphasize: Fun demo, Christmas gifts, bargain pricing.',
-        'EASTERN EUROPEAN: Syringe (premium positioning, visible results, status). Emphasize: #1 best-seller, luxury treatment, European prestige.',
-        'ASIAN: Peeling or Syringe (ingredient-conscious, results-driven). Emphasize: Science, natural ingredients, visible before/after.',
-        'GERMAN/DUTCH: Peeling or Scrub (practical, quality-focused). Emphasize: Value per use, how long one bottle lasts, nothing wasted.'
+        'SPANISH: the gap. What it costs back home against what it costs here — \'smart shopping in {locationName}\' — and a warm, chatty demo while you say it.',
+        'FRENCH: substance. What is in it, where it comes from, why it does what it does. Let them ask you everything they want, right there at the table. Hype makes them suspicious.',
+        'BRITISH: warmth and a laugh. Big sensory demo, a bit of cheek, and they will do half the selling for you in front of their own friends.',
+        'EASTERN EUROPEAN: premium. Best-seller, luxury treatment, and no apologising for the number when you say it.',
+        'ASIAN: the result. Get the mirror up early, one eye against the other, and let them look for as long as they want.',
+        'GERMAN/DUTCH: practical value. How little you use, how long one syringe lasts, nothing wasted.'
       ],
       itemsEs: [
-          'ESPAÑOLES: Peeling o Exfoliante (conscientes del valor, responden a la diferencia de precio). Enfatiza: "Compras inteligentes en {locationName}".',
-          'FRANCESES: Jeringa o Peeling (entienden de cosmética, aprecian la calidad). Enfatiza: Ingredientes, de dónde viene, calidad europea.',
-          'BRITÁNICOS: Exfoliante o Kit de Uñas (aman experiencias sensoriales, aprecian el humor, compradores de regalos). Enfatiza: Demo divertida, regalos de Navidad, precios de ganga.',
-          'EUROPEOS DEL ESTE: Jeringa (posicionamiento premium, resultados visibles, estatus). Enfatiza: #1 más vendido, tratamiento de lujo, prestigio europeo.',
-          'ASIÁTICOS: Peeling o Jeringa (conscientes de ingredientes, enfocados en resultados). Enfatiza: Ciencia, ingredientes naturales, antes/después visible.',
-          'ALEMANES/NEERLANDESES: Peeling o Exfoliante (prácticos, enfocados en calidad). Enfatiza: Valor por uso, lo que dura un bote, que no se desperdicia nada.',
+          'ESPAÑOLES: la diferencia. Lo que cuesta en casa contra lo que cuesta aquí — "compra inteligente en {locationName}" — y una demo cálida y de charla mientras se lo dices.',
+          'FRANCESES: la sustancia. Qué lleva, de dónde viene, por qué hace lo que hace. Deja que te pregunten todo lo que quieran, ahí mismo en la mesa. El bombo les hace desconfiar.',
+          'BRITÁNICOS: calidez y risas. Demo sensorial a lo grande, un poco de guasa, y te hacen media venta ellos mismos delante de sus amigos.',
+          'EUROPEOS DEL ESTE: premium. Lo más vendido, tratamiento de lujo, y sin pedir perdón por el número cuando lo dices.',
+          'ASIÁTICOS: el resultado. Saca el espejo pronto, un ojo contra el otro, y déjales mirar todo el rato que quieran.',
+          'ALEMANES/NEERLANDESES: valor práctico. Lo poco que se usa, lo que dura una jeringa, que no se desperdicia nada.',
         ],
     },
     {
@@ -2984,72 +2922,39 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'EYES LOOK TIRED → SYRINGE ({currency}100-{currency}300)',
-        'YOUNG + GLOW-FOCUSED → PEELING ({currency}50-{currency}150)',
-        'DRY SKIN / WINTER → SCRUB ({currency}30-{currency}120)',
-        'NATURAL NAILS → NAIL KIT ({currency}30-{currency}120)',
-        'CHRISTMAS GIFTS → SCRUB/NAIL KIT COMBO ({currency}60-{currency}120)',
-        'LUXURY SHOPPER → SYRINGE → PEELING UPSALE ({currency}300+)',
-        'SKEPTICAL MAN → SCRUB (practical, sensory, {currency}30-{currency}60)'
+        'ANYBODY, ANY DAY → SYRINGE ({currency}300 asking). That is the default and it does not need a reason.',
+        'EYES DOING THE SELLING FOR YOU → SYRINGE, straight at it. One eye, the mirror, done.',
+        'YOUNG AND GLOWING → SYRINGE, glow angle. The peeling ({currency}150 asking) is the fallback, not the opener.',
+        'SKEPTICAL MAN → SAME PRODUCT, DIFFERENT AUDIENCE. Bring him in before he gets bored.',
+        'SYRINGE SOLD → HAND HER TO THE SPECIALIST. Not to another product of yours.',
+        'STILL LEARNING, OR THE FLOOR HAS GONE FLAT → SCRUB OR NAIL KIT ({currency}60 for two, {currency}120 for three). Quick yeses, real practice.'
       ],
       itemsEs: [
-          'OJOS SE VEN CANSADOS → JERINGA ({currency}100-{currency}300)',
-          'JOVEN + ENFOQUE EN BRILLO → PEELING ({currency}50-{currency}150)',
-          'PIEL SECA / INVIERNO → EXFOLIANTE ({currency}30-{currency}120)',
-          'UÑAS NATURALES → KIT DE UÑAS ({currency}30-{currency}120)',
-          'REGALOS DE NAVIDAD → COMBO EXFOLIANTE/KIT DE UÑAS ({currency}60-{currency}120)',
-          'COMPRADOR DE LUJO → JERINGA → VENTA ADICIONAL DE PEELING ({currency}300+)',
-          'HOMBRE ESCÉPTICO → EXFOLIANTE (práctico, sensorial, {currency}30-{currency}60)',
+          'CUALQUIERA, CUALQUIER DÍA → JERINGA ({currency}300 de salida). Ese es el defecto y no necesita motivo.',
+          'LOS OJOS VENDEN SOLOS → JERINGA, directo. Un ojo, el espejo, listo.',
+          'JOVEN Y CON BUENA PIEL → JERINGA, ángulo de brillo. El peeling ({currency}150 de salida) es el plan B, no la apertura.',
+          'HOMBRE ESCÉPTICO → EL MISMO PRODUCTO, OTRO PÚBLICO. Métele antes de que se aburra.',
+          'JERINGA VENDIDA → PÁSASELA AL ESPECIALISTA. No a otro producto tuyo.',
+          'TODAVÍA APRENDIENDO, O LA SALA MUERTA → EXFOLIANTE O KIT DE UÑAS ({currency}60 dos, {currency}120 tres). Síes rápidos, práctica de verdad.',
         ],
     },
     {
             type: 'tip',
-      text: 'This isn\'t rigid — it\'s a starting point. The best sellers read the individual, not just the demographic. A 25-year-old with prominent eye bags is still a syringe candidate. A 60-year-old who loves nail care is still a Nail Kit candidate. Use the guide, then adapt.',
-      textEs: 'Esto no es rígido — es un punto de partida. Los mejores vendedores leen al individuo, no solo al demográfico. Una persona de 25 años con bolsas prominentes sigue siendo candidata para la jeringa. Una persona de 60 años que ama el cuidado de uñas sigue siendo candidata para el Kit de Uñas. Usa la guía, luego adapta.',
+      text: 'None of this is rigid, and none of it is permission to skip the syringe. A 25-year-old with tired eyes is a syringe customer. A 60-year-old who loves her nails is a syringe customer who will also love the nail kit — after. Read the person, then pick your first sentence.',
+      textEs: 'Nada de esto es rígido, y nada de esto es permiso para saltarte la jeringa. Una chica de 25 con los ojos cansados es clienta de jeringa. Una señora de 60 a la que le encantan sus uñas es clienta de jeringa a la que además le va a encantar el kit de uñas — después. Lee a la persona, y luego elige tu primera frase.',
     },
     {
             type: 'quote',
-      text: 'Anyone can recite four products. The skill is looking at somebody for ten seconds and knowing which one goes in their hand. Get that right and you are not selling to them — you are handing them the thing they came for without knowing it.',
-      textEs: 'Recitar cuatro productos lo hace cualquiera. La gracia está en mirar a alguien diez segundos y saber cuál le va en la mano. Acierta con eso y no les estás vendiendo — les estás dando lo que venían a buscar sin saberlo.',
+      text: 'Anyone can recite four products. The skill is looking at somebody for ten seconds and knowing which sentence gets them into the chair — because the product was never in doubt.',
+      textEs: 'Recitar cuatro productos lo hace cualquiera. La gracia está en mirar a alguien diez segundos y saber qué frase lo sienta en la silla — porque el producto nunca estuvo en duda.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
     ],
-    quiz: [
-    {
-      question: 'Which product should you lead with for a customer with visible under-eye bags?',
-      options: [
-        'Peeling',
-        'Scrub',
-        'Syringe',
-        'Nail Kit'
-      ],
-      correctIndex: 2,
-      explanation: 'Visible eye concerns (bags, crow\'s feet, tired eyes) make the Syringe the optimal lead product. The immediate visual result and high perceived value make it the perfect match.',
-    },
-    {
-      question: 'Which product is best for a skeptical male partner?',
-      options: [
-        'Syringe',
-        'Peeling',
-        'Scrub',
-        'Nail Kit'
-      ],
-      correctIndex: 2,
-      explanation: 'The Scrub is ideal for skeptical men because it\'s unisex, feels practical rather than cosmetic, has an immediate sensory demo, and doesn\'t carry a beauty stigma.',
-    },
-    {
-      question: 'Why should you adapt product recommendations by tourist origin?',
-      options: [
-        'Because of stereotypes',
-        'Because different cultures have different skincare priorities, knowledge levels, and buying motivations',
-        'Because the manager says so',
-        'Because some products are only for certain nationalities'
-      ],
-      correctIndex: 1,
-      explanation: 'Different nationalities have different skincare cultures, ingredient knowledge, and buying motivations. French tourists appreciate science; British tourists love sensory experiences; Eastern European tourists respond to premium positioning. Matching to cultural context increases relevance.',
-    }
-    ],
+    /* No inline quiz. LESSON_QUIZZES['prod-6'] OVERLAYS whatever sits here, so
+       this was unreachable code — and one of the three graded "Scrub" as the
+       right lead for a skeptical man, which is now the opposite of the lesson.
+       The live copy of that question is still in lessonQuizzes.ts. */
   },
   'prod-7': {
     id: 'prod-7',
@@ -3302,6 +3207,29 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
+      text: 'The Order of Those Ninety Seconds',
+      textEs: 'El Orden de Esos Noventa Segundos',
+    },
+    {
+            type: 'numbered',
+      items: [
+        'THE HANDOVER, IF IT WAS A SYRINGE. The specialist gets her while she is still sitting and still delighted, and nothing else on this page happens before that. Your job ended at the syringe — see The Handover for the words.',
+        'THEN THE NUMBER, if the moment offers it. Never instead of the handover, and never while you are waiting for him.',
+        'THEN THE TWO PROMISES, once, light, half a joke.',
+        'THEN BACK OUT ON THE FLOOR. In that order, every time. Take the number first and you have used up her ninety seconds on the least valuable thing in them.'
+      ],
+      itemsEs: [
+          'EL TRASPASO, SI HA SIDO UNA JERINGA. El especialista la pilla mientras sigue sentada y sigue encantada, y nada de esta página pasa antes de eso. Tu trabajo se acabó en la jeringa — las palabras están en El Traspaso.',
+          'LUEGO EL NÚMERO, si el momento lo pide. Nunca en lugar del traspaso, y nunca mientras estás esperando a que venga él.',
+          'LUEGO LAS DOS PROMESAS, una vez, ligeras, medio en broma.',
+          'Y LUEGO OTRA VEZ FUERA. En ese orden, siempre. Si coges el número primero, te has gastado sus noventa segundos en lo que menos vale de todo.',
+        ],
+    },
+    {
+            type: 'divider'
+    },
+    {
+            type: 'subheader',
       text: 'Take the Number Only If the Moment Offers It',
       textEs: 'Coge el Número Solo Si el Momento lo Pide',
     },
@@ -3368,47 +3296,17 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'quote',
-      text: 'The number is a nice thing to have. It is not the sale, it was never the sale, and thirty seconds spent tidying your contacts is thirty seconds you were not on the floor stopping somebody.',
-      textEs: 'El número está bien tenerlo. No es la venta, nunca fue la venta, y treinta segundos ordenando contactos son treinta segundos que no has pasado en la calle parando a alguien.',
+      text: 'The number is a nice thing to have. It is not the sale, it was never the sale, and it never goes before the handover — thirty seconds spent tidying your contacts is thirty seconds you were not on the floor stopping somebody.',
+      textEs: 'El número está bien tenerlo. No es la venta, nunca fue la venta, y nunca va antes del traspaso — treinta segundos ordenando contactos son treinta segundos que no has pasado en la calle parando a alguien.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
     ],
-    quiz: [
-    {
-      question: 'Why is the WhatsApp close valuable beyond the initial sale?',
-      options: [
-        'It\'s required by the company',
-        'It transforms a one-time transaction into an ongoing relationship with repeat and referral potential',
-        'It gives you more work to do',
-        'Customers prefer text over talking'
-      ],
-      correctIndex: 1,
-      explanation: 'The WhatsApp close creates an ongoing channel for reordering, questions, and referrals. A returning customer is worth significantly more than a one-time buyer, and referred customers trust you before they even meet you.',
-    },
-    {
-      question: 'What is the most important principle for WhatsApp follow-up messages?',
-      options: [
-        'Send as many messages as possible',
-        'Lead with value and care; sales messages should be rare',
-        'Only message when you have a sale to announce',
-        'Copy and paste the same message to everyone'
-      ],
-      correctIndex: 1,
-      explanation: 'WhatsApp follow-up should lead with value, tips, and genuine care. Sales messages should be the minority. Too many sales-focused messages feel spammy and get you blocked.',
-    },
-    {
-      question: 'When is the best time to ask for a referral?',
-      options: [
-        'Before they buy anything',
-        'Immediately after they express happiness with the product',
-        'Six months after the sale',
-        'Never — referrals happen naturally'
-      ],
-      correctIndex: 1,
-      explanation: 'The best time to ask for a referral is when the customer is emotionally high — right after they text you positively about the product. Strike while their enthusiasm is fresh and genuine.',
-    }
-    ],
+    /* No inline quiz. LESSON_QUIZZES['prod-8'] OVERLAYS whatever sits here, so
+       this was unreachable code — and all three still described the client book
+       this lesson was rewritten to kill (an "ongoing relationship", a message
+       cadence, a referral asked for weeks later). The live three are already
+       correct in lessonQuizzes.ts. */
   },
   'psych-1': {
     id: 'psych-1',
@@ -3450,12 +3348,12 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'CERTAINTY: You know the product works. You\'ve seen the reactions. That belief radiates from you before you open your mouth.',
         'PRESENCE: You stand tall. You make eye contact. Your voice is clear and warm. You occupy space like you belong there — because you do.',
-        'SELECTIVITY: You\'re not desperate. You choose who to stop. You assess, you approach, you invite. This posture of selectivity makes customers feel special when you DO approach them.'
+        'APPETITE: You go at everybody. Not out of desperation — out of appetite. You are not stood there deciding who deserves you, you are working, and there is another one thirty seconds behind this one. Knowing who to skip is something the years give you. Nobody hands it to you in week one, and the sellers who try to shortcut it spend the shift with their hands in their pockets.'
       ],
       itemsEs: [
           'CERTEZA: Sabes que el producto funciona. Has visto las reacciones. Esa creencia irradia de ti antes de que abras la boca.',
           'PRESENCIA: Te paras derecho. Haces contacto visual. Tu voz es clara y calida. Ocupas el espacio como si pertenecieras ahi — porque asi es.',
-          'SELECTIVIDAD: No estas desesperado. Escoges a quien detener. Evaluas, te acercas, invitas. Esta postura de selectividad hace que los clientes se sientan especiales cuando SI te acercas a ellos.',
+          'HAMBRE: Vas a por todo el mundo. No por desesperación — por hambre. No estás ahí decidiendo quién te merece, estás trabajando, y treinta segundos detrás de este viene otro. Saber a quién saltarte te lo dan los años. Nadie te lo da la primera semana, y los que intentan atajarlo se pasan el turno con las manos en los bolsillos.',
         ],
     },
     {
@@ -3530,41 +3428,10 @@ export const lessons: Record<string, Lesson> = {
       textEs: 'Observa un turno entero al que mejor vende de esta calle. No las palabras — cómo se planta mientras espera, lo rápido que deja marchar a alguien, qué hace con las manos. Cógete las dos cosas que te saldrían naturales a ti y deja el resto.',
     }
     ],
-    quiz: [
-    {
-      question: 'What are the three pillars of the \'Luxury Aggressor\' identity?',
-      options: [
-        'Confidence, Speed, Volume',
-        'Certainty, Presence, Selectivity',
-        'Charm, Beauty, Intelligence',
-        'Aggression, Persistence, Volume'
-      ],
-      correctIndex: 1,
-      explanation: 'The three pillars are Certainty (belief in the product), Presence (how you carry yourself), and Selectivity (choosing who to approach with confidence, not desperation).',
-    },
-    {
-      question: 'Why does the \'Luxury Aggressor\' use statements instead of questions when approaching?',
-      options: [
-        'Because questions are rude',
-        'Because statements command while questions invite rejection',
-        'Because customers prefer orders',
-        'Because it\'s faster'
-      ],
-      correctIndex: 1,
-      explanation: 'Questions like \'Can I show you something?\' give the customer an easy escape (\'No thanks\'). Statements like \'I\'ll show you something amazing\' lead the customer rather than asking permission.',
-    },
-    {
-      question: 'What should you do after delivering your opening line?',
-      options: [
-        'Keep talking to fill silence',
-        'Immediately show the product',
-        'Pause and let silence work',
-        'Ask another question'
-      ],
-      correctIndex: 2,
-      explanation: 'The Luxury Aggressor pauses after the opener. Silence creates anticipation and shows confidence. Rushing signals nervousness.',
-    }
-    ],
+    /* No inline quiz. LESSON_QUIZZES['psych-1'] OVERLAYS whatever sits here, so
+       this was unreachable code — and the first of the three still named
+       Selectivity as the third pillar, which the owner has replaced with
+       stopping everybody. The live copy is in lessonQuizzes.ts. */
   },
   'psych-2': {
     id: 'psych-2',
@@ -3843,47 +3710,52 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'The deepest source of confidence is knowing you\'re ready. A prepared salesperson walks differently. But ready on day one and ready after a week are two different lists, and ticking nothing on your first shift is not a sign you are behind. Start with the day-one list:',
-      textEs: 'La fuente más profunda de confianza es saber que estás listo. Un vendedor preparado camina diferente. Pero estar listo el primer día y estarlo después de una semana son dos listas distintas, y no marcar nada en tu primer turno no significa que vayas atrasado. Empieza por la lista del primer día:',
+      text: 'The deepest source of confidence is knowing you\'re ready. A prepared salesperson walks differently. But ready on day one and ready two weeks in are two different lists, and ticking nothing off the second one on your first shift is not a sign you are behind — it is a sign you are on the right list. Start here:',
+      textEs: 'La fuente más profunda de confianza es saber que estás listo. Un vendedor preparado camina diferente. Pero estar listo el primer día y estarlo a las dos semanas son dos listas distintas, y no marcar nada de la segunda en tu primer turno no significa que vayas atrasado — significa que vas por la lista correcta. Empieza por esta:',
     },
     {
             type: 'checklist',
       items: [
         'I know where to stand, how to get their attention while they are still four or five metres off, and the 3-second rule once they look at me',
         'I have 3 different openers ready to go without thinking about them',
-        'I\'ve practiced one demo on myself or a teammate until it\'s smooth',
-        'I know my daily target and my personal best — and I\'m committed to beating it'
+        'I can run the whole first sequence out loud, in order, without looking at anything — greeting, sample, the rush line, the gift, turn and walk',
+        'I know which colleague I am handing people to when they come in, and I have told them I am about to start bringing people over'
       ],
       itemsEs: [
           'Sé dónde colocarme, cómo llamarles la atención cuando todavía están a cuatro o cinco metros, y la regla de los 3 segundos en cuanto me miran',
           'Tengo 3 aperturas distintas listas para soltarlas sin pensar',
-          'He practicado una demo conmigo mismo o con un compañero hasta que sale fluida',
-          'Sé mi objetivo diario y mi mejor marca personal — y me he comprometido a superarla',
+          'Puedo soltar la secuencia entera en voz alta, en orden, sin mirar nada — saludo, muestra, lo de la prisa, el regalo, me giro y ando',
+          'Sé a qué compañero le paso a la gente cuando entra, y le he avisado de que voy a empezar a traerle gente',
         ],
+    },
+    {
+            type: 'keypoint',
+      text: 'For your first two weeks that IS the whole list. You stop, you bring them in, you hand them to a colleague. No demo, no ladder, no price. Anybody who tells you that is not really selling has never tried to walk forty strangers through a door in a day — it is the hardest part of the job and everything else is built on top of it.',
+      textEs: 'Durante tus primeras dos semanas ESA es la lista entera. Paras, los metes dentro, se los pasas a un compañero. Sin demo, sin escalera, sin precio. Quien te diga que eso no es vender de verdad no ha intentado nunca meter a cuarenta desconocidos por una puerta en un día — es la parte más difícil del trabajo y todo lo demás se construye encima.',
     },
     {
             type: 'divider'
     },
     {
             type: 'subheader',
-      text: 'By the End of Your First Week',
-      textEs: 'Para el Final de Tu Primera Semana',
+      text: 'When You Start Doing Demos Yourself',
+      textEs: 'Cuando Empieces a Hacer Demos Tú',
     },
     {
             type: 'paragraph',
-      text: 'These four are not day-one items. Each one lives in a lesson further up the ladder, named below, and you tick it once you have done that lesson — not before:',
-      textEs: 'Estos cuatro no son del primer día. Cada uno vive en una lección más arriba en la escalera, que te indicamos abajo, y lo marcas cuando hayas hecho esa lección — no antes:',
+      text: 'These four are not day-one items and they are not week-one items either. They start mattering the day a colleague hands the chair back to you. Each one lives in a lesson further up the ladder, named below, and you tick it once you have done that lesson — not before:',
+      textEs: 'Estos cuatro no son del primer día, y de la primera semana tampoco. Empiezan a importar el día en que un compañero te devuelve la silla. Cada uno vive en una lección más arriba en la escalera, que te indicamos abajo, y lo marcas cuando hayas hecho esa lección — no antes:',
     },
     {
             type: 'checklist',
       items: [
-        'I can pitch all 4 products from memory without hesitation — Price Anchoring Psychology',
+        'I can pitch the syringe from memory without hesitation, and the other three after it — Price Anchoring Psychology',
         'I know every price point and offer combination by heart — Price Anchoring Psychology and The Two-Choice Framework',
         'I know 5 common objections and my responses to each — Objection Handling Library',
         'I\'ve rehearsed my voucher close until it feels natural — The Voucher Close'
       ],
       itemsEs: [
-          'Puedo presentar los 4 productos de memoria sin dudar — Psicología del Anclaje de Precio',
+          'Puedo presentar la jeringa de memoria sin dudar, y los otros tres después — Psicología del Anclaje de Precio',
           'Me sé todos los precios y combinaciones de oferta de memoria — Psicología del Anclaje de Precio y El Marco de Dos Opciones',
           'Me sé 5 objeciones comunes y mi respuesta para cada una — Biblioteca de Manejo de Objeciones',
           'He ensayado mi cierre con cupón hasta que sale natural — El Cierre con Voucher'
@@ -4316,15 +4188,20 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'comparison',
-      left: { label: 'High Energy / Excitement', text: 'Best for: Groups, holiday shoppers, first sales of the day, younger customers, high-traffic periods. Creates urgency and fun. Risks: Can overwhelm introverts or analytical buyers. Can feel pushy if overdone.' },
-      leftEs: { label: 'Alta Energía / Entusiasmo', text: 'Ideal para: Grupos, compradores de temporada, primeras ventas del día, clientes jóvenes, períodos de alto tráfico. Crea urgencia y diversión. Riesgos: Puede abrumar a compradores introvertidos o analíticos. Puede sentirse agresivo si se exagera.' },
-      right: { label: 'Calm / Warm Energy', text: 'Best for: Couples, older customers, serious buyers, afternoon lulls, luxury positioning. Creates trust and sophistication. Risks: Can feel low-energy if you\'re not genuinely present. Requires excellent listening skills.' },
-      rightEs: { label: 'Energía Tranquila / Cercana', text: 'Mejor para: parejas, clientes mayores, compradores serios, las horas muertas de la tarde, posicionamiento de lujo. Genera confianza y sofisticación. Riesgos: puede parecer falta de energía si no estás de verdad presente. Requiere una escucha excelente.' }
+      left: { label: 'High Energy / Excitement', text: 'Best for: groups, holiday crowds, the first sale of the day, younger customers, anybody already laughing. Creates urgency and fun. Risks: it can flatten a quiet, analytical buyer, and it tips into pushy the moment you keep it up after they have gone still.' },
+      leftEs: { label: 'Alta Energía / Entusiasmo', text: 'Ideal para: grupos, multitudes de vacaciones, la primera venta del día, clientes jóvenes, cualquiera que ya venga riéndose. Crea urgencia y diversión. Riesgos: puede aplastar a una clienta callada y analítica, y se vuelve agresiva en cuanto sigues con ella después de que se hayan quedado quietos.' },
+      right: { label: 'Calm / Warm Energy', text: 'Best for: couples, older customers, somebody who came in wary, the one who asks a lot of questions. Creates trust and sophistication. Risks: it reads as flat if you are not genuinely present, and without real listening behind it, it is not calm — it is just slow.' },
+      rightEs: { label: 'Energía Tranquila / Cercana', text: 'Ideal para: parejas, clientes mayores, alguien que ha entrado con la mosca detrás de la oreja, el que pregunta mucho. Genera confianza y elegancia. Riesgos: parece falta de energía si no estás de verdad presente, y sin escucha real detrás no es calma — es lentitud.' }
+    },
+    {
+            type: 'keypoint',
+      text: 'And never read the clock as an instruction. A dead hour is not permission to drop into second gear — it is the hour you try hardest, because the two people who walk past in it might be all you get today, and you work somebody you would happily wave through on a Saturday. A packed hour is the opposite: tighten everything, do not grind water, because the second you finish this one there is another one outside the door.',
+      textEs: 'Y no leas nunca el reloj como si fuera una instrucción. Una hora muerta no es permiso para meter segunda — es la hora en la que más lo intentas, porque las dos personas que pasen igual son todo lo que te va a dar el día, y trabajas a alguien al que un sábado dejarías pasar sin más. Una hora a tope es lo contrario: aprieta todo, no le des vueltas al agua, porque en cuanto termines con esta hay otra fuera esperando.',
     },
     {
             type: 'tip',
-      text: 'Match the customer\'s energy, then slightly elevate it. If they\'re calm and thoughtful, be calm and warm — but with a spark of enthusiasm. If they\'re energetic and laughing, match that energy and add 10%. This creates comfortable rapport that pulls them toward buying.',
-      textEs: 'Iguala la energía del cliente, luego elévala ligeramente. Si son calmados y reflexivos, sé calmado y cálido — pero con una chispa de entusiasmo. Si son enérgicos y risueños, iguala esa energía y súmale un 10%. Esto crea una conexión cómoda que los atrae hacia la compra.',
+      text: 'Match the customer\'s energy, then lift it a notch. If they are calm and thoughtful, be calm and warm — with a spark under it. If they are loud and laughing, meet them there and go one better. What you are matching is the person in front of you, never the state of the shop behind you.',
+      textEs: 'Iguala la energía del cliente y luego súbela un punto. Si viene tranquila y reflexiva, ve tranquilo y cálido — pero con una chispa debajo. Si viene alto y riéndose, ponte a su altura y súbelo un poco más. Lo que igualas es a la persona que tienes delante, nunca cómo esté la tienda detrás de ti.',
     },
     {
             type: 'divider'
@@ -4995,14 +4872,14 @@ export const lessons: Record<string, Lesson> = {
       items: [
         'THE AFTER-ACTION REVIEW: After every interaction — yes OR no — ask yourself three questions: What did I notice about this person? What did I do? What was the result? Write it down. This forces your brain to process patterns.',
         'THE ONE THAT GOT AWAY: At the end of the shift, write down two — the one that got away and the one that landed. Not their age, not what they were wearing. The moment. The exact second she went from \'no thanks\' to laughing, or the exact second you lost her. That is the only bit worth keeping.',
-        'STUDY YOUR WINS: What did your buyers have in common? Were they couples? Did they carry luxury bags? Were they in a certain age range? Your best customers have patterns.',
-        'STUDY YOUR LOSSES EQUALLY: What did non-buyers have in common? Were they in a rush? Were they on their phones? Did they have kids? Understanding who WON\'T buy is as valuable as understanding who will.'
+        'STUDY YOUR WINS FOR WHAT YOU DID, NOT WHO THEY WERE: not couples, not luxury bags, not an age range. The line you opened with. The second you shut up. The moment you put the mirror in her hand. Those are the bits you can do again tomorrow — you cannot order in more forty-year-olds.',
+        'STUDY YOUR LOSSES THE SAME WAY: again, what YOU did. Wrong words, skipped step, filled the silence, went lazy halfway, stopped early on the ladder. If the honest answer is none of those, then that one was not on you. What this will never give you is a profile of the person who was never going to pay — nobody can see that from the outside, and the sellers who think they can are the ones talking themselves out of the next demo.'
       ],
       itemsEs: [
           'LA REVISIÓN POST-ACCIÓN: Después de cada interacción — sí O no — hazte tres preguntas: ¿Qué noté de esta persona? ¿Qué hice? ¿Cuál fue el resultado? Escríbelo. Esto obliga a tu cerebro a procesar patrones.',
           'LA QUE SE TE ESCAPÓ: Al final del turno apunta dos — la que se te escapó y la que entró. Ni la edad, ni la ropa. El momento. El segundo exacto en que pasó de \'no, gracias\' a reírse, o el segundo exacto en que la perdiste. Eso es lo único que merece la pena guardar.',
-          'ESTUDIA TUS VICTORIAS: ¿Qué tenían en común tus compradores? ¿Eran parejas? ¿Traían bolsas de lujo? ¿Eran de cierto rango de edad? Tus mejores clientes tienen patrones.',
-          'ESTUDIA TUS DERROTAS POR IGUAL: ¿Qué tenían en común los que no compraron? ¿Estaban con prisa? ¿Estaban en su teléfono? ¿Traían niños? Entender quién NO comprará es tan valioso como entender quién sí.',
+          'ESTUDIA TUS VICTORIAS POR LO QUE HICISTE TÚ, NO POR QUIÉNES ERAN: ni parejas, ni bolsas de lujo, ni una franja de edad. La frase con la que abriste. El segundo en que te callaste. El momento en que le pusiste el espejo en la mano. Eso es lo que puedes repetir mañana — no puedes encargar más gente de cuarenta años.',
+          'ESTUDIA TUS DERROTAS IGUAL: otra vez, lo que hiciste TÚ. Palabras equivocadas, un paso saltado, llenaste el silencio, te relajaste a mitad, te paraste pronto en la escalera. Si la respuesta honesta es que ninguna, esa no iba contigo. Lo que esto no te va a dar nunca es el retrato del cliente que no iba a pagar jamás — eso no se ve desde fuera, y los vendedores que creen que sí son los que se están quitando de encima la siguiente demo.',
         ],
     },
     {
@@ -5024,13 +4901,13 @@ export const lessons: Record<string, Lesson> = {
         'SHE HASN\'T STOPPED TOUCHING HER OWN HANDS: Or the spot you treated, or the mirror. She is already yours. You just have not said the number yet.',
         'SHE ASKS THE PRICE BEFORE YOU OFFER IT: That is not a question. That is a yes with a price attached. Answer it straight away and go to the two options.',
         'THE ARMS FOLD THE SECOND YOU SAY THE NUMBER: That is the price, not the product. Do not explain the product again — go down a rung and put something in the bag.',
-        'THE PHONE COMES OUT TWICE: You have lost her. Be lovely about it and let her go — that is what she remembers, and her sister is behind her tomorrow.'
+        'THE PHONE COMES OUT TWICE: you have lost the room, not the sale. Stop talking, put something in her hand, and ask her a question she has to look up to answer. What it is not is your cue to open the door for her — she came in, she is still sitting there, and a phone is a habit, not a verdict.'
       ],
       itemsEs: [
           'NO HA PARADO DE TOCARSE LAS MANOS: O la zona que le has tratado, o el espejo. Ya es tuya. Lo único que falta es que digas el número.',
           'TE PREGUNTA EL PRECIO ANTES DE QUE SE LO DIGAS: Eso no es una pregunta. Es un sí con un precio pegado. Contéstale al momento y ve a las dos opciones.',
           'SE CRUZA DE BRAZOS EN CUANTO DICES EL NÚMERO: Es el precio, no el producto. No le vuelvas a explicar el producto — baja un escalón y mete algo en la bolsa.',
-          'SACA EL MÓVIL DOS VECES: La has perdido. Sé encantador y déjala marchar — eso es lo que se lleva, y mañana su hermana viene detrás.',
+          'SACA EL MÓVIL DOS VECES: has perdido la sala, no la venta. Cállate, ponle algo en la mano y hazle una pregunta que le obligue a levantar la vista. Lo que no es, es tu señal para abrirle la puerta — ha entrado, sigue ahí sentada, y un móvil es una costumbre, no un veredicto.',
         ],
     },
     {
@@ -5085,13 +4962,13 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'bullets',
       items: [
-        'THE IGNORE: \'They were walking fast, looking at their phone, carrying coffee. I probably should have let them pass.\' → Lesson: Match stopping effort to customer receptivity.',
+        'THE IGNORE: \'They never even looked up.\' → Lesson: the line went out too late, or too quietly, or you were looking at your own shoes when it did. Fix the bit you control. What it is not is proof they were the wrong person to stop — you have no idea who they were, and neither does anybody else.',
         'THE \'NO THANKS\': \'They smiled but kept walking. Good energy but bad timing.\' → Lesson: My approach was warm but they\'re in a rush. Speed up the opener next time.',
         'THE DEMO, NO BUY: \'They loved the nail kit demo but said it was too expensive even at {currency}30.\' → Lesson: Either a price objection to work through, or genuinely no budget. Note the signals for future reference.',
         'THE CLOSE: \'They bought the syringe after I involved the husband in the demo.\' → Lesson: Partner engagement was the key factor. Replicate that approach with couples.'
       ],
       itemsEs: [
-          'EL QUE IGNORA: \'Caminaban rápido, mirando su teléfono, cargando café. Probablemente debería haberlos dejado pasar.\' → Lección: Adapta tu esfuerzo de detención a la receptividad del cliente.',
+          'EL QUE IGNORA: "Ni levantó la vista." → Lección: la frase salió tarde, o floja, o estabas mirándote los zapatos cuando salió. Arregla la parte que controlas tú. Lo que no es, es la prueba de que no había que pararlos — no tienes ni idea de quiénes eran, y nadie la tiene.',
           'EL \'NO GRACIAS\': \'Sonrieron pero siguieron caminando. Buena energía pero mal timing.\' → Lección: Mi acercamiento fue cálido pero están con prisa. Acelera el acercamiento la próxima vez.',
           'LA DEMO, SIN COMPRA: \'Les encantó la demostración del kit de uñas pero dijeron que era muy caro incluso a {currency}30.\' → Lección: O es una objeción de precio para trabajar, o genuinamente no tienen presupuesto. Toma nota de las señales para referencia futura.',
           'EL CIERRE: \'Compraron la jeringa después de involucrar al esposo en la demostración.\' → Lección: El compromiso de la pareja fue el factor clave. Replica ese acercamiento con parejas.',
@@ -5110,41 +4987,12 @@ export const lessons: Record<string, Lesson> = {
       attributionEs: 'Método Zero Lines',
     }
     ],
-    quiz: [
-    {
-      question: 'What are the four stages of developing sales intuition?',
-      options: [
-        'Beginner, Intermediate, Advanced, Expert',
-        'Conscious Incompetence, Conscious Competence, Unconscious Competence, Mastery',
-        'Learning, Doing, Teaching, Leading',
-        'Theory, Practice, Failure, Success'
-      ],
-      correctIndex: 1,
-      explanation: 'The four stages are Conscious Incompetence (new, thinking hard), Conscious Competence (seeing patterns with effort), Unconscious Competence (intuitive knowing), and Mastery (can also teach others).',
-    },
-    {
-      question: 'What does it mean when a customer touches their face while looking at the product?',
-      options: [
-        'They\'re anxious about the price',
-        'They\'re imagining themselves using it — a very positive signal',
-        'They want to leave',
-        'They\'re checking their makeup'
-      ],
-      correctIndex: 1,
-      explanation: 'Face-touching while looking at a product is a strong positive signal. It indicates the customer is unconsciously imagining themselves using it — a key buying indicator.',
-    },
-    {
-      question: 'Why is it valuable to study your losses (non-buyers) as much as your wins?',
-      options: [
-        'To feel bad about yourself',
-        'To understand patterns of who won\'t buy, saving time and energy',
-        'To blame external factors',
-        'To avoid those types of customers entirely'
-      ],
-      correctIndex: 1,
-      explanation: 'Understanding patterns in non-buyers is as valuable as understanding buyers. It helps you recognize who to invest energy in, when to pivot, and when to gracefully let someone go.',
-    }
-    ],
+    /* No inline quiz. LESSON_QUIZZES['psych-8'] OVERLAYS whatever sits here, so
+       this was unreachable code — and the third graded "understand the patterns
+       of who won't buy" as the point of reviewing a loss. The owner's answer to
+       how a seller is meant to spot that customer is that they cannot, so the
+       review is now about what the SELLER did. The live copy of that question is
+       still in lessonQuizzes.ts. */
   },
   'stop-1': {
     id: 'stop-1',
@@ -5409,18 +5257,18 @@ export const lessons: Record<string, Lesson> = {
         items: [
           'FACING INTO THE SHOP: never facing the street. If she can see the pavement moving past, she starts thinking about being back out on it.',
           'A CHAIR FOR HIM TOO: if there are two of them, both sit. A partner left standing behind her gets bored, and the bored one is the one who says "come on, we should go".',
-          'SIT HER DOWN AND START: no pause, no "so…", no shuffling. She is in the chair, you have got her hand, and you are already talking.',
+          'SIT HER DOWN AND START — OR HAND HER OVER: no pause, no "so…", no shuffling. She is in the chair and somebody has her hand and is already talking. For your first two weeks that somebody is a colleague: you stop them and you pass them on, and that IS your job. Later on it is you in that chair. The handover is quick and warm and it happens while she is sitting, never at the door.',
         ],
         itemsEs: [
           'MIRANDO HACIA DENTRO: nunca hacia la calle. Si ve la acera pasando por delante, empieza a pensar en volver a salir a ella.',
           'UNA SILLA PARA ÉL TAMBIÉN: si son dos, se sientan los dos. Una pareja que se queda de pie detrás se aburre, y el aburrido es el que dice "venga, que nos tenemos que ir".',
-          'SIÉNTALA Y EMPIEZA: sin pausa, sin "bueno…", sin dar vueltas. Está en la silla, le tienes la mano cogida, y ya estás hablando.',
+          'SIÉNTALA Y EMPIEZA — O PÁSALA: sin pausa, sin "bueno…", sin dar vueltas. Está en la silla y alguien le tiene la mano cogida y ya está hablando. Durante tus primeras dos semanas ese alguien es un compañero: tú paras y pasas, y ESE es tu trabajo. Más adelante en esa silla estarás tú. El traspaso es rápido y con buen rollo, y pasa con ella sentada, nunca en la puerta.',
         ],
       },
       {
         type: 'keypoint',
-        text: `That is the sequence finished and the sale not yet started. Everything from here — the demo, the two yeses, the number, the ladder — is a different lesson. But none of it ever happens for a seller who cannot do these nine steps, which is why this is the one to learn first and the one to come back to when a week goes badly.`,
-        textEs: `Ahí se acaba la secuencia y todavía no ha empezado la venta. Todo lo que viene ahora — la demo, los dos síes, el número, la escalera — es otra lección. Pero nada de eso le pasa nunca a un vendedor que no sabe hacer estos nueve pasos, y por eso esta es la primera que hay que aprenderse y a la que hay que volver cuando una semana sale mal.`,
+        text: `That is the sequence finished and the sale not yet started. Everything from here — the demo, the two yeses, the number, the ladder — is a different lesson, and for your first two weeks it is also a different person: a new seller stops and hands over, and does not run the demo at all. Two weeks of nothing but this. Nobody has ever regretted it, because none of the rest ever happens for a seller who cannot do these nine steps.`,
+        textEs: `Ahí se acaba la secuencia y todavía no ha empezado la venta. Todo lo que viene ahora — la demo, los dos síes, el número, la escalera — es otra lección, y durante tus primeras dos semanas también es otra persona: el vendedor nuevo para y pasa, y no hace la demo. Dos semanas de esto y nada más. Nadie se ha arrepentido nunca, porque nada de lo demás le pasa a un vendedor que no sabe hacer estos nueve pasos.`,
       },
       {
         type: 'divider',
@@ -5443,7 +5291,7 @@ export const lessons: Record<string, Lesson> = {
           'THE SMALL GIFT: say it, turn around, walk in. Do not check.',
           'INSIDE THE SHOP: look back and call them — "it\'s two seconds, I promise."',
           'TURN ROUND AND WALK AGAIN. If they still do not come, it is what it is — you did it all.',
-          'THEY CAME IN: chairs already set, backs to the street, one for him as well. Start.',
+          'THEY CAME IN: chairs already set, backs to the street, one for him as well. Start — or, in your first two weeks, hand them to a colleague and go back out for the next one.',
         ],
         itemsEs: [
           'COLOCADO: la muestra en la mano, el paso libre, fuera donde te vean.',
@@ -5455,7 +5303,7 @@ export const lessons: Record<string, Lesson> = {
           'EL REGALITO: lo dices, te giras, entras. No compruebes nada.',
           'YA DENTRO: mira atrás y llámalos — "son dos segundos, os lo prometo".',
           'TE GIRAS Y ANDAS OTRA VEZ. Si aun así no vienen, es lo que hay — lo has hecho todo.',
-          'HAN ENTRADO: las sillas ya puestas, de espaldas a la calle, una para él también. A empezar.',
+          'HAN ENTRADO: las sillas ya puestas, de espaldas a la calle, una para él también. A empezar — o, en tus primeras dos semanas, se los pasas a un compañero y vuelves a salir a por el siguiente.',
         ],
       },
       {
@@ -6095,13 +5943,13 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Generic stops work. Targeted stops work BETTER. When you match the product to something visible about the person, your stop feels personalized and relevant — not random. A woman with beautiful natural nails is the perfect Nail Kit target. Someone with visible under-eye bags is your Syringe customer. Reading the person\'s traits and matching them to the right product transforms your hit rate.',
-      textEs: 'Las paradas genéricas funcionan. Las paradas dirigidas funcionan MEJOR. Cuando emparejas el producto con algo visible de la persona, tu parada se siente personalizada y relevante, no al azar. Una mujer con uñas naturales hermosas es la clienta perfecta para el Kit de Uñas. Alguien con ojeras visibles es tu cliente de la Jeringa. Leer los rasgos de la persona y emparejarlos con el producto adecuado transforma tu tasa de éxito.',
+      text: 'A generic stop works. A specific one works better. When your first line connects to something you can actually see about the person, it lands like somebody noticing them instead of somebody working. Beautiful natural nails give you a nail-kit line. Tired eyes give you a syringe line. Same job, better sentence.',
+      textEs: 'Una parada genérica funciona. Una concreta funciona mejor. Cuando tu primera frase conecta con algo que de verdad le ves a la persona, suena a que alguien se ha fijado en ella y no a que alguien está currando. Unas uñas naturales bonitas te dan una frase de kit de uñas. Unos ojos cansados te dan una frase de jeringa. El mismo trabajo, mejor frase.',
     },
     {
             type: 'keypoint',
-      text: 'The formula: Observe a trait → Connect it to the product → Deliver a personalized opener. This makes the customer feel seen, not targeted.',
-      textEs: 'La fórmula: Observa un rasgo → Conéctalo con el producto → Entrega un apertura personalizada. Esto hace que el cliente se sienta visto, no señalado.',
+      text: 'The formula: see something → connect it to a product → open with that. And read the lists below for what they are: they tell you WHICH LINE to use, never WHO to bother with. You stop everybody. Nothing on this page is permission to let somebody walk past because they did not match a bullet point.',
+      textEs: 'La fórmula: ves algo → lo conectas con un producto → abres por ahí. Y lee las listas de abajo por lo que son: te dicen QUÉ FRASE usar, nunca CON QUIÉN molestarte. Paras a todo el mundo. Nada de esta página es permiso para dejar pasar a nadie porque no encaje con una viñeta.',
     },
     {
             type: 'divider'
@@ -6113,8 +5961,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Best targets: visible under-eye bags, crow\'s feet, tired-looking eyes, people who mention looking exhausted, older customers (40+) concerned with aging.',
-      textEs: 'Mejores objetivos: ojeras visibles, patas de gallo, ojos con aspecto cansado, personas que mencionan verse agotadas, clientes mayores (40+) preocupados por el envejecimiento.',
+      text: 'Where this line lands hardest: visible under-eye bags, crow\'s feet, tired-looking eyes, anybody who mentions a long trip. It is also the line you use when you can see nothing at all, because the eyes are what this shop sells and everybody has got two.',
+      textEs: 'Dónde pega más fuerte esta frase: bolsas visibles, patas de gallo, ojos con cara de cansancio, cualquiera que mencione un viaje largo. Y también es la frase que usas cuando no ves nada de nada, porque los ojos son lo que vende esta tienda y todo el mundo tiene dos.',
     },
     {
             type: 'bullets',
@@ -6146,8 +5994,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Best targets: dull skin, dry skin, people asking about skincare routines, younger customers (20s-30s) focused on glow, people who mention wanting \'fresher\' skin.',
-      textEs: 'Mejores objetivos: piel opaca, piel seca, personas que preguntan por rutinas de cuidado de la piel, clientes jóvenes (de 20 a 30) enfocados en el brillo, personas que mencionan querer piel \'más fresca\'.',
+      text: 'Where this line lands hardest: dull or dry skin, anybody who asks you about routines, somebody young who is chasing glow rather than years, anybody who says they want to look \'fresher\'.',
+      textEs: 'Dónde pega más fuerte esta frase: piel apagada o seca, quien te pregunta por rutinas, alguien joven que va detrás del brillo y no de los años, quien dice que quiere verse "más fresca".',
     },
     {
             type: 'bullets',
@@ -6179,8 +6027,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Best targets: dry or cracked hands (especially in winter), people mentioning the mountain air, gift buyers, couples (great unisex product).',
-      textEs: 'Mejores objetivos: manos secas o agrietadas (sobre todo en invierno), gente que menciona el aire de la montaña, compradores de regalos, parejas (producto unisex buenísimo).',
+      text: 'Where this line lands hardest: dry or cracked hands (especially in winter), anybody who mentions the mountain air, people shopping for presents, couples — it is unisex and nobody is embarrassed to touch it.',
+      textEs: 'Dónde pega más fuerte esta frase: manos secas o agrietadas (sobre todo en invierno), quien menciona el aire de la montaña, quien va comprando regalos, parejas — es unisex y a nadie le da corte tocarlo.',
     },
     {
             type: 'bullets',
@@ -6212,8 +6060,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Best targets: natural nails (no heavy polish), well-maintained nails, younger women, gift buyers, people who appreciate natural beauty.',
-      textEs: 'Mejores objetivos: uñas naturales (sin esmalte grueso), uñas bien cuidadas, mujeres jóvenes, compradores de regalos, personas que aprecian la belleza natural.',
+      text: 'Where this line lands hardest: natural nails with no heavy polish, nails somebody clearly looks after, people shopping for presents, anybody who tells you they hate what the salon does to them.',
+      textEs: 'Dónde pega más fuerte esta frase: uñas naturales sin esmalte grueso, uñas que alguien se cuida claramente, quien va comprando regalos, cualquiera que te diga que odia lo que le hacen en el salón.',
     },
     {
             type: 'bullets',
@@ -6240,77 +6088,48 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'subheader',
-      text: 'Matching Multiple Products',
-      textEs: 'Emparejando Múltiples Productos',
+      text: 'One Line In. Then You Let Go.',
+      textEs: 'Una Frase para Entrar. Y Luego Sueltas.',
     },
     {
             type: 'paragraph',
-      text: 'Sometimes you can offer multiple products in one stop. The totals below are not four separate prices — {currency}120 is the Buy 2, Get 1 Free bundle and {currency}60 is the Buy 1, Get 1 Free bundle, which is why they repeat. Here\'s when to combine:',
-      textEs: 'A veces puedes ofrecer varios productos en una sola parada. Los totales de abajo no son cuatro precios distintos: {currency}120 es el paquete Compra 2, Llévate 1 Gratis y {currency}60 es el paquete Compra 1, Llévate 1 Gratis, por eso se repiten. Aquí te decimos cuándo combinarlos:',
+      text: 'Never open with two products. Two options at four metres is a decision, and a stranger walking past does not want to make one — they want to be pulled in by one clear thing. So you pick your line, you get them through the door, and then you are done with the choosing.',
+      textEs: 'Nunca abras con dos productos. Dos opciones a cuatro metros son una decisión, y un desconocido que va pasando no quiere tomar ninguna — quiere que algo claro tire de él. Así que eliges tu frase, los metes por la puerta, y ahí se te acaba lo de elegir.',
     },
     {
             type: 'bullets',
       items: [
-        'THE CLASSIC TRIO ({currency}120): Scrub + Body Butter + Nail Kit. Best for: gift shoppers, couples, people who want variety.',
-        'THE SPA TRIO ({currency}120): Scrub + Body Butter + Face Cleanser. Best for: self-care focused customers, people interested in routines.',
-        'THE SMART DUO ({currency}60): Scrub + Nail Kit. Best for: budget-conscious buyers, the Nail Kit already includes cream.',
-        'THE SCENT DUO ({currency}60): Scrub + Body Butter. Best for: people who love the sensory experience of the scrub demo.'
+        'THE LINE IS A DOOR, NOT A CONTRACT: you opened on nails and the demo goes to the eyes? Perfect. Nobody sat down expecting a menu. Whatever got them in has done its whole job.',
+        'THE EYES ARE WHAT THE SHOP SELLS: whichever line worked, the syringe is what the day is counted in. The scrub and the nail kit are how you learn to sell and how you keep the energy up — they are not the target.',
+        'IN YOUR FIRST TWO WEEKS YOU DO NOT DEMO AT ALL: you stop, you bring them in, you hand them to a colleague and you go straight back out. That is the entire job and it is the hardest part of it.',
+        'COMBOS ARE NOT A STOPPING TOOL: the small products share one ladder — two for {currency}60, three for {currency}120 — and that belongs to whoever is sitting in the chair with them, not to your opening line on the pavement.'
       ],
       itemsEs: [
-          'EL TRÍO CLÁSICO ({currency}120): Exfoliante + Body Butter + Kit de Uñas. Ideal para: compradores de regalos, parejas, personas que quieren variedad.',
-          'EL TRÍO SPA ({currency}120): Exfoliante + Body Butter + Limpiador Facial. Ideal para: clientes enfocados en el autocuidado, personas interesadas en rutinas.',
-          'EL DÚO INTELIGENTE ({currency}60): Exfoliante + Kit de Uñas. Ideal para: compradores conscientes del presupuesto, el Kit de Uñas ya incluye crema.',
-          'EL DÚO AROMÁTICO ({currency}60): Exfoliante + Body Butter. Ideal para: personas que aman la experiencia sensorial de la demo del exfoliante.',
+          'LA FRASE ES UNA PUERTA, NO UN CONTRATO: ¿has abierto por las uñas y la demo se va a los ojos? Perfecto. Nadie se ha sentado esperando un menú. Lo que los ha metido dentro ya ha hecho todo su trabajo.',
+          'LO QUE VENDE LA TIENDA SON LOS OJOS: haya funcionado la frase que sea, la jeringa es lo que cuenta en el día. El exfoliante y el kit de uñas son cómo aprendes a vender y cómo mantienes la energía — no son el objetivo.',
+          'EN TUS PRIMERAS DOS SEMANAS NO HACES DEMOS: paras, los metes dentro, se los pasas a un compañero y sales otra vez. Ese es el trabajo entero y es la parte más difícil.',
+          'LOS COMBOS NO SON UNA HERRAMIENTA DE PARADA: los productos pequeños comparten escalera — dos por {currency}60, tres por {currency}120 — y eso es de quien esté sentado con ellos, no de tu frase de apertura en la acera.',
         ],
     },
     {
             type: 'tip',
-      text: 'Start with ONE product in your stop. Once they\'re inside and engaged, you can introduce combos and additional products. Leading with multiple options confuses the stop. Simplify to amplify.',
-      textEs: 'Empieza con UN producto en tu parada. Una vez que están dentro e involucrados, puedes introducir combos y productos adicionales. Liderar con múltiples opciones confunde la parada. Simplifica para amplificar.',
+      text: 'If you catch yourself listing things on the pavement, you have already lost the stop. One line, one product, one reason to follow you in. Everything else happens sitting down.',
+      textEs: 'Si te pillas enumerando cosas en la acera, ya has perdido la parada. Una frase, un producto, un motivo para entrar detrás de ti. Todo lo demás pasa sentados.',
     },
     {
             type: 'quote',
-      text: 'The best stops don\'t feel like stops. They feel like a friend noticing something about you and offering a helpful suggestion. That\'s what happens when you match the product to the person.',
-      textEs: 'Las mejores paradas no se sienten como paradas. Se sienten como un amigo que nota algo en ti y te ofrece una sugerencia útil. Eso es lo que pasa cuando emparejas el producto con la persona.',
+      text: 'The best stops don\'t feel like stops. They feel like a friend noticing something about you. Notice something true, say it, and walk them in — the rest of the shop can take it from there.',
+      textEs: 'Las mejores paradas no parecen paradas. Parecen un amigo que se ha fijado en algo tuyo. Fíjate en algo de verdad, dilo, y mételes dentro — el resto de la tienda ya sigue desde ahí.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
     ],
-    quiz: [
-    {
-      question: 'What is the formula for a product-specific stop?',
-      options: [
-        'Mention all products at once',
-        'Observe a trait → Connect it to the product → Deliver a personalized opener',
-        'Lead with the price',
-        'Ask if they want to buy'
-      ],
-      correctIndex: 1,
-      explanation: 'The formula is: observe a visible trait, connect it naturally to a specific product, then deliver a personalized opener. This makes the stop feel relevant, not random.',
-    },
-    {
-      question: 'Who is the best target for the Syringe stop?',
-      options: [
-        'Young children',
-        'People with visible under-eye concerns, tired eyes, or aging concerns',
-        'People who hate skincare',
-        'Men only'
-      ],
-      correctIndex: 1,
-      explanation: 'The Syringe (eye treatment) is best matched to people with visible under-eye bags, crow\'s feet, tired-looking eyes, or those concerned with aging around the eyes.',
-    },
-    {
-      question: 'Why should you start with one product in your stop rather than offering multiple products?',
-      options: [
-        'You only have one product to sell',
-        'Multiple options confuse the stop; simplify to amplify',
-        'Customers only want one product',
-        'It\'s company policy'
-      ],
-      correctIndex: 1,
-      explanation: 'Leading with multiple products confuses the stop. Start with one clear, targeted product to get them inside. Once engaged, you can introduce combos and additional products.',
-    }
-    ],
+    /* No inline quiz. LESSON_QUIZZES['stop-5'] OVERLAYS whatever sits here, so
+       this was unreachable code. Two of the three are now wrong anyway: "who is
+       the best TARGET for the Syringe stop" reads as a filter to a first-week
+       seller, and the third's explanation ends "once engaged, you can introduce
+       combos and additional products" — which is neither this lesson nor this
+       seller's job. Both live copies are in lessonQuizzes.ts. */
   },
   'stop-6': {
     id: 'stop-6',
@@ -6612,14 +6431,14 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'numbered',
       items: [
-        'THE ENERGIZER: High energy, fast-paced, loud and proud. Uses humor, excitement, and enthusiasm to draw people in. Best for: Young crowds, groups, holiday shoppers, high-traffic periods. Risk: Can overwhelm introverts or older customers.',
-        'THE WARM INVITER: Calm, warm, genuinely caring. Builds rapport slowly. Uses gentle curiosity and kindness. Best for: Couples, older customers, serious buyers, afternoon lulls. Risk: Can seem low-energy during peak times.',
+        'THE ENERGIZER: High energy, fast-paced, loud and proud. Uses humor, excitement, and enthusiasm to draw people in. Best for: young crowds, groups, holiday shoppers, anybody already in a good mood. Risk: can overwhelm a quiet customer, and it burns you out by four o\'clock if you never come down.',
+        'THE WARM INVITER: Calm, warm, genuinely caring. Builds rapport quickly and quietly. Uses gentle curiosity and kindness. Best for: couples, older customers, wary customers, the person who wants to ask you things. Risk: without real attention behind it, calm just reads as flat.',
         'THE EXPERT: Knowledgeable, confident, authority-driven. Leads with facts and lets the product speak. Best for: Analytical buyers, French tourists, skeptical customers. Risk: Can feel cold without enough warmth.',
         'THE CHAMELEON: Adapts to each customer. High energy with energetic people, calm with calm people. Flexible and observant. Best for: Sellers with strong empathy and reading skills. Risk: Can feel inconsistent if not grounded in authenticity.'
       ],
       itemsEs: [
-          'EL ENERGIZADOR: Alta energía, ritmo rápido, fuerte y orgulloso. Usa humor, emoción, y entusiasmo para atraer gente. Ideal para: Multitudes jóvenes, grupos, compradores navideños, periodos de alto tráfico. Riesgo: Puede abrumar a introvertidos o clientes mayores.',
-          'EL INVITADOR CÁLIDO: Tranquilo, cálido, genuinamente cariñoso. Construye conexión lentamente. Usa curiosidad gentil y amabilidad. Ideal para: Parejas, clientes mayores, compradores serios, momentos tranquilos de la tarde. Riesgo: Puede parecer de baja energía durante los periodos pico.',
+          'EL ENERGIZADOR: Alta energía, ritmo rápido, fuerte y orgulloso. Usa humor, emoción y entusiasmo para atraer gente. Ideal para: gente joven, grupos, compradores navideños, cualquiera que ya venga de buen humor. Riesgo: puede abrumar a un cliente callado, y te deja frito a las cuatro de la tarde si no bajas nunca.',
+          'EL INVITADOR CÁLIDO: Tranquilo, cálido, cercano de verdad. Construye conexión rápido y sin ruido. Usa curiosidad amable y buen trato. Ideal para: parejas, clientes mayores, gente desconfiada, quien quiere preguntarte cosas. Riesgo: sin atención real detrás, la calma solo parece desgana.',
           'EL EXPERTO: Conocedor, confiado, guiado por la autoridad. Lidera con hechos y deja que el producto hable. Ideal para: Compradores analíticos, turistas franceses, clientes escépticos. Riesgo: Puede sentirse frío sin suficiente calidez.',
           'EL CAMALEÓN: Se adapta a cada cliente. Alta energía con gente enérgica, calmado con gente tranquila. Flexible y observador. Ideal para: Vendedores con fuerte empatía y habilidad de lectura. Riesgo: Puede sentirse inconsistente si no está anclado en la autenticidad.',
         ],
@@ -6630,6 +6449,11 @@ export const lessons: Record<string, Lesson> = {
       leftEs: { label: 'Enfoque de Alta Energía', text: '\'¡HEY! ¡Dios mío, tienes que ver esto! ¡Ven aquí, ven aquí, dos minutos, te prometo que te vas a alucinar!\' Funciona brillantemente para algunos. Agotador y repelente para otros. Úsalo cuando la situación coincida con tu entusiasmo natural.' },
       right: { label: 'Calm Approach', text: '\'Excuse me — I know you\'re busy, but I have something that might surprise you. Just two minutes, and if you don\'t love it, no hard feelings.\' Warm, respectful, confident. Some customers prefer this 100% of the time.' },
       rightEs: { label: 'Acercamiento Tranquilo', text: '\'Perdona — sé que vas liado, pero tengo algo que a lo mejor te sorprende. Solo dos minutos, y si no te encanta, no pasa nada.\' Cálido, respetuoso, seguro. Hay clientes que prefieren esto el 100% de las veces.' }
+    },
+    {
+            type: 'keypoint',
+      text: 'Your style is yours. What the day does change is how hard you work each person. A dead morning is when you try HARDER — you go after the ones you would let walk on a Saturday, because the four people who come past might be the whole day. A packed afternoon is the opposite: keep it tight, do not grind water with one person, because the moment you finish there is another one right outside.',
+      textEs: 'Tu estilo es tuyo. Lo que sí cambia con el día es lo fuerte que trabajas a cada persona. Una mañana muerta es cuando MÁS lo intentas — vas a por los que un sábado dejarías pasar, porque las cuatro personas que pasen igual son el día entero. Una tarde a tope es lo contrario: al grano, no le des vueltas al agua con una sola persona, porque en cuanto termines hay otra ahí fuera.',
     },
     {
             type: 'divider'

@@ -72,10 +72,16 @@ export const categories: Category[] = [
     subtitle: 'From hello to paid',
     subtitleEs: 'Del hola al pago',
     description:
-      'You stopped them. Now what? These are the five metres from the pavement to the chair, the demo where you take her hand and collect the two yeses, the moment you ask for the money, and the ninety seconds between yes and paid. This is where sales are won and lost after all the hard work is already done.',
+      'You stopped them. Now what? These are the five metres from the pavement to the chair, the demo where you take her hand and collect the two yeses, the moment you ask for the money, the ninety seconds between yes and paid, and the handover that ends your job on a syringe. This is where sales are won and lost after all the hard work is already done.',
     icon: 'DoorOpen',
     accentColor: '#FF6B6B',
-    lessonOrder: ['close-market', 'close-1', 'close-demo', 'close-2', 'close-3', 'close-fault'],
+    /* `close-handover` sits after `close-3` because that is where it happens:
+       The Counter owns the ninety seconds between yes and paid and used to
+       walk the customer out of the door at the end of them. On a syringe the
+       sale does not end at the bag — it ends when the upseller takes over, so
+       the handover is the step after the counter and before the mindset coda,
+       which stays last. */
+    lessonOrder: ['close-market', 'close-1', 'close-demo', 'close-2', 'close-3', 'close-handover', 'close-fault'],
   },
   {
     id: 'products',

@@ -160,8 +160,8 @@ export const scrubData = {
         step: '3',
         title: 'Add Water',
         titleEs: 'Agrega Agua',
-        text: "Add water slowly while they rub. \"This is my personal favorite — I use it myself. It's recommended to help with eczema, psoriasis, severe dry skin, and redness. It basically separates the dry, dead layers from the living ones so your skin can breathe.\"",
-        textEs: 'Agrega agua lentamente mientras frotan. "Este es mi favorito personal — yo lo uso. Se recomienda para ayudar con el eczema, la psoriasis, la piel severamente seca y el enrojecimiento. Básicamente separa las capas secas y muertas de las vivas para que tu piel pueda respirar."',
+        text: "Add water slowly while they rub. \"This is my personal favorite — I use it myself. People with the most difficult skin in the world use this — the driest, the most sensitive, the ones who cannot put anything on themselves. It basically separates the dry, dead layers from the living ones so your skin can breathe.\"",
+        textEs: 'Agrega agua lentamente mientras frotan. "Este es mi favorito personal — yo lo uso. Lo usa gente con la piel más difícil del mundo — la más seca, la más sensible, la que no se puede poner nada. Básicamente separa las capas secas y muertas de las vivas para que tu piel pueda respirar."',
       },
       {
         step: '4',

@@ -181,16 +181,16 @@ export const syringeData = {
   partnerUpsell: {
     sectionTitle: 'The Partner Upsell',
     sectionTitleEs: 'El Upsell de la Pareja',
-    subtitle: '"The real magic happens when you do BOTH eyes"',
-    subtitleEs: '"La magia real sucede cuando haces AMBOS ojos"',
+    subtitle: '"One eye did that. Now show him what a year of it looks like"',
+    subtitleEs: '"Un ojo ha hecho eso. Ahora ens\u00e9\u00f1ale c\u00f3mo es un a\u00f1o entero"',
     description:
-      "After they see the result on one eye, that's your opening. The partner has already witnessed the transformation \u2014 they're emotionally invested.",
+      "After they see the result on one eye, that's your opening. The partner has already witnessed the transformation \u2014 they're emotionally invested. Bring him IN, always: he is the first person you work on, not the one you write off. Only if he is genuinely bad energy do you turn and give everything to her.",
     descriptionEs:
-      "Despu\u00e9s de que ven el resultado en un ojo, esa es tu oportunidad. La pareja ya ha presenciado la transformaci\u00f3n \u2014 ya est\u00e1 emocionalmente involucrada.",
+      "Despu\u00e9s de que ven el resultado en un ojo, esa es tu oportunidad. La pareja ya ha presenciado la transformaci\u00f3n \u2014 ya est\u00e1 emocionalmente involucrada. M\u00e9telo DENTRO, siempre: es la primera persona a la que trabajas, no la que descartas. Solo si trae muy mala energ\u00eda te giras y se lo das todo a ella.",
     script1:
-      '"Sir, you saw the difference \u2014 imagine if we do both eyes? She\'ll walk out of here looking like she just had a full night\'s sleep... for a whole year."',
+      '"Sir, you saw the difference \u2014 and that is ONE eye. Now imagine her doing that at home every Sunday, all year. She is going to walk around looking like she slept twelve hours."',
     script1Es:
-      '"Se\u00f1or, vio la diferencia \u2014 imagine si hacemos ambos ojos? Saldr\u00e1 de aqu\u00ed luciendo como si acabara de dormir toda la noche... por un a\u00f1o entero."',
+      '"Se\u00f1or, has visto la diferencia \u2014 y eso es UN ojo. Ahora im\u00e1ginatela haci\u00e9ndoselo en casa cada domingo, todo el a\u00f1o. Va a ir por ah\u00ed como si hubiera dormido doce horas."',
     option2Intro: 'Now introduce Option 2:',
     option2IntroEs: 'Ahora introduce la Opci\u00f3n 2:',
     option2Script:
@@ -216,13 +216,13 @@ export const syringeData = {
     whatToSay: 'What to say',
     whatToSayEs: 'Qu\u00e9 decir',
     minimumWarning:
-      "\u26a0 Only use this as an absolute last resort. You've exhausted all other options.",
+      "\u26a0 This price is NOT yours to give. One voucher, once \u2014 then you go full market and CALL THE MANAGER. A seller who can reach the floor on their own has no floor.",
     minimumWarningEs:
-      "\u26a0 Solo usa esto como \u00faltimo recurso absoluto. Has agotado todas las dem\u00e1s opciones.",
+      "\u26a0 Este precio NO es tuyo. Un cup\u00f3n, una vez \u2014 luego vas a mercado y LLAMAS AL ENCARGADO. Un vendedor que llega solo al fondo no tiene fondo.",
     voucherHint:
-      "\ud83d\udca1 Drop your voice, lean in slightly \u2014 make it feel like insider treatment. Only on the SINGLE syringe.",
+      "\ud83d\udca1 Say it while you start her OTHER EYE. Hands busy, face tilted up, the room feels finished \u2014 and the number moves inside a moment that is about something else. Voice down, lean in. Only on the SINGLE syringe, and there is no second voucher.",
     voucherHintEs:
-      "\ud83d\udca1 Baja la voz, incl\u00ednate ligeramente \u2014 haz que se sienta como un trato de insider. Solo en la jeringa INDIVIDUAL.",
+      "\ud83d\udca1 Dilo mientras le empiezas el OTRO OJO. Manos ocupadas, cara hacia arriba, la cosa parece terminada \u2014 y el n\u00famero se mueve dentro de un momento que va de otra cosa. Baja la voz, incl\u00ednate. Solo en la jeringa INDIVIDUAL, y no hay segundo cup\u00f3n.",
     highlightHint:
       "\ud83d\udca1 This is your best-value single-syringe offer. Most customers who want one syringe take this.",
     highlightHintEs:
@@ -272,30 +272,30 @@ export const syringeData = {
     voucherDescription: '20% voucher \u2014 final push, single syringe only',
     voucherDescriptionEs: 'Cup\u00f3n 20% \u2014 empuj\u00f3n final, solo jeringa individual',
     voucherScript:
-      '"Alright, alright... listen, I just checked something, and I can do a small crazy offer for you. But you can\'t be greedy, okay? So remember I told you without the gift it\'s {currency}175? If you use this small 20% discount voucher, it brings it down to {currency}140. This is a one-time thing \u2014 next time, it goes back to normal."',
+      '"You know what, let me fix your other eye real quick." [Start the eye. Hands on her face, and NOW you talk money.] "Listen, I just checked something and I can do a small crazy offer for you. But you can\'t be greedy, okay? Remember I said without the gift it\'s {currency}175? With this little 20% voucher it comes down to {currency}140. One time only \u2014 next time it goes back to normal."',
     voucherScriptEs:
-      '"Bueno, bueno... escucha, acabo de revisar algo, y puedo hacer una peque\u00f1a oferta loca para ti. Pero no seas codiciosa, \u00bfokey? Entonces \u00bfrecuerdas que te dije que sin el regalo es {currency}175? Si usas este peque\u00f1o cup\u00f3n de descuento del 20%, lo baja a {currency}140. Esto es solo una vez \u2014 la pr\u00f3xima vez, vuelve a la normalidad."',
+      '"\u00bfSabes qu\u00e9? D\u00e9jame arreglarte el otro ojo rapidito." [Empieza el ojo. Manos en su cara, y AHORA hablas de dinero.] "Mira, acabo de comprobar una cosa y te puedo hacer una locura peque\u00f1ita. Pero no seas avariciosa, \u00bfvale? \u00bfTe acuerdas de que sin el regalo eran {currency}175? Con este cuponcito del 20% se queda en {currency}140. Una sola vez \u2014 la pr\u00f3xima vuelve a lo normal."',
 
-    minimumLabel: 'Minimum (Last Resort)',
-    minimumLabelEs: 'M\u00ednimo (\u00daltimo Recurso)',
-    minimumDescription: 'Absolute floor \u2014 use only when nothing else works',
-    minimumDescriptionEs: 'Piso absoluto \u2014 \u00fasalo solo cuando nada m\u00e1s funcione',
+    minimumLabel: 'Minimum (Manager Only)',
+    minimumLabelEs: 'M\u00ednimo (Solo el Encargado)',
+    minimumDescription: 'Full market \u2014 the manager unlocks this, never you',
+    minimumDescriptionEs: 'Mercado puro \u2014 esto lo abre el encargado, nunca t\u00fa',
     minimumScript:
-      '"Look, I want you to have this. I\'m not supposed to do this, but I can bring it to {currency}100 \u2014 that\'s the absolute best I can do. Just promise me you\'ll actually use it once a week, okay?"',
+      '"Look, I really want you to have this. Give me ten seconds." [Go and get the manager. You do not invent this number and you do not say it first.] MANAGER: "{currency}100. That is the bottom, and only because he asked me for you. Promise me you actually use it once a week."',
     minimumScriptEs:
-      '"Mira, quiero que tengas esto. No se supone que deba hacer esto, pero puedo llevarlo a {currency}100 \u2014 eso es lo mejor que puedo hacer. Solo prom\u00e9teme que realmente lo usar\u00e1s una vez por semana, \u00bfokey?"',
+      '"Mira, quiero de verdad que te lo lleves. Dame diez segundos." [Ve a por el encargado. Este n\u00famero no te lo inventas t\u00fa y no lo dices t\u00fa primero.] ENCARGADO: "{currency}100. Ese es el fondo, y solo porque me lo ha pedido \u00e9l por ti. Prom\u00e9teme que lo vas a usar una vez a la semana."',
   },
 
   /* ─── Voucher Close ─── */
   voucherClose: {
     sectionTitle: 'The Voucher Close',
     sectionTitleEs: 'El Cierre con Cup\u00f3n',
-    exactWordsLabel: 'Exact Words \u2014 Say This',
-    exactWordsLabelEs: 'Palabras Exactas \u2014 Di Esto',
+    exactWordsLabel: 'Exact Words \u2014 Say This (while you do her other eye)',
+    exactWordsLabelEs: 'Palabras Exactas \u2014 Di Esto (mientras le haces el otro ojo)',
     voucherScript:
-      "Alright, alright... listen, I just checked something, and I can do a small crazy offer for you. But you can't be greedy, okay? I can't do this on the double syringe, only on the single one. So remember I told you without the gift it's {currency}175? If you use this small 20% discount voucher, it brings it down to {currency}140. This is a one-time thing \u2014 next time, it goes back to normal.",
+      "You know what, let me fix your other eye real quick. [Start it. Do not stop talking, do not let her stand up.] Listen, I just checked something and I can do a small crazy offer for you. But you can't be greedy, okay? I can't do this on the double syringe, only on the single one. Remember I told you that without the gift it's {currency}175? If you use this small 20% voucher, it brings it down to {currency}140. One time only \u2014 next time it goes back to normal.",
     voucherScriptEs:
-      "Bueno, bueno... escucha, acabo de revisar algo, y puedo hacer una peque\u00f1a oferta loca para ti. Pero no seas codiciosa, \u00bfokey? No puedo hacer esto en la jeringa doble, solo en la individual. Entonces \u00bfrecuerdas que te dije que sin el regalo es {currency}175? Si usas este peque\u00f1o cup\u00f3n de descuento del 20%, lo baja a {currency}140. Esto es solo una vez \u2014 la pr\u00f3xima vez, vuelve a la normalidad.",
+      "\u00bfSabes qu\u00e9? D\u00e9jame arreglarte el otro ojo rapidito. [Empieza. No dejes de hablar, no dejes que se levante.] Mira, acabo de comprobar una cosa y te puedo hacer una locura peque\u00f1ita. Pero no seas avariciosa, \u00bfvale? En la jeringa doble no puedo, solo en la individual. \u00bfTe acuerdas de que te dije que sin el regalo eran {currency}175? Con este cuponcito del 20% se queda en {currency}140. Una sola vez \u2014 la pr\u00f3xima vuelve a lo normal.",
     twoPromisesLabel: 'The Two Promises',
     twoPromisesLabelEs: 'Las Dos Promesas',
     twoPromisesScript:
@@ -309,9 +309,9 @@ export const syringeData = {
     whatsappScriptEs:
       '"\u00bfUsas WhatsApp, verdad? Perfecto. Tendr\u00e1s mi n\u00famero y correo \u2014 solo av\u00edsame si necesitas algo o si alguna vez quieres probar algo nuevo m\u00e1s adelante."',
     whatsappNote:
-      'This creates a personal relationship \u2014 not just a transaction. Returning customers are your easiest future sales.',
+      'This creates a personal relationship \u2014 not just a transaction. But if she ever walks back in months later wanting another one, that is not your price to name: get the manager, or whoever on the floor has the most experience. It is not your sale to price.',
     whatsappNoteEs:
-      'Esto crea una relaci\u00f3n personal \u2014 no solo una transacci\u00f3n. Los clientes que vuelven son tus ventas futuras m\u00e1s f\u00e1ciles.',
+      'Esto crea una relaci\u00f3n personal \u2014 no solo una transacci\u00f3n. Pero si vuelve a entrar meses despu\u00e9s queriendo otra, ese precio no lo pones t\u00fa: busca al encargado, o a quien tenga m\u00e1s experiencia en la sala. No es tu venta para ponerle precio.',
   },
 
   /* ─── The Two Offers ───
@@ -393,17 +393,24 @@ export const syringeData = {
       },
       {
         icon: 'Eye',
-        title: 'One eye demo is the key',
-        titleEs: 'La demo de un ojo es la clave',
-        text: "Never do both eyes for free. The comparison between treated and untreated is your strongest close.",
-        textEs: 'Nunca hagas ambos ojos gratis. La comparaci\u00f3n entre tratado y no tratado es tu cierre m\u00e1s fuerte.',
+        title: 'One eye only \u2014 the other one is your close',
+        titleEs: 'Un ojo solo \u2014 el otro es tu cierre',
+        text: "I never do the other eye. Sometimes, inside the speech, I say I will do it in order to close. That is what it is for: at {currency}175, before she stands up \u2014 \"you know what, let me fix your other eye real quick\" \u2014 and the voucher comes out WHILE you are doing it. Never a freebie.",
+        textEs: 'Yo nunca hago el otro ojo. A veces, dentro del discurso, digo que se lo hago para cerrar. Para eso est\u00e1: a {currency}175, antes de que se levante \u2014 "\u00bfsabes qu\u00e9? d\u00e9jame arreglarte el otro ojo rapidito" \u2014 y el cup\u00f3n sale MIENTRAS se lo haces. Nunca de regalo.',
+      },
+      {
+        icon: 'Eye',
+        title: 'She asks for the second eye first?',
+        titleEs: '\u00bfTe pide el segundo ojo antes?',
+        text: 'Condition it, do not refuse it: "If you buy it, I\'ll do the other one, yeah?" She pays, she gets it done, no argument and no theatre. What you never do is hand it over to a maybe.',
+        textEs: 'Ponle condici\u00f3n, no le digas que no: "Si te lo llevas, te hago el otro, \u00bfvale?" Si paga, se lo haces, sin discusi\u00f3n y sin teatro. Lo que nunca haces es regal\u00e1rselo a un quiz\u00e1.',
       },
       {
         icon: 'Users',
         title: 'Engage the partner ALWAYS',
         titleEs: 'Involucra a la pareja SIEMPRE',
-        text: "They're often the real decision-maker. Make them part of the joke, the reveal, and the close.",
-        textEs: 'Frecuentemente son el verdadero tomador de decisiones. Hazlos parte de la broma, la revelaci\u00f3n, y el cierre.',
+        text: "Bring him IN first, every time \u2014 the joke, the reveal, the close. He is often the real decision-maker. Only if he is genuinely bad energy do you turn and give everything to her.",
+        textEs: 'M\u00e9telo DENTRO primero, siempre \u2014 la broma, la revelaci\u00f3n, el cierre. Muchas veces decide \u00e9l de verdad. Solo si trae muy mala energ\u00eda te giras y se lo das todo a ella.',
       },
       {
         icon: 'MessageCircle',
@@ -425,6 +432,20 @@ export const syringeData = {
         titleEs: 'Baja la escalera un paso a la vez',
         text: "Never jump from {currency}300 to {currency}140. Walk down slowly. Each step feels like you're doing them a favor.",
         textEs: 'Nunca saltes de {currency}300 a {currency}140. Baja despacio. Cada paso se siente como si les estuvieras haciendo un favor.',
+      },
+      {
+        icon: 'Euro',
+        title: 'One voucher, once — the manager owns the floor',
+        titleEs: 'Un cupón, una vez — el fondo es del encargado',
+        text: 'You use the voucher once, {currency}175 to {currency}140, with the extra 20%. There is no second voucher — inventing another one tells her the first was invented too. Below that you go full market and you CALL A MANAGER to reach {currency}100.',
+        textEs: 'El cupón lo usas una vez, de {currency}175 a {currency}140, con el 20% extra. No hay segundo cupón — inventarte otro le dice que el primero también te lo inventaste. Por debajo vas a mercado puro y LLAMAS AL ENCARGADO para llegar a {currency}100.',
+      },
+      {
+        icon: 'HeartHandshake',
+        title: 'Your job ends at the syringe',
+        titleEs: 'Tu trabajo se acaba en la jeringa',
+        text: 'She paid. Do NOT start selling her a scrub. Build the specialist up — only here a short time, amazing at what he does — "just because you got this, I\'m going to spoil you with a small gift. What is more important for you, if you could get it lifted: the cheeks, or the neck? Would that make you happy? Let me check with him, if you have one second." Then you go and get him. She stays in the chair.',
+        textEs: 'Ha pagado. NO te pongas a venderle un exfoliante. Móntale al especialista — está poco tiempo, es un crack en lo suyo — "solo porque te has llevado esto, te voy a mimar con un regalito. ¿Qué es más importante para ti, si pudieras levantarlo: los pómulos o el cuello? ¿Eso te haría feliz? Déjame consultarlo con él, si tienes un segundo." Y vas tú a buscarlo. Ella se queda en la silla.',
       },
       {
         icon: 'HeartHandshake',

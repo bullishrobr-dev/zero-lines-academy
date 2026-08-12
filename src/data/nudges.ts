@@ -285,13 +285,13 @@ export const NUDGES: Nudge[] = [
     route: '/quizzes',
   },
   {
-    id: 'drill-dead-patch',
+    id: 'drill-second-eye',
     kind: 'drill',
-    title: 'Dead patch? Use it',
-    titleEs: '¿Rato muerto? Aprovecha',
-    body: `Nothing moving out there? One short lesson beats ten more minutes on your phone.`,
-    bodyEs: `¿No se mueve nada? Una lección corta gana a diez minutos más mirando el móvil.`,
-    route: '/training',
+    title: 'What is the other eye for?',
+    titleEs: '¿Para qué sirve el otro ojo?',
+    body: `Say it out loud. Not a favour — the cover for the voucher, at {currency}${SYR_NO_GIFT}. Blanked? Open the sheet.`,
+    bodyEs: `Dilo en voz alta. No es un favor — es la tapadera del cupón, a {currency}${SYR_NO_GIFT}. ¿En blanco? Abre la chuleta.`,
+    route: '/cheat-sheets',
   },
 
   // ── mindset — for the bad run, the flat hour, the head ────────────────────
@@ -330,10 +330,18 @@ export const NUDGES: Nudge[] = [
   {
     id: 'mind-dead-hour',
     kind: 'mindset',
-    title: 'A dead hour isn\'t a dead day',
-    titleEs: 'Una hora muerta no es el día',
-    body: `Quiet stretch? The person who buys today simply hasn't walked past you yet.`,
-    bodyEs: `¿Racha floja? Quien compra hoy todavía no ha pasado por delante. Ojo y a seguir.`,
+    title: 'Slow day? Push harder',
+    titleEs: '¿Día flojo? Aprieta más',
+    body: `Quiet floor means the next one might be your only chance today. Work the ones you'd normally skip.`,
+    bodyEs: `Poca gente: el próximo puede ser tu única oportunidad de hoy. Trabájate a los que normalmente saltarías.`,
+  },
+  {
+    id: 'mind-busy-day',
+    kind: 'mindset',
+    title: 'Rammed? Move quicker',
+    titleEs: '¿A tope? Ve más rápido',
+    body: `Busy floor, faster demos. Don't grind water — the moment you finish you can go and get another one.`,
+    bodyEs: `Mucha gente, demos más rápidas. No machaques agua — en cuanto acabas puedes ir a por otra.`,
   },
   {
     id: 'mind-not-interrupting',

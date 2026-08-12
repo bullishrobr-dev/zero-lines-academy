@@ -59,9 +59,13 @@ const ALL_CHALLENGES: Challenge[] = [
     xpReward: 20,
   },
   {
+    /* Was "use the Nail Kit upsell on every sale today", which paid a seller
+       25 XP on the home screen for the one thing the handover lesson forbids:
+       pitching a second product out of your own mouth after a syringe sale.
+       The job ends at the syringe and the upseller takes it from there. */
     id: 'c8',
-    text: 'Use the Nail Kit upsell on every sale today',
-    textEs: 'Ofrece el Kit de Uñas como extra en cada venta de hoy',
+    text: 'Hand every syringe sale straight to the upseller — specialist, gift, "what would you get lifted?"',
+    textEs: 'Pasa cada venta de jeringa al upseller — especialista, regalito, "¿qué te levantarías?"',
     xpReward: 25,
   },
   {

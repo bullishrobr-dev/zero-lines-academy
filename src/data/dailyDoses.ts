@@ -222,7 +222,13 @@ export const dailyDoses: DailyDose[] = [
     xpReward: 15,
   },
 
-  // ─── DAYS 8–14: PRODUCT KNOWLEDGE ───
+  /* ─── PRODUCT KNOWLEDGE ───
+     The `day` numbers here are a rotation, NOT an induction calendar —
+     getTodaysDose() serves by day-of-month, so nobody receives these in order
+     from their first shift. Worth knowing when you write one: a new seller's
+     first two weeks are stopping only. They stop people and pass them to
+     colleagues; they do not run demos themselves. So a dose about running your
+     own demo is for the seller who has come through that, and says so. */
   {
     id: 'dose-008',
     day: 8,
@@ -232,8 +238,8 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'technique',
-        text: 'The syringe demo is your WOW moment. Don\'t rush it. Build suspense. Let them see the transformation happen on their own hand.',
-        textEs: 'La demo de jeringa es tu momento WOW. No te apresures. Genera suspense. Deja que vean la transformación en su propia mano.',
+        text: 'Your first two weeks you do not do this at all — you stop people and pass them to a colleague, and that is the whole job. Once you are through that, the syringe demo is your WOW moment. Don\'t rush it. Build suspense. Let them see the transformation happen on their own hand.',
+        textEs: 'Las dos primeras semanas esto no lo haces — paras gente y se la pasas a un compañero, y ese es el trabajo entero. Cuando ya has pasado por ahí, la demo de jeringa es tu momento WOW. No te apresures. Genera suspense. Deja que vean la transformación en su propia mano.',
         highlight: 'Let them feel it. Feeling = believing.',
         highlightEs: 'Déjalas sentirlo. Sentir = creer.',
       },
@@ -371,59 +377,59 @@ export const dailyDoses: DailyDose[] = [
   {
     id: 'dose-013',
     day: 13,
-    title: 'Cross-Selling Made Easy',
-    titleEs: 'Ventas Cruzadas Facilitadas',
+    title: 'Which Product Actually Matters',
+    titleEs: 'Qué Producto Importa de Verdad',
     category: 'Product',
     content: [
       {
-        type: 'technique',
-        text: 'Cross-selling isn\'t pushy if it\'s HELPFUL. The key: suggest products that COMPLEMENT what they already want. A Scrub buyer needs the matching Body Butter.',
-        textEs: 'La venta cruzada no es agresiva si es ÚTIL. La clave: sugiere productos que COMPLEMENTEN lo que ya quieren. Quien se lleva el Scrub necesita el Body Butter que va con él.',
-        highlight: 'Help them complete their routine. Don\'t just add products.',
-        highlightEs: 'Ayúdalas a completar su rutina. No les vayas añadiendo productos sin más.',
-      },
-      {
-        type: 'script',
-        text: '"Since you\'re taking the Scrub, you\'ll want the Body Butter too. They\'re designed to work together — the Scrub lifts the dead skin, the Butter locks the moisture back in. And Buy 1 Get 1 means both of them are {currency}60 — the price of one."',
-        textEs: '"Como te llevas el Scrub, también vas a querer el Body Butter. Están hechos para funcionar juntos — el Scrub levanta la piel muerta y el Butter le devuelve la hidratación. Y con Compra 1 Lleva 1 los dos te salen {currency}60 — el precio de uno."',
+        type: 'mindset',
+        text: 'There is a hierarchy and it is not four equal things on a tray. THE SYRINGE IS THE STAR — it is what we sell, what we focus on, what a good day is made of. The peeling is in between: a real sale, a good one, not the one the shift is measured by. The scrub, the body butter and the nail kit are BEGINNER products — they exist so you learn to sell and so the shop has some nice energy in it.',
+        textEs: 'Hay una jerarquía y no son cuatro cosas iguales en una bandeja. LA JERINGA ES LA ESTRELLA — es lo que vendemos, en lo que nos centramos, de lo que está hecho un buen día. El peeling está en medio: una venta de verdad y buena, pero no es la que mide el turno. El exfoliante, la manteca corporal y el kit de uñas son productos de PRINCIPIANTE — están para que aprendas a vender y para que la tienda tenga buen rollo.',
+        highlight: 'Syringe first, always. The small stuff is training wheels.',
+        highlightEs: 'La jeringa primero, siempre. Lo pequeño son ruedines.',
       },
       {
         type: 'tip',
-        text: 'Bundle pricing is your friend. Always frame the combo as saving money, not spending more. Three products at {currency}120 instead of {currency}180 — say "you save {currency}60", never "it\'s {currency}60 more."',
-        textEs: 'El precio de paquete es tu aliado. Presenta siempre el combo como ahorro, no como gasto extra. Tres productos por {currency}120 en vez de {currency}180 — di "ahorras {currency}60", nunca "son {currency}60 más".'
+        text: 'A seller who spends a happy year selling nail kits has spent a year not learning the job. Every stop you make out on that floor is aimed at the syringe — and when someone buys a scrub, the next move is not a second jar, it is getting her into the chair for the eyes.',
+        textEs: 'Un vendedor que se pasa un año la mar de contento vendiendo kits de uñas se ha pasado un año sin aprender el oficio. Cada parada que haces ahí fuera apunta a la jeringa — y cuando alguien compra un exfoliante, la siguiente jugada no es otro bote, es sentarla en la silla para los ojos.',
+      },
+      {
+        type: 'script',
+        text: '"That is you sorted for the hands. Now sit down for two seconds — because the thing I actually wanted to show you is for here." [Tap under your own eye.] "Two minutes, one eye, and you tell me."',
+        textEs: '"Con eso ya tienes las manos resueltas. Ahora siéntate dos segundos — porque lo que yo te quería enseñar de verdad es para aquí." [Tócate debajo del ojo.] "Dos minutos, un ojo, y me dices."',
       },
     ],
-    practicePrompt: 'Set a cross-sell goal today: for every product sold, suggest ONE complementary item. Track your success rate.',
-    practicePromptEs: 'Pon una meta de venta cruzada hoy: por cada producto vendido, sugiere UN artículo complementario. Registra tu tasa de éxito.',
+    practicePrompt: 'Count today by syringes, not by items. How many people ended up in the chair with one eye done? That is the number that matters.',
+    practicePromptEs: 'Hoy cuenta jeringas, no artículos. ¿Cuánta gente acabó en la silla con un ojo hecho? Ese es el número que importa.',
     xpReward: 15,
   },
   {
     id: 'dose-014',
     day: 14,
-    title: 'The Combo Close',
-    titleEs: 'El Cierre de Combo',
+    title: 'Your Job Ends at the Syringe',
+    titleEs: 'Tu Trabajo se Acaba en la Jeringa',
     category: 'Product',
     content: [
       {
         type: 'technique',
-        text: 'The 3-product combo is your highest-value sale. Present it as a COMPLETE SYSTEM, not random items. People buy systems, not products.',
-        textEs: 'El combo de 3 productos es tu venta de mayor valor. Preséntalo como un SISTEMA COMPLETO, no artículos al azar. La gente compra sistemas, no productos.',
-        highlight: 'A system feels complete. Random products feel pushy.',
-        highlightEs: 'Un sistema parece completo. Los productos sueltos suenan a presión.',
+        text: 'She paid. There is a voice in your head saying go on then, sell her the scrub as well — kill it. An upsell in this shop is NOT you pitching a second product. It is a handover. You pass her to the upseller, who sells the red and infrared LED devices: the alternative to a facelift, the thing that gets the body making its own collagen and elastin and lifts the face.',
+        textEs: 'Ha pagado. Tienes una voz en la cabeza que dice venga, véndele también el exfoliante — mátala. Una venta adicional en esta tienda NO eres tú soltando un segundo producto. Es un traspaso. Se la pasas al upseller, que vende los aparatos de LED rojo e infrarrojo: la alternativa al lifting, lo que hace que el cuerpo produzca su propio colágeno y elastina y levanta la cara.',
+        highlight: 'Selling the syringe IS the win. What comes after belongs to someone else.',
+        highlightEs: 'Vender la jeringa YA es la victoria. Lo que viene después es de otro.',
       },
       {
         type: 'script',
-        text: '"I want to set you up with the full system. The Scrub lifts the dead skin, the Body Butter feeds it back, and the Nail Kit finishes your hands. Three products, {currency}120 with Buy 2 Get 1 — five minutes a week, results you can see the first time."',
-        textEs: '"Quiero dejarte el sistema completo. El Scrub levanta la piel muerta, el Body Butter se la devuelve, y el Kit de Uñas remata tus manos. Tres productos, {currency}120 con Compra 2 Lleva 1 — cinco minutos a la semana, resultados que ves desde el primer uso."',
+        text: '"Listen — before you go. There is a guy here, a specialist, he is only with us a short time and honestly, he is amazing at what he does. And just because you got this, I am going to spoil you with a small gift. Tell me one thing: what is more important for you, if you could get it lifted — the cheeks, or the neck? … Would that make you happy? Let me check with him, if you have one second."',
+        textEs: '"Escucha — antes de que te vayas. Aquí hay un chico, un especialista, está poco tiempo con nosotros y de verdad, es un crack en lo suyo. Y solo porque te has llevado esto, te voy a mimar con un regalito. Dime una cosa: ¿qué es más importante para ti, si pudieras levantarlo — los pómulos, o el cuello? … ¿Eso te haría feliz? Déjame consultarlo con él, si tienes un segundo."',
       },
       {
         type: 'tip',
-        text: 'When presenting the combo, use your hands to show "steps." Finger 1 = Scrub, Finger 2 = Body Butter, Finger 3 = Nail Kit. Visual structure increases perceived value.',
-        textEs: 'Al presentar el combo, usa las manos para marcar los "pasos". Dedo 1 = Scrub, Dedo 2 = Body Butter, Dedo 3 = Kit de Uñas. La estructura visual aumenta el valor percibido.',
+        text: 'All of it happens while she is still SITTING and still delighted. Do not stand her up, do not send her to him — you go and fetch him. You never price his product and you never do his demo for him: two sentences about him and one question. Anybody on her feet with a bag in her hand is halfway to the door.',
+        textEs: 'Todo esto pasa con ella todavía SENTADA y todavía encantada. No la levantes, no la mandes a él — vas tú a buscarlo. Nunca le pones precio a lo suyo ni le haces la demo: dos frases sobre él y una pregunta. Cualquiera de pie con la bolsa en la mano ya va camino de la puerta.',
       },
     ],
-    practicePrompt: 'Aim to present the full combo to 3 people today. Even if they don\'t buy all 3, track how many buy 2+ items.',
-    practicePromptEs: 'Apunta a presentar el combo completo a 3 personas hoy. Incluso si no compran los 3, registra cuántos compran 2+ artículos.',
+    practicePrompt: 'Say the handover out loud three times before your shift until it runs without thinking. Then use it on every syringe you sell today — every single one.',
+    practicePromptEs: 'Di el traspaso en voz alta tres veces antes del turno hasta que te salga solo. Y úsalo en cada jeringa que vendas hoy — en todas.',
     xpReward: 15,
   },
 
@@ -565,8 +571,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'technique',
-        text: 'THE LAST RUNG, WITH A REASON: a budget customer is answered by moving, not by arguing — but every move carries a reason or she learns the numbers fall whenever she pushes. Gift comes off. Voucher goes on. Scrub goes back as credit. And {currency}100 is a floor, not a plan: get there in ten seconds and you have taught her that pushing works, and she will push every single time.',
-        textEs: 'EL ÚLTIMO ESCALÓN, CON UN MOTIVO: a una clienta con presupuesto se le contesta moviéndote, no discutiendo — pero cada movimiento lleva un motivo o aprende que los números caen cada vez que empuja. Se quita el regalo. Se pone el cupón. El exfoliante vuelve como crédito. Y {currency}100 es un suelo, no un plan: si llegas ahí en diez segundos le has enseñado que empujar funciona, y va a empujar siempre.',
+        text: 'THE LAST RUNG, WITH A REASON: a budget customer is answered by moving, not by arguing — but every move carries a reason or she learns the numbers fall whenever she pushes. Gift comes off. Voucher goes on — ONCE, at {currency}175 to {currency}140, and there is no second voucher. Below that the theatre changes: you go full market and you call a manager, because {currency}100 is not yours to give. A seller who can reach the floor on their own has no floor.',
+        textEs: 'EL ÚLTIMO ESCALÓN, CON UN MOTIVO: a una clienta con presupuesto se le contesta moviéndote, no discutiendo — pero cada movimiento lleva un motivo o aprende que los números caen cada vez que empuja. Se quita el regalo. Se pone el cupón — UNA vez, de {currency}175 a {currency}140, y no hay un segundo cupón. Por debajo cambia el teatro: vas a mercado puro y llamas al encargado, porque los {currency}100 no son tuyos para darlos. Un vendedor que llega solo al fondo no tiene fondo.',
       },
     ],
     practicePrompt: 'On every budget objection today, write down which rung you were standing on when you heard it. If the answer is ever {currency}300, you moved too slowly earlier in the sale.',
@@ -700,10 +706,10 @@ export const dailyDoses: DailyDose[] = [
     content: [
       {
         type: 'technique',
-        text: 'Groups are gold mines. Stop ONE person, and the rest stop too. Pick the most confident-looking person — they\'re the leader. Win the leader, win the group.',
-        textEs: 'Los grupos son minas de oro. Detén a UNA persona, y el resto también se detiene. Elige a la que parece más segura — esa es la líder. Gana a la líder, gana al grupo.',
-        highlight: 'Stop the leader. The group follows.',
-        highlightEs: 'Detén a la líder. El grupo sigue.',
+        text: 'COUNT THE HEADS FIRST, because the number changes the whole play. Three or fewer: do all of them, no question. Four or more: you take ONE volunteer and that is it — you only open it up to the others if you can SEE real excitement coming off them.',
+        textEs: 'CUENTA LAS CABEZAS PRIMERO, porque el número te cambia la jugada entera. Tres o menos: se lo haces a todas, sin discusión. Cuatro o más: coges a UNA voluntaria y ya está — solo abres al resto si VES entusiasmo de verdad saliendo de ellas.',
+        highlight: 'Three or fewer, all of them. Four or more, one volunteer.',
+        highlightEs: 'Tres o menos, todas. Cuatro o más, una voluntaria.',
       },
       {
         type: 'script',
@@ -712,12 +718,12 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'tip',
-        text: 'Create SOCIAL PROOF within the group. When one person buys, announce it: "First one down, two to go!" Group dynamics create FOMO.',
-        textEs: 'Crea PRUEBA SOCIAL dentro del grupo. Cuando una compre, anúncialo: "¡Primera lista, faltan dos!" La dinámica de grupo crea FOMO.',
+        text: 'Doing everybody in a big group and selling to nobody is the worst feeling in this job — twenty minutes of your shift gone and a queue of people who have had their free treatment. So with four or more you hold the rest back on purpose. Let them watch. Wanting a turn is what makes them buy.',
+        textEs: 'Hacérselo a todas en un grupo grande y no venderle a ninguna es la peor sensación de este trabajo — veinte minutos de turno tirados y una fila de gente que ya ha tenido su tratamiento gratis. Así que con cuatro o más te guardas al resto a propósito. Que miren. Las ganas de que les toque es lo que hace que compren.',
       },
     ],
-    practicePrompt: 'Approach 1 group of 3+ people today. Use the leader technique. Track how many in the group engage vs. your solo approaches.',
-    practicePromptEs: 'Acércate a 1 grupo de 3+ personas hoy. Usa la técnica de la líder. Registra cuántas en el grupo se enganchan vs. tus acercamientos individuales.',
+    practicePrompt: 'Next group you stop, count them before you open your mouth. Three or fewer, all of them. Four or more, one volunteer and hold the line unless the excitement is obvious.',
+    practicePromptEs: 'En el próximo grupo que pares, cuéntalas antes de abrir la boca. Tres o menos, todas. Cuatro o más, una voluntaria y aguanta salvo que el entusiasmo sea evidente.',
     xpReward: 25,
   },
   {
@@ -794,8 +800,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'script',
-        text: 'After presenting the combo: "So — the full set is {currency}120. That\'s the Scrub, the Body Butter, and the Nail Kit goes in free." [STOP. SMILE. WAIT.]',
-        textEs: 'Después de presentar el combo: "Entonces — el set completo son {currency}120. Es el Scrub, el Body Butter, y el Kit de Uñas entra gratis." [PARA. SONRÍE. ESPERA.]',
+        text: 'After the two offers: "So — would you rather have the 30% off at {currency}210 with a free gift, or the two syringes for {currency}300?" [STOP. SMILE. WAIT.]',
+        textEs: 'Después de las dos ofertas: "Entonces — ¿prefieres el 30% de descuento a {currency}210 con un regalo, o las dos jeringas por {currency}300?" [PARA. SONRÍE. ESPERA.]',
       },
       {
         type: 'mindset',

@@ -70,7 +70,7 @@ export const LESSON_TIERS: Record<string, number> = {
   // Asking for the money needs the prices from prod-1, which is this tier.
   'close-2': 4,
 
-  // Tier 5: Product Mastery (6 lessons) — Closing techniques
+  // Tier 5: Product Mastery (8 lessons) — Closing techniques
   'prod-2': 5,
   'prod-3': 5,
   'prod-4': 5,
@@ -78,6 +78,15 @@ export const LESSON_TIERS: Record<string, number> = {
   'prod-7': 5,
   'psych-7': 5,
   'close-3': 5,
+  /* The handover to the upseller — where a seller's job actually ends. It sits
+     with close-3 rather than a tier lower, because it only means anything to
+     somebody who has already been taught to close and collect (close-2 is tier
+     4, close-3 tier 5), and it must NOT go to tier 6: that shelf is the
+     mindset and intuition material a seller grows into, and this happens on
+     every single syringe sale from the first one. Tier 5 had 7 lessons, so a
+     seller who had finished it sits at 7/8 = 88% — still clear of the 80%
+     gate even before the ratchet in isTierUnlocked, so nobody loses tier 6. */
+  'close-handover': 5,
   /* The mindset lesson sits with the other mindset material in Mastery — it
      leans on the ladder, the two yeses and the ask, so it only lands once a
      seller has been taught all three. */
@@ -117,7 +126,7 @@ export const TIER_LESSON_COUNT: Record<number, number> = {
   2: 6,
   3: 4,
   4: 8,
-  5: 7,
+  5: 8,
   6: 5,
 };
 

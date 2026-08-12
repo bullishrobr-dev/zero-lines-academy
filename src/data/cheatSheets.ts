@@ -238,21 +238,28 @@ export const PRODUCT_LADDERS: ProductLadder[] = [
       {
         ...fromPricing(SYR_VOUCHER),
         tone: 'fallback',
-        words: `"You know what — I have a 20% voucher here. I'll do it for you. But you are being greedy now, eh? {currency}${SYR_NO_GIFT.price} down to {currency}${SYR_VOUCHER.price} — the syringe on its own, no gift, and only while you are standing in front of me."`,
-        wordsEs: `"¿Sabes qué? Aquí tengo un cupón del 20%. Te lo hago. Pero qué morro tienes, ¿eh? De {currency}${SYR_NO_GIFT.price} a {currency}${SYR_VOUCHER.price} — la jeringa sola, sin regalo, y solo mientras estés aquí delante de mí."`,
+        when: 'Say it while you start her OTHER EYE — hands busy, face tilted up. One voucher, once. There is no second one.',
+        whenEs: 'Dilo mientras le empiezas el OTRO OJO — manos ocupadas, cara hacia arriba. Un cupón, una vez. No hay un segundo.',
+        words: `"You know what, let me fix your other eye real quick. [start it] … Listen, I have a 20% voucher here and I'll do it for you. But you are being greedy now, eh? {currency}${SYR_NO_GIFT.price} down to {currency}${SYR_VOUCHER.price} — the syringe on its own, no gift, and only while you are sitting in front of me."`,
+        wordsEs: `"¿Sabes qué? Déjame arreglarte el otro ojo rapidito. [empieza] … Mira, tengo aquí un cupón del 20% y te lo hago. Pero qué morro tienes, ¿eh? De {currency}${SYR_NO_GIFT.price} a {currency}${SYR_VOUCHER.price} — la jeringa sola, sin regalo, y solo mientras estés aquí sentada delante de mí."`,
       },
       {
         ...fromPricing(SYR_FLOOR),
         tone: 'floor',
-        words: `"{currency}${SYR_FLOOR.price} is the lowest this ever goes, and only to close it right now. Never under it."`,
-        wordsEs: `"{currency}${SYR_FLOOR.price} es lo más bajo a lo que llega esto, y solo para cerrar ahora mismo. Nunca por debajo."`,
+        /* Not the seller's rung to give. One voucher gets you to 140; below that
+           you go full market and the MANAGER is the device that unlocks 100. A
+           seller who can reach the floor on their own has no floor. */
+        when: 'NOT YOURS TO GIVE. Full market, then call the manager — he says the number, not you.',
+        whenEs: 'NO ES TUYO. Mercado puro, y llamas al encargado — el número lo dice él, no tú.',
+        words: `"Give me ten seconds, I'll see what I can do for you." [Go and get the manager.] {currency}${SYR_FLOOR.price} is the lowest this ever goes and it comes out of his mouth, not yours. Never under it, and never without him.`,
+        wordsEs: `"Dame diez segundos, a ver qué puedo hacer por ti." [Ve a por el encargado.] {currency}${SYR_FLOOR.price} es lo más bajo a lo que llega esto y sale de su boca, no de la tuya. Nunca por debajo, y nunca sin él.`,
       },
     ],
     proof: {
-      label: 'Proof move — one eye only',
-      labelEs: 'Prueba — solo un ojo',
-      words: `"Let me do one eye only — then you hold the mirror and tell me if you see the difference."`,
-      wordsEs: `"Déjame hacerte solo un ojo — luego coges el espejo y me dices si ves la diferencia."`,
+      label: 'Proof move — one eye only, and the other one is the close',
+      labelEs: 'Prueba — solo un ojo, y el otro es el cierre',
+      words: `"Let me do one eye only — then you hold the mirror and tell me if you see the difference." You never do the second one for free: it comes out at {currency}${SYR_NO_GIFT.price} as the cover for the voucher, or after she has paid.`,
+      wordsEs: `"Déjame hacerte solo un ojo — luego coges el espejo y me dices si ves la diferencia." El segundo no es gratis nunca: sale a {currency}${SYR_NO_GIFT.price} como tapadera del cupón, o cuando ya ha pagado.`,
     },
   },
   {
@@ -534,6 +541,21 @@ export const SCRIPTS: ScriptCard[] = [
     textEs: `Siéntalos mirando HACIA DENTRO de la tienda, nunca hacia la calle. Si ven el movimiento de la acera, empiezan a pensar en volver a ella.`,
   },
   {
+    /*
+     * The number decides the play, and it is a decision a seller makes in about
+     * two seconds with four people already looking at them. Three or fewer, do
+     * all of them. Four or more, one volunteer — because doing everybody and
+     * selling nobody is twenty minutes of a shift gone and, in the owner's
+     * words, the worst feeling ever.
+     */
+    id: 'o-group',
+    category: 'opening',
+    title: '9. Count the heads before you start',
+    titleEs: '9. Cuenta las cabezas antes de empezar',
+    text: `THREE OR FEWER: do all of them. FOUR OR MORE: "I just need ONE of you to try this — who's the bravest?" One volunteer, and you only open it up to the rest if you can SEE real excitement. Let the others watch and want a turn — that is what makes them buy.`,
+    textEs: `TRES O MENOS: se lo haces a todas. CUATRO O MÁS: "solo necesito que lo pruebe UNA — ¿quién es la más valiente?" Una voluntaria, y solo abres al resto si VES entusiasmo de verdad. Que las demás miren y les entren ganas — eso es lo que hace que compren.`,
+  },
+  {
     id: 'o1',
     category: 'opening',
     product: 'syringe',
@@ -692,6 +714,48 @@ export const SCRIPTS: ScriptCard[] = [
     titleEs: 'Cierre con Testimonio',
     text: `"A customer was in here yesterday — she bought two, and came back today for three more as gifts. That is how good this is."`,
     textEs: `"Ayer estuvo aquí una clienta — se llevó dos, y hoy ha vuelto a por tres más para regalar. Así de bueno es."`,
+  },
+  {
+    /*
+     * The other eye, in the owner's words: "I never do the other eye. Sometimes,
+     * within the speech, I say to do the other eye in order to close." It is not
+     * a favour and it is not a freebie — it is the COVER for the price drop. Her
+     * face is tilted up, your hands are busy, the room feels finished, and the
+     * number moves inside a moment that is about something else entirely.
+     */
+    id: 'c-second-eye',
+    category: 'closing',
+    product: 'syringe',
+    title: `The other eye — say it to close, at {currency}${SYR_NO_GIFT.price}`,
+    titleEs: `El otro ojo — dilo para cerrar, a {currency}${SYR_NO_GIFT.price}`,
+    text: `She is at {currency}${SYR_NO_GIFT.price} and about to stand up. "You know what, let me fix your other eye real quick." [Start it. Do NOT let her stand.] And while your hands are on her face: "Listen, I just checked something — this little 20% voucher brings it to {currency}${SYR_VOUCHER.price}. But you're being greedy, eh? Single syringe only." The price moves inside a moment that is about her face.`,
+    textEs: `Está en {currency}${SYR_NO_GIFT.price} y a punto de levantarse. "¿Sabes qué? Déjame arreglarte el otro ojo rapidito." [Empieza. NO dejes que se levante.] Y con las manos en su cara: "Mira, acabo de comprobar una cosa — este cuponcito del 20% lo deja en {currency}${SYR_VOUCHER.price}. Pero qué morro tienes, ¿eh? Solo la jeringa sola." El precio se mueve dentro de un momento que va de su cara.`,
+  },
+  {
+    id: 'c-second-eye-asked',
+    category: 'closing',
+    product: 'syringe',
+    title: 'She asks for the other eye BEFORE buying',
+    titleEs: 'Te pide el otro ojo ANTES de comprar',
+    text: `Do not refuse it and do not hand it over. Condition it: "If you buy it, I'll do the other one, yeah?" She pays, she gets it done, no argument and no theatre. The untouched eye is your best argument — you never give your best argument away to a maybe.`,
+    textEs: `Ni le digas que no ni se lo regales. Ponle condición: "Si te lo llevas, te hago el otro, ¿vale?" Si paga, se lo haces, sin discusión y sin teatro. El ojo sin tocar es tu mejor argumento — tu mejor argumento no se lo regalas a un quizá.`,
+  },
+  {
+    /*
+     * Verdict 8, and it is the end of the seller's job rather than the start of
+     * a second pitch. After a syringe sale you do not sell a scrub — you hand
+     * her to the upseller, who sells the red and infrared LED devices. This card
+     * exists because that thirty seconds is the one bit of the shift nobody had
+     * written down anywhere a seller could reach it with a customer in front of
+     * them.
+     */
+    id: 'c-handover',
+    category: 'closing',
+    product: 'syringe',
+    title: 'She paid — now hand her over (do NOT sell again)',
+    titleEs: 'Ha pagado — ahora la traspasas (NO le vendas otra vez)',
+    text: `While she is still sitting down: "There's a guy here, a specialist — he's only with us a short time and honestly he's amazing at what he does. And just because you got this, I'm going to spoil you with a small gift. Tell me one thing: what's more important for you if you could get it lifted — the cheeks, or the neck? … Would that make you happy? Let me check with him, if you have one second." Then YOU walk and fetch him. She never stands up, you never price his product, and you never pitch a second one of yours.`,
+    textEs: `Con ella todavía sentada: "Aquí hay un chico, un especialista — está poco tiempo con nosotros y de verdad, es un crack en lo suyo. Y solo porque te has llevado esto, te voy a mimar con un regalito. Dime una cosa: ¿qué es más importante para ti si pudieras levantarlo — los pómulos o el cuello? … ¿Eso te haría feliz? Déjame consultarlo con él, si tienes un segundo." Y vas TÚ a buscarlo. Ella no se levanta, tú no le pones precio a lo suyo, y no le sueltas un segundo producto tuyo.`,
   },
 
   // ── Objections ──
@@ -904,8 +968,8 @@ export const SCRIPTS: ScriptCard[] = [
        card is written where the fight actually happens: gift already off at
        175, voucher on for 140, floor held back. Shrink the number you are
        STANDING on, never the one she has already refused. */
-    text: `[You are not at the top of the ladder when you hear this — say the number you are actually on] "Too expensive next to what, my love? You are at {currency}${SYR_NO_GIFT.price} already — gift off, the syringe on its own. [Voice down, quick look at the door] Tell you what. I have a 20% voucher here and I am going to put it on you. But you are being greedy now, eh? {currency}${SYR_VOUCHER.price}. Sixty goes in that syringe, one a week, all the way to next summer — a bit over {currency}2 a time. And it dies the second you walk out of that door."`,
-    textEs: `[Cuando oyes esto ya no estás arriba de la escalera — di el número en el que estás de verdad] "¿Caro comparado con qué, cariño? Si ya estás en {currency}${SYR_NO_GIFT.price} — sin regalo, la jeringa sola. [Baja la voz, mirada rápida a la puerta] Mira lo que voy a hacer. Tengo aquí un cupón del 20% y te lo pongo. Pero qué morro tienes, ¿eh? {currency}${SYR_VOUCHER.price}. Sesenta usos en esa jeringa, uno por semana, hasta el verano que viene — poco más de {currency}2 cada vez. Y se muere en cuanto cruces esa puerta."`,
+    text: `[You are not at the top of the ladder when you hear this — say the number you are actually on] "Too expensive next to what, my love? You are at {currency}${SYR_NO_GIFT.price} already — gift off, the syringe on its own. [Now start her other eye — "let me fix your other eye real quick" — and talk money with your hands on her face] Tell you what. I have a 20% voucher here and I am going to put it on you. But you are being greedy now, eh? {currency}${SYR_VOUCHER.price}. Sixty goes in that syringe, one a week, all the way to next summer — a bit over {currency}2 a time. And it dies the second you walk out of that door."`,
+    textEs: `[Cuando oyes esto ya no estás arriba de la escalera — di el número en el que estás de verdad] "¿Caro comparado con qué, cariño? Si ya estás en {currency}${SYR_NO_GIFT.price} — sin regalo, la jeringa sola. [Ahora empiézale el otro ojo — "déjame arreglarte el otro ojo rapidito" — y habla de dinero con las manos en su cara] Mira lo que voy a hacer. Tengo aquí un cupón del 20% y te lo pongo. Pero qué morro tienes, ¿eh? {currency}${SYR_VOUCHER.price}. Sesenta usos en esa jeringa, uno por semana, hasta el verano que viene — poco más de {currency}2 cada vez. Y se muere en cuanto cruces esa puerta."`,
   },
   {
     id: 'r2b',
@@ -1014,6 +1078,14 @@ export const SCRIPTS: ScriptCard[] = [
   },
 
   // ── Partner ──
+  /*
+   * ORDER MATTERS HERE and it used to be backwards. The two cards that get the
+   * partner out of the way — "ladies' business" and "let him go" — sat above the
+   * only card that brings him IN, so a seller scanning this mid-shift hit both
+   * exits before they reached the first move. The owner's answer is the other
+   * way round: you try to bring him into it first, and ONLY if he is completely
+   * bad energy do you turn and give everything to her.
+   */
   {
     id: 'p-two-seconds',
     category: 'partner',
@@ -1023,28 +1095,36 @@ export const SCRIPTS: ScriptCard[] = [
     textEs: `"Son dos segundos, te lo prometo — le va a encantar."`,
   },
   {
+    id: 'p1',
+    category: 'partner',
+    title: '1. Bring him in — this is the first move',
+    titleEs: '1. Métele dentro — esta es la primera jugada',
+    text: `"And you — you are going to love how this looks on them. Want to see the instant result too?" Get him laughing, get him looking, make him part of the reveal. A partner who is IN the demo does not pull her out of it.`,
+    textEs: `"Y tú — te va a encantar cómo le queda. ¿Quieres ver el resultado instantáneo tú también?" Que se ría, que mire, que sea parte de la revelación. Una pareja que está DENTRO de la demo no te la saca de ella.`,
+  },
+  {
+    id: 'p3',
+    category: 'partner',
+    title: '2. Opinion Ask',
+    titleEs: '2. Pedir Opinión',
+    text: `"What do you think — the instant glow or the long-term treatment? You know them best."`,
+    textEs: `"¿Tú qué crees — el brillo instantáneo o el tratamiento a largo plazo? Tú la conoces mejor."`,
+  },
+  {
     id: 'p-ladies',
     category: 'partner',
-    title: 'Bad energy off the partner',
-    titleEs: 'Mala energía de la pareja',
-    text: `"Don't worry, it's ladies' business anyway." Say it light, with a smile — you are giving him permission to stand back, not picking a fight.`,
-    textEs: `"No te preocupes, esto es cosa de chicas de todas formas." Dilo ligero, con una sonrisa — le estás dando permiso para apartarse, no buscando pelea.`,
+    title: '3. Only if the energy is bad: stand him down',
+    titleEs: '3. Solo si la energía es mala: apártale',
+    text: `"Don't worry, it's ladies' business anyway." Say it light, with a smile — you are giving him permission to stand back, not picking a fight. This is your SECOND move, never your first.`,
+    textEs: `"No te preocupes, esto es cosa de chicas de todas formas." Dilo ligero, con una sonrisa — le estás dando permiso para apartarse, no buscando pelea. Esta es tu SEGUNDA jugada, nunca la primera.`,
   },
   {
     id: 'p-let-go',
     category: 'partner',
-    title: 'When the partner is genuinely hostile',
-    titleEs: 'Cuando la pareja va de verdad en contra',
-    text: `Let them go. Do not spend your energy winning over someone who has decided to be difficult — keep it on the person who is still listening to you.`,
-    textEs: `Déjalo. No gastes tu energía en convencer a alguien que ha decidido ponerse difícil — céntrala en la persona que todavía te está escuchando.`,
-  },
-  {
-    id: 'p1',
-    category: 'partner',
-    title: 'Include the Partner',
-    titleEs: 'Incluye a la Pareja',
-    text: `"And you — you are going to love how this looks on them. Want to see the instant result too?"`,
-    textEs: `"Y tú — te va a encantar cómo le queda. ¿Quieres ver el resultado instantáneo tú también?"`,
+    title: '4. He is completely bad energy',
+    titleEs: '4. Trae muy mala energía',
+    text: `Stop spending anything on him and put ALL of it on her. Not a sulk, not a sigh — you simply turn your body, keep her hand in yours and carry on as if he were furniture. You have not lost him; you never had him.`,
+    textEs: `Deja de gastar nada en él y ponlo TODO en ella. Sin morros y sin suspiros — simplemente giras el cuerpo, no le sueltas la mano y sigues como si él fuera un mueble. No le has perdido; nunca le tuviste.`,
   },
   {
     id: 'p2',
@@ -1053,14 +1133,6 @@ export const SCRIPTS: ScriptCard[] = [
     titleEs: 'Sugerencia de Regalo',
     text: `"Most couples take a Nail Kit for her and a Body Butter for him — a nice memory from {locationName}. And with buy 2 get 1 free the third one is on me: {currency}${MIX_B2G1.price} for ${MIX_B2G1.units}."`,
     textEs: `"La mayoría de las parejas se llevan un Kit de Uñas para ella y una Manteca Corporal para él — un bonito recuerdo de {locationName}. Y con compra 2 y llévate 1 gratis, el tercero te lo regalo: {currency}${MIX_B2G1.price} por ${MIX_B2G1.units}."`,
-  },
-  {
-    id: 'p3',
-    category: 'partner',
-    title: 'Opinion Ask',
-    titleEs: 'Pedir Opinión',
-    text: `"What do you think — the instant glow or the long-term treatment? You know them best."`,
-    textEs: `"¿Tú qué crees — el brillo instantáneo o el tratamiento a largo plazo? Tú la conoces mejor."`,
   },
 
   // ── Competitors ──
@@ -1258,9 +1330,13 @@ const EMERGENCY_CLOSES: EmergencyLine[] = [
     textEs: `"Llévate otro para tu amiga, tu madre, tu hermana — compra 2 y el tercero es gratis, {currency}${MIX_B2G1.price} por ${MIX_B2G1.units}"`,
   },
   {
+    /* Below the voucher you are out of your own authority. Full market — let her
+       say a number, make a meal of it, and then go and get the manager. The
+       number that closes it has to come out of HIS mouth: a seller who can reach
+       the floor on their own has no floor left to hold. */
     id: 'ec3',
-    text: `"Right — you are killing me. Go on, give me your number." [Let them say it. Hold. Then hands in the air] "Fine. FINE. Take it — but you are not telling anybody what you paid."`,
-    textEs: `"Venga — me estás matando. Dime tu número." [Deja que lo digan. Aguanta. Luego manos arriba] "Vale. VALE. Llévatelo — pero no le dices a nadie lo que has pagado."`,
+    text: `"Right — you are killing me. Go on, give me your number." [Let them say it. Hold. Then hands in the air] "You are not talking to the right man. Give me ten seconds." Then go and get the manager — he is the only one who can say {currency}${SYR_FLOOR.price}, and it lands ten times harder from him than it ever would from you.`,
+    textEs: `"Venga — me estás matando. Dime tu número." [Deja que lo digan. Aguanta. Luego manos arriba] "No estás hablando con quien tienes que hablar. Dame diez segundos." Y vas a por el encargado — es el único que puede decir {currency}${SYR_FLOOR.price}, y de su boca cae diez veces más fuerte que de la tuya.`,
   },
 ];
 
@@ -1273,8 +1349,8 @@ const EMERGENCY_KILLERS: EmergencyLine[] = [
     answers: 'price',
     head: `"Too expensive"`,
     headEs: `"Muy caro"`,
-    text: `"Compared to what, my love? One session of Botox back home is {currency}${SYR_A} and it wears off by Christmas. You are at {currency}${SYR_VOUCHER.price} with me — voucher on, gift off, a whole year in that syringe." [If she is genuinely walking, and only then] "{currency}${SYR_FLOOR.price}. That is the bottom, it is yours, and you tell nobody what you paid."`,
-    textEs: `"¿Comparado con qué, cariño? Una sesión de Bótox en tu país son {currency}${SYR_A} y se te pasa para Navidad. Conmigo estás en {currency}${SYR_VOUCHER.price} — con el cupón, sin regalo, un año entero en esa jeringa." [Si se está yendo de verdad, y solo entonces] "{currency}${SYR_FLOOR.price}. Ese es el fondo, es tuyo, y no le dices a nadie lo que has pagado."`,
+    text: `"Compared to what, my love? One session of Botox back home is {currency}${SYR_A} and it wears off by Christmas. You are at {currency}${SYR_VOUCHER.price} with me — voucher on, gift off, a whole year in that syringe." [Still not moving, and she is genuinely walking? You have no rung left. Do NOT invent one] "Sit tight one second — let me get someone." Then fetch the manager, and {currency}${SYR_FLOOR.price} comes out of his mouth.`,
+    textEs: `"¿Comparado con qué, cariño? Una sesión de Bótox en tu país son {currency}${SYR_A} y se te pasa para Navidad. Conmigo estás en {currency}${SYR_VOUCHER.price} — con el cupón, sin regalo, un año entero en esa jeringa." [¿Sigue sin moverse y se va de verdad? No te queda escalón. NO te inventes uno] "Espérate un segundo, que llamo a alguien." Vas a por el encargado, y {currency}${SYR_FLOOR.price} sale de su boca.`,
   },
   {
     id: 'ek2',

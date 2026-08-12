@@ -468,9 +468,19 @@ export const closingLessons: Record<string, Lesson> = {
         textEs: `"Son dos segundos, te lo prometo — le va a encantar."`,
       },
       {
+        type: 'keypoint',
+        text: `Then bring him IN. That is the first move and it is not the obvious one — sellers try to get shot of the partner because he looks like the problem. He is not the problem, he is bored. Sit him in the second chair, give him a job, and make him the expert on her face. A man with a job does not look at his watch. And when he says "yeah, that side is better", she has heard it from the one person in this shop she actually believes.`,
+        textEs: `Y luego mételo DENTRO. Ese es el primer movimiento y no es el que parece — los vendedores intentan quitarse a la pareja de encima porque parece el problema. No es el problema, está aburrido. Siéntalo en la segunda silla, dale un trabajo y hazlo el experto en la cara de ella. Un hombre con un trabajo no mira el reloj. Y cuando dice "sí, ese lado está mejor", ella lo ha oído de la única persona de la tienda a la que de verdad cree.`,
+      },
+      {
+        type: 'script',
+        text: `"Sit here, you're the judge — you know her face better than I do. You tell me which side wins."`,
+        textEs: `"Siéntate aquí, tú eres el jurado — le conoces la cara mejor que yo. Tú me dices qué lado gana."`,
+      },
+      {
         type: 'paragraph',
-        text: `If the energy is bad rather than busy, give him permission to stand back instead of arguing with him. Said light, with a smile, this takes the pressure off him completely.`,
-        textEs: `Si la energía es mala en vez de tener prisa, dale permiso para apartarse en vez de discutir con él. Dicho ligero, con una sonrisa, le quita la presión del todo.`,
+        text: `Only if that does not take — if the energy is genuinely bad rather than busy — do you give him permission to stand back instead of arguing with him. Said light, with a smile, it takes the pressure off him completely. And notice he is still in the shop: standing back is not the same as going.`,
+        textEs: `Solo si eso no prende — si la energía es mala de verdad y no es que tengan prisa — le das permiso para apartarse en vez de discutir con él. Dicho ligero, con una sonrisa, le quita la presión del todo. Y fíjate en que sigue dentro de la tienda: apartarse no es irse.`,
       },
       {
         type: 'script',
@@ -479,8 +489,8 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'keypoint',
-        text: `And if the partner is genuinely hostile — let them go. Do not spend your energy on someone who has decided to be difficult. Keep it on the person who is still listening to you.`,
-        textEs: `Y si la pareja va de verdad en contra — déjalo. No gastes tu energía en alguien que ha decidido ponerse difícil. Guárdala para la persona que todavía te escucha.`,
+        text: `And the last resort, only once he has properly decided to be difficult: let him go, and put everything on the person who is still listening to you. Third move, never the first. Reach for it before you have tried the chair and the job and you have thrown away the second-best salesperson in the building.`,
+        textEs: `Y el último recurso, solo cuando él ha decidido de verdad ponerse difícil: déjalo ir, y ponlo todo en la persona que todavía te escucha. Tercer movimiento, nunca el primero. Si tiras de él antes de haber probado la silla y el trabajo, has tirado a la basura al segundo mejor vendedor del edificio.`,
       },
 
       {
@@ -539,7 +549,7 @@ export const closingLessons: Record<string, Lesson> = {
           'Glance back to check they are coming',
           'Wait at the door and hold it open for them',
           'Walk beside them so they do not feel alone',
-          'Walk in without checking whether they are following',
+          'Walk in without checking they follow you',
         ],
         optionsEs: [
           'Miras atrás para comprobar que vienen',
@@ -573,6 +583,27 @@ export const closingLessons: Record<string, Lesson> = {
           'If they can see the pavement moving past, they start thinking about being back out on it. Take the street out of their eyeline.',
         explanationEs:
           'Si ven pasar el movimiento de la acera, empiezan a pensar en volver a ella. Quita la calle de su campo de visión.',
+      },
+      {
+        question: 'Her partner is stood behind the chair with his arms folded. First move?',
+        questionEs: 'Su pareja está detrás de la silla con los brazos cruzados. ¿Primer movimiento?',
+        options: [
+          'Send him off to have a look round the centre while you work',
+          'Sit him down and give him a job — he is your judge',
+          'Ignore him completely and keep every word on her face',
+          'Tell him it is ladies’ business and turn your back on him',
+        ],
+        optionsEs: [
+          'Mandarlo a dar una vuelta por el centro mientras trabajas',
+          'Sentarlo y darle un trabajo — es tu jurado',
+          'Ignorarlo del todo y ponerlo todo en la cara de ella',
+          'Decirle que esto es cosa de chicas y darle la espalda',
+        ],
+        correctIndex: 1,
+        explanation:
+          'He is not the problem, he is bored. In the chair with a job he becomes a second person selling to her — and she believes him. Standing back is the second move, and letting him go is the last one.',
+        explanationEs:
+          'No es el problema, está aburrido. En la silla y con un trabajo se convierte en una segunda persona vendiéndole a ella — y a él sí le cree. Apartarse es el segundo movimiento, y dejarlo ir es el último.',
       },
     ],
   },
@@ -652,6 +683,11 @@ export const closingLessons: Record<string, Lesson> = {
         type: 'script',
         text: `"Look up for me — perfect. Now don't move. I'm only doing one, and you'll see why in a minute."`,
         textEs: `"Mira hacia arriba — perfecto. Ahora no te muevas. Solo hago uno, y ahora verás por qué."`,
+      },
+      {
+        type: 'keypoint',
+        text: `"I never do the other eye" is the owner's own line, and it is not stinginess — the second eye is a card, and you play it later. There is exactly one moment it comes out, and it is not kindness: it is the cover for the price coming down, at the top of the ladder, while she is thinking about standing up. That is in Asking For The Money. Until then, the untouched eye stays untouched and keeps arguing for you.`,
+        textEs: `"Yo nunca hago el otro ojo" es la frase del jefe, y no es tacañería — el segundo ojo es una carta, y se juega después. Sale en un momento exacto, y no es por amabilidad: es la tapadera para que baje el precio, arriba en la escalera, mientras ella piensa en levantarse. Eso está en Pedir el Dinero. Hasta entonces, el ojo sin tocar sigue sin tocar y sigue discutiendo por ti.`,
       },
       {
         type: 'paragraph',
@@ -738,6 +774,27 @@ export const closingLessons: Record<string, Lesson> = {
         text: `And when it comes: "You told me you like it. You told me you'd use it. So it isn't a question of whether — it's just which of the two suits you better."`,
         textEs: `Y cuando llegue el momento: "Me has dicho que te gusta. Me has dicho que lo usarías. Así que no es si sí o si no — es simplemente cuál de las dos te va mejor."`,
       },
+      { type: 'divider' },
+      {
+        type: 'subheader',
+        text: 'And the rare one: cutting it',
+        textEs: 'Y la rara: cortar la demo',
+      },
+      {
+        type: 'paragraph',
+        text: `Most times you finish what you started. That is the default and it is the owner's default too — a demo you abandoned halfway is a demo you paid for and never cashed. But every so often you are working a corpse: she is already half out of the chair, the husband has panicked "come on, let's go" for the seventh time, and the vibe has gone out of the room. You can feel it. That is not a customer you are going to close, and every minute you spend grinding it is a minute you are not spending on somebody who wants to be sat there.`,
+        textEs: `La mayoría de las veces terminas lo que has empezado. Ese es el que vale por defecto y es el del jefe también — una demo que abandonas a la mitad es una demo que has pagado y no has cobrado. Pero de vez en cuando estás trabajando un cadáver: ella ya está medio levantada de la silla, el marido se ha puesto nervioso con un "venga, que nos vamos" por séptima vez, y el buen rollo se ha ido de la sala. Se nota. Esa no es una clienta que vayas a cerrar, y cada minuto que le dedicas es un minuto que no le dedicas a alguien que sí quiere estar ahí sentado.`,
+      },
+      {
+        type: 'keypoint',
+        text: `Cut it, and cut it warm. You do not hand her anything to take away, you do not put a number on a bit of paper, you do not book her in for another day — that is the walkaway wearing a nice coat, and it costs you a customer who might still have bought. You just stop, you smile, you thank her, and you go and find the next one. Thirty seconds, no sulking.`,
+        textEs: `Córtala, y córtala con buen rollo. No le das nada para llevarse, no le apuntas un número en un papel, no la citas para otro día — eso es la fuga con un abrigo bonito, y te cuesta una clienta que a lo mejor todavía compraba. Simplemente paras, sonríes, le das las gracias y vas a por la siguiente. Treinta segundos, y sin enfadarte.`,
+      },
+      {
+        type: 'tip',
+        text: `Be honest with yourself about which one you are in, because "the vibe was not there" is the easiest excuse in this shop to reach for. Bored is not the same as dead. If she is still in the chair and still answering you, she is alive and the demo carries on.`,
+        textEs: `Sé sincero contigo mismo sobre en cuál de las dos estás, porque "no había buen rollo" es la excusa más fácil de coger en esta tienda. Aburrida no es lo mismo que muerta. Si sigue en la silla y sigue contestándote, está viva y la demo continúa.`,
+      },
       {
         type: 'tip',
         text: `The whole demo in six moves: the hand, one eye, keep talking, the mirror, the silence, the two yeses. Then, and only then, the number. If a sale went wrong and you cannot work out where, start by asking yourself which of those six you skipped.`,
@@ -791,22 +848,22 @@ export const closingLessons: Record<string, Lesson> = {
         question: 'She asks you to do the other eye too, before she has bought anything. What do you say?',
         questionEs: 'Te pide que le hagas el otro ojo también, antes de haber comprado nada. ¿Qué le dices?',
         options: [
-          'Do it — a delighted customer is worth more than any comparison could ever be',
-          'Do it, then push a rung higher up the ladder to cover the product you used',
-          'Not yet — the untreated eye is your proof, and it is still working for you',
-          'Say no flatly and change the subject before she gets a chance to ask again',
+          '"If you buy it, I\'ll do the other one, yeah?"',
+          'Do it — a delighted customer argues better than an untouched eye',
+          'Do it, then climb a rung to cover the product you have used up',
+          'Say no flatly and change the subject before she can ask again',
         ],
         optionsEs: [
-          'Hazlo — una clienta encantada vale más que cualquier comparación',
-          'Hazlo, y luego sube un escalón para cubrir el producto que has gastado',
-          'Todavía no — el ojo sin tratar es tu prueba, y sigue trabajando para ti',
-          'Dile que no en seco y cambia de tema antes de que insista otra vez',
+          '"Si te lo llevas, te hago el otro, ¿vale?"',
+          'Hazlo — una clienta encantada convence más que un ojo sin tocar',
+          'Hazlo, y luego sube un escalón para cubrir lo que has gastado',
+          'Dile que no en seco y cambia de tema antes de que insista',
         ],
-        correctIndex: 2,
+        correctIndex: 0,
         explanation:
-          'The untreated eye is the best salesperson in the shop — same face, same light, arguing for you. Give the whole result away for free and you are left with a conversation instead of a comparison.',
+          'You never give it away, but you do not refuse it either — you put a price on it. The untouched eye is the best salesperson in the shop, so the only thing that buys it is the sale itself.',
         explanationEs:
-          'El ojo sin tratar es el mejor vendedor de la tienda — misma cara, misma luz, discutiendo por ti. Regala el resultado entero y te quedas con una conversación en vez de con una comparación.',
+          'No lo regalas nunca, pero tampoco lo niegas — le pones precio. El ojo sin tocar es el mejor vendedor de la tienda, así que lo único que lo compra es la venta.',
       },
     ],
   },
@@ -818,7 +875,7 @@ export const closingLessons: Record<string, Lesson> = {
     titleEs: 'Pedir el Dinero',
     subtitle: 'The moment most sellers get quiet, and should not',
     subtitleEs: 'El momento en que la mayoría se calla, y no debería',
-    duration: '4 min',
+    duration: '6 min',
     icon: 'Coins',
     order: 4,
     xpReward: 120,
@@ -898,6 +955,69 @@ export const closingLessons: Record<string, Lesson> = {
         text: `"It's not a mortgage" is the whole tone of this shop in four words. You are not pressuring anybody. You are pointing out that this is a small, pleasant decision and they are treating it like a big frightening one.`,
         textEs: `"Tampoco es una hipoteca" es todo el tono de esta tienda en cuatro palabras. No estás presionando a nadie. Estás señalando que esta es una decisión pequeña y agradable y la están tratando como si fuera enorme y aterradora.`,
       },
+
+      {
+        type: 'divider',
+      },
+      {
+        type: 'header',
+        text: 'The other eye is not a favour — it is how you close',
+        textEs: 'El otro ojo no es un favor — es cómo cierras',
+      },
+      {
+        type: 'paragraph',
+        text: `She has not said no. She has gone quiet, she is looking at her bag, her weight has shifted forward in the chair — and you are stood at {currency}175. This is the moment the second eye comes out, and it has nothing to do with being generous.`,
+        textEs: `No ha dicho que no. Se ha quedado callada, está mirando el bolso, ha echado el peso hacia delante en la silla — y tú estás en {currency}175. Este es el momento en el que sale el segundo ojo, y no tiene nada que ver con ser generoso.`,
+      },
+      {
+        type: 'script',
+        text: `"You know what, let me fix your other eye real quick."`,
+        textEs: `"¿Sabes qué? Déjame arreglarte el otro ojo rapidito."`,
+      },
+      {
+        type: 'keypoint',
+        text: `And while you are doing that eye, the voucher comes out. That is the entire point of the move. Her chin is up, your hands are on her face, the room feels finished and nobody is negotiating anything — and that is exactly when the number moves: {currency}175 down to {currency}140, the extra 20%. A price drop that arrives inside a moment about something else does not land like a price drop. It lands like somebody looking after her.`,
+        textEs: `Y mientras le haces ese ojo, sale el cupón. Ese es todo el sentido del movimiento. Ella tiene la barbilla arriba, tú tienes las manos en su cara, la sala parece terminada y nadie está negociando nada — y justo ahí se mueve el número: de {currency}175 a {currency}140, el 20% extra. Una bajada de precio que llega dentro de un momento que va de otra cosa no suena a bajada de precio. Suena a que alguien la está cuidando.`,
+      },
+      {
+        type: 'script',
+        text: `"You know what — I'll do that for you. But you're being greedy. I can only do it on the regular size."`,
+        textEs: `"¿Sabes qué? Te lo hago. Pero eres una avariciosa. Solo te lo puedo hacer en el tamaño normal."`,
+      },
+      {
+        type: 'keypoint',
+        text: `Three other ways the second eye comes up. She has paid — she gets it done, no argument, no theatre, just do it. She asks for it before she has bought anything — you do not refuse and you do not give it away, you put a price on it: "If you buy it, I'll do the other one, yeah?" And the rare one: she has been abandoned in the middle of the demo, the husband has gone, the friends have gone, there is nobody behind her at all. That is the single place in this whole shop where the door is the right answer — "Go think about it, see how it looks, come back later. I'll fix your other eye, even if you don't buy anything." She leaves with one eye done and a reason to walk back in. That is a hook, not a polite exit, and it is not available to you on any other day.`,
+        textEs: `Otras tres formas en las que aparece el segundo ojo. Ha pagado — se lo haces, sin discutir, sin teatro, se lo haces y ya. Te lo pide antes de comprar nada — ni se lo niegas ni se lo regalas, le pones precio: "Si te lo llevas, te hago el otro, ¿vale?". Y la rara: está abandonada en mitad de la demo, el marido se ha ido, las amigas se han ido, no hay nadie detrás de ella. Ese es el único sitio de toda esta tienda donde la puerta es la respuesta correcta — "Piénsatelo, mira cómo queda, y vuelve luego. Te arreglo el otro ojo, aunque no te lleves nada". Se va con un ojo hecho y con un motivo para volver a entrar. Eso es un anzuelo, no una salida educada, y no lo tienes disponible ningún otro día.`,
+      },
+
+      {
+        type: 'divider',
+      },
+      {
+        type: 'header',
+        text: 'One voucher. After that you call a manager',
+        textEs: 'Un cupón. Después llamas al encargado',
+      },
+      {
+        type: 'paragraph',
+        text: `There is no voucher. You make it up on the spot, because a price that just falls was never a price — the voucher is the reason it fell. And you get one. {currency}175 to {currency}140, the extra 20%, once, inside the second eye. Usually you do not need anything else.`,
+        textEs: `No hay ningún cupón. Te lo inventas sobre la marcha, porque un precio que simplemente cae nunca fue un precio — el cupón es el motivo por el que ha caído. Y tienes uno. De {currency}175 a {currency}140, el 20% extra, una vez, dentro del segundo ojo. Normalmente no necesitas nada más.`,
+      },
+      {
+        type: 'keypoint',
+        text: `There is no second voucher. Invent another one and you have just told her the first one was invented too — and from that second on, every number that comes out of your mouth is made up. If {currency}140 does not do it, the theatre changes: now you go full market. Her number out loud, the pause, the face, hands in the air. And the last rung is not yours. {currency}100 comes from a manager, and you go and get one.`,
+        textEs: `No hay un segundo cupón. Invéntate otro y acabas de decirle que el primero también te lo inventaste — y a partir de ese segundo, cada número que sale de tu boca es inventado. Si {currency}140 no lo consigue, cambia el teatro: ahora te vas a mercado del todo. Su número en voz alta, la pausa, la cara, las manos arriba. Y el último escalón no es tuyo. Los {currency}100 los da un encargado, y vas tú a buscarlo.`,
+      },
+      {
+        type: 'script',
+        text: `"Right, you're killing me. Give me two seconds — I'm going to go and ask my manager. I'm promising you nothing, alright?"`,
+        textEs: `"Vale, me estás matando. Dame dos segundos — voy a preguntarle a mi encargado. No te prometo nada, ¿eh?"`,
+      },
+      {
+        type: 'tip',
+        text: `A seller who can reach the floor on their own has no floor. That is the whole reason the last rung belongs to somebody else — the moment she works out that {currency}100 is in your pocket, that is where every customer starts, and where every one of them finishes.`,
+        textEs: `Un vendedor que puede llegar al mínimo él solo no tiene mínimo. Ese es todo el motivo de que el último escalón sea de otra persona — en cuanto ella pilla que los {currency}100 los llevas tú en el bolsillo, ahí es donde empieza cada cliente, y donde acaba cada uno de ellos.`,
+      },
     ],
     quiz: [
       {
@@ -963,6 +1083,48 @@ export const closingLessons: Record<string, Lesson> = {
         explanationEs:
           'No estás discutiendo ni añadiendo presión — les devuelves sus propias palabras y reduces la decisión a su tamaño real.',
       },
+      {
+        question: 'She has gone quiet at {currency}175 and her hand is on her bag. What do you do?',
+        questionEs: 'Se ha quedado callada en {currency}175 y tiene la mano en el bolso. ¿Qué haces?',
+        options: [
+          'Drop to {currency}140 and tell her that is your last price',
+          'Ask her straight out what number she had in her head',
+          'Fix her other eye — and move the number while you do it',
+          'Say nothing and give her room to make up her own mind',
+        ],
+        optionsEs: [
+          'Bajar a {currency}140 y decirle que es tu último precio',
+          'Preguntarle a bocajarro qué número tenía en la cabeza',
+          'Hacerle el otro ojo — y mover el número mientras se lo haces',
+          'No decir nada y darle espacio para que lo decida ella',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Chin up, your hands on her face, nobody negotiating anything — that is when the price moves. The drop arrives inside a moment that is about something else, so it lands like you looking after her.',
+        explanationEs:
+          'Barbilla arriba, tus manos en su cara, nadie negociando nada — ahí es cuando se mueve el precio. La bajada llega dentro de un momento que va de otra cosa, así que suena a que la estás cuidando.',
+      },
+      {
+        question: 'The voucher has been and gone and she is still not moving. Now what?',
+        questionEs: 'El cupón ya ha salido y ella sigue sin moverse. ¿Y ahora qué?',
+        options: [
+          'Invent a second voucher — it worked the first time',
+          'Take her to {currency}100 yourself and get the sale done',
+          'Stop the ladder there and leave the number where it is',
+          'Go full market, then fetch a manager for the last rung',
+        ],
+        optionsEs: [
+          'Inventarte un segundo cupón — funcionó la primera vez',
+          'Llevarla tú a {currency}100 y cerrar la venta de una vez',
+          'Parar la escalera ahí y dejar el número donde está',
+          'Ir a mercado del todo, y buscar al encargado para el final',
+        ],
+        correctIndex: 3,
+        explanation:
+          'One voucher, once. A second one tells her the first was invented too. The bottom rung belongs to a manager — a seller who can reach the floor alone has no floor.',
+        explanationEs:
+          'Un cupón, una vez. Un segundo le dice que el primero también te lo inventaste. El escalón de abajo es del encargado — un vendedor que llega al mínimo solo no tiene mínimo.',
+      },
     ],
   },
 
@@ -1023,6 +1185,11 @@ export const closingLessons: Record<string, Lesson> = {
         text: `If you cannot hold both, call a colleague over. And if the person who walked in is a returning customer, call the manager — a customer who came back is worth more than the one you are closing, and they should be handled by whoever can look after them properly.`,
         textEs: `Si no puedes con los dos, llama a un compañero. Y si quien ha entrado es un cliente que repite, llama al encargado — un cliente que vuelve vale más que el que estás cerrando, y debe atenderlo quien pueda cuidarlo como toca.`,
       },
+      {
+        type: 'keypoint',
+        text: `That holds for the woman who bought from us six months ago and has walked back in with the empty box, too. She is not your sale to price. Get the manager; if he is not on the floor, get whoever out there has been doing this the longest. Somebody who came back once will do it again if the right person looks after her, and quoting her a number off your own bat is how that stops happening.`,
+        textEs: `Eso vale también para la señora que nos compró hace seis meses y ha vuelto a entrar con la caja vacía. No es tu venta y no eres tú quien le pone precio. Busca al encargado; si no está en la sala, busca al que lleve más tiempo en esto de los que estén. Quien ha vuelto una vez vuelve otra si la atiende la persona adecuada, y soltarle tú un número por tu cuenta es justo lo que hace que deje de pasar.`,
+      },
 
       {
         type: 'divider',
@@ -1075,6 +1242,11 @@ export const closingLessons: Record<string, Lesson> = {
         type: 'tip',
         text: `This is new and we are just starting with it, so build the habit now: the review ask is part of the sale, not something extra you do if you remember.`,
         textEs: `Esto es nuevo y estamos empezando con ello, así que coge el hábito ya: pedir la reseña es parte de la venta, no algo extra que haces si te acuerdas.`,
+      },
+      {
+        type: 'keypoint',
+        text: `And if what she just bought was a syringe, she is not walking out yet — you are one step from finished, not finished. Bag in her hand, review asked, delighted: that is the moment you hand her to the upseller, and it is the last thing your job contains. The whole move is the next lesson, and it takes about thirty seconds.`,
+        textEs: `Y si lo que acaba de comprar es una jeringa, todavía no se va — estás a un paso de terminar, no has terminado. Bolsa en la mano, reseña pedida, encantada: ese es el momento de pasarla al vendedor de arriba, y es lo último que contiene tu trabajo. El movimiento entero es la siguiente lección, y son unos treinta segundos.`,
       },
     ],
     quiz: [
@@ -1148,7 +1320,7 @@ export const closingLessons: Record<string, Lesson> = {
           'Ask whether they can get cash from a machine',
           'Offer to hold the product until tomorrow',
           'Drop to a lower rung so the amount goes through',
-          'Try the numbers by hand, then Apple or Google Pay',
+          'Numbers by hand, then Apple or Google Pay',
         ],
         optionsEs: [
           'Preguntar si pueden sacar efectivo de un cajero',
@@ -1161,6 +1333,269 @@ export const closingLessons: Record<string, Lesson> = {
           'Manual entry first — the chip fails sometimes — then the phone wallets. If none of it works, let it go warmly.',
         explanationEs:
           'Primero a mano — el chip falla a veces — y luego los monederos del móvil. Si no funciona nada, déjalo ir con buena cara.',
+      },
+      {
+        question: 'The syringe is paid for and the bag is in her hand. Are you finished?',
+        questionEs: 'La jeringa está pagada y tiene la bolsa en la mano. ¿Has terminado?',
+        options: [
+          'No — she gets handed to the upseller before she goes',
+          'Yes, unless she asks you about one of the other products',
+          'Yes — it is closed, and the next thing is the next stop',
+          'No — you show her the peeling while she is still warm',
+        ],
+        optionsEs: [
+          'No — la pasas al vendedor de arriba antes de que se vaya',
+          'Sí, salvo que ella te pregunte por alguno de los otros',
+          'Sí — está cerrada, y lo siguiente es la siguiente parada',
+          'No — le enseñas el peeling mientras sigue calentita',
+        ],
+        correctIndex: 0,
+        explanation:
+          'A syringe sale ends with the handover, not with the bag. And it is a handover, not a second pitch — you do not start selling her another product yourself.',
+        explanationEs:
+          'Una venta de jeringa acaba con el relevo, no con la bolsa. Y es un relevo, no una segunda venta — no te pones tú a venderle otro producto.',
+      },
+    ],
+  },
+
+  /*
+   * The stage of the sale the app had never written down, and the one that
+   * changes what "a sale" means. The owner, asked what happens after the
+   * money:
+   *
+   *   "If they sold a syringe, the whole point is to pass it to an upseller."
+   *
+   * Every closing lesson before this one takes the customer to the bag and
+   * stops, so the app has been teaching a job that ends one step early —
+   * and worse, the cross-selling material elsewhere teaches the seller to
+   * fill that step themselves with a second product, which is a job nobody
+   * in this shop does.
+   *
+   * The other half of the same verdict is the product ladder: "the scrub,
+   * body butter and nail kit — those are completely beginner products. It's
+   * only for people who are learning how to sell, or just want to have some
+   * nice energy. The peeling is kind of in between. But the syringe is what
+   * we usually sell, what we focus on, the star product." A seller who goes
+   * home proud of a nail-kit day aimed at the wrong thing, and nothing in
+   * the curriculum told him so.
+   *
+   * The LED copy is deliberately thin. It is the register the owner uses —
+   * the alternative to a facelift, gets the body making its own collagen and
+   * elastin, lifts the face — and nothing beyond it. The seller does not
+   * sell it and is not meant to be able to.
+   */
+  'close-handover': {
+    id: 'close-handover',
+    categoryId: 'closing',
+    title: 'Your Job Ends At The Syringe',
+    titleEs: 'Tu Trabajo Acaba en la Jeringa',
+    subtitle: 'She paid. Now you give her a gift and fetch the specialist',
+    subtitleEs: 'Ha pagado. Ahora le haces un regalo y vas a por el especialista',
+    duration: '5 min',
+    icon: 'Users',
+    order: 6,
+    xpReward: 120,
+    sections: [
+      {
+        type: 'header',
+        text: 'The syringe is the win',
+        textEs: 'La jeringa es la victoria',
+      },
+      {
+        type: 'paragraph',
+        text: `Nobody has ranked the products for you, so here it is. The syringe is the star. It is what we sell, it is what we focus on, and it is what a shift is actually measured on. The peeling sits in the middle. The scrub, the body butter and the nail kit are beginner kit — they are there for somebody learning how to sell and for the nice energy a small easy sale puts in the room, and they are not the target.`,
+        textEs: `Nadie te ha puesto los productos en orden, así que ahí va. La jeringa es la estrella. Es lo que vendemos, es en lo que nos centramos, y es con lo que de verdad se mide un turno. El peeling está en medio. El exfoliante, la manteca corporal y el kit de uñas son material de principiante — están para quien está aprendiendo a vender y para el buen rollo que mete en la sala una venta pequeña y fácil, y no son el objetivo.`,
+      },
+      {
+        type: 'keypoint',
+        text: `Nobody is going to tell you off for a nail kit. Sell them all day, they are lovely, they warm the shop up. But do not go home proud of a nail-kit day — that is a day you aimed low. Every hour you are on that floor you are hunting one thing, and it is the syringe.`,
+        textEs: `Nadie te va a reñir por un kit de uñas. Véndelos todo el día, son estupendos, calientan la tienda. Pero no te vayas a casa orgulloso de un día de kits de uñas — ese es un día en el que has apuntado bajo. Cada hora que estás en esa sala estás cazando una cosa, y es la jeringa.`,
+      },
+
+      {
+        type: 'subheader',
+        text: 'And when the syringe is paid for, you stop selling',
+        textEs: 'Y cuando la jeringa está pagada, dejas de vender',
+      },
+      {
+        type: 'paragraph',
+        text: `This is the bit that is going to feel wrong, because everything in you says she is warm, she has her card out, go again. Do not. You do not walk her back to the table for a scrub, you do not slide the peeling in front of her, you do not sell her a second anything. Your job on this customer is finished at the syringe — and what comes next is not another product from you, it is a different person doing a different job.`,
+        textEs: `Esta es la parte que te va a chirriar, porque todo en ti dice que está calentita, que tiene la tarjeta fuera, que vayas otra vez. No lo hagas. No la llevas de vuelta a la mesa a por un exfoliante, no le pones el peeling delante, no le vendes un segundo nada. Tu trabajo con esta clienta se acaba en la jeringa — y lo que viene después no es otro producto tuyo, es otra persona haciendo otro trabajo.`,
+      },
+      {
+        type: 'keypoint',
+        text: `Two reasons, and the first one is money. A second pitch out of the same mouth undoes the first one: she was delighted, and now she is sat there working out how much more you were planning to get out of her, and whether the price she just paid was the real one. The second reason is simpler — the thing that comes next is not yours to sell.`,
+        textEs: `Dos motivos, y el primero es dinero. Una segunda venta saliendo de la misma boca deshace la primera: estaba encantada, y ahora está ahí sentada calculando cuánto más pensabas sacarle, y si el precio que acaba de pagar era el de verdad. El segundo motivo es más simple — lo que viene después no te toca venderlo a ti.`,
+      },
+
+      { type: 'divider' },
+      {
+        type: 'header',
+        text: 'Who you are handing her to',
+        textEs: 'A quién se la pasas',
+      },
+      {
+        type: 'paragraph',
+        text: `The upseller. He sells the red and infrared LED devices, and they are a different world from anything in this manual: the alternative to a facelift. It gets the body making its own collagen and elastin, and it lifts the face. That is the whole of what you need to know about it, and it is genuinely all you should say about it.`,
+        textEs: `El vendedor de arriba. Él vende los aparatos de LED rojo e infrarrojo, y son otro mundo comparados con todo lo que hay en este manual: la alternativa a un lifting. Hace que el cuerpo fabrique su propio colágeno y su propia elastina, y levanta la cara. Eso es todo lo que necesitas saber, y de verdad es todo lo que deberías decir.`,
+      },
+      {
+        type: 'keypoint',
+        text: `You are not the expert on it and you do not want to be. Start explaining how it works and you will get it half right in front of a customer, and he then has to walk over and quietly unpick what you just said before he can start. Two sentences from you, then his name, then get out of the way. And you never put a number on it — that is his product and his price, the same way the bottom of your own ladder belongs to a manager.`,
+        textEs: `Tú no eres el experto en eso y no quieres serlo. Ponte a explicar cómo funciona y lo dirás a medias delante de una clienta, y luego él tiene que llegar y deshacer en voz baja lo que acabas de decir antes de poder empezar. Dos frases tuyas, luego su nombre, y quítate de en medio. Y nunca le pongas un número — ese es su producto y su precio, igual que el final de tu propia escalera es del encargado.`,
+      },
+
+      { type: 'divider' },
+      {
+        type: 'header',
+        text: 'The handover, word for word',
+        textEs: 'El relevo, palabra por palabra',
+      },
+      {
+        type: 'paragraph',
+        text: `Everything about how this is said exists to keep it on the giving side. She has just handed you money. If the next thing out of your mouth is another product, you are asking her for money again thirty seconds later. So you are not introducing a second sale — you are giving her something, and you are giving her somebody.`,
+        textEs: `Todo lo que tiene que ver con cómo se dice esto existe para mantenerlo en el lado de dar. Ella te acaba de dar dinero. Si lo siguiente que sale de tu boca es otro producto, le estás pidiendo dinero otra vez treinta segundos después. Así que no le presentas una segunda venta — le das algo, y le das a alguien.`,
+      },
+      {
+        type: 'paragraph',
+        text: `First, he is a specialist. Not your colleague, not the other seller — a specialist, who is only here for a short time, and who is amazing at what he does. Say it like you are slightly lucky to have him today, because that is how she is going to hear it.`,
+        textEs: `Primero, es un especialista. No tu compañero, no el otro vendedor — un especialista, que solo está aquí una temporada corta, y que es buenísimo en lo suyo. Dilo como si tuvieras un poco de suerte de tenerlo hoy, porque así es como lo va a oír ella.`,
+      },
+      {
+        type: 'script',
+        text: `"Listen — we've got a specialist in with us at the moment, he's only here a short while. He is unbelievable at what he does."`,
+        textEs: `"Oye — ahora mismo tenemos aquí a un especialista, está solo una temporadita. Es una barbaridad lo bueno que es en lo suyo."`,
+      },
+      {
+        type: 'paragraph',
+        text: `Then the gift, and the reason for it is her, not the shop. She bought, so she gets spoiled. That sentence is doing the heavy lifting in the whole handover.`,
+        textEs: `Luego el regalo, y el motivo es ella, no la tienda. Ha comprado, así que la mimamos. Esa frase es la que hace el trabajo pesado de todo el relevo.`,
+      },
+      {
+        type: 'script',
+        text: `"And just because you got this, I'm going to spoil you with a small gift."`,
+        textEs: `"Y solo porque te has llevado esto, te voy a mimar con un regalito."`,
+      },
+      {
+        type: 'paragraph',
+        text: `Then the question, which is the piece that actually does the work. You are not asking whether she is interested. You are asking which — the same shape as "Visa or Mastercard?", and it works for the same reason.`,
+        textEs: `Luego la pregunta, que es la pieza que de verdad trabaja. No le preguntas si le interesa. Le preguntas cuál — la misma forma que "¿Visa o Mastercard?", y funciona por el mismo motivo.`,
+      },
+      {
+        type: 'script',
+        text: `"Quick one — what's more important to you, if you could get it lifted? The cheeks? The neck? … Would that make you happy?"`,
+        textEs: `"Una cosita rápida — ¿qué es más importante para ti, si te lo pudieran levantar? ¿Los pómulos? ¿El cuello? … ¿Eso te haría feliz?"`,
+      },
+      {
+        type: 'keypoint',
+        text: `Look at what she has just done. She has named, out loud, the part of her own face she has been unhappy about for years — before the specialist has even walked over. He arrives already knowing what she wants, from her own mouth, and she has already said yes to being happy about it. That is his two yeses, collected by you, in one sentence.`,
+        textEs: `Mira lo que acaba de hacer. Ha dicho en voz alta la parte de su propia cara con la que lleva años sin estar contenta — antes de que el especialista se haya acercado siquiera. Él llega sabiendo ya lo que ella quiere, de su propia boca, y ella ya ha dicho que sí a estar contenta con eso. Esos son sus dos síes, recogidos por ti, en una frase.`,
+      },
+      {
+        type: 'paragraph',
+        text: `Then you leave, and you come back with him. Never shout him across the shop, never say "he'll look after you" and walk off — you bring him to her, you say his name, and you let him take it from there.`,
+        textEs: `Luego te vas, y vuelves con él. Nunca lo llames a gritos desde el otro lado de la tienda, nunca digas "él te atiende" y te largues — se lo traes tú, dices su nombre, y dejas que él siga desde ahí.`,
+      },
+      {
+        type: 'script',
+        text: `"Let me check with him — have you got one second?"`,
+        textEs: `"Déjame preguntarle a él — ¿tienes un segundo?"`,
+      },
+      {
+        type: 'tip',
+        text: `If she says no to the question, nothing has gone wrong. She has bought the syringe, she is happy, you gave her something and she did not want it — that is a good sale that ended a sentence earlier than it might have. Stay warm, finish the bag, and go and stop somebody else.`,
+        textEs: `Si dice que no a la pregunta, no ha pasado nada malo. Ha comprado la jeringa, está contenta, le has ofrecido algo y no lo ha querido — eso es una buena venta que ha acabado una frase antes de lo que podía. Sigue amable, termina con la bolsa, y ve a parar a otra persona.`,
+      },
+      {
+        type: 'tip',
+        text: `The whole thing costs you about thirty seconds: specialist, gift, cheeks or neck, one second. Selling the syringe is the win — the handover is the last thing you do to it, and it is the half of the job the shop was never being paid for.`,
+        textEs: `Todo esto te cuesta unos treinta segundos: especialista, regalo, pómulos o cuello, un segundo. Vender la jeringa es la victoria — el relevo es lo último que le haces, y es la mitad del trabajo que la tienda no estaba cobrando.`,
+      },
+    ],
+    quiz: [
+      {
+        question: 'She has just paid for a syringe and she is delighted. What do you sell her next?',
+        questionEs: 'Acaba de pagar una jeringa y está encantada. ¿Qué le vendes ahora?',
+        options: [
+          'A scrub — she is warm and the second sale is the easy one',
+          'The peeling, so she has something for the weeks in between',
+          'Nothing. You hand her over to the upseller',
+          'A second syringe at a better price for a friend of hers',
+        ],
+        optionsEs: [
+          'Un exfoliante — está calentita y la segunda venta es la fácil',
+          'El peeling, para que tenga algo para las semanas de en medio',
+          'Nada. Se la pasas al vendedor de arriba',
+          'Una segunda jeringa a mejor precio para una amiga suya',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Your job on this customer ends at the syringe. A second pitch out of the same mouth undoes the first one — she starts wondering how much more you were planning to get out of her.',
+        explanationEs:
+          'Tu trabajo con esta clienta acaba en la jeringa. Una segunda venta saliendo de la misma boca deshace la primera — se pone a calcular cuánto más pensabas sacarle.',
+      },
+      {
+        question: 'You are about to go and get him. What have you called him?',
+        questionEs: 'Estás a punto de ir a buscarlo. ¿Cómo lo has llamado?',
+        options: [
+          'A specialist, only here for a short time',
+          'Your colleague, who handles the other products we do',
+          'The manager, so she knows he can move on the price',
+          'A mate of yours who happens to be very good at this',
+        ],
+        optionsEs: [
+          'Un especialista, que está aquí poco tiempo',
+          'Tu compañero, que lleva los otros productos que tenemos',
+          'El encargado, para que sepa que él puede tocar el precio',
+          'Un amigo tuyo al que se le da muy bien esto',
+        ],
+        correctIndex: 0,
+        explanation:
+          'A specialist is not another seller, and "only here a short time" puts a clock on him. Say it like you are slightly lucky to have him today.',
+        explanationEs:
+          'Un especialista no es otro vendedor, y "está aquí poco tiempo" le pone un reloj. Dilo como si tuvieras algo de suerte de tenerlo hoy.',
+      },
+      {
+        question: 'Why is the LED handed over as a gift instead of the next thing on the list?',
+        questionEs: '¿Por qué el LED se pasa como un regalo y no como lo siguiente de la lista?',
+        options: [
+          'Because the specialist would rather not talk about money',
+          'She just paid you. A gift gives; another product asks again',
+          'Because a gift is easier to explain than what it actually does',
+          'Because she will feel she owes you something in return for it',
+        ],
+        optionsEs: [
+          'Porque el especialista prefiere no hablar de dinero todavía',
+          'Te acaba de pagar. Un regalo da; otro producto vuelve a pedir',
+          'Porque un regalo es más fácil de explicar que lo que hace',
+          'Porque va a sentir que te debe algo a cambio de habérselo dado',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Thirty seconds after she handed you money, another product is you asking for money again. A gift keeps the whole thing on the side where you are giving.',
+        explanationEs:
+          'Treinta segundos después de darte dinero, otro producto es pedirle dinero otra vez. Un regalo mantiene todo esto en el lado en el que das tú.',
+      },
+      {
+        question: 'What does "the cheeks or the neck?" do that "are you interested?" does not?',
+        questionEs: '¿Qué hace "¿los pómulos o el cuello?" que no hace "¿te interesa?"',
+        options: [
+          'It keeps her talking so the specialist has time to get there',
+          'It tells the specialist what she paid for the syringe already',
+          'It makes the device sound like it was built for her face alone',
+          'She names the thing herself, and answers which, not whether',
+        ],
+        optionsEs: [
+          'La mantiene hablando para que al especialista le dé tiempo',
+          'Le dice al especialista lo que ya ha pagado por la jeringa',
+          'Hace que el aparato suene hecho solo para su cara y ninguna más',
+          'Ella nombra la cosa, y contesta cuál, no si sí o si no',
+        ],
+        correctIndex: 3,
+        explanation:
+          'She says out loud the part of her face she has been unhappy about for years, before he has even walked over. He arrives already knowing what she wants.',
+        explanationEs:
+          'Dice en voz alta la parte de su cara con la que lleva años sin estar contenta, antes de que él se haya acercado. Él llega sabiendo ya lo que quiere.',
       },
     ],
   },
@@ -1191,7 +1626,7 @@ export const closingLessons: Record<string, Lesson> = {
     subtitleEs: 'La mayoría dice que no. Eso es el trabajo, no tu fracaso',
     duration: '5 min',
     icon: 'Shield',
-    order: 6,
+    order: 7,
     xpReward: 120,
     sections: [
       {

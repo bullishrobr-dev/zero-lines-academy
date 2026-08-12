@@ -329,13 +329,13 @@ const giftShopperExercise: Exercise = {
         score: 0,
       },
       {
-        text: '"Perfect — I have exactly what you need. Our Buy 2, Get 1 Free deal on Scrub and Body Butter: you pick any 3 products for {currency}120. One for your sister, one for your mom, one for your friend — and you stay right on budget. Plus I will include free gift bags for all three. Which scents would you like?"',
+        text: '"Perfect — I have exactly what you need. Buy 2, Get 1 Free: pick any 3 for {currency}120. One for your sister, one for your mum, one for your friend, and you are right on budget. Which scents?" [Bag them, then, without a pause] "Right — that is them sorted. Now sit down for two seconds, because what I actually wanted to show you is for HERE." [Tap under your own eye.] "Two minutes, one eye, and you tell me."',
         textEs:
-          '"Perfecto — tengo exactamente lo que necesitas. Nuestra oferta Compra 2, Lleva 1 Gratis en Exfoliante y Manteca Corporal: eliges 3 productos por {currency}120. Uno para tu hermana, uno para tu madre, uno para tu amiga — y te quedas justo en el presupuesto. Además te pongo bolsas de regalo para los tres. ¿Qué aromas quieres?"',
+          '"Perfecto — tengo exactamente lo que necesitas. Compra 2, Llévate 1 Gratis: eliges 3 por {currency}120. Uno para tu hermana, uno para tu madre, uno para tu amiga, y te quedas justo en el presupuesto. ¿Qué aromas?" [Se lo embolsas y, sin pausa] "Venga — eso ya está resuelto. Ahora siéntate dos segundos, que lo que yo te quería enseñar de verdad es para AQUÍ." [Tócate debajo del ojo.] "Dos minutos, un ojo, y me dices."',
         feedback:
-          'PERFECT! You: 1) Showed confidence ("exactly what you need"), 2) Matched her {currency}120 budget perfectly with Buy 2 Get 1 ({currency}120/3), 3) Made it personal (one for each person), 4) Added free gift bags (perceived value), 5) Asked a follow-up question ("which scents") to move toward closing. This is consultative selling at its finest.',
+          'THIS is the play. You solved her actual problem in ten seconds (three gifts, {currency}120, on budget, personal) — and then you did the thing that separates a seller from a shop assistant: you put her in the chair. She has just said yes to you once, which makes her the easiest person on this floor to demo. The scrub, the butter and the nail kit are beginner products; the syringe is the star and the syringe is what the shift is measured on.',
         feedbackEs:
-          '¡PERFECTO! Tú: 1) Mostraste confianza ("exactamente lo que necesitas"), 2) Coincidiste con su presupuesto de {currency}120 perfectamente con Compra 2 Lleva 1 ({currency}120/3), 3) Lo hiciste personal (uno para cada persona), 4) Añadiste bolsas de regalo gratis (valor percibido), 5) Hiciste una pregunta de seguimiento ("qué aromas") para avanzar hacia el cierre. Esto es venta consultiva en su máxima expresión.',
+          'ESTA es la jugada. Le has resuelto su problema real en diez segundos (tres regalos, {currency}120, dentro del presupuesto, personalizado) — y luego has hecho lo que separa a un vendedor de un dependiente: la has sentado en la silla. Acaba de decirte que sí una vez, así que es la persona más fácil de toda la planta para hacerle una demo. El exfoliante, la manteca y el kit de uñas son productos de principiante; la jeringa es la estrella y es con lo que se mide el turno.',
         score: 100,
       },
       {
@@ -351,9 +351,9 @@ const giftShopperExercise: Exercise = {
         text: '"The scrub is really popular. Your mom and sister would both love it. Two scrubs for {currency}60 — done!"',
         textEs: '"El exfoliante se vende muchísimo. A tu madre y a tu hermana les encantaría. Dos exfoliantes por {currency}60 — ¡listo!"',
         feedback:
-          'Decent but missed a huge opportunity. She needs THREE gifts for {currency}120. You sold two scrubs for {currency}60 when you could have sold 3 products for {currency}120 with Buy 2 Get 1. Also, you did not create any emotional connection. Functional but not great.',
+          'It closes, but you left her short: she asked for THREE gifts and you sent her out with two. Buy 2 Get 1 solves that for the same {currency}120. And you stopped at the jars — she never got sat down, so the one thing that actually counts on a shift, the eyes, never got shown to a customer who had already agreed to spend.',
         feedbackEs:
-          'Decente pero perdió una gran oportunidad. Ella necesita TRES regalos por {currency}120. Vendiste dos exfoliantes por {currency}60 cuando podrías haber vendido 3 productos por {currency}120 con Compra 2 Lleva 1. Además, no creaste ninguna conexión emocional. Funcional pero no genial.',
+          'Cierra, pero la dejas corta: te ha pedido TRES regalos y sale con dos. Compra 2 Lleva 1 se lo resuelve por los mismos {currency}120. Y te has quedado en los botes — no la has sentado, así que lo único que cuenta de verdad en un turno, los ojos, no se lo has enseñado a una clienta que ya había aceptado gastar.',
         score: 40,
       },
     ],

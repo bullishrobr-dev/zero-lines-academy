@@ -93,9 +93,9 @@ const quizPriceLadder: GeneralQuiz = {
       optionsEs: ["{currency}140", "{currency}175", "{currency}210", "{currency}100"],
       correctIndex: 3,
       explanation:
-        "{currency}100 is the floor price for the syringe. You only reach this after walking the full ladder and using every tool: gift removal, voucher mention, bundle framing. Never jump straight to {currency}100 — the journey down the ladder builds perceived value at each step.",
+        "{currency}100 is the floor, and it is the one rung a seller does not own. You walk the ladder yourself as far as the voucher at {currency}140 — gift off, then the voucher, one voucher only. Below that you go full market and call a manager, because the floor coming from somebody else is what makes it a floor. Jump straight there on your own and she learns your numbers move whenever she leans, which means you never had a last price at all.",
       explanationEs:
-        "{currency}100 es el precio piso de la jeringa. Solo llegas aquí después de recorrer toda la escalera y usar cada herramienta: remover regalo, mencionar vale, enmarcar paquete. Nunca saltes directo a {currency}100 — el recorrido por la escalera construye valor percibido en cada paso."
+        "{currency}100 es el suelo, y es el único escalón que no lleva el vendedor. La escalera la bajas tú hasta el cupón de {currency}140 — quitas el regalo, luego el cupón, un solo cupón. Por debajo vas a mercado total y llamas a un encargado, porque que el suelo lo ponga otro es justo lo que lo hace suelo. Si saltas ahí tú solo, aprende que tus números se mueven cada vez que aprieta, o sea que nunca tuviste último precio — el recorrido por la escalera construye valor percibido en cada paso."
     },
     {
       question:
@@ -286,26 +286,26 @@ const quizComplimentStop: GeneralQuiz = {
     },
     {
       question:
-        "When is a compliment-based approach MOST likely to BACKFIRE?",
+        "When does a compliment-based approach ACTUALLY backfire?",
       questionEs:
-        "¿Cuándo es un acercamiento basado en cumplidos MÁS probable que FRACASE?",
+        "¿Cuándo fracasa DE VERDAD un acercamiento con cumplido?",
       options: [
-        "When the woman is walking fast and focused",
-        "When the woman is with her husband",
-        "When the woman is talking on her phone",
-        "All of the above"
+        "When she is walking fast, or on her phone, or has her husband with her — all three are the wrong person to spend a good opener on",
+        "When you do not mean it. A flat compliment you do not believe reads as a line, and she has heard that line four times already today",
+        "When she is with a partner, because he will feel got at and pull her out of it before you have finished your second sentence",
+        "When you compliment something she chose herself — her nails, her bag — because that sounds like you are only being polite about her taste"
       ],
       optionsEs: [
-        "Cuando la mujer camina rápido y enfocada",
-        "Cuando la mujer está con su esposo",
-        "Cuando la mujer está hablando por teléfono",
-        "Todas las anteriores"
+        "Cuando va rápido, o al teléfono, o con el marido — las tres son la persona equivocada para gastar una buena entrada",
+        "Cuando no te lo crees. Un cumplido plano que no sientes suena a frase hecha, y ella ya la ha oído cuatro veces hoy",
+        "Cuando va con pareja, porque él se lo va a tomar a mal y se la va a llevar antes de que acabes la segunda frase",
+        "Cuando le halagas algo que ha elegido ella — las uñas, el bolso — porque suena a que solo estás siendo educado con su gusto"
       ],
-      correctIndex: 3,
+      correctIndex: 1,
       explanation:
-        "All three situations are low-probability approaches. A woman walking fast is on a mission — interrupting feels rude. With a husband, she may feel awkward or he may pull her away. On the phone, you are competing for attention she cannot give. Read the body language BEFORE you compliment. A relaxed pace, solo or with friends, and phone put away = green light.",
+        "The compliment fails on delivery, not on the target. As a beginner you stop everybody, for the practice — filtering by walking pace, phone or company just means you stop nobody. And the husband is not a reason to walk away: you bring him IN first, every time, and only turn everything on her if he is genuinely bad energy.",
       explanationEs:
-        "Las tres situaciones son acercamientos de baja probabilidad. Una mujer caminando rápido va con un propósito — interrumpir se siente grosero. Con un esposo, puede sentirse incómoda o él puede alejarla. Por teléfono, estás compitiendo por atención que no puede dar. Lee el lenguaje corporal ANTES de cumplimentar. Paso relajado, sola o con amigas, y teléfono guardado = luz verde."
+        "El cumplido falla en cómo lo dices, no en a quién. De novato paras a todo el mundo, por practicar — filtrar por el ritmo, el móvil o con quién va solo significa que no paras a nadie. Y el marido no es motivo para irte: lo metes DENTRO primero, siempre, y solo se lo das todo a ella si él trae muy mala energía."
     },
     {
       question:
@@ -838,26 +838,49 @@ const quizOneEyeDemo: GeneralQuiz = {
     },
     {
       question:
-        "A customer says 'Do the other eye so I can see the full result.' How do you respond?",
+        "She asks, BEFORE buying: 'Do the other eye so I can see the full result.' What do you say?",
       questionEs:
-        "Una cliente dice 'Haz el otro ojo para poder ver el resultado completo.' ¿Cómo respondes?",
+        "Te pide, ANTES de comprar: 'Hazme el otro ojo para ver el resultado completo.' ¿Qué le dices?",
       options: [
-        "Explain that the full result happens at home with daily use, and the one-eye contrast is the proof",
-        "Do the other eye immediately — the customer is always right, and refusing anything at this point risks the sale",
-        "Refuse and insist you never do both eyes, because that is the rule and the rule is not up for discussion",
-        "Tell her she needs to buy first before you do the other eye, so the second half becomes part of the deal"
+        "\"The full result happens at home with daily use\" — keep the contrast and move her along to the price",
+        "Do it right there. She asked, she is enjoying it, and refusing anything at this point puts the sale at risk",
+        "\"If you buy it, I'll do the other one, yeah?\" — condition it on the purchase",
+        "Say you are not allowed to do both eyes on the same customer, and that the rule is not really yours to bend"
       ],
       optionsEs: [
-        "Explicar que el resultado completo ocurre en casa con uso diario, y el contraste de un ojo es la prueba",
-        "Haz el otro ojo de inmediato — la clienta siempre tiene razón, y negarte ahora pone en riesgo la venta",
-        "Negarte e insistir en que nunca haces los dos ojos, porque es la norma y la norma no se discute",
-        "Decirle que primero tiene que comprar y luego le haces el otro ojo, para que la otra mitad entre en el trato"
+        "\"El resultado completo llega en casa con el uso diario\" — mantienes el contraste y pasas al precio",
+        "Hacérselo ahí mismo. Te lo ha pedido, lo está disfrutando, y negarle algo ahora pone la venta en riesgo",
+        "\"Si te lo llevas, te hago el otro, ¿vale?\" — se lo condicionas a la compra",
+        "Decirle que no te dejan hacer los dos ojos a la misma clienta, y que la norma no es tuya para saltártela"
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation:
-        "Doing both eyes kills the contrast — your most powerful sales tool. Instead, frame it positively: 'The full result happens when you use it at home every day for 2-3 weeks. What you see on one eye in 2 minutes, imagine your whole face with daily use.' This keeps the one-eye contrast alive AND creates desire for the full product experience at home.",
+        "Do not refuse it and do not hand it over. Condition it on the purchase — she pays, she gets it done, no argument and no theatre. The untouched eye is your best argument, so you never give your best argument away to a maybe. The one time it comes out unpaid is as the cover for the voucher: \"let me fix your other eye real quick\", and the price moves while your hands are on her face.",
       explanationEs:
-        "Hacer ambos ojos mata el contraste — tu herramienta de venta más poderosa. En su lugar, enmárcalo positivamente: 'El resultado completo ocurre cuando lo usas en casa todos los días por 2-3 semanas. Lo que ves en un ojo en 2 minutos, imagina tu rostro completo con uso diario.' Esto mantiene el contraste de un ojo vivo Y crea deseo por la experiencia completa del producto en casa."
+        "Ni se lo niegues ni se lo regales. Condiciónalo a la compra — si paga, se lo haces, sin discusión y sin teatro. El ojo sin tocar es tu mejor argumento, y tu mejor argumento no se lo regalas a un quizá. La única vez que sale sin haber pagado es como tapadera del cupón: \"déjame arreglarte el otro ojo rapidito\", y el precio se mueve con las manos en su cara."
+    },
+    {
+      question:
+        "She is at {currency}175, she has gone quiet, and she is starting to sit forward. Move?",
+      questionEs:
+        "Está en {currency}175, se ha quedado callada y empieza a echarse hacia delante. ¿Jugada?",
+      options: [
+        "Say the price again, slower this time, and then hold the silence until she answers",
+        "Go straight to the bottom of the ladder — there is nothing left above it worth trying",
+        "Let her stand, see her out warmly, and leave the price sitting there for another day",
+        "\"Let me fix your other eye real quick\" — and the voucher comes out while you do it"
+      ],
+      optionsEs: [
+        "Repetir el precio, más despacio esta vez, y aguantar el silencio hasta que conteste",
+        "Ir directo al fondo de la escalera — por encima ya no queda nada que merezca la pena",
+        "Dejar que se levante, despedirla con cariño y dejar el precio ahí para otro día",
+        "\"Déjame arreglarte el otro ojo rapidito\" — y el cupón sale mientras se lo haces"
+      ],
+      correctIndex: 3,
+      explanation:
+        "\"I never do the other eye. Sometimes, within the speech, I say to do the other eye in order to close.\" That is the whole point of it. At {currency}175, before she stands up, you start the second eye — and WHILE you are doing it the voucher comes out: down to {currency}140, single syringe only. Her face is tilted up, your hands are busy, the room feels finished, and the number moves inside a moment that is about something else entirely.",
+      explanationEs:
+        "\"Yo nunca hago el otro ojo. A veces, dentro del discurso, digo que se lo hago para cerrar.\" Para eso está. A {currency}175, antes de que se levante, le empiezas el segundo ojo — y MIENTRAS se lo haces sale el cupón: baja a {currency}140, solo la jeringa sola. Ella con la cara hacia arriba, tú con las manos ocupadas, la cosa parece terminada, y el número se mueve dentro de un momento que va de otra cosa completamente distinta."
     },
     {
       question:

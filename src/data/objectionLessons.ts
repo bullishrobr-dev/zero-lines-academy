@@ -435,13 +435,13 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "subheader",
-        text: "Script 2: The Gift Framing (Medium)",
-        textEs: "Guion 2: Enmarcar como Regalo (Medio)",
+        text: "Script 2: The Gift Framing (Medium) — stay on the syringe",
+        textEs: "Guion 2: Enmarcar como Regalo (Medio) — sin salirte de la jeringa",
       },
       {
         type: "script",
-        text: "YOU: \"I love that you care what they think! Here's the move — this isn't just for you. Grab the nail kit for your daughter, the scrub for your wife, and the syringe for yourself. Now it's a family gift from {locationName}! No one can be mad about a gift.\"",
-        textEs: "TÚ: \"¡Me encanta que te importe lo que piensen! Aquí está el truco — esto no es solo para ti. Coge el kit de uñas para tu hija, el scrub para tu mujer, y la jeringa para ti. ¡Ahora es un regalo familiar de {locationName}! Nadie se puede enfadar por un regalo.\"",
+        text: "YOU: \"I love that you care what they think! But listen — nobody at home is going to be cross about THIS. You get two syringes for the same money: one for you, one for your sister, your daughter, whoever you like. Same price, and now it is a present from {locationName} instead of a treat for yourself. Who gets the second one?\"",
+        textEs: "TÚ: \"¡Me encanta que te importe lo que piensen! Pero mira — en casa nadie se va a enfadar por ESTO. Te llevas dos jeringas por el mismo dinero: una para ti y otra para tu hermana, tu hija, para quien tú quieras. El mismo precio, y ahora es un regalo de {locationName} en vez de un capricho tuyo. ¿Para quién es la segunda?\"",
       },
       {
         type: "subheader",
@@ -475,8 +475,8 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "tip",
-        text: "Ladies' business goes first, every time. It is the shortest answer in the lesson and it is the one that works, because it hands the decision straight back to the person who has already said yes twice. The gift-for-two angle is your second move, not your opener — \"get one for him as well\" turns a selfish purchase into a thoughtful one and doubles the sale in the same breath. What you never do, whatever she says next, is send her off to go and find him.",
-        textEs: "Lo de \"cosa de chicas\" va primero, siempre. Es la respuesta más corta de la lección y es la que funciona, porque le devuelve la decisión a la persona que ya ha dicho que sí dos veces. Lo del regalo para dos es tu segunda jugada, no tu apertura — \"llévate uno para él también\" convierte un capricho en un detalle y te dobla la venta de paso. Lo que no haces nunca, diga lo que diga, es mandarla a buscarlo.",
+        text: "Ladies' business goes first, every time. It is the shortest answer in the lesson and it is the one that works, because it hands the decision straight back to the person who has already said yes twice. The gift-for-two angle is your second move, not your opener — the second syringe for somebody at home turns a selfish purchase into a thoughtful one without the number moving at all. Stay on the syringe while you do it: piling a scrub and a nail kit on top is a different sale, and it is not the one you are in. What you never do, whatever she says next, is send her off to go and find him.",
+        textEs: "Lo de \"cosa de chicas\" va primero, siempre. Es la respuesta más corta de la lección y es la que funciona, porque le devuelve la decisión a la persona que ya ha dicho que sí dos veces. Lo del regalo para dos es tu segunda jugada, no tu apertura — la segunda jeringa para alguien de casa convierte un capricho en un detalle sin que el número se mueva. Y quédate en la jeringa mientras lo haces: amontonarle un exfoliante y un kit de uñas encima es otra venta, y no es en la que estás. Lo que no haces nunca, diga lo que diga, es mandarla a buscarlo.",
       },
     ],
     quiz: [
@@ -1287,20 +1287,20 @@ export const objectionLessons: Record<string, Lesson> = {
         items: [
           "Blame their skin: \"Your skin is just bad\" — insulting the customer is career suicide.",
           "Pretend it worked: \"You can't see it but I can!\" — they KNOW it didn't work. Dishonesty kills trust.",
-          "Give up on the sale: A failed syringe demo is a perfect opportunity to sell the scrub or glycolic peel instead.",
+          "Give up on the sale: a demo that did not show is a prep problem, not a verdict. Clean the skin, go again, and finish on the syringe — the scrub is how you get BACK to it, never a smaller thing you swap her onto instead.",
           "Get flustered or apologetic: Stay calm and clinical. \"Let's diagnose this together\" shows expertise.",
         ],
         itemsEs: [
           "Culpar su piel: \"Tu piel es mala\" — insultar al cliente es suicidio profesional.",
           "Pretender que funcionó: \"¡Tú no puedes verlo pero yo sí!\" — ellos SABEN que no funcionó. La deshonestidad mata la confianza.",
-          "Rendirte con la venta: Una demo fallida de jeringa es una oportunidad perfecta para vender el scrub o el peeling glicólico en su lugar.",
+          "Rendirte con la venta: una demo que no se ha visto es un problema de preparación, no un veredicto. Limpia la piel, repite y termina en la jeringa — el exfoliante es cómo VUELVES a ella, nunca algo más pequeño por lo que la cambias.",
           "Ponerte nervioso o a la defensiva: Mantén la calma y sé clínico. \"Diagnosticemos esto juntos\" muestra experiencia.",
         ],
       },
       {
         type: "tip",
-        text: "ALWAYS carry makeup remover wipes and toner. Most \"failed demos\" are not the product at all — they are sunscreen, moisturiser or foundation sitting between you and her skin. Prep the face before you start and you will hardly ever see one. And the failed-demo pivot is one of your best moves, as long as every bit of it stays in today: close the {currency}60 scrub, use it on her there and then, and put the syringe back on the clean skin before she is out of that chair. A sale you have set up for \"next time\" is not a sale.",
-        textEs: "Lleva SIEMPRE toallitas desmaquillantes y tónico. La mayoría de las \"demos fallidas\" no son culpa del producto — son la crema solar, la hidratante o la base de maquillaje puestas entre tu dedo y su piel. Prepara la cara antes de empezar y casi no vas a ver ninguna. Y el giro de demo fallida a exfoliante es una de tus mejores jugadas, siempre que todo pase hoy: cierras el scrub de {currency}60, se lo usas ahí mismo, y le vuelves a poner la jeringa sobre la piel limpia antes de que se levante de la silla. Una venta que dejas apalabrada \"para la próxima\" no es una venta.",
+        text: "ALWAYS carry makeup remover wipes and toner. Most \"failed demos\" are not the product at all — they are sunscreen, moisturiser or foundation sitting between you and her skin. Prep the face before you start and you will hardly ever see one. And there is a line here you have to know: this lesson is the QUIET version — she says it did not work, to you, and nobody is watching. If she has announced it is a con out loud with a crowd behind her, that is a different animal and it is dead (see The Demo That Failed). Here you still have her, so the scrub recovery is on, as long as every bit of it stays in today: close the {currency}60 scrub, use it on her there and then, and put the syringe back on the clean skin before she is out of that chair. A sale you have set up for \"next time\" is not a sale.",
+        textEs: "Lleva SIEMPRE toallitas desmaquillantes y tónico. La mayoría de las \"demos fallidas\" no son culpa del producto — son la crema solar, la hidratante o la base de maquillaje puestas entre tu dedo y su piel. Prepara la cara antes de empezar y casi no vas a ver ninguna. Y hay una línea que tienes que tener clara: esta lección es la versión TRANQUILA — te lo dice a ti, sin público. Si lo ha soltado a voces delante de un corro diciendo que es un timo, eso es otra cosa y está muerto (mira La Demo Que Falló). Aquí todavía la tienes, así que el giro al exfoliante sigue en pie, siempre que todo pase hoy: cierras el scrub de {currency}60, se lo usas ahí mismo, y le vuelves a poner la jeringa sobre la piel limpia antes de que se levante de la silla. Una venta que dejas apalabrada \"para la próxima\" no es una venta.",
       },
     ],
     quiz: [
@@ -1331,13 +1331,13 @@ export const objectionLessons: Record<string, Lesson> = {
         options: [
           'Nowhere — thank her nicely and get on with the next person walking past',
           'Send her off to drink more water and try it another day',
-          'Onto the scrub — close it and put the syringe back on today',
+          'Onto the scrub — close it, use it, and put the syringe back on the clean skin today',
           'Onto the peeling, and set the syringe up for another visit',
         ],
         optionsEs: [
           'A ninguna parte — dale las gracias y ve a por la siguiente persona que pase',
           'Mándala a beber más agua y que lo pruebe otro día',
-          'Al exfoliante — ciérralo y vuelve a poner la jeringa hoy',
+          'Al exfoliante — ciérralo, úsalo, y vuelve a ponerle la jeringa sobre la piel limpia hoy',
           'Al peeling, y deja la jeringa apalabrada para otra visita',
         ],
         correctIndex: 2,

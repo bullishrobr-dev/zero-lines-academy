@@ -380,26 +380,26 @@ const quizPeelingMastery: GeneralQuiz = {
     },
     {
       question:
-        "A customer already bought the syringe. How do you position the Glycolic Peeling Kit as the PERFECT companion purchase?",
+        "When does the Glycolic Peeling actually get sold — and when does it NOT?",
       questionEs:
-        "Una cliente ya compró la jeringa. ¿Cómo posicionas el Kit de Peeling Glicólico como la compra complementaria PERFECTA?",
+        "¿Cuándo se vende de verdad el Peeling Glicólico — y cuándo NO?",
       options: [
-        "You need this too or the syringe won't work properly — without it the dead skin blocks everything and you wasted your money",
-        "The syringe treats wrinkles, the peeling removes the dead skin that's blocking it from working deeper — together they're a complete facial system",
-        "This is the same thing but cheaper, so if the syringe felt like a lot you can take this one instead and get the same effect",
-        "Most people buy both so you should too — nearly everyone who takes the syringe walks out with the peeling in the same bag"
+        "Its own demo and its own ladder, or as the gift on the syringe offer — never bolted onto a syringe sale",
+        "Always straight after a syringe sale, because she has her card out and her resistance is at its lowest point of the whole demo",
+        "Only to customers who turned the syringe down, so the peeling becomes the thing that rescues an eye demo that did not land",
+        "Whenever she mentions dull skin, even if that happens after she has paid for something else and is on her way out of the door"
       ],
       optionsEs: [
-        "Necesitas esto también o la jeringa no funcionará bien — sin ello la piel muerta lo bloquea todo y habrás tirado el dinero",
-        "La jeringa trata arrugas, el peeling elimina la piel muerta que bloquea que funcione más profundo — juntos son un sistema facial completo",
-        "Es lo mismo pero más barato, así que si la jeringa te pareció mucho llévate este y consigues el mismo efecto",
-        "La mayoría se lleva los dos, tú también deberías — casi todo el que se lleva la jeringa sale con el peeling en la misma bolsa"
+        "Con su propia demo y su propia escalera, o como el regalo de la oferta — nunca encajado a una venta de jeringa",
+        "Siempre justo después de vender la jeringa, porque tiene la tarjeta fuera y su resistencia está en el punto más bajo de toda la demo",
+        "Solo a quien ha rechazado la jeringa, para que el peeling rescate una demo de ojos que no ha cuajado",
+        "Cuando mencione la piel apagada, aunque sea después de haber pagado otra cosa y esté ya saliendo por la puerta"
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "This framing is brilliant because it doesn't compete with the syringe — it COMPLETES it. The syringe works on wrinkles (deep), the peeling clears the surface so the syringe can penetrate better. 'Complete facial system' elevates both products. This logic-based upsell feels like education, not pressure. Customers who believe you want the best results for them will invest more.",
+        "The peeling is a real sale with a real ladder — it just is not a bolt-on. After a syringe sale the seller does not start pitching a second product at all: the syringe WAS the job, and she gets handed to the specialist. The peeling earns its money on its own demo, or riding along as the chosen gift at the promo rung.",
       explanationEs:
-        "Este encuadre es brillante porque no compite con la jeringa — la COMPLETA. La jeringa trabaja en arrugas (profundo), el peeling limpia la superficie para que la jeringa penetre mejor. 'Sistema facial completo' eleva ambos productos. Esta venta adicional basada en lógica se siente como educación, no presión. Clientes que creen que quieres los mejores resultados para ellas invertirán más."
+        "El peeling es una venta de verdad con su escalera de verdad — lo que no es es un añadido. Después de vender la jeringa el vendedor no se pone a soltar un segundo producto: la jeringa ERA el trabajo, y a ella se la traspasa al especialista. El peeling se gana el dinero con su propia demo, o yendo de acompañante como el regalo elegido en el escalón de la promoción."
     },
     {
       question:
@@ -629,26 +629,26 @@ const quizScrubExpert: GeneralQuiz = {
     },
     {
       question:
-        "A customer buys the scrub for {currency}60. What is the BEST next step to increase the sale?",
+        "A customer buys the scrub for {currency}60. What is the BEST next move?",
       questionEs:
-        "Una clienta compra el exfoliante por {currency}60. ¿Cuál es el MEJOR siguiente paso para aumentar la venta?",
+        "Una clienta compra el exfoliante por {currency}60. ¿Cuál es la MEJOR siguiente jugada?",
       options: [
-        "Thank them and move to the next customer quickly, because the fastest way to grow the day is more sales, not bigger ones. A happy customer who leaves fast makes room for the next one at the table",
-        "Ask: 'Do you want the glow version too?' and move her to the Peeling at {currency}100 with the Scrub included as its gift — just {currency}40 more for a complete facial renewal system",
-        "Give them a discount coupon for next time so they come back on their next trip and buy something bigger then",
-        "Tell them they should have bought more while they were thinking about it"
+        "Offer her the matching body butter, because a scrub buyer always wants the butter that goes with it and the pair is an easy second yes",
+        "Sit her down and start the eye demo — she has said yes once, and the syringe is the sale this shift is actually measured on",
+        "Give her a discount coupon for next time, so she comes back on her next trip and spends more than she was ever going to spend today",
+        "Thank her and get straight back on the door, because more sales beats bigger ones and somebody else is waiting for your turn out there"
       ],
       optionsEs: [
-        "Darles las gracias y pasar rápido al siguiente cliente, porque la forma de crecer el día es hacer más ventas, no más grandes. Un cliente contento que se va rápido deja hueco para el siguiente en la mesa",
-        "Preguntar: '¿Quieres la versión glow también?' y pasarla al Peeling a {currency}100 con el Exfoliante incluido de regalo — solo {currency}40 más por un sistema completo de renovación facial",
-        "Darles un cupón de descuento para la próxima vez y que vuelvan en su siguiente viaje a comprar algo mayor",
-        "Decirles que deberían haber comprado más mientras lo estaban pensando"
+        "Ofrecerle la manteca corporal que va a juego, porque quien compra exfoliante siempre quiere la manteca y el par es un segundo sí fácil",
+        "Sentarla y empezar la demo de ojos — ya ha dicho que sí una vez, y la jeringa es la venta con la que se mide el turno",
+        "Darle un cupón de descuento para la próxima vez, y que vuelva en su siguiente viaje a gastar más de lo que iba a gastar hoy",
+        "Darle las gracias y volver a la puerta, porque más ventas gana a ventas más grandes y ahí fuera hay alguien esperando tu turno"
       ],
       correctIndex: 1,
       explanation:
-        "The 'glow version' transition is smooth because it builds on what they already bought. They've already said YES once, making a second yes easier. Moving them to the {currency}100 Peeling — which carries the Scrub as its gift — positions the upsell as a smart addition, not a hard sell. 'Just {currency}40 more' uses the contrast principle, and it is the real gap between {currency}60 and {currency}100, so it survives the customer doing the sum in her head. The key: they already trust you (they bought), so the upsell feels like a recommendation from a friend.",
+        "The scrub is a beginner product. It exists so you learn to sell and so the shop has some nice energy in it — it is not the target. She has just said yes to you once, which makes her the easiest person on the floor to put in that chair. Syringe first, always: a seller who spends a happy year selling scrubs has spent a year not learning the job.",
       explanationEs:
-        "La transición a la 'versión glow' es suave porque construye sobre lo que ya compraron. Ya dijeron SÍ una vez, así que el segundo sí es más fácil. Pasarla al Peeling de {currency}100 — que ya lleva el Exfoliante de regalo — posiciona la venta adicional como una mejora inteligente, no como una venta forzada. 'Solo {currency}40 más' usa el principio de contraste, y es la diferencia real entre {currency}60 y {currency}100, así que aguanta si la clienta hace la cuenta de cabeza. La clave: ya confían en ti (han comprado), así que la venta adicional se siente como la recomendación de un amigo."
+        "El exfoliante es un producto de principiante. Está para que aprendas a vender y para que la tienda tenga buen rollo — no es el objetivo. Acaba de decirte que sí una vez, así que es la persona más fácil de toda la planta para sentar en esa silla. La jeringa primero, siempre: quien se pasa un año la mar de contento vendiendo exfoliantes se ha pasado un año sin aprender el oficio."
     },
     {
       question:
@@ -855,26 +855,26 @@ const quizNailKitPro: GeneralQuiz = {
     },
     {
       question:
-        "A customer buys the syringe for {currency}300. When is the BEST time to offer the French Nail Kit as an add-on?",
+        "A customer has just said yes to the syringe. When do you offer her the Nail Kit?",
       questionEs:
-        "Una clienta compra la jeringa por {currency}300. ¿Cuándo es el MEJOR momento para ofrecer el Kit de Uñas Francesas como complemento?",
+        "Una clienta acaba de decir que sí a la jeringa. ¿Cuándo le ofreces el Kit de Uñas?",
       options: [
-        "Before you tell them the syringe price, so they feel better about spending once they hear the two numbers side by side",
-        "After they've paid and are walking away — hand them a flyer so they can think about it and come back another day",
-        "Right AFTER they agree to the syringe but BEFORE they pay — they're in 'buying mode' and the nail kit feels like a small add-on to a big purchase",
-        "Don't offer it — they'll feel like you're being greedy and it can sour a sale you have already closed"
+        "Between the yes and the payment, while she is in buying mode and {currency}60 feels tiny next to what she has just agreed to spend",
+        "After she has paid, as the thank-you — a small second product lands softest once the big decision is already behind her",
+        "Never. The syringe was the job and the job is done; you hand her to the specialist",
+        "As you wrap the syringe, so she hears it while her hands are busy and there is no easy moment for her to say no to you"
       ],
       optionsEs: [
-        "Antes de decirles el precio de la jeringa, para que se sientan mejor al oír las dos cifras juntas",
-        "Después de que pagan y se van — dales un folleto para que lo piensen y vuelvan otro día",
-        "Justo DESPUÉS de que aceptan la jeringa pero ANTES de que paguen — están en 'modo de compra' y el kit de uñas se siente como un pequeño complemento a una compra grande",
-        "No lo ofrezcas — pensarán que eres codicioso y puede estropear una venta que ya tenías cerrada"
+        "Entre el sí y el pago, cuando está en modo compra y {currency}60 parece nada al lado de lo que acaba de aceptar gastarse",
+        "Después de pagar, como agradecimiento — un segundo producto pequeño entra mejor con la decisión grande ya tomada",
+        "Nunca. La jeringa era el trabajo y el trabajo está hecho; la traspasas al especialista",
+        "Mientras le envuelves la jeringa, para que lo oiga con las manos ocupadas y sin un hueco cómodo para decirte que no"
       ],
       correctIndex: 2,
       explanation:
-        "The 'hot state' add-on is one of the most powerful sales techniques. When someone has just said YES to a {currency}300 purchase, their buying resistance is at its lowest. {currency}60 for a nail kit feels trivial compared to {currency}300. They're already holding their wallet, already trusting you, already excited. The psychological cost of saying yes AGAIN is near zero. Strike while the iron is hot — literally between 'yes' and payment.",
+        "There is a voice in your head saying go on then, sell her the nail kit as well. Kill it. An upsell in this shop is not you pitching a second product — it is a handover to the upseller, who sells the LED devices. Selling the syringe IS the win, and it is what the shift is counted in. Stacking a beginner product on top of it is the fastest way to lose both.",
       explanationEs:
-        "El complemento en 'estado caliente' es una de las técnicas de venta más poderosas. Cuando alguien acaba de decir SÍ a una compra de {currency}300, su resistencia a comprar está en su punto más bajo. {currency}60 por un kit de uñas se siente trivial comparado con {currency}300. Ya tienen su billetera, ya confían en ti, ya están emocionados. El costo psicológico de decir sí OTRA VEZ es casi cero. Golpea mientras el hierro está caliente — literalmente entre el 'sí' y el pago."
+        "Tienes una voz en la cabeza que dice venga, véndele también el kit de uñas. Mátala. Una venta adicional en esta tienda no eres tú soltando un segundo producto — es un traspaso al upseller, que vende los aparatos de LED. Vender la jeringa YA es la victoria, y es lo que cuenta en el turno. Amontonarle encima un producto de principiante es la forma más rápida de perder las dos."
     },
     {
       question:
@@ -1177,22 +1177,22 @@ const quizObjectionsChampion: GeneralQuiz = {
       questionEs:
         "Cliente: 'La demo se vio bien pero no vi una gran diferencia.' ¿Cuál es la MEJOR respuesta?",
       options: [
-        "I appreciate your honesty. The one-eye demo shows about 30% of the full result because we use a tiny amount for the demo. With the full kit and 2 weeks of use, the difference is dramatic. But I understand — want me to show you the peeling kit instead? It gives instant glow",
+        "I appreciate your honesty — and I think I know why. Sunscreen or moisturiser this morning? That is a barrier sitting between the product and your skin. Give me one second: let me clean it properly and go again",
         "You must not have been looking closely — the difference is huge, look again in the mirror and compare the two sides properly this time",
         "Most people see a huge difference, maybe your skin is just different — some people need two or three applications before anything shows up at all, and yours may simply be one of those. Take it home, give it a fortnight and judge it then",
         "Give it time — you'll see results in a month once the product has built up, so buy it now and judge it properly at home"
       ],
       optionsEs: [
-        "Aprecio tu honestidad. La demo de un ojo muestra aproximadamente 30% del resultado completo porque usamos una cantidad mínima para la demo. Con el kit completo y 2 semanas de uso, la diferencia es dramática. Pero entiendo — ¿quieres que te muestre el kit de peeling en su lugar? Da brillo instantáneo",
+        "Te agradezco la sinceridad — y creo que sé por qué. ¿Crema solar o hidratante esta mañana? Eso es una barrera entre el producto y tu piel. Dame un segundo: te la limpio bien y lo repetimos",
         "No debiste mirar de cerca — la diferencia es enorme, mírate otra vez en el espejo y compara bien los dos lados esta vez",
         "La mayoría ve una gran diferencia, quizá tu piel sea distinta — hay quien necesita dos o tres aplicaciones antes de que se note algo, y puede que la tuya sea de esas. Llévatelo, dale quince días y lo juzgas entonces",
         "Dale tiempo — verás resultados en un mes cuando el producto se acumule, así que llévatelo ahora y lo juzgas bien en casa"
       ],
       correctIndex: 0,
       explanation:
-        "This is a MASTER-LEVEL response. First, you validate their honesty (builds trust). Then you explain WHY the demo was subtle (tiny amount used, 30% result) without making them feel wrong. Then you PIVOT to an alternative product (the peeling) that gives INSTANT gratification. Not every product is right for every person. Knowing when to pivot shows confidence and expertise — and can save a sale that would otherwise be lost.",
+        "Most 'failed demos' are not the product at all — they are sunscreen, moisturiser or foundation sitting between your finger and her skin. So you agree with her, name the barrier, wipe it off and go again on clean skin. You do NOT swap her onto a smaller product to rescue the moment: the syringe is the sale, and it is still on the table until you take it off.",
       explanationEs:
-        "Esta es una respuesta de NIVEL MAESTRO. Primero, validas su honestidad (construye confianza). Luego explicas POR QUÉ la demo fue sutil (cantidad mínima usada, 30% de resultado) sin hacerles sentir que están equivocados. Luego PIVOTEAS a un producto alternativo (el peeling) que da gratificación INSTANTÁNEA. No cada producto es adecuado para cada persona. Saber cuándo pivotear muestra confianza y experiencia — y puede salvar una venta que de otro modo se perdería."
+        "La mayoría de las \"demos fallidas\" no son culpa del producto — son la crema solar, la hidratante o la base puestas entre tu dedo y su piel. Así que le das la razón, nombras la barrera, se la limpias y lo repites sobre piel limpia. Lo que NO haces es cambiarla a un producto más pequeño para salvar el momento: la jeringa es la venta, y sigue encima de la mesa hasta que la quites tú."
     },
     {
       question:
@@ -1274,9 +1274,9 @@ const quizBodyLanguage: GeneralQuiz = {
   title: "Body Language & Buying Signals",
   titleEs: "Lenguaje Corporal y Señales de Compra",
   description:
-    "Learn to read customers like a book. Know when they're ready to buy, when they're not interested, and when to push versus when to back off.",
+    "Read what is happening in front of you DURING the demo — the lean, the hands, the mirror, the pause before the price. Signals you can act on, right now.",
   descriptionEs:
-    "Aprende a leer clientes como un libro. Saber cuándo están listos para comprar, cuándo no están interesados, y cuándo empujar versus cuándo retroceder.",
+    "Lee lo que pasa delante de ti DURANTE la demo — cómo se inclina, las manos, el espejo, la pausa antes del precio. Señales sobre las que puedes actuar, ya.",
   icon: "Eye",
   category: "Sales Psychology",
   categoryEs: "Psicología de Ventas",

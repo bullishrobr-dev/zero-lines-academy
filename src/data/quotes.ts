@@ -79,7 +79,7 @@ const confidenceQuotes: Quote[] = [
   },
 ];
 
-// ── Action & Taking Initiative (7) ──
+// ── Action & Taking Initiative (8) ──
 const actionQuotes: Quote[] = [
   {
     id: 'act-7',
@@ -123,6 +123,16 @@ const actionQuotes: Quote[] = [
     textEs: 'La tienda es tu escenario. Súbete a él.',
     author: 'Zero Lines',
   },
+  /* Added with the first-day track rewrite. Every other quote in this file is
+     about the demo, the ladder or the close — none of which a seller touches
+     for two weeks. This is the one that speaks to the person who is only
+     stopping, and it is true for everyone else on the floor as well. */
+  {
+    id: 'act-16',
+    text: 'Nothing in this shop happens until somebody gets stopped. That somebody is you.',
+    textEs: 'En esta tienda no pasa nada hasta que alguien para a alguien. Ese alguien eres tú.',
+    author: 'Zero Lines',
+  },
 ];
 
 // ── Resilience & Persistence (7) ──
@@ -133,10 +143,15 @@ const resilienceQuotes: Quote[] = [
     textEs: 'Un mal día en la tienda es mejor que tu mejor día en tu antiguo trabajo. Aprende de ello.',
     author: 'Zero Lines',
   },
+  /* Was 'Every "no" is one step closer to "yes."' — the numbers-game comfort,
+     unconditional, on the screen a seller opens BEFORE a shift. That is the one
+     direction CLAUDE.md says it must never run in: said beforehand it is not
+     perspective, it is an excuse, and it absolves the seller who rushed. The
+     absolution is real but it is conditional, so the condition travels with it. */
   {
     id: 'res-9',
-    text: 'Every "no" is one step closer to "yes." Keep stepping.',
-    textEs: 'Cada "no" es un paso más cerca del "sí". Sigue caminando.',
+    text: 'A no after you gave everything is part of the game. A no because you rushed is a customer you gave away.',
+    textEs: 'Un no después de darlo todo es parte del juego. Un no por ir con prisa es un cliente que has regalado.',
     author: 'Zero Lines',
   },
   {
@@ -173,10 +188,15 @@ const resilienceQuotes: Quote[] = [
 
 // ── Sales-Specific Motivation (8) ──
 const salesQuotes: Quote[] = [
+  /* Was "The best salespeople are problem solvers, not product pushers." — the
+     exact family this file was cleaned out for. Nobody in a shopping centre has
+     a problem we solve; she walked past a kiosk. "We're not scientists, we're
+     hustlers" is the register, and a quote that coaches the opposite on the
+     screen a seller opens before a shift is coaching against the method. */
   {
     id: 'sale-4',
-    text: 'The best salespeople are problem solvers, not product pushers.',
-    textEs: 'Los mejores vendedores solucionan problemas, no colocan productos.',
+    text: 'Nobody in this centre woke up needing what you sell. Your job is to make them want it before they walk out.',
+    textEs: 'Nadie en este centro se ha levantado hoy necesitando lo que vendes. Tu trabajo es que lo quieran antes de que salgan por la puerta.',
     author: 'Zero Lines',
   },
   {
@@ -197,10 +217,12 @@ const salesQuotes: Quote[] = [
     textEs: 'El cierre no ocurre en el mostrador. Ocurre en la conexión.',
     author: 'Zero Lines',
   },
+  /* Was "…a report card on how many people you helped today." A shift is
+     measured on what got sold, not on how many people you were nice to. */
   {
     id: 'sale-11',
-    text: 'Your commission check is a report card on how many people you helped today.',
-    textEs: 'Tu comisión es el boletín de notas de a cuánta gente has ayudado hoy.',
+    text: 'Your commission is the scoreboard. It counts what you sold, not how busy you looked.',
+    textEs: 'Tu comisión es el marcador. Cuenta lo que has vendido, no lo ocupado que parecías.',
     author: 'Zero Lines',
   },
   {
@@ -293,10 +315,13 @@ const rejectionQuotes: Quote[] = [
 
 // ── Success & Achievement (4) ──
 const successQuotes: Quote[] = [
+  /* Was "Your income is directly proportional to the number of people you
+     help…" — a made-up statistic wearing a maths word, and the helping frame
+     again. Same two things, no arithmetic. */
   {
     id: 'suc-6',
-    text: 'Your income is directly proportional to the number of people you help and how well you help them.',
-    textEs: 'Tus ingresos son directamente proporcionales al número de personas que ayudas y a lo bien que lo haces.',
+    text: 'What you take home comes from two things: how many you stopped, and how hard you worked each one.',
+    textEs: 'Lo que te llevas a casa sale de dos cosas: a cuánta gente paraste y cuánto trabajaste a cada una.',
     author: 'Zero Lines',
   },
   {
@@ -385,10 +410,12 @@ const legendaryQuotes: Quote[] = [
     textEs: 'Los vendedores mediocres venden características. Los grandes venden resultados. Los legendarios venden transformación.',
     author: 'Zero Lines',
   },
+  /* "The number one reason…" was a ranking nobody counted. The line under it is
+     true and stays; the invented league table does not. */
   {
     id: 'leg-9',
-    text: 'The number one reason people fail in sales is because they care more about not being rejected than about making the sale.',
-    textEs: 'La razón número uno por la que la gente fracasa en ventas es porque les importa más no ser rechazados que hacer la venta.',
+    text: 'People fail in this job because they care more about not being rejected than about making the sale.',
+    textEs: 'La gente fracasa en este trabajo porque le importa más que no la rechacen que hacer la venta.',
     author: 'Zero Lines',
   },
   {

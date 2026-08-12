@@ -34,6 +34,30 @@
 // instead. Price theatre, "just for you", "my last customer", "between us" and
 // scarcity all stay. That is the market and it is the job.
 //
+// ── THE OWNER'S VERDICTS THIS FILE NOW CARRIES ──────────────────────────────
+// Five scenarios were teaching the opposite of what he actually does. Each fix
+// is his ruling, not an edit for taste, so none of them may quietly drift back:
+//   • S2 used to RESCUE a dead demo by pivoting to the scrub. It does not. You
+//     get one line — two seconds — and if she doesn't take it, it is dead:
+//     "There is no point trying to sell to a dead body. Get them out of the
+//     shop, and you continue with the next one." No second product, no cheaper
+//     number, no third go. This is exception 2 under THE RULE, and the crowd
+//     watching is exactly why you leave clean instead of flailing.
+//   • S3 and S6 used to promise every member of a group a demo. Three or fewer,
+//     do all of them; FOUR OR MORE, one volunteer, and you only widen it on
+//     real excitement — "you don't want to do everybody and nobody buys, this
+//     is the worst feeling ever." S3's quiz used to mark doing all six correct.
+//   • S9 used to offer "let him go" as a co-equal opening move. You bring the
+//     difficult partner IN first — his hand, his opinion, a bet he thinks he is
+//     winning — and only pure bad energy earns "it's ladies' business anyway".
+//   • S10 used to have the seller run a second demo and invent a price for a
+//     returning customer ({currency}450 → {currency}310, neither on any ladder).
+//     A customer who came back is priced by the MANAGER, or by whoever on the
+//     floor has the most experience. It is not the seller's sale to price.
+// Also gone: filtering a crowd by handbag (he does not want a who-to-skip list
+// anywhere), and the language barrier as a drama — it is Google Translate and a
+// product page that already exists in her language.
+//
 // Content rules this file obeys, the same as every other data file:
 //   • No currency symbol ever. Write {currency}; useCurrency().sub() resolves it.
 //   • No shop name in anything a seller says aloud. Write {locationName}, so an
@@ -248,8 +272,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "paragraph",
-        text: "You're doing the wrinkle demo on a woman from Manchester. Sixty seconds go by. She takes the mirror, and the line is exactly where it was. She hands it back, folds her arms, and says it out loud so everyone hears: \"See? Doesn't work. It's all a con, isn't it.\" There are four people stood behind her watching. The next ten seconds decide whether they stay or all leave together.",
-        textEs: "Estás haciendo la demo de la arruga a una señora de Manchester. Pasan sesenta segundos. Coge el espejo y la línea sigue exactamente donde estaba. Te devuelve el espejo, se cruza de brazos y lo dice en alto para que lo oiga todo el mundo: \"¿Ves? No funciona. Es todo un cuento, ¿no?\" Detrás de ella hay cuatro personas mirando. Los diez segundos siguientes deciden si se quedan o se van todas juntas.",
+        text: "You're doing the wrinkle demo on a woman from Manchester. Sixty seconds go by. She takes the mirror, and the line is exactly where it was. She hands it back, folds her arms, and says it out loud so everyone hears: \"See? Doesn't work. It's all a con, isn't it.\" There are four people stood behind her watching. You get one line to fight this. If that line doesn't move her, the demo is dead — and what you do in the ten seconds after that decides whether those four stay or all walk off with her.",
+        textEs: "Estás haciendo la demo de la arruga a una señora de Manchester. Pasan sesenta segundos. Coge el espejo y la línea sigue exactamente donde estaba. Te devuelve el espejo, se cruza de brazos y lo dice en alto para que lo oiga todo el mundo: \"¿Ves? No funciona. Es todo un cuento, ¿no?\" Detrás de ella hay cuatro personas mirando. Tienes una frase para pelearlo. Si esa frase no la mueve, la demo está muerta — y lo que hagas en los diez segundos siguientes decide si esas cuatro se quedan o se van todas con ella.",
       },
       {
         type: "subheader",
@@ -260,17 +284,17 @@ export const scenarioLessons: Record<string, Lesson> = {
         type: "numbered",
         items: [
           "DON'T PANIC — THEY'RE READING YOUR FACE. Go red and start talking fast and the little crowd has just watched a con come apart. Go curious instead — head on one side, looking at her skin like a puzzle — and you're a professional working something out.",
-          "SAY IT BEFORE SHE SAYS IT AGAIN. \"You're right, that's not what I wanted either.\" Agreeing costs you nothing and takes the fight out of the air. Arguing with a mirror is a fight you cannot win.",
-          "FIND WHAT'S SITTING ON THE SKIN. Ask what she put on this morning. Cream, sun cream, foundation, primer — anything on top and the product never gets near her. Ask it out loud, so the crowd hears you working.",
-          "CLEAN IT AND GO AGAIN. Toner, a wipe, whatever you've got. More product this time, more pressure, and narrate every step. The second attempt is the one they'll remember, because they watched you earn it.",
-          "CHANGE PRODUCT BEFORE YOU LOSE THE ROOM. If the second go does nothing either, get off it. The scrub is the one nobody argues with — you feel it on your hand in ten seconds. \"The syringe wants a different skin. This one works on everybody. Give me your hand.\"",
+          "ONE LINE. THAT IS YOUR WHOLE FIGHT. Two seconds, not two minutes. \"You're right, that's not what I wanted either — what did you put on this morning?\" Agreeing costs you nothing, takes the fight out of the air, and buys you the only thing worth having here: a clean face and a second go.",
+          "IF SHE GIVES YOU THE SECOND GO, YOU'RE ALIVE. Clean the spot properly — cream, sun cream, foundation, primer, anything on top and the product never got near her. More product this time, more pressure, and narrate every step so the crowd hears you working. That second attempt is the demo they'll remember, because they watched you earn it.",
+          "IF SHE DOESN'T MOVE, IT'S DEAD. No second line, no third go, and nothing else comes off the table. There is no point trying to sell to a dead body — get them out of the shop and go and get the next one. The money is in the next one, and she is walking past you while you stand there arguing.",
+          "LEAVE CLEAN, BECAUSE OF THE FOUR PEOPLE WATCHING. This is one of only three times you let a customer walk, and it is the only one that ever happens with an audience — which is exactly why it has to look easy. Thank her, mean it, turn to the next face without a mark on you. Flail and all four leave with her.",
         ],
         itemsEs: [
           "NO TE PONGAS NERVIOSO — TE ESTÁN MIRANDO LA CARA. Si te pones rojo y empiezas a hablar rápido, el corrillo acaba de ver cómo se cae un timo. Ponte curioso en cambio — la cabeza ladeada, mirándole la piel como si fuera un puzle — y eres un profesional resolviendo algo.",
-          "DILO TÚ ANTES DE QUE LO REPITA ELLA. \"Tienes razón, a mí tampoco me ha salido lo que quería.\" Darle la razón no te cuesta nada y le quita la bronca al momento. Discutir con un espejo es una pelea que no ganas.",
-          "BUSCA LO QUE HAY ENCIMA DE LA PIEL. Pregúntale qué se ha puesto esta mañana. Crema, crema solar, base, prebase — si hay algo encima, el producto no le llega ni a tocar la piel. Pregúntaselo en alto, para que el corrillo te oiga trabajar.",
-          "LÍMPIALO Y VUELVE A EMPEZAR. Tónico, una toallita, lo que tengas. Esta vez más producto y más presión, y ve contando cada paso. El segundo intento es la demo que van a recordar, porque te han visto ganártela.",
-          "CAMBIA DE PRODUCTO ANTES DE PERDER AL PÚBLICO. Si el segundo intento tampoco hace nada, sal de ahí. El scrub es el que no discute nadie — lo notas en la mano en diez segundos. \"La jeringa quiere otra piel. Este funciona con todo el mundo. Dame la mano.\"",
+          "UNA FRASE. ESA ES TODA TU PELEA. Dos segundos, no dos minutos. \"Tienes razón, a mí tampoco me ha salido lo que quería — ¿qué te has puesto esta mañana?\" Darle la razón no te cuesta nada, le quita la bronca al momento y te compra lo único que merece la pena aquí: la cara limpia y un segundo intento.",
+          "SI TE DA EL SEGUNDO INTENTO, ESTÁS VIVO. Limpia bien la zona — crema, crema solar, base, prebase; si hay algo encima, el producto no le ha llegado ni a tocar la piel. Esta vez más producto y más presión, y ve contando cada paso para que el corrillo te oiga trabajar. Ese segundo intento es la demo que van a recordar, porque te han visto ganártela.",
+          "SI NO SE MUEVE, ESTÁ MUERTA. Ni una segunda frase, ni un tercer intento, ni sacas nada más de la mesa. No tiene sentido intentar venderle a un cuerpo muerto — los sacas de la tienda y vas a por el siguiente. El dinero está en el siguiente, y te está pasando por delante mientras tú discutes.",
+          "SAL LIMPIO, POR LAS CUATRO PERSONAS QUE MIRAN. Es una de las tres únicas veces que dejas marchar a una clienta, y la única que pasa delante de público — justo por eso tiene que parecer fácil. Dale las gracias, de verdad, y gírate a la siguiente cara sin una marca encima. Si te descompones, se van las cuatro con ella.",
         ],
       },
       {
@@ -282,56 +306,58 @@ export const scenarioLessons: Record<string, Lesson> = {
         type: "bullets",
         items: [
           "Pretend it worked. \"You can't see it but I can\" — every person watching knows you just lied, and that's your afternoon on that corner finished.",
+          "Reach for another product. The scrub is not a rescue boat. Dragging a corpse through a second pitch in front of an audience loses you the audience as well as her.",
           "Blame her skin. Insult a woman's face in front of an audience and you lose the audience, not just her.",
           "Get defensive. \"It works on everyone, I don't know what's wrong with you\" is an excuse in a white coat. Curious beats defensive every single time.",
-          "Give up and turn away. They are watching how you handle it going wrong, and that's worth more to them than watching it go right.",
+          "Drop the price to save it. She hasn't said no to the money, she's said no to the product. Cheaper doesn't buy that back, and now four strangers know your numbers move when you panic.",
         ],
         itemsEs: [
           "Hacer como que ha funcionado. \"Tú no lo ves pero yo sí\" — todos los que están mirando saben que acabas de mentir, y ahí se te acaba la tarde en esa esquina.",
+          "Echar mano de otro producto. El exfoliante no es un bote salvavidas. Arrastrar un cadáver por un segundo discurso delante de público te cuesta el público además de ella.",
           "Culpar a su piel. Insúltale la cara a una mujer delante de público y pierdes al público, no solo a ella.",
           "Ponerte a la defensiva. \"Le funciona a todo el mundo, no sé qué te pasa a ti\" es una excusa con bata blanca. Curioso le gana a defensivo siempre.",
-          "Rendirte y darte la vuelta. Están mirando cómo lo gestionas cuando sale mal, y eso les vale más que verlo salir bien.",
+          "Bajar el precio para salvarla. No le ha dicho que no al dinero, le ha dicho que no al producto. Más barato no te lo devuelve, y ahora cuatro desconocidos saben que tus números se mueven cuando te pones nervioso.",
         ],
       },
       {
         type: "subheader",
-        text: "Script — Agree With Her First",
-        textEs: "Guion — Dale la Razón Primero",
+        text: "Script — Your One Line",
+        textEs: "Guion — Tu Única Frase",
       },
       {
         type: "script",
-        text: "YOU: \"Yeah. I see it too, and I'm not going to stand here telling you it worked.\" [Look at her skin, not at her] \"Quick question — cream this morning? Sun cream? Make-up?\" [She says yes] \"There it is. That's a layer sitting between me and your skin. Give me thirty seconds to take it off and we go again — and if it does nothing the second time, I'll tell you myself to keep your money.\"",
-        textEs: "TÚ: \"Sí. Yo también lo veo, y no me voy a quedar aquí diciéndote que ha funcionado.\" [Mírale la piel, no a ella] \"Una pregunta rápida — ¿crema esta mañana? ¿Crema solar? ¿Maquillaje?\" [Dice que sí] \"Ahí lo tienes. Eso es una capa entre tu piel y yo. Dame treinta segundos para quitártela y lo repetimos — y si la segunda vez no hace nada, te digo yo que te guardes el dinero.\"",
+        text: "YOU: \"Yeah. I see it too, and I'm not going to stand here telling you it worked.\" [Look at her skin, not at her] \"What did you put on this morning — cream? Sun cream? Make-up?\" [She says yes] \"There it is. That's a layer sitting between me and your skin. Thirty seconds to take it off and we go again.\" [That is the whole fight. Now watch her arms.]",
+        textEs: "TÚ: \"Sí. Yo también lo veo, y no me voy a quedar aquí diciéndote que ha funcionado.\" [Mírale la piel, no a ella] \"¿Qué te has puesto esta mañana — crema? ¿Crema solar? ¿Maquillaje?\" [Dice que sí] \"Ahí lo tienes. Eso es una capa entre tu piel y yo. Treinta segundos para quitártela y lo repetimos.\" [Esa es toda la pelea. Ahora mírale los brazos.]",
       },
       {
         type: "subheader",
-        text: "Script — Show It On Yourself",
-        textEs: "Guion — Enséñalo en Ti",
+        text: "Script — She Unfolds Her Arms",
+        textEs: "Guion — Descruza los Brazos",
       },
       {
         type: "script",
-        text: "YOU: \"You're right not to trust it. I wouldn't either.\" [Do the same thing on the back of your own hand] \"Look — same product, same sixty seconds, and on me it goes like that. So it isn't the tube, it's what's on the surface. Yours is drinking it before it can sit anywhere.\" [To the crowd] \"That's why we clean first. Watch.\"",
-        textEs: "TÚ: \"Haces bien en no fiarte. Yo tampoco me fiaría.\" [Haz lo mismo en el dorso de tu propia mano] \"Mira — mismo producto, mismos sesenta segundos, y a mí me hace esto. Así que no es el tubo, es lo que hay en la superficie. La tuya se lo está bebiendo antes de que se pueda quedar en ningún sitio.\" [Al corrillo] \"Por eso limpiamos primero. Mirad.\"",
+        text: "YOU: \"Good girl. Sit back for me.\" [Clean the whole spot properly and say out loud what you are doing] \"More product this time, and I'm pressing harder.\" [To the four of them, not to her] \"Anybody can sell when it works first time. You lot are getting the interesting bit.\" [Count it down out loud, and put the mirror in her hand the second it lands.]",
+        textEs: "TÚ: \"Muy bien. Échate para atrás.\" [Limpia bien toda la zona y ve diciendo en alto lo que haces] \"Esta vez más producto, y aprieto más.\" [A los cuatro, no a ella] \"Vender cuando sale a la primera lo hace cualquiera. Vosotros os estáis llevando la parte interesante.\" [Cuenta atrás en voz alta, y ponle el espejo en la mano en cuanto salga.]",
       },
       {
         type: "subheader",
-        text: "Script — The Product Switch",
-        textEs: "Guion — El Cambio de Producto",
+        text: "Script — When It's Dead, It's Dead",
+        textEs: "Guion — Si Está Muerta, Está Muerta",
       },
       {
         type: "script",
-        text: "YOU: \"You know what, forget the syringe today. It wants skin that's already prepped and yours isn't — that's on me, I should have started you here.\" [Pick up the Dead Sea Scrub] \"This one doesn't care what skin you've got. Two minutes, and you feel it standing right there. {currency}60. Give me your hand — if you don't feel the difference you owe me nothing, and you weren't going to pay me anyway.\"",
-        textEs: "TÚ: \"¿Sabes qué? Olvídate hoy de la jeringa. Quiere una piel ya preparada y la tuya no lo está — culpa mía, tendría que haber empezado por aquí.\" [Coge el Scrub del Mar Muerto] \"A este le da igual la piel que tengas. Dos minutos, y lo notas ahí de pie. {currency}60. Dame la mano — si no notas la diferencia no me debes nada, y total, tampoco me ibas a pagar.\"",
+        text: "YOU: \"Fair enough. It didn't do what I said it would, and I'm not going to argue with a mirror.\" [Straight, warm, smile still on, not one sour word in it] \"Keep your money, my love. Off you go.\" [And that is it. No second product, no cheaper number, no third go. She had her two seconds and she has spent them.]",
+        textEs: "TÚ: \"Pues nada. No ha hecho lo que yo he dicho que haría, y no me voy a poner a discutir con un espejo.\" [Directo, con cariño, la sonrisa puesta, sin una gota de rencor] \"Guárdate el dinero, guapa. Anda, ve.\" [Y ya está. Ni otro producto, ni un número más bajo, ni un tercer intento. Ha tenido sus dos segundos y ya los ha gastado.]",
       },
       {
         type: "subheader",
-        text: "Script — Playing To The Crowd",
-        textEs: "Guion — Jugar con el Público",
+        text: "Script — Straight To The Next One",
+        textEs: "Guion — Directo al Siguiente",
       },
       {
         type: "script",
-        text: "YOU: \"Fair enough — it didn't do what I said it would.\" [To the crowd, not to her] \"Anybody can sell when the demo goes perfectly. You lot are getting the interesting bit.\" [Back to her, hand out] \"Right. Clean face, second go, thirty seconds of your life. If it's rubbish again you can tell the whole street I'm a fraud and I'll hold the door open for you.\"",
-        textEs: "TÚ: \"Vale — no ha hecho lo que yo he dicho que haría.\" [Al corrillo, no a ella] \"Vender cuando la demo sale perfecta lo hace cualquiera. Vosotros os estáis llevando la parte interesante.\" [Otra vez a ella, con la mano tendida] \"Venga. Cara limpia, segundo intento, treinta segundos de tu vida. Si vuelve a ser una porquería, se lo cuentas a toda la calle y yo te sujeto la puerta.\"",
+        text: "YOU: [She has gone. Don't stand there watching her go — turn to the four people still stood behind you] \"Right. You've been watching me for five minutes, so you already know I'll tell you the truth.\" [Hand out, big, not a flicker of the last two minutes on your face] \"Give me your hand. Sixty seconds, and you tell me whether it's a con.\"",
+        textEs: "TÚ: [Se ha ido. No te quedes ahí mirando cómo se va — gírate hacia las cuatro personas que siguen detrás] \"Venga. Lleváis cinco minutos mirándome, así que ya sabéis que os voy a decir la verdad.\" [La mano tendida, en grande, sin que se te note nada de los dos últimos minutos] \"Dame la mano. Sesenta segundos, y me dices tú si es un cuento.\"",
       },
       {
         type: "subheader",
@@ -340,73 +366,73 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "tip",
-        text: "A demo that dies in front of people is the best advert you'll get all day, as long as you stay curious instead of scared. They already assume the good demos are rigged. What nobody can fake is watching somebody handle it when it goes wrong. Stop it happening where you can — ask about cream before you touch a face, clean the spot properly, work somewhere you've actually looked at. And keep this in your head: a {currency}60 scrub after a dead {currency}300 syringe demo is still a sale, still a happy woman, and still a face that walks past you again tomorrow.",
-        textEs: "Una demo que se muere delante de gente es el mejor anuncio del día, siempre que te pongas curioso en vez de asustado. Ya dan por hecho que las demos buenas están amañadas. Lo que no se puede fingir es ver a alguien gestionarlo cuando sale mal. Evítalo cuando puedas — pregunta por la crema antes de tocar una cara, limpia bien la zona, trabaja en un sitio que hayas mirado de verdad. Y quédate con esto: un scrub de {currency}60 después de una demo muerta de {currency}300 sigue siendo una venta, sigue siendo una señora contenta, y sigue siendo una cara que mañana vuelve a pasar por delante.",
+        text: "A demo that dies in front of people is still the best advert you'll get all day — as long as you stay curious instead of scared, and as long as you know when to stop. You get one line. If she takes it, clean the skin, go again, and they'll talk about that demo for a week. If she doesn't take it, she is a dead body and there is nothing left in her for you: no scrub, no cheaper number, no third go. This is one of only three times you let a customer walk, and it's the only one that ever happens with an audience — which is exactly why you go quickly and quietly instead of flailing. They aren't judging whether the product worked. They're judging whether you fall apart when it doesn't. And stop it happening where you can: ask about cream before you touch a face, clean the spot properly, work somewhere you've actually looked at.",
+        textEs: "Una demo que se muere delante de gente sigue siendo el mejor anuncio del día, siempre que te pongas curioso en vez de asustado y siempre que sepas cuándo parar. Tienes una frase. Si te la coge, limpias la piel, lo repites, y van a hablar de esa demo una semana. Si no te la coge, es un cuerpo muerto y ahí ya no queda nada para ti: ni exfoliante, ni un número más bajo, ni un tercer intento. Es una de las tres únicas veces que dejas marchar a una clienta, y la única que pasa delante de público — justo por eso te vas rápido y sin ruido en vez de descomponerte. No están juzgando si el producto ha funcionado. Están juzgando si te desmoronas cuando no funciona. Y evítalo cuando puedas: pregunta por la crema antes de tocar una cara, limpia bien la zona, trabaja en un sitio que hayas mirado de verdad.",
       },
     ],
     quiz: [
       {
-        question: 'She says "See? It does not work, it is a con" and four people are listening. First words?',
-        questionEs: 'Suelta "¿Ves? No funciona, es un cuento" y hay cuatro personas escuchando. ¿Primeras palabras?',
+        question: 'She says "See? It does not work, it is a con" and four people are listening. How much fight have you got?',
+        questionEs: 'Suelta "¿Ves? No funciona, es un cuento" y hay cuatro personas escuchando. ¿Cuánta pelea te queda?',
         options: [
-          '"You are right, that is not what I wanted either"',
-          '"It works on everybody, I do not know what is wrong here"',
-          '"Give it an hour and you will see it later on tonight"',
-          '"Well, you did not tell me you had sun cream on, did you"',
+          'One line. Agree, ask about the cream, offer one clean second go',
+          'As long as it takes, because you cannot let a crowd watch you lose one',
+          'None at all. Say nothing, put the mirror away and start tidying the table',
+          'Three or four more goes, until something on that face finally moves',
         ],
         optionsEs: [
-          '"Tienes razón, a mí tampoco me ha salido lo que quería"',
-          '"Le funciona a todo el mundo, no sé qué pasa aquí"',
-          '"Dale una hora y esta noche lo vas a notar"',
-          '"Ya, es que no me has dicho que llevabas crema solar"',
+          'Una frase. Le das la razón, preguntas por la crema y un segundo intento',
+          'El tiempo que haga falta, no puedes dejar que un corrillo te vea perder',
+          'Ninguna. No dices nada, guardas el espejo y te pones a recoger la mesa',
+          'Tres o cuatro intentos más, hasta que algo se mueva en esa cara',
         ],
         correctIndex: 0,
         explanation:
-          'Agreeing costs you nothing and takes the fight out of the air. Arguing with a mirror in front of an audience is a fight you cannot win.',
+          'Two seconds, not two minutes. One line buys you a clean face and a second go — and if she will not take it, there is nothing else to buy.',
         explanationEs:
-          'Darle la razón no te cuesta nada y le quita la bronca al momento. Discutir con un espejo delante de público es una pelea que no ganas.',
+          'Dos segundos, no dos minutos. Una frase te compra la cara limpia y un segundo intento — y si no te la coge, ya no hay nada más que comprar.',
       },
       {
-        question: 'Four strangers are watching a demo go wrong. What are they actually judging?',
-        questionEs: 'Cuatro desconocidos están viendo cómo se tuerce una demo. ¿Qué están juzgando en realidad?',
+        question: 'Second go on clean skin, and the line still has not moved. What now?',
+        questionEs: 'Segundo intento con la piel limpia, y la línea sigue sin moverse. ¿Y ahora?',
         options: [
-          'Whether the product does what you said it does',
-          'Whether the woman is being fair to you about it',
-          'How you handle it when it goes wrong in front of them',
-          'Whether the price you quoted was honest in the first place',
+          'Get the scrub into her hand — it is the one nobody argues with',
+          'Take a rung off the price so she has a reason to stay in the chair',
+          'She is a dead body. Thank her, walk her out, go to the next one',
+          'Keep working the same line until you get something out of it',
         ],
         optionsEs: [
-          'Si el producto hace lo que has dicho que hace',
-          'Si la señora está siendo justa contigo o no',
-          'Cómo lo gestionas cuando sale mal delante de ellos',
-          'Si el precio que has dicho era honesto desde el principio',
+          'Ponerle el exfoliante en la mano — ese no lo discute nadie',
+          'Bajar un escalón el precio para que se quede en la silla',
+          'Es un cuerpo muerto. Le das las gracias, la sacas y vas a por el siguiente',
+          'Seguir con la misma línea hasta sacarle algo',
         ],
         correctIndex: 2,
         explanation:
-          'They already assume the good demos are rigged. What nobody can fake is watching somebody handle it when it dies.',
+          'There is no point trying to sell to a dead body, and in front of a crowd you never pivot to another product. Get them out and go and get the next one.',
         explanationEs:
-          'Ya dan por hecho que las demos buenas están amañadas. Lo que no se puede fingir es ver a alguien gestionarla cuando se muere.',
+          'No tiene sentido intentar venderle a un cuerpo muerto, y delante de público nunca te cambias a otro producto. Los sacas y vas a por el siguiente.',
       },
       {
-        question: 'Second attempt, cleaned skin, still nothing. What comes off the table?',
-        questionEs: 'Segundo intento, piel limpia, sigue sin pasar nada. ¿Qué quitas de la mesa?',
+        question: 'Four strangers just watched a demo die. What are they actually judging?',
+        questionEs: 'Cuatro desconocidos acaban de ver morirse una demo. ¿Qué están juzgando en realidad?',
         options: [
-          'Your energy — wind it down and let her go politely',
-          'The price — take a rung off to keep her interested',
-          'The mirror — put it away before anybody else looks in it',
-          'The syringe — get the scrub into her hand right now',
+          'Whether the product does what you stood there and said it would do',
+          'How you handle it when it goes wrong right in front of them',
+          'Whether the woman was being fair to you about the whole thing',
+          'Whether the price you quoted at the start was an honest one',
         ],
         optionsEs: [
-          'Tu energía — bájala y despídela con educación',
-          'El precio — baja un escalón para que no pierda interés',
-          'El espejo — guárdalo antes de que se mire alguien más',
-          'La jeringa — ponle el exfoliante en la mano ya',
+          'Si el producto hace lo que has dicho ahí de pie que hacía',
+          'Cómo lo gestionas cuando sale mal delante de ellos',
+          'Si la señora estaba siendo justa contigo con todo esto',
+          'Si el precio que has dicho al principio era honesto',
         ],
-        correctIndex: 3,
+        correctIndex: 1,
         explanation:
-          'The scrub is the one nobody argues with, because you feel it on your hand in ten seconds. Change product before you lose the room.',
+          'They already assume the good demos are rigged. What nobody can fake is watching somebody leave a dead one without falling apart.',
         explanationEs:
-          'El exfoliante es el que no discute nadie, porque lo notas en la mano en diez segundos. Cambia de producto antes de perder al público.',
+          'Ya dan por hecho que las demos buenas están amañadas. Lo que no se puede fingir es ver a alguien dejar una demo muerta sin desmoronarse.',
       },
     ],
   },
@@ -441,18 +467,20 @@ export const scenarioLessons: Record<string, Lesson> = {
       {
         type: "numbered",
         items: [
-          "FIND THE ONE THEY ALL LOOK AT. Every group has one. Usually the loud one, sometimes the bride. Watch where the eyes go after somebody speaks. Win her and the rest come with her. Leave her out and she'll kill it for fun.",
-          "BE LOUDER THAN THEM, ONCE. Not angry — bigger. \"RIGHT, LADIES! I'm doing every single one of you, but ONE at a time so you all get the proper show!\" A group follows whoever takes the wheel in the first ten seconds.",
-          "MAKE IT A SHOW. First demo goes on the leader or the bride, and you narrate the lot. Get them counting the sixty seconds out loud. Six women counting down in the street pulls in strangers you never even stopped.",
-          "PRICE THEM AS ONE GROUP, NOT AS SIX PEOPLE. Give them a single number to split between them and one gift with the bride's name on it. That turns six separate conversations about money into one decision they all cheer for.",
-          "LET THEM FILM EACH OTHER. Ask them to get each other's faces when the mirror comes out. They post it, they tag where they are, and you've done nothing but be good at your job in front of a lens.",
+          "COUNT THEM BEFORE YOU DO ANYTHING. Three or fewer, you do all of them — it's quick and they watch each other. Four or more, and this is six, you take ONE. Doing everybody and selling nothing is the worst feeling in this job, and it costs you the whole hour on top.",
+          "TAKE THE ONE THEY ALL LOOK AT. Every group has one. Usually the loud one, sometimes the bride. Watch where the eyes go after somebody speaks. Win her and the rest come with her. Leave her out and she'll kill it for fun.",
+          "BE LOUDER THAN THEM, ONCE. Not angry — bigger. \"RIGHT, LADIES! I'm doing ONE of you, properly, and the rest of you get to watch and shout.\" A group follows whoever takes the wheel in the first ten seconds.",
+          "MAKE THAT ONE DEMO ENORMOUS. You only get one, so give it everything — narrate the lot, get all six counting the sixty seconds out loud, and let them film each other's faces when the mirror comes out. Six women screaming in the street pulls in strangers you never even stopped.",
+          "PRICE THEM AS ONE GROUP, NOT AS SIX PEOPLE. When the money comes up, and it will come up loudly, give them a single number to split between them and one gift with the bride's name on it. Six separate conversations about money become one decision they all cheer for.",
+          "ONLY OPEN IT UP IF THEY'RE GENUINELY GOING. Phones out, hands up, three of them shouting \"me next\" — that's real, take another one. Polite nodding is not, and neither is one of them being nice to you. If it goes flat after the first mirror, close the one in the chair and keep the rest of your hour.",
         ],
         itemsEs: [
-          "BUSCA A LA QUE MIRAN TODAS. En todo grupo hay una. Normalmente la escandalosa, a veces la novia. Fíjate adónde van los ojos cuando alguien dice algo. Gánatela y las demás vienen detrás. Déjala fuera y te lo revienta por diversión.",
-          "SUBE LA VOZ MÁS QUE ELLAS, UNA VEZ. No enfadado — más grande. \"¡VENGA, CHICAS! Os hago a todas y cada una, pero DE UNA EN UNA, para que os llevéis el espectáculo entero.\" Un grupo se va detrás de quien coge el volante en los diez primeros segundos.",
-          "MONTA EL ESPECTÁCULO. La primera demo va en la jefa o en la novia, y lo vas contando todo. Que cuenten los sesenta segundos en voz alta. Seis mujeres contando atrás en plena calle te traen a desconocidos que ni has parado.",
-          "PONLES UN PRECIO DE GRUPO, NO SEIS PRECIOS. Dales un número que puedan repartirse entre ellas y un regalo con el nombre de la novia encima. Así seis conversaciones sobre dinero se convierten en una sola decisión que aplauden todas.",
-          "QUE SE GRABEN ENTRE ELLAS. Pídeles que se graben la cara unas a otras cuando sale el espejo. Lo suben, etiquetan dónde están, y tú no has hecho nada más que ser bueno en tu trabajo delante de una cámara.",
+          "CUÉNTALAS ANTES DE HACER NADA. Tres o menos, se las haces a todas — es rápido y se miran entre ellas. Cuatro o más, y esto son seis, coges a UNA. Hacérselo a todas y no vender nada es la peor sensación de este trabajo, y encima te cuesta la hora entera.",
+          "COGE A LA QUE MIRAN TODAS. En todo grupo hay una. Normalmente la escandalosa, a veces la novia. Fíjate adónde van los ojos cuando alguien dice algo. Gánatela y las demás vienen detrás. Déjala fuera y te lo revienta por diversión.",
+          "SUBE LA VOZ MÁS QUE ELLAS, UNA VEZ. No enfadado — más grande. \"¡VENGA, CHICAS! Se lo hago a UNA, pero bien, y las demás miráis y animáis.\" Un grupo se va detrás de quien coge el volante en los diez primeros segundos.",
+          "QUE ESA DEMO SEA ENORME. Solo tienes una, así que dalo todo — cuéntalo todo, que las seis cuenten los sesenta segundos en voz alta y que se graben la cara unas a otras cuando sale el espejo. Seis mujeres chillando en plena calle te traen a desconocidos que ni has parado.",
+          "PONLES UN PRECIO DE GRUPO, NO SEIS PRECIOS. Cuando salga el dinero, y va a salir a gritos, dales un número que puedan repartirse entre ellas y un regalo con el nombre de la novia encima. Seis conversaciones sobre dinero se convierten en una sola decisión que aplauden todas.",
+          "SOLO LO ABRES A LAS DEMÁS SI SE ESTÁN VOLVIENDO LOCAS DE VERDAD. Móviles fuera, manos arriba, tres gritando \"ahora yo\" — eso es real, coge a otra. Que asientan por educación no lo es, ni que una sea maja contigo. Si después del primer espejo se queda plano, cierras a la que tienes en la silla y te guardas el resto de la hora.",
         ],
       },
       {
@@ -463,14 +491,14 @@ export const scenarioLessons: Record<string, Lesson> = {
       {
         type: "bullets",
         items: [
-          "Try to do all six at once. You'll do six bad demos and sell nothing. One brilliant one sells the other five for you.",
-          "Skip the quiet one. The one who hasn't said a word is very often the one with the money and the least interest in arguing about it.",
+          "Do all six. At once, one after another, it makes no difference — six demos, six mirrors, an hour gone and nobody has paid you. That is the worst feeling in this job. One brilliant demo sells the group; six average ones sell nothing at all.",
+          "Skip the quiet one when you're choosing. The one who hasn't said a word is very often the one with the money and the least interest in arguing about it.",
           "Go serious on them. Treat a hen do like a consultation and they're gone in thirty seconds. Match the noise.",
           "Argue with the one who's against it. Let her off instead — \"you don't have to, just let me have your friends\" — and she stops working against you.",
         ],
         itemsEs: [
-          "Intentar hacerlas a las seis a la vez. Harás seis demos malas y no venderás nada. Una buenísima te vende las otras cinco.",
-          "Pasar de la callada. La que no ha abierto la boca es muchas veces la que tiene el dinero y las menos ganas de discutirlo.",
+          "Hacérselo a las seis. A la vez o una detrás de otra, da igual — seis demos, seis espejos, una hora fuera y nadie te ha pagado. Esa es la peor sensación de este trabajo. Una demo buenísima te vende al grupo; seis regulares no venden nada.",
+          "Pasar de la callada al elegir. La que no ha abierto la boca es muchas veces la que tiene el dinero y las menos ganas de discutirlo.",
           "Ponerte serio con ellas. Trata una despedida de soltera como una consulta y las pierdes en treinta segundos. Ponte a su nivel de ruido.",
           "Discutir con la que va en contra. Suéltala: \"tú no tienes que hacer nada, déjame solo a tus amigas\" — y deja de trabajar en tu contra.",
         ],
@@ -482,8 +510,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"RIGHT — BRIDE SQUAD! Listen to me!\" [Big, loud, arms out] \"I am doing every one of you. ONE at a time, because you all want to see it properly. Who's first? The bride? OBVIOUSLY the bride. Everybody in close — watch what happens to this face.\"",
-        textEs: "TÚ: \"¡VENGA — BRIDE SQUAD! ¡Escuchadme!\" [Grande, alto, los brazos abiertos] \"Os hago a todas. DE UNA EN UNA, porque queréis verlo bien. ¿Quién es la primera? ¿La novia? PUES CLARO que la novia. Acercaos todas — mirad lo que le pasa a esta cara.\"",
+        text: "YOU: \"RIGHT — BRIDE SQUAD! Listen to me!\" [Big, loud, arms out] \"I'm doing ONE of you. One. Properly. And the rest of you are going to stand right here and watch what happens to her face.\" [Beat, then straight at the bride] \"Who is it? The bride? OBVIOUSLY the bride. Everybody in close.\"",
+        textEs: "TÚ: \"¡VENGA — BRIDE SQUAD! ¡Escuchadme!\" [Grande, alto, los brazos abiertos] \"Se lo hago a UNA. A una. Bien hecho. Y las demás os quedáis aquí mismo a ver lo que le pasa a esa cara.\" [Pausa, y directo a la novia] \"¿Quién es? ¿La novia? PUES CLARO que la novia. Acercaos todas.\"",
       },
       {
         type: "subheader",
@@ -492,8 +520,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Everybody counts with me. Sixty seconds. Ready? THREE, TWO, ONE — GO!\" [They count. You keep it moving] \"FIFTY! FORTY-FIVE!\" [When it lands] \"STOP! Give her the mirror!\" [They scream] \"THAT'S what we do here. Who's next?!\"",
-        textEs: "TÚ: \"Contáis todas conmigo. Sesenta segundos. ¿Listas? ¡TRES, DOS, UNO — YA!\" [Cuentan. Tú las mantienes] \"¡CINCUENTA! ¡CUARENTA Y CINCO!\" [Cuando llega] \"¡ALTO! ¡Dadle el espejo!\" [Chillan] \"ESO es lo que hacemos aquí. ¡¿Quién va ahora?!\"",
+        text: "YOU: \"Everybody counts with me. Sixty seconds. Ready? THREE, TWO, ONE — GO!\" [They count. You keep it moving] \"FIFTY! FORTY-FIVE!\" [When it lands] \"STOP! Give her the mirror!\" [They scream] \"THAT'S what we do here.\" [Now read them. Screaming, shoving each other forward, phones out — take one more. Polite smiles and a nod — you've got your customer. Go and close her.]",
+        textEs: "TÚ: \"Contáis todas conmigo. Sesenta segundos. ¿Listas? ¡TRES, DOS, UNO — YA!\" [Cuentan. Tú las mantienes] \"¡CINCUENTA! ¡CUARENTA Y CINCO!\" [Cuando llega] \"¡ALTO! ¡Dadle el espejo!\" [Chillan] \"ESO es lo que hacemos aquí.\" [Ahora léelas. Si chillan, se empujan para ponerse delante y sacan los móviles, coge a otra. Si sonríen por educación y asienten, ya tienes a tu clienta. Ve a cerrarla.]",
       },
       {
         type: "subheader",
@@ -502,8 +530,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Right. You lot are the best thing that's happened to me all week, so listen.\" [Voice down a bit, like it's a secret] \"One syringe is {currency}300. For you: take two, pay {currency}300, and sort out between yourselves who's putting in what. And the bride doesn't pay for a scrub — that one's from me, wedding present. Who's in?\" [Hands go up] \"Beautiful. Come on then — one at a time!\"",
-        textEs: "TÚ: \"Venga. Sois lo mejor que me ha pasado en toda la semana, así que escuchad.\" [Baja un poco la voz, como si fuera un secreto] \"Una jeringa son {currency}300. Para vosotras: os lleváis dos y pagáis {currency}300, y ya os apañáis entre vosotras quién pone qué. Y la novia no paga el scrub — ese va de mi parte, regalo de boda. ¿Quién se apunta?\" [Se levantan manos] \"Preciosas. ¡Venga — de una en una!\"",
+        text: "YOU: \"Right. You lot are the best thing that's happened to me all week, so listen.\" [Voice down a bit, like it's a secret] \"One syringe is {currency}300. For you: take two, pay {currency}300, and sort out between yourselves who's putting in what. And the bride doesn't pay for a scrub — that one's from me, wedding present. Who's in?\" [Hands go up] \"Beautiful. Card or cash, and whoever's short pays her mate back on the bus.\"",
+        textEs: "TÚ: \"Venga. Sois lo mejor que me ha pasado en toda la semana, así que escuchad.\" [Baja un poco la voz, como si fuera un secreto] \"Una jeringa son {currency}300. Para vosotras: os lleváis dos y pagáis {currency}300, y ya os apañáis entre vosotras quién pone qué. Y la novia no paga el scrub — ese va de mi parte, regalo de boda. ¿Quién se apunta?\" [Se levantan manos] \"Preciosas. Tarjeta o efectivo, y a la que le falte ya se lo devuelve a su amiga en el bus.\"",
       },
       {
         type: "subheader",
@@ -512,8 +540,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"Totally fine, you don't have to do anything.\" [Warm, not a scrap of pressure, then straight back to the group] \"Just let me have your friends for five minutes — look at the bride's face, she's glowing. Here, hold this for me while I do Emma.\" [Give her something to hold. Nobody holding something walks off.]",
-        textEs: "TÚ: \"Qué va, tranquila, tú no tienes que hacer nada.\" [Con cariño, sin una pizca de presión, y vuelves directo al grupo] \"Déjame solo a tus amigas cinco minutos — mírale la cara a la novia, está radiante. Toma, sujétame esto mientras se lo hago a Emma.\" [Dale algo que sujetar. Nadie que esté sujetando algo se va.]",
+        text: "YOU: \"Totally fine, you don't have to do anything.\" [Warm, not a scrap of pressure, then straight back to the group] \"Just let me have your friends for five minutes — look at the bride's face, she's glowing. Here, hold this for me while I finish her.\" [Give her something to hold. Nobody holding something walks off.]",
+        textEs: "TÚ: \"Qué va, tranquila, tú no tienes que hacer nada.\" [Con cariño, sin una pizca de presión, y vuelves directo al grupo] \"Déjame solo a tus amigas cinco minutos — mírale la cara a la novia, está radiante. Toma, sujétame esto mientras la termino.\" [Dale algo que sujetar. Nadie que esté sujetando algo se va.]",
       },
       {
         type: "subheader",
@@ -522,8 +550,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "tip",
-        text: "A hen do is the best hour you'll get all week. Don't turn any of it into promises. No \"send me a friend and I'll sort you out next time\", no discount owed to anybody after they leave — you won't be here and a colleague has to have that argument at the counter. Do the lot today: the group number, the gift with the bride's name on it, the countdown, the photos. Then send them off loud and happy, because a group that leaves screaming is an advert walking down the middle of the street in matching t-shirts.",
-        textEs: "Una despedida de soltera es la mejor hora de tu semana. No conviertas nada de eso en promesas. Nada de \"mándame a una amiga y la próxima te lo compenso\", nada de descuentos que se le deban a alguien cuando ya se ha ido — tú no vas a estar y la discusión en el mostrador le toca a un compañero. Hazlo todo hoy: el precio de grupo, el regalo con el nombre de la novia, la cuenta atrás, las fotos. Y luego que se vayan a gritos y encantadas, porque un grupo que se va chillando es un anuncio andando por mitad de la calle con camisetas iguales.",
+        text: "A hen do is the best hour you'll get all week, and the fastest way to waste it is trying to do all of them. Three or fewer, do the lot. Four or more, you take one, you make that one enormous, and you only reach for a second if they are genuinely losing their minds. Doing everybody and selling nothing is the worst feeling in this job. Don't turn any of it into promises either — no \"send me a friend and I'll sort you out next time\", no discount owed to anybody after they leave, because you won't be here and a colleague has to have that argument at the counter. Do the lot today: the group number, the gift with the bride's name on it, the countdown, the photos. Then send them off loud and happy, because a group that leaves screaming is an advert walking down the middle of the street in matching t-shirts.",
+        textEs: "Una despedida de soltera es la mejor hora de tu semana, y la forma más rápida de tirarla es intentar hacérselo a todas. Tres o menos, se las haces a todas. Cuatro o más, coges a una, esa la haces enorme, y solo vas a por una segunda si se están volviendo locas de verdad. Hacérselo a todas y no vender nada es la peor sensación de este trabajo. Y no conviertas nada de esto en promesas: nada de \"mándame a una amiga y la próxima te lo compenso\", nada de descuentos que se le deban a alguien cuando ya se ha ido, porque tú no vas a estar y la discusión en el mostrador le toca a un compañero. Hazlo todo hoy: el precio de grupo, el regalo con el nombre de la novia, la cuenta atrás, las fotos. Y luego que se vayan a gritos y encantadas, porque un grupo que se va chillando es un anuncio andando por mitad de la calle con camisetas iguales.",
       },
     ],
     quiz: [
@@ -531,64 +559,64 @@ export const scenarioLessons: Record<string, Lesson> = {
         question: 'Six of them, all shouting "do me next". How do you run it?',
         questionEs: 'Seis, y todas gritando "ahora yo". ¿Cómo lo montas?',
         options: [
-          'Six quick demos at once so nobody stands about waiting',
-          'One at a time, loud, with all of them watching each one',
-          'The bride only, then take the money and move them on',
-          'Split them with a colleague so you get through them faster',
+          'Six quick demos at once, so that nobody is left standing about waiting',
+          'One at a time, all six of them, so every single one of them gets her turn',
+          'One of them, huge, with the other five stood round watching and counting',
+          'Split them with a colleague so the six of you get through it faster',
         ],
         optionsEs: [
-          'Seis demos rápidas a la vez para que nadie espere',
-          'De una en una, alto, y que todas miren cada demo',
-          'Solo la novia, cobras y las mandas para adelante',
-          'Repartirlas con un compañero para ir más rápido',
+          'Seis demos rápidas a la vez, para que ninguna se quede esperando',
+          'De una en una, las seis, para que a todas les toque su turno',
+          'A una, enorme, con las otras cinco alrededor mirando y contando',
+          'Repartirlas con un compañero para acabar antes con las seis',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Four or more and you take one. Six demos and nobody buys is the worst feeling in this job, and it costs you the whole hour as well.',
+        explanationEs:
+          'Cuatro o más y coges a una. Seis demos y que no compre nadie es la peor sensación de este trabajo, y encima te cuesta la hora entera.',
+      },
+      {
+        question: 'Three friends stop instead of six. Does anything change?',
+        questionEs: 'Se paran tres amigas en vez de seis. ¿Cambia algo?',
+        options: [
+          'No — one volunteer whatever the size of the group, every single time',
+          'Yes — with three you do two of them and leave the third one wanting it',
+          'No, but you halve each demo so all three of them fit into the same hour',
+          'Yes. Three or fewer and you do all of them',
+        ],
+        optionsEs: [
+          'No — una voluntaria sea cual sea el grupo, siempre igual',
+          'Sí — con tres le haces a dos y dejas a la tercera con ganas',
+          'No, pero partes cada demo por la mitad para que quepan las tres',
+          'Sí. Tres o menos y se las haces a todas',
+        ],
+        correctIndex: 3,
+        explanation:
+          'Three or fewer, do all of them. The one-volunteer rule starts at four, and it starts there because six demos and no sale is an hour of your life gone.',
+        explanationEs:
+          'Tres o menos, se las haces a todas. Lo de una sola empieza en cuatro, y empieza ahí porque seis demos sin venta es una hora de tu vida tirada.',
+      },
+      {
+        question: 'Your one demo lands, and the group goes polite and quiet. What now?',
+        questionEs: 'Tu única demo sale bien y el grupo se queda callado y educado. ¿Y ahora?',
+        options: [
+          'Do the next one anyway — they are all stood there waiting for a turn',
+          'Close the one in the chair and keep the rest of your hour',
+          'Drop the price for the group to get the noise back up again',
+          'Start again on somebody else and put more energy into that one',
+        ],
+        optionsEs: [
+          'Hacerle la demo a la siguiente igual — están ahí esperando turno',
+          'Cerrar a la que tienes en la silla y guardarte el resto de la hora',
+          'Bajar el precio al grupo para que vuelva a subir el ruido',
+          'Empezar otra vez con otra y meterle más energía a esa',
         ],
         correctIndex: 1,
         explanation:
-          'Six bad demos sell nothing. One brilliant one, with five of them watching and counting, sells the other five for you.',
+          'You only open it up on real excitement — screaming, phones out, three of them shouting "me next". Polite nodding is not that, and it never turns into it.',
         explanationEs:
-          'Seis demos malas no venden nada. Una buenísima, con cinco mirando y contando, te vende las otras cinco.',
-      },
-      {
-        question: 'One of them has decided she is against it. What do you do with her?',
-        questionEs: 'Una ha decidido que va en contra. ¿Qué haces con ella?',
-        options: [
-          'Work on her hardest — turn her and the rest follow',
-          'Tell the others she is spoiling it for everybody',
-          'Ask her to wait somewhere else while you finish with the group',
-          '"You do not have to do anything — just lend me your friends"',
-        ],
-        optionsEs: [
-          'Ir a por ella con todo — si la giras, van las demás',
-          'Decirles a las otras que se lo está fastidiando a todas',
-          'Pedirle que espere en otro sitio mientras acabas con el grupo',
-          '"Tú no tienes que hacer nada — solo préstame a tus amigas"',
-        ],
-        correctIndex: 3,
-        explanation:
-          'Let her off and she stops working against you. Fight her and she kills the whole group for fun.',
-        explanationEs:
-          'Suéltala y deja de trabajar en tu contra. Pelea con ella y te revienta al grupo entero por diversión.',
-      },
-      {
-        question: 'Six women, all asking the price at once. What do you give them?',
-        questionEs: 'Seis mujeres preguntando el precio a la vez. ¿Qué les das?',
-        options: [
-          'A different deal for each one, based on what she will pay',
-          'Full price each — with six of them you really do not need to bend at all',
-          'Cheapest for the bride and everybody else pays the usual',
-          'One number for the lot, and a gift with the bride\'s name on',
-        ],
-        optionsEs: [
-          'Un trato distinto a cada una, según lo que vaya a pagar',
-          'Precio entero a cada una — siendo seis no te hace falta ceder nada',
-          'A la novia lo más barato y las demás pagan lo de siempre',
-          'Un número para todas y un regalo con el nombre de la novia',
-        ],
-        correctIndex: 3,
-        explanation:
-          'Six conversations about money become one decision they all cheer for. Let them sort out between themselves who puts in what.',
-        explanationEs:
-          'Seis conversaciones sobre dinero se convierten en una decisión que aplauden todas. Que se apañen ellas con quién pone qué.',
+          'Solo lo abres a las demás si hay entusiasmo de verdad: chillidos, móviles fuera, tres gritando "ahora yo". Que asientan por educación no lo es, y no se convierte en eso.',
       },
     ],
   },
@@ -794,8 +822,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "paragraph",
-        text: "A day-trip crowd spills into the main street in {locationName} — cruise passengers, coach parties, lanyards round every neck. They've got three and a half hours and then they're gone. One couple has barely any English, another pair are arguing about the way back to the port, somebody is photographing a bin. Then you see her: woman in her fifties, good bag, lines across her forehead, stood at a shop window a few metres from your spot. Money and a clock. Ten seconds to hook her, three minutes to close her.",
-        textEs: "Cae un grupo de excursión en la calle principal de {locationName} — pasajeros de crucero, gente de autocar, acreditaciones colgadas de todos los cuellos. Tienen tres horas y media y se van. Una pareja casi no habla inglés, otra está discutiendo por dónde se vuelve al puerto y alguien está fotografiando una papelera. Y entonces la ves: una mujer de unos cincuenta, buen bolso, líneas en la frente, parada delante de un escaparate a unos metros de tu puesto. Dinero y un reloj. Diez segundos para engancharla, tres minutos para cerrarla.",
+        text: "A day-trip crowd spills into the main street in {locationName} — cruise passengers, coach parties, lanyards round every neck. They've got three and a half hours and then they're gone. One couple has barely any English, another pair are arguing about the way back to the port, somebody is photographing a bin. You step in front of one woman and she comes in — with three of her group trailing after her, all of them checking the time. Money and a clock, and four faces looking at you. You are not doing four demos in three minutes. You are doing ONE, and you are doing it in front of the other three.",
+        textEs: "Cae un grupo de excursión en la calle principal de {locationName} — pasajeros de crucero, gente de autocar, acreditaciones colgadas de todos los cuellos. Tienen tres horas y media y se van. Una pareja casi no habla inglés, otra está discutiendo por dónde se vuelve al puerto y alguien está fotografiando una papelera. Te pones delante de una mujer y entra — con tres de su grupo detrás, todas mirando la hora. Dinero y un reloj, y cuatro caras mirándote. No vas a hacer cuatro demos en tres minutos. Vas a hacer UNA, y la vas a hacer delante de las otras tres.",
       },
       {
         type: "subheader",
@@ -805,6 +833,7 @@ export const scenarioLessons: Record<string, Lesson> = {
       {
         type: "numbered",
         items: [
+          "ONE OUT OF THE CROWD. Three or fewer at your table, do all of them — it's quick. Four or more, and a coach party is always four or more, you take ONE and do her properly with the rest stood round watching. Do everybody and sell nothing and there goes your three and a half hours.",
           "HOOK HER IN FIVE SECONDS, NOT FIFTEEN. She's drowning in signs and noise. Hold the syringe up where she can see it and give her one sentence: \"Sixty seconds, one wrinkle, gone — want to see?\" Movement plus a question stops feet.",
           "GIVE HER BOTH NUMBERS EARLY. Day-trippers have spent all morning comparing prices in three countries. \"Back in Europe this is {currency}500. Here it's {currency}300.\" Now she's got somewhere to put your price.",
           "CUT THE DEMO IN HALF. Three minutes becomes ninety seconds. Apply, count out loud, mirror, price, close. No routine talk, no ingredient talk. \"{currency}300, every card there is, and you're out of here in two minutes.\"",
@@ -812,6 +841,7 @@ export const scenarioLessons: Record<string, Lesson> = {
           "GET IT DONE TODAY. She's on a boat tonight and she isn't back on Thursday. Nothing gets held, nothing gets promised for later, nothing waits. It happens in the chair or it doesn't happen.",
         ],
         itemsEs: [
+          "UNA DE TODO EL GRUPO. Tres o menos en tu mesa, se las haces a todas — es rápido. Cuatro o más, y un grupo de autocar siempre son cuatro o más, coges a UNA y se la haces bien con las demás alrededor mirando. Hazlo con todas sin vender nada y ahí se te han ido las tres horas y media.",
           "ENGÁNCHALA EN CINCO SEGUNDOS, NO EN QUINCE. Está ahogada en carteles y ruido. Levanta la jeringa donde la vea y suéltale una sola frase: \"Sesenta segundos, una arruga, fuera — ¿quieres verlo?\" Movimiento más pregunta para los pies.",
           "DALE LOS DOS NÚMEROS PRONTO. Los de excursión llevan toda la mañana comparando precios en tres países. \"En Europa esto son {currency}500. Aquí son {currency}300.\" Ya tiene dónde colocar tu precio.",
           "PARTE LA DEMO POR LA MITAD. Los tres minutos se quedan en noventa segundos. Aplica, cuenta en voz alta, espejo, precio, cierre. Nada de rutinas ni de ingredientes. \"{currency}300, todas las tarjetas que existen, y te vas de aquí en dos minutos.\"",
@@ -831,12 +861,14 @@ export const scenarioLessons: Record<string, Lesson> = {
           "Ask big questions. \"What's your skincare routine?\" is a two-minute answer you don't need. Assume she's interested and move.",
           "Panic her about the time. \"Hurry up, your coach!\" makes her leave. The clock is a joke you share, not a stick you hit her with.",
           "Write her off as a looker. She's on holiday, she's got money on her, and she decided this morning that today is a spending day. Ask for the sale every time.",
+          "Make a drama of the language. Get the translator out, show her the product page in her own language, point at the mirror. It happens all day on this street and it has never once been the reason a sale did not happen.",
         ],
         itemsEs: [
           "Empezar con una historia. No tienen tiempo para tu vida. Gancho, demo, precio, listo.",
           "Hacer preguntas grandes. \"¿Cuál es tu rutina de piel?\" es una respuesta de dos minutos que no te hace falta. Da por hecho que le interesa y tira.",
           "Meterle prisa con el tiempo. \"¡Corre, que se te va el autocar!\" hace que se vaya. El reloj es una broma compartida, no un palo.",
           "Descartarla porque \"solo mira\". Está de vacaciones, lleva dinero encima y esta mañana ya ha decidido que hoy se gasta. Pide la venta siempre.",
+          "Montar un drama con el idioma. Saca el traductor, enséñale la ficha del producto en su idioma, señala el espejo. Pasa todos los días en esta calle y no ha sido nunca el motivo de que una venta no salga.",
         ],
       },
       {
@@ -876,8 +908,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"No problem, no problem!\" [Hands, face, the product — do the whole thing with your body] \"Look. Sixty seconds. Line — gone.\" [Mirror] \"{currency}300. Card? Cash? All good!\" [Point at the terminal, big smile. A mirror doesn't need translating.]",
-        textEs: "TÚ: \"¡No pasa nada, no pasa nada!\" [Manos, cara, el producto — hazlo todo con el cuerpo] \"Mira. Sesenta segundos. La línea — fuera.\" [Espejo] \"{currency}300. ¿Tarjeta? ¿Efectivo? ¡Todo bien!\" [Señala el datáfono, sonrisa grande. Un espejo no necesita traducción.]",
+        text: "YOU: \"No problem, no problem!\" [Phone out, translator open, and keep smiling while you type — it takes ten seconds and it is not a drama] \"Look. Sixty seconds. Line — gone.\" [Mirror. A mirror doesn't need translating.] \"And here — the page, in your language.\" [Product page on the screen, phone into her hand] \"{currency}300. Card? Cash? All good!\" [Point at the terminal, big smile. Half this street sells in four languages a day.]",
+        textEs: "TÚ: \"¡No pasa nada, no pasa nada!\" [Saca el móvil, abre el traductor y sigue sonriendo mientras escribes — son diez segundos y no es ningún drama] \"Mira. Sesenta segundos. La línea — fuera.\" [Espejo. Un espejo no necesita traducción.] \"Y aquí — la página, en tu idioma.\" [La ficha del producto en la pantalla, el móvil a su mano] \"{currency}300. ¿Tarjeta? ¿Efectivo? ¡Todo bien!\" [Señala el datáfono, sonrisa grande. Media calle vende en cuatro idiomas al día.]",
       },
       {
         type: "subheader",
@@ -891,6 +923,27 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
     ],
     quiz: [
+      {
+        question: 'Four of them come in together off the same coach. Who gets the demo?',
+        questionEs: 'Entran cuatro juntas del mismo autocar. ¿A quién le haces la demo?',
+        options: [
+          'All four, but you halve each one so they still make the coach',
+          'Whoever asks loudest, and then the other three if there is time',
+          'One of them, done properly, with the other three stood watching',
+          'Nobody yet — get all four prices out first and see who bites',
+        ],
+        optionsEs: [
+          'A las cuatro, pero partes cada demo para que lleguen al autocar',
+          'A la que más grite, y luego a las otras tres si te da tiempo',
+          'A una, bien hecha, con las otras tres alrededor mirando',
+          'A ninguna todavía — sueltas los cuatro precios y ves quién pica',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Three or fewer, do all of them. Four or more, you take one — because doing everybody and selling nothing is how a whole afternoon disappears.',
+        explanationEs:
+          'Tres o menos, se las haces a todas. Cuatro o más, coges a una — porque hacérselo a todo el mundo y no vender nada es como se te va una tarde entera.',
+      },
       {
         question: 'She has two hours before the coach goes. What does that clock do for you?',
         questionEs: 'Le quedan dos horas para que salga el autocar. ¿Qué hace ese reloj por ti?',
@@ -1170,17 +1223,17 @@ export const scenarioLessons: Record<string, Lesson> = {
         type: "numbered",
         items: [
           "DON'T ARGUE WITH HIM. The moment it's you against him, she has to pick, and she picks him. You are never winning that one and you don't need to.",
-          "PUT SOMETHING IN HIS HAND. This is the move. He doesn't want a debate, he wants proof he can feel. \"You look like a man who wants proof. Give me your hand.\" Nobody stays folded up with their arms crossed while somebody's working on their hand.",
-          "OR GIVE HIM A WAY OUT. If he doesn't want to be in it, stop trying to put him in it. \"Don't worry, it's ladies' business anyway\" — light, with a smile — lets him step back without losing anything, and a man who's been let off stops fighting you.",
+          "BRING HIM IN. THIS IS THE FIRST MOVE, NOT THE LAST ONE. He doesn't want a debate, he wants proof he can feel. \"You look like a man who wants proof. Give me your hand.\" Nobody stays folded up with their arms crossed while somebody's working on their hand.",
           "MAKE HIM THE EXPERT, NOT THE OBSTACLE. \"You know her better than I do — does she look after her skin, or is this new?\" Ask him something only he can answer and he stops being the bloke at the back.",
-          "IF HE'S JUST NASTY, LET HIM GO. Some of them have decided to have a bad afternoon. Don't spend your energy there. Keep all of it on the person who is still listening to you.",
+          "GIVE HIM A BET HE THINKS HE'S WINNING. \"Sixty seconds. If she looks in that mirror and she isn't impressed, I'll tell her myself to walk away.\" He takes it because it sounds like a free win — and the second he takes it, he's in it with you.",
+          "ONLY IF HE IS PURE BAD ENERGY DO YOU GIVE HIM UP. Not bored, not quiet, not on his phone — those are the ones you bring in. Nasty, decided to have a bad afternoon, still swinging after you've tried all three: then \"don't worry, it's ladies' business anyway\", light and with a smile, and every scrap of you goes on her.",
         ],
         itemsEs: [
           "NO DISCUTAS CON ÉL. En cuanto esto es tú contra él, ella tiene que elegir, y lo elige a él. Esa no la ganas nunca, y tampoco te hace falta.",
-          "PONLE ALGO EN LA MANO. Esta es la jugada. Él no quiere un debate, quiere una prueba que pueda notar. \"Tienes pinta de ser de los que quieren pruebas. Dame la mano.\" Nadie sigue con los brazos cruzados mientras le están trabajando la mano.",
-          "O DALE UNA SALIDA. Si no quiere estar dentro, deja de intentar meterlo. \"No te preocupes, que esto es cosa de chicas\" — ligero, con una sonrisa — le deja apartarse sin perder nada, y un hombre al que has soltado deja de pelearse contigo.",
+          "MÉTELO DENTRO. ESTA ES LA PRIMERA JUGADA, NO LA ÚLTIMA. Él no quiere un debate, quiere una prueba que pueda notar. \"Tienes pinta de ser de los que quieren pruebas. Dame la mano.\" Nadie sigue con los brazos cruzados mientras le están trabajando la mano.",
           "HAZLO EL EXPERTO, NO EL OBSTÁCULO. \"Tú la conoces mejor que yo — ¿ella se cuida la piel, o esto es nuevo?\" Pregúntale algo que solo pueda contestar él y deja de ser el señor del fondo.",
-          "SI VA CON MALA LECHE, DÉJALO. Algunos han decidido tener una mala tarde. No gastes ahí tu energía. Guárdala entera para la persona que todavía te escucha.",
+          "DALE UNA APUESTA QUE CREA QUE GANA. \"Sesenta segundos. Si se mira en ese espejo y no le impresiona, le digo yo que se vaya.\" La acepta porque le suena a victoria gratis — y en cuanto la acepta, ya está dentro contigo.",
+          "SOLO SI VA CON MUY MALA LECHE LO SUELTAS. Aburrido no, callado no, con el móvil no — a esos los metes dentro. Borde de verdad, que ha decidido tener una mala tarde, y sigue dando guerra después de las tres jugadas: entonces \"no te preocupes, que esto es cosa de chicas\", ligero y con una sonrisa, y toda tu energía se va con ella.",
         ],
       },
       {
@@ -1192,12 +1245,14 @@ export const scenarioLessons: Record<string, Lesson> = {
         type: "bullets",
         items: [
           "Take him on. Winning the argument loses the sale. She isn't going to buy something her partner just got beaten over.",
+          "Write him off at the first shrug. A bloke on his phone with his arms crossed is bored, not hostile, and bored is the easiest thing on this street to fix. Put something in his hand before you decide he's a lost cause.",
           "Have a go at his manliness. \"Real men look after their skin too.\" Now he's got something to defend and he'll defend it all afternoon.",
           "Put them against each other. \"Don't let him tell you what to buy\" makes you the problem in their relationship, and they leave together.",
           "Drop the price to shut him up. Now he knows being difficult moves your numbers, and he'll be difficult all the way down to the floor.",
         ],
         itemsEs: [
           "Entrarle al trapo. Ganar la discusión te cuesta la venta. Ella no va a comprar algo por lo que le acabas de ganar a su pareja.",
+          "Descartarlo al primer gesto. Un tío con el móvil y los brazos cruzados está aburrido, no en tu contra, y el aburrimiento es lo más fácil de arreglar de esta calle. Ponle algo en la mano antes de darlo por perdido.",
           "Meterte con su hombría. \"Los hombres de verdad también se cuidan la piel.\" Ahora tiene algo que defender, y lo va a defender toda la tarde.",
           "Enfrentarlos. \"No dejes que te diga lo que puedes comprar\" te convierte a ti en el problema de esa pareja, y se van juntos.",
           "Bajar el precio para callarlo. Ahora ya sabe que ponerse borde te mueve los números, y se va a poner borde hasta el suelo.",
@@ -1215,13 +1270,13 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "subheader",
-        text: "Script — Letting Him Off",
-        textEs: "Guion — Soltarlo del Anzuelo",
+        text: "Script — Make Him The Advisor",
+        textEs: "Guion — Conviértelo en el Asesor",
       },
       {
         type: "script",
-        text: "YOU: [To him — light, with a smile, not a scrap of edge to it] \"Don't worry, it's ladies' business anyway.\" [Then straight back to her, warm, like he was never a problem] \"Right, you. Sit down and give me two minutes.\" [He gets his phone back out and stops fighting you. That is exactly what you wanted.]",
-        textEs: "TÚ: [A él — ligero, con una sonrisa, sin una pizca de pica] \"No te preocupes, que esto es cosa de chicas.\" [Y vuelves directo a ella, con cariño, como si él nunca hubiera sido un problema] \"Venga, tú. Siéntate y dame dos minutos.\" [Él saca otra vez el móvil y deja de pelearse contigo. Que es exactamente lo que querías.]",
+        text: "YOU: [To him, as if she isn't there] \"Help me out here — does she actually look after her skin, or is all this new to her?\" [Whatever he says, agree with him] \"See, that's what I thought. Then this is the easy one — she doesn't need six bottles.\" [To her] \"He's right, you know.\" [He's now on your side of the table and he has no idea how he got there]",
+        textEs: "TÚ: [A él, como si ella no estuviera] \"Échame un cable — ¿ella se cuida la piel de verdad, o esto es todo nuevo para ella?\" [Diga lo que diga, dale la razón] \"Ves, eso me parecía. Pues entonces este es el fácil — no necesita seis botes.\" [A ella] \"Tiene razón, ¿eh?\" [Ahora está de tu lado de la mesa y no tiene ni idea de cómo ha llegado ahí]",
       },
       {
         type: "subheader",
@@ -1235,13 +1290,13 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "subheader",
-        text: "Script — Make Him The Advisor",
-        textEs: "Guion — Conviértelo en el Asesor",
+        text: "Script — Last Resort, Letting Him Off",
+        textEs: "Guion — Último Recurso, Soltarlo del Anzuelo",
       },
       {
         type: "script",
-        text: "YOU: [To him, as if she isn't there] \"Help me out here — does she actually look after her skin, or is all this new to her?\" [Whatever he says, agree with him] \"See, that's what I thought. Then this is the easy one — she doesn't need six bottles.\" [To her] \"He's right, you know.\" [He's now on your side of the table and he has no idea how he got there]",
-        textEs: "TÚ: [A él, como si ella no estuviera] \"Échame un cable — ¿ella se cuida la piel de verdad, o esto es todo nuevo para ella?\" [Diga lo que diga, dale la razón] \"Ves, eso me parecía. Pues entonces este es el fácil — no necesita seis botes.\" [A ella] \"Tiene razón, ¿eh?\" [Ahora está de tu lado de la mesa y no tiene ni idea de cómo ha llegado ahí]",
+        text: "YOU: [Only once you've had his hand, asked his opinion and offered him the bet, and he is still swinging. Then, to him — light, with a smile, not a scrap of edge to it] \"Don't worry, it's ladies' business anyway.\" [Straight back to her, warm, like he was never a problem] \"Right, you. Sit down and give me two minutes.\" [He gets his phone back out and stops fighting you. Everything you have left now goes on her.]",
+        textEs: "TÚ: [Solo cuando ya le has cogido la mano, le has pedido su opinión y le has ofrecido la apuesta, y sigue dando guerra. Entonces sí, a él — ligero, con una sonrisa, sin una pizca de pica] \"No te preocupes, que esto es cosa de chicas.\" [Y vuelves directo a ella, con cariño, como si él nunca hubiera sido un problema] \"Venga, tú. Siéntate y dame dos minutos.\" [Él saca otra vez el móvil y deja de pelearse contigo. Todo lo que te queda se lo dedicas a ella.]",
       },
       {
         type: "subheader",
@@ -1250,14 +1305,14 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "tip",
-        text: "Two moves, that's all this is. Put something in his hand, or let him off the hook. Pick fast, because the longer he stands there with his arms crossed the harder it gets. What you never do is win an argument in front of his partner. And when he does come round, don't gloat and don't make him say it out loud — let him be right about something on the way out, and he'll be the one carrying the bag.",
-        textEs: "Dos jugadas, no hay más. O le pones algo en la mano, o lo sueltas del anzuelo. Decide rápido, porque cuanto más rato lleve ahí con los brazos cruzados, más difícil se pone. Lo que no haces nunca es ganar una discusión delante de su pareja. Y cuando se venga abajo, no te regodees ni le hagas decirlo en voz alta — dale la razón en algo al salir, y será él quien lleve la bolsa.",
+        text: "Three moves before you give up on him, and every one of them puts him INSIDE it: his hand, his opinion, a bet he thinks he's winning. A bloke on his phone with his arms crossed is bored, and bored is the easiest thing on this street to fix — letting him off is what you do when nothing worked, not what you open with. Only when he's genuinely nasty, still swinging after all three, does he get \"it's ladies' business anyway\" and you put everything you've got on her. What you never do is win an argument in front of his partner. And when he does come round, don't gloat and don't make him say it out loud — let him be right about something on the way out, and he'll be the one carrying the bag.",
+        textEs: "Tres jugadas antes de darlo por perdido, y las tres lo meten DENTRO: su mano, su opinión, una apuesta que cree que gana. Un tío con el móvil y los brazos cruzados está aburrido, y el aburrimiento es lo más fácil de arreglar de esta calle — soltarlo es lo que haces cuando no ha funcionado nada, no por dónde empiezas. Solo cuando va con muy mala leche y sigue dando guerra después de las tres se lleva el \"esto es cosa de chicas\" y tú te vuelcas del todo con ella. Lo que no haces nunca es ganar una discusión delante de su pareja. Y cuando se venga abajo, no te regodees ni le hagas decirlo en voz alta — dale la razón en algo al salir, y será él quien lleve la bolsa.",
       },
     ],
     quiz: [
       {
-        question: 'He is behind her, arms folded, muttering that it is a scam. What do you do?',
-        questionEs: 'Él está detrás con los brazos cruzados, murmurando que es un timo. ¿Qué haces?',
+        question: 'He is behind her, arms folded, muttering that it is a scam. What is your FIRST move?',
+        questionEs: 'Él está detrás con los brazos cruzados, murmurando que es un timo. ¿Cuál es tu PRIMERA jugada?',
         options: [
           'Answer him properly — facts will settle him down',
           'Talk over him and keep her eyes on the mirror',
@@ -1272,47 +1327,47 @@ export const scenarioLessons: Record<string, Lesson> = {
         ],
         correctIndex: 2,
         explanation:
-          'He does not want a debate, he wants proof he can feel. Nobody stays folded up while somebody is working on their hand.',
+          'He does not want a debate, he wants proof he can feel. You bring him in first — nobody stays folded up while somebody is working on their hand.',
         explanationEs:
-          'Él no quiere un debate, quiere una prueba que pueda notar. Nadie sigue con los brazos cruzados mientras le trabajan la mano.',
+          'Él no quiere un debate, quiere una prueba que pueda notar. Primero lo metes dentro — nadie sigue con los brazos cruzados mientras le trabajan la mano.',
       },
       {
-        question: 'He clearly does not want to be involved at all. What is the kind way out?',
-        questionEs: 'Está claro que él no quiere estar metido en esto. ¿Cuál es la salida amable?',
+        question: 'He is on his phone and would clearly rather be anywhere else. Now what?',
+        questionEs: 'Está con el móvil y está claro que preferiría estar en otro sitio. ¿Y ahora?',
         options: [
-          'Ask him to hold the mirror so he has a job to do',
-          'Ask him what he thinks it is worth, then match it',
-          'Ignore him and speak only to her from here on',
-          '"Do not worry, it is ladies\' business anyway"',
+          'Bring him in — his hand, or an opinion only he can give you',
+          'Let him off with "it is ladies\' business anyway" and move on',
+          'Ignore him completely and speak only to her from here on',
+          'Ask him what he thinks it is worth and then price it there',
         ],
         optionsEs: [
-          'Pedirle que sujete el espejo para que tenga tarea',
+          'Meterlo dentro — su mano, o una opinión que solo él te puede dar',
+          'Soltarlo con "esto es cosa de chicas" y seguir a lo tuyo',
+          'Ignorarlo del todo y hablar solo con ella a partir de ahora',
           'Preguntarle cuánto cree que vale y ponerle ese precio',
-          'Ignorarlo y hablar solo con ella a partir de ahora',
-          '"No te preocupes, que esto es cosa de chicas"',
-        ],
-        correctIndex: 3,
-        explanation:
-          'Light, with a smile, and no edge on it. A man who has been let off the hook stops fighting you and gets his phone back out.',
-        explanationEs:
-          'Ligero, con una sonrisa y sin pica. Un hombre al que has soltado del anzuelo deja de pelearse contigo y saca otra vez el móvil.',
-      },
-      {
-        question: 'He keeps needling, so you knock {currency}40 off to shut him up. What have you taught him?',
-        questionEs: 'Sigue picando y le quitas {currency}40 para callarlo. ¿Qué le acabas de enseñar?',
-        options: [
-          'That being difficult moves your numbers',
-          'That you respect him and want him on side',
-          'That the product was overpriced to start with',
-          'That you would rather close today than hold the price at all',
-        ],
-        optionsEs: [
-          'Que ponerse borde te mueve los números',
-          'Que lo respetas y lo quieres de tu lado',
-          'Que el producto estaba caro desde el principio',
-          'Que prefieres cerrar hoy antes que aguantar el precio',
         ],
         correctIndex: 0,
+        explanation:
+          'Bored is not hostile, and bored is the easiest thing on this street to fix. You only let him off when he is genuinely nasty and you have already tried everything else.',
+        explanationEs:
+          'Aburrido no es hostil, y el aburrimiento es lo más fácil de arreglar de esta calle. Solo lo sueltas si va con muy mala leche y ya lo has intentado todo.',
+      },
+      {
+        question: 'He keeps needling, so you jump from {currency}300 to {currency}210 to shut him up. What have you taught him?',
+        questionEs: 'Sigue picando y saltas de {currency}300 a {currency}210 para callarlo. ¿Qué le acabas de enseñar?',
+        options: [
+          'That you respect him and that you want him on your side',
+          'That the product was overpriced in the first place',
+          'That being difficult moves your numbers',
+          'That you would rather close today than hold your price',
+        ],
+        optionsEs: [
+          'Que lo respetas y que lo quieres de tu lado',
+          'Que el producto estaba caro desde el principio',
+          'Que ponerse borde te mueve los números',
+          'Que prefieres cerrar hoy antes que aguantar el precio',
+        ],
+        correctIndex: 2,
         explanation:
           'Now he knows exactly which button moves the money, and he will press it all the way down to your floor.',
         explanationEs:
@@ -1340,8 +1395,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "paragraph",
-        text: "A woman you sold to three months ago walks straight back up to your table. She remembers your name. She gets her phone out and shows you a photo of her own face, and it does look good. \"I finished the whole syringe,\" she says. \"It worked. What else have you got?\" This is the best thing that will happen to you today. She's already sold, she already trusts you, and she's holding her card. The only way to lose it is to get greedy.",
-        textEs: "Una mujer a la que vendiste hace tres meses se planta otra vez en tu mesa. Se acuerda de tu nombre. Saca el móvil y te enseña una foto de su propia cara, y la verdad es que está estupenda. \"Me acabé la jeringa entera\", te dice. \"Funcionó. ¿Qué más tienes?\" Es lo mejor que te va a pasar hoy. Ya está vendida, ya se fía de ti, y lleva la tarjeta en la mano. La única forma de perderla es ponerte codicioso.",
+        text: "A woman you sold to three months ago walks straight back up to your table. She remembers your name. She gets her phone out and shows you a photo of her own face, and it does look good. \"I finished the whole syringe,\" she says. \"It worked. What else have you got?\" This is the best thing that will happen to you today. She's already sold, she already trusts you, and she's holding her card. And here is the part that catches sellers out: this one is not yours to price.",
+        textEs: "Una mujer a la que vendiste hace tres meses se planta otra vez en tu mesa. Se acuerda de tu nombre. Saca el móvil y te enseña una foto de su propia cara, y la verdad es que está estupenda. \"Me acabé la jeringa entera\", te dice. \"Funcionó. ¿Qué más tienes?\" Es lo mejor que te va a pasar hoy. Ya está vendida, ya se fía de ti, y lleva la tarjeta en la mano. Y aquí está la parte que pilla a los vendedores: a esta no le pones tú el precio.",
       },
       {
         type: "subheader",
@@ -1352,16 +1407,16 @@ export const scenarioLessons: Record<string, Lesson> = {
         type: "numbered",
         items: [
           "MAKE A PROPER NOISE ABOUT HER. \"NO WAY, you came back! Let me look at you — I TOLD you!\" Loud, delighted, in front of whoever else is in the shop. She came back for that feeling as much as for the product.",
-          "SHOW HER SOMETHING NEW. She doesn't want the same box again, she wants the next thing. \"You've done the syringe. Sit down, let me show you the peeling.\"",
-          "DO THE DEMO ANYWAY. Don't skip it because she trusts you. The demo is what she came back for — two minutes of somebody making a fuss of her face.",
-          "GIVE HER THE FAMILY PRICE, TODAY. \"Normally it's {currency}300. For you, because you came back, {currency}210.\" Voice down, quick look at the door. She isn't buying it cheaper, she's buying the fact that you bent something for her.",
+          "DO THE DEMO ANYWAY, AND KEEP IT ON THE SYRINGE. She finished one, so that's the product she came back for and it's the one that matters. Don't skip it because she trusts you — the demo is what she came back for, two minutes of somebody making a fuss of her face.",
+          "THE PRICE IS NOT YOURS TO GIVE. This is the whole scenario, and it's the bit sellers get wrong because getting it wrong feels generous. A customer who came back gets priced by the manager — and if he's off the floor, by whoever out here has been doing this the longest. Say it to her like a compliment, because that is exactly what it is.",
+          "WAVE HIM OVER, DON'T WALK OFF. Never leave her stood at a table on her own while you go looking for somebody. Keep her sitting, keep the mirror in her hand, catch an eye and bring them to her.",
           "ASK FOR THE PHOTO AND THE REVIEW WHILE SHE'S GLOWING. Bag in her hand, face done, still delighted — that's the only minute all year she says yes to a Google review. Ask warmly, once, and let it go if she'd rather not.",
         ],
         itemsEs: [
           "MONTA UN BUEN ESCÁNDALO CON ELLA. \"¡NO ME LO CREO, has vuelto! A ver, déjame verte — ¡TE LO DIJE!\" Alto, encantado, delante de quien esté en la tienda. Ha vuelto por esa sensación tanto como por el producto.",
-          "ENSÉÑALE ALGO NUEVO. No quiere la misma caja otra vez, quiere lo siguiente. \"La jeringa ya la has hecho. Siéntate, que te enseño el peeling.\"",
-          "HAZLE LA DEMO IGUAL. No te la saltes porque se fíe de ti. La demo es a lo que ha vuelto — dos minutos de que alguien le haga caso a su cara.",
-          "DALE EL PRECIO DE LA FAMILIA, HOY. \"Normalmente son {currency}300. Para ti, porque has vuelto, {currency}210.\" Baja la voz, mirada rápida a la puerta. No lo está comprando más barato, está comprando que hayas doblado algo por ella.",
+          "HAZLE LA DEMO IGUAL, Y QUE SEA LA JERINGA. Se ha acabado una entera, así que ese es el producto al que ha vuelto y es el que importa. No te la saltes porque se fíe de ti — la demo es a lo que ha vuelto, dos minutos de que alguien le haga caso a su cara.",
+          "EL PRECIO NO ES TUYO PARA DARLO. Este es el escenario entero, y es lo que se hace mal porque hacerlo mal parece generoso. A una clienta que vuelve le pone el precio el encargado — y si no está en la planta, quien lleve más tiempo aquí fuera haciendo esto. Díselo como un halago, porque es exactamente lo que es.",
+          "LLÁMALO CON LA MANO, NO TE VAYAS. No la dejes nunca sola de pie en la mesa mientras vas a buscar a alguien. Que siga sentada, con el espejo en la mano, y tú buscas una mirada y te lo traes a ella.",
           "PÍDELE LA FOTO Y LA RESEÑA MIENTRAS ESTÁ RADIANTE. Con la bolsa en la mano, la cara hecha y todavía encantada — ese es el único minuto del año en el que dice que sí a una reseña de Google. Pídeselo con cariño, una vez, y déjalo estar si prefiere que no.",
         ],
       },
@@ -1374,12 +1429,14 @@ export const scenarioLessons: Record<string, Lesson> = {
         type: "bullets",
         items: [
           "Start from the beginning. \"So, this is our hyaluronic syringe…\" She bought one. You've just told her you don't remember her.",
+          "Put a number on her yourself. It feels like the generous thing to do and it's the one part of this that isn't yours. Even the family price is somebody else's to give.",
           "Get greedy. She came back because you were straight with her. Pile three products on her and you spend all that trust in one go.",
           "Forget what she bought. Her name, the product, where she's from — that's the whole trick, and nobody else on this street can copy it.",
           "Promise her something for next time. Not a held box, not a price kept warm, not \"ask for me\". You might not be on that shift, and a colleague has to stand there and explain.",
         ],
         itemsEs: [
           "Empezar desde el principio. \"Bueno, esta es nuestra jeringa hialurónica...\" Si ya se compró una. Le acabas de decir que no te acuerdas de ella.",
+          "Ponerle tú el precio. Parece lo generoso y es la única parte de esto que no te toca a ti. Hasta el precio de la familia lo tiene que dar otro.",
           "Ponerte codicioso. Ha vuelto porque fuiste honesto con ella. Échale tres productos encima y te gastas toda esa confianza de una sentada.",
           "Olvidar qué se llevó. Su nombre, el producto, de dónde es — ese es todo el truco, y no hay nadie más en esta calle que pueda copiarlo.",
           "Prometerle algo para la próxima. Ni una caja guardada, ni un precio que le sigue valiendo, ni \"pregunta por mí\". Igual ese día no estás tú, y le toca a un compañero quedarse ahí dando explicaciones.",
@@ -1392,28 +1449,28 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"NO. WAY. Maria!\" [Genuinely delighted, and be loud about it] \"Let me look at you — oh my God. I TOLD you. Look at that.\" [Let her enjoy it for a second] \"You finished the whole thing? Good girl. Right — sit down. I've got something you haven't seen.\"",
-        textEs: "TÚ: \"¡NO. ME. LO. CREO! ¡María!\" [Encantado de verdad, y que se te oiga] \"Déjame verte — madre mía. TE LO DIJE. Mira eso.\" [Deja que lo disfrute un segundo] \"¿Te lo acabaste entero? Muy bien. Venga — siéntate, que tengo algo que no has visto.\"",
+        text: "YOU: \"NO. WAY. Maria!\" [Genuinely delighted, and be loud about it] \"Let me look at you — oh my God. I TOLD you. Look at that.\" [Let her enjoy it for a second] \"You finished the whole thing? Good girl. Right — sit down. Same chair, same face, and I'm doing it again for nothing.\"",
+        textEs: "TÚ: \"¡NO. ME. LO. CREO! ¡María!\" [Encantado de verdad, y que se te oiga] \"Déjame verte — madre mía. TE LO DIJE. Mira eso.\" [Deja que lo disfrute un segundo] \"¿Te lo acabaste entero? Muy bien. Venga — siéntate. Misma silla, misma cara, y te lo vuelvo a hacer sin cobrarte nada.\"",
       },
       {
         type: "subheader",
-        text: "Script — The Next One Up",
-        textEs: "Guion — El Siguiente Escalón",
+        text: "Script — Straight Back In The Chair",
+        textEs: "Guion — Otra Vez a la Silla",
       },
       {
         type: "script",
-        text: "YOU: \"So you loved the syringe. This is what everybody does next.\" [Pick up the peeling] \"The syringe fills. This one takes the dead layer off first. Do them in that order and the syringe has somewhere clean to sit — that's the whole thing.\" [Quick peeling demo on the back of her hand] \"Feel that? Right. Now you know why I'm showing you.\"",
-        textEs: "TÚ: \"Así que te encantó la jeringa. Pues esto es lo que hace todo el mundo después.\" [Coge el peeling] \"La jeringa rellena. Este te quita antes la capa muerta. Hazlos en ese orden y la jeringa se queda en un sitio limpio — no hay más misterio.\" [Demo rápida del peeling en el dorso de su mano] \"¿Lo notas? Eso es. Ahora ya sabes por qué te lo enseño.\"",
+        text: "YOU: \"You finished the whole thing — that's exactly why it worked on you. Most people leave half of it in a drawer and then come and tell me it does nothing.\" [Hands on, exactly like the first time, no shortcuts because she trusts you] \"Sixty seconds. Same as before.\" [Mirror straight into her hand] \"Look at that. Right — before I say one word about money, give me ten seconds.\"",
+        textEs: "TÚ: \"Te lo acabaste entero — por eso te ha funcionado. La mayoría se deja la mitad en un cajón y luego viene a decirme que no hace nada.\" [Manos a la obra, igual que la primera vez, sin atajos por mucho que se fíe de ti] \"Sesenta segundos. Como la otra vez.\" [El espejo directo a su mano] \"Mira eso. Venga — antes de que diga una palabra del dinero, dame diez segundos.\"",
       },
       {
         type: "subheader",
-        text: "Script — The Family Price",
-        textEs: "Guion — El Precio de la Familia",
+        text: "Script — Getting The Boss",
+        textEs: "Guion — Traerte al Jefe",
       },
       {
         type: "script",
-        text: "YOU: \"You're not a customer any more, you're family.\" [Voice down, quick look at the door, lean in] \"Syringe and peeling together is {currency}450. For you, today, {currency}310 — and the Dead Sea Scrub goes in the bag as well, full size, from me. Don't tell anybody what you paid.\" [Bag into her hand] \"Welcome back.\"",
-        textEs: "TÚ: \"Ya no eres una clienta, eres de la familia.\" [Baja la voz, mirada rápida a la puerta, acércate] \"Jeringa y peeling juntos son {currency}450. Para ti, hoy, {currency}310 — y el Scrub del Mar Muerto va en la bolsa también, tamaño grande, de mi parte. No le digas a nadie lo que has pagado.\" [La bolsa a su mano] \"Bienvenida de nuevo.\"",
+        text: "YOU: \"Right. You came back, so I'm not the one who decides what you pay today.\" [Straight, and make it sound like the best news she's had all week] \"TONY! Come here a second — this is Maria, she finished a whole syringe, look at her face.\" [To her, while he's walking over] \"He's the boss. He does the numbers for the people who come back, and he'll look after you better than I can.\" [Do not leave her side. He comes to the chair; she does not go to him. And if he isn't on the floor, you get whoever out here has been doing this the longest — never a number of your own.]",
+        textEs: "TÚ: \"Venga. Como has vuelto, hoy no soy yo quien decide lo que pagas.\" [Directo, y que suene a la mejor noticia de su semana] \"¡TONY! Ven un segundo — esta es María, se ha acabado una jeringa entera, mírale la cara.\" [A ella, mientras él viene] \"Es el jefe. Él pone los números a la gente que vuelve, y te va a cuidar mejor que yo.\" [No te muevas de su lado. Él viene a la silla; ella no va a buscarlo. Y si no está en la planta, coges a quien lleve más tiempo aquí fuera haciendo esto — nunca un número tuyo.]",
       },
       {
         type: "subheader",
@@ -1432,31 +1489,31 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "tip",
-        text: "Keep a list on your phone: name, what they bought, when, and one personal thing — where she's from, the wedding, the sister with the same problem. Three months later you say \"Maria! How was the wedding? Did the syringe last you the whole trip?\" and she will not believe you remembered. That's the entire loyalty scheme and it costs nothing. One rule with it, though: nothing gets promised for next time. No held boxes, no price kept warm, no ask-for-me-by-name — you might be off that day and somebody else has to stand there and explain it. Give her everything today, and give it big.",
-        textEs: "Ten una lista en el móvil: nombre, qué se llevó, cuándo, y una cosa personal — de dónde es, la boda, la hermana con el mismo problema. Tres meses después le dices \"¡María! ¿Qué tal la boda? ¿Te duró la jeringa todo el viaje?\" y no se va a creer que te acordaras. Ese es todo el programa de fidelización, y no cuesta nada. Eso sí, una norma: no se promete nada para la próxima. Ni cajas guardadas, ni precios que siguen en pie, ni \"pregunta por mí\" — igual ese día libras y le toca a otro quedarse ahí dando explicaciones. Dale todo hoy, y dáselo a lo grande.",
+        text: "Keep a list on your phone: name, what they bought, when, and one personal thing — where she's from, the wedding, the sister with the same problem. Three months later you say \"Maria! How was the wedding? Did the syringe last you the whole trip?\" and she will not believe you remembered. That's the entire loyalty scheme and it costs nothing. Two rules go with it. One: the price is not yours. She came back, so the manager prices her, or whoever out here has been doing this the longest if he's off the floor. Handing her your own number feels like the generous thing and it's the one part of this you don't get to do. Two: nothing gets promised for next time. No held boxes, no price kept warm, no ask-for-me-by-name — you might be off that day and somebody else has to stand there and explain it. Give her everything today, and give it big.",
+        textEs: "Ten una lista en el móvil: nombre, qué se llevó, cuándo, y una cosa personal — de dónde es, la boda, la hermana con el mismo problema. Tres meses después le dices \"¡María! ¿Qué tal la boda? ¿Te duró la jeringa todo el viaje?\" y no se va a creer que te acordaras. Ese es todo el programa de fidelización, y no cuesta nada. Y con él van dos normas. Una: el precio no es tuyo. Ha vuelto, así que le pone el precio el encargado, o quien lleve más tiempo aquí fuera si él no está en la planta. Darle tu propio número parece lo generoso y es la única parte de esto que no te toca hacer. Dos: no se promete nada para la próxima. Ni cajas guardadas, ni precios que siguen en pie, ni \"pregunta por mí\" — igual ese día libras y le toca a otro quedarse ahí dando explicaciones. Dale todo hoy, y dáselo a lo grande.",
       },
     ],
     quiz: [
       {
-        question: 'She is back three months later with a photo of her own face. What do you sell her?',
-        questionEs: 'Vuelve tres meses después con una foto de su propia cara. ¿Qué le vendes?',
+        question: 'She is back three months later with a photo of her own face. Who decides what she pays today?',
+        questionEs: 'Vuelve tres meses después con una foto de su propia cara. ¿Quién decide hoy lo que paga?',
         options: [
-          'The same syringe again — it worked, so why change',
-          'The next thing up. Sit her down and demo the peeling',
-          'Everything on the table, while she is in the mood',
-          'Nothing yet — take her details and follow it up later',
+          'You do — you sold her the first one and you know what she is good for',
+          'The manager, or the most experienced person out on the floor',
+          'She does. Ask her what she thinks is fair and meet her there',
+          'Nobody yet — take her details and let her know a number later',
         ],
         optionsEs: [
-          'La misma jeringa otra vez — funcionó, para qué cambiar',
-          'Lo siguiente. Siéntala y hazle la demo del peeling',
-          'Todo lo de la mesa, ya que viene con ganas',
-          'Nada todavía — apunta sus datos y ya la llamas',
+          'Tú — le vendiste la primera y ya sabes hasta dónde llega',
+          'El encargado, o quien más experiencia tenga aquí en la planta',
+          'Ella. Le preguntas qué le parece justo y te quedas ahí',
+          'Nadie todavía — apuntas sus datos y ya le dices un número',
         ],
         correctIndex: 1,
         explanation:
-          'She does not want the same box again, she wants the next thing. She is already sold — the only way to lose this is to get greedy.',
+          'A customer who came back is not yours to price. Get the boss to the chair — and if he is off the floor, whoever out here has been doing this the longest.',
         explanationEs:
-          'No quiere la misma caja otra vez, quiere lo siguiente. Ya está vendida — la única forma de perderla es ponerte codicioso.',
+          'A una clienta que vuelve no le pones tú el precio. Tráete al jefe a la silla — y si no está en la planta, a quien lleve más tiempo aquí fuera haciendo esto.',
       },
       {
         question: 'She trusts you completely and she has already got her card out. Do you still do the demo?',
