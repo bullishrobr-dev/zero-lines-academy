@@ -13,9 +13,14 @@
  *   · a 320px sweep came back clean while never having got past the sign-in
  *     screen.
  *
- * Run:  ZL_PASSWORD=… npm run test:smoke
- * It expects a server on $ZL_BASE (default http://127.0.0.1:4173) serving a
- * production build — `npm run build && npx vite preview --port 4173`.
+ * Run:
+ *   npm run build:test
+ *   npx vite preview --config vite.test.config.ts --outDir dist-test --port 4173
+ *   npm run test:smoke
+ *
+ * The test build swaps in a blank backend and a throwaway account, so this
+ * needs no password and never touches the live database. See
+ * vite.test.config.ts. $ZL_BASE overrides the server (default 127.0.0.1:4173).
  */
 import { launch, signIn, go, text } from './harness.mjs';
 

@@ -32,3 +32,53 @@ jobs:
       # loud in a shop before anyone notices it in a diff.
       - name: Content rules
         run: npm run check:content
+
+  # Everything above reads source files. This drives the built app in a real
+  # browser, because the worst bugs this app has had were invisible to a file
+  # reader: every lesson paying zero XP, the daily tick that only appeared
+  # after a reload. Both were valid TypeScript with green guards.
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      # Builds with the backend and the roster swapped out — see
+      # vite.test.config.ts. That is what lets this run on every push without a
+      # repository secret and without a bot signing in as a real seller and
+      # banking XP on their account several times a day. The build fails if an
+      # import escapes the swap.
+      - name: Build the test bundle
+        run: npm run build:test
+
+      # Serve and test in ONE step on purpose. A server backgrounded in an
+      # earlier step is at the mercy of the runner between steps, and its open
+      # stdout can hang the step that started it.
+      - name: Serve it and drive it
+        run: |
+          set -e
+          npx vite preview --config vite.test.config.ts --outDir dist-test \
+            --port 4173 --host 127.0.0.1 --strictPort > preview.log 2>&1 &
+          server=$!
+          trap 'kill $server 2>/dev/null || true' EXIT
+
+          # --strictPort above, and this wait, because a run that silently
+          # lands on a different port tests whatever was already on 4173.
+          # That has happened, and it came back green on a six-version-old
+          # build. The harness now also checks the build stamp it finds.
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:4173/ > /dev/null; then break; fi
+            if [ "$i" = 30 ]; then cat preview.log; echo "no server on 4173"; exit 1; fi
+            sleep 1
+          done
+
+          npm run test:smoke

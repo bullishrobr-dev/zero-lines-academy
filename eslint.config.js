@@ -7,8 +7,10 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
   // `public/sw.js` is a service worker with its own globals and is not part of
-  // the app bundle; `dist` is build output.
-  globalIgnores(['dist', 'public/sw.js']),
+  // the app bundle. The rest are build output — `dist-test` and `dist-local`
+  // are the smoke-test and offline builds, and linting a bundle reports on
+  // every dependency in it.
+  globalIgnores(['dist', 'dist-test', 'dist-local', 'public/sw.js']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

@@ -29,7 +29,10 @@ import { readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { ROOT } from './paths.mjs';
 
-const DIST = join(ROOT, 'dist');
+/* Normally dist/. The smoke-test build lands in dist-test/ and still needs a
+   manifest, because the service worker fetches one and a 404 there shows up as
+   a console error — which the smoke test treats, correctly, as a failure. */
+const DIST = join(ROOT, process.argv[2] || 'dist');
 const SKIP = new Set(['index.html', 'sw.js', 'asset-manifest.json']);
 
 function walk(dir) {
@@ -63,5 +66,5 @@ writeFileSync(join(DIST, 'asset-manifest.json'), JSON.stringify(list, null, 0) +
 
 const bytes = files.reduce((n, f) => n + statSync(f).size, 0);
 console.log(
-  `PASS  wrote dist/asset-manifest.json — ${list.length} files, ${(bytes / 1024 / 1024).toFixed(1)} MB uncompressed`
+  `PASS  wrote ${relative(ROOT, DIST)}/asset-manifest.json — ${list.length} files, ${(bytes / 1024 / 1024).toFixed(1)} MB uncompressed`
 );

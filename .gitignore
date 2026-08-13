@@ -28,3 +28,6 @@ coverage/
 
 # Local verification build (device-only shim) — never shipped
 dist-local
+
+# Smoke-test build (npm run build:test) — never shipped
+dist-test
