@@ -15,7 +15,8 @@
     "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
     "gen:meta": "node scripts/gen-lesson-meta.mjs",
-    "check:content": "node scripts/check-scripts-portable.mjs && node scripts/check-lesson-meta.mjs && node scripts/check-backend-keys.mjs && node scripts/check-no-third-party-shell.mjs && node scripts/check-no-tax-claims.mjs && node scripts/check-no-lasting-promises.mjs && node scripts/check-no-walkaways.mjs && node scripts/check-retired-teachings.mjs && node scripts/check-no-rogue-state-writes.mjs && node scripts/check-spanish-parity.mjs && node scripts/check-spanish-register.mjs && node scripts/check-quiz-integrity.mjs && node scripts/check-tiers.mjs"
+    "check:content": "node scripts/check-scripts-portable.mjs && node scripts/check-lesson-meta.mjs && node scripts/check-backend-keys.mjs && node scripts/check-no-third-party-shell.mjs && node scripts/check-no-tax-claims.mjs && node scripts/check-no-lasting-promises.mjs && node scripts/check-no-walkaways.mjs && node scripts/check-retired-teachings.mjs && node scripts/check-canonical-scripts.mjs && node scripts/check-no-rogue-state-writes.mjs && node scripts/check-spanish-parity.mjs && node scripts/check-spanish-register.mjs && node scripts/check-quiz-integrity.mjs && node scripts/check-tiers.mjs",
+    "test:smoke": "node tests/smoke.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",
@@ -45,6 +46,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "playwright": "^1.62.1",
     "plugin-inspect-react-code": "^1.0.3",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.19",

@@ -577,9 +577,9 @@ const quizScrubExpert: GeneralQuiz = {
       ],
       correctIndex: 2,
       explanation:
-        "The Dead Sea contains 21 minerals, 12 of which exist nowhere else on Earth. The 'big four' for selling are: Magnesium (anti-inflammatory, hydrates), Calcium (skin barrier repair), Potassium (moisture balance), and Bromide (soothing, relaxes muscles). These are scientifically recognized benefits — mentioning them with confidence positions you as an expert, not just a seller.",
+        "The Dead Sea contains 21 minerals, 12 of which exist nowhere else on Earth. The 'big four' for selling are: Magnesium (anti-inflammatory, hydrates), Calcium (skin barrier repair), Potassium (moisture balance), and Bromide (soothing, relaxes muscles). That is the pitch — mentioning them with confidence positions you as an expert, not just a seller.",
       explanationEs:
-        "El Mar Muerto contiene 21 minerales, 12 de los cuales no existen en ningún otro lugar de la Tierra. Los 'cuatro grandes' para vender son: Magnesio (antiinflamatorio, hidrata), Calcio (reparación de barrera cutánea), Potasio (balance de humedad) y Bromuro (calmante, relaja músculos). Estos son beneficios científicamente reconocidos — mencionarlos con confianza te posiciona como experto, no solo vendedor."
+        "El Mar Muerto contiene 21 minerales, 12 de los cuales no existen en ningún otro lugar de la Tierra. Los 'cuatro grandes' para vender son: Magnesio (antiinflamatorio, hidrata), Calcio (reparación de barrera cutánea), Potasio (balance de humedad) y Bromuro (calmante, relaja músculos). Ese es el discurso — decirlo con confianza te posiciona como experto, no solo vendedor."
     },
     {
       question:
@@ -656,13 +656,13 @@ const quizScrubExpert: GeneralQuiz = {
       questionEs:
         "¿Cuál de estos es un beneficio REAL de los minerales del Mar Muerto que hace al scrub único comparado con scrubs de sal regulares?",
       options: [
-        "It contains 10x more salt than regular scrubs, which is what makes the crystals feel so different on the back of the hand",
+        "It is Dead Sea salt rather than table salt, which is what makes the crystals feel so different on the back of the hand",
         "The Dead Sea runs about 30% minerals, against roughly 3% in ordinary seawater — ten times as much in every handful",
         "It smells better than other scrubs because the minerals are unscented, so nothing competes with the perfume you already wear",
         "The crystals are sharper so they exfoliate deeper than sugar or plastic beads, which is why one use is enough for a whole week"
       ],
       optionsEs: [
-        "Contiene 10 veces más sal que los exfoliantes normales, que es lo que hace que los cristales se noten tan distintos en la mano",
+        "Es sal del Mar Muerto y no sal de mesa, que es lo que hace que los cristales se noten tan distintos en la mano",
         "El Mar Muerto ronda el 30% de minerales, frente al 3% del agua de mar normal — diez veces más en cada puñado",
         "Huele mejor que otros exfoliantes porque los minerales no llevan perfume, así que nada compite con el que ya usas",
         "Los cristales son más afilados, así que exfolian más hondo que el azúcar o las microesferas, por eso un uso basta para toda la semana"
@@ -1144,9 +1144,9 @@ const quizObjectionsChampion: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "This response is both scientifically accurate AND emotionally reassuring. The key fear is 'lightening' — so you address that directly ('doesn't change skin color at all'). Then you explain WHY it works equally (works from within, not surface). The 'ALL skin types equally' phrasing is inclusive and respectful. Never make assumptions about skin type needs — educate on universal benefits instead.",
+        "This response is both honest AND reassuring. The key fear is 'lightening' — so you address that directly ('doesn't change skin color at all'). Then you explain WHY it works equally (works from within, not surface). The 'ALL skin types equally' phrasing is inclusive and respectful. Never make assumptions about skin type needs — educate on universal benefits instead.",
       explanationEs:
-        "Esta respuesta es científicamente precisa Y emocionalmente tranquilizadora. El miedo clave es 'aclarar' — así que lo abordas directamente ('no cambia el color de piel para nada'). Luego explicas POR QUÉ funciona igualmente (trabaja desde adentro, no superficial). La frase 'TODOS los tipos de piel por igual' es inclusiva y respetuosa. Nunca hagas suposiciones sobre las necesidades de tipo de piel — educa sobre beneficios universales en su lugar."
+        "Esta respuesta es honesta Y tranquilizadora. El miedo clave es 'aclarar' — así que lo abordas directamente ('no cambia el color de piel para nada'). Luego explicas POR QUÉ funciona igualmente (trabaja desde adentro, no superficial). La frase 'TODOS los tipos de piel por igual' es inclusiva y respetuosa. Nunca hagas suposiciones sobre las necesidades de tipo de piel — educa sobre beneficios universales en su lugar."
     },
     {
       question:

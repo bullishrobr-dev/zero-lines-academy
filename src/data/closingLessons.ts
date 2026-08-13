@@ -26,6 +26,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import type { Lesson } from './lessons';
+import { GREETING, THE_RUSH_AND_THE_QUESTION, CALL_THEM_IN } from './canonicalScripts';
 
 export const closingLessons: Record<string, Lesson> = {
   /*
@@ -346,8 +347,7 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'script',
-        text: `"Hi guys, how you doing?"`,
-        textEs: `"Hola chicos, ¿qué tal?"`,
+        ...GREETING,
       },
       {
         type: 'paragraph',
@@ -372,8 +372,7 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'script',
-        text: `"Listen, I know you're in a rush — but can I ask you something really quick? It's just that you look so good, I have to ask what you normally use on your skin."`,
-        textEs: `"Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel."`,
+        ...THE_RUSH_AND_THE_QUESTION,
       },
       {
         type: 'paragraph',
@@ -414,8 +413,7 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'script',
-        text: `"Come on guys, it's two seconds, I promise. Come."`,
-        textEs: `"Venga chicos, son dos segundos, os lo prometo. Venid."`,
+        ...CALL_THEM_IN,
       },
       {
         type: 'keypoint',

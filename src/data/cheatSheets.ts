@@ -23,6 +23,7 @@ import {
   type PriceRung,
 } from './pricing';
 import type { Language } from './translations';
+import { THE_RUSH_AND_THE_QUESTION } from './canonicalScripts';
 
 /** Pick the string for the active language. */
 export function tr(lang: Language, en: string, es: string): string {
@@ -505,8 +506,10 @@ export const SCRIPTS: ScriptCard[] = [
     category: 'opening',
     title: '4. Name the rush before they can',
     titleEs: '4. Nombra la prisa antes que ellos',
-    text: `"Listen, I know you're in a rush — but can I ask you something really quick? It's just that you look so good, I have to ask what you normally use on your skin."`,
-    textEs: `"Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel."`,
+    /* The same line the lesson teaches, so it comes from the same place — a
+       cheat sheet a seller opens mid-shift must not have drifted from the
+       lesson they learned it in. See data/canonicalScripts.ts. */
+    ...THE_RUSH_AND_THE_QUESTION,
   },
   {
     id: 'o-gift',

@@ -605,13 +605,13 @@ export const LESSON_QUIZZES: Record<string, QuizQuestion[]> = {
   ],
   "psych-5": [
     {
-      question: "How does emotional contagion work according to psychological research?",
-      questionEs: "Según la investigación psicológica, ¿cómo funciona el contagio emocional?",
+      question: "Your mood spreads to the customer. In what order does that happen?",
+      questionEs: "Tu ánimo se le pega al cliente. ¿En qué orden pasa eso?",
       options: ["Through rewards, incentives, and social pressure between people", "Through logic, evidence, and rational persuasion between people", "Through habit, repetition, and daily routine between people", "Through mimicry, feedback, and synchronization between people"],
       optionsEs: ["Mediante las recompensas, los incentivos y la presión social entre personas", "Mediante la lógica, las pruebas y la persuasión racional entre personas", "Mediante el hábito, la repetición y la rutina diaria entre personas", "Mediante la imitación, la retroalimentación y la sincronización entre personas"],
       correctIndex: 3,
-      explanation: "Research shows emotional contagion works in three stages: mimicry (copying expressions), feedback (your brain generates matching emotions from your own expressions), and synchronization (both people end up in the same emotional state).",
-      explanationEs: "La investigación demuestra que el contagio emocional funciona en tres fases: la imitación (copiar las expresiones), la retroalimentación (tu cerebro genera emociones que encajan con tus propias expresiones) y la sincronización (las dos personas acaban en el mismo estado emocional).",
+      explanation: "Mood is catching, and it goes in this order: they copy your face without meaning to, their own face feeds the mood back to them, and thirty seconds later you are both in the same one. Which is why the seller sets the temperature, not the customer.",
+      explanationEs: "El ánimo se pega, y va en este orden: te copian la cara sin querer, su propia cara les devuelve el ánimo, y treinta segundos después estáis los dos en el mismo. Por eso la temperatura la pone el vendedor, no el cliente.",
     },
     {
       question: "When is calm, warm energy most appropriate?",

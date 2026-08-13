@@ -14,6 +14,7 @@ import { objectionLessons } from './objectionLessons';
 import { closingLessons } from './closingLessons';
 import { LESSON_QUIZZES } from './lessonQuizzes';
 import { categories, getCategory, type Category } from './categories';
+import { GREETING, THE_RUSH_AND_THE_QUESTION, CALL_THEM_IN } from './canonicalScripts';
 
 export type SectionType =
   | 'header'
@@ -3160,7 +3161,7 @@ export const lessons: Record<string, Lesson> = {
         'End the conversation'
       ],
       correctIndex: 1,
-      explanation: 'Don\'t compete with their cream — complement it. Position your product as the prep step that makes their existing cream work 10x better. They\'re not replacing; they\'re enhancing.',
+      explanation: 'Don\'t compete with their cream — complement it. Position your product as the prep step that makes the cream she already owns work properly. They\'re not replacing; they\'re enhancing.',
     },
     {
       question: 'They hit you with an objection. What is the first thing you do?',
@@ -3520,8 +3521,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'paragraph',
-      text: 'Some days you just don\'t have it. You didn\'t sleep well. You\'re fighting with your partner. You\'re hungover. Here\'s the truth: your body can trick your brain. Research shows that acting energetic actually creates energy. Stand tall → feel more confident. Smile → feel happier. Speak loudly → feel more alert.',
-      textEs: 'Hay días en los que simplemente no lo tienes. No has dormido bien. Estás discutiendo con tu pareja. Vas con resaca. La verdad es esta: tu cuerpo puede engañar a tu cerebro. Los estudios demuestran que actuar con energía crea energía de verdad. Ponte recto → te sientes más seguro. Sonríe → te sientes más contento. Habla alto → te sientes más despierto.'
+      text: 'Some days you just don\'t have it. You didn\'t sleep well. You\'re fighting with your partner. You\'re hungover. Here\'s the truth: your body can trick your brain. Act energetic and the energy turns up afterwards — every seller on this floor has done it on a Monday and felt it work. Stand tall → feel more confident. Smile → feel happier. Speak loudly → feel more alert.',
+      textEs: 'Hay días en los que simplemente no lo tienes. No has dormido bien. Estás discutiendo con tu pareja. Vas con resaca. La verdad es esta: tu cuerpo puede engañar a tu cerebro. Actúa con energía y la energía llega después — todo el mundo en este suelo lo ha hecho un lunes y ha notado que funciona. Ponte recto → te sientes más seguro. Sonríe → te sientes más contento. Habla alto → te sientes más despierto.'
     },
     {
             type: 'script',
@@ -5066,8 +5067,7 @@ export const lessons: Record<string, Lesson> = {
       },
       {
         type: 'script',
-        text: `"Hi guys, how you doing?"`,
-        textEs: `"Hola chicos, ¿qué tal?"`,
+        ...GREETING,
       },
       {
         type: 'paragraph',
@@ -5143,8 +5143,7 @@ export const lessons: Record<string, Lesson> = {
       },
       {
         type: 'script',
-        text: `"Listen, I know you're in a rush — but can I ask you something really quick? It's just that you look so good, I have to ask what you normally use on your skin."`,
-        textEs: `"Mira, sé que vas con prisa — ¿pero te puedo preguntar una cosa rapidísima? Es que te veo tan bien que tengo que preguntarte qué usas normalmente para la piel."`,
+        ...THE_RUSH_AND_THE_QUESTION,
       },
       {
         type: 'paragraph',
@@ -5220,8 +5219,7 @@ export const lessons: Record<string, Lesson> = {
       },
       {
         type: 'script',
-        text: `"Come on guys, it's two seconds, I promise. Come."`,
-        textEs: `"Venga chicos, son dos segundos, os lo prometo. Venid."`,
+        ...CALL_THEM_IN,
       },
       {
         type: 'keypoint',
@@ -5606,13 +5604,13 @@ export const lessons: Record<string, Lesson> = {
         'SYRINGE: \'Don\'t worry, it\'s not that kind of syringe! No needles, just magic for your eyes. Promise.\'',
         'NAIL KIT: \'I promise not to scream when I show you this. My last customer did, and her husband got jealous.\'',
         'SCRUB: \'This will make your hands softer than a baby\'s... actually, that\'s a weird comparison. Just trust me, they\'re going to feel incredible.\'',
-        'PEELING: \'This is my favorite trick for glowing skin. And by trick, I mean scientifically-proven miracle. But trick sounds cooler.\''
+        'PEELING: \'This is my favourite trick for glowing skin. And by trick I mean miracle. But trick sounds cooler.\''
       ],
       itemsEs: [
         'JERINGA: \'¡No te preocupes, no es ese tipo de jeringa! Sin agujas, solo magia para tus ojos. Prometido.\'',
         'KIT DE UÑAS: \'Prometo no gritar cuando te muestre esto. Mi última clienta sí gritó, y su esposo se puso celoso.\'',
         'EXFOLIANTE: \'Esto va a dejar tus manos más suaves que las de un bebé... bueno, esa comparación está rara. Solo confía en mí, van a sentirse increíbles.\'',
-        'PEELING: \'Este es mi truco favorito para piel radiante. Y por truco, me refiero a un milagro científicamente comprobado. Pero truco suena más cool.\''
+        'PEELING: \'Este es mi truco favorito para piel radiante. Y por truco me refiero a un milagro. Pero truco suena más cool.\''
       ]
     },
     {
