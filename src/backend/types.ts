@@ -53,6 +53,11 @@ export interface QuizResult {
 export interface TeamStats {
   totalEmployees: number;
   avgCompletion: number;
+  /** Best converter's first name once anyone is closing; otherwise whoever is furthest through the training. */
   topPerformer: string;
   atRiskCount: number;
+  /** Team conversion over 7 days, or null when nobody has worked a logged shift. */
+  teamConversion: number | null;
+  /** The best converter's own percentage, or null. Pairs with topPerformer. */
+  topConversion: number | null;
 }

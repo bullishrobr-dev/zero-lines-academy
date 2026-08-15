@@ -50,7 +50,7 @@ async function run(width, lang) {
     const ROUTES = [
       '/home', '/training', '/cheat-sheets', '/cheat-sheets/said', '/cheat-sheets/prices',
       '/street-tracker', '/end-of-shift', '/shift-checkin', '/profile', '/settings',
-      '/quizzes', '/exercises', '/leaderboard', '/first-day', '/flashcards',
+      '/quizzes', '/exercises', '/leaderboard', '/first-day', '/flashcards', '/manager',
       '/lesson/stop-1', '/lesson/close-1', '/lesson/close-handover', '/lesson/O1', '/lesson/S2',
     ];
     let worstOverflow = 0;

@@ -64,6 +64,7 @@ import * as backend from '../backend/mockBackend';
 import * as db from '../backend/db';
 import type { User, UserLocation } from '../backend/types';
 import { generatePassword, newSalt } from '../utils/credentials';
+import { sellerStatus, type SellerStatus } from '../data/sellerStatus';
 
 type EmployeeProgress = backend.EmployeeProgress;
 
@@ -101,6 +102,11 @@ const COPY = {
   statAvg: { en: 'Average done', es: 'Media completada' },
   statTop: { en: 'Furthest along', es: 'Más avanzado' },
   statRisk: { en: 'Behind', es: 'Rezagados' },
+  /* Once anyone has worked a logged shift the headline switches to the floor —
+     a shift is measured on what got sold, not on what got read. */
+  statConversion: { en: 'Team converting', es: 'Equipo convierte' },
+  statBestCloser: { en: 'Best closer', es: 'Quien más cierra' },
+  statNeedsHelp: { en: 'Need a hand', es: 'Necesitan ayuda' },
 
   /* ── The one explanation ── */
   whyTitle: { en: 'Where the numbers are', es: 'Dónde están los números' },
@@ -327,51 +333,25 @@ async function copyToClipboard(text: string): Promise<boolean> {
 const inputClass =
   'min-h-touch w-full rounded-chip border border-line-strong bg-surface px-3 text-body-small text-ink outline-none placeholder:text-ink-3 focus:border-teal-strong';
 
-type Status = 'onTrack' | 'needsPush' | 'atRisk' | 'notStarted';
+type Status = SellerStatus;
 
-/** Only ever called for people this device has records for. */
 /*
- * ── THIS USED TO SCORE READING, AND EVERYONE FAILED ─────────────────────────
- *
- * It read one number: `emp.progress`, the fraction of all 56 lessons a seller
- * had tapped through. So a brand-new hire was mathematically red on their first
- * day no matter how well they sold, and a seller who had finished both of the
- * tiers open to them — twelve lessons, 92% quiz average — was labelled
- * "Falling behind". Every seller on the test roster came back red, and a red dot
- * that everybody wears is a red dot nobody reads.
- *
- * It now reads the two things a manager actually coaches on:
- *
- *   FLOOR   conversion over the last 7 days — who is getting people to buy.
- *           This is the real job, and it is already in the data (db.ts pulls
- *           seven days of stops and sales per seller).
- *   PACE    whether they are still learning at all — but only as a tiebreak,
- *           and never enough on its own to call somebody at risk.
- *
- * Anyone with no floor data yet is judged on pace alone, because calling a
- * first-week hire "at risk" for not having sold anything tells you nothing you
- * did not already know.
+ * The rule itself lives in data/sellerStatus.ts, because the headline tiles at
+ * the top of this page need the SAME answer and used to compute their own — so
+ * a seller's card read "On track" in green while the tile above her counted her
+ * in "2 Behind". Read that file for why the floor comes before the lessons.
+ * All this does is pick the colour of the dot.
  */
+const STATUS_DOT: Record<Status, string> = {
+  onTrack: 'bg-success',
+  needsPush: 'bg-warning',
+  atRisk: 'bg-danger',
+  notStarted: 'bg-line-strong',
+};
+
 function getStatus(emp: EmployeeProgress): { key: Status; dot: string } {
-  if (!emp.hasData && emp.completedLessons === 0) {
-    return { key: 'notStarted', dot: 'bg-line-strong' };
-  }
-
-  const worked = emp.street.stops > 0;
-
-  if (worked) {
-    // Sold to at least one in five they got inside — that is a working seller.
-    if (emp.street.conversion >= 20) return { key: 'onTrack', dot: 'bg-success' };
-    // Bringing people in and not closing them is the coachable case, and the
-    // one this screen exists to surface.
-    if (emp.street.conversion >= 8) return { key: 'needsPush', dot: 'bg-warning' };
-    return { key: 'atRisk', dot: 'bg-danger' };
-  }
-
-  // No floor data. Judge on movement through the training only.
-  if (emp.completedLessons === 0) return { key: 'notStarted', dot: 'bg-line-strong' };
-  if (emp.progress >= 40) return { key: 'onTrack', dot: 'bg-success' };
-  return { key: 'needsPush', dot: 'bg-warning' };
+  const key = sellerStatus(emp);
+  return { key, dot: STATUS_DOT[key] };
 }
 
 /* ── Page ── */
@@ -385,7 +365,13 @@ export default function ManagerDashboard() {
   const locale = isEs ? 'es-ES' : 'en-GB';
 
   const [team, setTeam] = useState<EmployeeProgress[] | null>(null);
-  const [stats, setStats] = useState({ avgCompletion: 0, top: '—', atRisk: 0 });
+  const [stats, setStats] = useState<{
+    avgCompletion: number;
+    top: string;
+    atRisk: number;
+    teamConversion: number | null;
+    topConversion: number | null;
+  }>({ avgCompletion: 0, top: '—', atRisk: 0, teamConversion: null, topConversion: null });
 
   const [selected, setSelected] = useState<EmployeeProgress | null>(null);
   const [locationFilter, setLocationFilter] = useState<'all' | UserLocation>('all');
@@ -406,7 +392,13 @@ export default function ManagerDashboard() {
       const s = await backend.getTeamStats(user.id);
       if (cancelled) return;
       setTeam(data);
-      setStats({ avgCompletion: s.avgCompletion, top: s.topPerformer, atRisk: s.atRiskCount });
+      setStats({
+          avgCompletion: s.avgCompletion,
+          top: s.topPerformer,
+          atRisk: s.atRiskCount,
+          teamConversion: s.teamConversion,
+          topConversion: s.topConversion,
+        });
     })();
     return () => {
       cancelled = true;
@@ -421,7 +413,13 @@ export default function ManagerDashboard() {
         const data = await backend.getTeamProgress(user.id);
         const s = await backend.getTeamStats(user.id);
         setTeam(data);
-        setStats({ avgCompletion: s.avgCompletion, top: s.topPerformer, atRisk: s.atRiskCount });
+        setStats({
+          avgCompletion: s.avgCompletion,
+          top: s.topPerformer,
+          atRisk: s.atRiskCount,
+          teamConversion: s.teamConversion,
+          topConversion: s.topConversion,
+        });
       } catch {
         // Keep showing what we had rather than blanking the screen.
       }
@@ -518,11 +516,27 @@ export default function ManagerDashboard() {
               {c(backend.isDatabaseConfigured ? 'measuredHeadingLive' : 'measuredHeading')}
             </p>
             <div className="mt-3 grid grid-cols-3 divide-x divide-line">
-              {[
-                { value: `${stats.avgCompletion}%`, label: c('statAvg') },
-                { value: stats.top, label: c('statTop') },
-                { value: String(stats.atRisk), label: c('statRisk') },
-              ].map((cell) => (
+              {(stats.teamConversion === null
+                ? /* Nobody has logged a shift yet, so there is nothing true to
+                     say about selling. Say what we do know rather than printing
+                     a confident 0%. */
+                  [
+                    { value: `${stats.avgCompletion}%`, label: c('statAvg') },
+                    { value: stats.top, label: c('statTop') },
+                    { value: String(stats.atRisk), label: c('statRisk') },
+                  ]
+                : [
+                    { value: `${stats.teamConversion}%`, label: c('statConversion') },
+                    {
+                      value:
+                        stats.topConversion === null
+                          ? stats.top
+                          : `${stats.top} ${stats.topConversion}%`,
+                      label: c('statBestCloser'),
+                    },
+                    { value: String(stats.atRisk), label: c('statNeedsHelp') },
+                  ]
+              ).map((cell) => (
                 <div key={cell.label} className="px-1 text-center">
                   <p className="truncate text-h3 text-ink">{cell.value}</p>
                   <p className="mt-0.5 text-caption leading-4 text-ink-3">{cell.label}</p>
@@ -725,7 +739,11 @@ function EmployeeCard({
   // and "no data" only when neither is.
   const hasTraining = emp.completedLessons > 0 || emp.avgScore > 0;
   const hasStreet = emp.street.stops > 0 || emp.street.sales > 0;
-  const status = hasTraining ? getStatus(emp) : null;
+  /* Either signal is enough. This used to require TRAINING, so the seller in
+     their first fortnight — forty stops, every one handed to a colleague, not
+     a lesson touched yet, which is precisely the job — had no status on their
+     card at all, while the tiles above were already counting them. */
+  const status = hasTraining || hasStreet ? getStatus(emp) : null;
   return (
     <div className="surface-raised overflow-hidden">
       <button type="button" onClick={onOpen} className="w-full p-4 text-left">

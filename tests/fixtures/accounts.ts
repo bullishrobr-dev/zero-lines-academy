@@ -37,6 +37,27 @@ export const ACCOUNTS: Account[] = [
     role: 'admin',
     location: 'andorra',
   },
+  /* Two sellers in the same shop, so /manager renders its actual team cards
+     instead of its empty state. With one account on the roster the smoke test
+     swept the longest page in the app — 1,500 lines of dashboard — and only
+     ever saw "Nobody on your team yet". Same password; nothing here can sign
+     in to the real site. */
+  {
+    username: 'seller1',
+    name: 'Ana Fixture',
+    salt: '8d59ab138121db008f2e003055df67dd',
+    verifier: 'd789688db56b6a6e4392f4e7ded91fc604f61ade630ff97363b6dd264020c8c6',
+    role: 'employee',
+    location: 'andorra',
+  },
+  {
+    username: 'seller2',
+    name: 'Tomas Fixture',
+    salt: '0473f805e9905b4018bca0e587708732',
+    verifier: '7587810432b0a89895909cf7845e1fb87160360b5b5b6fa746896d4bf9f43a55',
+    role: 'employee',
+    location: 'andorra',
+  },
 ];
 
 export function accountId(username: string): string {

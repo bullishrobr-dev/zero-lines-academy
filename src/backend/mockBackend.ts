@@ -19,6 +19,7 @@
 
 import type { User, UserRole, UserLocation, LessonProgress, QuizResult, TeamStats } from './types';
 import { LESSON_META } from '@/data/lessonMeta';
+import { teamHeadline } from '../data/sellerStatus';
 import { ACCOUNTS, accountId, findAccount, type Account } from '../data/accounts';
 import { hashPassword, verifierMatches } from '../utils/credentials';
 import { isDatabaseConfigured } from './supabaseClient';
@@ -53,6 +54,7 @@ const LS_QUIZZES = 'zl_backend_quiz_results';
    curriculum would have shown over 100%. A hardcoded count of a thing that
    grows is a number that is always slightly wrong. */
 export const TOTAL_LESSON_COUNT = Object.keys(LESSON_META).length;
+
 
 // ── Helpers ──
 function loadJSON<T>(key: string, fallback: T): T {
@@ -293,17 +295,12 @@ export async function getTeamProgress(managerId: string): Promise<EmployeeProgre
 
 export async function getTeamStats(managerId: string): Promise<TeamStats> {
   const team = await getTeamProgress(managerId);
-  const measured = team.filter((e) => e.hasData);
-  if (measured.length === 0) {
-    return { totalEmployees: team.length, avgCompletion: 0, topPerformer: '—', atRiskCount: 0 };
-  }
-  return {
-    totalEmployees: team.length,
-    avgCompletion: Math.round(measured.reduce((s, e) => s + e.progress, 0) / measured.length),
-    topPerformer: measured.reduce((best, e) => (e.progress > best.progress ? e : best), measured[0])
-      .user.name.split(' ')[0],
-    atRiskCount: measured.filter((e) => e.progress < 40).length,
-  };
+  /* The maths lives in data/sellerStatus.ts next to the rule that decides the
+     dots on the cards below, because the tiles and the dots have to agree —
+     they used to not, and the same seller read "On track" on her card while
+     being counted in "Behind" in the tile above her. */
+  const headline = teamHeadline(team.map((e) => ({ ...e, name: e.user.name })));
+  return { totalEmployees: team.length, ...headline };
 }
 
 // ── Roster editing ──
