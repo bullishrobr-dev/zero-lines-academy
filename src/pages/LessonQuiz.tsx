@@ -46,6 +46,14 @@ const COPY = {
     en: 'No XP this time. Retake the quiz — every correct answer earns XP.',
     es: 'Sin XP esta vez. Repite el cuestionario — cada respuesta correcta gana XP.',
   },
+  /* Retaking is the behaviour the app asks for, and it credits the
+     difference only — usually nothing. The screen used to print the
+     attempt's full value with "saved to your profile" under it. Saying
+     +0 without saying WHY reads as the app being broken. */
+  xpAlreadyBanked: {
+    en: 'You already banked the XP for this one. The practice still counts.',
+    es: 'El XP de este ya te lo llevaste. La práctica sigue contando.',
+  },
 } as const;
 
 interface QuizResult {
@@ -132,11 +140,11 @@ export default function LessonQuiz() {
     /* Persist: the quiz result (percent + XP), and the lesson as completed.
        completeLesson only awards its XP the first time, so retaking the quiz
        cannot re-award the lesson. */
-    recordQuizScore(`lesson-${lesson.id}`, Math.round((score / totalQ) * 100), award.xp);
+    const credited = recordQuizScore(`lesson-${lesson.id}`, Math.round((score / totalQ) * 100), award.xp);
     completeLesson(lesson.id, lesson.xpReward);
 
-    setResult({ correct: score, total: totalQ, ...award });
-    if (award.xp > 0) setToastVisible(true);
+    setResult({ correct: score, total: totalQ, ...award, xp: credited });
+    if (credited > 0) setToastVisible(true);
     if (score === totalQ) {
       haptic('heavy');
       setCelebrate(true);
@@ -372,7 +380,9 @@ export default function LessonQuiz() {
                 ? `${result.base} ${tx('xpBase')} + ${result.bonus} ${tx('xpPerfectBonus')} · ${tx('xpSaved')}`
                 : result.xp > 0
                   ? tx('xpSaved')
-                  : tx('xpNone')}
+                  : result.correct > 0
+                    ? tx('xpAlreadyBanked')
+                    : tx('xpNone')}
             </p>
 
             {/* Buttons */}

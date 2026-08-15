@@ -58,6 +58,14 @@ const COPY = {
     en: 'No XP this time. Retake the quiz — every correct answer earns XP.',
     es: 'Sin XP esta vez. Repite el cuestionario — cada respuesta correcta gana XP.',
   },
+  /* Retaking is the behaviour the app asks for, and it credits the
+     difference only — usually nothing. The screen used to print the
+     attempt's full value with "saved to your profile" under it. Saying
+     +0 without saying WHY reads as the app being broken. */
+  xpAlreadyBanked: {
+    en: 'You already banked the XP for this one. The practice still counts.',
+    es: 'El XP de este ya te lo llevaste. La práctica sigue contando.',
+  },
   xpMore: {
     en: 'Get every answer right for a +25% perfect bonus.',
     es: 'Acierta todas para un bonus perfecto del +25%.',
@@ -152,11 +160,11 @@ export default function QuizzesPage() {
     const award = quizAward(score, totalQ, quiz.xpReward);
     /* recordQuizScore(id, scorePercent, xpEarned) — the percent is the stored
        score, the XP is what gets added to the seller's total. */
-    recordQuizScore(quiz.id, Math.round((score / totalQ) * 100), award.xp);
-    setResult({ correct: score, total: totalQ, ...award });
+    const credited = recordQuizScore(quiz.id, Math.round((score / totalQ) * 100), award.xp);
+    setResult({ correct: score, total: totalQ, ...award, xp: credited });
     setView('results');
 
-    if (award.xp > 0) setToastVisible(true);
+    if (credited > 0) setToastVisible(true);
     if (score === totalQ) {
       haptic('heavy');
       setCelebrate(true);
@@ -482,7 +490,13 @@ export default function QuizzesPage() {
                   : `${tx('xpEarned')} · ${tx('quizSaved')}`}
               </p>
             )}
-            {result.xp === 0 && <p className="text-caption text-ink-2 mt-2">{tx('xpNone')}</p>}
+            {result.xp === 0 && (
+              <p className="text-caption text-ink-2 mt-2">
+                {/* Nothing credited has two very different causes, and only
+                    one of them is the seller's fault. */}
+                {result.correct > 0 ? tx('xpAlreadyBanked') : tx('xpNone')}
+              </p>
+            )}
             {result.xp > 0 && !isPerfect && (
               <p className="text-caption text-ink-2 mt-2">{tx('xpMore')}</p>
             )}

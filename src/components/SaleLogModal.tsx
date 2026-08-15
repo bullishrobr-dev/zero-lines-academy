@@ -26,6 +26,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Coins, X } from 'lucide-react';
 import { celebrateSaleLogged } from '../utils/confetti';
 import { haptic } from '../utils/haptics';
+import { XP_VALUES } from '../types/streetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import { PRODUCTS } from '../types/streetTracker';
@@ -53,7 +54,7 @@ const COPY = {
     // Not "Log sale": the nav pill already has a control with that exact
     // accessible name, and two identical names on screen is a screen-reader trap.
     submit: 'Save sale',
-    submitXP: '+10 XP',
+    submitXP: `+${XP_VALUES.sale} XP`,
   },
   es: {
     title: 'Registrar venta',
@@ -66,7 +67,7 @@ const COPY = {
     cancel: 'Cancelar',
     close: 'Cerrar',
     submit: 'Guardar venta',
-    submitXP: '+10 XP',
+    submitXP: `+${XP_VALUES.sale} XP`,
   },
 };
 

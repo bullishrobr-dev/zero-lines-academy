@@ -88,7 +88,17 @@ const PER_USER_KEYS = [
 
 const LS_LAST_USER = 'zl_last_user_id';
 
-function clearPerUserState() {
+/*
+ * Wipe everything that belongs to the signed-in person.
+ *
+ * Exported because "Reset Everything" in Settings needs exactly this list and
+ * had its own shorter one — it removed eight keys and left the quiz XP ledger
+ * behind, so after a reset every quiz already taken paid `max(0, earned −
+ * earned)` = nothing, for good. The seller had no way to connect the symptom
+ * ("quizzes stopped paying") to the cause, and the only cure was signing out.
+ * Two lists of the same thing is how that happens; now there is one.
+ */
+export function clearPerUserState() {
   for (const key of PER_USER_KEYS) {
     try {
       localStorage.removeItem(key);

@@ -115,6 +115,14 @@ const COPY = {
     en: 'No XP this time. Retry — XP is only awarded for correct answers.',
     es: 'Sin XP esta vez. Reinténtalo — el XP solo se gana con respuestas correctas.',
   },
+  /* Retaking is the behaviour the app asks for, and it credits the
+     difference only — usually nothing. The screen used to print the
+     attempt's full value with "saved to your profile" under it. Saying
+     +0 without saying WHY reads as the app being broken. */
+  xpAlreadyBanked: {
+    en: 'You already banked the XP for this one. The practice still counts.',
+    es: 'El XP de este ya te lo llevaste. La práctica sigue contando.',
+  },
 } as const;
 
 type CopyKey = keyof typeof COPY;
@@ -294,10 +302,12 @@ export default function ExercisesPage() {
       if (!activeExerciseId) return;
       /* Exercises are recorded separately from quizzes so they do not skew
          the quiz accuracy and "quizzes passed" figures on the profile. */
-      recordExerciseScore(activeExerciseId, award.percent, award.xp);
-      setResult(award);
+      const credited = recordExerciseScore(activeExerciseId, award.percent, award.xp);
+      /* Show what was credited, not what the attempt was worth — a retry of an
+         exercise already banked credits nothing. */
+      setResult({ ...award, xp: credited });
       setView('results');
-      if (award.xp > 0) {
+      if (credited > 0) {
         setToastVisible(true);
         setCelebrate(true);
         haptic(award.fast ? 'heavy' : 'medium');
@@ -513,7 +523,9 @@ export default function ExercisesPage() {
               ? `${result.base} ${tx('xpBase')} + ${result.bonus} ${tx('xpBonus')} · ${tx('xpSaved')}`
               : result.xp > 0
                 ? `${tx('xpEarned')} · ${tx('xpSaved')}`
-                : tx('xpNone')}
+                : result.percent > 0
+                  ? tx('xpAlreadyBanked')
+                  : tx('xpNone')}
           </p>
         </motion.div>
 

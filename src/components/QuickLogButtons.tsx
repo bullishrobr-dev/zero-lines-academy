@@ -3,6 +3,11 @@ import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { DoorOpen, Coins } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+/* The numbers on these buttons are the numbers the app actually pays.
+   They were written out by hand and went stale the moment a sale was
+   raised to beat a lesson, so the button spent months arguing against
+   its own raise. */
+import { XP_VALUES } from '../types/streetTracker';
 
 interface QuickLogButtonsProps {
   onLogStop: () => void;
@@ -105,7 +110,7 @@ const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogSale 
             }}
             label={t.stop}
             short={t.stopShort}
-            xp="+5 XP"
+            xp={`+${XP_VALUES.stop} XP`}
             fill="bg-teal text-on-teal"
             ink="text-teal-strong"
             icon={<DoorOpen className="h-7 w-7" aria-hidden="true" />}
@@ -117,7 +122,7 @@ const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogSale 
             }}
             label={t.sale}
             short={t.saleShort}
-            xp="+10 XP"
+            xp={`+${XP_VALUES.sale} XP`}
             fill="bg-gold text-on-gold"
             ink="text-gold-strong"
             icon={<Coins className="h-7 w-7" aria-hidden="true" />}

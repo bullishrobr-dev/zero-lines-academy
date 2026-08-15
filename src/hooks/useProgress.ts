@@ -47,7 +47,7 @@ import {
   isLessonUnlocked,
 
 } from '@/data/lessonTiers';
-import { useAuthContext } from '@/contexts/AuthContext';
+import { useAuthContext, clearPerUserState } from '@/contexts/AuthContext';
 import { isDatabaseConfigured } from '@/backend/mockBackend';
 import * as db from '@/backend/db';
 
@@ -115,9 +115,17 @@ export interface UseProgressReturn extends ProgressState {
   getCurrentStreak: () => number;
   getBestStreak: () => number;
   /** @param scorePercent 0-100 correctness. @param xpEarned XP to award. */
-  recordQuizScore: (quizId: string, scorePercent: number, xpEarned?: number) => void;
+  /**
+   * Returns the XP ACTUALLY credited, which is not always what the attempt was
+   * worth. Retaking a quiz you have already banked pays the difference only —
+   * usually zero — and the result screen used to print the attempt's value with
+   * "saved to your profile" underneath it while crediting nothing. Retaking is
+   * the behaviour the app asks for, so it is the common case, not an edge one.
+   */
+  recordQuizScore: (quizId: string, scorePercent: number, xpEarned?: number) => number;
   /** Exercises are tracked separately so they do not skew quiz accuracy stats. */
-  recordExerciseScore: (exerciseId: string, scorePercent: number, xpEarned?: number) => void;
+  /** Returns the XP actually credited — see recordQuizScore. */
+  recordExerciseScore: (exerciseId: string, scorePercent: number, xpEarned?: number) => number;
   getExerciseScore: (exerciseId: string) => number | null;
   getQuizScore: (quizId: string) => number | undefined;
   setUserName: (name: string) => void;
@@ -816,6 +824,9 @@ function useProgressState(): UseProgressReturn {
       saveJSON(LS_ACTIVITY_LOG, updatedLog);
       return updatedLog;
     });
+
+    /* What was actually credited, so the screen can say the truth. */
+    return owed;
   }, [updateStreak, syncing, userId]);
 
   /**
@@ -876,6 +887,9 @@ function useProgressState(): UseProgressReturn {
         saveJSON(LS_ACTIVITY_LOG, updatedLog);
         return updatedLog;
       });
+
+      /* What was actually credited — see recordQuizScore. */
+      return owed;
     },
     [updateStreak, syncing, userId]
   );
@@ -998,14 +1012,13 @@ function useProgressState(): UseProgressReturn {
     setActivityLog([]);
     setTierProgress({});
 
-    localStorage.removeItem(LS_LESSON_PROGRESS);
-    localStorage.removeItem(LS_QUIZ_SCORES);
-    localStorage.removeItem(LS_STREAK);
-    localStorage.removeItem(LS_XP);
-    localStorage.removeItem(LS_USER_NAME);
-    localStorage.removeItem(LS_DAILY_CHALLENGE);
-    localStorage.removeItem(LS_ACTIVITY_LOG);
-    localStorage.removeItem(LS_TIER_PROGRESS);
+    /* One list, the same one sign-out uses. This used to name eight keys by
+       hand and miss zl_quiz_xp_awarded — the ledger of what each quiz has
+       already paid. Left behind, every quiz the seller had ever taken then
+       paid max(0, earned − earned) = nothing, permanently, with no way to
+       connect "quizzes stopped paying me" back to a button pressed in
+       Settings. Signing out was the only cure, and nobody would guess it. */
+    clearPerUserState();
   }, []);
 
   const getActivityLog = useCallback((): ActivityItem[] => activityLog, [activityLog]);

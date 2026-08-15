@@ -808,13 +808,13 @@ export const LESSON_QUIZZES: Record<string, QuizQuestion[]> = {
   ],
   "stop-4": [
     {
-      question: "What is the difference between ethical urgency and pushy pressure?",
-      questionEs: "¿Cuál es la diferencia entre la urgencia ética y la presión agresiva?",
-      options: ["Ethical urgency is based on real facts; pushy pressure uses lies or manipulation", "Ethical urgency means pushing harder; pushy pressure means backing off politely", "Pushy pressure closes more sales, so ethical urgency is for beginners", "Ethical urgency is just a softer name for the same pressure tactics"],
-      optionsEs: ["La urgencia ética se basa en hechos reales; la presión agresiva tira de mentiras o manipulación", "La urgencia ética es apretar más; la presión agresiva es echarse atrás con educación", "La presión agresiva cierra más ventas, así que la urgencia ética es para novatos", "La urgencia ética es solo un nombre bonito para las mismas tácticas de presión"],
-      correctIndex: 0,
-      explanation: "Ethical urgency highlights real, verifiable limitations (actual closing time, real stock levels). Pushy pressure invents false scarcity. Customers detect fake urgency and trust evaporates.",
-      explanationEs: "La urgencia ética resalta límites reales y comprobables (la hora real de cierre, las existencias que quedan de verdad). La presión agresiva se inventa una escasez falsa. El cliente detecta la urgencia falsa y la confianza se esfuma.",
+      question: "You are inventing the urgency — every line in this lesson does. So where is the line you do not cross?",
+      questionEs: "La urgencia te la estás inventando — todas las frases de esta lección lo hacen. ¿Dónde está la línea que no se cruza?",
+      options: ["Only say it if you can prove it — if the stock is not really low, do not say it is", "Only use urgency on a customer who has already said she likes the product", "Never promise something the shop has to honour after she has walked out", "There is no line — say whatever gets her to yes, that is the job"],
+      optionsEs: ["Dilo solo si lo puedes demostrar — si de verdad no queda poco stock, no lo digas", "Usa la urgencia solo con una clienta que ya te ha dicho que le gusta el producto", "No prometas nunca algo que la tienda tenga que cumplir cuando ella ya se haya ido", "No hay línea — di lo que haga falta para que diga que sí, ese es el trabajo"],
+      correctIndex: 2,
+      explanation: "\"Two left\" is theatre and she half knows it — every seller in the world talks their product up. What you cannot do is write a cheque the shop has to cash tomorrow: something held for her, a price waiting for her next visit, a promise about after she has gone. That is the one that comes back on the shop. Everything this side of it is yours to play with.",
+      explanationEs: "\"Quedan dos\" es teatro y ella medio lo sabe — todos los vendedores del mundo hablan bien de su producto. Lo que no puedes hacer es firmar un cheque que la tienda tenga que pagar mañana: algo guardado para ella, un precio esperándola en su próxima visita, una promesa para cuando ya se haya ido. Eso es lo que le vuelve a la tienda. Todo lo de este lado es tuyo para jugar.",
     },
     {
       question: "The {currency}300 price exists here but not back home. Which type of urgency is that?",

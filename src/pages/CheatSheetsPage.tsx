@@ -127,6 +127,15 @@ const SEARCH_ALIASES: readonly (readonly string[])[] = [
   ['pareja', 'marido', 'mujer', 'esposo', 'esposa', 'novio', 'novia'],
   ['buffer', 'lima'],
   ['too', 'demasiado', 'muy'],
+  /* "Me lo pienso" is the label on the chip the seller taps in the journal for
+     the second most common objection there is, and it returned NOTHING: the
+     corpus only ever carries the infinitive, "pensar". The word she actually
+     hears from a customer is conjugated. */
+  ['think', 'pensar', 'pienso', 'piensa', 'pensarlo', 'pensarselo', 'reflexionar'],
+  /* The handover to the upseller is the seller's last job on the star product,
+     and the app teaches it under three different nouns depending on where you
+     read it. Any of them should find it. */
+  ['handover', 'handover', 'upseller', 'specialist', 'traspaso', 'traspasar', 'especialista'],
 ];
 
 /**

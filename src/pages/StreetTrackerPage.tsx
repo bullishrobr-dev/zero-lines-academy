@@ -10,7 +10,7 @@ import EncounterCard from '../components/EncounterCard';
 import SaleLogModal from '../components/SaleLogModal';
 import BetweenShiftsCard from '../components/BetweenShiftsCard';
 import ComebackCard, { type ComebackMode } from '../components/ComebackCard';
-import { PRODUCTS } from '../types/streetTracker';
+import { PRODUCTS, XP_VALUES } from '../types/streetTracker';
 import type { StreetSession, DailySummary } from '../types/streetTracker';
 
 const COPY = {
@@ -89,8 +89,8 @@ function weekdayLabel(key: string, isEs: boolean): string {
 // Tints rather than solid fills: there is no `on-violet` ink token, and a
 // coloured fill without its matching ink is exactly how contrast gets lost.
 const ACTIVITY_STYLE = {
-  stop: { fill: 'bg-teal-tint text-teal-strong', ink: 'text-teal-strong', xp: '+5' },
-  sale: { fill: 'bg-gold-tint text-gold-strong', ink: 'text-gold-strong', xp: '+10' },
+  stop: { fill: 'bg-teal-tint text-teal-strong', ink: 'text-teal-strong', xp: `+${XP_VALUES.stop}` },
+  sale: { fill: 'bg-gold-tint text-gold-strong', ink: 'text-gold-strong', xp: `+${XP_VALUES.sale}` },
 } as const;
 
 const ActivityRow: React.FC<{ session: StreetSession; t: Copy; isEs: boolean; money: (n: number) => string }> = ({
@@ -318,8 +318,31 @@ const StreetTrackerPage: React.FC = () => {
   );
 
   const [showSaleModal, setShowSaleModal] = useState(false);
-  /* Which closer chip the encounter card captured, passed into the sale entry. */
+  /*
+   * ── THE ENCOUNTER AND THE MONEY ARE ONE ACT ────────────────────────────────
+   *
+   * There are two ways to log a sale and they used to fail in opposite
+   * directions, both silently:
+   *
+   *   Via the card's "Sold" chip, the encounter was resolved BEFORE the sheet
+   *   was filled in. Dismiss the sheet — or tap the bottom nav to look
+   *   something up, which unmounts this page — and the customer was gone from
+   *   the screen with Sales 0 and Revenue 0, and nothing left to log against.
+   *   The card vanishing looks exactly like success.
+   *
+   *   Via the big docked Sale button, the money booked but the stop was never
+   *   closed, because the resolve targeted the SALE row's id, which no
+   *   encounter query reads. The journal then carried a phantom "In the shop"
+   *   customer, timer running, for the rest of the shift — surviving a reload,
+   *   and swallowing the next real encounter, because the objection-answer
+   *   card and the nudges are both gated on there being no open encounter.
+   *
+   * So: neither route resolves anything. Both stash what they know, and the
+   * single write happens in the sheet's onSubmit, after the money exists.
+   */
   const [pendingCloser, setPendingCloser] = useState<string | undefined>(undefined);
+  /** The OPEN STOP this sale belongs to. Never a sale row's id. */
+  const [pendingEncounterId, setPendingEncounterId] = useState<string | undefined>(undefined);
 
   // A state initializer must be PURE — React may call it twice, and under
   // StrictMode it does. This one wrote to localStorage, so the visit counter
@@ -469,8 +492,10 @@ const StreetTrackerPage: React.FC = () => {
               encounter={openEncounter}
               onWalked={(reason) => resolveEncounter(openEncounter.id, 'walked', reason)}
               onSold={(reason) => {
-                resolveEncounter(openEncounter.id, 'sold', reason);
+                /* Stash only. The encounter is not closed until the money is
+                   saved — until then her outcome genuinely is not known. */
                 setPendingCloser(reason);
+                setPendingEncounterId(openEncounter.id);
                 setShowSaleModal(true);
               }}
             />
@@ -580,16 +605,29 @@ const StreetTrackerPage: React.FC = () => {
 
       <QuickLogButtons
         onLogStop={() => logActivity('stop')}
-        onLogSale={() => setShowSaleModal(true)}
+        onLogSale={() => {
+          /* The docked button can be tapped with a customer already in the
+             chair. Bind the sale to that encounter so it closes with it. */
+          setPendingEncounterId(openEncounter?.id);
+          setShowSaleModal(true);
+        }}
       />
 
       <SaleLogModal
         isOpen={showSaleModal}
-        onClose={() => setShowSaleModal(false)}
-        onSubmit={(productId, amount, note) => {
-          const entry = logActivity('sale', productId, amount, note || undefined);
-          if (pendingCloser) resolveEncounter(entry.id, 'sold', pendingCloser);
+        onClose={() => {
+          /* Abandoning the sheet must leave no trace: the encounter stays open
+             and the card is still there to finish. Clearing the closer stops
+             it leaking into whatever sale is logged next. */
+          setShowSaleModal(false);
           setPendingCloser(undefined);
+          setPendingEncounterId(undefined);
+        }}
+        onSubmit={(productId, amount, note) => {
+          logActivity('sale', productId, amount, note || undefined);
+          if (pendingEncounterId) resolveEncounter(pendingEncounterId, 'sold', pendingCloser);
+          setPendingCloser(undefined);
+          setPendingEncounterId(undefined);
         }}
       />
     </div>
