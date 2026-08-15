@@ -1224,8 +1224,8 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "paragraph",
-        text: "This is the make-or-break moment. When the demo doesn't work, you lose credibility instantly. But here's the secret: the demo ALWAYS works — when the conditions are right. Your job is to diagnose WHY it didn't work and turn that diagnosis into a deeper sale.",
-        textEs: "Este es el momento de la verdad. Cuando la demo no funciona, pierdes credibilidad al instante. Pero aquí está el secreto: la demo SIEMPRE funciona — cuando las condiciones son correctas. Tu trabajo es diagnosticar POR QUÉ no funcionó y convertir ese diagnóstico en una venta más profunda.",
+        text: "This is the make-or-break moment. When the demo doesn't work, you lose credibility instantly. But here's the secret: the demo ALWAYS works — when the conditions are right. Your job is to diagnose WHY it didn't work, fix it, and land the demo the second time. On the syringe. Not on something smaller.",
+        textEs: "Este es el momento de la verdad. Cuando la demo no funciona, pierdes credibilidad al instante. Pero aquí está el secreto: la demo SIEMPRE funciona — cuando las condiciones son correctas. Tu trabajo es diagnosticar POR QUÉ no funcionó, arreglarlo, y clavar la demo a la segunda. Con la jeringa. No con algo más pequeño.",
       },
       {
         type: "subheader",
@@ -1249,8 +1249,8 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "subheader",
-        text: "Script 1: The Immediate Pivot (Short)",
-        textEs: "Guion 1: El Giro Inmediato (Corto)",
+        text: "Script 1: The Immediate Fix (Short)",
+        textEs: "Guion 1: El Arreglo Inmediato (Corto)",
       },
       {
         type: "script",
@@ -1269,13 +1269,13 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "subheader",
-        text: "Script 3: The Full Diagnostic + Alternative Close (Detailed)",
-        textEs: "Guion 3: El Diagnóstico Completo + Cierre Alternativo (Detallado)",
+        text: "Script 3: The Full Diagnostic (Detailed)",
+        textEs: "Guion 3: El Diagnóstico Completo (Detallado)",
       },
       {
         type: "script",
-        text: "YOU: \"Alright, let's talk about what just happened — because this is important.\" [Sit them down, take your time] \"Look, I've done this demo thousands of times. When it doesn't show straight away, that is not a problem — it's information. Let me ask you a couple of things: how much water do you drink in a day?\" [Let them answer — usually 'not enough'] \"Do you use a moisturiser every day?\" [Usually no, or on and off] \"See, here's the thing. This works by binding to water in your skin. If there's no water to bind to, it's like trying to blow a balloon up in a room with no air in it. The product is doing its job — your skin just needs the ground clearing first.\" [Pick up the scrub — do not put anything away] \"So we're doing it in the right order instead, and we're doing it now, not next month. This is the Dead Sea Scrub, {currency}60. It takes the dead layer off so that anything you put on afterwards actually gets in.\" [Scrub the same spot, clean it, then go again with the syringe while she is still in the chair] \"Now look. THAT is what it does on skin that's ready. So the scrub's yours — and tell me honestly, are we doing the syringe today as well, or are you going home with half a job done?\"",
-        textEs: "TÚ: \"Venga, hablemos de lo que acaba de pasar — porque esto importa.\" [Siéntala, tómate tu tiempo] \"Mira, he hecho esta demo miles de veces. Que no se vea a la primera no es un problema — es información. Déjame preguntarte un par de cosas: ¿cuánta agua bebes al día?\" [Deja que conteste — normalmente 'poca'] \"¿Te pones crema hidratante todos los días?\" [Normalmente no, o a ratos] \"Mira, la cosa es así. Esto funciona uniéndose al agua que hay en tu piel. Si no hay agua a la que unirse, es como intentar hinchar un globo en una habitación sin aire. El producto está haciendo su trabajo — lo que pasa es que tu piel necesita que le despejen el terreno primero.\" [Coge el exfoliante — no guardes nada] \"Así que lo hacemos en el orden correcto, y lo hacemos ahora, no el mes que viene. Este es el Scrub del Mar Muerto, {currency}60. Te quita la capa muerta para que lo que te pongas después entre de verdad.\" [Exfolia la misma zona, límpiala y vuelve con la jeringa mientras ella sigue sentada] \"Ahora mira. ESO es lo que hace sobre una piel preparada. Así que el scrub es tuyo — y dime la verdad, ¿nos llevamos hoy también la jeringa, o te vas a casa con el trabajo a medias?\"",
+        text: "YOU: \"Alright, let's talk about what just happened — because this is important.\" [Sit them down, take your time] \"Look, I've done this demo thousands of times. When it doesn't show straight away, that is not a problem — it's information. Let me ask you a couple of things: how much water do you drink in a day?\" [Let them answer — usually 'not enough'] \"Do you use a moisturiser every day?\" [Usually no, or on and off] \"See, here's the thing. This works by binding to water in your skin. If there's no water to bind to, it's like trying to blow a balloon up in a room with no air in it. The product is doing its job — your skin just needs the ground clearing first.\" [Now do the clearing properly, in front of her: remover, then toner, then dry. Take your time — the work IS the argument] \"So we're doing it again, done right, and we're doing it now.\" [Pick the deepest line you can find, not the one you started on. More product than you used the first time. Correct technique. Then say nothing while it sets — do not fill that silence] \"Now look at that side against the other one.\"",
+        textEs: "TÚ: \"Venga, hablemos de lo que acaba de pasar — porque esto importa.\" [Siéntala, tómate tu tiempo] \"Mira, he hecho esta demo miles de veces. Que no se vea a la primera no es un problema — es información. Déjame preguntarte un par de cosas: ¿cuánta agua bebes al día?\" [Deja que conteste — normalmente 'poca'] \"¿Te pones crema hidratante todos los días?\" [Normalmente no, o a ratos] \"Mira, la cosa es así. Esto funciona uniéndose al agua que hay en tu piel. Si no hay agua a la que unirse, es como intentar hinchar un globo en una habitación sin aire. El producto está haciendo su trabajo — lo que pasa es que tu piel necesita que le despejen el terreno primero.\" [Ahora despéjaselo de verdad, delante de ella: desmaquillante, luego tónico, luego secar. Tómate tu tiempo — el trabajo ES el argumento] \"Así que lo hacemos otra vez, bien hecho, y lo hacemos ahora.\" [Elige la arruga más marcada que encuentres, no la que empezaste. Más producto que la primera vez. Técnica correcta. Y luego no digas nada mientras seca — no llenes ese silencio] \"Ahora mira ese lado contra el otro.\"",
       },
       {
         type: "subheader",
@@ -1287,20 +1287,22 @@ export const objectionLessons: Record<string, Lesson> = {
         items: [
           "Blame their skin: \"Your skin is just bad\" — insulting the customer is career suicide.",
           "Pretend it worked: \"You can't see it but I can!\" — they KNOW it didn't work. Dishonesty kills trust.",
-          "Give up on the sale: a demo that did not show is a prep problem, not a verdict. Clean the skin, go again, and finish on the syringe — the scrub is how you get BACK to it, never a smaller thing you swap her onto instead.",
+          "Give up on the sale: a demo that did not show is a prep problem, not a verdict. Clean the skin, pick a deeper line, go again — on the syringe.",
+          "Swap her onto something smaller: no scrub, no peeling, no nail kit to rescue the afternoon. A demo that did not land is not a reason to sell her a cheaper thing — it is a reason to make the demo land, or to go and find the next person.",
           "Get flustered or apologetic: Stay calm and clinical. \"Let's diagnose this together\" shows expertise.",
         ],
         itemsEs: [
           "Culpar su piel: \"Tu piel es mala\" — insultar al cliente es suicidio profesional.",
           "Pretender que funcionó: \"¡Tú no puedes verlo pero yo sí!\" — ellos SABEN que no funcionó. La deshonestidad mata la confianza.",
-          "Rendirte con la venta: una demo que no se ha visto es un problema de preparación, no un veredicto. Limpia la piel, repite y termina en la jeringa — el exfoliante es cómo VUELVES a ella, nunca algo más pequeño por lo que la cambias.",
+          "Rendirte con la venta: una demo que no se ha visto es un problema de preparación, no un veredicto. Limpia la piel, elige una arruga más marcada y repite — con la jeringa.",
+          "Cambiarla a algo más pequeño: ni exfoliante, ni peeling, ni kit de uñas para salvar la tarde. Una demo que no ha entrado no es motivo para venderle algo más barato — es motivo para que la demo entre, o para ir a por la siguiente persona.",
           "Ponerte nervioso o a la defensiva: Mantén la calma y sé clínico. \"Diagnosticemos esto juntos\" muestra experiencia.",
         ],
       },
       {
         type: "tip",
-        text: "ALWAYS carry makeup remover wipes and toner. Most \"failed demos\" are not the product at all — they are sunscreen, moisturiser or foundation sitting between you and her skin. Prep the face before you start and you will hardly ever see one. And there is a line here you have to know: this lesson is the QUIET version — she says it did not work, to you, and nobody is watching. If she has announced it is a con out loud with a crowd behind her, that is a different animal and it is dead (see The Demo That Failed). Here you still have her, so the scrub recovery is on, as long as every bit of it stays in today: close the {currency}60 scrub, use it on her there and then, and put the syringe back on the clean skin before she is out of that chair. A sale you have set up for \"next time\" is not a sale.",
-        textEs: "Lleva SIEMPRE toallitas desmaquillantes y tónico. La mayoría de las \"demos fallidas\" no son culpa del producto — son la crema solar, la hidratante o la base de maquillaje puestas entre tu dedo y su piel. Prepara la cara antes de empezar y casi no vas a ver ninguna. Y hay una línea que tienes que tener clara: esta lección es la versión TRANQUILA — te lo dice a ti, sin público. Si lo ha soltado a voces delante de un corro diciendo que es un timo, eso es otra cosa y está muerto (mira La Demo Que Falló). Aquí todavía la tienes, así que el giro al exfoliante sigue en pie, siempre que todo pase hoy: cierras el scrub de {currency}60, se lo usas ahí mismo, y le vuelves a poner la jeringa sobre la piel limpia antes de que se levante de la silla. Una venta que dejas apalabrada \"para la próxima\" no es una venta.",
+        text: "ALWAYS carry makeup remover wipes and toner. Most \"failed demos\" are not the product at all — they are sunscreen, moisturiser or foundation sitting between you and her skin. Prep the face before you start and you will hardly ever see one. And know which situation you are in: this lesson is the QUIET version — she says it did not work, to you, and nobody is watching, so you still have her and you get to fix it. If she has announced it is a con out loud with a crowd behind her, that is a different animal and it is dead (see The Demo That Failed). Either way, one thing does not change: you never swap her onto a smaller product to get something out of the afternoon. Clean skin, deeper line, go again on the syringe. If it still will not show after that, you have given it everything — leave it, and take the next one.",
+        textEs: "Lleva SIEMPRE toallitas desmaquillantes y tónico. La mayoría de las \"demos fallidas\" no son culpa del producto — son la crema solar, la hidratante o la base de maquillaje puestas entre tu dedo y su piel. Prepara la cara antes de empezar y casi no vas a ver ninguna. Y ten claro en cuál de las dos estás: esta lección es la versión TRANQUILA — te lo dice a ti, sin público, así que todavía la tienes y puedes arreglarlo. Si lo ha soltado a voces delante de un corro diciendo que es un timo, eso es otra cosa y está muerto (mira La Demo Que Falló). En los dos casos hay algo que no cambia: nunca la cambias a un producto más pequeño para sacar algo de la tarde. Piel limpia, arruga más marcada, y otra vez con la jeringa. Si después de eso sigue sin verse, le has dado todo — déjalo y ve a por la siguiente.",
       },
     ],
     quiz: [
@@ -1326,25 +1328,25 @@ export const objectionLessons: Record<string, Lesson> = {
           'Darle la razón no te cuesta nada y le quita la bronca al momento. Y luego vas a buscar la capa que hay entre tu dedo y su piel.',
       },
       {
-        question: 'You cleaned the skin, went again, and it still has not moved. Where does the sale go now?',
-        questionEs: 'Le has limpiado la piel, lo has repetido, y sigue sin moverse nada. ¿A dónde va la venta?',
+        question: 'Clean skin, deepest line, more product, correct technique — and it still has not moved. What now?',
+        questionEs: 'Piel limpia, la arruga más marcada, más producto, técnica correcta — y sigue sin moverse. ¿Ahora qué?',
         options: [
-          'Nowhere — thank her nicely and get on with the next person walking past',
-          'Send her off to drink more water and try it another day',
-          'Onto the scrub — close it, use it, and put the syringe back on the clean skin today',
-          'Onto the peeling, and set the syringe up for another visit',
+          'Switch her onto the scrub — a {currency}60 sale is better than walking away with nothing',
+          'Send her off to drink more water and come back when her skin is ready for it',
+          'You have given it everything on this one. Leave it there and go and find the next person',
+          'Tell her it is working underneath where she cannot see it, and close on the syringe anyway',
         ],
         optionsEs: [
-          'A ninguna parte — dale las gracias y ve a por la siguiente persona que pase',
-          'Mándala a beber más agua y que lo pruebe otro día',
-          'Al exfoliante — ciérralo, úsalo, y vuelve a ponerle la jeringa sobre la piel limpia hoy',
-          'Al peeling, y deja la jeringa apalabrada para otra visita',
+          'Cámbiala al exfoliante — una venta de {currency}60 es mejor que quedarte sin nada',
+          'Mándala a beber más agua y que vuelva cuando tenga la piel preparada',
+          'Le has dado todo a esta. Déjalo ahí y ve a por la siguiente persona',
+          'Dile que por dentro está trabajando aunque no se vea, y ciérrale la jeringa igual',
         ],
         correctIndex: 2,
         explanation:
-          'The downsell is right, the homework is not. Scrub the same spot, clean it, and put the syringe straight back on while she is still in the chair.',
+          'The swap is the trap, and it is the tempting one — it feels like rescuing something. It is not. A demo that did not land is never a reason to sell her a cheaper thing; it is a reason to go and find the next person. You did the diagnosis, you cleaned the skin, you went again. That is A to Z, and A to Z is the one time you let someone go.',
         explanationEs:
-          'El cambio de producto está bien, los deberes no. Exfolia la misma zona, límpiala y vuelve a poner la jeringa mientras sigue sentada.',
+          'El cambio de producto es la trampa, y es la tentadora — parece que rescatas algo. No lo es. Una demo que no ha entrado nunca es motivo para venderle algo más barato; es motivo para ir a por la siguiente persona. Hiciste el diagnóstico, le limpiaste la piel, lo repetiste. Eso es la A a la Z, y la A a la Z es la única vez que dejas marchar a alguien.',
       },
       {
         question: 'What stops most dead demos happening in the first place?',
