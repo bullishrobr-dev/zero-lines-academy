@@ -142,7 +142,7 @@ export const categories: Category[] = [
       '"I am on a budget." "Let me think about it." "I can get it cheaper on Amazon." These ten lines account for almost every lost sale on the street — and none of them mean no. Each lesson gives you the psychology underneath the objection, three scripts at three lengths, and the responses that kill the sale outright.',
     icon: 'ShieldQuestion',
     accentColor: '#15803D',
-    lessonOrder: ['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7', 'O8', 'O9', 'O10'],
+    lessonOrder: ['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7', 'O9', 'O10'],
   },
 ];
 

@@ -125,18 +125,6 @@ export const LESSON_META: Record<string, LessonMeta> = {
     order: 7,
     xpReward: 100,
   },
-  "O8": {
-    id: "O8",
-    categoryId: "objections",
-    title: "The Demo Didn't Work on Me",
-    titleEs: "La Demo No Me Funcionó",
-    subtitle: "Recovering credibility when the instant results don't show",
-    subtitleEs: "Recuperando credibilidad cuando los resultados instantáneos no se muestran",
-    duration: "5 min",
-    icon: "RotateCcw",
-    order: 8,
-    xpReward: 100,
-  },
   "O9": {
     id: "O9",
     categoryId: "objections",

@@ -267,7 +267,14 @@ export async function getTeamProgress(managerId: string): Promise<EmployeeProgre
   const allQuizzes = loadJSON<QuizResult[]>(LS_QUIZZES, []);
 
   return resolveTeam(users, manager).map((emp) => {
-    const empProgress = allProgress.filter((p) => p.userId === emp.id && p.completed);
+    /* Only lessons that still exist. A retired lesson leaves its `completed`
+       row behind on every phone that finished it — nothing deletes those, and
+       nothing should. Counting them means somebody who has done everything
+       reads 102%, which is the same class of nonsense as the old hardcoded
+       denominator, arriving by a different door. */
+    const empProgress = allProgress.filter(
+      (p) => p.userId === emp.id && p.completed && p.lessonId in LESSON_META
+    );
     const empQuizzes = allQuizzes.filter((q) => q.userId === emp.id);
     const hasData = empProgress.length > 0 || empQuizzes.length > 0;
     const completedLessons = empProgress.length;

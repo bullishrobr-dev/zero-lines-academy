@@ -39,7 +39,7 @@ import {
 /* Metadata, not lesson bodies. This hook runs on every screen in the app, so
    importing the full lesson corpus here put all 741 KB of it on the critical
    path of the home screen. Nothing below reads a lesson's sections or quiz. */
-import { categories, getLessonMetaForCategory } from '@/data/lessonMeta';
+import { categories, getLessonMetaForCategory, LESSON_META } from '@/data/lessonMeta';
 import {
   getTierForLesson,
   getTierCompletion,
@@ -216,6 +216,19 @@ function hasStreakExpired(s: StreakData, today: string, yesterday: string): bool
  */
 const PUSH_DEBOUNCE_MS = 1500;
 
+/*
+ * Completed lessons that still exist.
+ *
+ * Retiring a lesson does not — and must not — reach onto a seller's phone and
+ * delete the row saying they finished it. So the dead key stays for good, and
+ * counting it means somebody who has genuinely done everything reads one more
+ * than the corpus contains. Harmless on its own; not harmless where it becomes
+ * a percentage.
+ */
+function countRealLessons(lessons: Record<string, boolean>): number {
+  return Object.keys(lessons).filter((id) => lessons[id] && id in LESSON_META).length;
+}
+
 /** What this device believes, read straight from localStorage. */
 function readDeviceStats(): db.StatsSnapshot {
   const xp = loadJSON<number>(LS_XP, 0);
@@ -227,7 +240,7 @@ function readDeviceStats(): db.StatsSnapshot {
     currentStreak: streak?.current ?? 0,
     bestStreak: streak?.best ?? 0,
     lastActiveDate: streak?.lastActiveDate ?? null,
-    lessonsDone: Object.values(lessons).filter(Boolean).length,
+    lessonsDone: countRealLessons(lessons),
     quizzesPassed: Object.values(quizzes).filter((s) => s >= 70).length,
   };
 }
@@ -998,7 +1011,7 @@ function useProgressState(): UseProgressReturn {
   const getActivityLog = useCallback((): ActivityItem[] => activityLog, [activityLog]);
 
   const getLessonsCompletedCount = useCallback((): number => {
-    return Object.values(lessonProgress).filter(Boolean).length;
+    return countRealLessons(lessonProgress);
   }, [lessonProgress]);
 
   const getQuizzesPassedCount = useCallback((): number => {
