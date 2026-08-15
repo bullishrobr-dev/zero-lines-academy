@@ -957,7 +957,7 @@ export const lessons: Record<string, Lesson> = {
     id: 'connect-5',
     categoryId: 'connecting',
     title: 'Building Instant Rapport',
-    titleEs: 'Construyendo Rapidez Instantánea',
+    titleEs: 'Crear Rapport al Instante',
     subtitle: '10 specific techniques to connect with anyone in 60 seconds',
     subtitleEs: '10 técnicas específicas para conectar con cualquiera en 60 segundos',
     duration: '10 min',
@@ -991,7 +991,7 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'paragraph',
       text: 'Mirroring is subtly matching the customer\'s body language, speech pace, energy level, and vocabulary. When done naturally (not mimicry), it creates subconscious similarity. The customer\'s brain registers: \'This person is like me.\'',
-      textEs: 'El espejo es emparejar sutilmente el lenguaje corporal, ritmo de habla, nivel de energía y vocabulario del cliente. Cuando se hace de forma natural (no mimica), crea una similitud subconsciente. El cerebro del cliente registra: \'Esta persona es como yo.\'',
+      textEs: 'El espejo es emparejar sutilmente el lenguaje corporal, ritmo de habla, nivel de energía y vocabulario del cliente. Cuando se hace de forma natural (no imitación burda), crea una similitud subconsciente. El cerebro del cliente registra: \'Esta persona es como yo.\'',
     },
     {
             type: 'bullets',
@@ -1002,7 +1002,7 @@ export const lessons: Record<string, Lesson> = {
         'VOCABULARY: If they say \'cream,\' say \'cream.\' If they say \'moisturizer,\' say \'moisturizer.\' Using their words shows you listen.'
       ],
       itemsEs: [
-          'LENGUAJE CORPORAL: Si se paran con las manos en los bolsillos, relaja tus brazos. Si se inclinan durante la demostración, inclínate tú también. Empareja su postura en general.',
+          'LENGUAJE CORPORAL: Si están de pie con las manos en los bolsillos, relaja tus brazos. Si se inclinan durante la demostración, inclínate tú también. Empareja su postura en general.',
           'RITMO DE HABLA: ¿Habla rápido? Acelera un poco. ¿Habla lento y pausado? Baja el ritmo. Emparejar el ritmo crea armonía en la conversación.',
           'NIVEL DE ENERGÍA: ¿Cliente entusiasta? Empareja su entusiasmo. ¿Cliente reservado? Cálido pero calmado. El desajuste de energía genera incomodidad.',
           'VOCABULARIO: Si dicen \'crema\', di \'crema\'. Si dicen \'hidratante\', di \'hidratante\'. Usar sus palabras demuestra que escuchas.',
@@ -1131,12 +1131,12 @@ export const lessons: Record<string, Lesson> = {
     {
             type: 'tip',
       text: 'Rapport is not a script — it\'s a state of being. The most powerful rapport tool is genuine LIKING. Actually care about the person in front of you. Be curious about their life. When your interest is real, everything else falls into place.',
-      textEs: 'El rapport no es un guion — es un estado de ser. La herramienta de rapport más poderosa es el genuino AGRADO. Realmente impórtate por la persona frente a ti. Sé curioso sobre su vida. Cuando tu interés es real, todo lo demás cae en su lugar.',
+      textEs: 'El rapport no es un guion — es un estado de ser. La herramienta de rapport más poderosa es el genuino AGRADO. Que de verdad te importe la persona que tienes delante. Sé curioso sobre su vida. Cuando tu interés es real, todo lo demás cae en su lugar.',
     },
     {
             type: 'quote',
       text: 'People don\'t care how much you know until they know how much you care. Rapport is the proof of caring.',
-      textEs: 'La gente no le importa cuánto sabes hasta que sabe cuánto te importa. El rapport es la prueba de que te importa.',
+      textEs: 'A la gente no le importa cuánto sabes hasta que sabe cuánto te importa. El rapport es la prueba de que te importa.',
       attribution: 'Zero Lines Method',
       attributionEs: 'Método Zero Lines',
     }
@@ -4748,8 +4748,8 @@ export const lessons: Record<string, Lesson> = {
     },
     {
             type: 'script',
-      text: '\'I did this demo for a woman earlier who said she\'d \'think about it.\' She came back an hour later and bought two. Once you feel the difference, it stays with you.\' This story creates social proof AND plants the seed that they might come back too.',
-      textEs: '\'Le hice esta demostración a una mujer hace rato que dijo que lo \'pensaría\'. Volvió una hora después y compró dos. Una vez que sientes la diferencia, se queda contigo.\' Esta historia crea prueba social Y planta la semilla de que ellos también podrían volver.',
+      text: '\'I did this exact demo an hour ago, that chair you are sitting in. She looked in the mirror, said \'go on then\', and took two.\' A real person, an hour ago, right here — it makes buying the normal thing to do rather than the brave thing. Note where the story ENDS: she bought, in the chair. Never tell one about somebody who went away and came back, because you have just told your customer that going away works.',
+      textEs: '\'Esta misma demo la hice hace una hora, en esa silla en la que estás. Se miró al espejo, dijo \'venga, va\', y se llevó dos.\' Una persona de verdad, hace una hora, justo aquí — hace que comprar sea lo normal y no lo valiente. Fíjate dónde ACABA la historia: compró, sentada ahí. No cuentes nunca una en la que alguien se va y vuelve, porque le acabas de decir a tu clienta que irse funciona.',
     },
     {
             type: 'quote',
@@ -6134,8 +6134,8 @@ export const lessons: Record<string, Lesson> = {
     categoryId: 'stopping',
     title: 'The Recovery Stop',
     titleEs: 'La Parada de Recuperación',
-    subtitle: 'What to do when they say \'no\' — second attempts, seed planting, and graceful exits',
-    subtitleEs: 'Qué hacer cuando dicen \'no\' — segundos intentos, sembrar la idea y salir con elegancia',
+    subtitle: 'What to do when they say \'no\' — the second attempt, and when it is genuinely over',
+    subtitleEs: 'Qué hacer cuando dicen \'no\' — el segundo intento, y cuándo se acabó de verdad',
     duration: '8 min',
     icon: 'RotateCcw',
     order: 6,
@@ -6333,17 +6333,6 @@ export const lessons: Record<string, Lesson> = {
       ],
       correctIndex: 1,
       explanation: 'The first no comes out before they have processed a word you said — the same as saying \'fine\' when somebody asks how you are. One more line finds out whether they meant it, and most sellers never spend it.',
-    },
-    {
-      question: 'What is the \'seed planting\' technique?',
-      options: [
-        'Forcing a sale through repeated attempts',
-        'Planting a curiosity seed that may bring the customer back later',
-        'Giving them a physical plant as a gift',
-        'Asking them to plant a tree'
-      ],
-      correctIndex: 1,
-      explanation: 'Seed planting means leaving the customer with a positive, curiosity-inducing final impression that may bring them back later. It references what they might see or feel after leaving.',
     },
     {
       question: 'How many recovery attempts should you generally make before letting go?',

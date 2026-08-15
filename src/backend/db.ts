@@ -152,6 +152,15 @@ export interface StreetFunnel {
   revenue: number;
   /** sales ÷ stops, as a percentage. The number that says who to help. */
   conversion: number;
+  /*
+   * Syringes specifically, because the owner's measure of a shift is not a
+   * count of sales: "the syringe is the star… selling the syringe is the win."
+   * Six scrubs at the floor price and three syringes are the same 'sales'
+   * number and nearly double the money, and the screen could not tell them
+   * apart — `product_id` was written on every sale from day one and read by
+   * nothing.
+   */
+  syringes: number;
 }
 
 export interface TeamMemberProgress {
@@ -207,20 +216,27 @@ export async function getTeamProgress(
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
   const { data: saleRows } = await sb
     .from('sales')
-    .select('user_id,kind,amount,occurred_at')
+    .select('user_id,kind,amount,product_id,occurred_at')
     .in('user_id', ids)
     .gte('occurred_at', sevenDaysAgo);
   const streetByUser = new Map<string, StreetFunnel>();
   for (const row of (saleRows as
-    | { user_id: string; kind: string; amount: number | null }[]
+    | { user_id: string; kind: string; amount: number | null; product_id: string | null }[]
     | null) ?? []) {
-    const f = streetByUser.get(row.user_id) ?? { stops: 0, sales: 0, revenue: 0, conversion: 0 };
+    const f = streetByUser.get(row.user_id) ?? {
+      stops: 0,
+      sales: 0,
+      revenue: 0,
+      conversion: 0,
+      syringes: 0,
+    };
     // 'bring' is a legacy kind from when the funnel had three steps; those rows
     // are ignored rather than folded in, so a mixed old day cannot double-count.
     if (row.kind === 'stop') f.stops += 1;
     else if (row.kind === 'sale') {
       f.sales += 1;
       f.revenue += row.amount ?? 0;
+      if (row.product_id === 'syringe') f.syringes += 1;
     }
     streetByUser.set(row.user_id, f);
   }
@@ -229,7 +245,7 @@ export async function getTeamProgress(
     const s = statsById.get(p.id);
     const scores = quizByUser.get(p.id) ?? [];
     const completedLessons = s?.lessons_done ?? 0;
-    const street = streetByUser.get(p.id) ?? { stops: 0, sales: 0, revenue: 0, conversion: 0 };
+    const street = streetByUser.get(p.id) ?? { stops: 0, sales: 0, revenue: 0, conversion: 0, syringes: 0 };
     street.conversion = street.stops > 0 ? Math.round((street.sales / street.stops) * 100) : 0;
     const hasData =
       (!!s && (s.xp > 0 || s.lessons_done > 0 || !!s.last_active_date)) ||

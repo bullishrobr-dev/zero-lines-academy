@@ -65,6 +65,7 @@ import * as db from '../backend/db';
 import type { User, UserLocation } from '../backend/types';
 import { generatePassword, newSalt } from '../utils/credentials';
 import { sellerStatus, type SellerStatus } from '../data/sellerStatus';
+import { useCurrency } from '../utils/currency';
 
 type EmployeeProgress = backend.EmployeeProgress;
 
@@ -148,6 +149,12 @@ const COPY = {
   streetStops: { en: 'stops', es: 'paradas' },
   streetSales: { en: 'sales', es: 'ventas' },
   streetConv: { en: 'conv.', es: 'conv.' },
+  /* The two the screen was fetching and throwing away. Revenue was summed in
+     db.ts and rendered nowhere; syringes were written on every sale row from
+     the first day and never read back at all — so six scrubs and three
+     syringes looked identical here, at nearly double the money. */
+  streetSyringes: { en: 'syringes', es: 'jeringas' },
+  streetRevenue: { en: 'taken', es: 'facturado' },
   lastActive: { en: 'Last active', es: 'Última actividad' },
   statusOnTrack: { en: 'On track', es: 'En buen camino' },
   statusNeedsPush: { en: 'Needs a push', es: 'Necesita empuje' },
@@ -737,6 +744,9 @@ function EmployeeCard({
   // Training and street are separate signals: a seller can be pounding the
   // street with no lessons done, or the reverse. Show each only when it is real,
   // and "no data" only when neither is.
+  const { currency } = useCurrency();
+  const { language } = useLanguage();
+  const isEs = language === 'es';
   const hasTraining = emp.completedLessons > 0 || emp.avgScore > 0;
   const hasStreet = emp.street.stops > 0 || emp.street.sales > 0;
   /* Either signal is enough. This used to require TRAINING, so the seller in
@@ -807,8 +817,21 @@ function EmployeeCard({
               <span>
                 <b className="text-ink-2">{emp.street.sales}</b> {c('streetSales')}
               </span>
+              {/* Syringes get their own number and the gold ink the app uses
+                  for money, because a shift is measured on them and not on a
+                  count of rows. */}
+              <span className="text-gold-strong">
+                <b>{emp.street.syringes}</b> {c('streetSyringes')}
+              </span>
               <span className="text-teal-strong">
                 <b>{emp.street.conversion}%</b> {c('streetConv')}
+              </span>
+              <span>
+                <b className="text-ink-2">
+                  {currency}
+                  {emp.street.revenue.toLocaleString(isEs ? 'es-ES' : 'en-GB')}
+                </b>{' '}
+                {c('streetRevenue')}
               </span>
             </div>
           </div>

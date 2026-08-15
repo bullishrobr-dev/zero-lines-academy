@@ -286,7 +286,22 @@ function useDailyFlowState() {
     };
   }, [state.today]);
 
+  /*
+   * The LIVE streak — zero once it has lapsed.
+   *
+   * This returned the stored number raw, and the stored number only ever
+   * changes when somebody checks in. So a seller who worked nine days, then
+   * had a fortnight off, opened the check-in screen to "9-day streak · you are
+   * on a run" while Home said "No streak" two taps away — and the moment she
+   * checked in, the 9 silently became 1, because the write path has always
+   * applied the lapse rule correctly. Only the read was lying.
+   *
+   * Same rule as everywhere else: counted today or yesterday, or it is over.
+   */
   const getCurrentStreak = useCallback(() => {
+    const last = streak.lastCountedDate;
+    if (!last) return 0;
+    if (last !== TODAYS_DATE() && !isYesterday(last)) return 0;
     return streak.currentStreak;
   }, [streak]);
 

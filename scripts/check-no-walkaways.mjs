@@ -62,6 +62,18 @@ const WALKAWAY = [
      and it was being taught as the ROUTINE read of crossed arms after a price.
      Crossed arms after a price is the ladder asking to be walked. */
   /plant(ing)? a seed (for|and)/i,
+  /* Three more shapes of the same move, all of which were live in the corpus
+     while the pattern above was passing. "seed planting" as a NOUN sat in a
+     lesson subtitle — the label above the body that had already been rewritten
+     to kill it. And "plants the seed that they might come back" was the stated
+     purpose of a social-proof script whose whole story is a customer who left
+     and returned, which teaches the customer that leaving is a normal thing
+     people here do. Note the deliberate gap: "plants a referral seed" is fine
+     and does not match — that seed is her telling a friend, not her leaving. */
+  /seed[- ]?planting/i,
+  /plants? the seed (that|of)/i,
+  /(sembrar|plantar) la idea/i,
+  /planta la semilla/i,
   /let (them|her|him) go (gracefully|warmly|politely|with a smile)/i,
   /(walk|move) (them|her|him) (on|along) (gently|politely)/i,
 
