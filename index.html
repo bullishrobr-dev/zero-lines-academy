@@ -41,7 +41,7 @@
         }
       })();
     </script>
-    <script type="module" crossorigin src="./assets/index-BjBFZyNN.js"></script>
+    <script type="module" crossorigin src="./assets/index-CrIFOHe8.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-D8Xn6n9w.css">
   </head>
   <body>
@@ -54,6 +54,48 @@
           });
         });
       }
+    </script>
+    <!--
+      ── ONE RETRY, FOR THE COLD OFFLINE START ────────────────────────────────
+      Reopening the app with no signal can white-screen exactly once.
+
+      Measured, with the network genuinely cut: a brand-new tab is controlled by
+      the service worker, the document is served from cache, and the worker can
+      serve the boot script — a fetch() for it from the page returns 200. But
+      the module script request itself had already failed, because the worker
+      was asleep and the subresource went out while it was still starting. The
+      tab renders nothing. Reloading that same tab, still offline, works.
+
+      A seller does not know to pull-to-refresh. They are in a basement shopping
+      centre with a customer in front of them, looking at a white screen, and
+      the app is broken as far as they are concerned. So if the app has not
+      mounted shortly after load, reload once and let the now-warm worker serve
+      it. Guarded by sessionStorage, so a genuinely broken build shows the blank
+      page rather than reloading forever — one retry, never a loop.
+    -->
+    <script>
+      (function () {
+        var KEY = 'zl_boot_retry';
+        function mounted() {
+          var r = document.getElementById('root');
+          return !!(r && r.childElementCount > 0);
+        }
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            if (mounted()) {
+              try { sessionStorage.removeItem(KEY); } catch (e) {}
+              return;
+            }
+            try {
+              if (sessionStorage.getItem(KEY)) return; // already tried once
+              sessionStorage.setItem(KEY, '1');
+            } catch (e) {
+              return; // no sessionStorage means no way to stop a loop — do not risk it
+            }
+            location.reload();
+          }, 3500);
+        });
+      })();
     </script>
   </body>
 </html>
