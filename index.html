@@ -75,24 +75,46 @@
     <script>
       (function () {
         var KEY = 'zl_boot_retry';
+        var decided = false;
+
         function mounted() {
           var r = document.getElementById('root');
           return !!(r && r.childElementCount > 0);
         }
+
+        function decide() {
+          if (decided) return;
+          decided = true;
+          if (mounted()) {
+            try { sessionStorage.removeItem(KEY); } catch (e) {}
+            return;
+          }
+          try {
+            if (sessionStorage.getItem(KEY)) return; // already spent the one retry
+            sessionStorage.setItem(KEY, '1');
+          } catch (e) {
+            return; // no sessionStorage means no way to stop a loop — do not risk it
+          }
+          location.reload();
+        }
+
         window.addEventListener('load', function () {
-          setTimeout(function () {
-            if (mounted()) {
-              try { sessionStorage.removeItem(KEY); } catch (e) {}
-              return;
-            }
-            try {
-              if (sessionStorage.getItem(KEY)) return; // already tried once
-              sessionStorage.setItem(KEY, '1');
-            } catch (e) {
-              return; // no sessionStorage means no way to stop a loop — do not risk it
-            }
-            location.reload();
-          }, 3500);
+          /*
+           * Wait for the worker to be RUNNING before deciding, not for a fixed
+           * number of seconds. The failure this recovers from is the worker
+           * being asleep when the boot script was requested; reloading while it
+           * is still starting just reproduces it and burns the one retry — which
+           * is exactly what happened on a slower machine when this was a plain
+           * 3.5s timer. `ready` resolves when there is an active worker for this
+           * page, which is the moment a reload can actually be served.
+           */
+          var grace = function () { setTimeout(decide, 600); };
+          if ('serviceWorker' in navigator && navigator.serviceWorker.ready) {
+            navigator.serviceWorker.ready.then(grace, grace);
+          }
+          /* And an absolute backstop, for the case where `ready` never settles
+             at all: still only ever one reload. */
+          setTimeout(decide, 8000);
         });
       })();
     </script>

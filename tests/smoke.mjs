@@ -188,21 +188,32 @@ async function offline() {
        home screen does, with nothing already in memory to hide a cache miss. */
     const fresh = await ctx.newPage();
     await fresh.goto(`${BASE}/`, { waitUntil: 'domcontentloaded', timeout: 25000 }).catch(() => {});
-    /* Long enough to cover index.html's one-shot boot retry. A cold offline
-       open blanks roughly two times in three — the worker is asleep and the
-       module script goes out while it is still starting — and the shell
-       reloads itself once to recover. What matters to a seller is that the
-       lesson is on the screen a moment later, not which attempt drew it. */
-    await fresh.waitForTimeout(9000);
-    const home = await fresh.evaluate(() => (document.body.innerText || '').trim().length);
+    /*
+     * Poll rather than sleep a fixed time. A cold offline open blanks roughly
+     * two times in three — the worker is asleep and the boot script goes out
+     * while it is still starting — and the shell reloads itself once to
+     * recover. What matters to a seller is that the app is on the screen a few
+     * seconds after they open it, not which attempt drew it; a fixed sleep just
+     * encodes one machine's speed and goes red on a slower CI runner.
+     */
+    const settle = async (p, budgetMs) => {
+      const deadline = Date.now() + budgetMs;
+      let chars = 0;
+      while (Date.now() < deadline) {
+        await p.waitForTimeout(1000);
+        chars = await p.evaluate(() => (document.body.innerText || '').trim().length).catch(() => 0);
+        if (chars > 300) return chars;
+      }
+      return chars;
+    };
+    const home = await settle(fresh, 30000);
     ok('opens with no signal at all', home > 300, `${home} chars on the home screen`);
 
     /* A lesson this profile has never opened online. Precaching the whole
        corpus is the entire point — a route the seller had never visited used to
        be a blank screen at the kiosk. */
     await fresh.goto(`${BASE}/#/lesson/O5`, { waitUntil: 'domcontentloaded', timeout: 25000 }).catch(() => {});
-    await fresh.waitForTimeout(4000);
-    const lesson = await fresh.evaluate(() => (document.body.innerText || '').trim().length);
+    const lesson = await settle(fresh, 30000);
     ok('a never-opened lesson reads offline', lesson > 1000, `${lesson} chars of lesson`);
 
     await ctx.setOffline(false);
