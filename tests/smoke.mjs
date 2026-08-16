@@ -104,7 +104,108 @@ async function run(width, lang) {
     const after = await page.evaluate(() => Number(localStorage.getItem('zl_xp') || 0));
     ok('checking in pays XP', after > before, `${before} → ${after}`);
 
+    /* The reward loop's OTHER half, and the worst bug this app has had: every
+       lesson paid zero XP, because "mark complete" wrote the progress key by
+       hand and skipped the award. Valid TypeScript, clean lint, green guards,
+       and nobody noticed until a seller asked why reading did nothing. The
+       check-in above would not have caught it — different code path. */
+    /*
+     * Reset, then land on the lesson with a FULL document load.
+     *
+     * Two traps here, and both made this check fail against an app that was
+     * working. Emptying localStorage under a running app leaves React holding
+     * the old values, so the assertion runs against state that no longer
+     * matches storage. And the check-in above fires a delayed navigate('/home')
+     * after its celebration — a plain hash navigation to the lesson gets yanked
+     * back to Home a second later, and the button is simply not there.
+     *
+     * A distinct query string forces a real page load, which settles both.
+     */
+    await page.evaluate(() => {
+      localStorage.removeItem('zl_xp');
+      localStorage.removeItem('zl_lesson_progress');
+    });
+    await page.goto(`${BASE}/?smoke=lesson#/lesson/stop-2`, { waitUntil: 'networkidle' });
+    await page.waitForTimeout(1800);
+    const xpBeforeLesson = await page.evaluate(() => Number(localStorage.getItem('zl_xp') || 0));
+    const complete = page.getByRole('button', {
+      name: lang === 'es' ? /Marcar lecci|completada/i : /Mark Lesson Complete/i,
+    }).first();
+    let xpAfterLesson = xpBeforeLesson;
+    let lessonFlagged = false;
+    if (await complete.count()) {
+      await complete.click();
+      await page.waitForTimeout(1500);
+      xpAfterLesson = await page.evaluate(() => Number(localStorage.getItem('zl_xp') || 0));
+      lessonFlagged = await page.evaluate(() => {
+        try { return Boolean(JSON.parse(localStorage.getItem('zl_lesson_progress') || '{}')['stop-2']); }
+        catch { return false; }
+      });
+    }
+    ok('finishing a lesson pays XP', xpAfterLesson > xpBeforeLesson, `${xpBeforeLesson} → ${xpAfterLesson}`);
+    ok('finishing a lesson is recorded', lessonFlagged, lessonFlagged ? '' : 'stop-2 not flagged complete');
+
     ok('no page errors', errors.length === 0, errors.slice(0, 3).join(' | '));
+  } finally {
+    await browser.close();
+  }
+}
+
+/*
+ * The promise the whole service worker exists for, in the owner's words:
+ * download the app once, then never need the network again. The sellers work
+ * inside a shopping centre, often with no usable signal, and the failure this
+ * guards against is the one that matters — a seller standing in front of a
+ * customer opening a lesson they have never opened before and getting a blank
+ * screen.
+ *
+ * Checked in a real browser with the network genuinely cut, because nothing
+ * about this is visible from the source.
+ */
+async function offline() {
+  console.log('\n═══ offline ═══');
+  const { browser, ctx, page } = await launch({ width: 390 });
+  try {
+    await signIn(page, BASE);
+    await go(page, BASE, '/home');
+
+    /* Wait for the worker to install AND walk the asset manifest. Cutting the
+       network in the instant after it registers races the precache, and a
+       navigation made in that window legitimately fails — that is a test
+       artifact, not a seller's experience, and it cost me an hour of chasing a
+       bug that was not there. */
+    await page.waitForTimeout(15000);
+    const cached = await page.evaluate(async () => {
+      const names = await caches.keys();
+      if (!names.length) return 0;
+      return (await (await caches.open(names[0])).keys()).length;
+    });
+    ok('the app precaches itself', cached > 50, `${cached} files cached`);
+
+    await ctx.setOffline(true);
+
+    /* A brand new tab is the honest test: it is what reopening the app from the
+       home screen does, with nothing already in memory to hide a cache miss. */
+    const fresh = await ctx.newPage();
+    await fresh.goto(`${BASE}/`, { waitUntil: 'domcontentloaded', timeout: 25000 }).catch(() => {});
+    /* Long enough to cover index.html's one-shot boot retry. A cold offline
+       open blanks roughly two times in three — the worker is asleep and the
+       module script goes out while it is still starting — and the shell
+       reloads itself once to recover. What matters to a seller is that the
+       lesson is on the screen a moment later, not which attempt drew it. */
+    await fresh.waitForTimeout(9000);
+    const home = await fresh.evaluate(() => (document.body.innerText || '').trim().length);
+    ok('opens with no signal at all', home > 300, `${home} chars on the home screen`);
+
+    /* A lesson this profile has never opened online. Precaching the whole
+       corpus is the entire point — a route the seller had never visited used to
+       be a blank screen at the kiosk. */
+    await fresh.goto(`${BASE}/#/lesson/O5`, { waitUntil: 'domcontentloaded', timeout: 25000 }).catch(() => {});
+    await fresh.waitForTimeout(4000);
+    const lesson = await fresh.evaluate(() => (document.body.innerText || '').trim().length);
+    ok('a never-opened lesson reads offline', lesson > 1000, `${lesson} chars of lesson`);
+
+    await ctx.setOffline(false);
   } finally {
     await browser.close();
   }
@@ -112,6 +213,7 @@ async function run(width, lang) {
 
 await run(390, 'en');
 await run(320, 'es');
+await offline();
 
 const failed = results.filter((r) => !r.cond);
 console.log(`\n${results.length - failed.length}/${results.length} passed`);
