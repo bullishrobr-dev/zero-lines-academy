@@ -131,6 +131,10 @@ export interface AchievementSource {
   totalSales?: number;
   totalStops?: number;
   bestDaySales?: number;
+  /* Syringes specifically. "Selling the syringe is the win — that is what a
+     shift is measured on." Ten nail kits used to unlock the same badge. */
+  totalSyringes?: number;
+  bestDaySyringes?: number;
 }
 
 /** Visual weight in the trophy case — how loudly an artefact is allowed to shout. */
@@ -252,7 +256,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     descKey: 'achCloserDesc',
     icon: Trophy,
     rarity: 'rare',
-    condition: (p) => (p.totalSales ?? 0) >= 10,
+    condition: (p) => (p.totalSyringes ?? 0) >= 10,
   },
   {
     id: 'big-day',
@@ -260,7 +264,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     descKey: 'achBigDayDesc',
     icon: Zap,
     rarity: 'legendary',
-    condition: (p) => (p.bestDaySales ?? 0) >= 5,
+    condition: (p) => (p.bestDaySyringes ?? 0) >= 5,
   },
   {
     id: 'worked-the-floor',

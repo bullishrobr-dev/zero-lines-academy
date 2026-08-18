@@ -798,6 +798,11 @@ export const closingLessons: Record<string, Lesson> = {
         text: `The whole demo in six moves: the hand, one eye, keep talking, the mirror, the silence, the two yeses. Then, and only then, the number. If a sale went wrong and you cannot work out where, start by asking yourself which of those six you skipped.`,
         textEs: `La demo entera en seis movimientos: la mano, un ojo, sigue hablando, el espejo, el silencio, los dos síes. Y entonces, y solo entonces, el número. Si una venta se te ha torcido y no sabes dónde, empieza por preguntarte cuál de esos seis te saltaste.`,
       },
+      {
+        type: 'tip',
+        text: `Carry makeup remover wipes and toner, and prep the face BEFORE you start. Most demos that "do not work" are not the product at all — they are sunscreen, moisturiser or foundation sitting between your finger and her skin, and you cannot see any of it until nothing happens. Thirty seconds of wiping is the difference between the line moving and you standing there explaining why it has not.`,
+        textEs: `Lleva toallitas desmaquillantes y tónico, y prepárale la cara ANTES de empezar. La mayoría de las demos que "no funcionan" no son culpa del producto — son la crema solar, la hidratante o la base puestas entre tu dedo y su piel, y no lo ves hasta que no pasa nada. Treinta segundos de limpiar son la diferencia entre que la arruga se mueva y que te quedes ahí explicando por qué no.`,
+      },
     ],
     quiz: [
       {

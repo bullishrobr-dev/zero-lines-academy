@@ -63,7 +63,8 @@ const LogButton: React.FC<{
   onClick: () => void;
   label: string;
   short: string;
-  xp: string;
+  /** Omitted when the value depends on something not chosen yet. */
+  xp?: string;
   fill: string;
   ink: string;
   icon: React.ReactNode;
@@ -81,7 +82,8 @@ const LogButton: React.FC<{
       {icon}
     </span>
     <span className="max-w-[92px] text-center text-caption leading-tight text-ink-2">
-      {short} <span className={`font-bold ${ink}`}>{xp}</span>
+      {short}
+      {xp ? <> <span className={`font-bold ${ink}`}>{xp}</span></> : null}
     </span>
   </motion.button>
 );
@@ -122,7 +124,11 @@ const QuickLogButtons: React.FC<QuickLogButtonsProps> = ({ onLogStop, onLogSale 
             }}
             label={t.sale}
             short={t.saleShort}
-            xp={`+${XP_VALUES.sale} XP`}
+            /* Deliberately no number. A sale is no longer one flat rate — a
+               syringe pays 60 and a nail kit 20 — and this button is tapped
+               BEFORE the product is chosen, so any figure printed here is a
+               promise it cannot keep. The Save button in the sheet knows what
+               sold and says the real number there. */
             fill="bg-gold text-on-gold"
             ink="text-gold-strong"
             icon={<Coins className="h-7 w-7" aria-hidden="true" />}

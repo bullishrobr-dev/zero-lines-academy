@@ -66,8 +66,47 @@ export interface XPAward {
 export const XP_VALUES = {
   /** They are inside the shop — real work, and the hard part of the job. */
   stop: 10,
+  /** Any sale, when the product is not known. The syringe rate — see below. */
   sale: 60,
 } as const;
+
+/*
+ * ── WHAT A SALE IS WORTH DEPENDS ON WHAT SOLD ───────────────────────────────
+ *
+ * Every sale paid the same 60, so six scrubs at the floor price outscored three
+ * syringes — nearly double the money, less than half the score. The owner has
+ * been consistent about the order and the app was not listening:
+ *
+ *   "The scrub, body butter and nail kit — those are completely beginner
+ *    products. It's only for people who are learning how to sell, or just want
+ *    to have some nice energy. The peeling is kind of in between. But the
+ *    syringe is what we usually sell, what we focus on, the star product."
+ *
+ * So the star keeps the full rate, the middle earns a real but smaller number,
+ * and the beginner kit pays clearly more than a stop and clearly less than the
+ * thing a shift is measured on. A beginner selling scrubs is still rewarded for
+ * selling — just not as if they had sold the flagship.
+ *
+ * Nothing already banked moves. XP is a running total, not a recomputed one, so
+ * this changes what the NEXT sale is worth and leaves every seller's current
+ * standing exactly where they earned it.
+ */
+export const SALE_XP: Record<string, number> = {
+  syringe: 60,
+  peeling: 35,
+  scrub: 20,
+  nailkit: 20,
+  bodybutter: 20,
+  /* 'multiple' is deliberately absent, so it falls through to the base rate.
+     A multi-product sale usually has the syringe in it, and guessing low would
+     punish the biggest sale on the list. */
+};
+
+/** What this sale is worth. Unknown or multi-product sales pay the base rate. */
+export function saleXp(productId?: string): number {
+  if (!productId) return XP_VALUES.sale;
+  return SALE_XP[productId] ?? XP_VALUES.sale;
+}
 
 // Prices are BASE prices from src/data/pricing.ts (the single source of truth).
 // Numbers only — no currency symbol. Andorra renders €, Gibraltar £.

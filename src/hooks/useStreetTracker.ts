@@ -24,7 +24,7 @@ import {
   createElement,
   type ReactNode,
 } from 'react';
-import { XP_VALUES, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
+import { XP_VALUES, saleXp, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
 import type { StreetSession, DailySummary, XPAward } from '../types/streetTracker';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useProgress } from './useProgress';
@@ -152,7 +152,9 @@ function useStreetTrackerState() {
         void db.recordSale(userId, type, productId, amount).catch(() => {});
       }
 
-      const points = XP_VALUES[type];
+      /* What sold decides what it pays. A scrub is not a syringe, and the
+         scoreboard used to think it was. See SALE_XP in types/streetTracker. */
+      const points = type === 'sale' ? saleXp(productId) : XP_VALUES.stop;
       const activity = type === 'stop' ? 'Brought someone in' : 'Made a sale';
       const award: XPAward = { activity, points, timestamp: Date.now() };
       setXpAwards((prev) => [...prev, award]);
@@ -279,22 +281,35 @@ function useStreetTrackerState() {
     totalSales: number;
     totalStops: number;
     bestDaySales: number;
+    totalSyringes: number;
+    bestDaySyringes: number;
   } => {
     /* Counted by `type`, exactly as aggregateDay() does. Counting
        `outcome === 'sold'` instead would quietly disagree with every other
        number in the app, because a sale is logged as its own entry. */
     let totalSales = 0;
     let totalStops = 0;
+    let totalSyringes = 0;
     const byDay = new Map<string, number>();
+    const syringesByDay = new Map<string, number>();
     for (const s of sessions) {
       if (s.type === 'stop') totalStops += 1;
       if (s.type === 'sale') {
         totalSales += 1;
         byDay.set(s.date, (byDay.get(s.date) ?? 0) + 1);
+        /* Syringes counted separately, because that is what a shift is
+           measured on and the badges were handing out "Closer" for ten nail
+           kits. `productId` has been written on every sale row since the
+           journal was built. */
+        if (s.productId === 'syringe') {
+          totalSyringes += 1;
+          syringesByDay.set(s.date, (syringesByDay.get(s.date) ?? 0) + 1);
+        }
       }
     }
     const bestDaySales = byDay.size ? Math.max(...byDay.values()) : 0;
-    return { totalSales, totalStops, bestDaySales };
+    const bestDaySyringes = syringesByDay.size ? Math.max(...syringesByDay.values()) : 0;
+    return { totalSales, totalStops, bestDaySales, totalSyringes, bestDaySyringes };
   }, [sessions]);
 
   const getWeekSummary = useCallback((): DailySummary[] => {

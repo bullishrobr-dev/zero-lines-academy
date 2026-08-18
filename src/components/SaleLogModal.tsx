@@ -26,7 +26,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Coins, X } from 'lucide-react';
 import { celebrateSaleLogged } from '../utils/confetti';
 import { haptic } from '../utils/haptics';
-import { XP_VALUES } from '../types/streetTracker';
+import { saleXp } from '../types/streetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import { PRODUCTS } from '../types/streetTracker';
@@ -54,7 +54,7 @@ const COPY = {
     // Not "Log sale": the nav pill already has a control with that exact
     // accessible name, and two identical names on screen is a screen-reader trap.
     submit: 'Save sale',
-    submitXP: `+${XP_VALUES.sale} XP`,
+    submitXP: (n: number) => `+${n} XP`,
   },
   es: {
     title: 'Registrar venta',
@@ -67,7 +67,7 @@ const COPY = {
     cancel: 'Cancelar',
     close: 'Cerrar',
     submit: 'Guardar venta',
-    submitXP: `+${XP_VALUES.sale} XP`,
+    submitXP: (n: number) => `+${n} XP`,
   },
 };
 
@@ -284,7 +284,10 @@ const SaleForm: React.FC<{
           className={`flex-1 ${isValid ? 'btn-primary' : 'btn-quiet cursor-not-allowed opacity-60'}`}
         >
           <span>{t.submit}</span>
-          <span className="text-caption opacity-80">{t.submitXP}</span>
+          {/* The real number for THIS product. A sale is no longer one flat
+              rate, and a Save button promising +60 for a {currency}30 nail kit
+              is the same lie the docked buttons used to tell. */}
+          <span className="text-caption opacity-80">{t.submitXP(saleXp(selectedProduct))}</span>
         </button>
       </div>
     </div>
