@@ -201,7 +201,13 @@ export default function ShiftCheckIn() {
                     step={5}
                     value={stopGoal}
                     onChange={(e) => setStopGoal(Number(e.target.value))}
-                    className="w-full accent-teal"
+                    /* h-touch, not the browser default. A native range input
+                       renders about 16px tall, which is under even the relaxed
+                       24px target-size minimum, and this one is set with a
+                       thumb on a shop floor. The track still draws in the
+                       middle; only the grabbable area grows. The +/- buttons
+                       beside it stay the primary control. */
+                    className="h-touch w-full accent-teal"
                     aria-label={t.goalLabel}
                   />
                   <div className="mt-1 flex justify-between text-caption text-ink-3">

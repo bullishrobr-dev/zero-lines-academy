@@ -37,7 +37,7 @@ export const SUPABASE_ANON_KEY =
  * "which build is this phone actually running?" is a question anyone can answer
  * by looking — rather than a guess about service worker caches.
  */
-export const BUILD_STAMP = 'build 56';
+export const BUILD_STAMP = 'build 57';
 
 /**
  * Sellers sign in with a username, not an email — most shop staff have no work
