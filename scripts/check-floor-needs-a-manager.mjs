@@ -98,6 +98,38 @@ function scriptTexts(body) {
   return out;
 }
 
+/**
+ * The CORRECT answer of every quiz question, resolved against its correctIndex.
+ *
+ * Scripts were not the only place the floor could be handed over. A quiz whose
+ * correct answer says "just give her the {currency}100 yourself" teaches it
+ * just as hard — harder, arguably, because it is marked right and pays XP — and
+ * that is close to the exact shape O1's third question had before it was
+ * rewritten. Checked by planting one and watching this guard pass.
+ *
+ * Wrong answers are deliberately NOT checked. Stating the banned move is how a
+ * seller learns to reject it, which is the same reason the walkaway guard
+ * exempts distractors.
+ */
+function correctAnswers(body) {
+  const out = [];
+  const lines = body.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    if (!/^\s*options(Es)?:\s*\[/.test(lines[i])) continue;
+    const opts = [];
+    let j = i + 1;
+    for (; j < lines.length && !/^\s*\]/.test(lines[j]); j++) opts.push(lines[j]);
+    let correct = -1;
+    for (let k = j; k < Math.min(j + 8, lines.length); k++) {
+      const m = lines[k].match(/correctIndex:\s*(\d+)/);
+      if (m) { correct = Number(m[1]); break; }
+    }
+    if (correct >= 0 && opts[correct]) out.push(opts[correct]);
+    i = j;
+  }
+  return out;
+}
+
 const hits = [];
 for (const file of readdirSync(join(SRC, 'data')).filter((f) => LESSON_FILES.includes(f))) {
   const src = readFileSync(join(SRC, 'data', file), 'utf8');
@@ -110,10 +142,14 @@ for (const file of readdirSync(join(SRC, 'data')).filter((f) => LESSON_FILES.inc
        went back to handing out the floor would have been waved straight
        through. Found by planting the original line again and watching it
        pass. */
-    const bad = scriptTexts(lesson.body).filter(
+    const spoken = scriptTexts(lesson.body).filter(
       (chunk) => FLOOR.test(chunk) && !AUTHORITY.test(chunk)
     );
-    if (bad.length) hits.push(`${file}  ${lesson.id}`);
+    const taught = correctAnswers(lesson.body).filter(
+      (opt) => FLOOR.test(opt) && !AUTHORITY.test(opt)
+    );
+    if (spoken.length) hits.push(`${file}  ${lesson.id}  (a script says it)`);
+    if (taught.length) hits.push(`${file}  ${lesson.id}  (a correct answer says it)`);
   }
 }
 
