@@ -18,6 +18,7 @@ import {
   Sparkles,
   Check,
   ChevronRight,
+  Lock,
   ArrowLeft,
   Eye,
   Droplets,
@@ -51,7 +52,7 @@ import {
 import { createElement, useMemo } from 'react';
 import { categories, getLessonMetaForCategory, type Category } from '../data/lessonMeta';
 import { useLanguage } from '../contexts/LanguageContext';
-import { LESSON_TIERS, TIER_NAMES } from '../data/lessonTiers';
+import { LESSON_TIERS, TIER_NAMES, isLessonUnlocked } from '../data/lessonTiers';
 
 const iconMap: Record<string, LucideIcon> = {
   Brain, Users, Hand, Sparkles,
@@ -369,6 +370,13 @@ export default function CategoryHub() {
           )}
           {lessons.map((lesson, index) => {
             const isCompleted = progress[lesson.id];
+            /* A locked row used to look exactly like an open one — same chip,
+               same chevron, full opacity — and the lock only appeared as a
+               full-screen modal AFTER the tap, naming neither the tier nor
+               where to go instead. On a fresh account 31 of the 55 rows in this
+               app are gated, so a new hire's first taps inside Training were
+               into a wall with nothing warning them. */
+            const isUnlocked = isLessonUnlocked(lesson.id, progress);
             const tierNum = LESSON_TIERS[lesson.id] || 1;
             const tierName = TIER_NAMES[tierNum]?.[isEs ? 'es' : 'en'] || `Tier ${tierNum}`;
 
@@ -379,7 +387,7 @@ export default function CategoryHub() {
                 variants={cardVariants}
                 initial="hidden"
                 animate="visible"
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: isUnlocked ? 0.98 : 1 }}
                 onClick={() => navigate(`/lesson/${lesson.id}`)}
                 className="surface-flat flex w-full items-center gap-3 p-4 text-left"
               >
@@ -420,9 +428,14 @@ export default function CategoryHub() {
                       <Check size={18} strokeWidth={3} aria-hidden="true" />
                       <span className="sr-only">{t('completed')}</span>
                     </span>
-                  ) : (
+                  ) : isUnlocked ? (
                     <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-line-strong text-ink-2">
                       <ChevronRight size={16} aria-hidden="true" />
+                    </span>
+                  ) : (
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-line bg-surface-sunken text-ink-3">
+                      <Lock size={14} aria-hidden="true" />
+                      <span className="sr-only">{t('locked')}</span>
                     </span>
                   )}
                 </span>
