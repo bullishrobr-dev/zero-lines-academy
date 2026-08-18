@@ -222,8 +222,53 @@ async function offline() {
   }
 }
 
+/*
+ * The other shop.
+ *
+ * CLAUDE.md's hardest money rule: "Use {currency} and {locationName} and let
+ * sub() resolve them, so Gibraltar never reads a euro price." Everything above
+ * runs as an Andorra account, so it could not have caught a euro leaking into
+ * the Gibraltar build — and a seller in Gibraltar quoting euros to a customer
+ * is the shop's credibility, out loud, in front of the money.
+ *
+ * The shop comes from the signed-in ACCOUNT and localStorage cannot override
+ * it (LocationContext: a seller's shop is not theirs to change), so this needs
+ * a fixture account that genuinely belongs to the other shop. My first attempt
+ * set zl_location by hand and "found" euros everywhere — that was the admin
+ * account still being Andorran, not a bug.
+ */
+async function otherShop() {
+  console.log('\n═══ gibraltar ═══');
+  const { browser, page } = await launch({ width: 390 });
+  try {
+    await signIn(page, BASE, 'gib1', 'SMOKE-TEST-ONLY');
+    const ROUTES = [
+      '/home', '/cheat-sheets/prices', '/street-tracker', '/quizzes', '/exercises',
+      '/flashcards', '/profile', '/lesson/close-1', '/lesson/close-market',
+      '/lesson/O1', '/lesson/close-demo', '/lesson/S2',
+    ];
+    let euros = '';
+    let pounds = 0;
+    for (const r of ROUTES) {
+      await go(page, BASE, r);
+      const t = await text(page);
+      if (t.includes('€') && !euros) {
+        euros = `${r}: ${t.split('\n').filter((l) => l.includes('€'))[0]?.slice(0, 70)}`;
+      }
+      if (t.includes('£')) pounds += 1;
+    }
+    ok('Gibraltar never sees a euro price', !euros, euros);
+    /* And it is actually rendering money, so the check above cannot pass by the
+       screens being empty. */
+    ok('Gibraltar sees pounds', pounds >= 5, `${pounds}/${ROUTES.length} screens show £`);
+  } finally {
+    await browser.close();
+  }
+}
+
 await run(390, 'en');
 await run(320, 'es');
+await otherShop();
 
 /*
  * The offline block does not run on CI, and that is a deliberate, measured

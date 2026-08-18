@@ -50,6 +50,18 @@ export const ACCOUNTS: Account[] = [
     role: 'employee',
     location: 'andorra',
   },
+  /* A Gibraltar seller, so the smoke test can prove the rule that matters most
+     about money: a Gibraltar seller must NEVER see a euro price. The shop comes
+     from the signed-in account — localStorage cannot override it — so checking
+     this needs an account that actually belongs to the other shop. */
+  {
+    username: 'gib1',
+    name: 'Gibraltar Fixture',
+    salt: '85e4c699676d8e63254b9d4ba90870e9',
+    verifier: '11b2bb28c3c6727c6b5aeca6b641a6062938590025f1783f84792f0373ef051a',
+    role: 'employee',
+    location: 'gibraltar',
+  },
   {
     username: 'seller2',
     name: 'Tomas Fixture',
