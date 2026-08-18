@@ -89,13 +89,13 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "subheader",
-        text: "Script 3: The floor, and how slowly you get there (detailed)",
-        textEs: "Guion 3: El suelo, y lo despacio que se llega (detallado)",
+        text: "Script 3: Full market, and then it stops being yours (detailed)",
+        textEs: "Guion 3: Mercado del todo, y ahí deja de ser tuyo (detallado)",
       },
       {
         type: "script",
-        text: "YOU: \"You are killing me here.\" [Hands up, big laugh, not a trace of an edge in it] \"I have taken the gift off, I have put my voucher on you, and you are still coming at me. Go on then — say your number. Out loud.\" [Let her say it. Do NOT answer it. Look at the syringe. Look at the door. Breathe out like it costs you something] \"Ooof. You are a hard one, you.\" [Hold it. Count to three in your head — the waiting is the whole trick, and most sellers cannot do it] \"Right. My last customer only took one, so I have got a little bit of room today, and I am going to use it on you.\" [Voice right down, lean in, this bit is a secret] \"{currency}100. That is the number. There is nothing underneath it, I have not said it out loud to anybody else today, and you are not telling a soul what you paid.\" [Straight back up, normal voice, big smile, hand already going for the bag] \"And look at what you are actually buying — a year of it, sixty goes, under {currency}2 each. If you genuinely would not use it, keep your money and no hard feelings. But you have not put that mirror down since you sat in my chair. Card or cash, my darling?\"",
-        textEs: "TÚ: \"Me estás matando.\" [Manos arriba, risa grande, sin una pizca de mala leche] \"Te he quitado el regalo, te he gastado el cupón, y todavía vienes a por mí. Venga — dime tu número. En voz alta.\" [Deja que lo diga. NO lo contestes. Mira la jeringa. Mira a la puerta. Suelta el aire como si te doliera] \"Buf. Menuda eres tú.\" [Aguanta. Cuenta hasta tres por dentro — la espera es todo el truco, y casi ningún vendedor sabe hacerla] \"Vale. Mi última clienta se llevó solo una, así que hoy tengo un poquito de margen y lo voy a gastar contigo.\" [Baja la voz del todo, acércate, esto es un secreto] \"{currency}100. Ese es el número. Debajo no hay nada, no se lo he dicho en voz alta a nadie más hoy, y tú no le cuentas a nadie lo que has pagado.\" [Vuelve arriba, voz normal, sonrisa grande, la mano ya buscando la bolsa] \"Y mira lo que te llevas de verdad — un año entero, sesenta veces, menos de {currency}2 cada una. Si de verdad no lo fueras a usar, guárdate el dinero y sin rencores. Pero es que no has soltado el espejo desde que te has sentado en mi silla. ¿Tarjeta o efectivo, cariño?\"",
+        text: "YOU: \"You are killing me here.\" [Hands up, big laugh, not a trace of an edge in it] \"I have taken the gift off, I have put my voucher on you, and you are still coming at me. Go on then — say your number. Out loud.\" [Let her say it. Do NOT answer it. Look at the syringe. Look at the door. Breathe out like it costs you something] \"Ooof. You are a hard one, you.\" [Hold it. Count to three in your head — the waiting is the whole trick, and most sellers cannot do it] \"Right.\" [Voice right down, lean in, this bit is a secret] \"That number is not mine to give you. But I am going to go and ask for it.\" [Up, brisk, already moving — the going IS the argument] \"Give me two seconds, I am going to go and ask my manager. I am promising you nothing, alright? Do not move.\" [You go. You come back WITH the manager, and the number comes out of his mouth, not yours] \"And look at what you are actually buying — a year of it, sixty goes, under {currency}2 each. If you genuinely would not use it, keep your money and no hard feelings. But you have not put that mirror down since you sat in my chair. Card or cash, my darling?\"",
+        textEs: "TÚ: \"Me estás matando.\" [Manos arriba, risa grande, sin una pizca de mala leche] \"Te he quitado el regalo, te he gastado el cupón, y todavía vienes a por mí. Venga — dime tu número. En voz alta.\" [Deja que lo diga. NO lo contestes. Mira la jeringa. Mira a la puerta. Suelta el aire como si te doliera] \"Buf. Menuda eres tú.\" [Aguanta. Cuenta hasta tres por dentro — la espera es todo el truco, y casi ningún vendedor sabe hacerla] \"Vale.\" [Baja la voz del todo, acércate, esto es un secreto] \"Ese número no es mío para dártelo. Pero voy a ir a pedirlo.\" [Arriba, rápido, ya moviéndote — el ir ES el argumento] \"Dame dos segundos, voy a preguntarle a mi encargado. No te prometo nada, ¿eh? No te muevas.\" [Vas. Y vuelves CON el encargado, y el número sale de su boca, no de la tuya] \"Y mira lo que te llevas de verdad — un año entero, sesenta veces, menos de {currency}2 cada una. Si de verdad no lo fueras a usar, guárdate el dinero y sin rencores. Pero es que no has soltado el espejo desde que te has sentado en mi silla. ¿Tarjeta o efectivo, cariño?\"",
       },
       {
         type: "subheader",
@@ -123,8 +123,8 @@ export const objectionLessons: Record<string, Lesson> = {
       },
       {
         type: "tip",
-        text: "Do the sum on the rung you are standing on, never on the one she has already refused. Divide {currency}140, not {currency}300 — running the calculator on {currency}300 just plays her back a number she has said no to. {currency}140 across a year is pennies a day, under {currency}3 a week, a bit over {currency}2 an application; if she has walked you all the way to {currency}100 it is under {currency}2 a go. Say the small number once, then shut up and let her finish the sum herself. And wherever you end up on that ladder, it ends here — nobody leaves this shop to work it out at home.",
-        textEs: "Haz la cuenta en el escalón donde estás, nunca en el que ya ha rechazado. Divide {currency}140, no {currency}300 — sacar la calculadora con los {currency}300 solo le repite un número al que ya ha dicho que no. {currency}140 repartidos en un año es calderilla al día, menos de {currency}3 a la semana, poco más de {currency}2 por aplicación; y si te ha bajado hasta los {currency}100, sale por menos de {currency}2 cada vez. Di el número pequeño una vez, cállate y deja que termine ella la cuenta. Y acabes donde acabes en esa escalera, esto se acaba aquí — de esta tienda no sale nadie a hacer números en casa.",
+        text: "Do the sum on the rung you are standing on, never on the one she has already refused. Divide {currency}140, not {currency}300 — running the calculator on {currency}300 just plays her back a number she has said no to. {currency}140 across a year is pennies a day, under {currency}3 a week, a bit over {currency}2 an application. Say the small number once, then shut up and let her finish the sum herself. And wherever you end up on that ladder, it ends here — nobody leaves this shop to work it out at home.",
+        textEs: "Haz la cuenta en el escalón donde estás, nunca en el que ya ha rechazado. Divide {currency}140, no {currency}300 — sacar la calculadora con los {currency}300 solo le repite un número al que ya ha dicho que no. {currency}140 repartidos en un año es calderilla al día, menos de {currency}3 a la semana, poco más de {currency}2 por aplicación. Di el número pequeño una vez, cállate y deja que termine ella la cuenta. Y acabes donde acabes en esa escalera, esto se acaba aquí — de esta tienda no sale nadie a hacer números en casa.",
       },
     ],
     quiz: [
@@ -171,25 +171,25 @@ export const objectionLessons: Record<string, Lesson> = {
           'Una frase sobre dinero no es un empujón. Aguanta donde estás, dile lo que le da ese {currency}175 — un año, una vez por semana — y luego te callas. Si bajas un escalón a la primera, le has enseñado que decir "voy justa" mueve tus números, así que lo va a repetir. Que te lo pida dos veces antes de moverte una, y así el cupón le llega como algo y no como nada.',
       },
       {
-        question: 'She is at {currency}140 and leans on you one more time. What does {currency}100 need before you say it out loud?',
-        questionEs: 'Está en {currency}140 y te aprieta una vez más. ¿Qué necesitan los {currency}100 antes de que los digas en voz alta?',
+        question: 'She is at {currency}140 and leans on you one more time. Who says {currency}100?',
+        questionEs: 'Está en {currency}140 y te aprieta una vez más. ¿Quién dice los {currency}100?',
         options: [
-          'Nothing — it is a rung on the ladder, so just give her the number',
-          'A pause, a face, and a reason that is about her',
-          'A promise that you will do the same for her the next time she is over',
-          'Her partner fetched over from the cafe so that he can hear it too',
+          'You do, quietly, with a reason — your last customer only took one, so there is room today',
+          'You do, but only after she has asked for it twice',
+          'A manager. You go and get one, and the number comes out of his mouth',
+          'Nobody — {currency}140 is the floor and there is nothing underneath it',
         ],
         optionsEs: [
-          'Nada — es un escalón de la escalera, así que dale el número',
-          'Una pausa, una cara y un motivo que hable de ella',
-          'La promesa de que le harás lo mismo la próxima vez que venga',
-          'Que traigas a su pareja de la cafetería para que también lo oiga',
+          'Tú, en voz baja y con un motivo — tu última clienta se llevó solo una, así que hoy hay margen',
+          'Tú, pero solo después de que te lo haya pedido dos veces',
+          'Un encargado. Vas a buscarlo, y el número sale de su boca',
+          'Nadie — {currency}140 es el suelo y debajo no hay nada',
         ],
-        correctIndex: 1,
+        correctIndex: 2,
         explanation:
-          'If the price just falls, it was never a price. Make her ask twice, then go all at once with a reason — and remember there is nothing underneath {currency}100.',
+          'One voucher, once, and it takes you to {currency}140. Below that the theatre changes: you go full market — her number out loud, the pause, the face, hands in the air — and then you go and fetch a manager. A seller who can reach the floor on their own has no floor, because she can always ask you for one more.',
         explanationEs:
-          'Si el precio cae solo, nunca fue un precio. Que te lo pida dos veces, y entonces cede de golpe y con motivo — y acuérdate de que debajo de {currency}100 no hay nada.',
+          'Un cupón, una vez, y te lleva a {currency}140. Por debajo cambia el teatro: te vas a mercado del todo — su número en voz alta, la pausa, la cara, las manos arriba — y luego vas a buscar a un encargado. Un vendedor que puede llegar al suelo él solo no tiene suelo, porque ella siempre te puede pedir uno más.',
       },
       {
         question: 'One syringe, sixty applications, one a week, and you are standing at {currency}140. Which line shrinks it?',
@@ -264,6 +264,26 @@ export const objectionLessons: Record<string, Lesson> = {
         type: "script",
         text: "YOU: \"I totally understand! But here's the thing — you're in {locationName} right now. The moment you cross that border, the exact same syringe is {currency}500 in a shop. This offer is right here, right now. And honestly? The results you just saw don't need thinking — they need action. Grab it while you're here!\"",
         textEs: "TÚ: \"¡Totalmente entiendo! Pero fíjate — ahora mismo estás en {locationName}. En cuanto cruces esa frontera, esta misma jeringa cuesta {currency}500 en una tienda. Esta oferta es aquí, ahora. Y honestamente? Los resultados que acabas de ver no necesitan pensarse — necesitan acción. ¡Cógelo mientras estás aquí!\"",
+      },
+      {
+        type: "subheader",
+        text: "First: the two yeses she already gave you",
+        textEs: "Primero: los dos síes que ya te ha dado",
+      },
+      {
+        type: "paragraph",
+        text: "You got these during the demo, while her hand was still in yours — \"Do you like it?\" and \"If you had it at home, would you use it?\" Once she has said yes to both, there is nothing left for her to think ABOUT except the price. So do not argue with the thinking. Hand her back her own two answers and put the decision in front of her, now, while she is sitting down.",
+        textEs: "Estos los conseguiste durante la demo, con su mano todavía en la tuya — \"¿Te gusta?\" y \"Si lo tuvieras en casa, ¿lo usarías?\" Una vez que ha dicho que sí a las dos, no le queda nada que pensar salvo el precio. Así que no discutas con el pensárselo. Devuélvele sus dos respuestas y ponle la decisión delante, ahora, mientras sigue sentada.",
+      },
+      {
+        type: "script",
+        text: "YOU: \"Think about what, my darling? You told me you like it. You told me you would use it. It is not a mortgage.\" [Smile, and mean it — this is not a gotcha] \"So the only thing left is the money, and that we can talk about right now. What were you hoping to pay?\"",
+        textEs: "TÚ: \"¿Pensar el qué, cariño? Me has dicho que te gusta. Me has dicho que lo usarías. Que no es una hipoteca.\" [Sonríe, y de verdad — esto no es una encerrona] \"Así que lo único que queda es el dinero, y eso lo hablamos ahora mismo. ¿Cuánto esperabas pagar?\"",
+      },
+      {
+        type: "keypoint",
+        text: "If she never gave you the two yeses, that is the real problem and it happened back in the demo, not here. Nothing in this lesson works as well without them.",
+        textEs: "Si nunca te dio los dos síes, ese es el problema de verdad y pasó en la demo, no aquí. Nada de esta lección funciona igual de bien sin ellos.",
       },
       {
         type: "subheader",
