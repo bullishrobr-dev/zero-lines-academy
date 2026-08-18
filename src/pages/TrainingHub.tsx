@@ -23,7 +23,7 @@ import { categories, getLessonMetaForCategory } from '../data/lessonMeta';
 import { useProgress } from '../hooks/useProgress';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { TranslationKey } from '../data/translations';
-import { TIER_NAMES, getTierCompletion, isTierUnlocked } from '../data/lessonTiers';
+import { TIER_NAMES, LESSON_TIERS, getTierCompletion, isTierUnlocked } from '../data/lessonTiers';
 
 /* ─── Helpers ─── */
 
@@ -134,7 +134,27 @@ export default function TrainingHub() {
   const lessonProgress = progress.lessonProgress;
 
   const categoryData = useMemo(() => {
-    return categories.map((cat) => {
+    /*
+     * The Art of Stopping goes first, always.
+     *
+     * The cards used to render in raw `categories[]` order — Sales Psychology,
+     * Reading & Connecting, then stopping third — and on a fresh account the
+     * first two are 100% locked. So a new hire's first two taps inside Training
+     * hit a wall, and the one path they are allowed to read was below the fold.
+     * Training is a permanent nav slot and the first-day track's own exit
+     * button lands here, so this is not a rare route in.
+     *
+     * Deliberately hard-coded rather than sorted by lowest tier: getTierForLesson
+     * returns 1 for untiered lessons, so a tier sort ties stopping with the
+     * objections and scenarios shelves and hoists both reference sections to the
+     * top. And `categories[]` itself is left alone because other screens iterate
+     * it and expect its order.
+     */
+    const ordered = [
+      ...categories.filter((c) => c.id === 'stopping'),
+      ...categories.filter((c) => c.id !== 'stopping'),
+    ];
+    return ordered.map((cat) => {
       const catLessons = getLessonMetaForCategory(cat.id);
       const catCompleted = catLessons.filter((l) => lessonProgress[l.id]).length;
       const catPct =
@@ -143,14 +163,30 @@ export default function TrainingHub() {
     });
   }, [lessonProgress]);
 
+  /* Every lesson, in the curated per-category order, so "the first lesson of
+     tier N" means the same thing here as it does on the category page. */
+  const lessonsInOrder = useMemo(
+    () => categories.flatMap((c) => getLessonMetaForCategory(c.id)),
+    []
+  );
+
   const tierData = useMemo(() => {
-    return [1, 2, 3, 4, 5, 6].map((tierNum) => ({
-      tier: tierNum,
-      name: TIER_NAMES[tierNum]?.[isEs ? 'es' : 'en'] || `Tier ${tierNum}`,
-      completion: getTierCompletion(tierNum, lessonProgress),
-      unlocked: isTierUnlocked(tierNum, lessonProgress),
-    }));
-  }, [lessonProgress, isEs]);
+    return [1, 2, 3, 4, 5, 6].map((tierNum) => {
+      const inTier = lessonsInOrder.filter((l) => LESSON_TIERS[l.id] === tierNum);
+      /* Where they actually are in it — the first one not yet done, or the
+         start of the tier if they have finished the lot. The rail named the
+         tier a seller needed and then could not be tapped, which on the one
+         screen a new hire is looking for a way in is a strange thing to do. */
+      const next = inTier.find((l) => !lessonProgress[l.id]) ?? inTier[0];
+      return {
+        tier: tierNum,
+        name: TIER_NAMES[tierNum]?.[isEs ? 'es' : 'en'] || `Tier ${tierNum}`,
+        completion: getTierCompletion(tierNum, lessonProgress),
+        unlocked: isTierUnlocked(tierNum, lessonProgress),
+        nextLessonId: next?.id,
+      };
+    });
+  }, [lessonsInOrder, lessonProgress, isEs]);
 
   return (
     <div className="min-h-full">
@@ -178,14 +214,20 @@ export default function TrainingHub() {
           </p>
           <ul className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1">
             {tierData.map((tier) => (
-              <li
-                key={tier.tier}
-                className={`flex w-[168px] flex-shrink-0 snap-start flex-col rounded-card border p-3.5 ${
+              <li key={tier.tier} className="flex-shrink-0 snap-start">
+              <button
+                type="button"
+                disabled={!tier.unlocked || !tier.nextLessonId}
+                onClick={() =>
+                  tier.nextLessonId && navigate(`/lesson/${tier.nextLessonId}`)
+                }
+                aria-label={`${isEs ? 'Nivel' : 'Tier'} ${tier.tier} — ${tier.name}`}
+                className={`flex w-[168px] flex-col rounded-card border p-3.5 text-left ${
                   tier.unlocked
                     ? tier.completion >= 80
                       ? 'border-teal/40 bg-teal-tint'
                       : 'border-line bg-surface'
-                    : 'border-line bg-surface-sunken'
+                    : 'cursor-default border-line bg-surface-sunken'
                 }`}
               >
                 <div className="mb-1.5 flex items-center justify-between gap-2">
@@ -226,6 +268,7 @@ export default function TrainingHub() {
                     style={{ width: `${tier.completion}%` }}
                   />
                 </div>
+              </button>
               </li>
             ))}
           </ul>
