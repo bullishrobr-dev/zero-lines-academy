@@ -1396,6 +1396,17 @@ const EMERGENCY_CARD_TROUBLE: EmergencyLine[] = [
     textEs: `"¿Tienes Apple Pay o Google Pay en el móvil? Eso también nos vale."`,
   },
   {
+    /* Splitting it is the rung O10 and close-3 both carry and this card did
+       not, so the sheet a seller opens mid-sale was one rung shorter than the
+       lesson that taught it. The card wins in that moment — it is what is in
+       front of them — so the card is the one that has to be complete. */
+    id: 'ect3b',
+    head: `Card will only take part of it`,
+    headEs: `La tarjeta solo coge una parte`,
+    text: `"Shall we split it — half on this card, half on the other one?" Two cards, or a card and whatever cash she has on her.`,
+    textEs: `"¿Lo partimos — la mitad en esta tarjeta y la mitad en la otra?" Dos tarjetas, o una tarjeta y el efectivo que lleve encima.`,
+  },
+  {
     // The old fourth step waved her out with "come back whenever you like",
     // which is the one thing the method never does — a card that will not work
     // is not a reason to lose the sale, it is a reason to walk to the cash
@@ -1451,7 +1462,7 @@ export const EMERGENCY_BLOCKS: {
   {
     // Not a selling panic — a payment one. It lives here because this is the
     // sheet a seller opens when it is going wrong, and a card refusing in front
-    // of a customer is exactly that. Four steps in order, so nobody freezes.
+    // of a customer is exactly that. Five steps in order, so nobody freezes.
     key: 'card',
     accent: 'violet',
     title: 'Card trouble',
