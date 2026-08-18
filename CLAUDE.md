@@ -199,6 +199,12 @@ you go full market, and **the manager is the device that unlocks
 {currency}100**, not the seller's own generosity. A seller who can reach the
 floor on their own has no floor.
 
+This one is enforced now, because it had already gone wrong once: O1 taught the
+seller to say the bottom number himself and the word "manager" appeared nowhere
+in the objection lessons at all. `check-floor-needs-a-manager.mjs` fails the
+build if a script — or the correct answer of a quiz — says the floor price
+without a manager in it.
+
 The same answer covers the customer who walks back in months later having
 bought before: **call the manager**, or if he is not there, whoever on the
 floor has the most experience. It is not the seller's sale to price.
@@ -271,9 +277,16 @@ CI, so a regression fails the build rather than reaching a customer.
   register. Naming a disease or a medical condition the product helps with is
   not, and that is not squeamishness: it is a claim about a vulnerable person
   that a seller would be saying out loud to their face.
-- **Prices come from `src/data/pricing.ts`.** Never write a number by hand.
-  Use `{currency}` and `{locationName}` and let `sub()` resolve them, so
-  Gibraltar never reads a euro price.
+- **Prices come from `src/data/pricing.ts`.** Use `{currency}` and
+  `{locationName}` and let `sub()` resolve them, so Gibraltar never reads a euro
+  price — proved on every run by a Gibraltar account in the smoke test.
+  Be aware of what `sub()` does NOT do: it resolves the symbol and the shop
+  name, never the numbers. Every price in the corpus is typed out by hand —
+  1,399 mentions of ladder rungs, in two languages — so moving a rung leaves
+  the writing quietly wrong. `check-prices-match-copy.mjs` fails the build when
+  a ladder moves and tells you how many lines still say the old number. The
+  cheat sheets show the better pattern: they interpolate
+  `{currency}${SYR_FLOOR.price}` and cannot go stale.
 
 Everything outside that list is fair game. Talk it up.
 
@@ -293,7 +306,39 @@ npm run typecheck && npm run lint && npm run check:content
 
 `check:content` runs every guard above plus the quiz and tier checks. If you
 change `src/data/lessons.ts`, run `npm run gen:meta` — `src/data/lessonMeta.ts`
-is generated from it and CI fails if it has drifted.
+is generated from it and CI fails if it has drifted. Those three commands are
+what CI runs, and they are enough for a copy change.
+
+### Two more, for when you are changing something bigger
+
+Both drive a real browser. Neither runs on every push, and both are here
+because the worst bugs this app has had were invisible to anything that only
+reads files — every lesson paying zero XP, the daily tick that needed a reload,
+a 320px sweep that came back clean having never got past the sign-in screen.
+
+```
+npm run build:test                                  # backend + roster swapped out
+npx vite preview --config vite.test.config.ts --outDir dist-test --port 4173
+npm run test:smoke                                  # 21 checks, both languages
+```
+
+`test:smoke` walks every screen at 390px and 320px, checks the reward loop
+actually pays, proves a Gibraltar account never sees a euro price, and cuts the
+network to prove the app still opens and still serves a lesson it has never
+opened before. That last block is skipped on CI — it fails there for reasons
+that have nothing to do with the app — so run it yourself before touching
+`public/sw.js`.
+
+```
+npm run test:guards
+```
+
+Attacks the guards. It plants a real violation of each rule — a tax claim, a
+refund promise, a named disease, a walkaway, the seller handing out the floor —
+in a script AND as the correct answer of a quiz, and reports which guards
+notice. Run it whenever you add or change one. The floor guard passed three
+different versions of itself before it actually worked; a guard nobody has
+watched fail is a guess.
 
 Other things worth knowing:
 
