@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Flame, DoorOpen, Coins, Trophy, DoorClosed } from 'lucide-react';
+import { Zap, Flame, DoorOpen, Coins, Trophy, DoorClosed, ArrowRightLeft } from 'lucide-react';
 import { useStreetTracker } from '../hooks/useStreetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
@@ -10,7 +10,7 @@ import EncounterCard from '../components/EncounterCard';
 import SaleLogModal from '../components/SaleLogModal';
 import BetweenShiftsCard from '../components/BetweenShiftsCard';
 import ComebackCard, { type ComebackMode } from '../components/ComebackCard';
-import { PRODUCTS, XP_VALUES } from '../types/streetTracker';
+import { PRODUCTS, XP_VALUES, saleXp } from '../types/streetTracker';
 import type { StreetSession, DailySummary } from '../types/streetTracker';
 
 const COPY = {
@@ -37,6 +37,7 @@ const COPY = {
     hrsAgo: 'h ago',
     xpToday: 'XP today',
     dayStreak: 'day streak',
+    handedOver: 'Passed to the upseller',
   },
   es: {
     title: 'Mi Diario',
@@ -61,6 +62,7 @@ const COPY = {
     hrsAgo: 'h',
     xpToday: 'XP hoy',
     dayStreak: 'días de racha',
+    handedOver: 'Traspaso al upseller',
   },
 };
 
@@ -89,9 +91,22 @@ function weekdayLabel(key: string, isEs: boolean): string {
 // Tints rather than solid fills: there is no `on-violet` ink token, and a
 // coloured fill without its matching ink is exactly how contrast gets lost.
 const ACTIVITY_STYLE = {
-  stop: { fill: 'bg-teal-tint text-teal-strong', ink: 'text-teal-strong', xp: `+${XP_VALUES.stop}` },
-  sale: { fill: 'bg-gold-tint text-gold-strong', ink: 'text-gold-strong', xp: `+${XP_VALUES.sale}` },
+  stop: { fill: 'bg-teal-tint text-teal-strong', ink: 'text-teal-strong' },
+  sale: { fill: 'bg-gold-tint text-gold-strong', ink: 'text-gold-strong' },
 } as const;
+
+/**
+ * What THIS row actually paid.
+ *
+ * It used to be one number per type, written when every sale was worth the
+ * same 60. Once a sale started paying by product the row kept saying +60 for a
+ * {currency}30 nail kit — the sheet promised +20, the journal reported +60, and
+ * the total agreed with neither on screen. A row in a log has one job, which is
+ * to be true.
+ */
+function rowXP(session: StreetSession): number {
+  return session.type === 'sale' ? saleXp(session.productId, session.handedOver) : XP_VALUES.stop;
+}
 
 const ActivityRow: React.FC<{ session: StreetSession; t: Copy; isEs: boolean; money: (n: number) => string }> = ({
   session,
@@ -121,13 +136,21 @@ const ActivityRow: React.FC<{ session: StreetSession; t: Copy; isEs: boolean; mo
         <div className="flex items-center justify-between gap-2">
           <span className="text-body-small font-semibold text-ink">{label}</span>
           <div className="flex shrink-0 items-center gap-2">
-            <span className={`text-caption font-bold ${style.ink}`}>{style.xp} XP</span>
+            <span className={`text-caption font-bold ${style.ink}`}>+{rowXP(session)} XP</span>
             <span className="text-caption text-ink-3">{timeAgo(session.timestamp, t)}</span>
           </div>
         </div>
         {session.type === 'sale' && productName && (
           <p className="mt-0.5 text-caption text-gold-strong">
             {productName} — {money(session.amount || 0)}
+          </p>
+        )}
+        {/* The job finished, not just the sale. Only ever shown when the seller
+            said so — an absent tag means nobody was asked, not a failure. */}
+        {session.handedOver && (
+          <p className="mt-0.5 flex items-center gap-1 text-caption text-teal-strong">
+            <ArrowRightLeft className="h-3 w-3 shrink-0" aria-hidden="true" />
+            {t.handedOver}
           </p>
         )}
         {session.note && <p className="mt-0.5 truncate text-caption italic text-ink-3">{session.note}</p>}
@@ -623,8 +646,8 @@ const StreetTrackerPage: React.FC = () => {
           setPendingCloser(undefined);
           setPendingEncounterId(undefined);
         }}
-        onSubmit={(productId, amount, note) => {
-          logActivity('sale', productId, amount, note || undefined);
+        onSubmit={(productId, amount, note, handedOver) => {
+          logActivity('sale', productId, amount, note || undefined, handedOver);
           if (pendingEncounterId) resolveEncounter(pendingEncounterId, 'sold', pendingCloser);
           setPendingCloser(undefined);
           setPendingEncounterId(undefined);

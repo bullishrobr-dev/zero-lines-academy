@@ -132,7 +132,10 @@ function useStreetTrackerState() {
       type: 'stop' | 'sale',
       productId?: string,
       amount?: number,
-      note?: string
+      note?: string,
+      /* Whether the seller passed this one to the upseller. Optional, and
+         optional on purpose — see StreetSession.handedOver. */
+      handedOver?: boolean
     ): StreetSession => {
       const entry: StreetSession = {
         id: generateId(),
@@ -142,19 +145,28 @@ function useStreetTrackerState() {
         amount,
         note,
         timestamp: Date.now(),
+        handedOver,
       };
       setSessions((prev) => [...prev, entry]);
 
       // Mirror the action to the server, so it survives a lost phone and the
       // manager can see the team's funnel. Fire-and-forget: the local log above
       // is the source of truth on the device either way.
+      //
+      // `handedOver` is NOT sent. The `sales` table has no column for it, and
+      // adding one would make the handover a reported number — at which point
+      // it stops being a seller's own note and starts being a target, which is
+      // how self-reported fields go bad. If the shop ever wants the handover
+      // rate on a dashboard it should come from the upseller's own till, not
+      // from the person being measured by it.
       if (syncing) {
         void db.recordSale(userId, type, productId, amount).catch(() => {});
       }
 
-      /* What sold decides what it pays. A scrub is not a syringe, and the
-         scoreboard used to think it was. See SALE_XP in types/streetTracker. */
-      const points = type === 'sale' ? saleXp(productId) : XP_VALUES.stop;
+      /* What sold decides what it pays, plus the handover if it happened — the
+         job ends at the upseller, not at the till. See SALE_XP and HANDOVER_XP
+         in types/streetTracker. */
+      const points = type === 'sale' ? saleXp(productId, handedOver) : XP_VALUES.stop;
       const activity = type === 'stop' ? 'Brought someone in' : 'Made a sale';
       const award: XPAward = { activity, points, timestamp: Date.now() };
       setXpAwards((prev) => [...prev, award]);

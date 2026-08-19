@@ -23,10 +23,10 @@
 
 import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Coins, X } from 'lucide-react';
+import { ArrowRightLeft, Check, Coins, X } from 'lucide-react';
 import { celebrateSaleLogged } from '../utils/confetti';
 import { haptic } from '../utils/haptics';
-import { saleXp } from '../types/streetTracker';
+import { endsInHandover, HANDOVER_XP, saleXp } from '../types/streetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import { PRODUCTS } from '../types/streetTracker';
@@ -35,7 +35,7 @@ import { LADDERS, type ProductId } from '../data/pricing';
 interface SaleLogModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (productId: string, amount: number, note: string) => void;
+  onSubmit: (productId: string, amount: number, note: string, handedOver: boolean) => void;
 }
 
 // `amount` takes the shop's own symbol — this used to read "Amount (€)" and
@@ -47,6 +47,10 @@ const COPY = {
     paid: 'What did they pay?',
     other: 'Other',
     amount: (c: string) => `Amount (${c})`,
+    handoverTitle: 'And then?',
+    handover: 'Passed to the upseller',
+    handoverHint: 'Your job ends there, not at the till.',
+    handoverXP: (n: number) => `+${n} XP`,
     note: 'Note (optional)',
     notePlaceholder: 'Hesitant at first, then loved the demo…',
     cancel: 'Cancel',
@@ -62,6 +66,10 @@ const COPY = {
     paid: '¿Cuánto ha pagado?',
     other: 'Otro',
     amount: (c: string) => `Importe (${c})`,
+    handoverTitle: '¿Y después?',
+    handover: 'Traspaso al upseller',
+    handoverHint: 'Tu trabajo acaba ahí, no en la caja.',
+    handoverXP: (n: number) => `+${n} XP`,
     note: 'Nota (opcional)',
     notePlaceholder: 'Dudaba al principio, luego le encantó la demo…',
     cancel: 'Cancelar',
@@ -98,7 +106,7 @@ function ladderRungAmounts(productId: string): number[] {
  */
 const SaleForm: React.FC<{
   onClose: () => void;
-  onSubmit: (productId: string, amount: number, note: string) => void;
+  onSubmit: (productId: string, amount: number, note: string, handedOver: boolean) => void;
 }> = ({ onClose, onSubmit }) => {
   const { language } = useLanguage();
   const isEs = language === 'es';
@@ -112,6 +120,10 @@ const SaleForm: React.FC<{
      is already on screen is an invitation to type, and typing one-handed on a
      shop floor is the thing this sheet exists to avoid. */
   const [manual, setManual] = useState(false);
+  /* Off until tapped, and saving works either way. The owner was clear that
+     the log is not a till: nothing here may block a seller who is standing at
+     a counter with a customer still in front of them. */
+  const [handedOver, setHandedOver] = useState(false);
 
   const rungs = useMemo(() => ladderRungAmounts(selectedProduct), [selectedProduct]);
 
@@ -125,6 +137,9 @@ const SaleForm: React.FC<{
     setSelectedProduct(id);
     setAmount('');
     setManual(ladderRungAmounts(id).length === 0);
+    /* A handover ticked against the syringe must not survive a change of mind
+       to "Nail Kit", where the question does not even exist. */
+    setHandedOver(false);
   };
 
   const chooseRung = (value: number) => {
@@ -138,7 +153,7 @@ const SaleForm: React.FC<{
 
   const handleSubmit = () => {
     if (!isValid) return;
-    onSubmit(selectedProduct, numAmount, note.trim());
+    onSubmit(selectedProduct, numAmount, note.trim(), handedOver);
     haptic('heavy');
     celebrateSaleLogged();
     onClose();
@@ -259,6 +274,64 @@ const SaleForm: React.FC<{
         </>
       )}
 
+      {/* ── The handover ──
+          The one step after the money that still belongs to the seller:
+
+            "If they sold a syringe, the whole point is to pass it to an
+             upseller."
+
+          It only appears for the products that actually end in one, it is off
+          until tapped, and the sale saves whether or not it is touched. What it
+          does do is move the number on the Save button the instant it goes on,
+          so a seller learns where their job ends by watching it get paid for
+          rather than by reading another paragraph about it. */}
+      {endsInHandover(selectedProduct) && (
+        <>
+          <p className="mb-2 text-overline text-ink-3">{t.handoverTitle}</p>
+          <motion.button
+            type="button"
+            aria-pressed={handedOver}
+            onClick={() => {
+              haptic('light');
+              setHandedOver((v) => !v);
+            }}
+            whileTap={{ scale: 0.98 }}
+            className={`mb-5 flex min-h-touch w-full items-center gap-3 rounded-card border px-4 py-3 text-left transition-colors ${
+              handedOver ? 'border-teal bg-teal-tint' : 'border-line bg-surface-sunken'
+            }`}
+          >
+            <span
+              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
+                handedOver ? 'bg-teal text-on-teal' : 'bg-surface text-ink-2'
+              }`}
+            >
+              {handedOver ? (
+                <Check className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <ArrowRightLeft className="h-4 w-4" aria-hidden="true" />
+              )}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span
+                className={`block text-body-small font-semibold ${
+                  handedOver ? 'text-teal-strong' : 'text-ink'
+                }`}
+              >
+                {t.handover}
+              </span>
+              <span className="block text-caption text-ink-3">{t.handoverHint}</span>
+            </span>
+            <span
+              className={`shrink-0 text-caption font-bold ${
+                handedOver ? 'text-teal-strong' : 'text-ink-3'
+              }`}
+            >
+              {t.handoverXP(HANDOVER_XP)}
+            </span>
+          </motion.button>
+        </>
+      )}
+
       {/* Note */}
       <label htmlFor="sale-note" className="mb-2 block text-overline text-ink-3">
         {t.note}
@@ -287,7 +360,9 @@ const SaleForm: React.FC<{
           {/* The real number for THIS product. A sale is no longer one flat
               rate, and a Save button promising +60 for a {currency}30 nail kit
               is the same lie the docked buttons used to tell. */}
-          <span className="text-caption opacity-80">{t.submitXP(saleXp(selectedProduct))}</span>
+          <span className="text-caption opacity-80">
+            {t.submitXP(saleXp(selectedProduct, handedOver))}
+          </span>
         </button>
       </div>
     </div>

@@ -33,6 +33,18 @@ export interface StreetSession {
    * fresh, which is the correct answer for them anyway.
    */
   resolvedAt?: number;
+  /**
+   * The sale was passed to the upseller — the last thing a seller's job
+   * contains, and the only step after the syringe that belongs to them.
+   *
+   *   "If they sold a syringe, the whole point is to pass it to an upseller."
+   *
+   * Optional, and never required to save a sale. A sale with this undefined is
+   * a sale nobody said anything about, not a failed handover — the seller's
+   * log is theirs, and the moment ticking a box becomes compulsory it becomes
+   * a box that gets ticked without meaning anything.
+   */
+  handedOver?: boolean;
 }
 
 export interface DailySummary {
@@ -102,10 +114,38 @@ export const SALE_XP: Record<string, number> = {
      punish the biggest sale on the list. */
 };
 
+/*
+ * The handover is worth something, because it is the job.
+ *
+ * A syringe sale that stops at the till is a job left one step short — the
+ * owner is unambiguous that a seller's work ends when the upseller takes over,
+ * not when the card goes through. So the sheet pays for the whole job: tick
+ * the box and the number on the Save button goes up in front of you, which is
+ * the doctrine taught in one gesture rather than one more paragraph.
+ *
+ * Deliberately smaller than a scrub. It is a step, not a sale, and it should
+ * never be worth more than actually selling something.
+ */
+export const HANDOVER_XP = 15;
+
+/** Which products end in a handover. The star, and any bundle containing it. */
+const HANDOVER_PRODUCTS = new Set(['syringe', 'multiple']);
+
+/**
+ * Is the handover even a question for this product?
+ *
+ * A nail kit does not get passed to anybody, and putting the box on a nail-kit
+ * sale would teach a beginner that the small products lead somewhere. They do
+ * not — they are training wheels.
+ */
+export function endsInHandover(productId?: string): boolean {
+  return productId !== undefined && HANDOVER_PRODUCTS.has(productId);
+}
+
 /** What this sale is worth. Unknown or multi-product sales pay the base rate. */
-export function saleXp(productId?: string): number {
-  if (!productId) return XP_VALUES.sale;
-  return SALE_XP[productId] ?? XP_VALUES.sale;
+export function saleXp(productId?: string, handedOver?: boolean): number {
+  const base = !productId ? XP_VALUES.sale : SALE_XP[productId] ?? XP_VALUES.sale;
+  return base + (handedOver && endsInHandover(productId) ? HANDOVER_XP : 0);
 }
 
 // Prices are BASE prices from src/data/pricing.ts (the single source of truth).
