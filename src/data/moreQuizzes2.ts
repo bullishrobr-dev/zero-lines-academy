@@ -191,9 +191,9 @@ const quizPriceLadder: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "She has asked ONCE. One ask does not buy a {currency}40 drop. Make her ask twice before you move once, or you have taught her that the numbers fall every time she pushes — and she will push all the way down. So the first answer at {currency}140 is not a number at all, it is a trade: cash, a second product, something extra in the bag. {currency}100 is a floor, not a step. It exists for the customer who is genuinely walking out of that door, and it is the last thing you say, never the second.",
+        "She has asked ONCE. One ask does not buy a {currency}40 drop. Make her ask twice before you move once, or you have taught her that the numbers fall every time she pushes — and she will push all the way down. So the first answer at {currency}140 is not a number at all, it is a trade: cash, a second product, something extra in the bag. {currency}100 is a floor, not a step, and it is not yours: below the voucher you go full market and fetch a manager, and the number comes out of his mouth. It is the last thing that gets said, never the second.",
       explanationEs:
-        "Te lo ha pedido UNA vez. Una petición no compra una bajada de {currency}40. Que te lo pida dos veces antes de moverte una, o le habrás enseñado que los números caen cada vez que empuja — y va a empujar hasta abajo. Así que la primera respuesta en {currency}140 no es un número, es un intercambio: efectivo, un segundo producto, algo más en la bolsa. {currency}100 es un suelo, no un escalón. Existe para la clienta que se está yendo de verdad por esa puerta, y es lo último que dices, nunca lo segundo."
+        "Te lo ha pedido UNA vez. Una petición no compra una bajada de {currency}40. Que te lo pida dos veces antes de moverte una, o le habrás enseñado que los números caen cada vez que empuja — y va a empujar hasta abajo. Así que la primera respuesta en {currency}140 no es un número, es un intercambio: efectivo, un segundo producto, algo más en la bolsa. {currency}100 es un suelo, no un escalón, y no es tuyo: por debajo del cupón vas a mercado puro y traes al encargado, y el número sale de su boca. Es lo último que se dice, nunca lo segundo."
     }
   ]
 };

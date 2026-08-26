@@ -130,6 +130,124 @@ function correctAnswers(body) {
   return out;
 }
 
+/*
+ * ── SECOND PASS: THE DOCTRINE CLAIM, ANYWHERE IN THE CORPUS ─────────────────
+ *
+ * The pass above only reads three lesson files, and that scoping hid three real
+ * regressions in the standalone quiz banks — files it has never opened:
+ *
+ *   • "The {currency}100 price is your 'nuclear option'… Only pull it when the
+ *     customer has mentally said yes" — the correct answer, paying XP.
+ *   • "{currency}100 is a floor… it is the last thing YOU say" — the seller's
+ *     mouth again, in an explanation.
+ *   • "If it's a stretch today, I can do the {currency}100 emergency price for
+ *     you" — the seller volunteering the floor, unasked, marked correct.
+ *
+ * Widening the first pass to the whole corpus is not the fix, and this was
+ * measured rather than guessed: {currency}100 is ALSO the peeling's Offer 1 and
+ * the bottom of every printed syringe ladder, so "any string with the floor
+ * needs a manager" fires on 156 lines, nearly all of them correct. A guard that
+ * cries wolf 150 times is a guard somebody deletes.
+ *
+ * So this pass is narrow on purpose. It fires only where the floor appears in
+ * the SAME SENTENCE as floor language — floor, suelo, emergency, nuclear,
+ * absolute minimum, last price — which is what a claim ABOUT the bottom rung
+ * looks like and what a ladder listing never does. Listings are excluded
+ * outright by their arrows.
+ *
+ * Measured on the corpus before the fixes: 6 hits, all three genuine, in both
+ * languages, zero false positives.
+ */
+const DOCTRINE = new RegExp(
+  [
+    'floor', 'suelo', 'emergency', 'emergencia', 'nuclear',
+    'absolute minimum', 'm[ií]nimo absoluto',
+    'last price', '[uú]ltimo precio',
+    'bottom rung', '[uú]ltimo escal[oó]n',
+  ].join('|'),
+  'i',
+);
+
+/** Question blocks, split on the `question:` key — one per quiz item. */
+function questionBlocks(src) {
+  const lines = src.split('\n');
+  const marks = [];
+  lines.forEach((l, i) => {
+    if (/^\s*question:/.test(l)) marks.push(i);
+  });
+  return marks.map((start, n) => ({
+    line: start + 1,
+    body: lines.slice(start, n + 1 < marks.length ? marks[n + 1] : lines.length).join('\n'),
+  }));
+}
+
+/**
+ * The correct option plus both explanations — what the quiz TEACHES.
+ *
+ * The explanation is grabbed as its STRING LITERAL, on the key's line or the
+ * next one. The first version of this walked forward from the key with a lazy
+ * `[\s\S]{0,1400}?(?=\n\s*\w+:|$)` and, under the /m flag, `$` matches at every
+ * line end — so it stopped dead at the end of the `explanation:` line and read
+ * nothing at all. It still went green, because the one violation whose text sat
+ * in an OPTION was caught by correctAnswers() above, and two that sat in
+ * explanations sailed through. Found by running the finished guard against the
+ * corpus from before the fixes and counting: two hits where the prototype had
+ * found six.
+ */
+function taughtText(block) {
+  const out = correctAnswers(block);
+  const re = /^\s*explanation(?:Es)?:\s*(?:\r?\n\s*)?("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)/gm;
+  for (const m of block.matchAll(re)) out.push(m[1]);
+  return out;
+}
+
+function doctrineHits(src) {
+  const out = [];
+  for (const { line, body } of questionBlocks(src)) {
+    /* A manager anywhere in the question's own block is enough. The rule is
+       that the seller is not the authority, not that every sentence repeats
+       it. */
+    if (AUTHORITY.test(body)) continue;
+    for (const chunk of taughtText(body)) {
+      for (const sentence of chunk.split(/(?<=[.!?])\s+/)) {
+        /* An arrow means a ladder being printed out — 500 → 300 → … → 100 —
+           which has to end at the floor and says nothing about who gives it. */
+        if (sentence.includes('\u2192')) continue;
+        if (FLOOR.test(sentence) && DOCTRINE.test(sentence)) {
+          out.push({ line, sentence: sentence.replace(/\s+/g, ' ').trim().slice(0, 120) });
+          break;
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/*
+ * And the coach, which is seller-facing copy that no lesson guard would ever
+ * open. demoCoach.ts writes sentences about the ladder from a seller's own
+ * week — "the lowest you ever said out loud was X" — and the one about walking
+ * further down is exactly the place a future edit could quietly hand over the
+ * bottom rung. Same rule, applied to its message strings.
+ */
+function coachHits() {
+  const src = readFileSync(join(SRC, 'utils', 'demoCoach.ts'), 'utf8');
+  const out = [];
+  for (const m of src.matchAll(/^\s*(body|bodyEs):\s*`([^`]*)`/gm)) {
+    const text = m[2];
+    if (AUTHORITY.test(text)) continue;
+    for (const sentence of text.split(/(?<=[.!?])\s+/)) {
+      if (FLOOR.test(sentence) || /\b100\b/.test(sentence)) {
+        if (DOCTRINE.test(sentence)) {
+          out.push({ line: src.slice(0, m.index).split('\n').length, sentence: sentence.slice(0, 120) });
+          break;
+        }
+      }
+    }
+  }
+  return out;
+}
+
 const hits = [];
 for (const file of readdirSync(join(SRC, 'data')).filter((f) => LESSON_FILES.includes(f))) {
   const src = readFileSync(join(SRC, 'data', file), 'utf8');
@@ -151,6 +269,17 @@ for (const file of readdirSync(join(SRC, 'data')).filter((f) => LESSON_FILES.inc
     if (spoken.length) hits.push(`${file}  ${lesson.id}  (a script says it)`);
     if (taught.length) hits.push(`${file}  ${lesson.id}  (a correct answer says it)`);
   }
+}
+
+/* The narrow pass, over EVERY data file rather than the three lesson ones. */
+for (const file of readdirSync(join(SRC, 'data')).filter((f) => f.endsWith('.ts'))) {
+  const src = readFileSync(join(SRC, 'data', file), 'utf8');
+  for (const h of doctrineHits(src)) {
+    hits.push(`${file}:${h.line}  (a correct answer or explanation says it)  "${h.sentence}"`);
+  }
+}
+for (const h of coachHits()) {
+  hits.push(`utils/demoCoach.ts:${h.line}  (a coaching message says it)  "${h.sentence}"`);
 }
 
 if (hits.length) {

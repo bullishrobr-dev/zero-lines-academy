@@ -112,22 +112,22 @@ const quizSyringeDeep: GeneralQuiz = {
       questionEs:
         "¿Cuándo deberías usar el precio de emergencia de {currency}100 para la jeringa?",
       options: [
-        "Only after the customer has rejected at least 2 higher prices and is genuinely walking away",
+        "You do not use it — you go full market and fetch a manager, and the number comes out of his mouth",
         "Immediately, to every customer who shows interest, because the lowest number is the one that stops them walking",
-        "When the customer says they have less than {currency}100 on them, so you match the price to whatever is in the wallet",
+        "When the customer says she has less than that on her, so you match the price to whatever is in the wallet",
         "At the end of the day to clear the remaining stock, so nothing goes back into the box unsold"
       ],
       optionsEs: [
-        "Solo después de que la cliente haya rechazado al menos 2 precios más altos y realmente se esté yendo",
+        "Tú no lo usas — vas a mercado puro y traes al encargado, y el número sale de su boca",
         "De inmediato, a toda clienta que muestre interés, porque la cifra más baja es la que evita que se vayan",
-        "Cuando la clienta dice que lleva menos de {currency}100 encima, y ajustas el precio a lo que tenga en la cartera",
+        "Cuando la clienta dice que lleva menos encima, y ajustas el precio a lo que tenga en la cartera",
         "Al final del día para liquidar el stock que queda, y que nada vuelva a la caja sin vender"
       ],
       correctIndex: 0,
       explanation:
-        "The {currency}100 price is your 'nuclear option.' Using it too early destroys your profit margin and trains customers to hold out for the lowest price. The correct sequence: anchor high, drop gradually, read the customer's commitment level. Only pull {currency}100 when the customer has mentally said 'yes' but the price is the only barrier — and even then, make it feel like you're breaking the rules for them.",
+        "This is the one price on the ladder that is not yours. You use the voucher once, {currency}175 down to {currency}140, and that is as far as your own authority goes. Below it you go full market, you tell her the number is not yours to give, and you walk off and come back WITH a manager — because a seller who can reach the bottom on their own has no bottom, and she can always ask for one more.",
       explanationEs:
-        "El precio de {currency}100 es tu 'opción nuclear.' Usarlo demasiado temprano destruye tu margen de ganancia y enseña a las clientes a esperar el precio más bajo. La secuencia correcta: ancla alto, baja gradualmente, lee el nivel de compromiso de la cliente. Solo saca los {currency}100 cuando la cliente haya dicho mentalmente 'sí' pero el precio sea la única barrera — e incluso entonces, hazlo sentir como si estuvieras rompiendo las reglas por ella."
+        "Este es el único precio de la escalera que no es tuyo. El cupón lo usas una vez, de {currency}175 a {currency}140, y hasta ahí llega tu autoridad. Por debajo vas a mercado puro, le dices que ese número no es tuyo, y te vas y vuelves CON el encargado — porque un vendedor que puede llegar al fondo él solo no tiene fondo, y ella siempre te puede pedir uno más."
     },
     {
       question:
@@ -1247,21 +1247,21 @@ const quizObjectionsChampion: GeneralQuiz = {
         "Cliente: 'Necesito revisar el saldo de mi cuenta bancaria primero.' ¿Cuál es la respuesta MÁS efectiva?",
       options: [
         "Go check and come back — I'll hold the price for 10 minutes, and if you are not back by then I will have to put it out on the table again for the next customer, because I cannot keep stock off the table on a promise",
-        "No problem at all. While you're checking — if the {currency}140 is there, you know what to do. If it's a stretch today, I can do the {currency}100 emergency price for you. If even that's too much, the Dead Sea Scrub at {currency}60 gives you a great glow and you can upgrade later. Three options, no pressure — what feels right?",
+        "Of course — check it right now, I am not going anywhere. [Give her the ten seconds] And if it is tight today, tell me what you have got on you and we will make it work — I can split it, part card and part cash, whatever is easiest for you",
         "Don't worry about your balance — just use your credit card, nobody checks their account before buying something this small and you can move the money across later tonight. Nobody has ever regretted a purchase they made on a card",
         "If you need to check your balance, you probably can't afford this — come back another day when you have set the money aside and we will start the whole thing again"
       ],
       optionsEs: [
         "Ve a mirar y vuelve — te guardo el precio 10 minutos, y si no has vuelto para entonces tendré que sacarlo otra vez a la mesa para la siguiente clienta, porque no puedo retirar producto por una promesa",
-        "Ningún problema. Mientras revisas — si los {currency}140 están ahí, ya sabes qué hacer. Si es un estirón hoy, puedo hacerte el precio de emergencia de {currency}100. Si incluso eso es mucho, el Exfoliante del Mar Muerto a {currency}60 te da un brillo estupendo y puedes subir de nivel después. Tres opciones, sin presión — ¿qué se siente bien?",
+        "Claro — míralo ahora mismo, que yo no me muevo de aquí. [Dale los diez segundos] Y si hoy va justo, dime qué llevas encima y lo arreglamos — te lo puedo partir, una parte con tarjeta y otra en efectivo, lo que te vaya mejor",
         "No te preocupes por tu saldo — usa la tarjeta de crédito, nadie mira su cuenta antes de comprar algo tan pequeño y ya moverás el dinero esta noche. Nadie se ha arrepentido nunca de una compra pagada con tarjeta",
         "Si necesitas mirar el saldo, probablemente no te lo puedes permitir — vuelve otro día cuando hayas apartado el dinero y empezamos otra vez desde el principio"
       ],
       correctIndex: 1,
       explanation:
-        "The 'three options, no pressure' close is devastatingly effective. Instead of a binary yes/no, you give three price points that let them choose their comfort level. This puts THEM in control while guiding them toward a sale. The scrub at {currency}60 becomes the 'safety net' option that almost always results in at least a small sale. And once they experience ANY product, they become a future customer for the full line. Flexibility wins more sales than rigidity.",
+        "She did not say no, she said she does not know — and that is a ten-second question she can answer standing exactly where she is. The moment she walks off to check it you have lost her, and 'I will hold it for ten minutes' is that same walk-out with a countdown bolted on. So she checks it here, with her hand still in yours. If the money really is tight the answer is HOW she pays, not a new number: split it, part card and part cash, whatever gets it done. And you do not hand her the bottom of the ladder to be helpful — that price is not yours to give, and offering it before she has even asked teaches her that every number out of your mouth is soft.",
       explanationEs:
-        "El cierre de 'tres opciones, sin presión' es devastadoramente efectivo. En lugar de un sí/no binario, das tres puntos de precio que les permiten elegir su nivel de comodidad. Esto les pone a ELLOS en control mientras los guías hacia una venta. El exfoliante a {currency}60 se convierte en la opción de 'red de seguridad' que casi siempre resulta en al menos una venta pequeña. Y una vez que experimentan CUALQUIER producto, se convierten en un cliente futuro para la línea completa. La flexibilidad gana más ventas que la rigidez."
+        "No te ha dicho que no, te ha dicho que no lo sabe — y eso es una pregunta de diez segundos que puede contestar justo donde está. En cuanto se va a mirarlo la has perdido, y 'te lo guardo diez minutos' es esa misma fuga con una cuenta atrás encima. Así que lo mira aquí, con su mano todavía en la tuya. Si de verdad va justa de dinero, la respuesta es CÓMO paga, no un número nuevo: pártelo, una parte con tarjeta y otra en efectivo, lo que haga falta. Y no le sueltes el fondo de la escalera por hacerle un favor — ese precio no es tuyo, y ofrecérselo antes de que lo haya pedido le enseña que todos los números que dices son blandos."
     }
   ]
 };

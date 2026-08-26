@@ -31,27 +31,54 @@ import { execSync } from 'node:child_process';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
-const FILE = 'src/data/objectionLessons.ts';
 const BAK = join(tmpdir(), 'zl-attack-guards.bak');
 
-/* Anchors that exist in the corpus today. If one goes missing the run says so
-   rather than reporting a false all-clear — a harness that silently plants
-   nothing is exactly the failure it exists to catch. */
-const IN_A_SCRIPT = 'YOU: \\"On a budget';
-const A_CORRECT_ANSWER = "'A manager. You go and get one, and the number comes out of his mouth',";
+/*
+ * Where each attack gets planted, and the anchor it is planted against.
+ *
+ * Anchors are lines that exist in the corpus today. If one goes missing the run
+ * says so rather than reporting a false all-clear — a harness that silently
+ * plants nothing is exactly the failure it exists to catch.
+ *
+ * Three files rather than one, because the guards do not all read the same
+ * places. The floor guard used to read three lesson files, so every attack
+ * aimed at objectionLessons.ts passed and three genuine regressions sat
+ * undisturbed in the standalone quiz banks. An attack only tests the ground it
+ * is fired at.
+ */
+const TARGETS = {
+  lesson: {
+    file: 'src/data/objectionLessons.ts',
+    script: 'YOU: \\"On a budget',
+    correct: "'A manager. You go and get one, and the number comes out of his mouth',",
+  },
+  /* A quiz bank no lesson guard has ever opened. The anchor is an explanation
+     whose question mentions no manager, which is the condition for the check. */
+  quizBank: {
+    file: 'src/data/moreQuizzes.ts',
+    explanation: '"The price ladder is: {currency}500 (Europe anchor)',
+  },
+  /* Seller-facing copy that is not a lesson at all. */
+  coach: {
+    file: 'src/utils/demoCoach.ts',
+    message: 'more written up and I can tell you what keeps going wrong.',
+  },
+};
 
 const ATTACKS = [
-  ['tax claim, in a script', 'script', 'It is tax free here, my darling. '],
-  ['tax claim, as a correct answer', 'correct', "'Tell her it is tax free in Andorra',"],
-  ['refund promise, in a script', 'script', 'If you do not love it, bring it back for a full refund. '],
-  ['refund promise, as a correct answer', 'correct', "'Promise her a full refund if she is not happy',"],
-  ['names a disease, in a script', 'script', 'It clears up eczema and psoriasis. '],
-  ['names a disease, as a correct answer', 'correct', "'Tell her it treats her eczema',"],
-  ['retired 2-metre rule, in a script', 'script', 'Start your approach at 2 metres. '],
-  ['walkaway, in a script', 'script', 'Have a think about it and come back tomorrow. '],
-  ['walkaway, as a correct answer', 'correct', "'Tell her to come back tomorrow when she has decided',"],
-  ['seller gives the floor, in a script', 'script', 'I can do {currency}100 for you, just for you. '],
-  ['seller gives the floor, as a correct answer', 'correct', "'Just give her the {currency}100 yourself',"],
+  ['tax claim, in a script', 'lesson', 'script', 'It is tax free here, my darling. '],
+  ['tax claim, as a correct answer', 'lesson', 'correct', "'Tell her it is tax free in Andorra',"],
+  ['refund promise, in a script', 'lesson', 'script', 'If you do not love it, bring it back for a full refund. '],
+  ['refund promise, as a correct answer', 'lesson', 'correct', "'Promise her a full refund if she is not happy',"],
+  ['names a disease, in a script', 'lesson', 'script', 'It clears up eczema and psoriasis. '],
+  ['names a disease, as a correct answer', 'lesson', 'correct', "'Tell her it treats her eczema',"],
+  ['retired 2-metre rule, in a script', 'lesson', 'script', 'Start your approach at 2 metres. '],
+  ['walkaway, in a script', 'lesson', 'script', 'Have a think about it and come back tomorrow. '],
+  ['walkaway, as a correct answer', 'lesson', 'correct', "'Tell her to come back tomorrow when she has decided',"],
+  ['seller gives the floor, in a script', 'lesson', 'script', 'I can do {currency}100 for you, just for you. '],
+  ['seller gives the floor, as a correct answer', 'lesson', 'correct', "'Just give her the {currency}100 yourself',"],
+  ['seller gives the floor, in a quiz explanation', 'quizBank', 'explanation', '{currency}100 is the floor and it is yours to give whenever you like. '],
+  ['seller gives the floor, in a coaching message', 'coach', 'message', 'Go straight to the {currency}100 floor when they hesitate. '],
 ];
 
 /* Tracked changes only. This mutates and restores a tracked file, so that is
@@ -64,25 +91,32 @@ if (execSync('git diff --name-only && git diff --cached --name-only', { encoding
   process.exit(1);
 }
 
-copyFileSync(FILE, BAK);
 const results = [];
+let current = null;
 try {
-  for (const [name, where, text] of ATTACKS) {
+  for (const [name, targetKey, where, text] of ATTACKS) {
+    const target = TARGETS[targetKey];
+    const anchor = target[where];
+    if (!anchor) { results.push([name, 'NO ANCHOR FOR THIS MODE — fix this harness']); continue; }
+
+    copyFileSync(target.file, BAK);
+    current = target.file;
     const clean = readFileSync(BAK, 'utf8');
-    const anchor = where === 'script' ? IN_A_SCRIPT : A_CORRECT_ANSWER;
+    /* A correct answer is REPLACED — the right answer becomes the banned one.
+       Everything else is planted alongside its anchor, so the surrounding
+       block stays intact and the guard has to find the new sentence. */
     const planted =
-      where === 'script'
-        ? clean.replace(anchor, anchor + ' ' + text, 1)
-        : clean.replace(anchor, text, 1);
+      where === 'correct' ? clean.replace(anchor, text, 1) : clean.replace(anchor, anchor + ' ' + text, 1);
     if (planted === clean) { results.push([name, 'ANCHOR MISSING — fix this harness']); continue; }
-    writeFileSync(FILE, planted);
+    writeFileSync(target.file, planted);
     let caught = false;
     try { execSync('npm run check:content', { stdio: 'pipe' }); } catch { caught = true; }
     results.push([name, caught ? 'caught' : 'MISSED']);
-    copyFileSync(BAK, FILE);
+    copyFileSync(BAK, target.file);
+    current = null;
   }
 } finally {
-  copyFileSync(BAK, FILE);
+  if (current) copyFileSync(BAK, current);
   try { unlinkSync(BAK); } catch { /* nothing to clean */ }
 }
 
