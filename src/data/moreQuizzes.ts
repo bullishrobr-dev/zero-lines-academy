@@ -751,19 +751,19 @@ const quizScrubExpert: GeneralQuiz = {
         "Always push the bundle first — never sell standalone, because a single scrub caps the ticket before it has even started",
         "Only sell standalone at the end of the day when you are clearing what is left on the table and the trio has stopped moving",
         "Always sell standalone — bundles confuse customers, and a single clear price is easier to say yes to than three offers",
-        "Offer standalone when the customer shows budget hesitation or low engagement — use it as the entry point to build trust before upselling"
+        "You open with the bundle and walk down to the single — {currency}60 is a rung on that ladder, not the place you start"
       ],
       optionsEs: [
         "Empuja siempre el paquete primero, nunca vendas individual, porque un solo exfoliante limita el ticket antes de empezar",
         "Vende individual solo al final del día, cuando liquidas lo que queda en la mesa y el trío ya no se mueve",
         "Vende siempre individual — los paquetes confunden a las clientas, y un precio único es más fácil de aceptar que tres ofertas",
-        "Ofrece independiente cuando la cliente muestra duda por presupuesto o bajo compromiso — úsalo como punto de entrada para construir confianza antes de vender más"
+        "Abres con el paquete y bajas hasta el individual — los {currency}60 son un escalón de esa escalera, no donde empiezas"
       ],
       correctIndex: 3,
       explanation:
-        "The scrub at {currency}60 is your 'foot in the door' product. When someone is hesitant about higher prices or seems skeptical, the scrub builds trust through its tangible demo. Once they buy and love it, they become a warm lead for the syringe and peeling. Pushing bundles on cold prospects often results in NO sale. Read the customer — low engagement gets the {currency}60 single, high engagement gets the {currency}120 Buy 2 Get 1 pitch.",
+        "The scrub has a ladder like everything else — Buy 2 Get 1 at {currency}120, then Buy 2 Get 2, then the single at {currency}60 — and you start at the top of it, same as always. Opening at {currency}60 because somebody looks hesitant is you doing her haggling for her before she has asked, and it is guesswork besides: you cannot tell from a face who was going to buy, and anybody who says they can has just been lucky. Walk the ladder. She will tell you where she stops.",
       explanationEs:
-        "El exfoliante a {currency}60 es tu producto 'pie en la puerta'. Cuando alguien duda de precios más altos o parece escéptico, el scrub construye confianza a través de su demo tangible. Una vez que compran y les encanta, se convierten en un prospecto caliente para la jeringa y el peeling. Empujar paquetes a prospectos fríos a menudo resulta en NINGUNA venta. Lee a la cliente — poco enganche se lleva el individual de {currency}60, mucho enganche recibe el pitch del Compra 2 Lleva 1 de {currency}120."
+        "El exfoliante tiene su escalera como todo lo demás — Compra 2 Llévate 1 a {currency}120, luego Compra 2 Llévate 2, luego el individual a {currency}60 — y empiezas arriba, como siempre. Abrir en {currency}60 porque alguien pone cara de duda es hacerle tú el regateo antes de que lo pida, y encima es adivinar: no puedes saber por una cara quién iba a comprar, y el que dice que sí puede es que ha tenido suerte. Camina la escalera. Ya te dirá ella dónde se para."
     }
   ]
 };
