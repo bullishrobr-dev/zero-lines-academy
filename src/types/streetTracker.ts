@@ -1,4 +1,46 @@
 /**
+ * ── THE DEMO LOG ────────────────────────────────────────────────────────────
+ *
+ * What actually happened in the two minutes that did not end in a sale. This is
+ * the part of a shift nothing else in the world records: the till knows every
+ * sale and nothing at all about the nine demos that came before it.
+ *
+ * Written by the seller, for the seller, and OPTIONAL end to end — the owner
+ * was explicit that the app is not a POS and that logging is for whoever wants
+ * to get better, not a form everybody has to fill in before they are allowed to
+ * go back out. A walk-away with no `demo` on it is normal, not a gap.
+ *
+ *   "Once again, this is not for everybody, but whoever wants to do it,
+ *    whoever wants to improve, this is a nice tool for them."
+ */
+export interface DemoLog {
+  /** What was on the table. The syringe is what a shift is really measured on. */
+  productId?: string;
+  /**
+   * The LOWEST price actually offered out loud, off that product's own ladder.
+   *
+   * The single most diagnostic number about a lost demo: losing her at 300 and
+   * losing her at 140 are two completely different problems, and never naming a
+   * price at all is a third — a demo that died before the money, which is a
+   * different lesson entirely.
+   *
+   * So this has three states and they all mean something. A number is the rung.
+   * `null` is "I never got to a price", said out loud by tapping the chip.
+   * `undefined` is "nobody answered", which is not a finding and must never be
+   * counted as one.
+   */
+  lowestOffer?: number | null;
+  /** Where the seller reckons they lost it — an id from DEMO_STEPS. */
+  lostAt?: string;
+  /** Gift ids from GIFTS that were put on the table. */
+  gifts?: string[];
+  /** Free text, never required. */
+  note?: string;
+  /** When it was written down, which is not when the encounter happened. */
+  loggedAt: number;
+}
+
+/**
  * A "STOP" is someone who is now INSIDE the shop, in front of you — not someone
  * halted on the pavement. Counting pavement approaches was dropped: it measured
  * effort rather than result, and nobody could count it honestly anyway.
@@ -45,6 +87,11 @@ export interface StreetSession {
    * a box that gets ticked without meaning anything.
    */
   handedOver?: boolean;
+  /**
+   * The optional post-mortem on a demo that did not sell. See DemoLog above.
+   * Only ever set on a `stop` that ended in `walked`.
+   */
+  demo?: DemoLog;
 }
 
 export interface DailySummary {
@@ -127,6 +174,17 @@ export const SALE_XP: Record<string, number> = {
  * never be worth more than actually selling something.
  */
 export const HANDOVER_XP = 15;
+
+/*
+ * What sitting down and writing up a loss is worth.
+ *
+ * Small on purpose. It is not a sale and it must not feel like one — but it is
+ * the one thing a seller can do with a demo that went nowhere other than carry
+ * it around, and an app that pays nothing for honesty about a loss is quietly
+ * telling people not to bother. Paid once per encounter; editing the log later
+ * does not pay again.
+ */
+export const DEMO_LOG_XP = 10;
 
 /** Which products end in a handover. The star, and any bundle containing it. */
 const HANDOVER_PRODUCTS = new Set(['syringe', 'multiple']);

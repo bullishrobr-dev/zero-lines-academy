@@ -22,7 +22,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import BottomSheet from './BottomSheet';
 import { ArrowRightLeft, Check, Coins, X } from 'lucide-react';
 import { celebrateSaleLogged } from '../utils/confetti';
 import { haptic } from '../utils/haptics';
@@ -30,7 +31,7 @@ import { endsInHandover, HANDOVER_XP, saleXp } from '../types/streetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import { PRODUCTS } from '../types/streetTracker';
-import { LADDERS, type ProductId } from '../data/pricing';
+import { ladderRungAmounts } from '../data/pricing';
 
 interface SaleLogModalProps {
   isOpen: boolean;
@@ -78,25 +79,6 @@ const COPY = {
     submitXP: (n: number) => `+${n} XP`,
   },
 };
-
-/**
- * Every price this product is really sold at, highest first.
- *
- * The base price plus every rung of its ladder, de-duplicated on the AMOUNT —
- * the syringe's "two for 300" and its plain 300 are two different offers but
- * one number, and a money field only cares about the number. The Europe anchor
- * is deliberately absent: it is the strike-through we quote, never a price
- * anybody pays.
- *
- * "Multiple" has no ladder of its own, so it gets no chips and goes straight to
- * the manual field — which is exactly what it is for.
- */
-function ladderRungAmounts(productId: string): number[] {
-  if (!(productId in LADDERS)) return [];
-  const ladder = LADDERS[productId as ProductId];
-  const amounts = new Set<number>([ladder.base, ladder.floor, ...ladder.steps.map((s) => s.price)]);
-  return [...amounts].sort((a, b) => b - a);
-}
 
 /**
  * The form lives in its own component so it is MOUNTED only while the sheet is
@@ -374,44 +356,9 @@ const SaleLogModal: React.FC<SaleLogModalProps> = ({ isOpen, onClose, onSubmit }
   const t = COPY[language === 'es' ? 'es' : 'en'];
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-[70] flex items-end justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          role="dialog"
-          aria-modal="true"
-          aria-label={t.title}
-        >
-          <motion.div
-            className="absolute inset-0 bg-ink/50 backdrop-blur-sm"
-            onClick={onClose}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-
-          <motion.div
-            className="relative max-h-[88vh] w-full max-w-app overflow-y-auto rounded-t-feature border border-line bg-surface shadow-feature"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-          >
-            <div className="flex justify-center pb-1 pt-3">
-              <div className="h-1 w-10 rounded-full bg-line-strong/50" />
-            </div>
-
-            <SaleForm onClose={onClose} onSubmit={onSubmit} />
-
-            {/* Clears the iPhone home bar without fighting the padding above. */}
-            <div className="pb-safe" />
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <BottomSheet isOpen={isOpen} onClose={onClose} label={t.title}>
+      <SaleForm onClose={onClose} onSubmit={onSubmit} />
+    </BottomSheet>
   );
 };
 

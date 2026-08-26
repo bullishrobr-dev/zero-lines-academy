@@ -351,6 +351,37 @@ Other things worth knowing:
   screens. Everything else should import from `lessonMeta.ts` or
   `categories.ts`, or the home screen starts downloading the whole corpus again.
 
+## The journal belongs to the seller
+
+The journal (`/street-tracker`) counts stops and sales, and those counts go to
+the server — a manager needs to see the team's funnel. **Nothing else does.**
+
+Why a demo went wrong is written by the seller for the seller, and the owner was
+asked directly who should be able to read it:
+
+> "Only the seller. They want to keep it private. They don't want them to share
+> their thoughts, because they kind of turn it into, in a way, a journal."
+
+So `resolveEncounter` and `logDemo` are local-only on purpose, and the
+`handedOver` flag on a sale is not sent either. The reasoning is the same in all
+three cases: a self-reported number that can be read by the person who does the
+rota stops being a confession and becomes a target, and then "I filled the
+silence" is an answer nobody ever gives again. If the shop ever wants a handover
+rate, it comes off the upseller's till — not off the person being measured.
+
+And **logging is never mandatory.** The two-tap close still closes an encounter
+on its own; the write-up sheet is offered, every field in it is optional, and a
+walk-away with no write-up is normal rather than a gap.
+
+> "I'm not gonna turn this into a POS system... this is not for everybody, but
+> whoever wants to do it, whoever wants to improve, this is a nice tool."
+
+The payoff is `src/utils/demoCoach.ts`, which reads a week of write-ups and
+returns exactly **one** verdict — never a list. A seller reads it standing up
+between customers, and a screen that hands them five things to work on hands
+them nothing. Its ladder message quotes rungs computed from `pricing.ts`, never
+typed, and it never says the floor without a manager attached.
+
 ## When in doubt
 
 Read the line out loud as if a customer is standing in front of you, in a

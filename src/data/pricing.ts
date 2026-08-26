@@ -192,3 +192,21 @@ export function basePrice(product: ProductId): number {
 export function floorPrice(product: ProductId): number {
   return LADDERS[product].floor;
 }
+
+/**
+ * Every price this product is really sold at, highest first.
+ *
+ * The base plus every rung, de-duplicated on the AMOUNT — the syringe's "two
+ * for 300" and its plain 300 are two different offers but one number, and a
+ * money control only cares about the number. The Europe anchor is deliberately
+ * absent: it is the strike-through we quote, never a price anybody pays.
+ *
+ * An unknown product (or "Multiple", which has no ladder of its own) gets an
+ * empty list, which every caller reads as "there is nothing to tap here".
+ */
+export function ladderRungAmounts(productId: string): number[] {
+  if (!(productId in LADDERS)) return [];
+  const ladder = LADDERS[productId as ProductId];
+  const amounts = new Set<number>([ladder.base, ladder.floor, ...ladder.steps.map((r) => r.price)]);
+  return [...amounts].sort((a, b) => b - a);
+}

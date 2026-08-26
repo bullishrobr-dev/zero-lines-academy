@@ -1,16 +1,22 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Flame, DoorOpen, Coins, Trophy, DoorClosed, ArrowRightLeft } from 'lucide-react';
+import {
+  Zap, Flame, DoorOpen, Coins, Trophy, DoorClosed, ArrowRightLeft, NotebookPen, X,
+} from 'lucide-react';
 import { useStreetTracker } from '../hooks/useStreetTracker';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
 import QuickLogButtons from '../components/QuickLogButtons';
 import EncounterCard from '../components/EncounterCard';
 import SaleLogModal from '../components/SaleLogModal';
+import DemoLogModal from '../components/DemoLogModal';
+import DemoCoachCard from '../components/DemoCoachCard';
 import BetweenShiftsCard from '../components/BetweenShiftsCard';
 import ComebackCard, { type ComebackMode } from '../components/ComebackCard';
-import { PRODUCTS, XP_VALUES, saleXp } from '../types/streetTracker';
+import { PRODUCTS, XP_VALUES, saleXp, DEMO_LOG_XP } from '../types/streetTracker';
+import { demoStep, chipLabel } from '../data/encounterChips';
+import { readDemos } from '../utils/demoCoach';
 import type { StreetSession, DailySummary } from '../types/streetTracker';
 
 const COPY = {
@@ -38,6 +44,12 @@ const COPY = {
     xpToday: 'XP today',
     dayStreak: 'day streak',
     handedOver: 'Passed to the upseller',
+    writeUp: 'Write up that demo',
+    writeUpHint: 'While you still remember it',
+    writeUpDismiss: 'Not now',
+    lostAt: 'Lost them at',
+    tapToWriteUp: 'Write it up',
+    writtenUp: 'Written up',
   },
   es: {
     title: 'Mi Diario',
@@ -63,6 +75,12 @@ const COPY = {
     xpToday: 'XP hoy',
     dayStreak: 'días de racha',
     handedOver: 'Traspaso al upseller',
+    writeUp: 'Apunta esa demo',
+    writeUpHint: 'Mientras la tienes fresca',
+    writeUpDismiss: 'Ahora no',
+    lostAt: 'Los perdí en',
+    tapToWriteUp: 'Apúntala',
+    writtenUp: 'Apuntada',
   },
 };
 
@@ -108,14 +126,17 @@ function rowXP(session: StreetSession): number {
   return session.type === 'sale' ? saleXp(session.productId, session.handedOver) : XP_VALUES.stop;
 }
 
-const ActivityRow: React.FC<{ session: StreetSession; t: Copy; isEs: boolean; money: (n: number) => string }> = ({
-  session,
-  t,
-  isEs,
-  money,
-}) => {
+const ActivityRow: React.FC<{
+  session: StreetSession;
+  t: Copy;
+  isEs: boolean;
+  money: (n: number) => string;
+  /** Present only on a walk-away — opens the write-up sheet for that one. */
+  onWriteUp?: () => void;
+}> = ({ session, t, isEs, money, onWriteUp }) => {
   const product = PRODUCTS.find((p) => p.id === session.productId);
   const productName = product ? (isEs ? product.nameEs : product.name) : '';
+  const step = demoStep(session.demo?.lostAt);
   const style = ACTIVITY_STYLE[session.type];
   const Icon = session.type === 'stop' ? DoorOpen : Coins;
   const label = session.type === 'stop' ? t.stop : t.sale;
@@ -152,6 +173,34 @@ const ActivityRow: React.FC<{ session: StreetSession; t: Copy; isEs: boolean; mo
             <ArrowRightLeft className="h-3 w-3 shrink-0" aria-hidden="true" />
             {t.handedOver}
           </p>
+        )}
+        {/* A demo that has been written up says so, and stays editable; one
+            that has not offers to be. The owner wanted this doable "right after
+            they go" AND later on — "they can take their phone anywhere and log
+            in what they want" — so the row stays live for the rest of the day.
+
+            Note the gate is `session.demo`, not `step`: a write-up that named a
+            price and skipped the step question is still a write-up, and used to
+            keep offering itself as though nothing had been said. */}
+        {onWriteUp && (
+          <button
+            type="button"
+            onClick={onWriteUp}
+            className="mt-1 inline-flex min-h-[32px] items-center gap-1 rounded-chip border border-line-strong bg-surface px-2.5 text-caption text-ink-2 transition-colors active:bg-teal-tint"
+          >
+            <NotebookPen className="h-3 w-3 shrink-0" aria-hidden="true" />
+            {session.demo ? (
+              step ? (
+                <span>
+                  {t.lostAt} <span className="text-ink">{chipLabel(step, isEs)}</span>
+                </span>
+              ) : (
+                t.writtenUp
+              )
+            ) : (
+              t.tapToWriteUp
+            )}
+          </button>
         )}
         {session.note && <p className="mt-0.5 truncate text-caption italic text-ink-3">{session.note}</p>}
       </div>
@@ -294,6 +343,40 @@ const PersonalBest: React.FC<{ label: string; value: string | number; delay?: nu
   </motion.div>
 );
 
+/**
+ * The offer to write up the demo that just ended.
+ *
+ * A strip, not a card, and it sits in the slot the encounter card has just
+ * vacated — so nothing is ADDED to a screen that already refuses to stack two
+ * learning cards over the numbers. Ignore it and it goes when the next customer
+ * walks in; it never blocks anything and it never comes back to ask twice.
+ */
+const WriteUpStrip: React.FC<{ t: Copy; onOpen: () => void; onDismiss: () => void }> = ({
+  t,
+  onOpen,
+  onDismiss,
+}) => (
+  <motion.div
+    layout
+    initial={{ opacity: 0, y: -8 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -8 }}
+    className="mb-4 flex items-center gap-2 rounded-card border border-line bg-surface-sunken p-2 pl-3"
+  >
+    <NotebookPen className="h-4 w-4 shrink-0 text-ink-2" aria-hidden="true" />
+    <div className="min-w-0 flex-1">
+      <p className="truncate text-body-small font-semibold text-ink">{t.writeUp}</p>
+      <p className="truncate text-caption text-ink-3">{t.writeUpHint}</p>
+    </div>
+    <button type="button" onClick={onOpen} className="btn-secondary min-h-touch shrink-0 px-3">
+      <span className="text-caption font-semibold">+{DEMO_LOG_XP} XP</span>
+    </button>
+    <button type="button" onClick={onDismiss} aria-label={t.writeUpDismiss} className="btn-icon shrink-0">
+      <X className="h-4 w-4" aria-hidden="true" />
+    </button>
+  </motion.div>
+);
+
 // ── The learning slot ───────────────────────────────────────────────────────
 //
 // One card, directly under the encounter, chosen by what the seller's own data
@@ -318,6 +401,8 @@ const StreetTrackerPage: React.FC = () => {
     openEncounter,
     lastWalkAway,
     resolveEncounter,
+    logDemo,
+    getDemoLogs,
     getTodayLogs,
     getTodayReasons,
     getDailySummary,
@@ -341,6 +426,11 @@ const StreetTrackerPage: React.FC = () => {
   );
 
   const [showSaleModal, setShowSaleModal] = useState(false);
+  /* Which encounter the write-up sheet is pointed at, and which one is being
+     offered the strip. Two pieces of state rather than one, because dismissing
+     the offer must not also close the sheet the seller has just opened. */
+  const [writeUpTarget, setWriteUpTarget] = useState<string | undefined>(undefined);
+  const [offerWriteUpFor, setOfferWriteUpFor] = useState<string | undefined>(undefined);
   /*
    * ── THE ENCOUNTER AND THE MONEY ARE ONE ACT ────────────────────────────────
    *
@@ -465,6 +555,24 @@ const StreetTrackerPage: React.FC = () => {
   }, []);
 
   const todayLogs = useMemo(() => getTodayLogs(), [getTodayLogs]);
+
+  /* Both read off todayLogs so they follow the store rather than a snapshot —
+     the strip must disappear the moment its demo is written up, and the sheet
+     must show what is actually saved when it is reopened to change an answer. */
+  const offeredSession = useMemo(
+    () => todayLogs.find((l) => l.id === offerWriteUpFor),
+    [todayLogs, offerWriteUpFor],
+  );
+  const writeUpSession = useMemo(
+    () => todayLogs.find((l) => l.id === writeUpTarget),
+    [todayLogs, writeUpTarget],
+  );
+
+  /* A week, not a day. One bad afternoon is noise; the same step five times
+     across a week is a hole in somebody's demo, and that is the conversation
+     worth having. Null when nothing has ever been written up — a seller who
+     does not use the log is not nagged about not using it. */
+  const coach = useMemo(() => readDemos(getDemoLogs(7), money), [getDemoLogs, money]);
   const summary = useMemo(() => getDailySummary(todayKey), [getDailySummary, todayKey]);
   const weekData = useMemo(() => getWeekSummary(), [getWeekSummary]);
   const totalXP = useMemo(() => getTotalXP(), [getTotalXP]);
@@ -513,7 +621,11 @@ const StreetTrackerPage: React.FC = () => {
             <EncounterCard
               key={openEncounter.id}
               encounter={openEncounter}
-              onWalked={(reason) => resolveEncounter(openEncounter.id, 'walked', reason)}
+              onWalked={(reason) => {
+                resolveEncounter(openEncounter.id, 'walked', reason);
+                /* Two taps still closed it. This only OFFERS the third. */
+                setOfferWriteUpFor(openEncounter.id);
+              }}
               onSold={(reason) => {
                 /* Stash only. The encounter is not closed until the money is
                    saved — until then her outcome genuinely is not known. */
@@ -521,6 +633,16 @@ const StreetTrackerPage: React.FC = () => {
                 setPendingEncounterId(openEncounter.id);
                 setShowSaleModal(true);
               }}
+            />
+          )}
+          {/* Only ever in the slot the card has just left — never alongside a
+              live encounter, and never once it has been written up. */}
+          {!openEncounter && offeredSession && !offeredSession.demo && (
+            <WriteUpStrip
+              key={`writeup-${offeredSession.id}`}
+              t={t}
+              onOpen={() => setWriteUpTarget(offeredSession.id)}
+              onDismiss={() => setOfferWriteUpFor(undefined)}
             />
           )}
         </AnimatePresence>
@@ -604,6 +726,11 @@ const StreetTrackerPage: React.FC = () => {
 
         <WeekChart data={weekData} t={t} isEs={isEs} />
 
+        {/* The journal answering back. Under the numbers rather than over them:
+            the seller came here to log something, and the read on their week is
+            what they find when they look up from doing it. */}
+        {coach && <DemoCoachCard verdict={coach} />}
+
         {/* Activity log */}
         <section>
           <h2 className="mb-2 text-overline text-ink-3">{t.activity}</h2>
@@ -617,7 +744,21 @@ const StreetTrackerPage: React.FC = () => {
               <ul className="max-h-64 overflow-y-auto pr-1">
                 <AnimatePresence initial={false}>
                   {todayLogs.map((log) => (
-                    <ActivityRow key={log.id} session={log} t={t} isEs={isEs} money={money} />
+                    <ActivityRow
+                      key={log.id}
+                      session={log}
+                      t={t}
+                      isEs={isEs}
+                      money={money}
+                      /* Only a demo that actually ended in a walk-out has
+                         anything to write up. A sale has its own sheet, and an
+                         encounter still open has not finished happening. */
+                      onWriteUp={
+                        log.type === 'stop' && log.outcome === 'walked'
+                          ? () => setWriteUpTarget(log.id)
+                          : undefined
+                      }
+                    />
                   ))}
                 </AnimatePresence>
               </ul>
@@ -633,6 +774,17 @@ const StreetTrackerPage: React.FC = () => {
              chair. Bind the sale to that encounter so it closes with it. */
           setPendingEncounterId(openEncounter?.id);
           setShowSaleModal(true);
+        }}
+      />
+
+      <DemoLogModal
+        isOpen={writeUpTarget !== undefined}
+        onClose={() => setWriteUpTarget(undefined)}
+        existing={writeUpSession?.demo}
+        onSubmit={(demo) => {
+          if (!writeUpTarget) return;
+          logDemo(writeUpTarget, demo);
+          setOfferWriteUpFor(undefined);
         }}
       />
 

@@ -24,8 +24,8 @@ import {
   createElement,
   type ReactNode,
 } from 'react';
-import { XP_VALUES, saleXp, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
-import type { StreetSession, DailySummary, XPAward } from '../types/streetTracker';
+import { XP_VALUES, saleXp, DEMO_LOG_XP, STORAGE_KEY, XP_LOG_KEY } from '../types/streetTracker';
+import type { StreetSession, DailySummary, DemoLog, XPAward } from '../types/streetTracker';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useProgress } from './useProgress';
 import { isDatabaseConfigured } from '../backend/supabaseClient';
@@ -219,6 +219,43 @@ function useStreetTrackerState() {
   );
 
   /**
+   * Write up a demo that did not sell.
+   *
+   * LOCAL ONLY, and that is a promise rather than an oversight — the owner was
+   * asked directly who should see this and the answer was nobody:
+   *
+   *   "Only the seller. They want to keep it private. They don't want them to
+   *    share their thoughts, because they kind of turn it into, in a way, a
+   *    journal."
+   *
+   * The counts a manager needs — stops, sales, conversion — already reach the
+   * server through logActivity. What went wrong inside a demo is the seller's
+   * own reckoning with their own game, and the moment it can be read by
+   * somebody who does the rota, "I filled the silence" stops being an answer
+   * anybody gives.
+   *
+   * Editing an existing log is fine and pays nothing the second time.
+   */
+  const logDemo = useCallback(
+    (encounterId: string, demo: Omit<DemoLog, 'loggedAt'>): void => {
+      let firstTime = false;
+      setSessions((prev) =>
+        prev.map((s) => {
+          if (s.id !== encounterId) return s;
+          if (!s.demo) firstTime = true;
+          return { ...s, demo: { ...demo, loggedAt: Date.now() } };
+        })
+      );
+      if (firstTime) {
+        const activity = 'Wrote up a demo';
+        setXpAwards((prev) => [...prev, { activity, points: DEMO_LOG_XP, timestamp: Date.now() }]);
+        awardRepeatXP(DEMO_LOG_XP, activity);
+      }
+    },
+    [awardRepeatXP]
+  );
+
+  /**
    * The most recently closed walk-away of today — the one still stinging.
    *
    * `timestamp` is when they walked IN, so it cannot answer "did this just
@@ -275,6 +312,24 @@ function useStreetTrackerState() {
   const getTodayReasons = useCallback(
     (): { id: string; count: number }[] => getRecentReasons(1),
     [getRecentReasons],
+  );
+
+  /**
+   * Every written-up demo in the last `days` days, newest first.
+   *
+   * The coach's whole input. Kept as a plain selector rather than a computed
+   * verdict so the reading of it lives in one place (see demoCoach.ts) and can
+   * be changed without touching the store.
+   */
+  const getDemoLogs = useCallback(
+    (days = 7): StreetSession[] => {
+      const window = new Set<string>();
+      for (let i = 0; i < days; i++) window.add(daysAgoKey(i));
+      return sessions
+        .filter((s) => s.demo && window.has(s.date))
+        .sort((a, b) => (b.demo?.loggedAt ?? 0) - (a.demo?.loggedAt ?? 0));
+    },
+    [sessions],
   );
 
   const getDailySummary = useCallback(
@@ -375,6 +430,8 @@ function useStreetTrackerState() {
     openEncounter,
     lastWalkAway,
     resolveEncounter,
+    logDemo,
+    getDemoLogs,
     getDailySummary,
     getWeekSummary,
     getStreetTotals,

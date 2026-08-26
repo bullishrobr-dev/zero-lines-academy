@@ -47,6 +47,66 @@ export const CLOSE_REASONS: Chip[] = [
   { id: 'clicked', label: 'It just clicked', labelEs: 'Fluyó sin más' },
 ];
 
+/*
+ * ── WHERE DID YOU LOSE HER? ─────────────────────────────────────────────────
+ *
+ * A different axis from WALK_REASONS above, and both are worth having. That one
+ * records what SHE said. This one records what the seller thinks THEY did — and
+ * it is the half a till can never see, because the till only knows about the
+ * ones who paid.
+ *
+ * The list is the demo in the order it happens, from the owner's own run
+ * through it: you take the hand, you talk her through it while you work (once a
+ * week, a year in the syringe, do not touch it, five hours), you get them
+ * talking about themselves and you get the husband on board, you show the
+ * mirror, you shut up, you collect the two yeses — and only then do you start
+ * walking down the ladder.
+ *
+ * `none` is not padding. It is the honest answer on the days it is true, and
+ * close-fault is the lesson that says so: if you really did all of it and she
+ * still walked, that one is not yours to carry.
+ */
+export const DEMO_STEPS: Chip[] = [
+  { id: 'hand', label: 'Never got her hand', labelEs: 'No le cogí la mano', lessonId: 'close-demo' },
+  { id: 'speech', label: 'Rushed the speech', labelEs: 'Corrí con la explicación', lessonId: 'close-demo' },
+  { id: 'connection', label: 'Never got them talking', labelEs: 'No conecté con ellos', lessonId: 'connect-5' },
+  { id: 'partner', label: 'Lost the husband', labelEs: 'Perdí al marido', lessonId: 'connect-4' },
+  { id: 'mirror', label: 'No reaction at the mirror', labelEs: 'El espejo no dio reacción', lessonId: 'close-demo' },
+  { id: 'silence', label: 'I filled the silence', labelEs: 'Rellené el silencio', lessonId: 'close-demo' },
+  { id: 'yeses', label: 'Never got the two yeses', labelEs: 'No conseguí los dos síes', lessonId: 'close-demo' },
+  { id: 'ladder', label: 'Stopped early on the ladder', labelEs: 'Paré pronto en la escalera', lessonId: 'close-2' },
+  { id: 'none', label: 'Nothing — I did all of it', labelEs: 'Nada — lo hice todo', lessonId: 'close-fault' },
+];
+
+/*
+ * ── WHAT DID YOU PUT ON THE TABLE? ──────────────────────────────────────────
+ *
+ * The owner on gifts, and note what is NOT here:
+ *
+ *   "We have a lot of different things, like day cream, night cream, and
+ *    occasional different products that we have. Those are gifts... They are
+ *    not inside the speech because all the time they change."
+ *
+ * They change, so there are no prices on these chips and no gift list anywhere
+ * in the lessons. What is stable is the shape: a gift is a real product off the
+ * shelf, and it is almost always attached to a syringe, because the syringe is
+ * what we are always trying to sell. The peeling is sometimes the gift itself.
+ */
+export const GIFTS: Chip[] = [
+  { id: 'cream', label: 'Day / night cream', labelEs: 'Crema de día / de noche' },
+  { id: 'peeling', label: 'The peeling', labelEs: 'El peeling' },
+  { id: 'scrub', label: 'The scrub', labelEs: 'El exfoliante' },
+  { id: 'other', label: 'Something else', labelEs: 'Otra cosa' },
+];
+
+export function demoStep(id: string | undefined): Chip | undefined {
+  return id ? DEMO_STEPS.find((c) => c.id === id) : undefined;
+}
+
+export function gift(id: string | undefined): Chip | undefined {
+  return id ? GIFTS.find((c) => c.id === id) : undefined;
+}
+
 export function walkReason(id: string | undefined): Chip | undefined {
   return id ? WALK_REASONS.find((c) => c.id === id) : undefined;
 }
