@@ -630,7 +630,7 @@ export const closingLessons: Record<string, Lesson> = {
     titleEs: 'La Demo y los Dos Síes',
     subtitle: 'One hand, one eye, one mirror — and two words you will need later',
     subtitleEs: 'Una mano, un ojo, un espejo — y dos palabras que vas a necesitar después',
-    duration: '6 min',
+    duration: '9 min',
     icon: 'Hand',
     order: 3,
     xpReward: 120,
@@ -689,8 +689,80 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'paragraph',
-        text: `And talk the whole way through it. Silence while you are touching somebody's face is a very long time. Tell her what it does, tell her it is once a week and five minutes, tell her one syringe sees her through the year. If there is a partner standing there, pull him in — "you watch this side, you're my witness." Nobody who is laughing is checking their watch.`,
-        textEs: `Y habla todo el rato. El silencio mientras le tocas la cara a alguien se hace larguísimo. Cuéntale qué hace, cuéntale que es una vez a la semana y cinco minutos, cuéntale que una jeringa le dura el año entero. Si hay una pareja ahí de pie, métela en el ajo — "tú vigila este lado, que eres mi testigo". Nadie que se está riendo mira el reloj.`,
+        text: `And talk the whole way through it. Silence while you are touching somebody's face is a very long time. But this is not filler — there is a speech, it is short, and it is the same every time. Get these across while your hands are busy and you have answered half the objections before they arrive.`,
+        textEs: `Y habla todo el rato. El silencio mientras le tocas la cara a alguien se hace larguísimo. Pero esto no es relleno — hay una explicación, es corta, y es la misma siempre. Suéltale esto mientras tienes las manos ocupadas y habrás contestado la mitad de las objeciones antes de que lleguen.`,
+      },
+      {
+        type: 'bullets',
+        items: [
+          'ONCE A WEEK. That is the whole commitment, and it is the number you are going to ask her to promise you in a minute.',
+          'ONE SYRINGE, ONE YEAR. There are about sixty applications in there. Say it — a year of this in something the size of a pen is the value argument, and you are making it before she has heard a price.',
+          'SHE DOES NOT TOUCH IT. Not once it is on. If she touches it she destroys the result, and that is not a warning, it is you telling her the product is serious.',
+          'FIVE HOURS OF WORK. It needs at least five hours to do its thing. Which is also why she is not touching it.',
+          'AT HOME: DO NOT WASH IT OFF, DO NOT RUB IT OFF. People rub. Say it out loud or she goes home and undoes it in the shower, and then it is your product that did not work.',
+        ],
+        itemsEs: [
+          'UNA VEZ A LA SEMANA. Ese es todo el compromiso, y es el número que le vas a pedir que te prometa dentro de un minuto.',
+          'UNA JERINGA, UN AÑO. Ahí dentro hay unas sesenta aplicaciones. Dilo — un año de esto en algo del tamaño de un boli es el argumento de valor, y lo estás soltando antes de que haya oído un precio.',
+          'NO SE LO TOCA. Nada de tocarlo una vez puesto. Si se lo toca, destroza el resultado, y eso no es un aviso: es que le estás diciendo que el producto va en serio.',
+          'CINCO HORAS TRABAJANDO. Necesita cinco horas mínimo para hacer lo suyo. Que es también por lo que no se lo toca.',
+          'EN CASA: NI LAVARLO NI FROTARLO. La gente frota. Dilo en voz alta o se va a casa y lo deshace en la ducha, y entonces es tu producto el que no ha funcionado.',
+        ],
+      },
+      {
+        type: 'subheader',
+        text: 'The tightening — relax her about it before she asks',
+        textEs: 'La tirantez — tranquilízala antes de que pregunte',
+      },
+      {
+        type: 'paragraph',
+        text: `She is going to feel it pull. Some of them love it, some of them go quiet and start worrying they are going to walk around like that forever. Do not wait to be asked — get in first, and make it small.`,
+        textEs: `Va a notar cómo tira. A algunas les encanta, otras se quedan calladas preocupadas por si van a ir así toda la vida. No esperes a que te pregunten — adelántate y quítale importancia.`,
+      },
+      {
+        type: 'script',
+        text: `"You feel that tightening? Good — that is it working. And no, you do not have to live like this." [Laugh] "It's the gym, isn't it. You train, the muscles are sore for a bit, and then they're better. Same thing. Give it five hours and it settles."`,
+        textEs: `"¿Notas que tira? Bien — eso es que está funcionando. Y no, no vas a vivir así." [Ríete] "Es como el gimnasio, ¿no? Entrenas, te quedan agujetas un rato, y luego estás mejor. Es lo mismo. Dale cinco horas y se asienta."`,
+      },
+      {
+        type: 'subheader',
+        text: 'And while your hands are busy, find out who they are',
+        textEs: 'Y con las manos ocupadas, entérate de quiénes son',
+      },
+      {
+        type: 'paragraph',
+        text: `This is the part that looks like small talk and is not. You have got two minutes of somebody's undivided attention and a partner standing behind them with nothing to do. Where are you from? Where are you staying? How long have you been here? And to him, because he is the one who can kill this with one word: what team does he support. Then give something back — you have got family from there, you have been, you loved it. Now you are not a seller any more, you are the one who knows the place.`,
+        textEs: `Esta es la parte que parece charla y no lo es. Tienes dos minutos de atención absoluta de alguien y una pareja detrás sin nada que hacer. ¿De dónde sois? ¿Dónde os alojáis? ¿Cuánto lleváis aquí? Y a él, porque es el que puede cargarse esto con una palabra: de qué equipo es. Y luego devuelve algo — tienes familia de allí, has estado, te encantó. Ya no eres un vendedor, eres el que conoce el sitio.`,
+      },
+      {
+        type: 'script',
+        text: `"Where are you two from? …No way — my cousin lives twenty minutes from there, I was over last summer. And you, sir, who do you support? …Don't tell her I laughed." [To him] "You watch this side, you're my witness."`,
+        textEs: `"¿De dónde sois vosotros? …¡No me digas! Mi primo vive a veinte minutos de ahí, estuve el verano pasado. Y tú, jefe, ¿de qué equipo eres? …No le digas que me he reído." [A él] "Tú vigila este lado, que eres mi testigo."`,
+      },
+      {
+        type: 'keypoint',
+        text: `Nobody who is laughing is checking their watch, and nobody who has just told you about their holiday walks out on you thirty seconds later. The husband is the one to win here — bored, he is the reason she stands up. Given a job and a football team, he is a second person selling to her, and she believes him.`,
+        textEs: `Nadie que se está riendo mira el reloj, y nadie que acaba de contarte lo de sus vacaciones se levanta y se va treinta segundos después. Al que hay que ganarse aquí es al marido — aburrido, es el motivo por el que ella se levanta. Con un trabajo y un equipo de fútbol, es una segunda persona vendiéndole a ella, y a él sí le cree.`,
+      },
+      {
+        type: 'subheader',
+        text: 'Take the promise BEFORE you show her anything',
+        textEs: 'Cógele la promesa ANTES de enseñarle nada',
+      },
+      {
+        type: 'paragraph',
+        text: `Still one eye done, mirror still face down. Before she has seen a single thing, you ask her to commit to using it — and because she has not seen the result yet, it costs her nothing to say yes. That is exactly why you ask now. Ninety seconds later she is looking at her own face with a promise already out of her mouth.`,
+        textEs: `Todavía con un ojo hecho y el espejo boca abajo. Antes de que haya visto absolutamente nada, le pides que se comprometa a usarlo — y como todavía no ha visto el resultado, decir que sí no le cuesta nada. Por eso se lo pides ahora. Noventa segundos después está mirándose la cara con una promesa ya fuera de su boca.`,
+      },
+      {
+        type: 'script',
+        text: `"Let me ask you something before you look. If everything I've just told you is sunshine and rainbows — if it does exactly what I say it does — would you actually use it once a week at home? …Yeah? Good. Remember you said that."`,
+        textEs: `"Déjame preguntarte una cosa antes de que mires. Si todo lo que te acabo de contar es de color de rosa — si hace exactamente lo que te digo — ¿lo usarías de verdad una vez a la semana en casa? …¿Sí? Bien. Acuérdate de que lo has dicho."`,
+      },
+      {
+        type: 'tip',
+        text: `This is the second of the two yeses, collected early. When you ask it again after the mirror it is no longer a question — it is a confirmation, and she has now said it twice. "Remember you said that" is the whole reason it is worth taking here.`,
+        textEs: `Este es el segundo de los dos síes, cogido antes de tiempo. Cuando se lo vuelvas a preguntar después del espejo ya no es una pregunta — es una confirmación, y ya lo ha dicho dos veces. El "acuérdate de que lo has dicho" es justo por lo que merece la pena cogerlo aquí.`,
       },
 
       {
@@ -772,6 +844,21 @@ export const closingLessons: Record<string, Lesson> = {
         text: `And when it comes: "You told me you like it. You told me you'd use it. So it isn't a question of whether — it's just which of the two suits you better."`,
         textEs: `Y cuando llegue el momento: "Me has dicho que te gusta. Me has dicho que lo usarías. Así que no es si sí o si no — es simplemente cuál de las dos te va mejor."`,
       },
+      {
+        type: 'paragraph',
+        text: `And say the thing out loud, because it is true and because naming it is what turns a conversation into a haggle. Once she has said both yeses there is exactly one subject left in the room, and pretending otherwise just gives her somewhere else to go.`,
+        textEs: `Y dilo en voz alta, porque es verdad y porque nombrarlo es lo que convierte una conversación en un regateo. En cuanto ha dicho los dos síes solo queda un tema en la sala, y disimular solo le da otro sitio al que irse.`,
+      },
+      {
+        type: 'script',
+        text: `"Come on, my love — the only thing left here is the money. You told me you can use it. You told me you like it. So it's the money, and the money we can talk about."`,
+        textEs: `"Venga, cariño — aquí lo único que queda es el dinero. Me has dicho que lo puedes usar. Me has dicho que te gusta. Así que es el dinero, y del dinero sí podemos hablar."`,
+      },
+      {
+        type: 'keypoint',
+        text: `That sentence is the door into the ladder, and the ladder is a different lesson — Asking For The Money. Everything up to here was making sure that when you start walking the price down, you are haggling with somebody who has already decided she wants it. That is the only kind of haggle worth having.`,
+        textEs: `Esa frase es la puerta de entrada a la escalera, y la escalera es otra lección — Pedir el Dinero. Todo lo de hasta aquí era para asegurarte de que, cuando empieces a bajar el precio, estás regateando con alguien que ya ha decidido que lo quiere. Ese es el único regateo que merece la pena.`,
+      },
       { type: 'divider' },
       {
         type: 'subheader',
@@ -805,6 +892,48 @@ export const closingLessons: Record<string, Lesson> = {
       },
     ],
     quiz: [
+      {
+        question: 'You are mid-demo. One eye done, mirror still face down. When do you ask her whether she would use it once a week at home?',
+        questionEs: 'Estás a media demo. Un ojo hecho, el espejo todavía boca abajo. ¿Cuándo le preguntas si lo usaría una vez a la semana en casa?',
+        options: [
+          'Right now, before she sees anything — a promise costs her nothing yet',
+          'Only at the very end, once she has heard what it costs',
+          'Never — asking gives her an opening to say no to you',
+          'After the mirror, and never before, or the question means nothing',
+        ],
+        optionsEs: [
+          'Ahora mismo, antes de que vea nada — una promesa todavía no le cuesta nada',
+          'Solo al final del todo, cuando ya sepa lo que vale',
+          'Nunca — preguntarlo le abre la puerta a decirte que no',
+          'Después del espejo, y nunca antes, o la pregunta no vale nada',
+        ],
+        correctIndex: 0,
+        explanation:
+          'Ask it before the reveal and it is free to say yes to — she has not seen the result, so agreeing costs her nothing. Ninety seconds later she is looking at her own face with a promise already out of her mouth, and when you ask it again after the mirror it is a confirmation rather than a question. "Remember you said that" is the whole reason you take it early.',
+        explanationEs:
+          'Pregúntalo antes del momento del espejo y decir que sí le sale gratis — todavía no ha visto el resultado, así que aceptar no le cuesta nada. Noventa segundos después está mirándose la cara con una promesa ya fuera de su boca, y cuando se lo vuelvas a preguntar después del espejo es una confirmación, no una pregunta. El "acuérdate de que lo has dicho" es justo por lo que se coge antes.',
+      },
+      {
+        question: 'She has gone quiet — she can feel it tightening and she is starting to look worried. What do you say?',
+        questionEs: 'Se ha quedado callada — nota que tira y está empezando a preocuparse. ¿Qué le dices?',
+        options: [
+          'Nothing — draw attention to it and she will only worry more',
+          '"That is normal for most skin types, it should settle down eventually."',
+          '"That is it working — and no, you do not live like this. It is the gym: sore for a bit, then better."',
+          '"Let me take it off and we will try something gentler on you instead."',
+        ],
+        optionsEs: [
+          'Nada — si se lo señalas solo se va a preocupar más',
+          '"Eso es normal en casi todas las pieles, debería asentarse con el tiempo."',
+          '"Eso es que funciona — y no, no vas a vivir así. Es el gimnasio: agujetas un rato y luego mejor."',
+          '"Déjame quitártelo y probamos algo más suave contigo."',
+        ],
+        correctIndex: 2,
+        explanation:
+          'Get in before she asks, and make it small. The gym line does two things at once: it explains the sensation as the product working, and it promises her she is not walking around like this — five hours and it settles. Saying nothing leaves her worrying, hedging sounds like you are not sure, and taking it off throws away the demo you have just done.',
+        explanationEs:
+          'Adelántate a la pregunta y quítale importancia. La frase del gimnasio hace dos cosas a la vez: explica la sensación como que el producto está trabajando, y le promete que no va a ir así por la vida — cinco horas y se asienta. Callarte la deja preocupada, andarte con rodeos suena a que no lo tienes claro, y quitárselo tira a la basura la demo que acabas de hacer.',
+      },
       {
         question: 'One eye done, mirror in her hand, she is delighted. What comes out of your mouth next?',
         questionEs: 'Un ojo hecho, el espejo en su mano, está encantada. ¿Qué es lo siguiente que sale de tu boca?',

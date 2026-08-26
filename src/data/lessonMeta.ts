@@ -276,7 +276,7 @@ export const LESSON_META: Record<string, LessonMeta> = {
     titleEs: "La Demo y los Dos Síes",
     subtitle: "One hand, one eye, one mirror — and two words you will need later",
     subtitleEs: "Una mano, un ojo, un espejo — y dos palabras que vas a necesitar después",
-    duration: "6 min",
+    duration: "9 min",
     icon: "Hand",
     order: 3,
     xpReward: 120,
