@@ -450,7 +450,8 @@ const quizComplimentStop: GeneralQuiz = {
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // QUIZ 3: PRODUCT INGREDIENT EXPERT
-// What's IN the products: hyaluronic acid, glycolic acid, Dead Sea minerals
+// What's IN the products, and what a seller does with it: the syringe's
+// hyaluronic acid, the roll-off peeling, Dead Sea minerals.
 // ═══════════════════════════════════════════════════════════════════════════════
 const quizIngredients: GeneralQuiz = {
   id: "quiz-ingredients",
@@ -479,17 +480,31 @@ const quizIngredients: GeneralQuiz = {
         "El ácido hialurónico retiene 1000 veces su peso en agua. Este es el dato clave que hace la jeringa tan poderosa — literalmente llena las arrugas desde adentro al hidratar y rellenar la piel a nivel celular. Cuando una clienta entiende esto, {currency}300 se siente como una ganga comparado con el Botox."
     },
     {
+      /* Was a chemistry exam — "glycolic acid is which type of exfoliating
+         acid: AHA, BHA, PHA, salicylic?". Nobody on that floor has ever been
+         asked that, and we are hustlers, not scientists. What she DOES ask is
+         how often and how long it lasts, and those two numbers are the value. */
       question:
-        "Glycolic acid is which type of exfoliating acid?",
+        "How often does she use the peeling, and how long does one bottle last?",
       questionEs:
-        "¿El ácido glicólico es qué tipo de ácido exfoliante?",
-      options: ["BHA (Beta Hydroxy Acid)", "PHA (Poly Hydroxy Acid)", "AHA (Alpha Hydroxy Acid)", "Salicylic acid"],
-      optionsEs: ["BHA (Ácido Beta Hidroxi)", "PHA (Ácido Poli Hidroxi)", "AHA (Ácido Alfa Hidroxi)", "Ácido Salicílico"],
-      correctIndex: 2,
+        "¿Cada cuánto usa el peeling, y cuánto le dura un bote?",
+      options: [
+        "Once a week, and the bottle is a full year of treatments",
+        "Every night, and the bottle runs out in four or five weeks",
+        "Twice a day, and one bottle is gone before the month is out",
+        "Once a month, and a single bottle will stretch over several years"
+      ],
+      optionsEs: [
+        "Una vez a la semana, y el bote es todo un año de tratamientos",
+        "Cada noche, y el bote se acaba en cuatro o cinco semanas",
+        "Dos veces al día, y un bote desaparece antes de acabar el mes",
+        "Una vez al mes, y un solo bote le dura varios años"
+      ],
+      correctIndex: 0,
       explanation:
-        "Glycolic acid is an AHA (Alpha Hydroxy Acid). It works on the SURFACE of the skin to dissolve dead skin cells and reveal the fresh, new layer underneath. This is why the peeling product creates that instant glow — it is literally removing the dull, dead layer. BHAs like salicylic acid work deeper in pores, which is not what our peeling does.",
+        "Once a week, and one bottle is a full year of treatments. Those two facts ARE the value of this product, and together they do the arithmetic for her: a year of Sundays out of one bottle. More is not better — it just gets through the bottle faster, and 'use it every day' is the line that turns a happy customer into a woman who thinks she was sold a story. Say the year out loud; it is the number she repeats to her friend.",
       explanationEs:
-        "El ácido glicólico es un AHA (Ácido Alfa Hidroxi). Funciona en la SUPERFICIE de la piel para disolver las células muertas y revelar la capa fresca y nueva debajo. Por eso el peeling crea ese brillo instantáneo — literalmente está removiendo la capa opaca y muerta. Los BHA como el ácido salicílico funcionan más profundo en los poros, que no es lo que nuestro peeling hace."
+        "Una vez a la semana, y un bote es todo un año de tratamientos. Esos dos datos SON el valor del producto, y juntos le hacen la cuenta sola: un año de domingos con un solo bote. Más no es mejor — solo te acaba el bote antes, y 'úsalo cada día' es la frase que convierte a una clienta contenta en una mujer que cree que le han vendido humo. Di el año en voz alta; es el número que le repite a su amiga."
     },
     {
       question:
@@ -562,26 +577,26 @@ const quizIngredients: GeneralQuiz = {
     },
     {
       question:
-        "What does glycolic acid actually DO to the skin during the peeling treatment?",
+        "She asks what the peeling actually does to her skin. What is the answer?",
       questionEs:
-        "¿Qué hace realmente el ácido glicólico a la piel durante el tratamiento de peeling?",
+        "Te pregunta qué le hace el peeling a la piel de verdad. ¿Cuál es la respuesta?",
       options: [
-        "Adds colour and tint to the skin so it looks brighter straight after the treatment",
-        "Dissolves the bonds between dead skin cells to reveal fresh skin",
+        "Adds colour and tint to the skin so it looks brighter straight after a wash",
+        "Undoes the glue holding the dead skin on, so the skin lets go by itself",
         "Creates a protective layer over the skin that seals in moisture for the rest of the day",
         "Increases the skin's own oil production so it stays naturally moisturised for longer"
       ],
       optionsEs: [
-        "Añade color y tono a la piel para que se vea más luminosa justo después del tratamiento",
-        "Disuelve los enlaces entre células muertas para revelar piel fresca",
+        "Añade color y tono a la piel para que se vea más luminosa justo después de lavarla",
+        "Deshace el pegamento que sujeta la piel muerta, y la piel se suelta sola",
         "Crea una capa protectora sobre la piel que retiene la hidratación durante el resto del día",
         "Aumenta la producción natural de grasa de la piel para que se mantenga hidratada más tiempo"
       ],
       correctIndex: 1,
       explanation:
-        "Glycolic acid works by dissolving the 'glue' that holds dead skin cells together on the surface. As you apply it, these dead cells gently lift away, revealing the newer, brighter, smoother skin underneath. This is why the peeling demo shows INSTANT results — you are literally removing the dull outer layer in real time.",
+        "It undoes the glue holding the dead skin on, and then the skin lets go by itself — which is exactly why you ROLL it off the back of her hand instead of rubbing it off. A scrub scratches; this one asks. Say it in those words and she has the difference in one sentence, which is all the time you get. And the little grey bits coming off her own hand are the proof, so point at them, not at yourself.",
       explanationEs:
-        "El ácido glicólico funciona disolviendo el 'pegamento' que mantiene unidas las células muertas en la superficie. Al aplicarlo, estas células muertas se levantan suavemente, revelando la piel más nueva, brillante y suave debajo. Por eso la demo de peeling muestra resultados INSTANTÁNEOS — literalmente estás removiendo la capa opaca exterior en tiempo real."
+        "Deshace el pegamento que sujeta la piel muerta, y luego la piel se suelta sola — y por eso lo ENROLLAS en el dorso de su mano en vez de frotarlo. Un exfoliante raspa; este pide por favor. Dilo con esas palabras y pilla la diferencia en una frase, que es todo el tiempo que tienes. Y las bolitas grises saliendo de su propia mano son la prueba, así que señálalas a ellas, no a ti."
     },
     {
       question:

@@ -271,16 +271,26 @@ const quizSyringeDeep: GeneralQuiz = {
 };
 
 // ═══════════════════════════════════════════════════════════
-// QUIZ 2: GLYCOLIC PEELING MASTERY
+// QUIZ 2: THE PEELING — MASTERY
+//
+// This quiz used to teach a professional chemical peel: a neutraliser, a 3-5
+// minute window to manage, a patch test behind the ear, a redness protocol and
+// a line about liability. None of that exists here. The owner's words: "I don't
+// know why it teaches chemical peel. It shouldn't teach chemical peel. It
+// should teach the normal peel... the quiz should be about our peel in the
+// shop." Our peel is a roll-off she does at home on a Sunday night: it undoes
+// the glue holding the dead skin on and the skin lets go by itself. Ten seconds
+// on the back of her hand, then you ROLL it. No neutraliser, no timer, no patch
+// test, no after-care. See src/data/peelingData.ts.
 // ═══════════════════════════════════════════════════════════
 const quizPeelingMastery: GeneralQuiz = {
   id: "quiz-peeling-mastery",
-  title: "Glycolic Peeling Mastery",
-  titleEs: "Dominio del Peeling Glicólico",
+  title: "Peeling Mastery",
+  titleEs: "Dominio del Peeling",
   description:
-    "Become the ultimate Glycolic Peeling Kit expert. Learn the science, the price ladder, application technique, and how to bundle it with the scrub for maximum sales.",
+    "The roll-off peeling she does at home on a Sunday night — the hand demo, roll-don't-rub, the ladder, and the sentence that gets her out of her hand and into the chair.",
   descriptionEs:
-    "Conviértete en el experto definitivo del Kit de Peeling Glicólico. Aprende la ciencia, la escalera de precios, la técnica de aplicación y cómo empaquetarlo con el Exfoliante para vender más.",
+    "El peeling de enrollar que se hace en casa un domingo por la noche — la demo en la mano, enrollar y no frotar, la escalera, y la frase que la saca de su mano y la sienta en la silla.",
   icon: "Sparkles",
   category: "Product Mastery",
   categoryEs: "Dominio de Producto",
@@ -288,32 +298,32 @@ const quizPeelingMastery: GeneralQuiz = {
   questions: [
     {
       question:
-        "What does glycolic acid actually DO to the skin that makes it so effective?",
+        "She already has a scrub at home. What makes this a different thing?",
       questionEs:
-        "¿Qué hace el ácido glicólico REALMENTE a la piel que lo hace tan efectivo?",
+        "Ya tiene un exfoliante en casa. ¿Qué hace que esto sea otra cosa?",
       options: [
-        "It bleaches the skin to make it lighter",
-        "It fills wrinkles like a filler injection",
-        "It tightens skin by dehydrating it",
-        "It dissolves dead skin cells and triggers collagen production"
+        "It is a stronger scrub — same idea, bigger grains, so it gets more off in one go",
+        "It undoes the glue holding the dead skin on, and the skin lets go by itself",
+        "It bleaches the top layer lighter, which is why the skin looks brighter after",
+        "It is the same product with a nicer label, so whichever one she owns is fine"
       ],
       optionsEs: [
-        "Blanquea la piel para hacerla más clara",
-        "Rellena arrugas como una inyección de relleno",
-        "Aprieta la piel deshidratándola",
-        "Disuelve células muertas y estimula la producción de colágeno"
+        "Es un exfoliante más fuerte — la misma idea con grano más gordo, se lleva más de una vez",
+        "Deshace el pegamento que sujeta la piel muerta, y la piel se suelta sola",
+        "Blanquea la capa de arriba, y por eso la piel se ve más luminosa después",
+        "Es el mismo producto con mejor etiqueta, así que le da igual cuál tenga"
       ],
-      correctIndex: 3,
+      correctIndex: 1,
       explanation:
-        "Glycolic acid is an alpha-hydroxy acid (AHA) with the smallest molecular size, allowing it to penetrate deeply. It works by dissolving the 'glue' between dead skin cells (exfoliation) and stimulating fibroblasts to produce new collagen. This dual action — removing the old and building the new — is what creates the glow. Understanding this science makes you sound like an expert, not just a salesperson.",
+        "A scrub scratches it off. This undoes the glue holding it on and the skin lets go by itself — that is the whole difference, and it is why it is once a week instead of every day, and why one bottle is a full year. Say it over her hand, not into the air: you are not sanding your face, you are telling it to let go. The Scrub is not the enemy either — it is the gift at the promo rung. They just do two different jobs.",
       explanationEs:
-        "El ácido glicólico es un alfa-hidroxiácido (AHA) con el tamaño molecular más pequeño, permitiéndole penetrar profundamente. Funciona disolviendo el 'pegamento' entre células muertas (exfoliación) y estimulando fibroblastos para producir colágeno nuevo. Esta acción dual — eliminar lo viejo y construir lo nuevo — es lo que crea el brillo. Entender esta ciencia te hace sonar como un experto, no solo un vendedor."
+        "Un exfoliante lo raspa. Esto deshace el pegamento que lo sujeta y la piel se suelta sola — esa es toda la diferencia, y por eso es una vez a la semana y no a diario, y por eso un bote es todo un año. Dilo sobre su mano, no al aire: no te estás lijando la cara, le estás diciendo que suelte. Y el Exfoliante tampoco es el enemigo — es el regalo del escalón de la promoción. Simplemente hacen dos trabajos distintos."
     },
     {
       question:
-        "What is the CORRECT price ladder for the Glycolic Peeling Kit?",
+        "What is the CORRECT price ladder for the Peeling?",
       questionEs:
-        "¿Cuál es la escalera de precios CORRECTA para el Kit de Peeling Glicólico?",
+        "¿Cuál es la escalera de precios CORRECTA para el Peeling?",
       options: [
         "{currency}500 → {currency}300 → {currency}200 → {currency}150 → {currency}100 → {currency}70",
         "{currency}300 → {currency}250 → {currency}180 → {currency}120 → {currency}80 → {currency}60",
@@ -328,61 +338,61 @@ const quizPeelingMastery: GeneralQuiz = {
       ],
       correctIndex: 2,
       explanation:
-        "The Glycolic Peeling Kit ladder is: {currency}200 (Europe anchor) → {currency}150 (local base) → {currency}100 (Offer 1: 50% off plus the Dead Sea Scrub as a gift) → {currency}70 (the Scrub taken out and its value given back as credit) → {currency}50 (voucher close, and the absolute floor). Every rung is one bottle. Notice it is roughly a third of the syringe — which is why it is the product you pivot TO when the syringe is out of her reach, not something you stack on top after she has already bought one. It wins on its own demo, or it rides along as the chosen gift at the promo rung.",
+        "The Peeling ladder is: {currency}200 (Europe anchor) → {currency}150 (local base) → {currency}100 (Offer 1: 50% off plus the Dead Sea Scrub as a gift) → {currency}70 (the Scrub taken out and its value given back as credit) → {currency}50 (voucher close, and the absolute floor). Every rung is one bottle. Notice it is roughly a third of the syringe — which is why it is the product you pivot TO when the syringe is out of her reach, not something you stack on top after she has already bought one. It wins on its own demo, or it rides along as the chosen gift at the promo rung.",
       explanationEs:
-        "La escalera del Kit de Peeling Glicólico es: {currency}200 (ancla de Europa) → {currency}150 (base local) → {currency}100 (Oferta 1: 50% de descuento más el Exfoliante del Mar Muerto de regalo) → {currency}70 (se saca el Exfoliante y se devuelve su valor como crédito) → {currency}50 (cierre con cupón, y mínimo absoluto). Cada escalón es un frasco. Fíjate en que es más o menos un tercio de la jeringa — por eso es el producto al que te pasas cuando la jeringa se le va de precio, no algo que le amontonas encima cuando ya ha comprado una. Se gana la venta con su propia demo, o va de acompañante como el regalo elegido en el escalón de la promoción."
+        "La escalera del Peeling es: {currency}200 (ancla de Europa) → {currency}150 (base local) → {currency}100 (Oferta 1: 50% de descuento más el Exfoliante del Mar Muerto de regalo) → {currency}70 (se saca el Exfoliante y se devuelve su valor como crédito) → {currency}50 (cierre con cupón, y mínimo absoluto). Cada escalón es un frasco. Fíjate en que es más o menos un tercio de la jeringa — por eso es el producto al que te pasas cuando la jeringa se le va de precio, no algo que le amontonas encima cuando ya ha comprado una. Se gana la venta con su propia demo, o va de acompañante como el regalo elegido en el escalón de la promoción."
     },
     {
       question:
-        "When demonstrating the glycolic peeling, how long should you leave it on during the demo before neutralizing?",
+        "You put a little on the back of her hand. What happens next, and in what order?",
       questionEs:
-        "Al demostrar el peeling glicólico, ¿cuánto tiempo deberías dejarlo actuar durante la demo antes de neutralizar?",
+        "Le pones un poco en el dorso de la mano. ¿Qué pasa después, y en qué orden?",
       options: [
-        "3-5 minutes — enough to feel the tingle without risking a reaction",
-        "30 seconds — any longer is dangerous",
-        "15 minutes — the longer the better results",
-        "Leave it on and let the customer decide when to remove it"
+        "Let it sit about ten seconds, then roll it with your fingers — never rub",
+        "Rub it in hard straight away, so the friction gets the dead skin moving",
+        "Leave it sitting there five minutes and let her decide when it comes off",
+        "Rinse it off at once and let her feel the smooth patch it leaves behind"
       ],
       optionsEs: [
-        "3-5 minutos — suficiente para sentir el hormigueo sin arriesgar una reacción",
-        "30 segundos — más tiempo es peligroso",
-        "15 minutos — entre más tiempo mejores resultados",
-        "Dejarlo actuar y dejar que la cliente decida cuándo quitarlo"
+        "Déjalo diez segundos y luego lo enrollas con los dedos — nunca frotar",
+        "Frótalo fuerte desde el primer segundo, que el roce mueva la piel muerta",
+        "Lo dejas ahí cinco minutos y que ella decida cuándo se lo quita",
+        "Lo aclaras enseguida y que note la zona lisa que ha quedado"
       ],
       correctIndex: 0,
       explanation:
-        "3-5 minutes is the sweet spot on the street. You want the tingle — the tingle is her proof that something is happening — and you want the neutraliser on before any redness shows up on her face. Tell her about the tingle BEFORE you apply it, so when she feels it she says 'ooh' instead of 'what is that?'. And a woman going red in your chair in the middle of a shopping centre is the most expensive thirty seconds of your week: the demo is dead, and so is everyone who watched it.",
+        "Ten seconds, then you ROLL it. The dead skin pills up and comes off in little grey rolls, and that IS the demo — there is nothing else to show her. Rub it and you kill the pilling, and with it your proof: nothing to look at, and you are back to just talking. Say 'roll it, do not rub it' out loud, twice if you have to, and point at her hand while the bits come off so she is watching her own skin and not your face.",
       explanationEs:
-        "En la calle, 3-5 minutos es el punto justo. Quieres el hormigueo — el hormigueo es su prueba de que algo está pasando — y quieres el neutralizador puesto antes de que le salga un solo rojo en la cara. Avísale del hormigueo ANTES de aplicarlo, así cuando lo note dice \"uy\" en vez de \"¿qué es esto?\". Y una mujer poniéndose roja en tu silla en medio de un centro comercial son los treinta segundos más caros de tu semana: la demo está muerta, y con ella todos los que estaban mirando."
+        "Diez segundos, y luego lo ENROLLAS. La piel muerta se hace bolitas y sale en rollitos grises, y eso ES la demo — no tienes otra cosa que enseñarle. Si lo frotas, matas el efecto bolita y con él tu prueba: nada que mirar, y vuelves a estar solo hablando. Dile 'enróllalo, no lo frotes' en voz alta, dos veces si hace falta, y señálale la mano mientras salen las bolitas, para que mire su piel y no tu cara."
     },
     {
       question:
-        "A customer says, 'My skin is sensitive — can I still use this?' What is the CORRECT answer?",
+        "A customer says, 'My skin is sensitive — can I even use this?' What do you say?",
       questionEs:
-        "Una cliente dice: 'Mi piel es sensible — ¿aún puedo usar esto?' ¿Cuál es la respuesta CORRECTA?",
+        "Una clienta dice: 'Tengo la piel sensible — ¿puedo usar esto?' ¿Qué le dices?",
       options: [
-        "Absolutely not, glycolic acid is only for normal skin — with sensitive skin you should take the scrub instead",
-        "Sensitive skin actually needs stronger exfoliation, so use it daily until the skin toughens up and stops reacting",
-        "It only works on sensitive skin, so you will get better results from it than almost anyone else who buys it",
-        "Yes — but start with just 2 minutes, once per week, and always do a patch test behind the ear first"
+        "Nothing for you today, sorry — sensitive skin and this product do not mix at all",
+        "Sensitive skin needs it hardest, so use it every single night until it toughens up",
+        "Take the Scrub instead, that one is the gentle one, and leave this for tougher skin",
+        "This is exactly what the sensitive ones use — doctors send them to it"
       ],
       optionsEs: [
-        "En absoluto, el ácido glicólico es solo para piel normal — con piel sensible mejor llévate el exfoliante",
-        "La piel sensible necesita exfoliación más fuerte, así que úsalo a diario hasta que la piel se acostumbre y deje de reaccionar",
-        "Solo funciona en piel sensible, así que sacarás mejores resultados que casi cualquiera que lo compre",
-        "Sí — pero empieza con solo 2 minutos, una vez por semana, y siempre haz una prueba de parche detrás de la oreja primero"
+        "Hoy nada para ti, lo siento — la piel sensible y este producto no se llevan nada bien",
+        "La piel sensible es la que más lo necesita, úsalo cada noche hasta que se acostumbre",
+        "Llévate el Exfoliante, que ese es el suave, y deja esto para pieles más duras",
+        "Esto es justo lo que usan las sensibles — los médicos las mandan aquí"
       ],
       correctIndex: 3,
       explanation:
-        "'Sensitive skin' is not a no, it is her asking you to take charge. So take charge: two minutes, once a week, patch test behind the ear. Specific numbers out of your mouth are what make her believe you have done this a thousand times — because you have. What you never do is wave her away with 'sorry, not for you'. You have a woman in front of you, interested, asking a question — that is the rarest thing on this floor and you do not hand it back.",
+        "'Sensitive' is not a no, it is her handing you the microphone — so take it. Doctors and dermatologists send people to this: the driest skin you have ever seen, skin that cracks, redness that never calms down, people prone to eczema and psoriasis. It lifts the dead off without touching the living, and that is the whole reason they use it. 'If it is gentle enough for them, imagine what it does for you' — said looking at her hand, not at her. And nobody gets waved off with 'not for you'; a woman standing there asking you a question is the rarest thing on this floor.",
       explanationEs:
-        "\"Tengo la piel sensible\" no es un no, es ella pidiéndote que lleves tú el mando. Pues llévalo: dos minutos, una vez a la semana, prueba de parche detrás de la oreja. Los números concretos saliendo de tu boca son lo que la hace creer que has hecho esto mil veces — porque es verdad. Lo que no haces nunca es despacharla con un \"uy, esto no es para ti\". Tienes a una mujer delante, interesada, preguntándote — eso es lo más raro que hay en esta planta y no se devuelve."
+        "'Sensible' no es un no, es ella pasándote el micrófono — pues cógelo. Los médicos y los dermatólogos mandan a la gente a esto: la piel más seca que hayas visto, piel que se agrieta, rojeces que no se calman nunca, gente con tendencia al eccema y la psoriasis. Levanta lo muerto sin tocar lo vivo, y por eso lo usan ellos. 'Si es lo bastante suave para ellos, imagínate lo que te hace a ti' — dilo mirándole la mano, no a ella. Y a nadie se le despacha con un 'esto no es para ti'; una mujer ahí delante preguntándote es lo más raro que hay en esta planta."
     },
     {
       question:
-        "When does the Glycolic Peeling actually get sold — and when does it NOT?",
+        "When does the Peeling actually get sold — and when does it NOT?",
       questionEs:
-        "¿Cuándo se vende de verdad el Peeling Glicólico — y cuándo NO?",
+        "¿Cuándo se vende de verdad el Peeling — y cuándo NO?",
       options: [
         "Its own demo and its own ladder, or as the gift on the syringe offer — never bolted onto a syringe sale",
         "Always straight after a syringe sale, because she has her card out and her resistance is at its lowest point of the whole demo",
@@ -403,78 +413,78 @@ const quizPeelingMastery: GeneralQuiz = {
     },
     {
       question:
-        "How long should you tell customers it takes to see VISIBLE results from the glycolic peeling?",
+        "How long should you tell her it takes to see VISIBLE results from the peeling?",
       questionEs:
-        "¿Qué tiempo deberías decirles a las clientes que toma ver resultados VISIBLES del peeling glicólico?",
+        "¿Cuánto tiempo deberías decirle que tarda en ver resultados VISIBLES del peeling?",
       options: [
-        "Immediately after the first use — instant transformation",
-        "After 2-3 uses over 1-2 weeks — skin starts to glow and texture improves",
-        "After 6 months of consistent daily use",
-        "Results are internal only, you won't see anything on the outside"
+        "Straight after the first go — a complete transformation of the whole face in one night",
+        "The glow is instant; by the second or third Sunday the texture changes too",
+        "After six months of putting it on every single day without missing one",
+        "Nothing shows on the outside at all — the work is all happening underneath"
       ],
       optionsEs: [
-        "Inmediatamente después del primer uso — transformación instantánea",
-        "Después de 2-3 usos en 1-2 semanas — la piel empieza a brillar y la textura mejora",
-        "Después de 6 meses de uso diario consistente",
-        "Los resultados son solo internos, no verás nada por fuera"
+        "Justo después de la primera vez — una transformación completa de toda la cara en una noche",
+        "El brillo es instantáneo; al segundo o tercer domingo cambia también la textura",
+        "Después de seis meses poniéndoselo cada día sin fallar ninguno",
+        "Por fuera no se ve nada — el trabajo pasa todo por debajo"
       ],
       correctIndex: 1,
       explanation:
-        "Put the promise where you can actually land it. The INSTANT result is the glow — dead skin off, light bouncing off the live skin underneath, and she can see that today in the mirror. By the second or third use the texture properly changes. Promise her a miracle by Tuesday and you have handed her a complaint with your own hands, and she will make it loudly, in front of your next customer. Two or three uses sounds easy, it IS easy, and it happens to be true. Promise a little less than the product delivers and let the product do the bragging.",
+        "Put the promise where you can actually land it. The INSTANT result is the glow — dead skin off, light bouncing off the live skin underneath, and she sees that today, in the mirror, on her own hand. By the second or third Sunday the texture properly changes. Promise her a miracle by Tuesday and you have handed her a complaint with your own hands, and she will make it loudly, in front of your next customer. Two or three uses sounds easy, it IS easy, and it happens to be true. Promise a little less than the product delivers and let the product do the bragging.",
       explanationEs:
-        "Pon la promesa donde de verdad puedes cumplirla. El resultado INSTANTÁNEO es el brillo — fuera la piel muerta, y la luz rebotando en la piel viva de debajo, y eso lo ve hoy en el espejo. Al segundo o tercer uso la textura cambia de verdad. Prométele un milagro para el martes y tú mismo le has puesto la queja en la mano, y la va a soltar en voz alta delante de tu siguiente clienta. Dos o tres usos suena fácil, ES fácil, y encima es verdad. Promete un poco menos de lo que da el producto y deja que el producto presuma por ti."
+        "Pon la promesa donde de verdad puedes cumplirla. El resultado INSTANTÁNEO es el brillo — fuera la piel muerta, y la luz rebotando en la piel viva de debajo, y eso lo ve hoy, en el espejo, en su propia mano. Al segundo o tercer domingo la textura cambia de verdad. Prométele un milagro para el martes y tú mismo le has puesto la queja en la mano, y la va a soltar en voz alta delante de tu siguiente clienta. Dos o tres usos suena fácil, ES fácil, y encima es verdad. Promete un poco menos de lo que da el producto y deja que el producto presuma por ti."
     },
     {
       question:
-        "A customer says, 'I can get glycolic acid products at the pharmacy for {currency}15.' How do you respond?",
+        "A customer says, 'I can buy an exfoliating cream at the pharmacy for {currency}15.' How do you answer?",
       questionEs:
-        "Una cliente dice: 'Puedo conseguir productos con ácido glicólico en la farmacia por {currency}15.' ¿Cómo respondes?",
+        "Una clienta dice: 'Puedo comprar una crema exfoliante en la farmacia por {currency}15.' ¿Cómo respondes?",
       options: [
-        "Pharmacy products use 3-5% glycolic acid — our professional formula is 15-20% concentration. It's like comparing a toy car to a real engine",
-        "Those are fake, only ours is real — pharmacy shelves are full of relabelled products with almost nothing active in them",
-        "{currency}15 products are for poor people, you deserve better — you can see from your own skin that you already take care of yourself",
-        "The pharmacy ones don't work at all, don't waste your money on them — you will finish the bottle and see exactly nothing"
+        "'Keep it. That one scratches. This one makes the skin let go. Give me your hand'",
+        "'Those ones are fake. The pharmacy shelf is relabelled rubbish with nothing in it'",
+        "'{currency}15 products are for people who do not care, and you obviously do care'",
+        "'It is the same thing — ours just costs more because of the bottle and the brand'"
       ],
       optionsEs: [
-        "Los productos de farmacia usan 3-5% de ácido glicólico — nuestra fórmula profesional es 15-20% de concentración. Es como comparar un carrito de juguete con un motor real",
-        "Esos son falsos, solo el nuestro es real — las estanterías de farmacia están llenas de productos reetiquetados casi sin activo",
-        "Los productos de {currency}15 son para gente pobre, tú mereces algo mejor — se te nota en la piel que ya te cuidas",
-        "Los de farmacia no funcionan nada, no tires el dinero en eso — te acabarás el bote y no verás absolutamente nada"
+        "'Quédatela. Esa raspa la piel. Esta hace que se suelte — dame la mano'",
+        "'Esas son falsas. La estantería de la farmacia es basura reetiquetada sin nada dentro'",
+        "'Los productos de {currency}15 son para quien no se cuida, y tú está claro que sí'",
+        "'Es lo mismo — el nuestro cuesta más solo por el bote y por la marca de fuera'"
       ],
       correctIndex: 0,
       explanation:
-        "Never slag off the thing she already buys — the second you do, you are telling a woman she has been a mug for years and she will fight you just to not be that. Give her a number instead: 3-5% on the shelf, 15-20% in your hand. Toy car, real engine. She can hold both of those in her head while you are still talking, and she gets to be the clever one who spotted the difference. That is the sale.",
+        "Never slag off the thing she already buys — the second you do, you have told a woman she has been a mug for years and she will fight you just to not be that. Agree with her, then separate the two: hers scratches, yours undoes the glue and the skin lets go. Then prove it on her hand, because that is an argument you cannot lose. And finish on the arithmetic she can do herself — one bottle, one Sunday a week, a full year.",
       explanationEs:
-        "Nunca le pongas mal lo que ya compra — en el momento en que lo haces le estás diciendo que lleva años haciendo el tonto, y te va a discutir solo por no ser esa. Dale un número: 3-5% en la estantería, 15-20% en tu mano. Coche de juguete, motor de verdad. Eso lo retiene mientras tú sigues hablando, y encima es ella la lista que pilló la diferencia. Ahí está la venta."
+        "Nunca le pongas mal lo que ya compra — en el momento en que lo haces le estás diciendo que lleva años haciendo el tonto, y te va a discutir solo por no ser esa. Dale la razón y luego separa las dos cosas: la suya raspa, la tuya deshace el pegamento y la piel se suelta sola. Y lo demuestras en su mano, que es una discusión que no puedes perder. Remata con la cuenta que puede hacer ella sola — un bote, un domingo por semana, todo un año."
     },
     {
       question:
-        "After applying the glycolic peel, a customer's skin turns slightly pink. What should you do?",
+        "Ten seconds in she asks, 'Does it hurt?' What is the answer?",
       questionEs:
-        "Después de aplicar el peeling glicólico, la piel de una cliente se pone ligeramente rosa. ¿Qué deberías hacer?",
+        "A los diez segundos te pregunta: '¿Duele?' ¿Cuál es la respuesta?",
       options: [
-        "Panic and tell them they're having an allergic reaction, wash it off immediately and end the demo before it gets worse",
-        "Apply more peeling to even out the colour so both sides of the face end up looking the same before she sees the mirror",
-        "Calmly explain this is normal — increased blood flow to the surface means it's working — then apply neutralizer and soothing cream",
-        "Tell them not to worry and send them away — it'll go away on its own in an hour, so there is no need to do anything about it"
+        "'Nothing at all, you will not feel a thing' — said quickly, before she wonders",
+        "'A bit, yes — and the more it stings the harder you know it is working'",
+        "'You will feel it working — warmth, a tingle. That is its job, not pain'",
+        "Say nothing, talk over it, and hope she stops paying attention to her hand"
       ],
       optionsEs: [
-        "Entrar en pánico y decirles que están teniendo una reacción alérgica, lavarlo ya y cortar la demo antes de que empeore",
-        "Aplicar más peeling para igualar el color y que las dos partes de la cara queden igual antes de que se mire al espejo",
-        "Explicar calmadamente que es normal — el aumento de flujo sanguíneo a la superficie significa que está funcionando — luego aplicar neutralizador y crema calmante",
-        "Decirles que no se preocupen y dejarlas marchar — se les quitará solo en una hora, así que no hay que hacer nada"
+        "'Nada de nada, no vas a notar absolutamente nada' — rápido, antes de que lo piense",
+        "'Un poco sí — y cuanto más te escueza, más fuerte está trabajando'",
+        "'Lo vas a notar trabajar — calorcillo, un cosquilleo. Es su trabajo, no dolor'",
+        "No decir nada, hablar por encima, y que se despiste de la mano"
       ],
       correctIndex: 2,
       explanation:
-        "A bit of pink is the blood coming to the surface, which is the whole point of the product. She does not know that, so whichever way YOUR face goes, hers follows. Stay flat, say 'that is the blood coming up, that is it working', neutraliser on, soothing cream on, keep talking. Panic and you have just told four people watching that something went wrong. Say it BEFORE you apply it and the pink becomes part of the show instead of a problem.",
+        "Never answer this one with a flat no. She is going to feel a bit of warmth and a tingle about ten seconds in, so 'no' makes you a liar ten seconds later — and then she stops believing the rest of it too. Name it before she has to ask: 'you will feel a bit of warmth in a second, that is it starting.' Now the sensation is your proof instead of her worry. What you never do is sell the sting as the point. This is not a product that has to bite to work.",
       explanationEs:
-        "Ese rosa es la sangre subiendo a la superficie, que es justo para lo que sirve el producto. Ella eso no lo sabe, así que su cara va a hacer lo que haga TU cara. Tú plano: \"esa es la sangre subiendo, eso es que está funcionando\", neutralizador, crema calmante y sigues hablando. Si te pones nervioso acabas de contarle a cuatro personas que estaban mirando que algo ha salido mal. Dilo ANTES de aplicarlo y el rosa pasa a ser parte del espectáculo en vez de un problema."
+        "A esta nunca le contestes con un 'no' a secas. Va a notar un poco de calor y un cosquilleo a los diez segundos, así que un 'no' te deja de mentiroso diez segundos después — y entonces deja de creerte todo lo demás. Nómbralo antes de que tenga que preguntar: 'vas a notar un poco de calorcillo en un segundo, eso es que empieza'. Ahora la sensación es tu prueba en vez de su preocupación. Lo que no haces nunca es vender el escozor como lo bueno. Esto no es un producto que tenga que morder para funcionar."
     },
     {
       question:
-        "What is the BEST bundling offer that combines the Dead Sea Scrub with the Glycolic Peeling Kit?",
+        "What is the BEST bundling offer that combines the Dead Sea Scrub with the Peeling?",
       questionEs:
-        "¿Cuál es la MEJOR oferta de empaquetado que combina el Exfoliante de Minerales del Mar Muerto con el Kit de Peeling Glicólico?",
+        "¿Cuál es la MEJOR oferta de empaquetado que combina el Exfoliante de Minerales del Mar Muerto con el Peeling?",
       options: [
         "Buy either product and the other one is half price on the spot, whichever way round the customer wants to do it",
         "Buy two Scrubs and the Peeling goes in free on top, which turns the cheapest product into the route to the dearest one",
@@ -489,32 +499,55 @@ const quizPeelingMastery: GeneralQuiz = {
       ],
       correctIndex: 2,
       explanation:
-        "You do not invent a bundle for these two — Offer 1 already is one. The Peeling at {currency}100 comes with the Dead Sea Scrub as its gift, and the Scrub on its own is {currency}60. So the customer pays {currency}100 for a {currency}160 pair, and you can say that out loud because it is true. It feels like a complete ritual — scrub first to cleanse, then peel to renew. Always know your bundle math before hitting the street; a saving you cannot show on your fingers is a saving the customer will not believe.",
+        "You do not invent a bundle for these two — Offer 1 already is one. The Peeling at {currency}100 comes with the Dead Sea Scrub as its gift, and the Scrub on its own is {currency}60. So the customer pays {currency}100 for a {currency}160 pair, and you can say that out loud because it is true. It feels like a complete ritual — the Scrub for the body, the Peeling for the face. Always know your bundle math before hitting the street; a saving you cannot show on your fingers is a saving the customer will not believe.",
       explanationEs:
-        "No hace falta inventar un paquete para estos dos — la Oferta 1 ya lo es. El Peeling a {currency}100 lleva el Exfoliante del Mar Muerto como regalo, y el Exfoliante solo son {currency}60. Así que la clienta paga {currency}100 por un par que vale {currency}160, y puedes decirlo en voz alta porque es cierto. Se siente como un ritual completo — primero exfoliar, luego renovar. Conoce siempre las cuentas de tus paquetes antes de salir a la calle; un ahorro que no puedes contar con los dedos es un ahorro que la clienta no se va a creer."
+        "No hace falta inventar un paquete para estos dos — la Oferta 1 ya lo es. El Peeling a {currency}100 lleva el Exfoliante del Mar Muerto como regalo, y el Exfoliante solo son {currency}60. Así que la clienta paga {currency}100 por un par que vale {currency}160, y puedes decirlo en voz alta porque es cierto. Se siente como un ritual completo — el Exfoliante para el cuerpo, el Peeling para la cara. Conoce siempre las cuentas de tus paquetes antes de salir a la calle; un ahorro que no puedes contar con los dedos es un ahorro que la clienta no se va a creer."
     },
     {
       question:
-        "A customer with active acne asks if they should use the glycolic peeling. What is the RIGHT answer?",
+        "She wants to know what using it actually looks like at home. What do you tell her?",
       questionEs:
-        "Una cliente con acné activo pregunta si debería usar el peeling glicólico. ¿Cuál es la respuesta CORRECTA?",
+        "Quiere saber cómo es usarlo en casa de verdad. ¿Qué le cuentas?",
       options: [
-        "Yes — glycolic acid will clear your acne completely, so start using it tonight and keep going every day until it is gone",
-        "No — glycolic acid causes acne in everyone, so this is the one product you should never use on a face that already breaks out",
-        "Use it twice daily directly on pimples to dry them out, and the stronger the tingling feels the faster it will be working",
-        "Not while the skin is angry — but you are not leaving with nothing. Give me your hands and we do the Scrub instead"
+        "Every morning before work, a thick layer, left on underneath her make-up all day long",
+        "Clean skin, Sunday night, five minutes. Roll, rinse, then her own cream on top",
+        "Twice a day on dry skin, and more often than that if she wants it faster",
+        "Whenever she happens to remember — there is no routine, so do not invent one"
       ],
       optionsEs: [
-        "Sí — el ácido glicólico te quitará el acné del todo, empieza esta noche y sigue cada día hasta que desaparezca",
-        "No — el ácido glicólico causa acné en todo el mundo, así que es el producto que nunca deberías usar en una cara con brotes",
-        "Úsalo dos veces al día directamente sobre los granos para secarlos, y cuanto más pique más rápido estará funcionando",
-        "Sobre la piel irritada no — pero no te vas de vacío. Dame las manos y hacemos el Exfoliante"
+        "Cada mañana antes de trabajar, una capa gorda, y se queda debajo del maquillaje todo el día",
+        "Piel limpia, domingo por la noche, cinco minutos. Enrolla, aclara, y su crema encima",
+        "Dos veces al día sobre piel seca, y más veces aún si lo quiere más rápido",
+        "Cuando se acuerde — no hay rutina ninguna, así que no te inventes una"
+      ],
+      correctIndex: 1,
+      explanation:
+        "Clean skin, Sunday night, five minutes. She rolls it, rinses it, and then her own cream goes on and works ten times harder because there is nothing dead in the way. Once a week — more is not better, it just gets through the bottle faster. Tell her this BEFORE the price: a woman who can already picture Sunday night half owns it, and the number is only the last step. One bottle is a full year of Sundays, so do that sum out loud for her.",
+      explanationEs:
+        "Piel limpia, domingo por la noche, cinco minutos. Lo enrolla, lo aclara, y luego su crema encima trabajando diez veces más porque ya no hay nada muerto por medio. Una vez a la semana — más no es mejor, solo te acaba el bote antes. Cuéntale esto ANTES del precio: una mujer que ya se imagina el domingo por la noche lo tiene medio comprado, y el número es solo el último paso. Un bote es todo un año de domingos, así que hazle esa cuenta en voz alta."
+    },
+    {
+      question:
+        "The bits are rolling off her hand and she is impressed. What is your next sentence?",
+      questionEs:
+        "Las bolitas le están saliendo de la mano y está impresionada. ¿Cuál es tu siguiente frase?",
+      options: [
+        "The price, right now, while she is still looking down at her own hand",
+        "The whole ingredient list, so she can see you are the one who really knows this",
+        "Nothing at all — you let the silence run and wait for her to ask the price",
+        "'Sit down one second — the same trick on the eye makes people scream'"
+      ],
+      optionsEs: [
+        "El precio, ya mismo, mientras sigue mirándose la mano",
+        "La lista entera de ingredientes, para que vea que tú sí que controlas el producto",
+        "Nada — dejas correr el silencio y esperas a que pregunte el precio",
+        "'Siéntate un segundo — el mismo truco en el ojo hace que la gente grite'"
       ],
       correctIndex: 3,
       explanation:
-        "Acid does not go on skin that is already inflamed. That is not squeamishness — it is the one thing that comes back on the shop. But 'no' to the peeling today is not 'no' to you. Do not put a name on what she has, do not promise to clear it up, and above all do not send her off to come back another week, because she will not come back. Turn her hands over, do the Scrub demo, and let her leave with a bag in her hand.",
+        "The peeling is the MIDDLE of the ladder, not the top of it. The syringe is the star product and the thing a shift is really measured on, so a hand demo that landed is the cheapest ticket you will ever get into the chair: 'feel that patch? That is your skin with the dead taken off it. Sit down one second.' If she sits, you are doing an eye, and the peeling is still on the table behind you. If she takes the peeling instead, that is a real sale on a real ladder — but you asked for the chair first.",
       explanationEs:
-        "El ácido no va sobre una piel que ya está inflamada. No es remilgo: es lo único que se le vuelve en contra a la tienda. Pero un 'no' al peeling hoy no es un 'no' a ti. No le pongas nombre a lo que tiene, no le prometas que se lo vas a curar y, sobre todo, no la mandes a volver otra semana, porque no vuelve. Dale la vuelta a sus manos, hazle la demo del Exfoliante y que salga con una bolsa."
+        "El peeling es la MITAD de la escalera, no el final. La jeringa es el producto estrella y aquello por lo que de verdad se mide un turno, así que una demo en la mano que ha funcionado es el billete más barato que vas a tener para llevarla a la silla: '¿notas esa zona? Esa es tu piel sin lo muerto encima. Siéntate un segundo'. Si se sienta, le haces un ojo, y el peeling sigue ahí detrás, en la mesa. Y si al final se lleva el peeling, es una venta de verdad en una escalera de verdad — pero tú has pedido la silla primero."
     }
   ]
 };

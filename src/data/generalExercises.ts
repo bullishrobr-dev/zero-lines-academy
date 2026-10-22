@@ -441,8 +441,8 @@ const peelingPriceDrill: Exercise = {
   duration: '4 min',
   durationEs: '4 min',
   content: {
-    product: 'Glycolic Peeling',
-    productEs: 'Peeling Glicólico',
+    product: 'The Peeling',
+    productEs: 'El Peeling',
     currentPrice: '{locationName} base: {currency}150',
     customerReaction:
       'Customer says "Hmm, {currency}150 is still quite a lot. I like the idea of the peeling but..." She trails off, looking uncertain.',
