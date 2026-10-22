@@ -5,13 +5,33 @@
  * pricing.ts and this page keeps quoting yesterday's ladder with no build
  * error. They are read out of the ladder now, same as every other screen.
  */
-import { SYRINGE_LADDER } from './pricing';
+import { SYRINGE_LADDER, eachOf, type PriceRung } from './pricing';
 
-const RUNG = (id: string): number => {
+const RUNG_OF = (id: string): PriceRung => {
   const found = SYRINGE_LADDER.steps.find((s) => s.id === id);
   if (!found) throw new Error(`pricing.ts has no syringe rung "${id}"`);
-  return found.price;
+  return found;
 };
+
+const RUNG = (id: string): number => RUNG_OF(id).price;
+
+/*
+ * The two options, named.
+ *
+ * They are the same two every time — that is the point of them — so they are
+ * read out of the ladder once here and quoted from these names everywhere
+ * below. The scripts on this page used to type "{currency}210" and
+ * "{currency}300" straight into the sentence, which is how a sentence ends up
+ * quoting a rung that moved.
+ *
+ * OFFER_1 is on the descent. OPTION_B is not: it is marked `parallel` in
+ * pricing.ts, it costs MORE, and it is presented beside Offer 1 rather than
+ * under it. See `PriceRung.parallel`.
+ */
+const OFFER_1 = RUNG('promo');
+const OPTION_B = RUNG('second-free');
+const OPTION_B_UNITS = RUNG_OF('second-free').units ?? 2;
+const OPTION_B_EACH = eachOf(RUNG_OF('second-free'));
 
 export interface PriceStep {
   price: string;
@@ -191,14 +211,16 @@ export const syringeData = {
       '"Sir, you saw the difference \u2014 and that is ONE eye. Now imagine her doing that at home every Sunday, all year. She is going to walk around looking like she slept twelve hours."',
     script1Es:
       '"Se\u00f1or, has visto la diferencia \u2014 y eso es UN ojo. Ahora im\u00e1ginatela haci\u00e9ndoselo en casa cada domingo, todo el a\u00f1o. Va a ir por ah\u00ed como si hubiera dormido doce horas."',
-    option2Intro: 'Now introduce Option 2:',
-    option2IntroEs: 'Ahora introduce la Opci\u00f3n 2:',
+    option2Intro: 'Now introduce Option B:',
+    option2IntroEs: 'Ahora introduce la Opci\u00f3n B:',
     option2Script:
-      '"Pay the normal price of {currency}300, and you\'ll get TWO syringes \u2014 so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows."',
+      `"Pay the normal price of {currency}${OPTION_B}, and you'll get TWO syringes \u2014 so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows."`,
     option2ScriptEs:
-      '"Paga el precio normal de {currency}300, y obtendr\u00e1s DOS jeringas \u2014 as\u00ed puedes tratar ambos ojos, la frente, el labio superior, e incluso los n\u00famero 11 entre las cejas."',
-    advancedLabel: 'Advanced upsell for great customers:',
-    advancedLabelEs: 'Upsell avanzado para buenos clientes:',
+      `"Pagas el precio normal de {currency}${OPTION_B}, y te llevas DOS jeringas \u2014 as\u00ed te haces los dos ojos, la frente, el labio superior, e incluso el entrecejo."`,
+    advancedLabel:
+      `If she has read well all through the demo, push Option B \u2014 and pile gifts on it. You are {currency}${OPTION_B - OFFER_1} ABOVE Offer 1 and miles above your minimum, so the gifts come out of room you already have:`,
+    advancedLabelEs:
+      `Si la has visto bien toda la demostraci\u00f3n, empuja la Opci\u00f3n B \u2014 y \u00e9chale regalos encima. Est\u00e1s {currency}${OPTION_B - OFFER_1} POR ENCIMA de la Oferta 1 y muy por encima de tu m\u00ednimo, as\u00ed que los regalos salen de margen que ya tienes:`,
     advancedScript:
       '"Can I be honest with you? There\'s not a big difference between the two options anyway. I really feel like you\'d use it for those extra areas, and honestly, you\'re the type who will take care of it properly. So I\'ll do something nice \u2014 if you take the bigger option, I\'ll give you both my Day and Night Cream completely free."',
     advancedScriptEs:
@@ -210,9 +232,9 @@ export const syringeData = {
     sectionTitle: 'Interactive Price Ladder',
     sectionTitleEs: 'Escalera de Precios Interactiva',
     description:
-      'Tap each step to expand the exact script. Never skip steps \u2014 go down one at a time.',
+      `This is the way DOWN, and it is for the customer who genuinely cannot reach the two offers \u2014 nobody else. If she reads well you are going UP, to Option B, which is not on here: it sits beside Offer 1 above, at {currency}${OPTION_B}. Tap each step for the exact script. Never skip steps, one at a time.`,
     descriptionEs:
-      'Toca cada paso para expandir el guion exacto. Nunca te saltes pasos \u2014 baja uno a la vez.',
+      `Este es el camino hacia ABAJO, y es para la clienta que de verdad no llega a las dos ofertas \u2014 nadie m\u00e1s. Si la ves bien vas hacia ARRIBA, a la Opci\u00f3n B, que no est\u00e1 aqu\u00ed: va al lado de la Oferta 1, arriba, a {currency}${OPTION_B}. Toca cada paso para ver el guion exacto. Nunca te saltes pasos, uno a la vez.`,
     whatToSay: 'What to say',
     whatToSayEs: 'Qu\u00e9 decir',
     minimumWarning:
@@ -224,9 +246,9 @@ export const syringeData = {
     voucherHintEs:
       "\ud83d\udca1 Dilo mientras le empiezas el OTRO OJO. Manos ocupadas, cara hacia arriba, la cosa parece terminada \u2014 y el n\u00famero se mueve dentro de un momento que va de otra cosa. Baja la voz, incl\u00ednate. Solo en la jeringa INDIVIDUAL, y no hay segundo cup\u00f3n.",
     highlightHint:
-      "\ud83d\udca1 This is your best-value single-syringe offer. Most customers who want one syringe take this.",
+      `\ud83d\udca1 Offer 1 of the two, and your best-value SINGLE syringe. It never goes out on its own \u2014 Option B goes out with it, beside it, at {currency}${OPTION_B} for ${OPTION_B_UNITS}. Same two options every time, so you always have something concrete to say.`,
     highlightHintEs:
-      "\ud83d\udca1 Esta es tu oferta de mejor valor para jeringa individual. La mayor\u00eda de clientes que quieren una jeringa toman esta.",
+      `\ud83d\udca1 Oferta 1 de las dos, y tu mejor valor en jeringa INDIVIDUAL. Nunca sale sola \u2014 la Opci\u00f3n B sale con ella, al lado, a {currency}${OPTION_B} por ${OPTION_B_UNITS}. Las mismas dos opciones siempre, as\u00ed siempre tienes algo concreto que decir.`,
   },
 
   /* ─── Price Steps (dynamic, bilingual labels + scripts) ─── */
@@ -325,54 +347,56 @@ export const syringeData = {
   offers: {
     heading: 'The Two Offers',
     headingEs: 'Las Dos Ofertas',
-    subtext: 'Always present TWO choices. Let them decide. Then pause — silence is your friend.',
-    subtextEs: 'Siempre presenta DOS opciones. Deja que decidan. Luego haz una pausa — el silencio es tu amigo.',
+    subtext:
+      'The SAME two, every single time — that is why you always have something concrete in your mouth. They go out together: Offer 1, and Option B beside it, never under it. Option B is the bigger one. Then you stop talking and let her pick.',
+    subtextEs:
+      'Las MISMAS dos, siempre — por eso siempre tienes algo concreto que decir. Salen juntas: la Oferta 1, y la Opción B al lado, nunca por debajo. La Opción B es la grande. Luego te callas y dejas que elija ella.',
     option1: {
-      label: 'Option 1',
-      labelEs: 'Opci\u00f3n 1',
+      label: 'Offer 1',
+      labelEs: 'Oferta 1',
       priceLabel: '30% Off + Gift',
       priceLabelEs: '30% Descuento + Regalo',
       text:
-        '"Right now we have an incredible promotion: take it for 30% off, which makes it {currency}210, and you also get a small gift \u2014 you can choose between a Day Cream, Night Cream, Cleanser or Peeling."',
+        `"Right now we have an incredible promotion: take it for 30% off, which makes it {currency}${OFFER_1}, and you also get a small gift \u2014 you can choose between a Day Cream, Night Cream, Cleanser or Peeling."`,
       textEs:
-        '"Ahora mismo tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con un 30% de descuento, lo que lo deja en {currency}210, y adem\u00e1s te llevas un regalito \u2014 puedes elegir entre Crema de D\u00eda, Crema de Noche, Limpiador o Peeling."',
+        `"Ahora mismo tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con un 30% de descuento, lo que lo deja en {currency}${OFFER_1}, y adem\u00e1s te llevas un regalito \u2014 puedes elegir entre Crema de D\u00eda, Crema de Noche, Limpiador o Peeling."`,
     },
     option2: {
-      label: 'Option 2',
-      labelEs: 'Opci\u00f3n 2',
+      label: 'Option B',
+      labelEs: 'Opci\u00f3n B',
       priceLabel: 'Full Price + 2nd Syringe Free',
       priceLabelEs: 'Precio Completo + 2\u00aa Jeringa Gratis',
       text:
-        '"This one is actually the favourite: pay the normal price of {currency}300 and you get two syringes instead of one \u2014 so you can do both eyes, the forehead, the upper lip, even the number 11s between the eyebrows. A full face treatment that lasts a whole year."',
+        `"This one is actually the favourite: pay the normal price of {currency}${OPTION_B} and you get ${OPTION_B_UNITS} syringes instead of one \u2014 so you can do both eyes, the forehead, the upper lip, even the number 11s between the eyebrows. A full face treatment that lasts a whole year. That is {currency}${OPTION_B_EACH} each."`,
       textEs:
-        '"Esta es en realidad la favorita: pagas el precio normal de {currency}300 y te llevas dos jeringas en vez de una \u2014 as\u00ed puedes hacerte los dos ojos, la frente, el labio superior, hasta las arruguitas del ce\u00f1o. Un tratamiento facial completo que dura un a\u00f1o entero."',
+        `"Esta es en realidad la favorita: pagas el precio normal de {currency}${OPTION_B} y te llevas ${OPTION_B_UNITS} jeringas en vez de una \u2014 as\u00ed puedes hacerte los dos ojos, la frente, el labio superior, hasta las arruguitas del ce\u00f1o. Un tratamiento facial completo que dura un a\u00f1o entero. Te salen a {currency}${OPTION_B_EACH} cada una."`,
     },
     twoChoiceLabel: 'Then ask, and stop talking',
     twoChoiceLabelEs: 'Luego pregunta, y c\u00e1llate',
     twoChoiceScript:
-      '"So \u2014 would you rather have the 30% off at {currency}210 with a free gift, or the two-syringe deal at {currency}300?"',
+      `"So \u2014 would you rather have the 30% off at {currency}${OFFER_1} with a free gift, or the two-syringe deal at {currency}${OPTION_B}?"`,
     twoChoiceScriptEs:
-      '"Entonces \u2014 \u00bfprefieres el 30% de descuento a {currency}210 con un regalo, o la oferta de dos jeringas a {currency}300?"',
+      `"Entonces \u2014 \u00bfprefieres el 30% de descuento a {currency}${OFFER_1} con un regalo, o la oferta de dos jeringas a {currency}${OPTION_B}?"`,
   },
 
   /* ─── Offer 2 ─── */
   offer2: {
-    sectionTitle: 'Offer 2 \u2014 {currency}300 + 2nd Syringe Free',
-    sectionTitleEs: 'Oferta 2 \u2014 {currency}300 + 2da Jeringa Gratis',
+    sectionTitle: `Option B \u2014 {currency}${OPTION_B} + 2nd Syringe Free`,
+    sectionTitleEs: `Opci\u00f3n B \u2014 {currency}${OPTION_B} + 2\u00aa Jeringa Gratis`,
     description:
-      'This is the <strong>favorite option</strong> for most customers. They pay the full {locationName} price but walk away with double the value.',
+      `This is the <strong>favourite option</strong> for most customers, and it is the one you push when she reads well. It is the second of the two \u2014 beside Offer 1, not below it: she pays MORE, {currency}${OPTION_B} against {currency}${OFFER_1}, and walks out with double. {currency}${OPTION_B_EACH} each. You have room for gifts on top from up here.`,
     descriptionEs:
-      'Esta es la <strong>opci\u00f3n favorita</strong> para la mayor\u00eda de clientes. Pagan el precio completo de {locationName} pero se llevan el doble de valor.',
+      `Es la <strong>opci\u00f3n favorita</strong> de la mayor\u00eda, y es la que empujas cuando la ves bien. Es la segunda de las dos \u2014 al lado de la Oferta 1, no por debajo: paga M\u00c1S, {currency}${OPTION_B} frente a {currency}${OFFER_1}, y se lleva el doble. {currency}${OPTION_B_EACH} cada una. Desde aqu\u00ed arriba te sobra margen para a\u00f1adir regalos.`,
     scriptLabel: 'Script',
     scriptLabelEs: 'Gui\u00f3n',
     script:
-      '"This one is actually the favorite: pay the normal price of {currency}300, and you\'ll get two syringes instead of one \u2014 so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows. That\'s a full face treatment that lasts a whole year."',
+      `"This one is actually the favourite: pay the normal price of {currency}${OPTION_B}, and you'll get ${OPTION_B_UNITS} syringes instead of one \u2014 so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows. That's a full face treatment that lasts a whole year, and it works out at {currency}${OPTION_B_EACH} each."`,
     scriptEs:
-      '"Esta es en realidad la favorita: paga el precio normal de {currency}300, y obtendr\u00e1s dos jeringas en lugar de una \u2014 as\u00ed puedes tratar ambos ojos, la frente, el labio superior, e incluso los n\u00famero 11 entre las cejas. Eso es un tratamiento facial completo que dura un a\u00f1o entero."',
+      `"Esta es en realidad la favorita: pagas el precio normal de {currency}${OPTION_B}, y te llevas ${OPTION_B_UNITS} jeringas en lugar de una \u2014 as\u00ed te haces los dos ojos, la frente, el labio superior, e incluso el entrecejo. Es un tratamiento facial completo que dura un a\u00f1o entero, y te sale a {currency}${OPTION_B_EACH} cada una."`,
     whatTheyGetLabel: 'What they get',
     whatTheyGetLabelEs: 'Lo que reciben',
-    whatTheyGetValue: '2 Syringes',
-    whatTheyGetValueEs: '2 Jeringas',
+    whatTheyGetValue: `${OPTION_B_UNITS} Syringes`,
+    whatTheyGetValueEs: `${OPTION_B_UNITS} Jeringas`,
     treatsLabel: 'Treats',
     treatsLabelEs: 'Trata',
     treatsValue: 'Eyes + Forehead + 11s',

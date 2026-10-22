@@ -21,6 +21,7 @@ import {
   MIX_MATCH_LADDER,
   PEELING_LADDER,
   SYRINGE_LADDER,
+  eachOf,
   type PriceLadder,
   type PriceRung,
 } from './pricing';
@@ -53,9 +54,21 @@ const SYR_ANCHOR = SYRINGE_LADDER.europeAnchor;
 const SYR_BASE = SYRINGE_LADDER.base;
 const SYR_FLOOR = SYRINGE_LADDER.floor;
 const SYR_PROMO = rungOf(SYRINGE_LADDER, 'promo').price;
-const SYR_TWO = rungOf(SYRINGE_LADDER, 'second-free').price;
 const SYR_NO_GIFT = rungOf(SYRINGE_LADDER, 'no-gift').price;
 const SYR_VOUCHER = rungOf(SYRINGE_LADDER, 'voucher').price;
+
+/*
+ * Option B — the second of the two offers, NOT a rung on the way down.
+ *
+ * It is marked `parallel` in pricing.ts and it costs MORE than Offer 1, so a
+ * nudge that puts it in a descending list teaches the picture backwards. Its
+ * units and per-unit price are read off the rung too: "two at {currency}X" is
+ * only an argument if the "each" number comes out of the same place.
+ */
+const SYR_TWO_RUNG = rungOf(SYRINGE_LADDER, 'second-free');
+const SYR_TWO = SYR_TWO_RUNG.price;
+const SYR_TWO_UNITS = SYR_TWO_RUNG.units ?? 2;
+const SYR_TWO_EACH = eachOf(SYR_TWO_RUNG);
 
 const PEEL_ANCHOR = PEELING_LADDER.europeAnchor;
 const PEEL_BASE = PEELING_LADDER.base;
@@ -143,8 +156,20 @@ export const NUDGES: Nudge[] = [
     kind: 'line',
     title: 'Two doors, never one',
     titleEs: 'Dos puertas, nunca una',
-    body: `"One syringe at {currency}${SYR_BASE}, or two at {currency}${SYR_TWO} with the second free?" Ask, then say nothing.`,
-    bodyEs: `"¿Una jeringa a {currency}${SYR_BASE}, o dos a {currency}${SYR_TWO} con la segunda gratis?" Lo sueltas y te callas.`,
+    /* This nudge used to read "one syringe at {base}, or two at {SYR_TWO}" —
+       the same 300 twice, because the base and Option B are one number. The
+       two doors are Offer 1 and Option B, and Option B is the dearer one. */
+    body: `"Offer 1 at {currency}${SYR_PROMO} with a gift, or ${SYR_TWO_UNITS} syringes for {currency}${SYR_TWO}?" Same two, every time. Ask, then say nothing.`,
+    bodyEs: `"¿La Oferta 1 a {currency}${SYR_PROMO} con regalo, o ${SYR_TWO_UNITS} jeringas por {currency}${SYR_TWO}?" Las mismas dos, siempre. Lo sueltas y te callas.`,
+    route: '/syringe',
+  },
+  {
+    id: 'line-option-b-push',
+    kind: 'line',
+    title: 'Option B is up, not down',
+    titleEs: 'La Opción B va arriba, no abajo',
+    body: `{currency}${SYR_TWO} for ${SYR_TWO_UNITS} is MORE than {currency}${SYR_PROMO}, not less. You read her all through the demo — if she reads well, push Option B and pile gifts on it. The way down is for whoever genuinely cannot reach it.`,
+    bodyEs: `{currency}${SYR_TWO} por ${SYR_TWO_UNITS} es MÁS que {currency}${SYR_PROMO}, no menos. La lees durante toda la demostración — si la ves bien, empuja la Opción B y échale regalos. El camino hacia abajo es para quien de verdad no llega.`,
     route: '/syringe',
   },
   {
@@ -208,8 +233,11 @@ export const NUDGES: Nudge[] = [
     kind: 'drill',
     title: 'Ladder check: syringe',
     titleEs: 'Repaso de escalera: jeringa',
-    body: `Without looking: {currency}${SYR_ANCHOR}, {currency}${SYR_BASE}, {currency}${SYR_PROMO}, {currency}${SYR_NO_GIFT}, {currency}${SYR_VOUCHER}, {currency}${SYR_FLOOR}. All six.`,
-    bodyEs: `Sin mirar: {currency}${SYR_ANCHOR}, {currency}${SYR_BASE}, {currency}${SYR_PROMO}, {currency}${SYR_NO_GIFT}, {currency}${SYR_VOUCHER}, {currency}${SYR_FLOOR}. Los seis seguidos.`,
+    /* The six on the way DOWN. The {currency}300-for-two is deliberately not
+       among them — it is Option B, beside the {currency}210, and reciting it
+       inside a descent is how a seller learns the picture backwards. */
+    body: `The way down, without looking: {currency}${SYR_ANCHOR}, {currency}${SYR_BASE}, {currency}${SYR_PROMO}, {currency}${SYR_NO_GIFT}, {currency}${SYR_VOUCHER}, {currency}${SYR_FLOOR}. All six. Option B is not one of them.`,
+    bodyEs: `El camino hacia abajo, sin mirar: {currency}${SYR_ANCHOR}, {currency}${SYR_BASE}, {currency}${SYR_PROMO}, {currency}${SYR_NO_GIFT}, {currency}${SYR_VOUCHER}, {currency}${SYR_FLOOR}. Los seis seguidos. La Opción B no es ninguno de ellos.`,
     route: '/syringe',
   },
   {
@@ -408,8 +436,8 @@ export const NUDGES: Nudge[] = [
     kind: 'product',
     title: 'What the second syringe is for',
     titleEs: 'Para qué es la segunda jeringa',
-    body: `Two at {currency}${SYR_TWO} covers both eyes, forehead, upper lip and frown lines. Name the areas.`,
-    bodyEs: `Dos a {currency}${SYR_TWO} cubren los dos ojos, frente, labio y entrecejo. Nombra las zonas.`,
+    body: `${SYR_TWO_UNITS} syringes for {currency}${SYR_TWO} — {currency}${SYR_TWO_EACH} each — covers both eyes, forehead, upper lip and frown lines. Name the areas.`,
+    bodyEs: `${SYR_TWO_UNITS} jeringas por {currency}${SYR_TWO} — {currency}${SYR_TWO_EACH} cada una — cubren los dos ojos, frente, labio y entrecejo. Nombra las zonas.`,
     route: '/syringe',
   },
   {

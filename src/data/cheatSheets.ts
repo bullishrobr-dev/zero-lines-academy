@@ -19,6 +19,7 @@ import {
   MIX_MATCH_LADDER,
   PEELING_LADDER,
   SYRINGE_LADDER,
+  eachOf,
   type PriceLadder,
   type PriceRung,
 } from './pricing';
@@ -78,6 +79,17 @@ export interface LadderRung {
    */
   when?: string;
   whenEs?: string;
+  /**
+   * Not a step down at all — the OTHER option, drawn beside the rung above it.
+   *
+   * Carried straight through from `PriceRung.parallel` in pricing.ts, where the
+   * owner's words live. Buy-2-get-2 above is a situational VARIANT of its rung
+   * at the same price, and `when` is enough for it. Option B is a different
+   * thing: it costs MORE than the offer it sits next to, so drawn as the next
+   * step down it had the sheet descending 210 → 300 → 175 with a shorter bar at
+   * the higher price. This flag takes it off the descent entirely.
+   */
+  parallel?: boolean;
 }
 
 export type ProductKey = 'syringe' | 'peeling' | 'scrub' | 'nailkit';
@@ -107,9 +119,22 @@ function rungOf(ladder: PriceLadder, id: string): PriceRung {
   return found;
 }
 
-/** Carry a pricing.ts rung's id, label and numbers into a ladder rung. */
+/**
+ * Carry a pricing.ts rung's id, label and numbers into a ladder rung.
+ *
+ * `parallel` rides along on purpose: whether a price is on the descent is a
+ * fact about the offer, decided once in pricing.ts, not a styling choice each
+ * sheet makes for itself.
+ */
 function fromPricing(r: PriceRung) {
-  return { id: r.id, label: r.label, labelEs: r.labelEs, amount: r.price, units: r.units };
+  return {
+    id: r.id,
+    label: r.label,
+    labelEs: r.labelEs,
+    amount: r.price,
+    units: r.units,
+    ...(r.parallel ? { parallel: true as const } : null),
+  };
 }
 
 /** Per-unit value of a rung — what makes the descent legible. */
@@ -117,10 +142,9 @@ export function perUnitAmount(rung: { amount: number; units?: number }): number 
   return rung.amount / (rung.units ?? 1);
 }
 
-/** Same, for a rung still in its pricing.ts shape. */
-function eachOf(r: PriceRung): number {
-  return r.price / (r.units ?? 1);
-}
+/* `eachOf` — per-unit value of a rung still in its pricing.ts shape — used to
+   be a second copy of this maths here. It lives in pricing.ts now, next to the
+   units it divides by, and is imported above. */
 
 const SYR_PROMO = rungOf(SYRINGE_LADDER, 'promo');
 const SYR_TWO = rungOf(SYRINGE_LADDER, 'second-free');
@@ -226,14 +250,24 @@ export const PRODUCT_LADDERS: ProductLadder[] = [
         ...fromPricing(SYR_PROMO),
         tone: 'offer',
         recommended: true,
+        /* The two options are the same two every time, so the seller always has
+           something concrete in their mouth. Printed on Offer 1 because this is
+           the rung a seller opens on and reads first. */
+        when: 'Offer 1 of 2. It never goes out on its own — Option B goes with it, always the same two.',
+        whenEs: 'Oferta 1 de 2. Nunca sale sola — la Opción B va con ella, siempre las mismas dos.',
         words: `"Right now we have an amazing offer — 30% off, so {currency}${SYR_PROMO.price} instead of {currency}${SYR_B}, and you still choose a gift: Day Cream, Night Cream or the Peeling."`,
         wordsEs: `"Ahora mismo tenemos una oferta increíble — un 30% de descuento, así que {currency}${SYR_PROMO.price} en vez de {currency}${SYR_B}, y además eliges un regalo: Crema de Día, Crema de Noche o el Peeling."`,
       },
       {
         ...fromPricing(SYR_TWO),
         tone: 'upsell',
-        words: `"For the same {currency}${SYR_TWO.price} you take two syringes — the second one free for your forehead, upper lip or frown lines. That is {currency}${eachOf(SYR_TWO)} each, with the Day & Night Cream included."`,
-        wordsEs: `"Por los mismos {currency}${SYR_TWO.price} te llevas dos jeringas — la segunda gratis para la frente, el labio superior o las líneas de expresión. Salen a {currency}${eachOf(SYR_TWO)} cada una, con la Crema de Día y de Noche incluidas."`,
+        /* Option B. Not a step — a fork, and the expensive side of it. You are
+           reading her all the way through the demo; if she reads well this is
+           the one you lean on, and gifts are cheap from up here. */
+        when: `Option B, beside Offer 1 — never below it. It is {currency}${SYR_TWO.price}, MORE than the {currency}${SYR_PROMO.price}. You have been reading her all through the demo: if she reads well, push this one, and pile gifts on it — you are still miles above your minimum. The way down is for the customer who genuinely cannot reach it.`,
+        whenEs: `Opción B, al lado de la Oferta 1 — nunca por debajo. Son {currency}${SYR_TWO.price}, MÁS que los {currency}${SYR_PROMO.price}. La has estado leyendo toda la demostración: si la ves bien, empuja esta, y échale regalos encima — sigues muy por encima de tu mínimo. El camino hacia abajo es para quien de verdad no llega.`,
+        words: `"Or — and this is the one most people take — you pay the normal {currency}${SYR_TWO.price} and you walk out with TWO syringes. The second one is free: forehead, upper lip, the frown lines between your eyebrows. That is {currency}${eachOf(SYR_TWO)} each instead of {currency}${SYR_PROMO.price} for one, and I'll put the Day and Night Cream in as well. Which one do you want?"`,
+        wordsEs: `"O — y esta es la que se lleva casi todo el mundo — pagas los {currency}${SYR_TWO.price} normales y te vas con DOS jeringas. La segunda es gratis: frente, labio superior, el entrecejo. Te salen a {currency}${eachOf(SYR_TWO)} cada una en vez de {currency}${SYR_PROMO.price} por una, y te meto la Crema de Día y de Noche también. ¿Cuál quieres?"`,
       },
       {
         ...fromPricing(SYR_NO_GIFT),
@@ -252,13 +286,15 @@ export const PRODUCT_LADDERS: ProductLadder[] = [
       {
         ...fromPricing(SYR_FLOOR),
         tone: 'floor',
-        /* Not the seller's rung to give. One voucher gets you to 140; below that
-           you go full market and the MANAGER is the device that unlocks 100. A
-           seller who can reach the floor on their own has no floor. */
-        when: 'NOT YOURS TO GIVE. Full market, then call the manager — he says the number, not you.',
-        whenEs: 'NO ES TUYO. Mercado puro, y llamas al encargado — el número lo dice él, no tú.',
-        words: `"Give me ten seconds, I'll see what I can do for you." [Go and get the manager.] {currency}${SYR_FLOOR.price} is the lowest this ever goes and it comes out of his mouth, not yours. Never under it, and never without him.`,
-        wordsEs: `"Dame diez segundos, a ver qué puedo hacer por ti." [Ve a por el encargado.] {currency}${SYR_FLOOR.price} es lo más bajo a lo que llega esto y sale de su boca, no de la tuya. Nunca por debajo, y nunca sin él.`,
+        /* You ARE allowed to sell at the floor — the owner is explicit about
+           that. What the manager buys is theatre, and the theatre is the whole
+           point: a number you drop to on your own sounds like one that was
+           sitting there all along. Fetched for, it is a number somebody had to
+           go and win. */
+        when: 'FETCH HIM. Full market first, then go — it lands from him, never from you.',
+        whenEs: 'VE A POR ÉL. Primero mercado puro, luego vas — de su boca cae, de la tuya no.',
+        words: `"Give me ten seconds, I'll see what I can do for you." [Go and get the manager.] {currency}${SYR_FLOOR.price} is the lowest this ever goes, and it has to come out of his mouth. Say it yourself and she hears a price that was always there; make him walk over for it and she hears a price you went and got her.`,
+        wordsEs: `"Dame diez segundos, a ver qué puedo hacer por ti." [Ve a por el encargado.] {currency}${SYR_FLOOR.price} es lo más bajo a lo que llega esto, y tiene que salir de su boca. Si lo dices tú, ella oye un precio que ya estaba ahí; si él cruza la tienda para dárselo, oye un precio que has ido a buscarle.`,
       },
     ],
     proof: {
@@ -271,8 +307,8 @@ export const PRODUCT_LADDERS: ProductLadder[] = [
   {
     id: 'peeling',
     accent: 'violet',
-    name: 'Glycolic Peeling',
-    nameEs: 'Peeling Glicólico',
+    name: 'The Peeling',
+    nameEs: 'El Peeling',
     short: 'Peeling',
     shortEs: 'Peeling',
     europeAnchor: PEEL_A,
@@ -301,14 +337,18 @@ export const PRODUCT_LADDERS: ProductLadder[] = [
         ...fromPricing(PEEL_PROMO),
         tone: 'offer',
         recommended: true,
+        when: 'Offer 1 of 2. Same as the syringe: the two options go out together, every time.',
+        whenEs: 'Oferta 1 de 2. Igual que con la jeringa: las dos opciones salen juntas, siempre.',
         words: `"This is not an anti-ageing cream — it lifts the dead skin off the living skin. Today it is half the Europe price, {currency}${PEEL_PROMO.price}, and the Dead Sea Body Scrub comes free with it."`,
         wordsEs: `"Esto no es una crema antiedad — separa la piel muerta de la piel viva. Hoy está a mitad del precio de Europa, {currency}${PEEL_PROMO.price}, y el Exfoliante del Mar Muerto va de regalo."`,
       },
       {
         ...fromPricing(PEEL_CREAMS),
         tone: 'upsell',
-        words: `"For the full {currency}${PEEL_CREAMS.price} you keep the peeling and the Day & Night Cream come free — that is the complete routine."`,
-        wordsEs: `"Por los {currency}${PEEL_CREAMS.price} completos te quedas el peeling y la Crema de Día y de Noche van gratis — esa es la rutina completa."`,
+        when: `Option B, beside Offer 1 — never below it. {currency}${PEEL_CREAMS.price} is MORE than {currency}${PEEL_PROMO.price}, and you push it when she has read well through the demo. Gifts on top are fine from up here.`,
+        whenEs: `Opción B, al lado de la Oferta 1 — nunca por debajo. {currency}${PEEL_CREAMS.price} es MÁS que {currency}${PEEL_PROMO.price}, y la empujas cuando la has visto bien durante la demostración. Desde aquí arriba puedes añadir regalos sin problema.`,
+        words: `"Or you take the whole routine: the full {currency}${PEEL_CREAMS.price}, and the Day Cream and the Night Cream come free with the peeling. That is everything your skin needs, morning and night. Which one?"`,
+        wordsEs: `"O te llevas la rutina completa: los {currency}${PEEL_CREAMS.price} enteros, y la Crema de Día y la de Noche van de regalo con el peeling. Eso es todo lo que tu piel necesita, mañana y noche. ¿Cuál te llevas?"`,
       },
       {
         ...fromPricing(PEEL_NO_SCRUB),
@@ -1521,10 +1561,10 @@ const EMERGENCY_CLOSES: EmergencyLine[] = [
     textEs: `"Llévate otro para tu amiga, tu madre, tu hermana — compra 2 y el tercero es gratis, {currency}${MIX_B2G1.price} por ${MIX_B2G1.units}"`,
   },
   {
-    /* Below the voucher you are out of your own authority. Full market — let her
-       say a number, make a meal of it, and then go and get the manager. The
-       number that closes it has to come out of HIS mouth: a seller who can reach
-       the floor on their own has no floor left to hold. */
+    /* Full market — let her say a number, make a meal of it, then go and get
+       the manager. Not because you lack the authority; you have it. Because
+       the number lands ten times harder from somebody who had to be fetched
+       than from the person who has been dropping it all along. */
     id: 'ec3',
     text: `"Right — you are killing me. Go on, give me your number." [Let them say it. Hold. Then hands in the air] "You are not talking to the right man. Give me ten seconds." Then go and get the manager — he is the only one who can say {currency}${SYR_FLOOR.price}, and it lands ten times harder from him than it ever would from you.`,
     textEs: `"Venga — me estás matando. Dime tu número." [Deja que lo digan. Aguanta. Luego manos arriba] "No estás hablando con quien tienes que hablar. Dame diez segundos." Y vas a por el encargado — es el único que puede decir {currency}${SYR_FLOOR.price}, y de su boca cae diez veces más fuerte que de la tuya.`,

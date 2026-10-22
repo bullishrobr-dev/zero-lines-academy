@@ -13,6 +13,24 @@
 //
 // Amounts are passed in from src/data/pricing.ts. Nothing here, and nothing
 // that calls it, ever types a price. The symbol comes from the shop.
+//
+// ── NOT EVERY PRICE IS A RUNG ────────────────────────────────────────────────
+// A rung marked `parallel` is the OTHER option, offered at the same moment as
+// the rung above it and usually for more money — the syringe's two-for-300
+// beside the 210, not under it. Those are drawn beside their sibling: same
+// indent, an "or" rail above them, the sibling's number with a B, and NO
+// descent bar.
+//
+// The bar is the reason this matters. It is scaled on per-unit price, so Option
+// B's bar comes out SHORTER than the offer it is an alternative to (two at 150
+// each against one at 210) — the picture says "you have come down" while the
+// price has gone up, and a seller scanning mid-sale offers 300 to somebody who
+// was already saying yes to 210. There is no honest way to put a different
+// offer on the same axis, so a parallel rung does not get the axis.
+//
+// The owner, on what the descent is actually for: "The ladder is designed for
+// people who are, so to say, broke. 300 is just the second option. It's option
+// number B." See `PriceRung.parallel` in src/data/pricing.ts.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { AnimatePresence, motion } from 'framer-motion';
@@ -44,12 +62,39 @@ export interface LadderRung {
   tone?: RungTone;
   /** The rung to open the negotiation with — drawn raised. */
   recommended?: boolean;
+  /**
+   * Not a step down — the alternative offer, drawn beside the rung above it.
+   *
+   * Pass this straight through from `PriceRung.parallel` in pricing.ts. It
+   * takes the rung out of the numbering and out of the descent bar; see the
+   * header of this file.
+   */
+  parallel?: boolean;
 }
 
 interface PriceLadderProps {
   rungs: LadderRung[];
   /** The strike-through price at the top, used to scale the value bars. */
   anchor: number;
+}
+
+/**
+ * Where each rung is drawn: its number and how far in it is indented.
+ *
+ * Both are counted on the DESCENT only, so a parallel option neither takes a
+ * number of its own nor pushes the rungs below it one step further in. It
+ * borrows its sibling's depth and its sibling's number with a B — "3" then
+ * "3B" — which is the whole claim in two characters.
+ */
+function placements(rungs: LadderRung[]): { step: string; depth: number }[] {
+  let descent = 0;
+  return rungs.map((rung) => {
+    if (rung.parallel) {
+      return { step: `${Math.max(descent, 1)}B`, depth: Math.max(descent - 1, 0) };
+    }
+    descent += 1;
+    return { step: String(descent), depth: descent - 1 };
+  });
 }
 
 const COPY = {
@@ -61,6 +106,8 @@ const COPY = {
     each: 'each',
     includes: 'Includes',
     hint: 'Tap a step to see exactly what to say.',
+    or: 'or',
+    parallel: 'The other option — not a step down',
   },
   es: {
     say: 'Qué decir',
@@ -70,6 +117,8 @@ const COPY = {
     each: 'cada uno',
     includes: 'Incluye',
     hint: 'Toca un peldaño para ver exactamente qué decir.',
+    or: 'o',
+    parallel: 'La otra opción — no es bajar un paso',
   },
 };
 
@@ -79,13 +128,17 @@ function perUnitAmount(rung: LadderRung): number {
 
 function Rung({
   rung,
-  index,
+  step,
+  depth,
   anchor,
   open,
   onToggle,
 }: {
   rung: LadderRung;
-  index: number;
+  /** The number drawn on the rung — "3", or "3B" for the option beside it. */
+  step: string;
+  /** How far in to indent, counted on the descent. */
+  depth: number;
   anchor: number;
   open: boolean;
   onToggle: () => void;
@@ -96,6 +149,7 @@ function Rung({
 
   const isAnchor = rung.tone === 'anchor';
   const isFloor = rung.tone === 'floor';
+  const isParallel = Boolean(rung.parallel);
   const expandable = Boolean(rung.script || rung.hint || rung.items?.length);
   const each = perUnitAmount(rung);
   const share = Math.max(6, Math.min(100, Math.round((each / (anchor || each || 1)) * 100)));
@@ -104,11 +158,21 @@ function Rung({
     ? 'bg-surface-sunken border border-line'
     : isFloor
       ? 'bg-danger-tint border border-danger/40'
-      : rung.recommended
-        ? 'bg-surface border-2 shadow-raised'
-        : 'surface-flat';
+      : isParallel
+        ? 'bg-surface border border-dashed border-[rgb(var(--pa))]'
+        : rung.recommended
+          ? 'bg-surface border-2 shadow-raised'
+          : 'surface-flat';
 
-  const chip = isFloor ? c.floor : rung.recommended ? c.open : isAnchor ? c.anchor : '';
+  const chip = isFloor
+    ? c.floor
+    : isParallel
+      ? c.parallel
+      : rung.recommended
+        ? c.open
+        : isAnchor
+          ? c.anchor
+          : '';
 
   const head = (
     <>
@@ -116,9 +180,11 @@ function Rung({
           <span className="min-w-0 flex-1">
             <span className="flex items-baseline gap-1.5">
               <span
-                className={`text-caption font-bold tabular-nums ${isFloor ? 'text-danger' : 'text-ink-3'}`}
+                className={`text-caption font-bold tabular-nums ${
+                  isFloor ? 'text-danger' : isParallel ? 'text-[rgb(var(--pa-strong))]' : 'text-ink-3'
+                }`}
               >
-                {index + 1}
+                {step}
               </span>
               <span className={`text-h4 ${isAnchor ? 'text-ink-2' : 'text-ink'}`}>
                 {sub(rung.label)}
@@ -130,7 +196,7 @@ function Rung({
                 className={`mt-1.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-overline ${
                   isFloor
                     ? 'bg-danger/15 text-danger'
-                    : rung.recommended
+                    : rung.recommended || isParallel
                       ? 'bg-[rgb(var(--pa-tint))] text-[rgb(var(--pa-strong))]'
                       : 'bg-surface text-ink-3 border border-line'
                 }`}
@@ -163,15 +229,21 @@ function Rung({
           </span>
         </span>
 
-        {/* Where this rung sits on the descent, per unit. */}
-        <span className="mt-2.5 block h-1.5 rounded-full bg-line overflow-hidden" aria-hidden="true">
-          <span
-            className={`block h-full rounded-full ${
-              isAnchor ? 'bg-line-strong' : isFloor ? 'bg-danger' : 'bg-[rgb(var(--pa))]'
-            }`}
-            style={{ width: `${share}%` }}
-          />
-        </span>
+        {/* Where this rung sits on the descent, per unit.
+            Not drawn for a parallel option: it is not on the descent, and on
+            this axis its own per-unit value makes the bigger offer look like a
+            price cut. The right column already prints "2 × {price}", which is
+            the comparison that is actually true. */}
+        {!isParallel && (
+          <span className="mt-2.5 block h-1.5 rounded-full bg-line overflow-hidden" aria-hidden="true">
+            <span
+              className={`block h-full rounded-full ${
+                isAnchor ? 'bg-line-strong' : isFloor ? 'bg-danger' : 'bg-[rgb(var(--pa))]'
+              }`}
+              style={{ width: `${share}%` }}
+            />
+          </span>
+        )}
 
         {(rung.note || expandable) && (
           <span className="mt-2 flex items-center justify-between gap-2">
@@ -194,13 +266,22 @@ function Rung({
   );
 
   return (
-    <li
-      className={`rounded-card overflow-hidden ${skin}`}
-      style={{
-        marginInlineStart: Math.min(index, 5) * 8,
-        ...(rung.recommended && !isFloor ? { borderColor: 'rgb(var(--pa))' } : null),
-      }}
-    >
+    <li style={{ marginInlineStart: Math.min(depth, 5) * 8 }}>
+      {/* The "or" rail. A parallel option is a FORK, not a further step, and
+          this is the only thing in the stack that says so before the seller
+          reads the price. */}
+      {isParallel && (
+        <span className="mb-1.5 flex items-center gap-2" aria-hidden="true">
+          <span className="h-px flex-1 bg-line-strong" />
+          <span className="text-overline text-ink-3">{c.or}</span>
+          <span className="h-px flex-1 bg-line-strong" />
+        </span>
+      )}
+
+      <div
+        className={`rounded-card overflow-hidden ${skin}`}
+        style={rung.recommended && !isFloor && !isParallel ? { borderColor: 'rgb(var(--pa))' } : undefined}
+      >
       {expandable ? (
         <button
           type="button"
@@ -260,6 +341,7 @@ function Rung({
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </li>
   );
 }
@@ -270,6 +352,7 @@ export default function PriceLadder({ rungs, anchor }: PriceLadderProps) {
   const [openId, setOpenId] = useState<string | null>(
     () => rungs.find((r) => r.recommended)?.id ?? null
   );
+  const where = placements(rungs);
 
   return (
     <div>
@@ -278,7 +361,8 @@ export default function PriceLadder({ rungs, anchor }: PriceLadderProps) {
           <Rung
             key={rung.id}
             rung={rung}
-            index={i}
+            step={where[i].step}
+            depth={where[i].depth}
             anchor={anchor}
             open={openId === rung.id}
             onToggle={() => setOpenId(openId === rung.id ? null : rung.id)}
