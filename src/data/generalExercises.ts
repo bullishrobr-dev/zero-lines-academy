@@ -101,7 +101,7 @@ const hesitantTouristExercise: Exercise = {
     customerProfile:
       'A British tourist in her 40s, walking with her husband. She glanced at the syringe display but kept walking when you made eye contact.',
     customerProfileEs:
-      'Una turista británica de unos 40 años, caminando con su marido. Miró el expositor de jeringuillas pero siguió caminando cuando hiciste contacto visual.',
+      'Una turista británica de unos 40 años, caminando con su marido. Miró el expositor de jeringas pero siguió caminando cuando hiciste contacto visual.',
     scenario:
       'You approach Sarah near the door. She immediately says: "Oh, we are just looking, thanks." She starts to turn away. What do you say?',
     scenarioEs:
@@ -170,7 +170,7 @@ const priceObjectionExercise: Exercise = {
     customerProfile:
       'A French woman in her 50s, well-dressed. She was amazed by the syringe demo — her eyes widened when she saw the result. But now she is hesitating.',
     customerProfileEs:
-      'Una mujer francesa de unos 50 años, bien vestida. Le asombró la demo de la jeringuilla — se le abrieron los ojos cuando vio el resultado. Pero ahora duda.',
+      'Una mujer francesa de unos 50 años, bien vestida. Le asombró la demo de la jeringa — se le abrieron los ojos cuando vio el resultado. Pero ahora duda.',
     scenario:
       'Marie says: "Wow, the result is incredible... but {currency}300? That is a lot of money. I was not planning to spend that much today." She starts to hand the product back. What do you do?',
     scenarioEs:
@@ -210,7 +210,7 @@ const priceObjectionExercise: Exercise = {
         feedback:
           'You dropped from {currency}300 to {currency}175 without trying Offer Option 1 ({currency}210 + gift) or Option 2 ({currency}300 + 2nd syringe free). You skipped two whole steps on the price ladder! Always work the ladder: {currency}300 → {currency}210/gift → {currency}300/2nd syringe → {currency}175 → {currency}140 → {currency}100.',
         feedbackEs:
-          'Bajaste de {currency}300 a {currency}175 sin probar la Opción de Oferta 1 ({currency}210 + regalo) u Opción 2 ({currency}300 + 2ª jeringuilla gratis). ¡Te saltaste dos pasos enteros en la escalera de precios! Siempre trabaja la escalera: {currency}300 → {currency}210/regalo → {currency}300/2ª jeringuilla → {currency}175 → {currency}140 → {currency}100.',
+          'Bajaste de {currency}300 a {currency}175 sin probar la Opción de Oferta 1 ({currency}210 + regalo) u Opción 2 ({currency}300 + 2ª jeringa gratis). ¡Te saltaste dos pasos enteros en la escalera de precios! Siempre trabaja la escalera: {currency}300 → {currency}210/regalo → {currency}300/2ª jeringa → {currency}175 → {currency}140 → {currency}100.',
         score: 30,
       },
     ],
@@ -256,9 +256,9 @@ const priceFightAt140Exercise: Exercise = {
         text: '"Go on then — {currency}100. That is the floor, I never do that for anybody." (You drop {currency}40 on the first ask)',
         textEs: '"Venga, va — {currency}100. Ese es el suelo, yo eso no se lo hago a nadie." (Bajas {currency}40 a la primera petición)',
         feedback:
-          'You just taught her that pushing works, and it took you one sentence. {currency}100 is a floor, not a step — it is for the customer who is genuinely on her way out of the door, and you get there after she has asked twice, not once. Worse, you have nothing left. She asks again and all you can say is no, which is exactly the conversation you were trying to avoid.',
+          'You just taught her that pushing works, and it took you one sentence. {currency}100 is a floor, not a step, and it is not yours to hand out at all: below the voucher you go full market and you go and fetch a manager, and the number comes out of HIS mouth. Say it yourself on the first ask and you have nothing left — she asks again and all you can say is no, which is exactly the conversation you were trying to avoid.',
         feedbackEs:
-          'Le acabas de enseñar que empujar funciona, y has tardado una frase. {currency}100 es un suelo, no un escalón — es para la clienta que se está yendo de verdad por la puerta, y se llega ahí cuando te lo ha pedido dos veces, no una. Y encima te has quedado sin nada. Te lo pide otra vez y solo puedes decirle que no, que es justo la conversación que querías evitar.',
+          'Le acabas de enseñar que empujar funciona, y has tardado una frase. {currency}100 es un suelo, no un escalón, y no es tuyo para darlo: por debajo del cupón te pones en modo mercado y vas a buscar al encargado, y el número sale de SU boca. Si lo sueltas tú a la primera te quedas sin nada — te lo pide otra vez y solo puedes decirle que no, que es justo la conversación que querías evitar.',
         score: 20,
       },
       {
@@ -367,7 +367,7 @@ const giftShopperExercise: Exercise = {
 const syringePriceDrill: Exercise = {
   id: 'ex-syringe-price-drill',
   title: 'Syringe Price Ladder Drill',
-  titleEs: 'Práctica de Escala de Precios de Jeringuilla',
+  titleEs: 'Práctica de Escala de Precios de Jeringa',
   description:
     'Practice descending the price ladder correctly at each customer resistance point.',
   descriptionEs:
@@ -379,7 +379,7 @@ const syringePriceDrill: Exercise = {
   durationEs: '4 min',
   content: {
     product: 'Hyaluronic Acid Syringe',
-    productEs: 'Jeringuilla de Ácido Hialurónico',
+    productEs: 'Jeringa de Ácido Hialurónico',
     currentPrice: 'Europe price: {currency}500',
     customerReaction:
       'Customer nods but says "That IS expensive in Europe." They are waiting for you to continue.',
@@ -393,7 +393,7 @@ const syringePriceDrill: Exercise = {
         explanation:
           'Too fast! You skipped the {locationName} base price ({currency}300), Offer Option 1 ({currency}210 + gift), Offer Option 2 ({currency}300 + 2nd syringe free), the adaptive fallback ({currency}175), AND the voucher close ({currency}140). You just gave away all your margin.',
         explanationEs:
-          '¡Demasiado rápido! Te saltaste el precio base de {locationName} ({currency}300), la Opción de Oferta 1 ({currency}210 + regalo), la Opción de Oferta 2 ({currency}300 + 2ª jeringuilla gratis), la reserva adaptativa ({currency}175) Y el cierre con vale ({currency}140). Acabas de regalar todo tu margen.',
+          '¡Demasiado rápido! Te saltaste el precio base de {locationName} ({currency}300), la Opción de Oferta 1 ({currency}210 + regalo), la Opción de Oferta 2 ({currency}300 + 2ª jeringa gratis), la reserva adaptativa ({currency}175) Y el cierre con cupón ({currency}140). Acabas de regalar todo tu margen.',
       },
       {
         text: 'Reveal the {locationName} price: "Here in {locationName}, it is only {currency}300 — a fraction of what you would pay in Paris."',
@@ -403,7 +403,7 @@ const syringePriceDrill: Exercise = {
         explanation:
           'Correct! The flow is: Europe anchor ({currency}500) → {locationName} base ({currency}300) → Offer Option 1 ({currency}210 + gift) or Option 2 ({currency}300 + 2nd syringe) → adaptive ({currency}175) → voucher ({currency}140) → minimum ({currency}100). You are on step 2.',
         explanationEs:
-          '¡Correcto! El flujo es: Anclaje de Europa ({currency}500) → Base de {locationName} ({currency}300) → Opción de Oferta 1 ({currency}210 + regalo) u Opción 2 ({currency}300 + 2ª jeringuilla) → adaptativo ({currency}175) → vale ({currency}140) → mínimo ({currency}100). Estás en el paso 2.',
+          '¡Correcto! El flujo es: Anclaje de Europa ({currency}500) → Base de {locationName} ({currency}300) → Opción de Oferta 1 ({currency}210 + regalo) u Opción 2 ({currency}300 + 2ª jeringa) → adaptativo ({currency}175) → vale ({currency}140) → mínimo ({currency}100). Estás en el paso 2.',
       },
       {
         text: 'Tell them the product is out of stock',
@@ -419,7 +419,7 @@ const syringePriceDrill: Exercise = {
         explanation:
           'You skipped a step! The customer needs to hear the {currency}300 {locationName} base price first to appreciate the value of the {currency}300 + 2nd syringe free offer. Without the anchor, the offer has no context.',
         explanationEs:
-          '¡Te saltaste un paso! El cliente necesita oír el precio base de {locationName} de {currency}300 primero para apreciar el valor de la oferta de {currency}300 + 2ª jeringuilla gratis. Sin el anclaje, la oferta no tiene contexto.',
+          '¡Te saltaste un paso! El cliente necesita oír el precio base de {locationName} de {currency}300 primero para apreciar el valor de la oferta de {currency}300 + 2ª jeringa gratis. Sin el anclaje, la oferta no tiene contexto.',
       },
     ],
   },
@@ -434,7 +434,7 @@ const peelingPriceDrill: Exercise = {
   title: 'Peeling Price Ladder Drill',
   titleEs: 'Práctica de Escala de Precios de Peeling',
   description: 'Practice the peeling price steps from Europe anchor to voucher close.',
-  descriptionEs: 'Practica los pasos de precio del peeling desde el anclaje europeo hasta el cierre con vale.',
+  descriptionEs: 'Practica los pasos de precio del peeling desde el anclaje europeo hasta el cierre con cupón.',
   type: 'pricedrill',
   icon: 'TrendingDown',
   xpReward: 30,
@@ -442,7 +442,7 @@ const peelingPriceDrill: Exercise = {
   durationEs: '4 min',
   content: {
     product: 'Glycolic Peeling',
-    productEs: 'Peeling Glucólico',
+    productEs: 'Peeling Glicólico',
     currentPrice: '{locationName} base: {currency}150',
     customerReaction:
       'Customer says "Hmm, {currency}150 is still quite a lot. I like the idea of the peeling but..." She trails off, looking uncertain.',
@@ -460,7 +460,7 @@ const peelingPriceDrill: Exercise = {
       },
       {
         text: 'Immediately drop to the voucher price of {currency}50',
-        textEs: 'Bajar inmediatamente al precio de vale de {currency}50',
+        textEs: 'Bajar inmediatamente al precio de cupón de {currency}50',
         correct: false,
         explanation:
           'Too fast! You skipped Offer Option 1 ({currency}100 + scrub gift), Offer Option 2 ({currency}150 + Day & Night Cream free), AND the adaptive fallback ({currency}70). Work the ladder step by step.',
@@ -474,7 +474,7 @@ const peelingPriceDrill: Exercise = {
         explanation:
           'Wrong! You have more tools in your toolbox. Offer Option 1 ({currency}100 + scrub), Option 2 ({currency}150 + cream), adaptive ({currency}70), and voucher close ({currency}50) are all still available. Never claim a price is your lowest when it is not.',
         explanationEs:
-          '¡Incorrecto! Tienes más herramientas en tu caja de herramientas. La Opción de Oferta 1 ({currency}100 + exfoliante), Opción 2 ({currency}150 + crema), adaptativo ({currency}70) y cierre con vale ({currency}50) todavía están disponibles. Nunca digas que un precio es tu mínimo cuando no lo es.',
+          '¡Incorrecto! Tienes más herramientas en tu caja de herramientas. La Opción de Oferta 1 ({currency}100 + exfoliante), Opción 2 ({currency}150 + crema), adaptativo ({currency}70) y cierre con cupón ({currency}50) todavía están disponibles. Nunca digas que un precio es tu mínimo cuando no lo es.',
       },
       {
         text: 'Offer Option 2: "At {currency}150 I will include our Day & Night Cream completely free — that is a {currency}60 value on top of your peeling."',
@@ -519,7 +519,7 @@ const matchTechniqueExercise: Exercise = {
         definition:
           'Start by mentioning the high European price ({currency}500 for syringe, {currency}200 for peeling, {currency}80 for scrub/butter/nail kit) to make the {locationName} price feel like a bargain.',
         definitionEs:
-          'Empieza mencionando el alto precio europeo ({currency}500 para jeringuilla, {currency}200 para peeling, {currency}80 para exfoliante/manteca/kit de uñas) para que el precio de {locationName} parezca una ganga.',
+          'Empieza mencionando el alto precio europeo ({currency}500 para jeringa, {currency}200 para peeling, {currency}80 para exfoliante/manteca/kit de uñas) para que el precio de {locationName} parezca una ganga.',
       },
       {
         term: 'Two-Choice Close',
@@ -527,15 +527,15 @@ const matchTechniqueExercise: Exercise = {
         definition:
           'Present two positive options that both lead to a sale, such as "one syringe at {currency}210 with gift, or two syringes at {currency}300 with the second free."',
         definitionEs:
-          'Presenta dos opciones positivas que ambas llevan a una venta, como "una jeringuilla a {currency}210 con regalo, o dos jeringuillas a {currency}300 con la segunda gratis."',
+          'Presenta dos opciones positivas que ambas llevan a una venta, como "una jeringa a {currency}210 con regalo, o dos jeringas a {currency}300 con la segunda gratis."',
       },
       {
         term: 'Voucher Close',
-        termEs: 'Cierre con Vale',
+        termEs: 'Cierre con Cupón',
         definition:
           'A one-time voucher played as the last push BEFORE the floor: {currency}140 on the syringe, {currency}50 on the peeling. The syringe still has {currency}100 underneath it. Mix & Match has no voucher rung.',
         definitionEs:
-          'Un cupón de una sola vez que juegas como último empujón ANTES del mínimo: {currency}140 en la jeringuilla, {currency}50 en el peeling. La jeringuilla todavía tiene {currency}100 por debajo. Mix & Match no tiene peldaño de cupón.',
+          'Un cupón de una sola vez que juegas como último empujón ANTES del mínimo: {currency}140 en la jeringa, {currency}50 en el peeling. La jeringa todavía tiene {currency}100 por debajo. Mix & Match no tiene peldaño de cupón.',
       },
       {
         term: 'Minimum / Floor',
@@ -593,9 +593,9 @@ const matchTechniqueExercise: Exercise = {
 const orderPitchExercise: Exercise = {
   id: 'ex-order-pitch',
   title: 'Order the Syringe Pitch',
-  titleEs: 'Ordena el Pitch de Jeringuilla',
+  titleEs: 'Ordena el Pitch de Jeringa',
   description: 'Arrange the correct order of a Syringe pitch from first contact to close.',
-  descriptionEs: 'Ordena correctamente un pitch de Jeringuilla desde el primer contacto hasta el cierre.',
+  descriptionEs: 'Ordena correctamente un pitch de Jeringa desde el primer contacto hasta el cierre.',
   type: 'ordering',
   icon: 'ListOrdered',
   xpReward: 30,
@@ -629,7 +629,7 @@ const orderPitchExercise: Exercise = {
       },
       {
         text: 'Put the two offers up as a choice: Option 1 ({currency}210 + free gift) or Option 2 ({currency}300 + 2nd syringe free). Not because they hesitated — everybody hears both.',
-        textEs: 'Poner las dos ofertas como una elección: Opción 1 ({currency}210 + regalo gratis) u Opción 2 ({currency}300 + 2ª jeringuilla gratis). No porque duden — las dos las oye todo el mundo.',
+        textEs: 'Poner las dos ofertas como una elección: Opción 1 ({currency}210 + regalo gratis) u Opción 2 ({currency}300 + 2ª jeringa gratis). No porque duden — las dos las oye todo el mundo.',
         correctOrder: 5,
       },
       {
@@ -641,7 +641,7 @@ const orderPitchExercise: Exercise = {
     context:
       'You have just spotted a potential customer near the door. Put the steps of a successful Syringe pitch in the correct order.',
     contextEs:
-      'Acabas de ver a un cliente potencial cerca de la puerta. Pon los pasos de un pitch exitoso de Jeringuilla en el orden correcto.',
+      'Acabas de ver a un cliente potencial cerca de la puerta. Pon los pasos de un pitch exitoso de Jeringa en el orden correcto.',
   },
 };
 
@@ -666,7 +666,7 @@ const skepticalHusbandExercise: Exercise = {
     customerProfile:
       'A retired British couple in their 60s. Margaret is fascinated by the syringe demo result on her hand. John stands back with crossed arms and a skeptical expression.',
     customerProfileEs:
-      'Una pareja británica jubilada de unos 60 años. Margaret está fascinada por el resultado de la demo de jeringuilla en su mano. John se queda atrás con los brazos cruzados y expresión escéptica.',
+      'Una pareja británica jubilada de unos 60 años. Margaret está fascinada por el resultado de la demo de jeringa en su mano. John se queda atrás con los brazos cruzados y expresión escéptica.',
     scenario:
       'Margaret says "Oh, that is amazing! Look, John, the wrinkle is gone!" John replies: "Looks like a gimmick to me. These places always try to rip off tourists. How do we know it is not just makeup?" Margaret starts to pull back. What do you do?',
     scenarioEs:
@@ -687,9 +687,9 @@ const skepticalHusbandExercise: Exercise = {
         textEs:
           '"Te entiendo perfectamente, que hay mucho cuento por ahí. Mira lo que te propongo: te hago la demo a TI, en tu mano. Así lo ves TÚ — que no hay maquillaje, es tu propia piel con 60 segundos de diferencia. ¿Qué me dices?"',
         feedback:
-          'BRILLIANT! You: 1) Validated his skepticism (not defensive), 2) Agreed there are gimmicks (builds rapport), 3) Offered proof on HIS skin (undeniable evidence), 4) Made it a challenge he cannot refuse. Once he sees the result on his own hand, he becomes your ally, not your enemy.',
+          'BRILLIANT. You agreed with him. The world IS full of rubbish, and the second you say so out loud he has nobody left to argue with — so you hand him the only argument he cannot win, which is his own hand with sixty seconds between the two halves of it. A sceptic you beat with his own skin stops being the problem and starts selling to his wife for you.',
         feedbackEs:
-          '¡BRILLANTE! Tú: 1) Validaste su escepticismo (no defensivo), 2) Le diste la razón en que hay mucho truco (creas complicidad), 3) Ofreciste prueba en SU piel (evidencia innegable), 4) Lo convertiste en un reto que no puede rechazar. Una vez que vea el resultado en su propia mano, se convierte en tu aliado, no tu enemigo.',
+          'BRILLANTE. Le has dado la razón. Es verdad que está todo lleno de cuentos, y en el momento en que lo dices en voz alta se queda sin nadie con quien discutir — así que le pasas el único argumento que no puede ganar, que es su propia mano con sesenta segundos entre una mitad y la otra. A un escéptico al que ganas con su propia piel deja de ser el problema y se te pone a vender a su mujer.',
         score: 100,
       },
       {
@@ -735,7 +735,7 @@ const theDoubterExercise: Exercise = {
     customerProfile:
       'A Spanish woman in her 40s, well-groomed. She watched the full syringe demo with interest but now seems hesitant. She carries a luxury handbag.',
     customerProfileEs:
-      'Una mujer española de unos 40 años, bien arreglada. Ha visto la demo entera de la jeringuilla con interés, pero ahora parece que duda. Lleva un bolso de lujo.',
+      'Una mujer española de unos 40 años, bien arreglada. Ha visto la demo entera de la jeringa con interés, pero ahora parece que duda. Lleva un bolso de lujo.',
     scenario:
       'Elena says: "The result is impressive, I admit. But I already have La Mer cream at home that I use every night. It is very expensive and works well. I do not think I need another product." She starts to step away. What do you say?',
     scenarioEs:
@@ -753,11 +753,11 @@ const theDoubterExercise: Exercise = {
       {
         text: '"I completely understand — most of our customers use La Mer or similar creams too. But here is the thing: even La Mer works on the surface. This hyaluronic acid syringe works from the inside by delivering active ingredients directly to the deeper layers. It is not replacing your La Mer — it is doing what La Mer cannot. Think of it as a monthly salon treatment you do at home. Can I show you how easy it is to use?"',
         textEs:
-          '"Te entiendo perfectamente — la mayoría de nuestras clientas usan La Mer o cremas parecidas. Pero mira: hasta La Mer actúa en la superficie. Esta jeringuilla de ácido hialurónico actúa desde dentro, llevando los principios activos a las capas profundas. No sustituye a tu La Mer — hace lo que La Mer no puede. Piénsalo como un tratamiento de salón al mes, pero en tu casa. ¿Te enseño lo fácil que es de usar?"',
+          '"Te entiendo perfectamente — la mayoría de nuestras clientas usan La Mer o cremas parecidas. Pero mira: hasta La Mer actúa en la superficie. Esta jeringa de ácido hialurónico actúa desde dentro, llevando los principios activos a las capas profundas. No sustituye a tu La Mer — hace lo que La Mer no puede. Piénsalo como un tratamiento de salón al mes, pero en tu casa. ¿Te enseño lo fácil que es de usar?"',
         feedback:
-          'PERFECT response! You: 1) Validated her La Mer (no insult), 2) Educated without lecturing (surface vs deep), 3) Positioned as complementary, not replacement, 4) Used the salon comparison (familiar luxury framing), 5) Offered to show usage (low-commitment next step). This is textbook consultative selling.',
+          'PERFECT. You never touched her La Mer — a woman who has spent that kind of money on a jar will defend it to the death, and the moment you attack it you are arguing with her taste instead of selling. So you put yours NEXT to it: hers works on top, yours works underneath. Nothing to give up, nothing to admit she got wrong, and the last thing you say is a question that puts her hands back in yours.',
         feedbackEs:
-          '¡Respuesta PERFECTA! Tú: 1) Validaste su La Mer (sin insulto), 2) Enseñaste sin dar lecciones (superficie contra profundidad), 3) La colocaste como complemento, no como sustituto, 4) Usaste la comparación con el salón, un lujo que ella ya conoce, 5) Te ofreciste a enseñarle cómo se usa (siguiente paso de bajo compromiso). Esto es venta consultiva de manual.',
+          'PERFECTA. No has tocado su La Mer — una mujer que se ha gastado ese dinero en un bote lo defiende a muerte, y en el momento en que lo atacas estás discutiendo con su gusto en vez de vendiendo. Así que pones el tuyo AL LADO: el suyo trabaja por encima, el tuyo por debajo. Nada que dejar, nada que admitir que hizo mal, y lo último que dices es una pregunta que le vuelve a poner las manos en las tuyas.',
         score: 100,
       },
       {

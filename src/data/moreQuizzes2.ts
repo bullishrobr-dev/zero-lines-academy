@@ -39,7 +39,7 @@ const quizPriceLadder: GeneralQuiz = {
   description:
     "Master every price point for every product — syringe, peeling, scrub, and nail kit. Know the ladder forwards and backwards to never lose a sale on price.",
   descriptionEs:
-    "Domina cada punto de precio para cada producto — jeringa, peeling, scrub y kit de uñas. Conoce la escalera de ida y vuelta para nunca perder una venta por precio.",
+    "Domina cada punto de precio para cada producto — jeringa, peeling, exfoliante y kit de uñas. Conoce la escalera de ida y vuelta para nunca perder una venta por precio.",
   icon: "TrendingUp",
   category: "Pricing Strategy",
   categoryEs: "Estrategia de Precios",
@@ -82,7 +82,7 @@ const quizPriceLadder: GeneralQuiz = {
       explanation:
         "The syringe ladder steps down: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. The price immediately before {currency}140 is {currency}175. You must know the ladder backwards too — when a customer asks 'Can't you do better than {currency}175?' you drop to {currency}140 with a reason like a voucher or bundle.",
       explanationEs:
-        "La escalera de la jeringa baja: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. El precio inmediatamente antes de {currency}140 es {currency}175. Debes conocer la escalera al revés también — cuando una cliente pregunta '¿No puedes hacer mejor que {currency}175?' bajas a {currency}140 con una razón como un vale o paquete."
+        "La escalera de la jeringa baja: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. El precio inmediatamente antes de {currency}140 es {currency}175. Debes conocer la escalera al revés también — cuando una cliente pregunta '¿No puedes hacer mejor que {currency}175?' bajas a {currency}140 con una razón como un cupón o un pack."
     },
     {
       question:
@@ -127,7 +127,7 @@ const quizPriceLadder: GeneralQuiz = {
       question:
         "What is the SCRUB price when sold ALONE (not in a combo)?",
       questionEs:
-        "¿Cuál es el precio del SCRUB cuando se vende SOLO (no en combo)?",
+        "¿Cuál es el precio del EXFOLIANTE cuando se vende SOLO (no en combo)?",
       options: ["{currency}60", "{currency}50", "{currency}30", "{currency}80"],
       optionsEs: ["{currency}60", "{currency}50", "{currency}30", "{currency}80"],
       correctIndex: 0,
@@ -457,9 +457,9 @@ const quizIngredients: GeneralQuiz = {
   title: "Product Ingredient Expert",
   titleEs: "Experto en Ingredientes de Productos",
   description:
-    "Know exactly what is in our products and why it matters. When customers ask about ingredients, your confident answer builds trust and justifies the price.",
+    "Know what is in the bottle cold. The woman who asks about ingredients is not suspicious, she is interested — and an answer that comes straight back, with a number in it, is worth more than another minute of pitch.",
   descriptionEs:
-    "Sabe exactamente qué hay en nuestros productos y por qué importa. Cuando los clientes preguntan sobre ingredientes, tu respuesta confiada construye confianza y justifica el precio.",
+    "Sábete de memoria lo que lleva el bote. La mujer que te pregunta por los ingredientes no está desconfiando, está interesada — y una respuesta que sale al instante, con un número dentro, vale más que otro minuto de pitch.",
   icon: "FlaskConical",
   category: "Product Knowledge",
   categoryEs: "Conocimiento de Producto",
@@ -786,9 +786,9 @@ const quizOneEyeDemo: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation:
-        "NEVER make permanent or exaggerated claims. Our products give visible, temporary results that IMPROVE with continued use — but no cosmetic product 'completely removes all wrinkles permanently.' Overpromising destroys trust and leads to refunds. Underpromise and overdeliver: 'You will see a visible difference today, and with daily use the results keep getting better.'",
+        "Talk it up as hard as you like — the one word you never use is PERMANENTLY. Everything else on this list she can check in the mirror in two minutes and you look like a genius. 'Removes all your wrinkles forever' is the only one she cannot check today and will absolutely check tomorrow, and the day she works it out you are the seller who lied to her face. Sell today's result and let the rest be a bonus: 'You will see the difference today, and with daily use it keeps getting better.'",
       explanationEs:
-        "NUNCA hagas afirmaciones permanentes o exageradas. Nuestros productos dan resultados visibles y temporales que MEJORAN con uso continuo — pero ningún producto cosmético 'elimina completamente todas las arrugas permanentemente.' Prometer de más destruye la confianza y lleva a reembolsos. Promete menos y entrega más: 'Verás una diferencia visible hoy, y con uso diario los resultados siguen mejorando.'"
+        "Exagera todo lo que quieras — la única palabra que no usas nunca es PERMANENTEMENTE. Todo lo demás de la lista lo comprueba en el espejo en dos minutos y tú quedas como un genio. 'Te quita todas las arrugas para siempre' es lo único que hoy no puede comprobar y que mañana va a comprobar seguro, y el día que lo pille tú eres el que le mintió a la cara. Vende el resultado de hoy y que lo demás sea regalo: 'Hoy ves la diferencia, y con uso diario va a mejor.'"
     },
     {
       question:
@@ -901,9 +901,9 @@ const quizOneEyeDemo: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation:
-        "While applying, describe what is happening: 'You can feel it tightening slightly — that's the hyaluronic acid drawing moisture into the skin. In about 2 minutes you'll see the difference in the mirror.' This builds anticipation, educates the customer, and keeps her engaged during the waiting period. Silence feels awkward; random personal questions feel intrusive; pricing comes AFTER the reveal.",
+        "While applying, describe what is happening: 'You can feel it tightening slightly — that's the hyaluronic acid drawing moisture into the skin. In about 2 minutes you'll see the difference in the mirror.' Those two minutes are the longest part of the demo and they are yours to fill — narrate them and she sits there waiting for a result instead of wondering why she stopped. Silence hands her the exit. Small talk hands her the exit. And the price does not come out until she has seen the mirror.",
       explanationEs:
-        "Mientras aplicas, describe lo que está pasando: 'Puedes sentirlo tensar ligeramente — eso es el ácido hialurónico atrayendo humedad a la piel. En unos 2 minutos verás la diferencia en el espejo.' Esto construye anticipación, educa a la cliente y la mantiene comprometida durante el período de espera. El silencio se siente incómodo; preguntas personales aleatorias se sienten intrusivas; los precios vienen DESPUÉS de la revelación."
+        "Mientras aplicas, describe lo que está pasando: 'Puedes sentirlo tensar ligeramente — eso es el ácido hialurónico atrayendo humedad a la piel. En unos 2 minutos verás la diferencia en el espejo.' Esos dos minutos son la parte más larga de la demo y son tuyos para llenarlos — si los narras, se queda ahí esperando un resultado en vez de preguntándose por qué se ha parado. El silencio le da la salida. La charla de ascensor le da la salida. Y el precio no sale hasta que ha visto el espejo."
     },
     {
       question:
@@ -1130,7 +1130,7 @@ const quizTouristPsych: GeneralQuiz = {
       explanation:
         "An impatient husband can kill a sale by pulling his wife away. The best defense is ENGAGEMENT — get him involved. Hand him the nail file to feel, or say 'Sir, can I show you something amazing in 30 seconds?' Once he sees the product and feels included, he is far less likely to interrupt. An engaged husband often becomes the one saying 'Just get it, babe!'",
       explanationEs:
-        "Un esposo impaciente puede matar una venta alejando a su esposa. La mejor defensa es el COMPROMISO — involúcralo. Entrégale la lima de uñas para que la sienta, o di 'Señor, ¿puedo mostrarle algo increíble en 30 segundos?' Una vez que ve el producto y se siente incluido, es mucho menos probable que interrumpa. Un esposo comprometido a menudo se convierte en quien dice '¡Cómpralo, amor!'"
+        "Un esposo impaciente puede matar una venta alejando a su esposa. La mejor defensa es el COMPROMISO — involúcralo. Entrégale la lima de uñas para que la sienta, o di 'Jefe, ¿te enseño algo increíble en 30 segundos?' Una vez que ve el producto y se siente incluido, es mucho menos probable que interrumpa. Un esposo comprometido a menudo se convierte en quien dice '¡Cómpralo, amor!'"
     },
     {
       question:

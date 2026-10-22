@@ -34,9 +34,9 @@ export interface GeneralQuiz {
 const syringePricingQuiz: GeneralQuiz = {
   id: 'quiz-syringe-pricing',
   title: 'Syringe Pricing Master',
-  titleEs: 'Maestro de Precios de Jeringuilla',
+  titleEs: 'Maestro de Precios de Jeringa',
   description: 'Master the complete syringe price ladder from the Europe anchor down to the minimum close.',
-  descriptionEs: 'Domina la escalera completa de precios de la jeringuilla desde el anclaje europeo hasta el cierre mínimo.',
+  descriptionEs: 'Domina la escalera completa de precios de la jeringa desde el anclaje europeo hasta el cierre mínimo.',
   icon: 'Syringe',
   category: 'Product Pricing',
   categoryEs: 'Precios de Productos',
@@ -44,7 +44,7 @@ const syringePricingQuiz: GeneralQuiz = {
   questions: [
     {
       question: 'What is the FIRST price you mention to anchor the syringe value?',
-      questionEs: '¿Cuál es el PRIMER precio que mencionas para anclar el valor de la jeringuilla?',
+      questionEs: '¿Cuál es el PRIMER precio que mencionas para anclar el valor de la jeringa?',
       options: [
         '{currency}300 — the {locationName} base price',
         '{currency}500 — the Europe price',
@@ -55,7 +55,7 @@ const syringePricingQuiz: GeneralQuiz = {
         '{currency}300 — el precio base de {locationName}',
         '{currency}500 — el precio de Europa',
         '{currency}210 — el precio de oferta',
-        '{currency}140 — el precio de cierre con vale',
+        '{currency}140 — el precio de cierre con cupón',
       ],
       correctIndex: 1,
       explanation: 'Always start with the Europe price anchor ({currency}500) to establish high perceived value before revealing the {locationName} price.',
@@ -63,7 +63,7 @@ const syringePricingQuiz: GeneralQuiz = {
     },
     {
       question: 'After anchoring with {currency}500, what is the {locationName} base price for a single syringe?',
-      questionEs: 'Después de anclar con {currency}500, ¿cuál es el precio base de {locationName} para una jeringuilla individual?',
+      questionEs: 'Después de anclar con {currency}500, ¿cuál es el precio base de {locationName} para una jeringa individual?',
       options: ['{currency}100', '{currency}300', '{currency}140', '{currency}175'],
       optionsEs: ['{currency}100', '{currency}300', '{currency}140', '{currency}175'],
       correctIndex: 1,
@@ -80,9 +80,9 @@ const syringePricingQuiz: GeneralQuiz = {
         '{currency}210 (30% off) + free gift (cream/cleanser/peeling choice)',
       ],
       optionsEs: [
-        '{currency}300 con una segunda jeringuilla gratis, para tratar también frente y labio superior',
+        '{currency}300 con una segunda jeringa gratis, para tratar también frente y labio superior',
         '{currency}175 sin el regalo, reservado para quien duda dos veces seguidas',
-        '{currency}140 con el cupón del 20%, solo en la jeringuilla individual y nunca en el combo',
+        '{currency}140 con el cupón del 20%, solo en la jeringa individual y nunca en el combo',
         '{currency}210 (30% descuento) + regalo gratis (crema/limpiador/peeling a elegir)',
       ],
       correctIndex: 3,
@@ -99,18 +99,18 @@ const syringePricingQuiz: GeneralQuiz = {
         '{currency}140, the voucher close, one rung above the absolute minimum',
       ],
       optionsEs: [
-        '{currency}210 por una jeringuilla, 30% de descuento, con un regalo a elegir',
-        '{currency}175 por la jeringuilla individual una vez retirado el regalo',
-        '{currency}300 + segunda jeringuilla gratis (trata frente, labio superior, "11s")',
+        '{currency}210 por una jeringa, 30% de descuento, con un regalo a elegir',
+        '{currency}175 por la jeringa individual una vez retirado el regalo',
+        '{currency}300 + segunda jeringa gratis (trata frente, labio superior, "11s")',
         '{currency}140, el cierre con cupón, un escalón por encima del mínimo absoluto',
       ],
       correctIndex: 2,
       explanation: 'Offer Option 2 keeps the {currency}300 price but gives a second syringe free to treat forehead, upper lip, and "11s" between the brows.',
-      explanationEs: 'La Opción de Oferta 2 mantiene el precio de {currency}300 pero da una segunda jeringuilla gratis para tratar frente, labio superior y "11s" entre las cejas.',
+      explanationEs: 'La Opción de Oferta 2 mantiene el precio de {currency}300 pero da una segunda jeringa gratis para tratar frente, labio superior y "11s" entre las cejas.',
     },
     {
       question: 'What is the ABSOLUTE MINIMUM price for a single syringe — the number you never go below?',
-      questionEs: '¿Cuál es el precio MÍNIMO ABSOLUTO de una jeringuilla individual — la cifra por debajo de la cual nunca bajas?',
+      questionEs: '¿Cuál es el precio MÍNIMO ABSOLUTO de una jeringa individual — la cifra por debajo de la cual nunca bajas?',
       options: ['{currency}140', '{currency}175', '{currency}100', '{currency}210'],
       optionsEs: ['{currency}140', '{currency}175', '{currency}100', '{currency}210'],
       correctIndex: 2,
@@ -129,7 +129,7 @@ const peelingPricingQuiz: GeneralQuiz = {
   title: 'Peeling Pricing',
   titleEs: 'Precios del Peeling',
   description: 'Know every price step of the Glycolic Peeling — from the Europe anchor to the voucher close.',
-  descriptionEs: 'Conoce cada paso de precio del Peeling Glucólico — desde el anclaje europeo hasta el cierre con vale.',
+  descriptionEs: 'Conoce cada paso de precio del Peeling Glicólico — desde el anclaje europeo hasta el cierre con cupón.',
   icon: 'Droplets',
   category: 'Product Pricing',
   categoryEs: 'Precios de Productos',
@@ -137,7 +137,7 @@ const peelingPricingQuiz: GeneralQuiz = {
   questions: [
     {
       question: 'What is the Europe price anchor for a professional glycolic peeling?',
-      questionEs: '¿Cuál es el anclaje de precio de Europa para un peeling glucólico profesional?',
+      questionEs: '¿Cuál es el anclaje de precio de Europa para un peeling glicólico profesional?',
       options: ['{currency}50', '{currency}100', '{currency}150', '{currency}200'],
       optionsEs: ['{currency}50', '{currency}100', '{currency}150', '{currency}200'],
       correctIndex: 3,
@@ -184,7 +184,7 @@ const peelingPricingQuiz: GeneralQuiz = {
       optionsEs: [
         '{currency}100 + Exfoliante Corporal del Mar Muerto',
         '{currency}70 reserva adaptativa',
-        '{currency}50 cierre con vale',
+        '{currency}50 cierre con cupón',
         '{currency}150 (estándar) + Crema Día y Noche gratis',
       ],
       correctIndex: 3,
@@ -193,7 +193,7 @@ const peelingPricingQuiz: GeneralQuiz = {
     },
     {
       question: 'What is the voucher close (minimum) price for a single peeling?',
-      questionEs: '¿Cuál es el precio de cierre con vale (mínimo) para un peeling individual?',
+      questionEs: '¿Cuál es el precio de cierre con cupón (mínimo) para un peeling individual?',
       options: ['{currency}25', '{currency}70', '{currency}50', '{currency}100'],
       optionsEs: ['{currency}25', '{currency}70', '{currency}50', '{currency}100'],
       correctIndex: 2,
@@ -326,8 +326,8 @@ const nailKitQuiz: GeneralQuiz = {
       options: ['{currency}30', '{currency}80', '{currency}120', '{currency}60'],
       optionsEs: ['{currency}30', '{currency}80', '{currency}120', '{currency}60'],
       correctIndex: 3,
-      explanation: 'The Nail Kit {locationName} base price is {currency}60 — the price of two salon manicures, for years of them. The value proposition is immediate and obvious.',
-      explanationEs: 'El precio base de {locationName} del Kit es {currency}60 — lo que cuestan dos manicuras de salón, pero te dura años. La propuesta de valor es inmediata y obvia.',
+      explanation: '{currency}60 is the {locationName} base, and you say it attached to the comparison, never on its own: two salon manicures cost that, and this does fifty of them. Say the number and the comparison in the same breath and she never hears {currency}60 as a price, only as a swap.',
+      explanationEs: '{currency}60 es la base de {locationName}, y lo dices pegado a la comparación, nunca solo: dos manicuras de salón cuestan eso, y esto hace cincuenta. Suelta el número y la comparación en la misma frase y nunca oye {currency}60 como precio, solo como cambio.',
     },
     {
       question: 'What is the core Nail Kit combo offer?',
@@ -361,7 +361,7 @@ const nailKitQuiz: GeneralQuiz = {
         'Kit de Uñas + segundo Kit de Uñas = {currency}60',
         'Kit de Uñas + Peeling = {currency}100',
         'Kit de Uñas + Exfoliante o Manteca Corporal = {currency}60 (Compra 1, Lleva 1)',
-        'Kit de Uñas + Jeringuilla = {currency}300',
+        'Kit de Uñas + Jeringa = {currency}300',
       ],
       correctIndex: 2,
       explanation: 'The Mix & Match is Nail Kit + Scrub or Body Butter = {currency}60 (Buy 1, Get 1). This pairs different product categories at an attractive entry price.',
@@ -441,8 +441,8 @@ const psychologyQuiz: GeneralQuiz = {
       explanationEs: 'El rechazo no es personal — es parte del proceso. Los mejores vendedores se desapegan emocionalmente. Cada "no" te acerca a un "sí."',
     },
     {
-      question: 'Why is your energy level crucial when stopping customers?',
-      questionEs: '¿Por qué es crucial tu nivel de energía al parar clientes?',
+      question: 'Why does your energy decide whether anybody stops?',
+      questionEs: '¿Por qué tu energía decide si alguien se para o no?',
       options: [
         'Energy is contagious — low energy = ignored; high energy = magnetic',
         'It makes you look crazy, and looking a little crazy is what gets people to stop and pay attention on a busy street',
@@ -456,8 +456,8 @@ const psychologyQuiz: GeneralQuiz = {
         'No importa en absoluto — lo que importa es el guion que uses y lo bien que te sepas la escalera de precios',
       ],
       correctIndex: 0,
-      explanation: 'Your energy sets the tone. Low energy makes you invisible. High, positive energy draws people in. Enthusiasm sells before words do.',
-      explanationEs: 'Tu energía marca el tono. La baja energía te hace invisible. La energía alta y positiva atrae a la gente. El entusiasmo vende antes que las palabras.',
+      explanation: 'Nobody in that centre came out to buy cream, so the only thing that turns a head is you — and a tired voice is invisible from four metres. Whatever you bring, she gives back: come at her flat and she walks past, come at her up and smiling and she stops before she has worked out why. You are selling the energy first and the bottle second.',
+      explanationEs: 'Nadie en ese centro comercial ha salido de casa a comprar crema, así que lo único que gira una cabeza eres tú — y una voz cansada es invisible a cuatro metros. Lo que tú lleves, te lo devuelve: vas plano y pasa de largo, vas arriba y con una sonrisa y se para antes de saber por qué. Primero vendes la energía, el bote va después.',
     },
     {
       question: 'What is "social proof" in a sales context?',
@@ -639,11 +639,11 @@ const stoppingQuiz: GeneralQuiz = {
         '"¿Necesita ayuda?"',
         '"Tenemos rebajas hoy."',
         '"¿Está interesado en productos de belleza?"',
-        '"¿Puedo mostrarle algo increíble? Toma 30 segundos."',
+        '"¿Te puedo enseñar algo increíble? Son 30 segundos."',
       ],
       correctIndex: 3,
       explanation: '"Can I show you something amazing? It takes 30 seconds" creates curiosity, sets a low time commitment, and promises value. It is nearly impossible to refuse.',
-      explanationEs: '"¿Puedo mostrarle algo increíble? Toma 30 segundos" crea curiosidad, establece un bajo compromiso de tiempo y promete valor. Es casi imposible de rechazar.',
+      explanationEs: '"¿Te puedo enseñar algo increíble? Son 30 segundos" crea curiosidad, establece un bajo compromiso de tiempo y promete valor. Es casi imposible de rechazar.',
     },
     {
       question: 'You call "Hi guys, how you doing?" to a woman four or five metres off and she does not look up. What do you do?',
@@ -666,7 +666,7 @@ const stoppingQuiz: GeneralQuiz = {
     },
     {
       question: 'For the Syringe, what is the best curiosity-based stopping hook?',
-      questionEs: 'Para la Jeringuilla, ¿cuál es el mejor gancho de parada basado en la curiosidad?',
+      questionEs: 'Para la Jeringa, ¿cuál es el mejor gancho de parada basado en la curiosidad?',
       options: [
         '"This is very cheap today — we have a promotion running and the prices go back up at the end of the week"',
         '"Do you want to buy a syringe? It is our best product and it works on the eyes, the forehead and the upper lip"',
@@ -675,13 +675,13 @@ const stoppingQuiz: GeneralQuiz = {
       ],
       optionsEs: [
         '"Esto está muy barato hoy — tenemos una promoción y los precios vuelven a subir a final de semana"',
-        '"¿Quieres comprar una jeringuilla? Es nuestro mejor producto y funciona en ojos, frente y labio superior"',
-        '"¿Puedo mostrarle algo? Este es nuestro tratamiento más vendido — es como Botox en jeringuilla, pero natural e instantáneo"',
+        '"¿Quieres comprar una jeringa? Es nuestro mejor producto y funciona en ojos, frente y labio superior"',
+        '"¿Te puedo enseñar algo? Este es nuestro tratamiento más vendido — es como Botox en jeringa, pero natural e instantáneo"',
         '"Todo el mundo está comprando esto — vendimos cuarenta ayer y quedan muy pocos en la estantería"',
       ],
       correctIndex: 2,
       explanation: 'The best syringe hook compares it to Botox (instant recognition), promises natural results, and adds "instant" gratification. Curiosity + value in one line.',
-      explanationEs: 'El mejor gancho de jeringuilla la compara con Botox (reconocimiento instantáneo), promete resultados naturales y añade gratificación instantánea. Curiosidad + valor en una frase.',
+      explanationEs: 'El mejor gancho de jeringa la compara con Botox (reconocimiento instantáneo), promete resultados naturales y añade gratificación instantánea. Curiosidad + valor en una frase.',
     },
     {
       question: 'A customer says "I am just looking" AFTER you have stopped them. What is your BEST response?',
@@ -693,14 +693,14 @@ const stoppingQuiz: GeneralQuiz = {
         '"Please, just try it — one hand, thirty seconds, I promise I will not ask you for anything afterwards"',
       ],
       optionsEs: [
-        '"Ningún problema — mirar es gratis. ¿Puedo mostrarle algo que toma 20 segundos? No tiene que comprar nada, me encanta la reacción"',
+        '"Sin problema — mirar es gratis. ¿Te puedo enseñar algo que son 20 segundos? No tienes que comprar nada, me encanta la reacción"',
         '"Vale, avísame si necesitas algo" y te apartas para que miren la mesa por su cuenta',
         '"¿Seguro? Hoy tenemos ofertas buenísimas — mejores que cualquier cosa que encuentres calle arriba"',
         '"Por favor, solo pruébalo — una mano, treinta segundos, y prometo no pedirte nada después"',
       ],
       correctIndex: 0,
       explanation: 'Validate their "just looking" response (do not fight it), then offer a zero-commitment demo. "You do not have to buy anything" removes pressure while "I love the reaction" creates curiosity.',
-      explanationEs: 'Valida su respuesta de "solo miro" (no luches contra ella), luego ofrece una demo sin compromiso. "No tiene que comprar nada" quita presión mientras "me encanta la reacción" crea curiosidad.',
+      explanationEs: 'Valida su respuesta de "solo miro" (no luches contra ella), luego ofrece una demo sin compromiso. "No tienes que comprar nada" quita presión mientras "me encanta la reacción" crea curiosidad.',
     },
   ],
 };
@@ -713,7 +713,7 @@ const closingQuiz: GeneralQuiz = {
   title: 'The Art of Closing',
   titleEs: 'El Arte de Cerrar',
   description: 'Master the two-choice framework, voucher close, adaptive pricing, and assumptive techniques.',
-  descriptionEs: 'Domina el marco de dos opciones, cierre con vale, precio adaptativo y técnicas asumidas.',
+  descriptionEs: 'Domina el marco de dos opciones, cierre con cupón, precio adaptativo y técnicas asumidas.',
   icon: 'Target',
   category: 'Closing',
   categoryEs: 'Cierre',
@@ -736,11 +736,11 @@ const closingQuiz: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation: 'The Two-Choice Close gives options like "Would you prefer the single treatment at {currency}300, or the two-syringe pack at {currency}300 with the second one free?" Either way, they buy.',
-      explanationEs: 'El Cierre de Dos Opciones da opciones como "¿Prefiere el tratamiento individual a {currency}300, o el pack de dos jeringuillas a {currency}300 con la segunda gratis?" De cualquier manera, compran.',
+      explanationEs: 'El Cierre de Dos Opciones da opciones como "¿Prefieres el tratamiento individual a {currency}300, o el pack de dos jeringas a {currency}300 con la segunda gratis?" De cualquier manera, compran.',
     },
     {
       question: 'When should you use the voucher close?',
-      questionEs: '¿Cuándo debes usar el cierre con vale?',
+      questionEs: '¿Cuándo debes usar el cierre con cupón?',
       options: [
         'Only as a last resort when the customer is genuinely about to walk away',
         'As your first offer to every customer, because a strong discount up front removes the price objection before it appears',
@@ -754,8 +754,8 @@ const closingQuiz: GeneralQuiz = {
         'Al principio de cada conversación, para que el cliente sepa desde el primer segundo que hay una oferta sobre la mesa',
       ],
       correctIndex: 0,
-      explanation: 'The voucher close is your rescue tool. Use it only after the customer has rejected your standard price, your add-value offer, and your alternative offer.',
-      explanationEs: 'El cierre con vale es tu herramienta de rescate. Úsalo solo después de que el cliente haya rechazado tu precio estándar, tu oferta de valor añadido y tu oferta alternativa.',
+      explanation: 'There is no real voucher — you invent it on the spot, and it only exists to give her a reason the number moved. So you spend it ONCE, at {currency}175, when she is about to stand up: "You know what, let me fix your other eye real quick" — and while her face is tilted up and your hands are busy, the extra 20% comes out and {currency}175 becomes {currency}140. Spend it at {currency}300 and you have nothing left for the moment that actually needs it.',
+      explanationEs: 'No hay ningún cupón de verdad — te lo inventas en el momento, y solo existe para darle un motivo de que el número se haya movido. Así que lo gastas UNA VEZ, en {currency}175, cuando ya se va a levantar: "Mira, ven, que te arreglo el otro ojo rápido" — y con la cara hacia arriba y tus manos ocupadas, sale el 20% extra y {currency}175 se convierte en {currency}140. Gástalo en {currency}300 y te quedas sin nada para el momento que de verdad lo necesita.',
     },
     {
       question: 'What is the Assumptive Close?',
@@ -773,8 +773,8 @@ const closingQuiz: GeneralQuiz = {
         'Asumir que el cliente ya lo sabe todo del producto y saltarte la demo directamente',
       ],
       correctIndex: 2,
-      explanation: 'The Assumptive Close: "I will set this aside for you at the counter. Do you want the gift bag with it?" This frames the decision as already made.',
-      explanationEs: 'El Cierre Asumido: "Te lo voy apartando en el mostrador. ¿Te lo pongo en bolsa de regalo?" Esto enmarca la decisión como ya tomada.',
+      explanation: 'The Assumptive Close: hands already moving, box already in the bag — "Gift bag or just the box? Card or cash?" You never ask IF, you only ask WHICH, and she answers the small question instead of the big one. What you never do is park it at the counter for her: anything that waits for her is a sale that walks out.',
+      explanationEs: 'El Cierre Asumido: las manos ya en marcha, la caja ya en la bolsa — "¿Bolsa de regalo o solo la caja? ¿Tarjeta o efectivo?" Nunca preguntas SI, solo preguntas CUÁL, y ella contesta la pregunta pequeña en vez de la grande. Lo que no haces nunca es dejárselo apartado en el mostrador: todo lo que la espera es una venta que se va por la puerta.',
     },
     {
       question: 'What is "adaptive pricing" in the context of Zero Lines selling?',
@@ -797,7 +797,7 @@ const closingQuiz: GeneralQuiz = {
     },
     {
       question: 'You have named {currency}300 for the syringe and she has gone quiet without asking you for anything. What comes next?',
-      questionEs: 'Has dicho {currency}300 por la jeringuilla y se ha quedado callada sin pedirte nada. ¿Qué viene ahora?',
+      questionEs: 'Has dicho {currency}300 por la jeringa y se ha quedado callada sin pedirte nada. ¿Qué viene ahora?',
       options: [
         'Immediately drop to {currency}100, the absolute floor, before she has had time to hand the syringe back to you',
         'Offer Option 1: {currency}210 (30% off) + free gift, or Offer Option 2: {currency}300 + second syringe free',
@@ -805,8 +805,8 @@ const closingQuiz: GeneralQuiz = {
         'Tell them the price is non-negotiable and that every customer pays exactly the same {currency}300',
       ],
       optionsEs: [
-        'Bajar de inmediato a {currency}100, que es el mínimo absoluto, antes de que le dé tiempo siquiera a devolverte la jeringuilla a la mano',
-        'Opción de Oferta 1: {currency}210 (30% descuento) + regalo gratis, u Opción de Oferta 2: {currency}300 + segunda jeringuilla gratis',
+        'Bajar de inmediato a {currency}100, que es el mínimo absoluto, antes de que le dé tiempo siquiera a devolverte la jeringa a la mano',
+        'Opción de Oferta 1: {currency}210 (30% descuento) + regalo gratis, u Opción de Oferta 2: {currency}300 + segunda jeringa gratis',
         'Bajar a {currency}50, que es el precio con cupón del peeling, y confiar en que la cifra cierre sola',
         'Decirles que el precio no es negociable y que todos los clientes pagan exactamente los mismos {currency}300',
       ],
@@ -863,7 +863,7 @@ const objectionQuiz: GeneralQuiz = {
         '"Vale, ningún problema — si la que tienes te funciona no hay nada que yo pueda añadir, así que disfruta del resto del día"',
         '"La tuya probablemente es mala — casi todo lo que se compra en casa es agua y perfume, que es justo por lo que sigues mirando la mía"',
         '"Tira tu crema y llévate esta — no tiene sentido terminar algo que no te está haciendo nada, y esta funciona desde el primer uso"',
-        '"La mayoría de nuestros clientes también. Pero cuando prueban esto, me dicen que es completamente diferente. Esto trabaja desde dentro, no solo en la superficie. ¿Puedo mostrarle por qué en 30 segundos?"',
+        '"La mayoría de nuestros clientes también. Pero cuando prueban esto, me dicen que es completamente diferente. Esto trabaja desde dentro, no solo en la superficie. ¿Te enseño por qué en 30 segundos?"',
       ],
       correctIndex: 3,
       explanation: 'Validate their current product (do not dismiss it), then offer a quick demo that proves your product works differently. The 30-second demo is your strongest weapon.',
@@ -924,7 +924,7 @@ const objectionQuiz: GeneralQuiz = {
       ],
       correctIndex: 2,
       explanation: 'She has already said yes twice in the demo — she likes it, and she would use it at home. So there is nothing left to think about except the price, and the price is a thing you can only fix while she is standing in front of you. Holding the voucher at the counter for ten minutes sounds generous and it is the losing answer: the moment she wanders off to look around, the sale goes with her. The voucher is something you invent on the spot to justify coming down, and it dies when she leaves.',
-      explanationEs: 'Ya te ha dicho que sí dos veces en la demo: le gusta y lo usaría en casa. Así que no queda nada que pensar salvo el precio, y el precio solo lo arreglas con ella delante de ti. Guardarle el vale en el mostrador diez minutos suena generoso y es la respuesta que pierde la venta: en cuanto se va a dar una vuelta, la venta se va con ella. El vale te lo inventas en el momento para justificar la bajada, y se muere cuando ella sale.',
+      explanationEs: 'Ya te ha dicho que sí dos veces en la demo: le gusta y lo usaría en casa. Así que no queda nada que pensar salvo el precio, y el precio solo lo arreglas con ella delante de ti. Guardarle el cupón en el mostrador diez minutos suena generoso y es la respuesta que pierde la venta: en cuanto se va a dar una vuelta, la venta se va con ella. El cupón te lo inventas en el momento para justificar la bajada, y se muere cuando ella sale.',
     },
   ],
 };
@@ -964,7 +964,7 @@ const workflowQuiz: GeneralQuiz = {
     },
     {
       question: 'What is the correct order of the Syringe pitch steps?',
-      questionEs: '¿Cuál es el orden correcto de los pasos del pitch de Jeringuilla?',
+      questionEs: '¿Cuál es el orden correcto de los pasos del pitch de Jeringa?',
       options: [
         'Close → Demo → Anchor → Stop',
         'Demo → Stop → Close → Anchor',

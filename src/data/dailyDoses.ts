@@ -685,7 +685,7 @@ export const dailyDoses: DailyDose[] = [
       {
         type: 'script',
         text: '"Sir, 30 seconds. This Scrub removes dead skin in one use. Your hands will feel smoother than they have in years. It\'s {currency}60, or {currency}60 for two if you take a Body Butter with it. Want to try it?"',
-        textEs: '"Jefe, 30 segundos. Este Scrub quita la piel muerta a la primera. Tus manos van a quedar más suaves que en años. Son {currency}60, o {currency}60 por dos si te llevas un Body Butter también. ¿Lo pruebas?"',
+        textEs: '"Jefe, 30 segundos. Este Exfoliante quita la piel muerta a la primera. Tus manos van a quedar más suaves que en años. Son {currency}60, o {currency}60 por dos si te llevas una Manteca Corporal también. ¿Lo pruebas?"',
       },
       {
         type: 'tip',

@@ -48,8 +48,8 @@ const ALL_CHALLENGES: Challenge[] = [
   },
   {
     id: 'c6',
-    text: "Apply Cialdini's reciprocity principle in 3 interactions",
-    textEs: 'Aplica el principio de reciprocidad de Cialdini en 3 interacciones',
+    text: 'Give first, ask second — 3 people get something off you before you say a price',
+    textEs: 'Da primero, pide después — 3 personas se llevan algo tuyo antes de que digas un precio',
     xpReward: 25,
   },
   {
@@ -89,13 +89,13 @@ const ALL_CHALLENGES: Challenge[] = [
   {
     id: 'c12',
     text: 'Practice the voucher close on a hesitant customer',
-    textEs: 'Practica el cierre con vale en un cliente indeciso',
+    textEs: 'Practica el cierre con cupón en un cliente indeciso',
     xpReward: 25,
   },
   {
     id: 'c13',
-    text: 'Identify a couple dynamic and adapt your pitch',
-    textEs: 'Identifica la dinámica de una pareja y adapta tu pitch',
+    text: 'Work out who holds the money in 3 couples — and bring him IN, every time',
+    textEs: 'Averigua quién lleva el dinero en 3 parejas — y métele a él DENTRO, siempre',
     xpReward: 20,
   },
   {

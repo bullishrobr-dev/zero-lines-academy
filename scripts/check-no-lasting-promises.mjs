@@ -26,7 +26,20 @@ import { SRC as ROOT } from './paths.mjs';
 
 /** Offers of money back, in either language. */
 const PROMISE = [
-  /\brefund\b/i,
+  /* `\brefund\b` missed the PLURAL, and "reembolso" was not on this list in
+     any form. Three lines in the quiz banks said "leads to refunds and
+     complaints" / "lleva a reembolsos", and every run of this guard waved them
+     through. The rule is that we do not do returns, and a lesson explaining
+     what causes them still tells a seller they exist.
+
+     The obvious next step — matching "returns" and "devolución" too — was
+     tried and reverted. "The customer who leaves to think about it often never
+     RETURNS" is the verb, and "¿CUÁL ES LA POLÍTICA DE DEVOLUCIÓN?" appears in
+     a list of buying signals a lesson teaches a seller to RECOGNISE. Both are
+     correct teaching, and a guard that cries wolf on correct teaching is a
+     guard the next person deletes. */
+  /\brefunds?\b/i,
+  /\breembolsos?\b/i,
   /money back/i,
   /te devuelvo el dinero/i,
   /te devolvemos el dinero/i,
