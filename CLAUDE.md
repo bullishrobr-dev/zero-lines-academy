@@ -272,11 +272,22 @@ CI, so a regression fails the build rather than reaching a customer.
 - **The buffer warranty is the one exception, and it is real.** Bring the old
   buffer back, get a new one, forever. Say it with confidence — the owner
   honours it.
-- **No medical or therapeutic claims.** "Natural", "no chemicals", "no
-  parabens", "gentle enough for the most sensitive skin" — all fine, all in
-  register. Naming a disease or a medical condition the product helps with is
-  not, and that is not squeamishness: it is a claim about a vulnerable person
-  that a seller would be saying out loud to their face.
+- **Skin talk is open. Serious illness is not.** This was narrowed in October
+  2026 and the owner's reasoning is the whole of it: *"This app is designed for
+  selling on the street. People can say whatever the hell they want... We are
+  salespeople straight up. We exaggerate. That's what salespeople do."* So
+  "natural", "no parabens", "dermatologist recommended", "this is what people
+  with eczema or psoriasis use", "for the driest, reddest skin you have ever
+  seen" — all fine, all in register, and the peeling line genuinely is what
+  that product is for.
+
+  What is still out is what he called bait in the same breath: *"Stuff like
+  we're saying, 'It cures cancer,' bait. We're keeping it normal, exaggerating
+  just a tiny bit, nothing too crazy."* Do not reach for cancer, diabetes,
+  arthritis or the like to sell a cream. A seller says these out loud to
+  somebody who may be living with one, and commercially it is the point where
+  talking up a cosmetic turns into a medical claim.
+  (`check-retired-teachings.mjs`)
 - **Prices come from `src/data/pricing.ts`.** Use `{currency}` and
   `{locationName}` and let `sub()` resolve them, so Gibraltar never reads a euro
   price — proved on every run by a Gibraltar account in the smoke test.

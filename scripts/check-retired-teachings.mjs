@@ -42,27 +42,39 @@ const RETIRED = [
       '    distance, not a named rule, and it is not "the 4-metre rule" either.',
   },
   {
-    name: 'naming a disease or condition',
-    /* CLAUDE.md: "Naming a disease or a medical condition the product helps
-       with is not [fine], and that is not squeamishness: it is a claim about a
-       vulnerable person that a seller would be saying out loud to their face."
-       Two product scripts said "dermatologists recommend it for eczema,
-       psoriasis…" in both languages, and no guard had ever looked. Puffery is
-       fine — "the driest skin in the world uses this" is fine. An illness is
-       not. */
+    name: 'reaching for a serious illness to sell a cosmetic',
+    /* Narrowed on the owner's instruction, October 2026. The old version of this
+       rule banned the whole skin vocabulary — eczema, psoriasis, dermatitis,
+       rosacea, acne — plus "dermatologists recommend" and "clinically proven".
+       His call, and he is right that it was over-policed:
+
+         "This app is designed for selling on the street. People can say whatever
+          the hell they want... We are salespeople straight up. We exaggerate.
+          That's what salespeople do."
+
+       So the skin talk is open. Say the peeling is what people with eczema or
+       psoriasis use, say dermatologists recommend it, say it is for the worst,
+       driest, reddest skin you have ever seen. That is ordinary cosmetics
+       selling and it is what the product is actually for.
+
+       What stays shut is the thing he himself called bait in the same breath:
+
+         "Stuff like we're saying, 'It cures cancer,' bait. We're keeping it
+          normal, exaggerating just a tiny bit, nothing too crazy."
+
+       Naming a serious illness is a different move from talking up skin. It is
+       the claim a seller should never make to somebody who may actually be
+       living with it, and commercially it is the one that stops being
+       exaggeration and starts being a medical claim. */
     patterns: [
-      /\b(eczema|psoriasis|psoriasi|dermatitis|rosacea|rosácea|acn[eé]|vitiligo|melasma)\b/i,
-      /\b(cancer|c[áa]ncer|tumou?r|diabet|arthrit|artritis|alzheimer|lupus)\b/i,
-      /(treats?|cures?|heals?|remedy for|trata|cura|remedio para)\s+(your\s+)?(skin\s+)?(condition|disease|enfermedad|afecci[oó]n)/i,
-      /dermatologist(s)? (recommend|prescribe)|los dermat[oó]logos (lo )?recomiendan/i,
-      /clinically proven|cl[ií]nicamente probado|medically proven|m[eé]dicamente probado/i,
+      /\b(cancer|c[áa]ncer|tumou?rs?|diabet\w*|arthrit\w*|artritis|alzheimer|lupus|leukae?mia|leucemia)\b/i,
+      /(cures?|heals?|curar?|cura)\s+(your\s+)?(disease|illness|enfermedad)/i,
     ],
     replacement:
-      'Say it as puffery about the SKIN, not as a claim about an illness: "the\n' +
-      '    driest skin in the world uses this", "people who cannot put anything on\n' +
-      '    their face use this". Never name a condition, never borrow a doctor\n' +
-      "    to vouch for it. A seller says this out loud to somebody who may have\n" +
-      '    the thing you just named.',
+      'Talk up the SKIN as hard as you like — how dry it was, how red, how bad,\n' +
+      '    who recommends it, who else uses it. Do not reach for a serious illness\n' +
+      '    to sell a cosmetic. That is the one that stops being a seller\n' +
+      '    exaggerating and starts being a medical claim.',
   },
   {
     name: 'the 45-degree angle',
@@ -96,9 +108,9 @@ const IS_COMMENT = /^\s*(?:\/\/|\*|\/\*)/;
 /* Structural exemptions, the same two the walkaway guard needs and for the
    same reason: a rule about what a SELLER SAYS must not fire on the question
    that describes the customer's situation, or on a wrong answer that exists to
-   be rejected. The acne question is the case that proves it — its correct
-   answer refuses the claim and its explanation says "do not put a name on what
-   she has", which is the guard's own argument written out for the seller. */
+   be rejected. A quiz that asks what to do when a customer mentions a serious
+   illness needs to be able to name one in the stem and in the answers it wants
+   rejected, or the lesson cannot be written at all. */
 const NAMING_FIELD =
   /^\s*(?:question|questionEs|title|titleEs|label|labelEs|name|nameEs|head|headEs|subtitle|subtitleEs)\s*:/;
 
