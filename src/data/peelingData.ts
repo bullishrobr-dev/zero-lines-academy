@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ */
-/*  PeelingPage — Bilingual Data (EN / ES-MX)                         */
+/*  PeelingPage — Bilingual Data (EN / ES — peninsular, informal tú)   */
 /* ------------------------------------------------------------------ */
 
 export interface PriceStepData {
@@ -126,10 +126,17 @@ export const peelingData = {
       },
       {
         step: '4',
+        /* This step had been hollowed out. The hero above promises
+           "Dermatologist — Recommended" and the quick reference says
+           "Dermatologist: Approved", but the one place a seller is actually
+           told what to SAY had been softened to "the ones who cannot put
+           anything on their face" and then capped with "it's science-based,
+           not sales-based" — which is the brief upside down. We are hustlers,
+           not scientists. The real line is back. */
         title: 'The Authority Builder',
         titleEs: 'El Constructor de Autoridad',
-        text: '"It\'s actually so good that people with the most difficult skin in the world use it — the driest, the most sensitive, the ones who cannot put anything on their face." That single line builds authority and trust — it\'s science-based, not sales-based.',
-        textEs: '"Es tan bueno que lo usa gente con la piel más difícil del mundo — la más seca, la más sensible, la que no se puede poner nada en la cara." Esa sola frase construye autoridad y confianza — está basada en ciencia, no en ventas.',
+        text: '"This is the one doctors and dermatologists actually send people to. The driest skin you have ever seen, skin that cracks, redness that never calms down, people prone to eczema and psoriasis — this is what they use, because it takes the dead off without touching the living. If it is gentle enough for them, imagine what it does for you." Say it looking at her hand, not at her.',
+        textEs: '"Este es el que los médicos y los dermatólogos mandan de verdad. La piel más seca que hayas visto, piel que se agrieta, rojeces que no se calman nunca, gente con tendencia al eccema y la psoriasis — esto es lo que usan, porque se lleva lo muerto sin tocar lo vivo. Si es lo bastante suave para ellos, imagínate lo que te hace a ti." Dilo mirándole la mano, no a ella.',
       },
       {
         step: '5',
@@ -235,10 +242,50 @@ export const peelingData = {
       },
       {
         icon: 'ShieldCheck',
+        /* The tip was titled "Mention dermatologists" and then never mentioned
+           one. Now it says the word. */
         title: 'Mention dermatologists',
         titleEs: 'Menciona a los dermatólogos',
-        text: '"People with the most difficult skin in the world use this — the driest, the most sensitive." This builds instant authority.',
-        textEs: '"Lo usa gente con la piel más difícil del mundo — la más seca, la más sensible." Esto construye autoridad al instante.',
+        text: 'Say it out loud: doctors and dermatologists send people to this. The driest, the most sensitive, people prone to eczema and psoriasis. Nothing you can say about glow lands as hard as the fact that it is what the worst skin in the room uses.',
+        textEs: 'Dilo en voz alta: los médicos y los dermatólogos mandan a la gente a esto. La más seca, la más sensible, gente con tendencia al eccema y la psoriasis. Nada que digas sobre el brillo pega tan fuerte como que es lo que usa la peor piel de la sala.',
+      },
+      {
+        icon: 'Sparkles',
+        /* The single most-asked question about this product, and the corpus had
+           no answer anywhere: a scrub and a peeling look like the same thing on
+           the shelf, and the Offer-1 gift IS a scrub. A seller who cannot draw
+           the line is selling two products that cancel each other out. */
+        title: 'A scrub is not this',
+        titleEs: 'Un exfoliante no es esto',
+        text: 'A scrub scratches the dead skin off. This dissolves the glue holding it on and the skin lets go by itself. That is why it is once a week and not every day, and why the bottle lasts a year — you are not sanding your face, you are telling it to let go.',
+        textEs: 'Un exfoliante raspa la piel muerta. Esto deshace el pegamento que la sujeta y la piel se suelta sola. Por eso es una vez a la semana y no a diario, y por eso el bote dura un año — no te estás lijando la cara, le estás diciendo que suelte.',
+      },
+      {
+        icon: 'HelpCircle',
+        /* "Does it hurt" gets asked in every demo and had no scripted answer. */
+        title: '"Does it hurt?"',
+        titleEs: '"¿Duele?"',
+        text: '"Hurt? You will feel it working — a bit of warmth, a bit of a tingle, about ten seconds in. That is it doing its job, not hurting you." Never say "no" flat. She can feel something; denying it makes you a liar ten seconds later.',
+        textEs: '"¿Doler? Lo vas a notar trabajar — un poco de calorcillo, un cosquilleo, a los diez segundos. Eso es que está haciendo su trabajo, no que te duela." Nunca digas "no" a secas. Ella nota algo, y negarlo te deja de mentiroso diez segundos después.',
+      },
+      {
+        icon: 'Moon',
+        /* She needs to know what Sunday night looks like before she will pay
+           for it. The corpus taught the demo and the ladder and never the use. */
+        title: 'Tell her how to use it',
+        titleEs: 'Dile cómo se usa',
+        text: 'Clean skin, Sunday night, five minutes. Roll it, rinse it, then your own cream goes on and it works ten times harder because there is nothing dead in the way. Once a week — more is not better, it is just faster through the bottle.',
+        textEs: 'Piel limpia, domingo por la noche, cinco minutos. Lo enrollas, lo aclaras, y luego tu crema encima trabajando diez veces más porque ya no hay nada muerto por medio. Una vez por semana — más no es mejor, sólo te acaba el bote antes.',
+      },
+      {
+        icon: 'ArrowUpRight',
+        /* The peeling is the middle of the ladder, and nothing told a seller how
+           to get from a hand demo to the chair. The syringe is the star; this
+           is the sentence that bridges to it. */
+        title: 'Bridge it up to the eyes',
+        titleEs: 'Súbela a los ojos',
+        text: 'Do not stop at the hand. "Feel that patch? That is your skin with the dead taken off it. Sit down one second — the same trick on the eye is the one that makes people scream." The peeling is the middle of the ladder, not the top of it.',
+        textEs: 'No te quedes en la mano. "¿Notas esa zona? Esa es tu piel sin lo muerto encima. Siéntate un segundo — el mismo truco en el ojo es el que hace que la gente grite." El peeling es la mitad de la escalera, no el final.',
       },
       {
         icon: 'Calendar',

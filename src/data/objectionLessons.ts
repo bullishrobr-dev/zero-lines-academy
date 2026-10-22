@@ -810,13 +810,13 @@ export const objectionLessons: Record<string, Lesson> = {
           "Dismiss the question: \"It works on everyone, don't worry\" — This sounds like you don't understand their concern.",
           "Pretend all skin is the same: Acknowledge that their question is valid and rooted in real industry history.",
           "Show only white customer photos: Have diverse before/afters ready on your phone.",
-          "Use medical/dermatologist claims unless true: Stay within your knowledge. Say \"I've seen\" not \"Science proves.\"",
+          "Reach for a serious illness to make the sale: Talk up the skin as hard as you like — the driest, the reddest, who recommends it, who else uses it. Borrowing somebody's diagnosis is where selling stops and a medical claim starts.",
         ],
         itemsEs: [
           "Menospreciar la pregunta: \"Funciona en todos, no te preocupes\" — Suena como si no entendieras su preocupación.",
           "Pretender que toda la piel es igual: Reconoce que su pregunta es válida y tiene raíces en la historia real de la industria.",
           "Mostrar solo fotos de clientes blancos: Ten fotos de antes/después diversas listas en tu móvil.",
-          "Usar afirmaciones médicas/dermatológicas a menos que sean ciertas: Quédate dentro de tu conocimiento. Di \"he visto\" no \"la ciencia prueba.\"",
+          "Tirar de una enfermedad grave para cerrar: Habla de la piel todo lo que quieras — la más seca, la más roja, quién lo recomienda, quién más lo usa. Apropiarte del diagnóstico de alguien es donde se acaba la venta y empieza la afirmación médica.",
         ],
       },
       {

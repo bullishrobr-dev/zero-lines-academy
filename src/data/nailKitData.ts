@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ */
-/*  Nail Kit Page — Bilingual Data (EN / ES-MX)                       */
+/*  Nail Kit Page — Bilingual Data (EN / ES — peninsular, informal tú) */
 /* ------------------------------------------------------------------ */
 
 export interface OfferData {

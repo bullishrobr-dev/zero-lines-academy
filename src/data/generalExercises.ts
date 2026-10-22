@@ -540,10 +540,16 @@ const matchTechniqueExercise: Exercise = {
       {
         term: 'Minimum / Floor',
         termEs: 'Mínimo / Suelo',
+        /* This taught the bottom number as if it were the seller's to give.
+           It is not, and CLAUDE.md is blunt about why: "A seller who can reach
+           the floor on their own has no floor." You go full market and you
+           call a manager. The guard missed it because it only reads blocks
+           containing a `question:` key — a term/definition pair was a blind
+           spot. Widened in check-floor-needs-a-manager.mjs in the same pass. */
         definition:
-          'The last-resort price you never cross: {currency}100 for the syringe, {currency}50 for the peeling, {currency}30 for scrub/nail kit. Only when the customer is genuinely walking away.',
+          'The last-resort price, and it is NOT yours to give: {currency}100 for the syringe, {currency}50 for the peeling, {currency}30 for scrub/nail kit. You use your one voucher, and if that does not do it you go full market and call a manager. He gives the floor, not you.',
         definitionEs:
-          'El precio de último recurso que nunca cruzas: {currency}100 para jeringuilla, {currency}50 para peeling, {currency}30 para exfoliante/kit uñas. Solo cuando el cliente realmente se está yendo.',
+          'El precio de último recurso, y NO es tuyo para darlo: {currency}100 para la jeringa, {currency}50 para el peeling, {currency}30 para exfoliante/kit de uñas. Usas tu único cupón, y si eso no lo cierra te pones en modo mercado y llamas al encargado. Él da el suelo, no tú.',
       },
       {
         term: 'Assumptive Close',

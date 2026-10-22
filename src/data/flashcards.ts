@@ -543,9 +543,13 @@ export const flashcards: Flashcard[] = [
     lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'How do you demo the Peeling product for maximum impact?',
-    answer: 'Apply to the back of their hand, let it sit 10 seconds, then rub gently. The dead skin rolling off is visceral proof of exfoliation.',
+    /* Said "rub gently" and taught the opposite of the product page, which is
+       emphatic that rubbing kills the effect: "Roll it, don't rub it… if they
+       rub too hard, it won't work." A flashcard that contradicts the demo is
+       worse than no flashcard. */
+    answer: 'Apply to the back of their hand, let it sit 10 seconds, then ROLL it — never rub. Rubbing kills the pilling. The dead skin rolling off is visceral proof of exfoliation.',
     questionEs: '¿Cómo haces la demo del producto Peeling para máximo impacto?',
-    answerEs: 'Aplica en el dorso de su mano, déjalo actuar 10 segundos, luego frota suavemente. La piel muerta saliendo es prueba visceral de exfoliación.',
+    answerEs: 'Aplica en el dorso de su mano, déjalo actuar 10 segundos, y luego ENRÓLLALO — nunca frotes. Frotar mata el efecto bolita. La piel muerta saliendo es prueba visceral de exfoliación.',
   },
   {
     id: 'pm-2-2',
