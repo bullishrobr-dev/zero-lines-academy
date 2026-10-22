@@ -722,7 +722,11 @@ const StreetTrackerPage: React.FC = () => {
     // Clearance for the docked quick-log bar. Layout already reserves the
     // bottom bar's own height on <main>, so this only covers the ~101px the
     // quick-log bar adds on top of it, plus air.
-    <div className="relative min-h-screen bg-background pb-32 text-ink">
+    // min-h-full, not min-h-screen: 100vh against a 100dvh shell overshoots the
+    // visible viewport on iOS Safari by the height of the toolbar, adding a
+    // screen of empty scroll under a page that already gives up 176px to the
+    // nav bar and the quick-log buttons.
+    <div className="relative min-h-full bg-background pb-32 text-ink">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-line bg-background/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-app items-center justify-between gap-3 px-4 py-3">
