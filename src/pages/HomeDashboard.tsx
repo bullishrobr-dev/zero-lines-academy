@@ -244,12 +244,19 @@ function TileLink({
     <motion.button
       whileTap={{ scale: 0.96 }}
       onClick={onClick}
-      className="surface-raised flex min-h-touch flex-col items-center gap-2 px-2 py-4"
+      className="surface-raised flex min-w-0 min-h-touch flex-col items-center gap-2 px-2 py-4"
     >
-      <span className={`flex h-11 w-11 items-center justify-center rounded-chip ${tint}`}>
+      <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-chip ${tint}`}>
         <Icon size={22} className={ink} aria-hidden="true" />
       </span>
-      <span className="text-caption text-ink">{label}</span>
+      {/* A grid item's `min-width: auto` is its longest word, so at 320px in
+          Spanish ("Cuestionarios", "Clasificación") this tile pushed its
+          column past the edge instead of wrapping. `min-w-0` lets the column
+          shrink; the break and hyphen rules give the word somewhere to go when
+          it does. `hyphens-auto` needs <html lang> — LanguageContext. */}
+      <span className="min-w-0 hyphens-auto break-words text-center text-caption text-ink">
+        {label}
+      </span>
     </motion.button>
   );
 }

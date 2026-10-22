@@ -44,6 +44,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
      with no error card and no way to diagnose it. Measured: 0 characters
      rendered, uncaught pageerror, nothing on screen. */
   useEffect(() => {
+    /* index.html ships `lang="en"` and nothing ever changed it, so a seller
+       reading the whole app in Spanish was handing a screen reader English
+       pronunciation rules for every word of it — and `hyphens: auto` needs the
+       language to know where Spanish words may break, which is what keeps the
+       three-column stat labels inside a 320px screen. Set on mount as well as
+       on every change, because the stored preference is read before React
+       renders and the attribute has to catch up with it. */
+    document.documentElement.lang = language;
     try {
       localStorage.setItem(LS_LANGUAGE_KEY, language);
     } catch {

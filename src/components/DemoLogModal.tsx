@@ -25,7 +25,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { NotebookPen, X } from 'lucide-react';
-import BottomSheet from './BottomSheet';
+import BottomSheet, { SheetFooter } from './BottomSheet';
 import { haptic } from '../utils/haptics';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../utils/currency';
@@ -153,7 +153,7 @@ const DemoForm: React.FC<Omit<Props, 'isOpen'>> = ({ onClose, onSubmit, existing
   };
 
   return (
-    <div className="px-5 pb-8 pt-2">
+    <div className="px-5 pt-2">
       <div className="mb-1 flex items-center gap-3">
         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-teal text-on-teal">
           <NotebookPen className="h-5 w-5" aria-hidden="true" />
@@ -258,24 +258,29 @@ const DemoForm: React.FC<Omit<Props, 'isOpen'>> = ({ onClose, onSubmit, existing
         className="mb-6 h-14 w-full rounded-card border border-line-strong bg-surface-sunken px-4 text-body-small text-ink placeholder:text-ink-3"
       />
 
-      <div className="flex gap-3">
-        {/* Full weight, never a guilt trip — the same rule the walk-away chips
-            follow. A seller who feels nagged taps the same chip every time. */}
-        <button type="button" onClick={onClose} className="btn-quiet flex-1">
-          {t.skip}
-        </button>
-        <button
-          type="button"
-          onClick={save}
-          disabled={!isValid}
-          className={`flex-1 ${isValid ? 'btn-primary' : 'btn-quiet cursor-not-allowed opacity-60'}`}
-        >
-          <span>{t.save}</span>
-          {/* Nothing is promised for an edit — see logDemo(). Showing the badge
-              only on a first write keeps the button honest. */}
-          {!existing && <span className="text-caption opacity-80">{t.saveXP(DEMO_LOG_XP)}</span>}
-        </button>
-      </div>
+      {/* Docked, because four rows of chips put Save a long way down and the
+          seller is standing up with somebody waiting. */}
+      <SheetFooter>
+        <div className="flex gap-3">
+          {/* Full weight, never a guilt trip — the same rule the walk-away
+              chips follow. A seller who feels nagged taps the same chip every
+              time. */}
+          <button type="button" onClick={onClose} className="btn-quiet flex-1">
+            {t.skip}
+          </button>
+          <button
+            type="button"
+            onClick={save}
+            disabled={!isValid}
+            className={`flex-1 ${isValid ? 'btn-primary' : 'btn-quiet cursor-not-allowed opacity-60'}`}
+          >
+            <span>{t.save}</span>
+            {/* Nothing is promised for an edit — see logDemo(). Showing the
+                badge only on a first write keeps the button honest. */}
+            {!existing && <span className="text-caption opacity-80">{t.saveXP(DEMO_LOG_XP)}</span>}
+          </button>
+        </div>
+      </SheetFooter>
     </div>
   );
 };
