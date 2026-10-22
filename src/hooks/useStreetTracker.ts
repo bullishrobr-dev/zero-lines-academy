@@ -283,6 +283,63 @@ function useStreetTrackerState() {
   }, [sessions]);
 
   /**
+   * The same thing for any day the seller has logged.
+   *
+   * The rows have always been date-keyed, so every past day was already sitting
+   * on the phone — there was simply no way to look at one. A seller could see
+   * today, and a seven-bar chart with no numbers on it, and nothing else. The
+   * owner asked for "options to check previous days: how many stops, how many
+   * sales", and the answer turned out to be two selectors rather than a
+   * migration.
+   */
+  const getLogsFor = useCallback(
+    (date: string): StreetSession[] =>
+      sessions.filter((s) => s.date === date).sort((a, b) => b.timestamp - a.timestamp),
+    [sessions],
+  );
+
+  /**
+   * Every day that actually has something on it, newest first.
+   *
+   * Days with no activity are left out rather than rendered as a row of
+   * zeroes: a seller scrolling their own history is looking for the shifts
+   * they worked, and a fortnight of blank Mondays between them is noise. It
+   * also means the list is honest about the days off.
+   */
+  const getDayKeys = useCallback(
+    (): string[] => [...new Set(sessions.map((s) => s.date))].sort((a, b) => b.localeCompare(a)),
+    [sessions],
+  );
+
+  /**
+   * First and last activity of a day, as local clock times.
+   *
+   * Not a clock-in and not a timesheet — the owner decided against building one
+   * and he was right, because a forgotten tap silently logs a fourteen-hour
+   * shift. This is only ever derived from stops and sales already logged, so it
+   * says "you were working between these two times", which is the honest
+   * version and costs the seller nothing.
+   *
+   * `null` when the day has no rows at all.
+   */
+  const getDayWindow = useCallback(
+    (date: string): { first: number; last: number } | null => {
+      let first = Infinity;
+      let last = -Infinity;
+      for (const s of sessions) {
+        if (s.date !== date) continue;
+        if (s.timestamp < first) first = s.timestamp;
+        /* A stop that closed later than it opened pushes the end of the day
+           out: the last thing that happened is the resolution, not the walk-in. */
+        const end = Math.max(s.timestamp, s.resolvedAt ?? 0);
+        if (end > last) last = end;
+      }
+      return first === Infinity ? null : { first, last };
+    },
+    [sessions],
+  );
+
+  /**
    * Walk-away reasons over the last `days` days, most frequent first — the
    * coaching signal, and the only thing in this product the till cannot produce.
    *
@@ -425,6 +482,9 @@ function useStreetTrackerState() {
     xpAwards,
     logActivity,
     getTodayLogs,
+    getLogsFor,
+    getDayKeys,
+    getDayWindow,
     getTodayReasons,
     getRecentReasons,
     openEncounter,
