@@ -2,6 +2,8 @@
 /*  PeelingPage — Bilingual Data (EN / ES — peninsular, informal tú)   */
 /* ------------------------------------------------------------------ */
 
+import { PEELING_LADDER } from './pricing';
+
 export interface PriceStepData {
   price: string;               // template — e.g. `${currency}200`
   label: string;
@@ -343,71 +345,95 @@ export const peelingData = {
 /*  {locationName} placeholders stay dynamic)                          */
 /* ------------------------------------------------------------------ */
 
+/*
+ * The peeling's rungs, read out of pricing.ts rather than typed in.
+ *
+ * syringeData.ts was fixed for exactly this and carries the reason at the top
+ * of the file: the numbers "happened to" match the ladder, and "happened to" is
+ * the whole problem — move a rung in pricing.ts and this page goes on quoting
+ * yesterday's ladder with no build error and nothing to catch it. The peeling
+ * page renders its AMOUNTS from PEELING_LADDER already; it was only the spoken
+ * scripts, where the number is baked into a sentence, that were still hand-typed
+ * and free to drift away from the figures printed right beside them.
+ */
+const RUNG = (id: string): number => {
+  const found = PEELING_LADDER.steps.find((s) => s.id === id);
+  if (!found) throw new Error(`pricing.ts has no peeling rung "${id}"`);
+  return found.price;
+};
+
 export function getPriceStepsData(
   currency: string,
   locationName: string,
   _isEs: boolean
 ): PriceStepData[] {
+  const anchor = PEELING_LADDER.europeAnchor;
+  const base = PEELING_LADDER.base;
+  const promo = RUNG('promo');
+  const credit = RUNG('no-scrub');
+  const voucher = RUNG('voucher');
+  const floor = PEELING_LADDER.floor;
+
   return [
     {
-      price: `${currency}200`,
+      price: `${currency}${anchor}`,
       label: 'Europe Price',
       labelEs: 'Precio Europa',
       description: 'Anchor — mention this first to build value',
       descriptionEs: 'Ancla — menciona esto primero para construir valor',
-      script: `"Normally, around Europe, this product goes for ${currency}200, because it's proven and works."`,
-      scriptEs: `"Normalmente, en toda Europa, este producto cuesta ${currency}200, porque está comprobado y funciona."`,
+      script: `"Normally, around Europe, this product goes for ${currency}${anchor}, because it's proven and works."`,
+      scriptEs: `"Normalmente, en toda Europa, este producto cuesta ${currency}${anchor}, porque está comprobado y funciona."`,
       isHighlight: false,
     },
     {
-      price: `${currency}150`,
+      price: `${currency}${base}`,
       label: `${locationName} Price`,
       labelEs: `Precio ${locationName}`,
       description: 'Our standard price',
       descriptionEs: 'Nuestro precio estándar',
-      script: `"But here in ${locationName}, it's only ${currency}150!"`,
-      scriptEs: `"¡Pero aquí en ${locationName}, es solo ${currency}150!"`,
+      script: `"But here in ${locationName}, it's only ${currency}${base}!"`,
+      scriptEs: `"¡Pero aquí en ${locationName}, es solo ${currency}${base}!"`,
       isHighlight: false,
     },
     {
-      price: `${currency}100`,
+      price: `${currency}${promo}`,
       label: '50% Off + Scrub Gift',
       labelEs: '50% Desc. + Regalo Exfoliante',
       description: 'Best value — half the Europe price plus a gift',
       descriptionEs: 'Mejor valor — la mitad del precio de Europa más un regalo',
-      script: `"Right now, we've got an amazing promotion: take it for 50% off the Europe price — that's only ${currency}100 — and you'll also get the Dead Sea Body Scrub as a gift. Same mineral treatment, but for your body."`,
-      scriptEs: `"Ahora mismo, tenemos una promoción increíble: llévalo con 50% de descuento del precio de Europa — eso es solo ${currency}100 — y también recibirás el Exfoliante del Mar Muerto de regalo. El mismo tratamiento mineral, pero para tu cuerpo."`,
+      script: `"Right now, we've got an amazing promotion: take it for 50% off the Europe price — that's only ${currency}${promo} — and you'll also get the Dead Sea Body Scrub as a gift. Same mineral treatment, but for your body."`,
+      scriptEs: `"Ahora mismo, tenemos una promoción increíble: llévalo con 50% de descuento del precio de Europa — eso es solo ${currency}${promo} — y también recibirás el Exfoliante del Mar Muerto de regalo. El mismo tratamiento mineral, pero para tu cuerpo."`,
       isHighlight: true,
     },
     {
-      price: `${currency}70`,
+      price: `${currency}${credit}`,
       label: 'Adaptive — Store Credit',
       labelEs: 'Adaptativo — Crédito de Tienda',
       description: 'Remove the scrub, use as credit',
       descriptionEs: 'Quita el exfoliante, úsalo como crédito',
-      script: `"You know what, I totally understand. Let's make it easy — I can take the Scrub out of the deal and put its value straight back to you as credit. That way I can make the Peeling ${currency}70 for you."`,
-      scriptEs: `"Sabes qué, te entiendo completamente. Hagámoslo fácil — puedo sacar el Exfoliante del trato y devolverte su valor como crédito. Así puedo dejarte el Peeling en ${currency}70."`,
+      script: `"You know what, I totally understand. Let's make it easy — I can take the Scrub out of the deal and put its value straight back to you as credit. That way I can make the Peeling ${currency}${credit} for you."`,
+      scriptEs: `"Sabes qué, te entiendo completamente. Hagámoslo fácil — puedo sacar el Exfoliante del trato y devolverte su valor como crédito. Así puedo dejarte el Peeling en ${currency}${credit}."`,
       isHighlight: false,
     },
     {
-      price: `${currency}50`,
+      price: `${currency}${voucher}`,
       label: 'Voucher Close',
       labelEs: 'Cierre con Cupón',
       description: 'Voucher close — the emotional final push',
       descriptionEs: 'Cierre con cupón — el empujón emocional final',
-      script: `"Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can't be greedy, okay? I can't do it on the big option — only on the single Peeling. Remember how I told you I could do it for ${currency}70 without any gifts? If you use this voucher, I can actually bring it down to ${currency}50, just this one time. But from next time, it goes back to the normal price, alright?"`,
-      scriptEs: `"Vale, vale... escucha, acabo de revisar, y puedo hacer algo un poco loco por ti. Pero no seas codiciosa, ¿ok? No puedo hacerlo en la opción grande — solo en el Peeling individual. ¿Recuerdas que te dije que podía dejártelo en ${currency}70 sin regalos? Si usas este cupón, en realidad puedo bajarlo a ${currency}50, solo esta vez. Pero la próxima vez, vuelve al precio normal, ¿ok?"`,
+      script: `"Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can't be greedy, okay? I can't do it on the big option — only on the single Peeling. Remember how I told you I could do it for ${currency}${credit} without any gifts? If you use this voucher, I can actually bring it down to ${currency}${voucher}, just this one time. But from next time, it goes back to the normal price, alright?"`,
+      scriptEs: `"Vale, vale... escucha, acabo de revisar, y puedo hacer algo un poco loco por ti. Pero no seas codiciosa, ¿ok? No puedo hacerlo en la opción grande — solo en el Peeling individual. ¿Recuerdas que te dije que podía dejártelo en ${currency}${credit} sin regalos? Si usas este cupón, en realidad puedo bajarlo a ${currency}${voucher}, solo esta vez. Pero la próxima vez, vuelve al precio normal, ¿ok?"`,
       isVoucher: true,
       isHighlight: false,
     },
     {
-      price: `${currency}50`,
+      price: `${currency}${floor}`,
       label: 'Minimum',
       labelEs: 'Mínimo',
-      description: 'Absolute floor — same {currency}50, nothing below it',
-      descriptionEs: 'Piso absoluto — los mismos {currency}50, nada por debajo',
-      script: `"Look, I really want you to try this, so ${currency}50 it is — and that is my floor. Voucher or no voucher, there is nothing underneath it. Just promise me you'll actually use it, okay? Not once a year — once a week."`,
-      scriptEs: `"Mira, de verdad quiero que lo pruebes, así que ${currency}50 — y ese es mi mínimo. Con cupón o sin cupón, no hay nada por debajo. Solo prométeme que lo vas a usar de verdad, ¿vale? No una vez al año — una vez por semana."`,
+      description: 'Absolute floor — same ${currency}${floor}, nothing below it',
+      descriptionEs: 'Piso absoluto — los mismos ${currency}${floor}, nada por debajo',
+      script: `"Look, I really want you to try this, so ${currency}${floor} it is — and that is my floor. Voucher or no voucher, there is nothing underneath it. Just promise me you'll actually use it, okay? Not once a year — once a week."`,
+      scriptEs: `"Mira, de verdad quiero que lo pruebes, así que ${currency}${floor} — y ese es mi mínimo. Con cupón o sin cupón, no hay nada por debajo. Solo prométeme que lo vas a usar de verdad, ¿vale? No una vez al año — una vez por semana."`,
       isMinimum: true,
       isHighlight: false,
     },
