@@ -195,19 +195,44 @@ The ladder is not the seller's to give away all the way down.
 
 So: **one voucher, once.** There is no second voucher — inventing another one
 tells her the first was invented too. Below {currency}140 the theatre changes:
-you go full market, and **the manager is the device that unlocks
-{currency}100**, not the seller's own generosity. A seller who can reach the
-floor on their own has no floor.
+you go full market, and you go and fetch a manager.
 
-This one is enforced now, because it had already gone wrong once: O1 taught the
-seller to say the bottom number himself and the word "manager" appeared nowhere
-in the objection lessons at all. `check-floor-needs-a-manager.mjs` fails the
-build if a script — or the correct answer of a quiz — says the floor price
-without a manager in it.
+**And read that word carefully, because this file used to get it wrong.** The
+manager is not a permission gate. The owner, asked directly:
 
-The same answer covers the customer who walks back in months later having
-bought before: **call the manager**, or if he is not there, whoever on the
-floor has the most experience. It is not the seller's sale to price.
+> "Even for the syringe, it's not always necessary to call the manager. We call
+> the manager just for the show. The seller is allowed to sell it for 100."
+
+So the seller *can* reach {currency}100 on their own authority. What the
+manager buys is not permission, it is **theatre** — the number lands differently
+when somebody had to be fetched for it, and a price the seller drops to
+unaccompanied is a price she will assume was always available. That is the
+reason to keep doing it, and it is a better reason than the one that used to be
+written here ("a seller who can reach the floor on their own has no floor"),
+which was simply not true of this shop.
+
+The move is still the move, so it is still enforced:
+`check-floor-needs-a-manager.mjs` fails the build if a script — or the correct
+answer of a quiz — says {currency}100 with no manager in it. It had already
+gone wrong once: O1 taught the seller to say the bottom number himself and the
+word "manager" appeared nowhere in the objection lessons at all. Keep writing
+the manager into the close. Just never write him as a rule the seller is not
+allowed to break, because he is not one.
+
+**The peeling is different and deliberately so.** Asked whether its floor needs
+the same treatment:
+
+> "I know it's falling down to the minimum. It is what it is, so it falls down
+> to the minimum. That's just the way we do it. On the peeling you don't need to
+> call a manager. It's just that the math is like this."
+
+Its one voucher lands on its floor and that is the end of the ladder. No
+theatre, no manager. The guard is scoped to the syringe for exactly this
+reason — do not "fix" the peeling to match.
+
+The customer who walks back in months later having bought before is the one
+case that is genuinely not the seller's to price: **call the manager**, or if
+he is not there, whoever on the floor has the most experience.
 
 ## The two yeses
 

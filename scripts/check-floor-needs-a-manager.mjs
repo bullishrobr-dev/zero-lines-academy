@@ -1,12 +1,24 @@
 /*
- * Guard: the seller never hands out the floor price on their own authority.
+ * Guard: the floor price never gets said without a manager being fetched for it.
  *
  * ── WHY ─────────────────────────────────────────────────────────────────────
  * CLAUDE.md, in the owner's words: "You use the voucher once, usually 175 to
  * 140… After that, if it doesn't work, you go full market, call a manager, and
- * get it to 100." And the reason, which is the part that matters: a seller who
- * can reach the floor on their own has no floor, because she can always ask for
- * one more.
+ * get it to 100."
+ *
+ * This guard used to say the reason was that the seller is not ALLOWED to reach
+ * the floor. That was wrong, and the owner corrected it directly: "it's not
+ * always necessary to call the manager. We call the manager just for the show.
+ * The seller is allowed to sell it for 100."
+ *
+ * So the manager is not a permission gate, he is THEATRE — and the theatre is
+ * what makes the number land. A price the seller drops to unaccompanied is a
+ * price the customer assumes was there all along, which spends the drop and
+ * buys nothing with it. That is why the move is still worth enforcing, and it
+ * is a better reason than the one that was written here.
+ *
+ * What this does NOT mean: a lesson may not tell a seller they need permission.
+ * They do not. Write the manager into the close as the move; never as a rule.
  *
  * The closing lessons taught this correctly. The OBJECTION lessons did not —
  * O1's Script 3 had the seller lean in and say the bottom number himself, in
@@ -341,10 +353,12 @@ for (const h of coachHits()) {
 if (hits.length) {
   console.log(`FAIL — ${hits.length} lesson(s) say {currency}${floor} with no manager in the room:\n`);
   hits.forEach((h) => console.log('  ' + h));
-  console.log(`\nOne voucher takes the seller to the rung above. {currency}${floor} is not theirs to`);
-  console.log('give: they go full market, then they go and fetch a manager, and the number');
-  console.log('comes out of the manager\'s mouth. A seller who can reach the floor alone has');
-  console.log('no floor. See "Where the floor actually comes from" in CLAUDE.md.');
+  console.log(`\nOne voucher takes the seller to the rung above. To get to {currency}${floor} they go`);
+  console.log('full market, then they go and fetch a manager, and the number comes out of');
+  console.log('his mouth. Not because they need permission — the owner is explicit that');
+  console.log('they do not — but because a price you drop to on your own is a price she');
+  console.log('assumes was always there. The manager is the theatre that makes it land.');
+  console.log('See "Where the floor actually comes from" in CLAUDE.md.');
   process.exit(1);
 }
 console.log(`PASS  the floor ({currency}${floor}) is never the seller's to give`);
