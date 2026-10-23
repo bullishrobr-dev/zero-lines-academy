@@ -81,12 +81,22 @@ export const syringeData = {
     useValue: 'Once/Week',
     useValueEs: '1 vez/semana',
     /*
-     * One syringe is a YEAR of weekly treatments. That is the owner's own line
-     * and it is what demo step 5, the Quick Reference block and every
-     * cost-per-week reframe in the app already say. This tile used to read
-     * "6-18 Months", which is how long the RESULT holds, not how long the
-     * syringe lasts, so the top of the page taught a seller one number and the
-     * bottom of the same page taught them another.
+     * One syringe is a YEAR of weekly treatments — sixty applications. That is
+     * the owner's own line, and as of October 2026 it is the WHOLE line.
+     *
+     * This tile used to read "6-18 Months", and the Treatment Plan script used
+     * to promise "the results can stay between 6 to 18 months" after the year
+     * was finished. He retired it himself:
+     *
+     *   "I used to say that once you finish the 1-year treatment, you get 6 to
+     *    18 months of permanent results. I want to remove that, because this is
+     *    the only part we kind of lie about, and I honestly see no reason for
+     *    that."
+     *
+     * So the claim stops at the year. Nothing in this file may promise the
+     * effect outlives the treatment. What happens afterwards is answered only
+     * if she asks — see the "After the year" pro tip below, and
+     * check-retired-teachings.mjs, which now fails the build on it.
      */
     lastsLabel: 'Lasts',
     lastsLabelEs: 'Duraci\u00f3n',
@@ -177,8 +187,8 @@ export const syringeData = {
         step: '5',
         title: 'The Treatment Plan',
         titleEs: 'El Plan de Tratamiento',
-        text: '"You only need to use it once a week \u2014 that\'s it. The syringe lasts for a whole year of treatments, and the results can stay between 6 to 18 months. The only rule: once you apply it, don\'t touch the area for five hours." (To partner: "You\'re going to have to remind her not to touch it, okay?")',
-        textEs: '"Solo necesitas usarlo una vez por semana \u2014 eso es todo. La jeringa dura para un a\u00f1o completo de tratamientos, y los resultados pueden mantenerse entre 6 y 18 meses. La \u00fanica regla: una vez que lo apliques, no toques el \u00e1rea durante cinco horas." (A la pareja: "Vas a tener que recordarle que no lo toque, \u00bfokey?")',
+        text: '"You only need to use it once a week \u2014 that\'s it. Sixty applications in that syringe, so it is a full year of treatments. The only rule: once you apply it, don\'t touch the area for five hours." (To partner: "You\'re going to have to remind her not to touch it, okay?")',
+        textEs: '"Solo necesitas usarlo una vez por semana \u2014 eso es todo. Sesenta aplicaciones en esa jeringa, as\u00ed que es un a\u00f1o entero de tratamiento. La \u00fanica regla: una vez que lo apliques, no toques el \u00e1rea durante cinco horas." (A la pareja: "Vas a tener que recordarle que no lo toque, \u00bfokey?")',
       },
       {
         step: '6',
@@ -409,6 +419,22 @@ export const syringeData = {
     sectionTitleEs: 'Consejos Pro',
     tips: [
       {
+        icon: 'HelpCircle',
+        /*
+         * The answer to a question you must never ask for. The owner's rule:
+         * "We don't volunteer this information. We just tell them that it's a
+         * 1-year treatment, but in case the customers ask, the people will
+         * have an answer to be ready."
+         *
+         * It replaces the old promise of 6-18 months of results, which was the
+         * one thing in this manual that was not true.
+         */
+        title: 'If she asks what happens after the year',
+        titleEs: 'Si pregunta qué pasa después del año',
+        text: 'Do not bring this up. It is a one-year treatment and that is where your pitch stops. But if she asks: "After the year you carry on if you are happy with it, or you stop. If you stop, the lines come back slowly — same as the gym. You train for a year, you stop going, your muscles do not vanish overnight. They fade." Honest, and it sells better than a promise she would have caught you on.',
+        textEs: 'No lo saques tú. Es un tratamiento de un año y ahí se acaba tu argumento. Pero si pregunta: "Después del año sigues si estás contenta, o lo dejas. Si lo dejas, las líneas vuelven poco a poco — igual que el gimnasio. Entrenas un año, dejas de ir, y los músculos no desaparecen de un día para otro. Se van bajando." Es honesto, y vende mejor que una promesa que te podría pillar.',
+      },
+      {
         icon: 'Euro',
         title: 'Always start with the Europe price',
         titleEs: 'Siempre empieza con el precio de Europa',
@@ -500,10 +526,10 @@ export const syringeData = {
     lastsLabelEs: 'Duraci\u00f3n:',
     lastsValue: '1 year',
     lastsValueEs: '1 a\u00f1o',
-    resultsLabel: 'Results:',
-    resultsLabelEs: 'Resultados:',
-    resultsValue: '6-18 months',
-    resultsValueEs: '6-18 meses',
+    resultsLabel: 'Inside:',
+    resultsLabelEs: 'Dentro:',
+    resultsValue: '60 applications',
+    resultsValueEs: '60 aplicaciones',
     ruleLabel: 'Rule:',
     ruleLabelEs: 'Regla:',
     ruleValue: 'No touching 5h',

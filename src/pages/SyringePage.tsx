@@ -20,6 +20,7 @@ import {
   Sparkles,
   TrendingDown,
   Users,
+  HelpCircle,
   Volume2,
 } from 'lucide-react';
 import OfferCard from '../components/OfferCard';
@@ -138,6 +139,7 @@ export default function SyringePage() {
 
   const tipIcon: Record<string, ReactNode> = {
     Euro: <CurrencyIcon size={16} />,
+    HelpCircle: <HelpCircle size={16} />,
     Eye: <Eye size={16} />,
     Users: <Users size={16} />,
     MessageCircle: <MessageCircle size={16} />,

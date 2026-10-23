@@ -67,21 +67,21 @@ const quizSyringeDeep: GeneralQuiz = {
         "Una cliente dice que el resultado del ojo se ve bien pero pregunta: '¿Va a durar?' ¿Cuál es tu MEJOR respuesta?",
       options: [
         "Yes, it lasts 24 hours guaranteed",
-        "Each application builds lasting results — daily use for 30 days gives effects that last months",
-        "No anti-aging product lasts forever, but it's cheap enough to keep buying",
+        "Once a week, sixty in the syringe — that is your year. Tell her that and nothing more",
+        "The results stay permanent for six to eighteen months after you finish",
         "It lasts until you wash your face, but the full kit helps it last longer"
       ],
       optionsEs: [
         "Sí, dura 24 horas garantizado",
-        "Cada aplicación acumula resultados duraderos — uso diario por 30 días da efectos que duran meses",
-        "Ningún producto antiedad dura para siempre, pero es barato para seguir comprando",
+        "Una vez por semana, sesenta en la jeringa — ese es tu año. Dile eso y nada más",
+        "Los resultados se quedan permanentes entre seis y dieciocho meses al acabar",
         "Dura hasta que te laves la cara, pero el kit completo ayuda a que dure más"
       ],
       correctIndex: 1,
       explanation:
-        "This answer is honest AND motivating. It educates the customer that skincare is cumulative, positions the syringe as an investment in long-term results, and creates a reason to buy multiple units. Never promise instant permanent results — that damages trust. Instead, frame consistency as the path to lasting change.",
+        "Sixty applications, one a week, a full year. That is the claim and it is where it stops. The six-to-eighteen-months line was the one thing in this manual that was not true, and the owner pulled it himself. You do not volunteer what happens afterwards — but if SHE asks, you have an answer: carry on if you are happy, or stop, and the lines come back slowly. Like the gym. Train for a year, stop going, and your muscles do not vanish overnight — they fade.",
       explanationEs:
-        "Esta respuesta es honesta Y motivadora. Educa a la cliente de que el cuidado de la piel es acumulativo, posiciona la jeringa como una inversión en resultados a largo plazo, y crea una razón para comprar múltiples unidades. Nunca prometas resultados permanentes instantáneos — eso daña la confianza. En cambio, enmarca la consistencia como el camino al cambio duradero."
+        "Sesenta aplicaciones, una por semana, un año entero. Esa es la afirmación y ahí se acaba. Lo de los seis a dieciocho meses era lo único de este manual que no era verdad, y el dueño lo quitó él mismo. No sacas tú lo que pasa después — pero si ELLA pregunta, tienes respuesta: sigues si estás contenta, o lo dejas, y las líneas vuelven poco a poco. Como el gimnasio. Entrenas un año, dejas de ir, y los músculos no desaparecen de un día para otro: se van bajando."
     },
     {
       question:

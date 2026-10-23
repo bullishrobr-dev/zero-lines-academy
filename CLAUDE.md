@@ -297,6 +297,31 @@ CI, so a regression fails the build rather than reaching a customer.
 - **The buffer warranty is the one exception, and it is real.** Bring the old
   buffer back, get a new one, forever. Say it with confidence — the owner
   honours it.
+- **The claim stops at the year.** One syringe, about sixty applications, one a
+  week, and do not touch the area for five hours. That is the whole promise.
+  Nothing anywhere may say the effect outlives the treatment. The owner retired
+  this one himself, and it is worth quoting in full because it is the only
+  thing in the manual he has ever called a lie:
+
+  > "One thing I used to say for many, many years, just because I've been
+  > taught that way and it stuck with me, is that once you finish the 1-year
+  > treatment, you get 6 to 18 months of permanent results. I want to remove
+  > that because this is the only part we kind of lie about, and I honestly see
+  > no reason for that."
+
+  **And you do not volunteer what happens afterwards.** The pitch is a one-year
+  treatment and it stops there. But a seller needs the answer ready in case she
+  asks, and the honest one is better than the promise ever was:
+
+  > "You can either continue to use it if you are happy and satisfied, or you
+  > can stop. If you stop, slowly, slowly, the wrinkles will come back. The
+  > same way, when you go to the gym and you work out for a whole year, even if
+  > you stop going, it's not like the muscles vaporise within a day. It takes
+  > them some time."
+
+  It lives in the syringe pro tips, and it is the one place the fading is
+  allowed to be described — a sentence about the effect going is the opposite
+  of a sentence promising it holds. (`check-retired-teachings.mjs`)
 - **Skin talk is open. Serious illness is not.** This was narrowed in October
   2026 and the owner's reasoning is the whole of it: *"This app is designed for
   selling on the street. People can say whatever the hell they want... We are

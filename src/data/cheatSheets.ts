@@ -735,6 +735,25 @@ export const SCRIPTS: ScriptCard[] = [
     textEs: `"¿Notas que tira? Bien — eso es que está funcionando. Y no, no vas a vivir así." [Ríete aquí.] "Es como el gimnasio, ¿no? Entrenas, te quedan agujetas un rato, y luego estás mejor. Dale cinco horas y se asienta."`,
   },
   {
+    /*
+     * The one question you must never raise yourself.
+     *
+     * The old answer to it was a promise — 6 to 18 months of results after the
+     * year — and the owner pulled it as the only thing in the manual that was
+     * not true. The honest version is better anyway: it is the gym again, the
+     * same metaphor the tightening card already uses two beats earlier, and it
+     * leaves her a reason to carry on rather than a guarantee to catch you on.
+     */
+    id: 'd-after-the-year',
+    category: 'demo',
+    product: 'syringe',
+    answers: 'think',
+    title: 'If she asks what happens after the year',
+    titleEs: 'Si pregunta qué pasa después del año',
+    text: `[Never bring this up yourself. It is a one-year treatment and that is where you stop.] "After the year? You carry on if you're happy with it, or you stop. If you stop, the lines come back slowly — it's the gym again. You train for a year, you stop going, your muscles don't disappear overnight. They just fade."`,
+    textEs: `[No lo saques tú nunca. Es un tratamiento de un año y ahí te paras.] "¿Después del año? Sigues si estás contenta, o lo dejas. Si lo dejas, las líneas vuelven poco a poco — es el gimnasio otra vez. Entrenas un año, dejas de ir, y los músculos no desaparecen de la noche a la mañana. Se van bajando."`,
+  },
+  {
     id: 'd-who',
     category: 'demo',
     title: '6. While your hands are busy, find out who they are',

@@ -77,6 +77,58 @@ const RETIRED = [
       '    exaggerating and starts being a medical claim.',
   },
   {
+    name: 'promising results that outlive the treatment',
+    /* Retired by the owner, October 2026, and he is the one who called it:
+
+         "One thing I used to say for many, many years, just because I've been
+          taught that way and it stuck with me, is that once you finish the
+          1-year treatment, you get 6 to 18 months of permanent results. I want
+          to remove that because this is the only part we kind of lie about,
+          and I honestly see no reason for that."
+
+       The claim stops at the year. One syringe, sixty applications, one a week,
+       do not touch the area for five hours. Nothing may promise the effect
+       outlives the treatment, and nothing volunteers what happens afterwards.
+
+       There IS an answer for when she asks, and it is in the syringe pro tips:
+       carry on if you are happy or stop, and the lines come back slowly, the
+       way muscle fades after you stop going to the gym rather than vanishing
+       overnight. That is true, so it is allowed — a sentence about the effect
+       FADING is the opposite of a sentence promising it holds.
+
+       Deliberately NOT matched: "permanent" on its own. The app says
+       "permanently delete your data" in settings, a quote says regret is
+       permanent, and three quizzes carry "removes wrinkles permanently" as a
+       WRONG answer that a seller has to be able to reject. Each pattern below
+       needs the claim and a DURATION or a guarantee together, which is what
+       the retired line actually was. */
+    patterns: [
+      /\b6\s*(?:-|–|to|a|y)\s*18\s*(?:months?|meses)\b/i,
+      /(?:results?|resultados?|efectos?)[^.!?]{0,60}\b(?:permanent|permanentes?|duraderos?)\b/i,
+      /* English puts the adjective first — "permanent results" — which the
+         pattern above, written for the Spanish word order, walked straight
+         past. Found by running the finished guard against the phrasings the
+         claim actually took rather than against the one line it came from. */
+      /\b(?:permanent|lasting)\s+(?:results?|effects?)\b/i,
+      /\b(?:permanent|permanentes?)\b[^.!?]{0,40}\b(?:for|durante|entre)\s+\d/i,
+      /(?:results?|resultados?)[^.!?]{0,40}\b(?:guaranteed|garantizados?)\b/i,
+      /* "forever" is deliberately NOT banned on its own: the buffer warranty is
+         real and says exactly that — bring the old one back, get a new one,
+         forever. It only fails when it is the RESULT being promised. */
+      /(?:results?|resultados?|efectos?|wrinkles?|arrugas?)[^.!?]{0,40}\b(?:forever|para siempre)\b/i,
+    ],
+    /* Lines that name the claim in order to ban it. Deliberately narrow: a
+       real violation is a positive promise and carries none of these. */
+    allowWhen:
+      /\b(never|nunca|jam[aá]s|do not|don'?t|cannot|can'?t|avoid|evita|no (?:uses|digas|prometas|puedes?|pueden)|no puede cumplir|promises? (?:the|that the) product)\b/i,
+    replacement:
+      'Stop the claim at the year: sixty applications, one a week, five hours\n' +
+      '    without touching it. Never promise the effect outlives the treatment,\n' +
+      "    and never raise what happens afterwards yourself. If SHE asks, the\n" +
+      '    honest answer is in the syringe pro tips — carry on or stop, and the\n' +
+      '    lines come back slowly, like muscle after you stop going to the gym.',
+  },
+  {
     name: 'the 45-degree angle',
     /* "This 45 degree angle is kind of stupid. It's just important to let the
        people know that you don't want to be in their face. Talk to them a
@@ -151,6 +203,14 @@ for (const file of walk(SRC)) {
       if (i > 0 && /^\s*(?:question|questionEs|title|titleEs|label|labelEs|subtitle|subtitleEs)\s*:\s*$/.test(all[i - 1])) return;
       if (distractors.has(i + 1)) return;
       for (const r of RETIRED) {
+        /* A rule may carry an `allowWhen`: the shape of a line that QUOTES the
+           retired claim in order to forbid it. Three explanations do exactly
+           that — "the one word you never use is PERMANENTLY", and two more
+           listing 'removes your wrinkles forever' among the things that come
+           back on the shop — and they are the guard's own argument written out
+           for the seller. Failing the build on those teaches the next person
+           to delete the rule rather than keep it. */
+        if (r.allowWhen && r.allowWhen.test(line)) continue;
         if (r.patterns.some((rx) => rx.test(line))) {
           hits.push({ rel, line: i + 1, text: line.trim().slice(0, 120), rule: r });
           break;
