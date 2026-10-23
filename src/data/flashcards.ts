@@ -518,7 +518,7 @@ export const flashcards: Flashcard[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // PRODUCT MASTERY (16 cards)
+  // PRODUCT MASTERY (17 cards)
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: 'pm-1-1',
@@ -667,6 +667,25 @@ export const flashcards: Flashcard[] = [
     answer: '{currency}80 Europe anchor, your price {currency}60 — the same ladder as the Scrub and the Nail Kit. "A department-store butter this rich is {currency}80 all over Europe, and it mixes into every one of our deals."',
     questionEs: '¿Cuál es el precio de anclaje del Body Butter?',
     answerEs: '{currency}80 es el ancla de Europa, tu precio {currency}60 — la misma escalera que el Scrub y el Kit de Uñas. "Una manteca corporal así de rica cuesta {currency}80 por toda Europa, y entra en todas nuestras ofertas."',
+  },
+  {
+    /*
+     * The answer to a question you never ask for. The owner retired the old
+     * promise about results outliving the year himself — "this is the only
+     * part we kind of lie about" — so the claim now stops at the year. He
+     * still wants the seller ready for it:
+     *
+     *   "We don't volunteer this information. We just tell them that it's a
+     *    1-year treatment, but in case the customers ask, the people will
+     *    have an answer to be ready."
+     */
+    id: 'pm-9-1',
+    lessonId: 'prod-6',
+    categoryId: 'product-mastery',
+    question: 'She asks what happens after the year. What do you say?',
+    answer: 'Never bring this up yourself — it is a one-year treatment, sixty applications, one a week, and that is where your pitch stops. But have the answer ready: "After the year you carry on if you are happy with it, or you stop. If you stop, the lines come back slowly — same as the gym. You train for a year, you stop going, your muscles do not vanish overnight. They fade." Never promise her anything about what happens once the treatment is finished.',
+    questionEs: '¿Y si pregunta qué pasa después del año?',
+    answerEs: 'No lo saques tú nunca — es un tratamiento de un año, sesenta aplicaciones, una por semana, y ahí se acaba tu argumento. Pero ten la respuesta lista: "Después del año sigues si estás contenta, o lo dejas. Si lo dejas, las líneas vuelven poco a poco — igual que el gimnasio. Entrenas un año, dejas de ir, y los músculos no desaparecen de un día para otro. Se van bajando." No le prometas nada de lo que pasa cuando el tratamiento se acaba.',
   },
 ];
 

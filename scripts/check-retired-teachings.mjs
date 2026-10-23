@@ -154,7 +154,23 @@ function walk(dir) {
 
 /* A comment explaining the retirement is not the retirement coming back — this
    file's own patterns would otherwise fail it, and so would the note left in a
-   lesson saying what used to be there. */
+   lesson saying what used to be there.
+
+   This used to be a per-line test for `//`, `*` or an opening `/*`, which only
+   recognised block comments written in the `*`-prefixed house style. A comment
+   in THIS style — continuation lines with no leading asterisk, exactly what you
+   are reading — was scanned as code from its second line onward. It showed up
+   the moment somebody documented the newest retirement and quoted the retired
+   phrase in the explanation: the build went red on the note explaining why the
+   line was gone.
+
+   So block comments are now blanked out of the source before the scan, with
+   their newlines kept so every reported line number still points at the right
+   place in the file. */
+function blankBlockComments(src) {
+  return src.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
+}
+
 const IS_COMMENT = /^\s*(?:\/\/|\*|\/\*)/;
 
 /* Structural exemptions, the same two the walkaway guard needs and for the
@@ -190,7 +206,7 @@ function distractorLines(src) {
 const hits = [];
 for (const file of walk(SRC)) {
   const rel = file.slice(SRC.length + 1).split('\\').join('/');
-  const src = readFileSync(file, 'utf8');
+  const src = blankBlockComments(readFileSync(file, 'utf8'));
   const distractors = distractorLines(src);
   const all = src.split('\n');
   all

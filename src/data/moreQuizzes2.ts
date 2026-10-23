@@ -801,9 +801,9 @@ const quizOneEyeDemo: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation:
-        "Talk it up as hard as you like — the one word you never use is PERMANENTLY. Everything else on this list she can check in the mirror in two minutes and you look like a genius. 'Removes all your wrinkles forever' is the only one she cannot check today and will absolutely check tomorrow, and the day she works it out you are the seller who lied to her face. Sell today's result and let the rest be a bonus: 'You will see the difference today, and with daily use it keeps getting better.'",
+        "Talk it up as hard as you like — the one word you never use is PERMANENTLY. Everything else on this list she can check in the mirror in two minutes and you look like a genius. 'Removes all your wrinkles forever' is the only one she cannot check today and will absolutely check tomorrow, and the day she works it out you are the seller who lied to her face. Sell today's result and let the rest be a bonus: 'You will see the difference today, and one of these a week is a year of it.'",
       explanationEs:
-        "Exagera todo lo que quieras — la única palabra que no usas nunca es PERMANENTEMENTE. Todo lo demás de la lista lo comprueba en el espejo en dos minutos y tú quedas como un genio. 'Te quita todas las arrugas para siempre' es lo único que hoy no puede comprobar y que mañana va a comprobar seguro, y el día que lo pille tú eres el que le mintió a la cara. Vende el resultado de hoy y que lo demás sea regalo: 'Hoy ves la diferencia, y con uso diario va a mejor.'"
+        "Exagera todo lo que quieras — la única palabra que no usas nunca es PERMANENTEMENTE. Todo lo demás de la lista lo comprueba en el espejo en dos minutos y tú quedas como un genio. 'Te quita todas las arrugas para siempre' es lo único que hoy no puede comprobar y que mañana va a comprobar seguro, y el día que lo pille tú eres el que le mintió a la cara. Vende el resultado de hoy y que lo demás sea regalo: 'Hoy ves la diferencia, y una vez a la semana te da para un año.'"
     },
     {
       question:
@@ -837,19 +837,19 @@ const quizOneEyeDemo: GeneralQuiz = {
         "Great! That will be {currency}300 please — shall I wrap it while you get your card out?",
         "Should I do the other eye too, so you can walk out of here with both sides matching?",
         "I told you it would work! Everyone reacts exactly like that the first time they see it",
-        "I know, right? Imagine using it daily for 30 days — let me show you the price options"
+        "I know, right? One a week, a year in that syringe — let me show you the prices"
       ],
       optionsEs: [
         "¡Genial! Son {currency}300 por favor — ¿te lo envuelvo mientras sacas la tarjeta?",
         "¿Te hago el otro ojo también, para que salgas de aquí con los dos lados iguales?",
         "¡Te dije que funcionaría! Todo el mundo reacciona igual la primera vez que lo ve",
-        "¿Verdad? Imagina usarlo diario por 30 días — déjame mostrarte las opciones de precio"
+        "¿Verdad? Una vez a la semana, un año ahí dentro — y te enseño los precios"
       ],
       correctIndex: 3,
       explanation:
-        "The 'wow' moment is your GREEN LIGHT to close. Capitalize on her excitement by EXPANDING the vision: 'Imagine using it daily for 30 days' takes her from a 2-minute demo to a long-term beauty investment. Then immediately transition to pricing before the excitement fades. Energy and momentum are everything — strike while the iron is hot.",
+        "The 'wow' moment is your GREEN LIGHT to close. Expand the vision while she is still holding the mirror — but expand it into what she actually gets: one application a week, sixty in that syringe, a year of it. Not 'daily for 30 days' — that is not how the product is used and it burns the syringe in two months. Then straight to the price before the excitement fades.",
       explanationEs:
-        "El momento 'wow' es tu LUZ VERDE para cerrar. Capitaliza su emoción EXPANDIENDO la visión: 'Imagina usarlo diario por 30 días' la lleva de una demo de 2 minutos a una inversión de belleza a largo plazo. Luego transiciona inmediatamente a precios antes de que la emoción se desvanezca. La energía y el momentum lo son todo — hierro caliente, golpea fuerte."
+        "El momento 'wow' es tu LUZ VERDE para cerrar. Amplía la visión mientras sigue con el espejo en la mano — pero amplíala con lo que de verdad se lleva: una aplicación a la semana, sesenta en esa jeringa, un año. No 'a diario durante 30 días' — así no se usa y le acaba la jeringa en dos meses. Y de ahí al precio, antes de que se le baje la emoción."
     },
     {
       question:

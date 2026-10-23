@@ -1091,8 +1091,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"You've got your hands full, so I'm giving you the short version.\" [Fast demo, no talking round it] \"There. {currency}300, lasts you months, two minutes a day. I'll put one in a bag while you get him off the floor — pay me and you're out of here before he starts again.\"",
-        textEs: "TÚ: \"Vas hasta arriba, así que te doy la versión corta.\" [Demo rápida, sin rodeos] \"Ya está. {currency}300, te dura meses, dos minutos al día. Te lo meto en la bolsa mientras lo levantas del suelo — me pagas y te vas de aquí antes de que empiece otra vez.\"",
+        text: "YOU: \"You've got your hands full, so I'm giving you the short version.\" [Fast demo, no talking round it] \"There. {currency}300, a year in there — sixty goes, one a week. I'll put one in a bag while you get him off the floor — pay me and you're out of here before he starts again.\"",
+        textEs: "TÚ: \"Vas hasta arriba, así que te doy la versión corta.\" [Demo rápida, sin rodeos] \"Ya está. {currency}300, un año ahí dentro — sesenta usos, uno por semana. Te lo meto en la bolsa mientras lo levantas del suelo — me pagas y te vas de aquí antes de que empiece otra vez.\"",
       },
       {
         type: "subheader",
