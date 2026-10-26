@@ -5,6 +5,22 @@
 // One-Eye Demo Mastery, and Tourist Psychology
 // ═══════════════════════════════════════════════════════════════════════════════
 
+import { SYRINGE_LADDER, type PriceLadder, type PriceRung } from './pricing';
+
+// ── Prices, straight off the ladder ──────────────────────────────────────────
+// Read, never typed: a hand-typed rung in a quiz marks a seller wrong for the
+// price the product page has just taught them.
+
+/** Read one authoritative rung out of pricing.ts. */
+function rungOf(ladder: PriceLadder, id: string): PriceRung {
+  const found = ladder.steps.find((step) => step.id === id);
+  if (!found) throw new Error(`pricing.ts has no rung "${id}"`);
+  return found;
+}
+
+const SYR_NO_GIFT = rungOf(SYRINGE_LADDER, 'no-gift').price;
+const SYR_VOUCHER = rungOf(SYRINGE_LADDER, 'voucher').price;
+
 export interface QuizQuestion {
   question: string;
   questionEs: string;
@@ -858,27 +874,27 @@ const quizOneEyeDemo: GeneralQuiz = {
         "Te pide, ANTES de comprar: 'Hazme el otro ojo para ver el resultado completo.' ¿Qué le dices?",
       options: [
         "\"The full result happens at home with daily use\" — keep the contrast and move her along to the price",
-        "Do it right there. She asked, she is enjoying it, and refusing anything at this point puts the sale at risk",
+        "Say yes — start the eye, and keep closing the whole time your hands are busy",
         "\"If you buy it, I'll do the other one, yeah?\" — condition it on the purchase",
         "Say you are not allowed to do both eyes on the same customer, and that the rule is not really yours to bend"
       ],
       optionsEs: [
         "\"El resultado completo llega en casa con el uso diario\" — mantienes el contraste y pasas al precio",
-        "Hacérselo ahí mismo. Te lo ha pedido, lo está disfrutando, y negarle algo ahora pone la venta en riesgo",
+        "Que sí — le empiezas el ojo y sigues cerrando todo el rato que tienes las manos ocupadas",
         "\"Si te lo llevas, te hago el otro, ¿vale?\" — se lo condicionas a la compra",
         "Decirle que no te dejan hacer los dos ojos a la misma clienta, y que la norma no es tuya para saltártela"
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
-        "Do not refuse it and do not hand it over. Condition it on the purchase — she pays, she gets it done, no argument and no theatre. The untouched eye is your best argument, so you never give your best argument away to a maybe. The one time it comes out unpaid is as the cover for the voucher: \"let me fix your other eye real quick\", and the price moves while your hands are on her face.",
+        `Conditioning it was the old answer and the owner has thrown it out — "absolutely not". The second eye is not a bargaining chip, it is the instrument you close with, and she has just asked you for more time in your chair. So take it: start the eye and keep working. "Can I ask you honestly — what's the problem? You told me you like it. You told me you would use it." Then you say "a bit too expensive?" for her, and the voucher comes out with your hands still busy — {currency}${SYR_NO_GIFT} down to {currency}${SYR_VOUCHER}, single syringe only. She sees both eyes last, in the mirror, five or ten seconds, and then she decides.`,
       explanationEs:
-        "Ni se lo niegues ni se lo regales. Condiciónalo a la compra — si paga, se lo haces, sin discusión y sin teatro. El ojo sin tocar es tu mejor argumento, y tu mejor argumento no se lo regalas a un quizá. La única vez que sale sin haber pagado es como tapadera del cupón: \"déjame arreglarte el otro ojo rapidito\", y el precio se mueve con las manos en su cara."
+        `Condicionarlo era la respuesta vieja y el jefe la ha tirado a la basura — "en absoluto". El segundo ojo no es moneda de cambio, es el instrumento con el que cierras, y ella acaba de pedirte más tiempo en tu silla. Pues te lo quedas: le empiezas el ojo y sigues trabajando. "¿Te puedo preguntar una cosa honestamente? ¿Cuál es el problema? Me has dicho que te gusta. Me has dicho que lo usarías." Luego dices "¿un poco caro?" por ella, y el cupón sale con las manos todavía ocupadas — de {currency}${SYR_NO_GIFT} a {currency}${SYR_VOUCHER}, solo la jeringa sola. Los dos ojos los ve al final, en el espejo, cinco o diez segundos, y entonces decide.`
     },
     {
       question:
-        "She is at {currency}175, she has gone quiet, and she is starting to sit forward. Move?",
+        `She is at {currency}${SYR_NO_GIFT}, she has gone quiet, and she is starting to sit forward. Move?`,
       questionEs:
-        "Está en {currency}175, se ha quedado callada y empieza a echarse hacia delante. ¿Jugada?",
+        `Está en {currency}${SYR_NO_GIFT}, se ha quedado callada y empieza a echarse hacia delante. ¿Jugada?`,
       options: [
         "Say the price again, slower this time, and then hold the silence until she answers",
         "Go straight to the bottom of the ladder — there is nothing left above it worth trying",
@@ -893,9 +909,9 @@ const quizOneEyeDemo: GeneralQuiz = {
       ],
       correctIndex: 3,
       explanation:
-        "\"I never do the other eye. Sometimes, within the speech, I say to do the other eye in order to close.\" That is the whole point of it. At {currency}175, before she stands up, you start the second eye — and WHILE you are doing it the voucher comes out: down to {currency}140, single syringe only. Her face is tilted up, your hands are busy, the room feels finished, and the number moves inside a moment that is about something else entirely.",
+        `"I never do the other eye. Sometimes, within the speech, I say to do the other eye in order to close." That is the whole point of it. Take a tiny break, let her feel it is almost over, then start the second eye — and keep closing while your hands are busy: what is the problem, you said you like it, you said you would use it, is it a bit too expensive? THAT is where the voucher lands, before she has seen the eye at all — {currency}${SYR_NO_GIFT} down to {currency}${SYR_VOUCHER}, single syringe only. Then both eyes together in the mirror, a good hard look, and her answer.`,
       explanationEs:
-        "\"Yo nunca hago el otro ojo. A veces, dentro del discurso, digo que se lo hago para cerrar.\" Para eso está. A {currency}175, antes de que se levante, le empiezas el segundo ojo — y MIENTRAS se lo haces sale el cupón: baja a {currency}140, solo la jeringa sola. Ella con la cara hacia arriba, tú con las manos ocupadas, la cosa parece terminada, y el número se mueve dentro de un momento que va de otra cosa completamente distinta."
+        `"Yo nunca hago el otro ojo. A veces, dentro del discurso, digo que se lo hago para cerrar." Para eso está. Haces una pausa pequeñita, que parezca que esto ya se acaba, y le empiezas el segundo ojo — y sigues cerrando con las manos ocupadas: cuál es el problema, me has dicho que te gusta, me has dicho que lo usarías, ¿es un poco caro? AHÍ es donde cae el cupón, antes de que haya visto el ojo siquiera — de {currency}${SYR_NO_GIFT} a {currency}${SYR_VOUCHER}, solo la jeringa sola. Y luego los dos ojos juntos en el espejo, bien mirados, y su respuesta.`
     },
     {
       question:

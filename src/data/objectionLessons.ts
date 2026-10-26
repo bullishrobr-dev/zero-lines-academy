@@ -187,9 +187,9 @@ export const objectionLessons: Record<string, Lesson> = {
         ],
         correctIndex: 2,
         explanation:
-          'One voucher, once, and it takes you to {currency}140. Below that the theatre changes: you go full market — her number out loud, the pause, the face, hands in the air — and then you go and fetch a manager. A seller who can reach the floor on their own has no floor, because she can always ask you for one more.',
+          'One voucher, once, and it takes you to {currency}140. Below that the theatre changes: you go full market — her number out loud, the pause, the face, hands in the air — and then you go and fetch a manager. You are allowed to sell at that number — what fetching him buys you is that it sounds like a price somebody had to go and win, instead of one that was sitting there all along.',
         explanationEs:
-          'Un cupón, una vez, y te lleva a {currency}140. Por debajo cambia el teatro: te vas a mercado del todo — su número en voz alta, la pausa, la cara, las manos arriba — y luego vas a buscar a un encargado. Un vendedor que puede llegar al suelo él solo no tiene suelo, porque ella siempre te puede pedir uno más.',
+          'Un cupón, una vez, y te lleva a {currency}140. Por debajo cambia el teatro: te vas a mercado del todo — su número en voz alta, la pausa, la cara, las manos arriba — y luego vas a buscar a un encargado. Puedes vender a ese número — lo que ganas yendo a por él es que suene a precio que alguien ha tenido que ir a conseguir, y no a uno que ya estaba ahí.',
       },
       {
         question: 'One syringe, sixty applications, one a week, and you are standing at {currency}140. Which line shrinks it?',

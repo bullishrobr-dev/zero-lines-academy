@@ -540,12 +540,15 @@ const matchTechniqueExercise: Exercise = {
       {
         term: 'Minimum / Floor',
         termEs: 'Mínimo / Suelo',
-        /* This taught the bottom number as if it were the seller's to give.
-           It is not, and CLAUDE.md is blunt about why: "A seller who can reach
-           the floor on their own has no floor." You go full market and you
-           call a manager. The guard missed it because it only reads blocks
-           containing a `question:` key — a term/definition pair was a blind
-           spot. Widened in check-floor-needs-a-manager.mjs in the same pass. */
+        /* This taught the bottom number as if the seller simply hands it over.
+           He does not: on the syringe you go full market and you fetch a
+           manager — theatre rather than permission, because the seller IS
+           allowed to sell at the floor and what the walk across the shop buys
+           is that the number sounds won rather than available. On the peeling
+           the voucher lands on the minimum and that is the end of it.
+           The guard missed this line because it only read blocks containing a
+           `question:` key, and a term/definition pair was a blind spot.
+           Widened in check-floor-needs-a-manager.mjs in the same pass. */
         definition:
           'The bottom of each ladder: {currency}100 for the syringe, {currency}50 for the peeling, {currency}30 for scrub/nail kit. You use your one voucher first. On the syringe you then go full market and fetch a manager — not for permission, you have that, but because a floor you drop to on your own reads as a price that was always there. On the peeling the voucher simply lands on the minimum and that is the end of it.',
         definitionEs:

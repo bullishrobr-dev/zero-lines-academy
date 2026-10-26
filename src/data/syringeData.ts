@@ -267,7 +267,7 @@ export const syringeData = {
     whatToSay: 'What to say',
     whatToSayEs: 'Qu\u00e9 decir',
     minimumWarning:
-      "\u26a0 This price is NOT yours to give. One voucher, once \u2014 then you go full market and CALL THE MANAGER. A seller who can reach the floor on their own has no floor.",
+      "\u26a0 One voucher, once \u2014 then full market, and you GO AND FETCH THE MANAGER. You are allowed to sell at this price; what you are buying by fetching him is that it sounds like a price somebody had to win, not one that was always there.",
     minimumWarningEs:
       "\u26a0 Este precio NO es tuyo. Un cup\u00f3n, una vez \u2014 luego vas a mercado y LLAMAS AL ENCARGADO. Un vendedor que llega solo al fondo no tiene fondo.",
     voucherHint:

@@ -317,8 +317,8 @@ export const NUDGES: Nudge[] = [
     kind: 'drill',
     title: 'What is the other eye for?',
     titleEs: '¿Para qué sirve el otro ojo?',
-    body: `Say it out loud. Not a favour — the cover for the voucher, at {currency}${SYR_NO_GIFT}. Blanked? Open the sheet.`,
-    bodyEs: `Dilo en voz alta. No es un favor — es la tapadera del cupón, a {currency}${SYR_NO_GIFT}. ¿En blanco? Abre la chuleta.`,
+    body: `Never a favour, never a price. More time in the chair, and the cover for the voucher at {currency}${SYR_NO_GIFT}.`,
+    bodyEs: `Nunca un favor, nunca un precio. Más tiempo en la silla, y la tapadera del cupón a {currency}${SYR_NO_GIFT}.`,
     route: '/cheat-sheets',
   },
 

@@ -129,6 +129,43 @@ const RETIRED = [
       '    lines come back slowly, like muscle after you stop going to the gym.',
   },
   {
+    name: 'conditioning the second eye on the purchase',
+    /* Reversed by the owner, October 2026, after years of the opposite:
+
+         "It says there to condition 'fixing the other eye' if she buys.
+          Absolutely not. Ever since that I've changed the way that I do it...
+          It's not nice. We're actually going to use this to our advantage:
+          make them attach longer and have a little bit more time to convince
+          them to buy."
+
+       The second eye is not the reward for buying, it is the instrument that
+       keeps her in the chair long enough TO buy. A bargain tells her the demo
+       is finished; a customer who asks for it has volunteered to stay, and you
+       take the time and keep closing through it.
+
+       The full order is in CLAUDE.md under "The second eye is a closing
+       device", and the thing that is easy to get wrong is inside it: the
+       voucher comes out while she still cannot see the result, and the mirror
+       is held back so it follows the price rather than justifying it. */
+    patterns: [
+      /if you buy[^.!?]{0,40}(?:the )?other (?:one|eye)/i,
+      /si (?:te lo llevas|lo compras|la compras)[^.!?]{0,40}(?:te hago )?el otro/i,
+      /(?:other|second) eye[^.!?]{0,30}\bif (?:you|she) buys?\b/i,
+      /condition(?:ed|ing)? it on the (?:purchase|sale)/i,
+      /se lo condicionas a la compra|ponle condici[oó]n[^.!?]{0,30}otro/i,
+    ],
+    /* The conditioning has to stay sayable where a lesson is teaching a seller
+       NOT to say it, and it is now the most plausible wrong answer in the
+       corpus — three quizzes carry it as a distractor on purpose. */
+    allowWhen:
+      /\b(?:never|nunca|jam[aá]s|do not|don'?t|not on that list|no longer|any ?more|ya no|used to|was taught|se ense[nñ][oó]|thrown it out|lo ha tirado|retired|retirad|instead|en lugar|no (?:le )?(?:condiciones|negocies))\b/i,
+    replacement:
+      'Never trade it. She asked to stay in the chair — take the time and keep\n' +
+      '    closing through it: the honest question, the two yeses she already\n' +
+      '    gave you, then the voucher while she still cannot see the result. The\n' +
+      '    mirror comes last, after the price, never before it.',
+  },
+  {
     name: 'the 45-degree angle',
     /* "This 45 degree angle is kind of stupid. It's just important to let the
        people know that you don't want to be in their face. Talk to them a
@@ -226,8 +263,20 @@ for (const file of walk(SRC)) {
            back on the shop — and they are the guard's own argument written out
            for the seller. Failing the build on those teaches the next person
            to delete the rule rather than keep it. */
-        if (r.allowWhen && r.allowWhen.test(line)) continue;
-        if (r.patterns.some((rx) => rx.test(line))) {
+        /* Scoped to the SENTENCE, not the line.
+           A line in this corpus is one whole string — often three or four
+           sentences of script — so testing allowWhen against the entire line
+           excuses a real instruction that merely shares a string with the word
+           "never" somewhere else in it. Caught by planting the conditioning
+           into a card that already opened with "Never trade it" and watching
+           the guard wave it through. A rule is forbidden where it is SAID;
+           it is allowed in the sentence that says not to say it. */
+        const offends = (text) =>
+          r.patterns.some((rx) => rx.test(text)) &&
+          !(r.allowWhen && r.allowWhen.test(text));
+        const sentences = line.split(/(?<=[.!?])\s+/);
+        if (!sentences.some(offends)) continue;
+        if (true) {
           hits.push({ rel, line: i + 1, text: line.trim().slice(0, 120), rule: r });
           break;
         }
