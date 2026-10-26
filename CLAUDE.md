@@ -159,12 +159,17 @@ someone the voucher will be waiting for them is wrong — rewrite it.
 
 ## The second eye is a closing device
 
-You do one eye. The untouched one is your best argument, so you do not give it
-away — and the app used to be vague about when it ever gets done. It is not a
-favour. It is the cover for the price drop.
+You do one eye. The untouched one is your best argument, so you never hand it
+over as a favour — but you do spend it, deliberately, as the last move of the
+close:
 
 > "I never do the other eye. Sometimes, within the speech, I say to do the
 > other eye in order to close."
+
+Read "never" there as never *for free* and never *on request*. The full
+sequence is set out under **Never condition it** below, and it is the part of
+this section that actually gets used: the eye is not the reward for buying, it
+is the thing that keeps her in the chair long enough to buy.
 
 The move, at {currency}175, when you are trying to get her to yes before she
 stands up:
@@ -176,11 +181,46 @@ stands up:
 tilted up, your hands are busy, the room feels finished, and the number moves
 inside a moment that is about something else.
 
+### Never condition it. This was reversed in October 2026.
+
+This file used to say that if she asks for the second eye before buying you
+should condition it — *"If you buy it, I'll do the other one, yeah?"* That is
+out, and the owner was blunt about it:
+
+> "Absolutely not. Ever since that I've changed the way that I do it... It's
+> not nice. We're actually going to use this to our advantage: make them attach
+> longer and have a little bit more time to convince them to buy."
+
+So the second eye is never a bargaining chip. It is the instrument that **buys
+you more time with a customer who has not said yes yet**, and it has an order:
+
+1. **You have already worked the ladder.** You tried to close at
+   {currency}210, or at Option B, and it did not land. Maybe you are down to
+   {currency}175 with the gift off.
+2. **Take a tiny break.** Let her feel it is almost over. That pause is what
+   makes the next line land as generosity rather than another push.
+3. *"You know what? Let me fix your other eye."*
+4. **And while you are doing it, you keep closing.** Hands busy, face tilted
+   up: *"Can I ask you honestly — what's the problem? You told me you like it.
+   You told me you would use it."* She said both of those during the demo, and
+   this is what you banked them for.
+5. *"It's a bit too expensive?"* — **that** is the moment the voucher comes
+   out. Hands still working, and **before you have let her see the second eye**.
+6. *"I can do this for you, but you cannot be greedy with me. I can only do it
+   on the single one — to open the door for you as a customer."*
+7. Then the number: **{currency}140 for the whole year.** Not too shabby.
+8. *"Before you decide — look at both eyes together. Take a good hard look in
+   the mirror, five or ten seconds, and then tell me what you think."*
+9. **If that still does not close her**, then you go for {currency}100 — full
+   market, and you fetch a manager.
+
+Read step 5 twice. The voucher lands while she cannot see the result yet, and
+the mirror is held back as the thing that follows the price rather than the
+thing that justifies it.
+
 The rest of it:
 
 - **She pays for it, she gets it done.** No argument, no theatre.
-- **She asks for the second eye before buying?** Condition it: *"If you buy it,
-  I'll do the other one, yeah?"*
 - **She has been abandoned** — the husband and the friends have gone, she has
   nobody with her. That is exception 3 under THE RULE above, and it is the one
   time she leaves with one eye done and an open invitation.

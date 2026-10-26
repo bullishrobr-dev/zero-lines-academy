@@ -204,6 +204,25 @@ export const syringeData = {
         text: '"Now look at the other eye \u2014 see the difference?" This comparison is EVERYTHING. Let her see the treated vs. untreated. That\'s your close. Turn to the partner: "Sir, be honest \u2014 do you see the difference? Look at the lift, the smoothness, the brightness."',
         textEs: '"Ahora mira el otro ojo \u2014 \u00bfves la diferencia?" Esta comparaci\u00f3n es TODO. D\u00e9jala ver el tratado vs. el no tratado. Ese es tu cierre. G\u00edrate hacia la pareja: "Se\u00f1or, sea honesto \u2014 \u00bfve la diferencia? Mire el lift, la suavidad, el brillo."',
       },
+      {
+        /*
+         * Added October 2026, in the owner's own order. This is the move the
+         * app had never written down: the second eye is not the reward for
+         * buying, it is the instrument that keeps her in the chair long enough
+         * to buy. It comes AFTER the ladder has stalled, not during the demo —
+         * see "The second eye is a closing device" in CLAUDE.md.
+         *
+         * The part that is easy to get wrong is the order inside it: the
+         * voucher lands while her eye is being done and BEFORE she has seen the
+         * result, and the mirror is held back so it follows the price instead
+         * of justifying it.
+         */
+        step: '8',
+        title: 'The Second Eye \u2014 the last move of the close',
+        titleEs: 'El Segundo Ojo \u2014 el \u00faltimo movimiento del cierre',
+        text: `Only once the ladder has stalled \u2014 {currency}${OPTION_B} did not land, {currency}${OFFER_1} did not land, maybe you are at {currency}${RUNG('no-gift')} with the gift off. Take a tiny break. Let her feel it is almost over. Then: "You know what? Let me fix your other eye." And WHILE YOU DO IT, you keep closing \u2014 "Can I ask you honestly, what's the problem? You told me you like it. You told me you would use it." She said both during the demo; this is what you banked them for. "It's a bit too expensive?" THAT is when the voucher comes out \u2014 hands still busy, before she has seen the result: "I can do this for you, but you cannot be greedy with me. I can only do it on the single one, to open the door for you as a customer." Then the number: {currency}${RUNG('voucher')} for the whole year. Only then the mirror: "Before you decide \u2014 look at both eyes together. Take a good hard look, five or ten seconds, and tell me what you think."`,
+        textEs: `Solo cuando la escalera se ha atascado \u2014 los {currency}${OPTION_B} no han entrado, los {currency}${OFFER_1} tampoco, igual est\u00e1s en {currency}${RUNG('no-gift')} sin el regalo. Haz una pausa peque\u00f1a. Que sienta que ya casi est\u00e1. Y entonces: "\u00bfSabes qu\u00e9? Deja que te arregle el otro ojo." Y MIENTRAS SE LO HACES, sigues cerrando \u2014 "\u00bfTe puedo preguntar honestamente cu\u00e1l es el problema? Me has dicho que te gusta. Me has dicho que lo usar\u00edas." Te dijo las dos cosas en la demo; para esto las guardabas. "\u00bfEs un poco caro?" AH\u00cd es cuando sale el cup\u00f3n \u2014 con las manos todav\u00eda ocupadas, antes de que haya visto el resultado: "Esto te lo puedo hacer, pero no me seas codiciosa. Solo te lo puedo hacer en el individual, para abrirte la puerta como clienta." Y entonces el n\u00famero: {currency}${RUNG('voucher')} por todo el a\u00f1o. Y solo entonces el espejo: "Antes de decidir \u2014 m\u00edrate los dos ojos juntos. M\u00edratelos bien, cinco o diez segundos, y me dices qu\u00e9 te parece."`,
+      },
     ] as DemoStep[],
   },
 
@@ -450,10 +469,23 @@ export const syringeData = {
       },
       {
         icon: 'Eye',
+        /*
+         * Reversed by the owner, October 2026. This tip used to say to CONDITION
+         * the second eye on the purchase — "if you buy it, I'll do the other
+         * one, yeah?" — and he threw it out:
+         *
+         *   "Absolutely not. Ever since that I've changed the way that I do
+         *    it... It's not nice. We're actually going to use this to our
+         *    advantage: make them attach longer and have a little bit more time
+         *    to convince them to buy."
+         *
+         * The eye is not the reward for buying. It is what keeps her in the
+         * chair long enough TO buy, and the full order is in demo step 8.
+         */
         title: 'She asks for the second eye first?',
         titleEs: '\u00bfTe pide el segundo ojo antes?',
-        text: 'Condition it, do not refuse it: "If you buy it, I\'ll do the other one, yeah?" She pays, she gets it done, no argument and no theatre. What you never do is hand it over to a maybe.',
-        textEs: 'Ponle condici\u00f3n, no le digas que no: "Si te lo llevas, te hago el otro, \u00bfvale?" Si paga, se lo haces, sin discusi\u00f3n y sin teatro. Lo que nunca haces es regal\u00e1rselo a un quiz\u00e1.',
+        text: 'Never make her buy to earn it \u2014 that is a bargain, and it tells her the demo is over. Say yes, and then use the time: "Of course, let me do it." Hands busy, keep closing, and the voucher comes out while she still cannot see the result. The longer she is sitting there, the longer you have.',
+        textEs: 'Nunca le hagas comprar para ganarse el otro \u2014 eso es un trato, y le dice que la demo se ha acabado. Dile que s\u00ed, y aprovecha el tiempo: "Claro, te lo hago." Manos ocupadas, sigues cerrando, y el cup\u00f3n sale mientras todav\u00eda no puede verse el resultado. Cuanto m\u00e1s rato siga sentada, m\u00e1s tiempo tienes t\u00fa.',
       },
       {
         icon: 'Users',

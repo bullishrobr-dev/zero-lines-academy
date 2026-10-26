@@ -924,13 +924,27 @@ export const SCRIPTS: ScriptCard[] = [
     textEs: `Está en {currency}${SYR_NO_GIFT.price} y a punto de levantarse. "¿Sabes qué? Déjame arreglarte el otro ojo rapidito." [Empieza. NO dejes que se levante.] Y con las manos en su cara: "Mira, acabo de comprobar una cosa — este cuponcito del 20% lo deja en {currency}${SYR_VOUCHER.price}. Pero qué morro tienes, ¿eh? Solo la jeringa sola." El precio se mueve dentro de un momento que va de su cara.`,
   },
   {
+    /*
+     * Reversed by the owner, October 2026. This card used to say to CONDITION
+     * the second eye on the purchase — "if you buy it, I'll do the other one,
+     * yeah?" — and he threw the whole move out:
+     *
+     *   "Absolutely not. Ever since that I've changed the way that I do it...
+     *    It's not nice. We're actually going to use this to our advantage: make
+     *    them attach longer and have a little bit more time to convince them to
+     *    buy."
+     *
+     * So asking for it is not a problem to be deflected, it is a customer
+     * volunteering to stay in the chair. You say yes and you spend the time.
+     */
     id: 'c-second-eye-asked',
     category: 'closing',
     product: 'syringe',
+    answers: 'think',
     title: 'She asks for the other eye BEFORE buying',
     titleEs: 'Te pide el otro ojo ANTES de comprar',
-    text: `Do not refuse it and do not hand it over. Condition it: "If you buy it, I'll do the other one, yeah?" She pays, she gets it done, no argument and no theatre. The untouched eye is your best argument — you never give your best argument away to a maybe.`,
-    textEs: `Ni le digas que no ni se lo regales. Ponle condición: "Si te lo llevas, te hago el otro, ¿vale?" Si paga, se lo haces, sin discusión y sin teatro. El ojo sin tocar es tu mejor argumento — tu mejor argumento no se lo regalas a un quizá.`,
+    text: `Never trade it. "If you buy it I'll do the other one" is a bargain, and a bargain tells her the demo is finished. She has just asked to sit there longer — take it. "Of course, let me do it." [Start it.] Then work, exactly as you would at {currency}${SYR_NO_GIFT.price}: hands busy, "can I ask you honestly, what's the problem? You told me you like it, you told me you would use it." The voucher comes out while she still cannot see the result, and the mirror comes last.`,
+    textEs: `No lo negocies nunca. "Si te lo llevas te hago el otro" es un trato, y un trato le dice que la demo se ha acabado. Acaba de pedirte seguir ah\u00ed sentada \u2014 aprov\u00e9chalo. "Claro, te lo hago." [Empieza.] Y trabajas igual que a {currency}${SYR_NO_GIFT.price}: manos ocupadas, "\u00bfte puedo preguntar honestamente cu\u00e1l es el problema? Me has dicho que te gusta, me has dicho que lo usar\u00edas." El cup\u00f3n sale mientras todav\u00eda no se ve el resultado, y el espejo va el \u00faltimo.`,
   },
   /*
    * Verdict 8, and it is the end of the seller's job rather than the start of a
