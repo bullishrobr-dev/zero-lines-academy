@@ -20,6 +20,7 @@ import {
   Sparkles,
   TrendingDown,
   Users,
+  HelpCircle,
   Volume2,
 } from 'lucide-react';
 import OfferCard from '../components/OfferCard';
@@ -84,6 +85,32 @@ export default function SyringePage() {
       script: t(ps.promoScript, ps.promoScriptEs),
       hint: t(pl.highlightHint, pl.highlightHintEs),
     },
+    /*
+     * Option B, beside Offer 1 rather than below it.
+     *
+     * This page built its own rung list and simply left the two-syringe offer
+     * out, so the ladder it drew went 210 → 175 and the biggest-ticket offer in
+     * the shop appeared on the product page not at all. The owner's framing:
+     *
+     *   "We have two options in that space. All the time we have two options,
+     *    so 300 is just the second option. It's not part of the ladder. The
+     *    ladder is designed for people who are, so to say, broke."
+     *
+     * `parallel` is what keeps it honest: it takes no number of its own, does
+     * not push the rungs below it further in, and gets no per-unit descent bar
+     * — because a different offer on a descent axis draws SHORTER at the HIGHER
+     * price, which is the exact lie that made a seller offer 300 to someone
+     * already saying yes to 210.
+     */
+    {
+      id: 'second-free',
+      amount: stepPrice('second-free'),
+      units: stepUnits('second-free') ?? 2,
+      parallel: true,
+      label: t(d.offer2.sectionTitle, d.offer2.sectionTitleEs),
+      note: t(d.offer2.whatTheyGetValue, d.offer2.whatTheyGetValueEs),
+      script: t(d.offer2.script, d.offer2.scriptEs),
+    },
     {
       id: 'no-gift',
       amount: stepPrice('no-gift'),
@@ -112,6 +139,7 @@ export default function SyringePage() {
 
   const tipIcon: Record<string, ReactNode> = {
     Euro: <CurrencyIcon size={16} />,
+    HelpCircle: <HelpCircle size={16} />,
     Eye: <Eye size={16} />,
     Users: <Users size={16} />,
     MessageCircle: <MessageCircle size={16} />,

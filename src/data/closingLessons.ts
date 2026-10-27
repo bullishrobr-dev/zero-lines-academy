@@ -27,6 +27,25 @@
 
 import type { Lesson } from './lessons';
 import { GREETING, THE_RUSH_AND_THE_QUESTION, CALL_THEM_IN } from './canonicalScripts';
+import { SYRINGE_LADDER, type PriceLadder, type PriceRung } from './pricing';
+
+// ── Prices, straight off the ladder ──────────────────────────────────────────
+// The second-eye close quotes four rungs in a row, so they are read rather
+// than typed: a hand-typed ladder goes quietly wrong the day a rung moves.
+
+/** Read one authoritative rung out of pricing.ts. */
+function rungOf(ladder: PriceLadder, id: string): PriceRung {
+  const found = ladder.steps.find((step) => step.id === id);
+  if (!found) throw new Error(`pricing.ts has no rung "${id}"`);
+  return found;
+}
+
+const SYR_PROMO = rungOf(SYRINGE_LADDER, 'promo').price;
+/** Option B — beside the promo, never below it. More money, not less. */
+const SYR_TWO = rungOf(SYRINGE_LADDER, 'second-free').price;
+const SYR_NO_GIFT = rungOf(SYRINGE_LADDER, 'no-gift').price;
+const SYR_VOUCHER = rungOf(SYRINGE_LADDER, 'voucher').price;
+const SYR_FLOOR = SYRINGE_LADDER.floor;
 
 export const closingLessons: Record<string, Lesson> = {
   /*
@@ -684,8 +703,8 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'keypoint',
-        text: `"I never do the other eye" is the owner's own line, and it is not stinginess — the second eye is a card, and you play it later. There is exactly one moment it comes out, and it is not kindness: it is the cover for the price coming down, at the top of the ladder, while she is thinking about standing up. That is in Asking For The Money. Until then, the untouched eye stays untouched and keeps arguing for you.`,
-        textEs: `"Yo nunca hago el otro ojo" es la frase del jefe, y no es tacañería — el segundo ojo es una carta, y se juega después. Sale en un momento exacto, y no es por amabilidad: es la tapadera para que baje el precio, arriba en la escalera, mientras ella piensa en levantarse. Eso está en Pedir el Dinero. Hasta entonces, el ojo sin tocar sigue sin tocar y sigue discutiendo por ti.`,
+        text: `"I never do the other eye" is the owner's own line, and it is not stinginess — the second eye is a card, and you play it to close. Never as kindness, and never, ever as a price: it comes out when the money has stalled, as the cover for the number coming down and as a reason she is still sitting in front of you. That is in Asking For The Money. And if she asks you for it herself before she has bought anything, you say yes — she has just handed you more minutes in that chair, and you spend every one of them closing. Until then, the untouched eye stays untouched and keeps arguing for you.`,
+        textEs: `"Yo nunca hago el otro ojo" es la frase del jefe, y no es tacañería — el segundo ojo es una carta, y se juega para cerrar. Nunca por amabilidad, y nunca jamás como precio: sale cuando el dinero se ha atascado, como tapadera de que el número baje y como motivo para que ella siga ahí sentada delante de ti. Eso está en Pedir el Dinero. Y si te lo pide ella antes de haber comprado nada, le dices que sí — acaba de regalarte más minutos en esa silla, y te los gastas todos cerrando. Hasta entonces, el ojo sin tocar sigue sin tocar y sigue discutiendo por ti.`,
       },
       {
         type: 'paragraph',
@@ -980,22 +999,22 @@ export const closingLessons: Record<string, Lesson> = {
         question: 'She asks you to do the other eye too, before she has bought anything. What do you say?',
         questionEs: 'Te pide que le hagas el otro ojo también, antes de haber comprado nada. ¿Qué le dices?',
         options: [
-          '"If you buy it, I\'ll do the other one, yeah?"',
-          'Do it — a delighted customer argues better than an untouched eye',
-          'Do it, then climb a rung to cover the product you have used up',
-          'Say no flatly and change the subject before she can ask again',
+          '"If you buy it, I\'ll do the other one, yeah?" — no second eye until she pays',
+          'Yes — and you keep closing the whole time your hands are busy',
+          'Do it, and then climb a rung to cover the product you have used up on her',
+          'Say no flatly and change the subject before she gets the chance to ask again',
         ],
         optionsEs: [
-          '"Si te lo llevas, te hago el otro, ¿vale?"',
-          'Hazlo — una clienta encantada convence más que un ojo sin tocar',
-          'Hazlo, y luego sube un escalón para cubrir lo que has gastado',
-          'Dile que no en seco y cambia de tema antes de que insista',
+          '"Si te lo llevas, te hago el otro, ¿vale?" — no hay segundo ojo hasta que pague',
+          'Que sí — y sigues cerrando todo el rato que tienes las manos ocupadas',
+          'Hacérselo, y luego subir un escalón para cubrir el producto que has gastado',
+          'Decirle que no en seco y cambiar de tema antes de que le dé tiempo a insistir',
         ],
-        correctIndex: 0,
+        correctIndex: 1,
         explanation:
-          'You never give it away, but you do not refuse it either — you put a price on it. The untouched eye is the best salesperson in the shop, so the only thing that buys it is the sale itself.',
+          'Conditioning it was the old answer and the owner has thrown it out — "absolutely not". It is not nice, and it wastes the one thing she has just handed you, which is time. So you say yes, you start the eye, and while your hands are on her face you ask her honestly what the problem is and give her back the two yeses. "A bit too expensive?" is where the voucher comes out — before she has seen the second eye at all.',
         explanationEs:
-          'No lo regalas nunca, pero tampoco lo niegas — le pones precio. El ojo sin tocar es el mejor vendedor de la tienda, así que lo único que lo compra es la venta.',
+          'Condicionarlo era la respuesta vieja y el jefe la ha tirado a la basura — "en absoluto". No es agradable, y encima desperdicia lo único que ella acaba de regalarte, que es tiempo. Así que le dices que sí, le empiezas el ojo, y con las manos en su cara le preguntas honestamente cuál es el problema y le devuelves los dos síes. "¿Un poco caro?" es donde sale el cupón — antes de que haya visto el segundo ojo siquiera.',
       },
     ],
   },
@@ -1093,13 +1112,13 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'header',
-        text: 'The other eye is not a favour — it is how you close',
-        textEs: 'El otro ojo no es un favor — es cómo cierras',
+        text: 'The other eye is not a favour — and it is never a price',
+        textEs: 'El otro ojo no es un favor — y nunca es un precio',
       },
       {
         type: 'paragraph',
-        text: `She has not said no. She has gone quiet, she is looking at her bag, her weight has shifted forward in the chair — and you are stood at {currency}175. This is the moment the second eye comes out, and it has nothing to do with being generous.`,
-        textEs: `No ha dicho que no. Se ha quedado callada, está mirando el bolso, ha echado el peso hacia delante en la silla — y tú estás en {currency}175. Este es el momento en el que sale el segundo ojo, y no tiene nada que ver con ser generoso.`,
+        text: `You have tried to close her at {currency}${SYR_PROMO} and you have tried Option B at {currency}${SYR_TWO}, and neither one landed. Maybe the gift has already come off and you are stood at {currency}${SYR_NO_GIFT}. She has not said no — she has gone quiet, she is looking at her bag, her weight has shifted forward in the chair. So take a tiny break here. Let her feel like this is almost over.`,
+        textEs: `Has intentado cerrarla en {currency}${SYR_PROMO} y has intentado la Opción B, {currency}${SYR_TWO}, y no ha caído ninguna de las dos. A lo mejor ya le has quitado el regalo y estás plantado en {currency}${SYR_NO_GIFT}. Ella no ha dicho que no — se ha quedado callada, está mirando el bolso, ha echado el peso hacia delante en la silla. Pues aquí haces una pausa pequeñita. Que le dé la sensación de que esto ya casi se ha acabado.`,
       },
       {
         type: 'script',
@@ -1108,18 +1127,58 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'keypoint',
-        text: `And while you are doing that eye, the voucher comes out. That is the entire point of the move. Her chin is up, your hands are on her face, the room feels finished and nobody is negotiating anything — and that is exactly when the number moves: {currency}175 down to {currency}140, the extra 20%. A price drop that arrives inside a moment about something else does not land like a price drop. It lands like somebody looking after her.`,
-        textEs: `Y mientras le haces ese ojo, sale el cupón. Ese es todo el sentido del movimiento. Ella tiene la barbilla arriba, tú tienes las manos en su cara, la sala parece terminada y nadie está negociando nada — y justo ahí se mueve el número: de {currency}175 a {currency}140, el 20% extra. Una bajada de precio que llega dentro de un momento que va de otra cosa no suena a bajada de precio. Suena a que alguien la está cuidando.`,
+        text: `And now the half this app used to leave out: you do not go quiet while you do it. The eye is not the close — it is the extra two minutes you needed in order to close. The owner is blunt about why it works: it keeps her attached for longer and buys you more time to convince her. Her chin is up, your hands are on her face, the room feels finished and nobody is negotiating anything. Every one of those minutes is yours.`,
+        textEs: `Y ahora la mitad que esta app se dejaba fuera: no te callas mientras se lo haces. El ojo no es el cierre — es los dos minutos de más que te hacían falta para cerrar. El jefe lo dice sin rodeos: la mantiene enganchada más tiempo y te compra más tiempo para convencerla. Ella con la barbilla arriba, tú con las manos en su cara, la sala parece terminada y nadie está negociando nada. Cada uno de esos minutos es tuyo.`,
       },
       {
         type: 'script',
-        text: `"You know what — I'll do that for you. But you're being greedy. I can only do it on the regular size."`,
-        textEs: `"¿Sabes qué? Te lo hago. Pero eres una avariciosa. Solo te lo puedo hacer en el tamaño normal."`,
+        text: `"Can I ask you honestly — what's the problem? You told me you like it. You told me you would use it."`,
+        textEs: `"¿Te puedo preguntar una cosa honestamente? ¿Cuál es el problema? Me has dicho que te gusta. Me has dicho que lo usarías."`,
+      },
+      {
+        type: 'paragraph',
+        text: `Those two sentences are the two yeses coming back out, and she gave you both of them herself. So she answers. Nine times out of ten it is the number — and you do not wait for her to find a polite way of saying it. You say it for her, small, like it is nothing.`,
+        textEs: `Esas dos frases son los dos síes saliendo otra vez, y los dos te los dio ella sola. Así que contesta. Nueve de cada diez veces es el número — y tú no esperas a que encuentre una forma educada de decirlo. Lo dices tú por ella, pequeñito, como si no fuera nada.`,
+      },
+      {
+        type: 'script',
+        text: `"It's a bit too expensive?"`,
+        textEs: `"¿Es un poco caro?"`,
       },
       {
         type: 'keypoint',
-        text: `Three other ways the second eye comes up. She has paid — she gets it done, no argument, no theatre, just do it. She asks for it before she has bought anything — you do not refuse and you do not give it away, you put a price on it: "If you buy it, I'll do the other one, yeah?" And the rare one: she has been abandoned in the middle of the demo, the husband has gone, the friends have gone, there is nobody behind her at all. That is the single place in this whole shop where the door is the right answer — "Go think about it, see how it looks, come back later. I'll fix your other eye, even if you don't buy anything." She leaves with one eye done and a reason to walk back in. That is a hook, not a polite exit, and it is not available to you on any other day.`,
-        textEs: `Otras tres formas en las que aparece el segundo ojo. Ha pagado — se lo haces, sin discutir, sin teatro, se lo haces y ya. Te lo pide antes de comprar nada — ni se lo niegas ni se lo regalas, le pones precio: "Si te lo llevas, te hago el otro, ¿vale?". Y la rara: está abandonada en mitad de la demo, el marido se ha ido, las amigas se han ido, no hay nadie detrás de ella. Ese es el único sitio de toda esta tienda donde la puerta es la respuesta correcta — "Piénsatelo, mira cómo queda, y vuelve luego. Te arreglo el otro ojo, aunque no te lleves nada". Se va con un ojo hecho y con un motivo para volver a entrar. Eso es un anzuelo, no una salida educada, y no lo tienes disponible ningún otro día.`,
+        text: `THAT is the moment the voucher comes out — hands still busy, and before you have revealed the second eye at all. {currency}${SYR_NO_GIFT} down to {currency}${SYR_VOUCHER}, the extra 20%. A price drop that arrives inside a moment about something else does not land like a price drop. It lands like somebody looking after her.`,
+        textEs: `ESE es el momento en el que sale el cupón — con las manos todavía ocupadas, y antes de haberle descubierto el segundo ojo. De {currency}${SYR_NO_GIFT} a {currency}${SYR_VOUCHER}, el 20% extra. Una bajada de precio que llega dentro de un momento que va de otra cosa no suena a bajada de precio. Suena a que alguien la está cuidando.`,
+      },
+      {
+        type: 'script',
+        text: `"I can do this for you — but you cannot be greedy with me, eh? I can only do it on the single one, just to open the door for you as a customer."`,
+        textEs: `"Esto te lo puedo hacer — pero no me seas avariciosa, ¿eh? Solo te lo puedo hacer en la individual, para abrirte la puerta como clienta."`,
+      },
+      {
+        type: 'script',
+        text: `"{currency}${SYR_VOUCHER} for the whole year. Sixty goes in that syringe, one a week. Not too shabby."`,
+        textEs: `"{currency}${SYR_VOUCHER} el año entero. Sesenta usos ahí dentro, uno por semana. No está nada mal."`,
+      },
+      {
+        type: 'paragraph',
+        text: `Only now does the second eye get revealed, and it is the last thing in the room — the finished face arriving after the number instead of before it. Do not point at it and do not sell it. Hand her the mirror and make her look properly.`,
+        textEs: `Y solo ahora le descubres el segundo ojo, y es lo último que pasa en esa silla — la cara terminada llegando después del número y no antes. No se lo señales y no se lo vendas. Dale el espejo y haz que se mire bien.`,
+      },
+      {
+        type: 'script',
+        text: `"Before you decide — look at both eyes together. Take a good hard look in the mirror, five or ten seconds, and then tell me what you think."`,
+        textEs: `"Antes de decidir nada — mírate los dos ojos juntos. Bien mirados, cinco o diez segundos en el espejo, y luego me dices qué te parece."`,
+      },
+      {
+        type: 'keypoint',
+        text: `The two other ways the second eye comes up, and there are only two. She has PAID and asks for it — you just do it, no argument, no theatre. And the rare one: she has been abandoned in the middle of the demo, the husband has gone, the friends have gone, there is nobody behind her at all. That is the single place in this whole shop where the door is the right answer — "Go think about it, see how it looks, come back later. I'll fix your other eye, even if you don't buy anything." She leaves with one eye done and a reason to walk back in. That is a hook, not a polite exit, and it is not available to you on any other day.`,
+        textEs: `Las otras dos formas en las que aparece el segundo ojo, y no hay más que dos. Ya ha PAGADO y te lo pide — se lo haces y ya, sin discutir y sin teatro. Y la rara: está abandonada en mitad de la demo, el marido se ha ido, las amigas se han ido, no hay nadie detrás de ella. Ese es el único sitio de toda esta tienda donde la puerta es la respuesta correcta — "Piénsatelo, mira cómo queda, y vuelve luego. Te arreglo el otro ojo, aunque no te lleves nada". Se va con un ojo hecho y con un motivo para volver a entrar. Eso es un anzuelo, no una salida educada, y no lo tienes disponible ningún otro día.`,
+      },
+      {
+        type: 'tip',
+        text: `What is NOT on that list any more: putting a price on it. "If you buy it, I'll do the other one" was taught in this app for a long time and the owner has thrown it out — "absolutely not". It is not nice, and it trades away the one thing the second eye is actually for. If she asks for it before she has bought, that is not a negotiation, it is her handing you more time: say yes, start the eye, and close inside it.`,
+        textEs: `Lo que ya NO está en esa lista: ponerle precio. "Si te lo llevas, te hago el otro" se enseñó en esta app durante mucho tiempo y el jefe lo ha tirado a la basura — "en absoluto". No es agradable, y encima regala lo único para lo que sirve de verdad el segundo ojo. Si te lo pide antes de comprar, eso no es una negociación, es que te está dando más tiempo: le dices que sí, le empiezas el ojo y cierras ahí dentro.`,
       },
 
       {
@@ -1132,13 +1191,13 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'paragraph',
-        text: `There is no voucher. You make it up on the spot, because a price that just falls was never a price — the voucher is the reason it fell. And you get one. {currency}175 to {currency}140, the extra 20%, once, inside the second eye. Usually you do not need anything else.`,
-        textEs: `No hay ningún cupón. Te lo inventas sobre la marcha, porque un precio que simplemente cae nunca fue un precio — el cupón es el motivo por el que ha caído. Y tienes uno. De {currency}175 a {currency}140, el 20% extra, una vez, dentro del segundo ojo. Normalmente no necesitas nada más.`,
+        text: `There is no voucher. You make it up on the spot, because a price that just falls was never a price — the voucher is the reason it fell. And you get one. {currency}${SYR_NO_GIFT} to {currency}${SYR_VOUCHER}, the extra 20%, once, inside the second eye and before she has seen it. Usually you do not need anything else.`,
+        textEs: `No hay ningún cupón. Te lo inventas sobre la marcha, porque un precio que simplemente cae nunca fue un precio — el cupón es el motivo por el que ha caído. Y tienes uno. De {currency}${SYR_NO_GIFT} a {currency}${SYR_VOUCHER}, el 20% extra, una vez, dentro del segundo ojo y antes de que lo haya visto. Normalmente no necesitas nada más.`,
       },
       {
         type: 'keypoint',
-        text: `There is no second voucher. Invent another one and you have just told her the first one was invented too — and from that second on, every number that comes out of your mouth is made up. If {currency}140 does not do it, the theatre changes: now you go full market. Her number out loud, the pause, the face, hands in the air. And the last rung is not yours. {currency}100 comes from a manager, and you go and get one.`,
-        textEs: `No hay un segundo cupón. Invéntate otro y acabas de decirle que el primero también te lo inventaste — y a partir de ese segundo, cada número que sale de tu boca es inventado. Si {currency}140 no lo consigue, cambia el teatro: ahora te vas a mercado del todo. Su número en voz alta, la pausa, la cara, las manos arriba. Y el último escalón no es tuyo. Los {currency}100 los da un encargado, y vas tú a buscarlo.`,
+        text: `There is no second voucher. Invent another one and you have just told her the first one was invented too — and from that second on, every number that comes out of your mouth is made up. If {currency}${SYR_VOUCHER} does not do it, and both eyes in the mirror have not done it either, the theatre changes: now you go full market. Her number out loud, the pause, the face, hands in the air. Then you go and fetch a manager, and {currency}${SYR_FLOOR} comes out of his mouth instead of yours.`,
+        textEs: `No hay un segundo cupón. Invéntate otro y acabas de decirle que el primero también te lo inventaste — y a partir de ese segundo, cada número que sale de tu boca es inventado. Si {currency}${SYR_VOUCHER} no lo consigue, y los dos ojos en el espejo tampoco, cambia el teatro: ahora te vas a mercado del todo. Su número en voz alta, la pausa, la cara, las manos arriba. Y entonces vas a buscar al encargado, y los {currency}${SYR_FLOOR} salen de su boca y no de la tuya.`,
       },
       {
         type: 'script',
@@ -1147,8 +1206,8 @@ export const closingLessons: Record<string, Lesson> = {
       },
       {
         type: 'tip',
-        text: `A seller who can reach the floor on their own has no floor. That is the whole reason the last rung belongs to somebody else — the moment she works out that {currency}100 is in your pocket, that is where every customer starts, and where every one of them finishes.`,
-        textEs: `Un vendedor que puede llegar al mínimo él solo no tiene mínimo. Ese es todo el motivo de que el último escalón sea de otra persona — en cuanto ella pilla que los {currency}100 los llevas tú en el bolsillo, ahí es donde empieza cada cliente, y donde acaba cada uno de ellos.`,
+        text: `The manager is theatre, not a permission slip. The owner is explicit about it — "we call the manager just for the show" — and a seller is allowed to sell at {currency}${SYR_FLOOR}. Go and fetch him anyway: a number somebody had to walk across the shop to give her lands like a number you went and got her, and the same number dropped on your own sounds like a price that was sitting there all along.`,
+        textEs: `El encargado es teatro, no un permiso. El jefe lo dice clarísimo — "llamamos al encargado solo por el show" — y un vendedor sí puede vender a {currency}${SYR_FLOOR}. Ve a buscarlo igualmente: un número por el que alguien ha tenido que cruzar la tienda suena a número que has ido a buscarle, y el mismo número soltado por tu cuenta suena a precio que ya estaba ahí desde el principio.`,
       },
     ],
     quiz: [
@@ -1216,46 +1275,46 @@ export const closingLessons: Record<string, Lesson> = {
           'No estás discutiendo ni añadiendo presión — les devuelves sus propias palabras y reduces la decisión a su tamaño real.',
       },
       {
-        question: 'She has gone quiet at {currency}175 and her hand is on her bag. What do you do?',
-        questionEs: 'Se ha quedado callada en {currency}175 y tiene la mano en el bolso. ¿Qué haces?',
+        question: `She has gone quiet at {currency}${SYR_NO_GIFT} and her hand is on her bag. What do you do?`,
+        questionEs: `Se ha quedado callada en {currency}${SYR_NO_GIFT} y tiene la mano en el bolso. ¿Qué haces?`,
         options: [
-          'Drop to {currency}140 and tell her that is your last price',
+          `Drop to {currency}${SYR_VOUCHER} and tell her that is your last price`,
           'Ask her straight out what number she had in her head',
           'Fix her other eye — and move the number while you do it',
           'Say nothing and give her room to make up her own mind',
         ],
         optionsEs: [
-          'Bajar a {currency}140 y decirle que es tu último precio',
+          `Bajar a {currency}${SYR_VOUCHER} y decirle que es tu último precio`,
           'Preguntarle a bocajarro qué número tenía en la cabeza',
           'Hacerle el otro ojo — y mover el número mientras se lo haces',
           'No decir nada y darle espacio para que lo decida ella',
         ],
         correctIndex: 2,
         explanation:
-          'Chin up, your hands on her face, nobody negotiating anything — that is when the price moves. The drop arrives inside a moment that is about something else, so it lands like you looking after her.',
+          'Chin up, your hands on her face, nobody negotiating anything — that is when the price moves. You keep closing while you work: ask her honestly what the problem is, say "a bit too expensive?" for her, and the voucher lands right there, before she has even seen the second eye. The drop arrives inside a moment that is about something else, so it sounds like you looking after her.',
         explanationEs:
-          'Barbilla arriba, tus manos en su cara, nadie negociando nada — ahí es cuando se mueve el precio. La bajada llega dentro de un momento que va de otra cosa, así que suena a que la estás cuidando.',
+          'Barbilla arriba, tus manos en su cara, nadie negociando nada — ahí es cuando se mueve el precio. Y sigues cerrando mientras trabajas: le preguntas honestamente cuál es el problema, dices "¿un poco caro?" por ella, y el cupón cae justo ahí, antes de que haya visto siquiera el segundo ojo. La bajada llega dentro de un momento que va de otra cosa, así que suena a que la estás cuidando.',
       },
       {
         question: 'The voucher has been and gone and she is still not moving. Now what?',
         questionEs: 'El cupón ya ha salido y ella sigue sin moverse. ¿Y ahora qué?',
         options: [
           'Invent a second voucher — it worked the first time',
-          'Take her to {currency}100 yourself and get the sale done',
+          `Take her to {currency}${SYR_FLOOR} yourself and get the sale done`,
           'Stop the ladder there and leave the number where it is',
           'Go full market, then fetch a manager for the last rung',
         ],
         optionsEs: [
           'Inventarte un segundo cupón — funcionó la primera vez',
-          'Llevarla tú a {currency}100 y cerrar la venta de una vez',
+          `Llevarla tú a {currency}${SYR_FLOOR} y cerrar la venta de una vez`,
           'Parar la escalera ahí y dejar el número donde está',
           'Ir a mercado del todo, y buscar al encargado para el final',
         ],
         correctIndex: 3,
         explanation:
-          'One voucher, once. A second one tells her the first was invented too. The bottom rung belongs to a manager — a seller who can reach the floor alone has no floor.',
+          'One voucher, once. A second one tells her the first was invented too. The bottom rung comes with a manager attached — not because you need his permission, you have that, but because a price you drop to on your own sounds like one that was always there.',
         explanationEs:
-          'Un cupón, una vez. Un segundo le dice que el primero también te lo inventaste. El escalón de abajo es del encargado — un vendedor que llega al mínimo solo no tiene mínimo.',
+          'Un cupón, una vez. Un segundo le dice que el primero también te lo inventaste. El escalón de abajo lleva encargado incluido — no porque necesites su permiso, que ya lo tienes, sino porque un precio al que bajas tú solo suena a precio que ya estaba ahí.',
       },
     ],
   },

@@ -395,9 +395,11 @@ export default function ProfilePage() {
                 { label: t('profileLessons'), value: String(lessonsCompleted) },
                 { label: t('profileStreak'), value: `${currentStreak}d` },
               ].map((stat) => (
-                <div key={stat.label} className="px-1 text-center">
+                <div key={stat.label} className="min-w-0 px-1 text-center">
                   <p className="text-h2 text-ink">{stat.value}</p>
-                  <p className="mt-0.5 text-caption text-ink-3">{stat.label}</p>
+                  <p className="mt-0.5 hyphens-auto break-words text-caption text-ink-3">
+                    {stat.label}
+                  </p>
                 </div>
               ))}
             </div>
@@ -407,9 +409,18 @@ export default function ProfilePage() {
                 { label: t('profileQuizzesPassed'), value: String(quizzesPassed) },
                 { label: t('profileAccuracy'), value: `${accuracy}%` },
               ].map((stat) => (
-                <div key={stat.label} className="text-center">
+                <div key={stat.label} className="min-w-0 text-center">
                   <p className="text-body font-semibold text-ink">{stat.value}</p>
-                  <p className="text-caption leading-4 text-ink-3">{stat.label}</p>
+                  {/* Three columns at 320px give each label ~85px. A grid
+                      item's automatic minimum width is its longest word, and
+                      in Spanish ("Cuestionarios Aprobados") that word is wider
+                      than the column — so the row pushed past the screen edge
+                      instead of wrapping. `min-w-0` lets the column shrink,
+                      and these two rules give the word somewhere to break.
+                      `hyphens-auto` needs <html lang>; LanguageContext sets it. */}
+                  <p className="hyphens-auto break-words text-caption leading-4 text-ink-3">
+                    {stat.label}
+                  </p>
                 </div>
               ))}
             </div>

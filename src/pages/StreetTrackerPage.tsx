@@ -50,6 +50,21 @@ const COPY = {
     lostAt: 'Lost them at',
     tapToWriteUp: 'Write it up',
     writtenUp: 'Written up',
+    /* History. The owner asked for "options to check previous days: how many
+       stops, how many sales" — so the day you are looking at is named in the
+       heading rather than always saying "Today", and the chart you already had
+       is the way you pick one. */
+    dayStats: 'That day',
+    backToToday: 'Back to today',
+    earlierDays: 'Earlier days',
+    noHistory: 'Nothing logged yet. Your days will stack up here.',
+    nothingThatDay: 'Nothing logged that day.',
+    workedBetween: 'Worked',
+    tapADay: 'Tap a bar to look back',
+    today: 'Today',
+    yesterday: 'Yesterday',
+    showAllDays: 'Show all days',
+    showFewerDays: 'Show fewer',
   },
   es: {
     title: 'Mi Diario',
@@ -81,6 +96,17 @@ const COPY = {
     lostAt: 'Los perdí en',
     tapToWriteUp: 'Apúntala',
     writtenUp: 'Apuntada',
+    dayStats: 'Ese día',
+    backToToday: 'Volver a hoy',
+    earlierDays: 'Días anteriores',
+    noHistory: 'Aún no has registrado nada. Aquí se te irán juntando los días.',
+    nothingThatDay: 'No registraste nada ese día.',
+    workedBetween: 'Trabajaste',
+    tapADay: 'Toca una barra para mirar atrás',
+    today: 'Hoy',
+    yesterday: 'Ayer',
+    showAllDays: 'Ver todos los días',
+    showFewerDays: 'Ver menos',
   },
 };
 
@@ -102,6 +128,38 @@ function weekdayLabel(key: string, isEs: boolean): string {
   return new Date(y, m - 1, d)
     .toLocaleDateString(isEs ? 'es-ES' : 'en-GB', { weekday: 'short' })
     .slice(0, 3);
+}
+
+/**
+ * A day written the way a seller would say it: "Today", "Yesterday", then the
+ * actual date. Nobody scanning their own week thinks in ISO keys.
+ *
+ * Built from the same local-time parts as `dateKey` in the hook, never from
+ * `new Date(key)` — that parses a bare YYYY-MM-DD as UTC, which puts both
+ * shops an hour or two off and would file a late-evening shift under the
+ * wrong name on exactly the days that matter most.
+ */
+function dayLabel(key: string, todayKey: string, t: Copy, isEs: boolean): string {
+  if (key === todayKey) return t.today;
+  const [y, m, d] = key.split('-').map(Number);
+  if (!y || !m || !d) return key;
+  const then = new Date(y, m - 1, d);
+  const [ty, tm, td] = todayKey.split('-').map(Number);
+  const today = new Date(ty, tm - 1, td);
+  if (Math.round((today.getTime() - then.getTime()) / 86_400_000) === 1) return t.yesterday;
+  return then.toLocaleDateString(isEs ? 'es-ES' : 'en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+  });
+}
+
+/** A timestamp as a local clock time — 09:14, not a date. */
+function clockTime(ts: number, isEs: boolean): string {
+  return new Date(ts).toLocaleTimeString(isEs ? 'es-ES' : 'en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 }
 
 // ── Activity row ────────────────────────────────────────────────────────────
@@ -186,7 +244,11 @@ const ActivityRow: React.FC<{
           <button
             type="button"
             onClick={onWriteUp}
-            className="mt-1 inline-flex min-h-[32px] items-center gap-1 rounded-chip border border-line-strong bg-surface px-2.5 text-caption text-ink-2 transition-colors active:bg-teal-tint"
+            /* 32px was below the 44px the rest of the app holds itself to, and
+               this is the ONLY door into the write-up sheet — the one input the
+               demo coach has. A seller aims at it one-handed, between
+               customers, which is the worst case for a small target. */
+            className="mt-1 inline-flex min-h-touch items-center gap-1 rounded-chip border border-line-strong bg-surface px-3 text-caption text-ink-2 transition-colors active:bg-teal-tint"
           >
             <NotebookPen className="h-3 w-3 shrink-0" aria-hidden="true" />
             {session.demo ? (
@@ -275,26 +337,62 @@ const ConversionGauge: React.FC<{ rate: number; label: string }> = ({ rate, labe
   );
 };
 
-const WeekChart: React.FC<{ data: DailySummary[]; t: Copy; isEs: boolean }> = ({ data, t, isEs }) => {
+/*
+ * The chart is how you pick a day.
+ *
+ * It used to draw seven numberless, untappable bars — the only acknowledgement
+ * anywhere in the app that yesterday had happened, and it told you nothing
+ * about it. The rows were date-keyed the whole time, so the past was always on
+ * the phone with no door into it. Each column is now a real button: it says how
+ * many, and tapping it swings the whole screen onto that day.
+ */
+const WeekChart: React.FC<{
+  data: DailySummary[];
+  t: Copy;
+  isEs: boolean;
+  selected: string;
+  onSelect: (date: string) => void;
+}> = ({ data, t, isEs, selected, onSelect }) => {
   const maxVal = Math.max(...data.map((d) => d.stops + d.sales), 1);
 
   return (
     <div className="surface-flat p-4">
-      <h3 className="mb-3 text-overline text-ink-3">{t.weekTrend}</h3>
+      <div className="mb-3 flex items-baseline justify-between gap-2">
+        <h3 className="text-overline text-ink-3">{t.weekTrend}</h3>
+        <span className="text-caption text-ink-3">{t.tapADay}</span>
+      </div>
       {/* `items-end` here collapsed every column to its content height, which
           left the bar well at 0px — and a percentage height against a 0px
           parent is 0px. So the chart drew seven invisible bars over seven day
           labels, on every shift, for everyone. The columns stretch to the full
           112px now and the bars sit on the floor of their own well instead. */}
-      <div className="flex h-28 items-stretch justify-between gap-1.5">
+      <div className="flex h-32 items-stretch justify-between gap-1.5">
         {data.map((day, i) => {
           const total = day.stops + day.sales;
           const pct = total === 0 ? 0 : (total / maxVal) * 100;
+          const isSelected = day.date === selected;
           return (
-            <div key={day.date} className="flex flex-1 flex-col items-center gap-1.5">
+            /* A button, not a div: the whole column is the tap target so it
+               clears 44px on the narrowest phone without the bars themselves
+               having to be fat enough to aim at one-handed. */
+            <button
+              key={day.date}
+              type="button"
+              onClick={() => onSelect(day.date)}
+              aria-pressed={isSelected}
+              aria-label={`${dayLabel(day.date, data[data.length - 1]?.date ?? '', t, isEs)} — ${day.stops} ${t.stops}, ${day.sales} ${t.sales}`}
+              className={`flex flex-1 flex-col items-center gap-1 rounded-chip px-0.5 py-1 transition-colors ${
+                isSelected ? 'bg-teal-tint' : 'hover:bg-surface-sunken active:bg-surface-sunken'
+              }`}
+            >
+              <span
+                className={`text-caption tabular-nums ${total > 0 ? 'text-ink-2' : 'text-transparent'}`}
+              >
+                {total || 0}
+              </span>
               <div className="flex w-full min-h-0 flex-1 items-end justify-center">
                 <motion.div
-                  className="w-full max-w-[18px] rounded-t-chip bg-teal"
+                  className={`w-full max-w-[18px] rounded-t-chip ${isSelected ? 'bg-teal-strong' : 'bg-teal'}`}
                   initial={{ height: 0 }}
                   animate={{ height: `${Math.max(pct, 4)}%` }}
                   transition={{ delay: i * 0.06, duration: 0.45 }}
@@ -303,8 +401,10 @@ const WeekChart: React.FC<{ data: DailySummary[]; t: Copy; isEs: boolean }> = ({
               <div
                 className={`h-1.5 w-1.5 rounded-full ${day.revenue > 0 ? 'bg-gold' : 'bg-transparent'}`}
               />
-              <span className="text-caption text-ink-3">{weekdayLabel(day.date, isEs)}</span>
-            </div>
+              <span className={`text-caption ${isSelected ? 'text-ink-1' : 'text-ink-3'}`}>
+                {weekdayLabel(day.date, isEs)}
+              </span>
+            </button>
           );
         })}
       </div>
@@ -404,6 +504,9 @@ const StreetTrackerPage: React.FC = () => {
     logDemo,
     getDemoLogs,
     getTodayLogs,
+    getLogsFor,
+    getDayKeys,
+    getDayWindow,
     getTodayReasons,
     getDailySummary,
     getWeekSummary,
@@ -573,8 +676,41 @@ const StreetTrackerPage: React.FC = () => {
      worth having. Null when nothing has ever been written up — a seller who
      does not use the log is not nagged about not using it. */
   const coach = useMemo(() => readDemos(getDemoLogs(7), money), [getDemoLogs, money]);
-  const summary = useMemo(() => getDailySummary(todayKey), [getDailySummary, todayKey]);
+  /**
+   * The day the numbers on this screen are describing.
+   *
+   * Today unless the seller taps back. Deliberately not persisted: the journal
+   * is a thing you open mid-shift to log a stop, and it must always come up on
+   * today — nobody wants to discover at 19:00 that they have been reading last
+   * Tuesday because they tapped a bar at lunchtime.
+   */
+  const [viewDate, setViewDate] = useState(todayKey);
+  const isToday = viewDate === todayKey;
+
+  const summary = useMemo(() => getDailySummary(viewDate), [getDailySummary, viewDate]);
   const weekData = useMemo(() => getWeekSummary(), [getWeekSummary]);
+
+  /** The rows for whichever day is being looked at. */
+  const viewLogs = useMemo(
+    () => (isToday ? todayLogs : getLogsFor(viewDate)),
+    [isToday, todayLogs, getLogsFor, viewDate],
+  );
+
+  /**
+   * First and last thing logged on that day.
+   *
+   * This is the honest answer to "how long did I work" — derived from stops and
+   * sales that were already recorded, rather than a clock-in button that a
+   * seller forgets to press on the way out and that then reports a fourteen-hour
+   * shift. Only shown on a day with at least two entries; one stop is a moment,
+   * not a span.
+   */
+  const dayWindow = useMemo(() => getDayWindow(viewDate), [getDayWindow, viewDate]);
+
+  /** Every day with something on it, today excluded — it has its own screen. */
+  const dayKeys = useMemo(() => getDayKeys().filter((k) => k !== todayKey), [getDayKeys, todayKey]);
+  const [showAllDays, setShowAllDays] = useState(false);
+  const visibleDayKeys = showAllDays ? dayKeys : dayKeys.slice(0, 5);
   const totalXP = useMemo(() => getTotalXP(), [getTotalXP]);
   const streak = useMemo(() => getStreak(), [getStreak]);
 
@@ -586,7 +722,11 @@ const StreetTrackerPage: React.FC = () => {
     // Clearance for the docked quick-log bar. Layout already reserves the
     // bottom bar's own height on <main>, so this only covers the ~101px the
     // quick-log bar adds on top of it, plus air.
-    <div className="relative min-h-screen bg-background pb-32 text-ink">
+    // min-h-full, not min-h-screen: 100vh against a 100dvh shell overshoots the
+    // visible viewport on iOS Safari by the height of the toolbar, adding a
+    // screen of empty scroll under a page that already gives up 176px to the
+    // nav bar and the quick-log buttons.
+    <div className="relative min-h-full bg-background pb-32 text-ink">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-line bg-background/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-app items-center justify-between gap-3 px-4 py-3">
@@ -679,9 +819,28 @@ const StreetTrackerPage: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* Today */}
+        {/* The day being looked at — today unless the seller tapped back. */}
         <section>
-          <h2 className="mb-2 text-overline text-ink-3">{t.todayStats}</h2>
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <h2 className="text-overline text-ink-3">
+              {isToday ? t.todayStats : `${t.dayStats} — ${dayLabel(viewDate, todayKey, t, isEs)}`}
+            </h2>
+            {!isToday && (
+              <button
+                type="button"
+                onClick={() => setViewDate(todayKey)}
+                className="shrink-0 rounded-chip px-2 py-1 text-caption font-semibold text-teal-strong active:bg-teal-tint"
+              >
+                {t.backToToday}
+              </button>
+            )}
+          </div>
+          {/* Worked between — derived, never typed. See dayWindow above. */}
+          {dayWindow && summary.stops + summary.sales > 1 && (
+            <p className="mb-2 text-caption tabular-nums text-ink-3">
+              {t.workedBetween} {clockTime(dayWindow.first, isEs)} – {clockTime(dayWindow.last, isEs)}
+            </p>
+          )}
           <div className="grid grid-cols-2 gap-2.5">
             <StatCard
               label={t.stops}
@@ -724,7 +883,55 @@ const StreetTrackerPage: React.FC = () => {
           </div>
         </section>
 
-        <WeekChart data={weekData} t={t} isEs={isEs} />
+        <WeekChart
+          data={weekData}
+          t={t}
+          isEs={isEs}
+          selected={viewDate}
+          onSelect={setViewDate}
+        />
+
+        {/* Anything older than the chart's seven days. Collapsed to five rows,
+            because a seller opening the journal came to log a stop — the
+            history is something you go looking for, not something that should
+            push the quick-log buttons off the screen. */}
+        {dayKeys.length > 0 && (
+          <section>
+            <h2 className="mb-2 text-overline text-ink-3">{t.earlierDays}</h2>
+            <div className="surface-flat divide-y divide-line">
+              {visibleDayKeys.map((key) => {
+                const d = getDailySummary(key);
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setViewDate(key)}
+                    aria-pressed={key === viewDate}
+                    className={`flex min-h-touch w-full items-center justify-between gap-3 px-4 py-2.5 text-left transition-colors ${
+                      key === viewDate ? 'bg-teal-tint' : 'active:bg-surface-sunken'
+                    }`}
+                  >
+                    <span className="min-w-0 flex-1 truncate text-body-small text-ink">
+                      {dayLabel(key, todayKey, t, isEs)}
+                    </span>
+                    <span className="shrink-0 text-caption tabular-nums text-ink-2">
+                      {d.stops} · {d.sales} · {money(d.revenue)}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {dayKeys.length > 5 && (
+              <button
+                type="button"
+                onClick={() => setShowAllDays((v) => !v)}
+                className="mt-2 w-full rounded-chip py-2 text-caption font-semibold text-teal-strong active:bg-teal-tint"
+              >
+                {showAllDays ? t.showFewerDays : t.showAllDays}
+              </button>
+            )}
+          </section>
+        )}
 
         {/* The journal answering back. Under the numbers rather than over them:
             the seller came here to log something, and the read on their week is
@@ -735,15 +942,17 @@ const StreetTrackerPage: React.FC = () => {
         <section>
           <h2 className="mb-2 text-overline text-ink-3">{t.activity}</h2>
           <div className="surface-flat p-4">
-            {todayLogs.length === 0 ? (
+            {viewLogs.length === 0 ? (
               <div className="py-8 text-center">
                 <DoorClosed className="mx-auto mb-2 h-8 w-8 text-ink-3" aria-hidden="true" />
-                <p className="text-body-small text-ink-2">{t.noActivity}</p>
+                <p className="text-body-small text-ink-2">
+                  {isToday ? t.noActivity : t.nothingThatDay}
+                </p>
               </div>
             ) : (
-              <ul className="max-h-64 overflow-y-auto pr-1">
+              <ul className="max-h-64 overflow-y-auto overscroll-contain pr-1">
                 <AnimatePresence initial={false}>
-                  {todayLogs.map((log) => (
+                  {viewLogs.map((log) => (
                     <ActivityRow
                       key={log.id}
                       session={log}

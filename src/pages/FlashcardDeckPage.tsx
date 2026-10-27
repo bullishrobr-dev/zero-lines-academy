@@ -174,7 +174,7 @@ export default function FlashcardDeckPage() {
   const totalCards = useMemo(() => decks.reduce((sum, d) => sum + d.totalCards, 0), [decks]);
 
   return (
-    <div className="min-h-screen bg-background text-ink pb-10">
+    <div className="min-h-full bg-background text-ink pb-10">
       {/* Header */}
       <header className="sticky top-0 z-20 border-b border-line bg-background/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-app items-center gap-3 px-4 py-3">

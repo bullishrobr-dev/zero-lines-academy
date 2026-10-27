@@ -159,12 +159,17 @@ someone the voucher will be waiting for them is wrong — rewrite it.
 
 ## The second eye is a closing device
 
-You do one eye. The untouched one is your best argument, so you do not give it
-away — and the app used to be vague about when it ever gets done. It is not a
-favour. It is the cover for the price drop.
+You do one eye. The untouched one is your best argument, so you never hand it
+over as a favour — but you do spend it, deliberately, as the last move of the
+close:
 
 > "I never do the other eye. Sometimes, within the speech, I say to do the
 > other eye in order to close."
+
+Read "never" there as never *for free* and never *on request*. The full
+sequence is set out under **Never condition it** below, and it is the part of
+this section that actually gets used: the eye is not the reward for buying, it
+is the thing that keeps her in the chair long enough to buy.
 
 The move, at {currency}175, when you are trying to get her to yes before she
 stands up:
@@ -176,11 +181,46 @@ stands up:
 tilted up, your hands are busy, the room feels finished, and the number moves
 inside a moment that is about something else.
 
+### Never condition it. This was reversed in October 2026.
+
+This file used to say that if she asks for the second eye before buying you
+should condition it — *"If you buy it, I'll do the other one, yeah?"* That is
+out, and the owner was blunt about it:
+
+> "Absolutely not. Ever since that I've changed the way that I do it... It's
+> not nice. We're actually going to use this to our advantage: make them attach
+> longer and have a little bit more time to convince them to buy."
+
+So the second eye is never a bargaining chip. It is the instrument that **buys
+you more time with a customer who has not said yes yet**, and it has an order:
+
+1. **You have already worked the ladder.** You tried to close at
+   {currency}210, or at Option B, and it did not land. Maybe you are down to
+   {currency}175 with the gift off.
+2. **Take a tiny break.** Let her feel it is almost over. That pause is what
+   makes the next line land as generosity rather than another push.
+3. *"You know what? Let me fix your other eye."*
+4. **And while you are doing it, you keep closing.** Hands busy, face tilted
+   up: *"Can I ask you honestly — what's the problem? You told me you like it.
+   You told me you would use it."* She said both of those during the demo, and
+   this is what you banked them for.
+5. *"It's a bit too expensive?"* — **that** is the moment the voucher comes
+   out. Hands still working, and **before you have let her see the second eye**.
+6. *"I can do this for you, but you cannot be greedy with me. I can only do it
+   on the single one — to open the door for you as a customer."*
+7. Then the number: **{currency}140 for the whole year.** Not too shabby.
+8. *"Before you decide — look at both eyes together. Take a good hard look in
+   the mirror, five or ten seconds, and then tell me what you think."*
+9. **If that still does not close her**, then you go for {currency}100 — full
+   market, and you fetch a manager.
+
+Read step 5 twice. The voucher lands while she cannot see the result yet, and
+the mirror is held back as the thing that follows the price rather than the
+thing that justifies it.
+
 The rest of it:
 
 - **She pays for it, she gets it done.** No argument, no theatre.
-- **She asks for the second eye before buying?** Condition it: *"If you buy it,
-  I'll do the other one, yeah?"*
 - **She has been abandoned** — the husband and the friends have gone, she has
   nobody with her. That is exception 3 under THE RULE above, and it is the one
   time she leaves with one eye done and an open invitation.
@@ -195,19 +235,44 @@ The ladder is not the seller's to give away all the way down.
 
 So: **one voucher, once.** There is no second voucher — inventing another one
 tells her the first was invented too. Below {currency}140 the theatre changes:
-you go full market, and **the manager is the device that unlocks
-{currency}100**, not the seller's own generosity. A seller who can reach the
-floor on their own has no floor.
+you go full market, and you go and fetch a manager.
 
-This one is enforced now, because it had already gone wrong once: O1 taught the
-seller to say the bottom number himself and the word "manager" appeared nowhere
-in the objection lessons at all. `check-floor-needs-a-manager.mjs` fails the
-build if a script — or the correct answer of a quiz — says the floor price
-without a manager in it.
+**And read that word carefully, because this file used to get it wrong.** The
+manager is not a permission gate. The owner, asked directly:
 
-The same answer covers the customer who walks back in months later having
-bought before: **call the manager**, or if he is not there, whoever on the
-floor has the most experience. It is not the seller's sale to price.
+> "Even for the syringe, it's not always necessary to call the manager. We call
+> the manager just for the show. The seller is allowed to sell it for 100."
+
+So the seller *can* reach {currency}100 on their own authority. What the
+manager buys is not permission, it is **theatre** — the number lands differently
+when somebody had to be fetched for it, and a price the seller drops to
+unaccompanied is a price she will assume was always available. That is the
+reason to keep doing it, and it is a better reason than the one that used to be
+written here ("a seller who can reach the floor on their own has no floor"),
+which was simply not true of this shop.
+
+The move is still the move, so it is still enforced:
+`check-floor-needs-a-manager.mjs` fails the build if a script — or the correct
+answer of a quiz — says {currency}100 with no manager in it. It had already
+gone wrong once: O1 taught the seller to say the bottom number himself and the
+word "manager" appeared nowhere in the objection lessons at all. Keep writing
+the manager into the close. Just never write him as a rule the seller is not
+allowed to break, because he is not one.
+
+**The peeling is different and deliberately so.** Asked whether its floor needs
+the same treatment:
+
+> "I know it's falling down to the minimum. It is what it is, so it falls down
+> to the minimum. That's just the way we do it. On the peeling you don't need to
+> call a manager. It's just that the math is like this."
+
+Its one voucher lands on its floor and that is the end of the ladder. No
+theatre, no manager. The guard is scoped to the syringe for exactly this
+reason — do not "fix" the peeling to match.
+
+The customer who walks back in months later having bought before is the one
+case that is genuinely not the seller's to price: **call the manager**, or if
+he is not there, whoever on the floor has the most experience.
 
 ## The two yeses
 
@@ -272,11 +337,47 @@ CI, so a regression fails the build rather than reaching a customer.
 - **The buffer warranty is the one exception, and it is real.** Bring the old
   buffer back, get a new one, forever. Say it with confidence — the owner
   honours it.
-- **No medical or therapeutic claims.** "Natural", "no chemicals", "no
-  parabens", "gentle enough for the most sensitive skin" — all fine, all in
-  register. Naming a disease or a medical condition the product helps with is
-  not, and that is not squeamishness: it is a claim about a vulnerable person
-  that a seller would be saying out loud to their face.
+- **The claim stops at the year.** One syringe, about sixty applications, one a
+  week, and do not touch the area for five hours. That is the whole promise.
+  Nothing anywhere may say the effect outlives the treatment. The owner retired
+  this one himself, and it is worth quoting in full because it is the only
+  thing in the manual he has ever called a lie:
+
+  > "One thing I used to say for many, many years, just because I've been
+  > taught that way and it stuck with me, is that once you finish the 1-year
+  > treatment, you get 6 to 18 months of permanent results. I want to remove
+  > that because this is the only part we kind of lie about, and I honestly see
+  > no reason for that."
+
+  **And you do not volunteer what happens afterwards.** The pitch is a one-year
+  treatment and it stops there. But a seller needs the answer ready in case she
+  asks, and the honest one is better than the promise ever was:
+
+  > "You can either continue to use it if you are happy and satisfied, or you
+  > can stop. If you stop, slowly, slowly, the wrinkles will come back. The
+  > same way, when you go to the gym and you work out for a whole year, even if
+  > you stop going, it's not like the muscles vaporise within a day. It takes
+  > them some time."
+
+  It lives in the syringe pro tips, and it is the one place the fading is
+  allowed to be described — a sentence about the effect going is the opposite
+  of a sentence promising it holds. (`check-retired-teachings.mjs`)
+- **Skin talk is open. Serious illness is not.** This was narrowed in October
+  2026 and the owner's reasoning is the whole of it: *"This app is designed for
+  selling on the street. People can say whatever the hell they want... We are
+  salespeople straight up. We exaggerate. That's what salespeople do."* So
+  "natural", "no parabens", "dermatologist recommended", "this is what people
+  with eczema or psoriasis use", "for the driest, reddest skin you have ever
+  seen" — all fine, all in register, and the peeling line genuinely is what
+  that product is for.
+
+  What is still out is what he called bait in the same breath: *"Stuff like
+  we're saying, 'It cures cancer,' bait. We're keeping it normal, exaggerating
+  just a tiny bit, nothing too crazy."* Do not reach for cancer, diabetes,
+  arthritis or the like to sell a cream. A seller says these out loud to
+  somebody who may be living with one, and commercially it is the point where
+  talking up a cosmetic turns into a medical claim.
+  (`check-retired-teachings.mjs`)
 - **Prices come from `src/data/pricing.ts`.** Use `{currency}` and
   `{locationName}` and let `sub()` resolve them, so Gibraltar never reads a euro
   price — proved on every run by a Gibraltar account in the smoke test.

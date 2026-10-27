@@ -8,6 +8,21 @@
 // the rung to open with is raised, and the floor is marked as a hard minimum.
 //
 // The line the seller says ALOUD is the largest readable text on the rung.
+//
+// ── NOT EVERY PRICE IS A RUNG ────────────────────────────────────────────────
+// A rung marked `parallel` is Option B: the other offer, presented at the same
+// moment as the rung above it and for MORE money. This sheet used to number it
+// into the descent, which made the syringe read 500 → 300 → 210 → 300 → 175 →
+// 140 → 100, with the per-unit bar SHORTER at the 300 than at the 210 above it
+// — the picture going down while the price went up. A seller scanning mid-sale
+// offered 300 to a customer who was already saying yes to 210.
+//
+// So a parallel rung is drawn beside its sibling, not below it: the sibling's
+// number with a B on it, the same indent, an "or" rail above, and no descent
+// bar at all. There is no honest way to put a different offer on the descent's
+// axis, so it does not get the axis. The owner: "300 is just the second
+// option. It's not part of the ladder. The ladder is designed for people who
+// are, so to say, broke."
 // ─────────────────────────────────────────────────────────────────────────────
 
 import type { ReactNode } from 'react';
@@ -25,12 +40,32 @@ const PRODUCT_ICON: Record<ProductKey, ReactNode> = {
   nailkit: <Scissors size={20} />,
 };
 
-function Rung({ rung, index, anchor, accent }: { rung: LadderRung; index: number; anchor: number; accent: keyof typeof ACCENT }) {
+/**
+ * Where each rung is drawn: its number and how far in it is indented.
+ *
+ * Both are counted on the DESCENT only. A parallel option takes no number of
+ * its own and does not push the rungs below it one step further in — it
+ * borrows its sibling's depth and its sibling's number with a B. "3" then "3B"
+ * is the whole claim in two characters.
+ */
+function placements(rungs: LadderRung[]): { step: string; depth: number }[] {
+  let descent = 0;
+  return rungs.map((rung) => {
+    if (rung.parallel) {
+      return { step: `${Math.max(descent, 1)}B`, depth: Math.max(descent - 1, 0) };
+    }
+    descent += 1;
+    return { step: String(descent), depth: descent - 1 };
+  });
+}
+
+function Rung({ rung, step, depth, anchor, accent }: { rung: LadderRung; step: string; depth: number; anchor: number; accent: keyof typeof ACCENT }) {
   const { price, sub } = useCurrency();
   const { language } = useLanguage();
   const a = ACCENT[accent];
   const isAnchor = rung.tone === 'anchor';
   const isFloor = rung.tone === 'floor';
+  const isParallel = Boolean(rung.parallel);
   const each = perUnitAmount(rung);
   const words = sub(tr(language, rung.words, rung.wordsEs));
 
@@ -38,23 +73,39 @@ function Rung({ rung, index, anchor, accent }: { rung: LadderRung; index: number
     ? 'bg-surface-sunken border border-line'
     : isFloor
       ? 'bg-danger-tint border border-danger/40'
-      : rung.recommended
-        ? `bg-surface border-2 ${a.border} shadow-raised`
-        : 'surface-flat';
+      : isParallel
+        ? `bg-surface border border-dashed ${a.border}`
+        : rung.recommended
+          ? `bg-surface border-2 ${a.border} shadow-raised`
+          : 'surface-flat';
   const chip = isFloor
     ? tr(language, 'Never go below', 'Nunca bajes de aquí')
-    : rung.recommended
-      ? tr(language, 'Open here', 'Empieza aquí')
-      : rung.tone === 'upsell'
-        ? tr(language, 'Upsell', 'Subida')
-        : '';
+    : isParallel
+      ? tr(language, 'The other option — not a step down', 'La otra opción — no es bajar un paso')
+      : rung.recommended
+        ? tr(language, 'Open here', 'Empieza aquí')
+        : rung.tone === 'upsell'
+          ? tr(language, 'Upsell', 'Subida')
+          : '';
 
   return (
-    <li className={`rounded-card p-3 ${skin}`} style={{ marginInlineStart: Math.min(index, 4) * 8 }}>
+    <li style={{ marginInlineStart: Math.min(depth, 4) * 8 }}>
+      {/* The "or" rail. A parallel option is a FORK, not a further step, and
+          this is the only thing in the stack that says so before the seller
+          has read the price. */}
+      {isParallel && (
+        <div className="mb-1.5 flex items-center gap-2" aria-hidden="true">
+          <span className="h-px flex-1 bg-line-strong" />
+          <span className="text-overline text-ink-3">{tr(language, 'or', 'o')}</span>
+          <span className="h-px flex-1 bg-line-strong" />
+        </div>
+      )}
+
+      <div className={`rounded-card p-3 ${skin}`}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <p className={`text-overline ${isFloor ? 'text-danger' : isAnchor ? 'text-ink-3' : a.text}`}>
-            {index + 1}. {sub(tr(language, rung.label, rung.labelEs))}
+            {step}. {sub(tr(language, rung.label, rung.labelEs))}
           </p>
           {chip && (
             <span
@@ -78,13 +129,21 @@ function Rung({ rung, index, anchor, accent }: { rung: LadderRung; index: number
         </div>
       </div>
 
-      {/* Where this rung sits on the descent, per unit. */}
-      <div className="mt-2 h-1.5 rounded-full bg-line overflow-hidden" aria-hidden="true">
-        <div
-          className={`h-full rounded-full ${isAnchor ? 'bg-line-strong' : isFloor ? 'bg-danger' : a.fill}`}
-          style={{ width: `${Math.max(8, Math.round((each / anchor) * 100))}%` }}
-        />
-      </div>
+      {/* Where this rung sits on the descent, per unit.
+          Never drawn for a parallel option. On this axis Option B's own
+          per-unit value — two at {each} against one at the full offer price —
+          renders a SHORTER bar than the offer it is an alternative to, which
+          reads as a price cut when the total has gone up. The right-hand
+          column already prints "for 2 · {each} each", which is the comparison
+          that is actually true. */}
+      {!isParallel && (
+        <div className="mt-2 h-1.5 rounded-full bg-line overflow-hidden" aria-hidden="true">
+          <div
+            className={`h-full rounded-full ${isAnchor ? 'bg-line-strong' : isFloor ? 'bg-danger' : a.fill}`}
+            style={{ width: `${Math.max(8, Math.round((each / anchor) * 100))}%` }}
+          />
+        </div>
+      )}
 
       {/* The gate on rungs that are situational rather than the next step down.
           Printed above the words, because a seller scanning the ladder mid-sale
@@ -103,6 +162,7 @@ function Rung({ rung, index, anchor, accent }: { rung: LadderRung; index: number
         <p className="text-body text-ink flex-1">{words}</p>
         <CopyButton text={words} />
       </div>
+      </div>
     </li>
   );
 }
@@ -112,6 +172,7 @@ export default function CheatSheetLadder({ product }: { product: ProductLadder }
   const { language, t } = useLanguage();
   const a = ACCENT[product.accent];
   const best = product.rungs.find((r) => r.recommended) ?? product.rungs[0];
+  const where = placements(product.rungs);
   const proof = sub(tr(language, product.proof.words, product.proof.wordsEs));
   const perEach = product.perUnit ? ` ${tr(language, 'each', 'cada uno')}` : '';
 
@@ -130,7 +191,14 @@ export default function CheatSheetLadder({ product }: { product: ProductLadder }
     >
       <ol className="space-y-2.5 border-l-2 border-line pl-3">
         {product.rungs.map((rung, i) => (
-          <Rung key={rung.id} rung={rung} index={i} anchor={product.europeAnchor} accent={product.accent} />
+          <Rung
+            key={rung.id}
+            rung={rung}
+            step={where[i].step}
+            depth={where[i].depth}
+            anchor={product.europeAnchor}
+            accent={product.accent}
+          />
         ))}
       </ol>
 

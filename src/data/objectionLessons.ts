@@ -187,9 +187,9 @@ export const objectionLessons: Record<string, Lesson> = {
         ],
         correctIndex: 2,
         explanation:
-          'One voucher, once, and it takes you to {currency}140. Below that the theatre changes: you go full market — her number out loud, the pause, the face, hands in the air — and then you go and fetch a manager. A seller who can reach the floor on their own has no floor, because she can always ask you for one more.',
+          'One voucher, once, and it takes you to {currency}140. Below that the theatre changes: you go full market — her number out loud, the pause, the face, hands in the air — and then you go and fetch a manager. You are allowed to sell at that number — what fetching him buys you is that it sounds like a price somebody had to go and win, instead of one that was sitting there all along.',
         explanationEs:
-          'Un cupón, una vez, y te lleva a {currency}140. Por debajo cambia el teatro: te vas a mercado del todo — su número en voz alta, la pausa, la cara, las manos arriba — y luego vas a buscar a un encargado. Un vendedor que puede llegar al suelo él solo no tiene suelo, porque ella siempre te puede pedir uno más.',
+          'Un cupón, una vez, y te lleva a {currency}140. Por debajo cambia el teatro: te vas a mercado del todo — su número en voz alta, la pausa, la cara, las manos arriba — y luego vas a buscar a un encargado. Puedes vender a ese número — lo que ganas yendo a por él es que suene a precio que alguien ha tenido que ir a conseguir, y no a uno que ya estaba ahí.',
       },
       {
         question: 'One syringe, sixty applications, one a week, and you are standing at {currency}140. Which line shrinks it?',
@@ -810,13 +810,13 @@ export const objectionLessons: Record<string, Lesson> = {
           "Dismiss the question: \"It works on everyone, don't worry\" — This sounds like you don't understand their concern.",
           "Pretend all skin is the same: Acknowledge that their question is valid and rooted in real industry history.",
           "Show only white customer photos: Have diverse before/afters ready on your phone.",
-          "Use medical/dermatologist claims unless true: Stay within your knowledge. Say \"I've seen\" not \"Science proves.\"",
+          "Reach for a serious illness to make the sale: Talk up the skin as hard as you like — the driest, the reddest, who recommends it, who else uses it. Borrowing somebody's diagnosis is where selling stops and a medical claim starts.",
         ],
         itemsEs: [
           "Menospreciar la pregunta: \"Funciona en todos, no te preocupes\" — Suena como si no entendieras su preocupación.",
           "Pretender que toda la piel es igual: Reconoce que su pregunta es válida y tiene raíces en la historia real de la industria.",
           "Mostrar solo fotos de clientes blancos: Ten fotos de antes/después diversas listas en tu móvil.",
-          "Usar afirmaciones médicas/dermatológicas a menos que sean ciertas: Quédate dentro de tu conocimiento. Di \"he visto\" no \"la ciencia prueba.\"",
+          "Tirar de una enfermedad grave para cerrar: Habla de la piel todo lo que quieras — la más seca, la más roja, quién lo recomienda, quién más lo usa. Apropiarte del diagnóstico de alguien es donde se acaba la venta y empieza la afirmación médica.",
         ],
       },
       {

@@ -319,7 +319,7 @@ export default function FlashcardsPage() {
   // the deck itself, which is what the person actually came for.
   if (cards.length === 0) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6 py-10 text-center">
+      <div className="flex min-h-full flex-col items-center justify-center bg-background px-6 py-10 text-center">
         <motion.div
           initial={{ scale: 0.6, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -368,7 +368,7 @@ export default function FlashcardsPage() {
   // ── Session complete ──
   if (done) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6 py-10 text-center">
+      <div className="flex min-h-full flex-col items-center justify-center bg-background px-6 py-10 text-center">
         <motion.div
           initial={{ scale: 0.6, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}

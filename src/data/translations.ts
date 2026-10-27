@@ -154,7 +154,7 @@ export const translations = {
 
     // ── Cheat Sheets ──
     cheatSheetsTitle: 'Cheat Sheets',
-    cheatSheetsSubtitle: 'Quick reference for prices, scripts, combos & psychology',
+    cheatSheetsSubtitle: 'She just said something? Start with "They said…" — then prices, scripts, panic.',
     cheatSheetsSearch: 'Search scripts, prices, phrases...',
     cheatSheetsAll: 'All',
     cheatSheetsPrices: 'Prices',
@@ -409,7 +409,7 @@ export const translations = {
 
     // ── Cheat Sheets ──
     cheatSheetsTitle: 'Chuletas',
-    cheatSheetsSubtitle: 'Referencia r\u00e1pida de precios, guiones, combos y psicolog\u00eda',
+    cheatSheetsSubtitle: '\u00bfTe acaba de decir algo? Empieza por "Han dicho\u2026" \u2014 luego precios, guiones, p\u00e1nico.',
     cheatSheetsSearch: 'Buscar guiones, precios, frases...',
     cheatSheetsAll: 'Todo',
     cheatSheetsPrices: 'Precios',

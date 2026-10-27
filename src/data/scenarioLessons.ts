@@ -531,7 +531,7 @@ export const scenarioLessons: Record<string, Lesson> = {
       {
         type: "script",
         text: "YOU: \"Right. You lot are the best thing that's happened to me all week, so listen.\" [Voice down a bit, like it's a secret] \"One syringe is {currency}300. For you: take two, pay {currency}300, and sort out between yourselves who's putting in what. And the bride doesn't pay for a scrub — that one's from me, wedding present. Who's in?\" [Hands go up] \"Beautiful. Card or cash, and whoever's short pays her mate back on the bus.\"",
-        textEs: "TÚ: \"Venga. Sois lo mejor que me ha pasado en toda la semana, así que escuchad.\" [Baja un poco la voz, como si fuera un secreto] \"Una jeringa son {currency}300. Para vosotras: os lleváis dos y pagáis {currency}300, y ya os apañáis entre vosotras quién pone qué. Y la novia no paga el scrub — ese va de mi parte, regalo de boda. ¿Quién se apunta?\" [Se levantan manos] \"Preciosas. Tarjeta o efectivo, y a la que le falte ya se lo devuelve a su amiga en el bus.\"",
+        textEs: "TÚ: \"Venga. Sois lo mejor que me ha pasado en toda la semana, así que escuchad.\" [Baja un poco la voz, como si fuera un secreto] \"Una jeringa son {currency}300. Para vosotras: os lleváis dos y pagáis {currency}300, y ya os apañáis entre vosotras quién pone qué. Y la novia no paga el Exfoliante — ese va de mi parte, regalo de boda. ¿Quién se apunta?\" [Se levantan manos] \"Preciosas. Tarjeta o efectivo, y a la que le falte ya se lo devuelve a su amiga en el bus.\"",
       },
       {
         type: "subheader",
@@ -1091,8 +1091,8 @@ export const scenarioLessons: Record<string, Lesson> = {
       },
       {
         type: "script",
-        text: "YOU: \"You've got your hands full, so I'm giving you the short version.\" [Fast demo, no talking round it] \"There. {currency}300, lasts you months, two minutes a day. I'll put one in a bag while you get him off the floor — pay me and you're out of here before he starts again.\"",
-        textEs: "TÚ: \"Vas hasta arriba, así que te doy la versión corta.\" [Demo rápida, sin rodeos] \"Ya está. {currency}300, te dura meses, dos minutos al día. Te lo meto en la bolsa mientras lo levantas del suelo — me pagas y te vas de aquí antes de que empiece otra vez.\"",
+        text: "YOU: \"You've got your hands full, so I'm giving you the short version.\" [Fast demo, no talking round it] \"There. {currency}300, a year in there — sixty goes, one a week. I'll put one in a bag while you get him off the floor — pay me and you're out of here before he starts again.\"",
+        textEs: "TÚ: \"Vas hasta arriba, así que te doy la versión corta.\" [Demo rápida, sin rodeos] \"Ya está. {currency}300, un año ahí dentro — sesenta usos, uno por semana. Te lo meto en la bolsa mientras lo levantas del suelo — me pagas y te vas de aquí antes de que empiece otra vez.\"",
       },
       {
         type: "subheader",

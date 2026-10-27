@@ -92,7 +92,7 @@ export default function ShiftCheckIn() {
   };
 
   return (
-    <div className="min-h-screen bg-background px-5 py-8 pb-safe text-ink">
+    <div className="min-h-full bg-background px-5 py-8 pb-safe text-ink">
       <div className="mx-auto max-w-app">
         <motion.header
           initial={{ opacity: 0, y: -16 }}

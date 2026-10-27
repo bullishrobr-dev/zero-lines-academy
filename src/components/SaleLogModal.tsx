@@ -23,7 +23,7 @@
 
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import BottomSheet from './BottomSheet';
+import BottomSheet, { SheetFooter } from './BottomSheet';
 import { ArrowRightLeft, Check, Coins, X } from 'lucide-react';
 import { celebrateSaleLogged } from '../utils/confetti';
 import { haptic } from '../utils/haptics';
@@ -142,7 +142,7 @@ const SaleForm: React.FC<{
   };
 
   return (
-    <div className="px-5 pb-8 pt-2">
+    <div className="px-5 pt-2">
       <div className="mb-5 flex items-center gap-3">
         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold text-on-gold">
           <Coins className="h-5 w-5" aria-hidden="true" />
@@ -245,7 +245,11 @@ const SaleForm: React.FC<{
                 type="number"
                 inputMode="decimal"
                 min={0}
-                autoFocus
+                /* No autoFocus. The keyboard it threw up covered the docked
+                   Save button, so the one tap this sheet exists for was behind
+                   it — and the seller has deliberately asked for the manual
+                   field by tapping "Other", so they are already looking at it
+                   and can open the keyboard themselves. */
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0"
@@ -327,26 +331,28 @@ const SaleForm: React.FC<{
         className="mb-6 h-14 w-full rounded-card border border-line-strong bg-surface-sunken px-4 text-body-small text-ink placeholder:text-ink-3"
       />
 
-      {/* Actions */}
-      <div className="flex gap-3">
-        <button type="button" onClick={onClose} className="btn-quiet flex-1">
-          {t.cancel}
-        </button>
-        <button
-          type="button"
-          onClick={handleSubmit}
-          disabled={!isValid}
-          className={`flex-1 ${isValid ? 'btn-primary' : 'btn-quiet cursor-not-allowed opacity-60'}`}
-        >
-          <span>{t.submit}</span>
-          {/* The real number for THIS product. A sale is no longer one flat
-              rate, and a Save button promising +60 for a {currency}30 nail kit
-              is the same lie the docked buttons used to tell. */}
-          <span className="text-caption opacity-80">
-            {t.submitXP(saleXp(selectedProduct, handedOver))}
-          </span>
-        </button>
-      </div>
+      {/* Actions — docked, so Save is reachable from the top of the sheet. */}
+      <SheetFooter>
+        <div className="flex gap-3">
+          <button type="button" onClick={onClose} className="btn-quiet flex-1">
+            {t.cancel}
+          </button>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!isValid}
+            className={`flex-1 ${isValid ? 'btn-primary' : 'btn-quiet cursor-not-allowed opacity-60'}`}
+          >
+            <span>{t.submit}</span>
+            {/* The real number for THIS product. A sale is no longer one flat
+                rate, and a Save button promising +60 for a {currency}30 nail
+                kit is the same lie the docked buttons used to tell. */}
+            <span className="text-caption opacity-80">
+              {t.submitXP(saleXp(selectedProduct, handedOver))}
+            </span>
+          </button>
+        </div>
+      </SheetFooter>
     </div>
   );
 };

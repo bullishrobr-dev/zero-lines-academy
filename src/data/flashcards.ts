@@ -134,10 +134,10 @@ export const flashcards: Flashcard[] = [
     id: 'sp-4-1',
     lessonId: 'prod-1',
     categoryId: 'sales-psychology',
-    question: 'What is "Price Psychology" — the {currency}300 vs {currency}299 debate?',
-    answer: 'Round numbers ({currency}300) signal quality and luxury. Charm prices ({currency}299) signal deals and discounts. Use {currency}300 for premium feel.',
-    questionEs: '¿Qué es la "Psicología de Precios" — el debate de {currency}300 vs {currency}299?',
-    answerEs: 'Los números redondos ({currency}300) transmiten calidad y lujo. Los precios acabados en 9 ({currency}299) transmiten ofertas y descuentos. Usa {currency}300 para sensación premium.',
+    question: 'She says "it is too expensive". Which number do you answer with?',
+    answer: 'The rung you are STANDING on, never the one on the shelf — by the time she says it you have already walked her down, so quoting the top of the ladder tells her you were not listening. Say the price she is actually on, then make it small: once a week, sixty goes in that syringe, a year of Sunday nights out of something the size of a pen.',
+    questionEs: 'Te dice "es muy caro". ¿Con qué número le contestas?',
+    answerEs: 'Con el escalón en el que ESTÁS, nunca con el de la estantería — cuando te lo dice ya la has bajado, así que soltarle lo de arriba de la escalera le dice que no la estabas escuchando. Dile el precio en el que está de verdad y luego hazlo pequeño: una vez a la semana, sesenta usos en esa jeringa, un año de domingos en algo del tamaño de un boli.',
   },
   {
     id: 'sp-4-2',
@@ -518,7 +518,7 @@ export const flashcards: Flashcard[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // PRODUCT MASTERY (16 cards)
+  // PRODUCT MASTERY (17 cards)
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: 'pm-1-1',
@@ -543,9 +543,13 @@ export const flashcards: Flashcard[] = [
     lessonId: 'prod-6',
     categoryId: 'product-mastery',
     question: 'How do you demo the Peeling product for maximum impact?',
-    answer: 'Apply to the back of their hand, let it sit 10 seconds, then rub gently. The dead skin rolling off is visceral proof of exfoliation.',
+    /* Said "rub gently" and taught the opposite of the product page, which is
+       emphatic that rubbing kills the effect: "Roll it, don't rub it… if they
+       rub too hard, it won't work." A flashcard that contradicts the demo is
+       worse than no flashcard. */
+    answer: 'Apply to the back of their hand, let it sit 10 seconds, then ROLL it — never rub. Rubbing kills the pilling. The dead skin rolling off is visceral proof of exfoliation.',
     questionEs: '¿Cómo haces la demo del producto Peeling para máximo impacto?',
-    answerEs: 'Aplica en el dorso de su mano, déjalo actuar 10 segundos, luego frota suavemente. La piel muerta saliendo es prueba visceral de exfoliación.',
+    answerEs: 'Aplica en el dorso de su mano, déjalo actuar 10 segundos, y luego ENRÓLLALO — nunca frotes. Frotar mata el efecto bolita. La piel muerta saliendo es prueba visceral de exfoliación.',
   },
   {
     id: 'pm-2-2',
@@ -663,6 +667,25 @@ export const flashcards: Flashcard[] = [
     answer: '{currency}80 Europe anchor, your price {currency}60 — the same ladder as the Scrub and the Nail Kit. "A department-store butter this rich is {currency}80 all over Europe, and it mixes into every one of our deals."',
     questionEs: '¿Cuál es el precio de anclaje del Body Butter?',
     answerEs: '{currency}80 es el ancla de Europa, tu precio {currency}60 — la misma escalera que el Scrub y el Kit de Uñas. "Una manteca corporal así de rica cuesta {currency}80 por toda Europa, y entra en todas nuestras ofertas."',
+  },
+  {
+    /*
+     * The answer to a question you never ask for. The owner retired the old
+     * promise about results outliving the year himself — "this is the only
+     * part we kind of lie about" — so the claim now stops at the year. He
+     * still wants the seller ready for it:
+     *
+     *   "We don't volunteer this information. We just tell them that it's a
+     *    1-year treatment, but in case the customers ask, the people will
+     *    have an answer to be ready."
+     */
+    id: 'pm-9-1',
+    lessonId: 'prod-6',
+    categoryId: 'product-mastery',
+    question: 'She asks what happens after the year. What do you say?',
+    answer: 'Never bring this up yourself — it is a one-year treatment, sixty applications, one a week, and that is where your pitch stops. But have the answer ready: "After the year you carry on if you are happy with it, or you stop. If you stop, the lines come back slowly — same as the gym. You train for a year, you stop going, your muscles do not vanish overnight. They fade." Never promise her anything about what happens once the treatment is finished.',
+    questionEs: '¿Y si pregunta qué pasa después del año?',
+    answerEs: 'No lo saques tú nunca — es un tratamiento de un año, sesenta aplicaciones, una por semana, y ahí se acaba tu argumento. Pero ten la respuesta lista: "Después del año sigues si estás contenta, o lo dejas. Si lo dejas, las líneas vuelven poco a poco — igual que el gimnasio. Entrenas un año, dejas de ir, y los músculos no desaparecen de un día para otro. Se van bajando." No le prometas nada de lo que pasa cuando el tratamiento se acaba.',
   },
 ];
 

@@ -284,7 +284,7 @@ export default function LeaderboardPage({
   };
 
   return (
-    <div className="min-h-screen bg-background text-ink">
+    <div className="min-h-full bg-background text-ink">
       <div className="mx-auto max-w-app">
         {/* ── Header ── */}
         <header className="sticky top-0 z-30 bg-background/95 backdrop-blur-md border-b border-line">

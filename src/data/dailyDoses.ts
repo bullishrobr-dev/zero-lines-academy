@@ -571,8 +571,8 @@ export const dailyDoses: DailyDose[] = [
       },
       {
         type: 'technique',
-        text: 'THE LAST RUNG, WITH A REASON: a budget customer is answered by moving, not by arguing — but every move carries a reason or she learns the numbers fall whenever she pushes. Gift comes off. Voucher goes on — ONCE, at {currency}175 to {currency}140, and there is no second voucher. Below that the theatre changes: you go full market and you call a manager, because {currency}100 is not yours to give. A seller who can reach the floor on their own has no floor.',
-        textEs: 'EL ÚLTIMO ESCALÓN, CON UN MOTIVO: a una clienta con presupuesto se le contesta moviéndote, no discutiendo — pero cada movimiento lleva un motivo o aprende que los números caen cada vez que empuja. Se quita el regalo. Se pone el cupón — UNA vez, de {currency}175 a {currency}140, y no hay un segundo cupón. Por debajo cambia el teatro: vas a mercado puro y llamas al encargado, porque los {currency}100 no son tuyos para darlos. Un vendedor que llega solo al fondo no tiene fondo.',
+        text: 'THE LAST RUNG, WITH A REASON: a budget customer is answered by moving, not by arguing — but every move carries a reason or she learns the numbers fall whenever she pushes. Gift comes off. Voucher goes on — ONCE, at {currency}175 to {currency}140, and there is no second voucher. Below that the theatre changes: you go full market and you fetch a manager. Not because you need his permission — you do not — but because {currency}100 said by a seller on his own is a price she assumes was always sitting there. Fetched for, it is a price somebody had to go and get.',
+        textEs: 'EL ÚLTIMO ESCALÓN, CON UN MOTIVO: a una clienta con presupuesto se le contesta moviéndote, no discutiendo — pero cada movimiento lleva un motivo o aprende que los números caen cada vez que empuja. Se quita el regalo. Se pone el cupón — UNA vez, de {currency}175 a {currency}140, y no hay un segundo cupón. Por debajo cambia el teatro: vas a mercado puro y vas a buscar al encargado. No porque necesites su permiso — no lo necesitas — sino porque unos {currency}100 que suelta el vendedor solo son un precio que ella da por hecho que ya estaba ahí. Si hay que ir a por él, es un precio que alguien ha tenido que conseguir.',
       },
     ],
     practicePrompt: 'On every budget objection today, write down which rung you were standing on when you heard it. If the answer is ever {currency}300, you moved too slowly earlier in the sale.',
@@ -685,7 +685,7 @@ export const dailyDoses: DailyDose[] = [
       {
         type: 'script',
         text: '"Sir, 30 seconds. This Scrub removes dead skin in one use. Your hands will feel smoother than they have in years. It\'s {currency}60, or {currency}60 for two if you take a Body Butter with it. Want to try it?"',
-        textEs: '"Jefe, 30 segundos. Este Scrub quita la piel muerta a la primera. Tus manos van a quedar más suaves que en años. Son {currency}60, o {currency}60 por dos si te llevas un Body Butter también. ¿Lo pruebas?"',
+        textEs: '"Jefe, 30 segundos. Este Exfoliante quita la piel muerta a la primera. Tus manos van a quedar más suaves que en años. Son {currency}60, o {currency}60 por dos si te llevas una Manteca Corporal también. ¿Lo pruebas?"',
       },
       {
         type: 'tip',

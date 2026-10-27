@@ -1,12 +1,24 @@
 /*
- * Guard: the seller never hands out the floor price on their own authority.
+ * Guard: the floor price never gets said without a manager being fetched for it.
  *
  * ── WHY ─────────────────────────────────────────────────────────────────────
  * CLAUDE.md, in the owner's words: "You use the voucher once, usually 175 to
  * 140… After that, if it doesn't work, you go full market, call a manager, and
- * get it to 100." And the reason, which is the part that matters: a seller who
- * can reach the floor on their own has no floor, because she can always ask for
- * one more.
+ * get it to 100."
+ *
+ * This guard used to say the reason was that the seller is not ALLOWED to reach
+ * the floor. That was wrong, and the owner corrected it directly: "it's not
+ * always necessary to call the manager. We call the manager just for the show.
+ * The seller is allowed to sell it for 100."
+ *
+ * So the manager is not a permission gate, he is THEATRE — and the theatre is
+ * what makes the number land. A price the seller drops to unaccompanied is a
+ * price the customer assumes was there all along, which spends the drop and
+ * buys nothing with it. That is why the move is still worth enforcing, and it
+ * is a better reason than the one that was written here.
+ *
+ * What this does NOT mean: a lesson may not tell a seller they need permission.
+ * They do not. Write the manager into the close as the move; never as a rule.
  *
  * The closing lessons taught this correctly. The OBJECTION lessons did not —
  * O1's Script 3 had the seller lean in and say the bottom number himself, in
@@ -164,16 +176,33 @@ const DOCTRINE = new RegExp(
     'absolute minimum', 'm[ií]nimo absoluto',
     'last price', '[uú]ltimo precio',
     'bottom rung', '[uú]ltimo escal[oó]n',
+    /* "The last-resort price you never cross" — the exact words the matching
+       exercise used, and the widened block split still let it through because
+       'last price' does not match 'last-resort price'. Added after planting
+       the original line and watching this guard pass a second time. */
+    'last[- ]resort', '[uú]ltimo recurso',
+    'never cross', 'nunca cruzas',
   ].join('|'),
   'i',
 );
 
-/** Question blocks, split on the `question:` key — one per quiz item. */
+/**
+ * Teaching blocks, split on whichever key starts one — one per item.
+ *
+ * `question:` was the only mark for a long time, and that was a blind spot
+ * shaped exactly like the regression this guard exists to catch. The matching
+ * exercise in generalExercises.ts is written as `term` / `definition` pairs,
+ * never a question, so the floor definition sat there reading "the last-resort
+ * price you never cross… only when the customer is genuinely walking away" —
+ * no manager, marked as the right answer, paying XP — and every pass of this
+ * guard walked straight past it because the file contains no `question:` key
+ * within reach of the number.
+ */
 function questionBlocks(src) {
   const lines = src.split('\n');
   const marks = [];
   lines.forEach((l, i) => {
-    if (/^\s*question:/.test(l)) marks.push(i);
+    if (/^\s*(?:question|term):/.test(l)) marks.push(i);
   });
   return marks.map((start, n) => ({
     line: start + 1,
@@ -195,20 +224,59 @@ function questionBlocks(src) {
  * found six.
  */
 function taughtText(block) {
-  const out = correctAnswers(block);
-  const re = /^\s*explanation(?:Es)?:\s*(?:\r?\n\s*)?("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)/gm;
-  for (const m of block.matchAll(re)) out.push(m[1]);
+  const out = correctAnswers(block).map((t) => ({ text: t, es: /^\s*['"`]?¿|[áéíóúñ¡]/i.test(t) }));
+  /* `definition` sits alongside `explanation` because a matching exercise
+     teaches through it exactly as a quiz teaches through an explanation — the
+     seller is shown it and told it is right. */
+  const re = /^\s*(?:explanation|definition)(Es)?:\s*(?:\r?\n\s*)?("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)/gm;
+  for (const m of block.matchAll(re)) out.push({ text: m[2], es: Boolean(m[1]) });
   return out;
+}
+
+/**
+ * Comments are not seller-facing copy, and letting them satisfy the guard is
+ * how a guard quietly stops working.
+ *
+ * Proved rather than assumed: the fix to the Minimum/Floor definition carried
+ * a comment explaining that you "call a manager", and that word alone was
+ * enough to make this pass skip the whole block — so planting the original
+ * violation back underneath it still went green.
+ */
+function stripComments(src) {
+  return src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/^\s*\/\/.*$/gm, ' ');
+}
+
+/**
+ * Only the half of the block written in the language being checked.
+ *
+ * The first pass learned this the hard way and scriptTexts() carries the note:
+ * an English line can regress while the Spanish twin still says "encargado",
+ * the block still contains the word, and nobody hears about it — and English
+ * is what most of this shop reads. This pass had the same hole one level up,
+ * because it tested AUTHORITY against the entire block.
+ */
+function authorityFor(block, es) {
+  const clean = stripComments(block);
+  const keys = es
+    ? /^\s*\w+Es:\s*(?:\r?\n\s*)?.*$/gm
+    : /^\s*\w+(?<!Es):\s*(?:\r?\n\s*)?.*$/gm;
+  const own = clean.match(keys)?.join('\n') ?? '';
+  /* Options arrays carry no Es suffix on their members, so an optionsEs block
+     has to be attributed by where it sits rather than by its key. Falling back
+     to the whole cleaned block for that case keeps this conservative: it can
+     only ever make the guard more forgiving, never blind to one language. */
+  return AUTHORITY.test(own) || (!own.trim() && AUTHORITY.test(clean));
 }
 
 function doctrineHits(src) {
   const out = [];
   for (const { line, body } of questionBlocks(src)) {
-    /* A manager anywhere in the question's own block is enough. The rule is
-       that the seller is not the authority, not that every sentence repeats
-       it. */
-    if (AUTHORITY.test(body)) continue;
-    for (const chunk of taughtText(body)) {
+    for (const { text, es } of taughtText(body)) {
+      /* A manager anywhere in the block's OWN LANGUAGE is enough. The rule is
+         that the seller is not the authority, not that every sentence repeats
+         it — but one language's authority must never vouch for the other's. */
+      if (authorityFor(body, es)) continue;
+      const chunk = text;
       for (const sentence of chunk.split(/(?<=[.!?])\s+/)) {
         /* An arrow means a ladder being printed out — 500 → 300 → … → 100 —
            which has to end at the floor and says nothing about who gives it. */
@@ -285,10 +353,12 @@ for (const h of coachHits()) {
 if (hits.length) {
   console.log(`FAIL — ${hits.length} lesson(s) say {currency}${floor} with no manager in the room:\n`);
   hits.forEach((h) => console.log('  ' + h));
-  console.log(`\nOne voucher takes the seller to the rung above. {currency}${floor} is not theirs to`);
-  console.log('give: they go full market, then they go and fetch a manager, and the number');
-  console.log('comes out of the manager\'s mouth. A seller who can reach the floor alone has');
-  console.log('no floor. See "Where the floor actually comes from" in CLAUDE.md.');
+  console.log(`\nOne voucher takes the seller to the rung above. To get to {currency}${floor} they go`);
+  console.log('full market, then they go and fetch a manager, and the number comes out of');
+  console.log('his mouth. Not because they need permission — the owner is explicit that');
+  console.log('they do not — but because a price you drop to on your own is a price she');
+  console.log('assumes was always there. The manager is the theatre that makes it land.');
+  console.log('See "Where the floor actually comes from" in CLAUDE.md.');
   process.exit(1);
 }
 console.log(`PASS  the floor ({currency}${floor}) is never the seller's to give`);

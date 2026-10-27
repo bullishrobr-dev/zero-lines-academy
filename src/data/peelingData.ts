@@ -1,6 +1,8 @@
 /* ------------------------------------------------------------------ */
-/*  PeelingPage — Bilingual Data (EN / ES-MX)                         */
+/*  PeelingPage — Bilingual Data (EN / ES — peninsular, informal tú)   */
 /* ------------------------------------------------------------------ */
+
+import { PEELING_LADDER } from './pricing';
 
 export interface PriceStepData {
   price: string;               // template — e.g. `${currency}200`
@@ -126,10 +128,17 @@ export const peelingData = {
       },
       {
         step: '4',
+        /* This step had been hollowed out. The hero above promises
+           "Dermatologist — Recommended" and the quick reference says
+           "Dermatologist: Approved", but the one place a seller is actually
+           told what to SAY had been softened to "the ones who cannot put
+           anything on their face" and then capped with "it's science-based,
+           not sales-based" — which is the brief upside down. We are hustlers,
+           not scientists. The real line is back. */
         title: 'The Authority Builder',
         titleEs: 'El Constructor de Autoridad',
-        text: '"It\'s actually so good that people with the most difficult skin in the world use it — the driest, the most sensitive, the ones who cannot put anything on their face." That single line builds authority and trust — it\'s science-based, not sales-based.',
-        textEs: '"Es tan bueno que lo usa gente con la piel más difícil del mundo — la más seca, la más sensible, la que no se puede poner nada en la cara." Esa sola frase construye autoridad y confianza — está basada en ciencia, no en ventas.',
+        text: '"This is the one doctors and dermatologists actually send people to. The driest skin you have ever seen, skin that cracks, redness that never calms down, people prone to eczema and psoriasis — this is what they use, because it takes the dead off without touching the living. If it is gentle enough for them, imagine what it does for you." Say it looking at her hand, not at her.',
+        textEs: '"Este es el que los médicos y los dermatólogos mandan de verdad. La piel más seca que hayas visto, piel que se agrieta, rojeces que no se calman nunca, gente con tendencia al eccema y la psoriasis — esto es lo que usan, porque se lleva lo muerto sin tocar lo vivo. Si es lo bastante suave para ellos, imagínate lo que te hace a ti." Dilo mirándole la mano, no a ella.',
       },
       {
         step: '5',
@@ -235,10 +244,50 @@ export const peelingData = {
       },
       {
         icon: 'ShieldCheck',
+        /* The tip was titled "Mention dermatologists" and then never mentioned
+           one. Now it says the word. */
         title: 'Mention dermatologists',
         titleEs: 'Menciona a los dermatólogos',
-        text: '"People with the most difficult skin in the world use this — the driest, the most sensitive." This builds instant authority.',
-        textEs: '"Lo usa gente con la piel más difícil del mundo — la más seca, la más sensible." Esto construye autoridad al instante.',
+        text: 'Say it out loud: doctors and dermatologists send people to this. The driest, the most sensitive, people prone to eczema and psoriasis. Nothing you can say about glow lands as hard as the fact that it is what the worst skin in the room uses.',
+        textEs: 'Dilo en voz alta: los médicos y los dermatólogos mandan a la gente a esto. La más seca, la más sensible, gente con tendencia al eccema y la psoriasis. Nada que digas sobre el brillo pega tan fuerte como que es lo que usa la peor piel de la sala.',
+      },
+      {
+        icon: 'Sparkles',
+        /* The single most-asked question about this product, and the corpus had
+           no answer anywhere: a scrub and a peeling look like the same thing on
+           the shelf, and the Offer-1 gift IS a scrub. A seller who cannot draw
+           the line is selling two products that cancel each other out. */
+        title: 'A scrub is not this',
+        titleEs: 'Un exfoliante no es esto',
+        text: 'A scrub scratches the dead skin off. This dissolves the glue holding it on and the skin lets go by itself. That is why it is once a week and not every day, and why the bottle lasts a year — you are not sanding your face, you are telling it to let go.',
+        textEs: 'Un exfoliante raspa la piel muerta. Esto deshace el pegamento que la sujeta y la piel se suelta sola. Por eso es una vez a la semana y no a diario, y por eso el bote dura un año — no te estás lijando la cara, le estás diciendo que suelte.',
+      },
+      {
+        icon: 'HelpCircle',
+        /* "Does it hurt" gets asked in every demo and had no scripted answer. */
+        title: '"Does it hurt?"',
+        titleEs: '"¿Duele?"',
+        text: '"Hurt? You will feel it working — a bit of warmth, a bit of a tingle, about ten seconds in. That is it doing its job, not hurting you." Never say "no" flat. She can feel something; denying it makes you a liar ten seconds later.',
+        textEs: '"¿Doler? Lo vas a notar trabajar — un poco de calorcillo, un cosquilleo, a los diez segundos. Eso es que está haciendo su trabajo, no que te duela." Nunca digas "no" a secas. Ella nota algo, y negarlo te deja de mentiroso diez segundos después.',
+      },
+      {
+        icon: 'Moon',
+        /* She needs to know what Sunday night looks like before she will pay
+           for it. The corpus taught the demo and the ladder and never the use. */
+        title: 'Tell her how to use it',
+        titleEs: 'Dile cómo se usa',
+        text: 'Clean skin, Sunday night, five minutes. Roll it, rinse it, then your own cream goes on and it works ten times harder because there is nothing dead in the way. Once a week — more is not better, it is just faster through the bottle.',
+        textEs: 'Piel limpia, domingo por la noche, cinco minutos. Lo enrollas, lo aclaras, y luego tu crema encima trabajando diez veces más porque ya no hay nada muerto por medio. Una vez por semana — más no es mejor, sólo te acaba el bote antes.',
+      },
+      {
+        icon: 'ArrowUpRight',
+        /* The peeling is the middle of the ladder, and nothing told a seller how
+           to get from a hand demo to the chair. The syringe is the star; this
+           is the sentence that bridges to it. */
+        title: 'Bridge it up to the eyes',
+        titleEs: 'Súbela a los ojos',
+        text: 'Do not stop at the hand. "Feel that patch? That is your skin with the dead taken off it. Sit down one second — the same trick on the eye is the one that makes people scream." The peeling is the middle of the ladder, not the top of it.',
+        textEs: 'No te quedes en la mano. "¿Notas esa zona? Esa es tu piel sin lo muerto encima. Siéntate un segundo — el mismo truco en el ojo es el que hace que la gente grite." El peeling es la mitad de la escalera, no el final.',
       },
       {
         icon: 'Calendar',
@@ -296,71 +345,95 @@ export const peelingData = {
 /*  {locationName} placeholders stay dynamic)                          */
 /* ------------------------------------------------------------------ */
 
+/*
+ * The peeling's rungs, read out of pricing.ts rather than typed in.
+ *
+ * syringeData.ts was fixed for exactly this and carries the reason at the top
+ * of the file: the numbers "happened to" match the ladder, and "happened to" is
+ * the whole problem — move a rung in pricing.ts and this page goes on quoting
+ * yesterday's ladder with no build error and nothing to catch it. The peeling
+ * page renders its AMOUNTS from PEELING_LADDER already; it was only the spoken
+ * scripts, where the number is baked into a sentence, that were still hand-typed
+ * and free to drift away from the figures printed right beside them.
+ */
+const RUNG = (id: string): number => {
+  const found = PEELING_LADDER.steps.find((s) => s.id === id);
+  if (!found) throw new Error(`pricing.ts has no peeling rung "${id}"`);
+  return found.price;
+};
+
 export function getPriceStepsData(
   currency: string,
   locationName: string,
   _isEs: boolean
 ): PriceStepData[] {
+  const anchor = PEELING_LADDER.europeAnchor;
+  const base = PEELING_LADDER.base;
+  const promo = RUNG('promo');
+  const credit = RUNG('no-scrub');
+  const voucher = RUNG('voucher');
+  const floor = PEELING_LADDER.floor;
+
   return [
     {
-      price: `${currency}200`,
+      price: `${currency}${anchor}`,
       label: 'Europe Price',
       labelEs: 'Precio Europa',
       description: 'Anchor — mention this first to build value',
       descriptionEs: 'Ancla — menciona esto primero para construir valor',
-      script: `"Normally, around Europe, this product goes for ${currency}200, because it's proven and works."`,
-      scriptEs: `"Normalmente, en toda Europa, este producto cuesta ${currency}200, porque está comprobado y funciona."`,
+      script: `"Normally, around Europe, this product goes for ${currency}${anchor}, because it's proven and works."`,
+      scriptEs: `"Normalmente, en toda Europa, este producto cuesta ${currency}${anchor}, porque está comprobado y funciona."`,
       isHighlight: false,
     },
     {
-      price: `${currency}150`,
+      price: `${currency}${base}`,
       label: `${locationName} Price`,
       labelEs: `Precio ${locationName}`,
       description: 'Our standard price',
       descriptionEs: 'Nuestro precio estándar',
-      script: `"But here in ${locationName}, it's only ${currency}150!"`,
-      scriptEs: `"¡Pero aquí en ${locationName}, es solo ${currency}150!"`,
+      script: `"But here in ${locationName}, it's only ${currency}${base}!"`,
+      scriptEs: `"¡Pero aquí en ${locationName}, es solo ${currency}${base}!"`,
       isHighlight: false,
     },
     {
-      price: `${currency}100`,
+      price: `${currency}${promo}`,
       label: '50% Off + Scrub Gift',
       labelEs: '50% Desc. + Regalo Exfoliante',
       description: 'Best value — half the Europe price plus a gift',
       descriptionEs: 'Mejor valor — la mitad del precio de Europa más un regalo',
-      script: `"Right now, we've got an amazing promotion: take it for 50% off the Europe price — that's only ${currency}100 — and you'll also get the Dead Sea Body Scrub as a gift. Same mineral treatment, but for your body."`,
-      scriptEs: `"Ahora mismo, tenemos una promoción increíble: llévalo con 50% de descuento del precio de Europa — eso es solo ${currency}100 — y también recibirás el Exfoliante del Mar Muerto de regalo. El mismo tratamiento mineral, pero para tu cuerpo."`,
+      script: `"Right now, we've got an amazing promotion: take it for 50% off the Europe price — that's only ${currency}${promo} — and you'll also get the Dead Sea Body Scrub as a gift. Same mineral treatment, but for your body."`,
+      scriptEs: `"Ahora mismo, tenemos una promoción increíble: llévalo con 50% de descuento del precio de Europa — eso es solo ${currency}${promo} — y también recibirás el Exfoliante del Mar Muerto de regalo. El mismo tratamiento mineral, pero para tu cuerpo."`,
       isHighlight: true,
     },
     {
-      price: `${currency}70`,
+      price: `${currency}${credit}`,
       label: 'Adaptive — Store Credit',
       labelEs: 'Adaptativo — Crédito de Tienda',
       description: 'Remove the scrub, use as credit',
       descriptionEs: 'Quita el exfoliante, úsalo como crédito',
-      script: `"You know what, I totally understand. Let's make it easy — I can take the Scrub out of the deal and put its value straight back to you as credit. That way I can make the Peeling ${currency}70 for you."`,
-      scriptEs: `"Sabes qué, te entiendo completamente. Hagámoslo fácil — puedo sacar el Exfoliante del trato y devolverte su valor como crédito. Así puedo dejarte el Peeling en ${currency}70."`,
+      script: `"You know what, I totally understand. Let's make it easy — I can take the Scrub out of the deal and put its value straight back to you as credit. That way I can make the Peeling ${currency}${credit} for you."`,
+      scriptEs: `"Sabes qué, te entiendo completamente. Hagámoslo fácil — puedo sacar el Exfoliante del trato y devolverte su valor como crédito. Así puedo dejarte el Peeling en ${currency}${credit}."`,
       isHighlight: false,
     },
     {
-      price: `${currency}50`,
+      price: `${currency}${voucher}`,
       label: 'Voucher Close',
       labelEs: 'Cierre con Cupón',
       description: 'Voucher close — the emotional final push',
       descriptionEs: 'Cierre con cupón — el empujón emocional final',
-      script: `"Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can't be greedy, okay? I can't do it on the big option — only on the single Peeling. Remember how I told you I could do it for ${currency}70 without any gifts? If you use this voucher, I can actually bring it down to ${currency}50, just this one time. But from next time, it goes back to the normal price, alright?"`,
-      scriptEs: `"Vale, vale... escucha, acabo de revisar, y puedo hacer algo un poco loco por ti. Pero no seas codiciosa, ¿ok? No puedo hacerlo en la opción grande — solo en el Peeling individual. ¿Recuerdas que te dije que podía dejártelo en ${currency}70 sin regalos? Si usas este cupón, en realidad puedo bajarlo a ${currency}50, solo esta vez. Pero la próxima vez, vuelve al precio normal, ¿ok?"`,
+      script: `"Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can't be greedy, okay? I can't do it on the big option — only on the single Peeling. Remember how I told you I could do it for ${currency}${credit} without any gifts? If you use this voucher, I can actually bring it down to ${currency}${voucher}, just this one time. But from next time, it goes back to the normal price, alright?"`,
+      scriptEs: `"Vale, vale... escucha, acabo de revisar, y puedo hacer algo un poco loco por ti. Pero no seas codiciosa, ¿ok? No puedo hacerlo en la opción grande — solo en el Peeling individual. ¿Recuerdas que te dije que podía dejártelo en ${currency}${credit} sin regalos? Si usas este cupón, en realidad puedo bajarlo a ${currency}${voucher}, solo esta vez. Pero la próxima vez, vuelve al precio normal, ¿ok?"`,
       isVoucher: true,
       isHighlight: false,
     },
     {
-      price: `${currency}50`,
+      price: `${currency}${floor}`,
       label: 'Minimum',
       labelEs: 'Mínimo',
-      description: 'Absolute floor — same {currency}50, nothing below it',
-      descriptionEs: 'Piso absoluto — los mismos {currency}50, nada por debajo',
-      script: `"Look, I really want you to try this, so ${currency}50 it is — and that is my floor. Voucher or no voucher, there is nothing underneath it. Just promise me you'll actually use it, okay? Not once a year — once a week."`,
-      scriptEs: `"Mira, de verdad quiero que lo pruebes, así que ${currency}50 — y ese es mi mínimo. Con cupón o sin cupón, no hay nada por debajo. Solo prométeme que lo vas a usar de verdad, ¿vale? No una vez al año — una vez por semana."`,
+      description: 'Absolute floor — same ${currency}${floor}, nothing below it',
+      descriptionEs: 'Piso absoluto — los mismos ${currency}${floor}, nada por debajo',
+      script: `"Look, I really want you to try this, so ${currency}${floor} it is — and that is my floor. Voucher or no voucher, there is nothing underneath it. Just promise me you'll actually use it, okay? Not once a year — once a week."`,
+      scriptEs: `"Mira, de verdad quiero que lo pruebes, así que ${currency}${floor} — y ese es mi mínimo. Con cupón o sin cupón, no hay nada por debajo. Solo prométeme que lo vas a usar de verdad, ¿vale? No una vez al año — una vez por semana."`,
       isMinimum: true,
       isHighlight: false,
     },

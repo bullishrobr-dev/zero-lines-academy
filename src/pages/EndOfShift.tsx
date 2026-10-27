@@ -299,7 +299,7 @@ export default function EndOfShift() {
     'w-full resize-none rounded-card border border-line bg-surface-sunken px-4 py-3 text-body-small text-ink placeholder:text-ink-3 focus:border-teal-strong';
 
   return (
-    <div className="min-h-screen bg-background px-5 py-8 pb-safe text-ink">
+    <div className="min-h-full bg-background px-5 py-8 pb-safe text-ink">
       <div className="mx-auto max-w-app">
         <motion.header
           initial={{ opacity: 0, y: -16 }}

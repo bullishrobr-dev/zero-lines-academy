@@ -299,17 +299,33 @@
     font-family: 'Playfair Display', Georgia, serif;
   }
 
-  /* ── Surfaces — three genuinely different KINDS, not three shades ── */
+  /* ── Surfaces — three genuinely different KINDS, not three shades ──
+
+     RAISED AND FEATURE CARRY THEIR OWN BACKGROUND, not `--surface`.
+
+     Both used to sit on `--surface` and announce their elevation with a
+     shadow alone. In light that works — the shadow is warm grey on porcelain.
+     In dark the shadow is `rgb(0 0 0 / 0.5)` on `#1A2426`: black on
+     near-black, which is to say nothing at all. A raised card and a flat card
+     were the same rectangle, and the elevation hierarchy this file spends
+     three sections building simply did not exist for half the sellers.
+
+     `--surface-raised` was authored for exactly this and was used once in the
+     whole app. It is `#FFFFFF` in light — identical to `--surface`, so none of
+     this moves a pixel of the light theme — and `#242F31` in dark, a step you
+     can actually see. The feature gradients land on it too, for the same
+     reason: their second stop was `--surface`, so a tinted feature card faded
+     from a dark tint into the ordinary card colour and read as flat. */
   .surface-flat {
     @apply bg-surface border border-line rounded-card;
   }
   .surface-raised {
-    @apply bg-surface border border-line rounded-card;
+    @apply bg-surface-raised border border-line rounded-card;
     box-shadow: var(--shadow-raised);
   }
   .surface-feature {
     @apply border rounded-feature;
-    background: linear-gradient(135deg, rgb(var(--teal-tint)) 0%, rgb(var(--surface)) 60%);
+    background: linear-gradient(135deg, rgb(var(--teal-tint)) 0%, rgb(var(--surface-raised)) 60%);
     border-color: rgb(var(--teal) / 0.28);
     box-shadow: var(--shadow-feature);
   }
@@ -317,28 +333,32 @@
     @apply bg-surface-sunken rounded-chip;
   }
 
-  /* Accent-tinted feature surfaces, one per category/product. */
+  /* Accent-tinted feature surfaces, one per category/product. They OVERRIDE
+     the gradient and border of `.surface-feature`, which is why there is no
+     `.feature-teal`: teal is already what the base class paints, and a variant
+     that repeated it would be a second place to change one colour. A card that
+     wants the teal feature surface takes `surface-feature` on its own. */
   .feature-coral {
-    background: linear-gradient(135deg, rgb(var(--coral-tint)) 0%, rgb(var(--surface)) 60%);
+    background: linear-gradient(135deg, rgb(var(--coral-tint)) 0%, rgb(var(--surface-raised)) 60%);
     border-color: rgb(var(--coral) / 0.28);
   }
   .feature-gold {
-    background: linear-gradient(135deg, rgb(var(--gold-tint)) 0%, rgb(var(--surface)) 60%);
+    background: linear-gradient(135deg, rgb(var(--gold-tint)) 0%, rgb(var(--surface-raised)) 60%);
     border-color: rgb(var(--gold) / 0.28);
   }
   .feature-violet {
-    background: linear-gradient(135deg, rgb(var(--violet-tint)) 0%, rgb(var(--surface)) 60%);
+    background: linear-gradient(135deg, rgb(var(--violet-tint)) 0%, rgb(var(--surface-raised)) 60%);
     border-color: rgb(var(--violet) / 0.28);
   }
   /* Scenarios and Objections are reference material rather than a fifth and
      sixth learning path, so they take the semantic tokens instead of a brand
      hue: warning for "it went sideways", success for "a no you turned round". */
   .feature-warning {
-    background: linear-gradient(135deg, rgb(var(--warning-tint)) 0%, rgb(var(--surface)) 60%);
+    background: linear-gradient(135deg, rgb(var(--warning-tint)) 0%, rgb(var(--surface-raised)) 60%);
     border-color: rgb(var(--warning) / 0.28);
   }
   .feature-success {
-    background: linear-gradient(135deg, rgb(var(--success-tint)) 0%, rgb(var(--surface)) 60%);
+    background: linear-gradient(135deg, rgb(var(--success-tint)) 0%, rgb(var(--surface-raised)) 60%);
     border-color: rgb(var(--success) / 0.28);
   }
 

@@ -544,9 +544,17 @@ export default function ManagerDashboard() {
                     { value: String(stats.atRisk), label: c('statNeedsHelp') },
                   ]
               ).map((cell) => (
-                <div key={cell.label} className="px-1 text-center">
+                <div key={cell.label} className="min-w-0 px-1 text-center">
                   <p className="truncate text-h3 text-ink">{cell.value}</p>
-                  <p className="mt-0.5 text-caption leading-4 text-ink-3">{cell.label}</p>
+                  {/* `min-w-0` so the column can actually be a third of 320px:
+                      a grid item's automatic minimum width is its longest word,
+                      and the Spanish labels ("Media completada", "Quien más
+                      cierra", "Necesitan ayuda") are wider than that, which
+                      pushed the row off the right-hand edge instead of
+                      wrapping it. */}
+                  <p className="mt-0.5 hyphens-auto break-words text-caption leading-4 text-ink-3">
+                    {cell.label}
+                  </p>
                 </div>
               ))}
             </div>

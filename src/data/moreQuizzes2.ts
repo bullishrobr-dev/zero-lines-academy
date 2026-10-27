@@ -5,6 +5,22 @@
 // One-Eye Demo Mastery, and Tourist Psychology
 // ═══════════════════════════════════════════════════════════════════════════════
 
+import { SYRINGE_LADDER, type PriceLadder, type PriceRung } from './pricing';
+
+// ── Prices, straight off the ladder ──────────────────────────────────────────
+// Read, never typed: a hand-typed rung in a quiz marks a seller wrong for the
+// price the product page has just taught them.
+
+/** Read one authoritative rung out of pricing.ts. */
+function rungOf(ladder: PriceLadder, id: string): PriceRung {
+  const found = ladder.steps.find((step) => step.id === id);
+  if (!found) throw new Error(`pricing.ts has no rung "${id}"`);
+  return found;
+}
+
+const SYR_NO_GIFT = rungOf(SYRINGE_LADDER, 'no-gift').price;
+const SYR_VOUCHER = rungOf(SYRINGE_LADDER, 'voucher').price;
+
 export interface QuizQuestion {
   question: string;
   questionEs: string;
@@ -39,7 +55,7 @@ const quizPriceLadder: GeneralQuiz = {
   description:
     "Master every price point for every product — syringe, peeling, scrub, and nail kit. Know the ladder forwards and backwards to never lose a sale on price.",
   descriptionEs:
-    "Domina cada punto de precio para cada producto — jeringa, peeling, scrub y kit de uñas. Conoce la escalera de ida y vuelta para nunca perder una venta por precio.",
+    "Domina cada punto de precio para cada producto — jeringa, peeling, exfoliante y kit de uñas. Conoce la escalera de ida y vuelta para nunca perder una venta por precio.",
   icon: "TrendingUp",
   category: "Pricing Strategy",
   categoryEs: "Estrategia de Precios",
@@ -82,7 +98,7 @@ const quizPriceLadder: GeneralQuiz = {
       explanation:
         "The syringe ladder steps down: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. The price immediately before {currency}140 is {currency}175. You must know the ladder backwards too — when a customer asks 'Can't you do better than {currency}175?' you drop to {currency}140 with a reason like a voucher or bundle.",
       explanationEs:
-        "La escalera de la jeringa baja: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. El precio inmediatamente antes de {currency}140 es {currency}175. Debes conocer la escalera al revés también — cuando una cliente pregunta '¿No puedes hacer mejor que {currency}175?' bajas a {currency}140 con una razón como un vale o paquete."
+        "La escalera de la jeringa baja: {currency}500 → {currency}300 → {currency}210 → {currency}175 → {currency}140 → {currency}100. El precio inmediatamente antes de {currency}140 es {currency}175. Debes conocer la escalera al revés también — cuando una cliente pregunta '¿No puedes hacer mejor que {currency}175?' bajas a {currency}140 con una razón como un cupón o un pack."
     },
     {
       question:
@@ -127,7 +143,7 @@ const quizPriceLadder: GeneralQuiz = {
       question:
         "What is the SCRUB price when sold ALONE (not in a combo)?",
       questionEs:
-        "¿Cuál es el precio del SCRUB cuando se vende SOLO (no en combo)?",
+        "¿Cuál es el precio del EXFOLIANTE cuando se vende SOLO (no en combo)?",
       options: ["{currency}60", "{currency}50", "{currency}30", "{currency}80"],
       optionsEs: ["{currency}60", "{currency}50", "{currency}30", "{currency}80"],
       correctIndex: 0,
@@ -450,16 +466,17 @@ const quizComplimentStop: GeneralQuiz = {
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // QUIZ 3: PRODUCT INGREDIENT EXPERT
-// What's IN the products: hyaluronic acid, glycolic acid, Dead Sea minerals
+// What's IN the products, and what a seller does with it: the syringe's
+// hyaluronic acid, the roll-off peeling, Dead Sea minerals.
 // ═══════════════════════════════════════════════════════════════════════════════
 const quizIngredients: GeneralQuiz = {
   id: "quiz-ingredients",
   title: "Product Ingredient Expert",
   titleEs: "Experto en Ingredientes de Productos",
   description:
-    "Know exactly what is in our products and why it matters. When customers ask about ingredients, your confident answer builds trust and justifies the price.",
+    "Know what is in the bottle cold. The woman who asks about ingredients is not suspicious, she is interested — and an answer that comes straight back, with a number in it, is worth more than another minute of pitch.",
   descriptionEs:
-    "Sabe exactamente qué hay en nuestros productos y por qué importa. Cuando los clientes preguntan sobre ingredientes, tu respuesta confiada construye confianza y justifica el precio.",
+    "Sábete de memoria lo que lleva el bote. La mujer que te pregunta por los ingredientes no está desconfiando, está interesada — y una respuesta que sale al instante, con un número dentro, vale más que otro minuto de pitch.",
   icon: "FlaskConical",
   category: "Product Knowledge",
   categoryEs: "Conocimiento de Producto",
@@ -479,17 +496,31 @@ const quizIngredients: GeneralQuiz = {
         "El ácido hialurónico retiene 1000 veces su peso en agua. Este es el dato clave que hace la jeringa tan poderosa — literalmente llena las arrugas desde adentro al hidratar y rellenar la piel a nivel celular. Cuando una clienta entiende esto, {currency}300 se siente como una ganga comparado con el Botox."
     },
     {
+      /* Was a chemistry exam — "glycolic acid is which type of exfoliating
+         acid: AHA, BHA, PHA, salicylic?". Nobody on that floor has ever been
+         asked that, and we are hustlers, not scientists. What she DOES ask is
+         how often and how long it lasts, and those two numbers are the value. */
       question:
-        "Glycolic acid is which type of exfoliating acid?",
+        "How often does she use the peeling, and how long does one bottle last?",
       questionEs:
-        "¿El ácido glicólico es qué tipo de ácido exfoliante?",
-      options: ["BHA (Beta Hydroxy Acid)", "PHA (Poly Hydroxy Acid)", "AHA (Alpha Hydroxy Acid)", "Salicylic acid"],
-      optionsEs: ["BHA (Ácido Beta Hidroxi)", "PHA (Ácido Poli Hidroxi)", "AHA (Ácido Alfa Hidroxi)", "Ácido Salicílico"],
-      correctIndex: 2,
+        "¿Cada cuánto usa el peeling, y cuánto le dura un bote?",
+      options: [
+        "Once a week, and the bottle is a full year of treatments",
+        "Every night, and the bottle runs out in four or five weeks",
+        "Twice a day, and one bottle is gone before the month is out",
+        "Once a month, and a single bottle will stretch over several years"
+      ],
+      optionsEs: [
+        "Una vez a la semana, y el bote es todo un año de tratamientos",
+        "Cada noche, y el bote se acaba en cuatro o cinco semanas",
+        "Dos veces al día, y un bote desaparece antes de acabar el mes",
+        "Una vez al mes, y un solo bote le dura varios años"
+      ],
+      correctIndex: 0,
       explanation:
-        "Glycolic acid is an AHA (Alpha Hydroxy Acid). It works on the SURFACE of the skin to dissolve dead skin cells and reveal the fresh, new layer underneath. This is why the peeling product creates that instant glow — it is literally removing the dull, dead layer. BHAs like salicylic acid work deeper in pores, which is not what our peeling does.",
+        "Once a week, and one bottle is a full year of treatments. Those two facts ARE the value of this product, and together they do the arithmetic for her: a year of Sundays out of one bottle. More is not better — it just gets through the bottle faster, and 'use it every day' is the line that turns a happy customer into a woman who thinks she was sold a story. Say the year out loud; it is the number she repeats to her friend.",
       explanationEs:
-        "El ácido glicólico es un AHA (Ácido Alfa Hidroxi). Funciona en la SUPERFICIE de la piel para disolver las células muertas y revelar la capa fresca y nueva debajo. Por eso el peeling crea ese brillo instantáneo — literalmente está removiendo la capa opaca y muerta. Los BHA como el ácido salicílico funcionan más profundo en los poros, que no es lo que nuestro peeling hace."
+        "Una vez a la semana, y un bote es todo un año de tratamientos. Esos dos datos SON el valor del producto, y juntos le hacen la cuenta sola: un año de domingos con un solo bote. Más no es mejor — solo te acaba el bote antes, y 'úsalo cada día' es la frase que convierte a una clienta contenta en una mujer que cree que le han vendido humo. Di el año en voz alta; es el número que le repite a su amiga."
     },
     {
       question:
@@ -562,26 +593,26 @@ const quizIngredients: GeneralQuiz = {
     },
     {
       question:
-        "What does glycolic acid actually DO to the skin during the peeling treatment?",
+        "She asks what the peeling actually does to her skin. What is the answer?",
       questionEs:
-        "¿Qué hace realmente el ácido glicólico a la piel durante el tratamiento de peeling?",
+        "Te pregunta qué le hace el peeling a la piel de verdad. ¿Cuál es la respuesta?",
       options: [
-        "Adds colour and tint to the skin so it looks brighter straight after the treatment",
-        "Dissolves the bonds between dead skin cells to reveal fresh skin",
+        "Adds colour and tint to the skin so it looks brighter straight after a wash",
+        "Undoes the glue holding the dead skin on, so the skin lets go by itself",
         "Creates a protective layer over the skin that seals in moisture for the rest of the day",
         "Increases the skin's own oil production so it stays naturally moisturised for longer"
       ],
       optionsEs: [
-        "Añade color y tono a la piel para que se vea más luminosa justo después del tratamiento",
-        "Disuelve los enlaces entre células muertas para revelar piel fresca",
+        "Añade color y tono a la piel para que se vea más luminosa justo después de lavarla",
+        "Deshace el pegamento que sujeta la piel muerta, y la piel se suelta sola",
         "Crea una capa protectora sobre la piel que retiene la hidratación durante el resto del día",
         "Aumenta la producción natural de grasa de la piel para que se mantenga hidratada más tiempo"
       ],
       correctIndex: 1,
       explanation:
-        "Glycolic acid works by dissolving the 'glue' that holds dead skin cells together on the surface. As you apply it, these dead cells gently lift away, revealing the newer, brighter, smoother skin underneath. This is why the peeling demo shows INSTANT results — you are literally removing the dull outer layer in real time.",
+        "It undoes the glue holding the dead skin on, and then the skin lets go by itself — which is exactly why you ROLL it off the back of her hand instead of rubbing it off. A scrub scratches; this one asks. Say it in those words and she has the difference in one sentence, which is all the time you get. And the little grey bits coming off her own hand are the proof, so point at them, not at yourself.",
       explanationEs:
-        "El ácido glicólico funciona disolviendo el 'pegamento' que mantiene unidas las células muertas en la superficie. Al aplicarlo, estas células muertas se levantan suavemente, revelando la piel más nueva, brillante y suave debajo. Por eso la demo de peeling muestra resultados INSTANTÁNEOS — literalmente estás removiendo la capa opaca exterior en tiempo real."
+        "Deshace el pegamento que sujeta la piel muerta, y luego la piel se suelta sola — y por eso lo ENROLLAS en el dorso de su mano en vez de frotarlo. Un exfoliante raspa; este pide por favor. Dilo con esas palabras y pilla la diferencia en una frase, que es todo el tiempo que tienes. Y las bolitas grises saliendo de su propia mano son la prueba, así que señálalas a ellas, no a ti."
     },
     {
       question:
@@ -786,9 +817,9 @@ const quizOneEyeDemo: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation:
-        "NEVER make permanent or exaggerated claims. Our products give visible, temporary results that IMPROVE with continued use — but no cosmetic product 'completely removes all wrinkles permanently.' Overpromising destroys trust and leads to refunds. Underpromise and overdeliver: 'You will see a visible difference today, and with daily use the results keep getting better.'",
+        "Talk it up as hard as you like — the one word you never use is PERMANENTLY. Everything else on this list she can check in the mirror in two minutes and you look like a genius. 'Removes all your wrinkles forever' is the only one she cannot check today and will absolutely check tomorrow, and the day she works it out you are the seller who lied to her face. Sell today's result and let the rest be a bonus: 'You will see the difference today, and one of these a week is a year of it.'",
       explanationEs:
-        "NUNCA hagas afirmaciones permanentes o exageradas. Nuestros productos dan resultados visibles y temporales que MEJORAN con uso continuo — pero ningún producto cosmético 'elimina completamente todas las arrugas permanentemente.' Prometer de más destruye la confianza y lleva a reembolsos. Promete menos y entrega más: 'Verás una diferencia visible hoy, y con uso diario los resultados siguen mejorando.'"
+        "Exagera todo lo que quieras — la única palabra que no usas nunca es PERMANENTEMENTE. Todo lo demás de la lista lo comprueba en el espejo en dos minutos y tú quedas como un genio. 'Te quita todas las arrugas para siempre' es lo único que hoy no puede comprobar y que mañana va a comprobar seguro, y el día que lo pille tú eres el que le mintió a la cara. Vende el resultado de hoy y que lo demás sea regalo: 'Hoy ves la diferencia, y una vez a la semana te da para un año.'"
     },
     {
       question:
@@ -822,19 +853,19 @@ const quizOneEyeDemo: GeneralQuiz = {
         "Great! That will be {currency}300 please — shall I wrap it while you get your card out?",
         "Should I do the other eye too, so you can walk out of here with both sides matching?",
         "I told you it would work! Everyone reacts exactly like that the first time they see it",
-        "I know, right? Imagine using it daily for 30 days — let me show you the price options"
+        "I know, right? One a week, a year in that syringe — let me show you the prices"
       ],
       optionsEs: [
         "¡Genial! Son {currency}300 por favor — ¿te lo envuelvo mientras sacas la tarjeta?",
         "¿Te hago el otro ojo también, para que salgas de aquí con los dos lados iguales?",
         "¡Te dije que funcionaría! Todo el mundo reacciona igual la primera vez que lo ve",
-        "¿Verdad? Imagina usarlo diario por 30 días — déjame mostrarte las opciones de precio"
+        "¿Verdad? Una vez a la semana, un año ahí dentro — y te enseño los precios"
       ],
       correctIndex: 3,
       explanation:
-        "The 'wow' moment is your GREEN LIGHT to close. Capitalize on her excitement by EXPANDING the vision: 'Imagine using it daily for 30 days' takes her from a 2-minute demo to a long-term beauty investment. Then immediately transition to pricing before the excitement fades. Energy and momentum are everything — strike while the iron is hot.",
+        "The 'wow' moment is your GREEN LIGHT to close. Expand the vision while she is still holding the mirror — but expand it into what she actually gets: one application a week, sixty in that syringe, a year of it. Not 'daily for 30 days' — that is not how the product is used and it burns the syringe in two months. Then straight to the price before the excitement fades.",
       explanationEs:
-        "El momento 'wow' es tu LUZ VERDE para cerrar. Capitaliza su emoción EXPANDIENDO la visión: 'Imagina usarlo diario por 30 días' la lleva de una demo de 2 minutos a una inversión de belleza a largo plazo. Luego transiciona inmediatamente a precios antes de que la emoción se desvanezca. La energía y el momentum lo son todo — hierro caliente, golpea fuerte."
+        "El momento 'wow' es tu LUZ VERDE para cerrar. Amplía la visión mientras sigue con el espejo en la mano — pero amplíala con lo que de verdad se lleva: una aplicación a la semana, sesenta en esa jeringa, un año. No 'a diario durante 30 días' — así no se usa y le acaba la jeringa en dos meses. Y de ahí al precio, antes de que se le baje la emoción."
     },
     {
       question:
@@ -843,27 +874,27 @@ const quizOneEyeDemo: GeneralQuiz = {
         "Te pide, ANTES de comprar: 'Hazme el otro ojo para ver el resultado completo.' ¿Qué le dices?",
       options: [
         "\"The full result happens at home with daily use\" — keep the contrast and move her along to the price",
-        "Do it right there. She asked, she is enjoying it, and refusing anything at this point puts the sale at risk",
+        "Say yes — start the eye, and keep closing the whole time your hands are busy",
         "\"If you buy it, I'll do the other one, yeah?\" — condition it on the purchase",
         "Say you are not allowed to do both eyes on the same customer, and that the rule is not really yours to bend"
       ],
       optionsEs: [
         "\"El resultado completo llega en casa con el uso diario\" — mantienes el contraste y pasas al precio",
-        "Hacérselo ahí mismo. Te lo ha pedido, lo está disfrutando, y negarle algo ahora pone la venta en riesgo",
+        "Que sí — le empiezas el ojo y sigues cerrando todo el rato que tienes las manos ocupadas",
         "\"Si te lo llevas, te hago el otro, ¿vale?\" — se lo condicionas a la compra",
         "Decirle que no te dejan hacer los dos ojos a la misma clienta, y que la norma no es tuya para saltártela"
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
-        "Do not refuse it and do not hand it over. Condition it on the purchase — she pays, she gets it done, no argument and no theatre. The untouched eye is your best argument, so you never give your best argument away to a maybe. The one time it comes out unpaid is as the cover for the voucher: \"let me fix your other eye real quick\", and the price moves while your hands are on her face.",
+        `Conditioning it was the old answer and the owner has thrown it out — "absolutely not". The second eye is not a bargaining chip, it is the instrument you close with, and she has just asked you for more time in your chair. So take it: start the eye and keep working. "Can I ask you honestly — what's the problem? You told me you like it. You told me you would use it." Then you say "a bit too expensive?" for her, and the voucher comes out with your hands still busy — {currency}${SYR_NO_GIFT} down to {currency}${SYR_VOUCHER}, single syringe only. She sees both eyes last, in the mirror, five or ten seconds, and then she decides.`,
       explanationEs:
-        "Ni se lo niegues ni se lo regales. Condiciónalo a la compra — si paga, se lo haces, sin discusión y sin teatro. El ojo sin tocar es tu mejor argumento, y tu mejor argumento no se lo regalas a un quizá. La única vez que sale sin haber pagado es como tapadera del cupón: \"déjame arreglarte el otro ojo rapidito\", y el precio se mueve con las manos en su cara."
+        `Condicionarlo era la respuesta vieja y el jefe la ha tirado a la basura — "en absoluto". El segundo ojo no es moneda de cambio, es el instrumento con el que cierras, y ella acaba de pedirte más tiempo en tu silla. Pues te lo quedas: le empiezas el ojo y sigues trabajando. "¿Te puedo preguntar una cosa honestamente? ¿Cuál es el problema? Me has dicho que te gusta. Me has dicho que lo usarías." Luego dices "¿un poco caro?" por ella, y el cupón sale con las manos todavía ocupadas — de {currency}${SYR_NO_GIFT} a {currency}${SYR_VOUCHER}, solo la jeringa sola. Los dos ojos los ve al final, en el espejo, cinco o diez segundos, y entonces decide.`
     },
     {
       question:
-        "She is at {currency}175, she has gone quiet, and she is starting to sit forward. Move?",
+        `She is at {currency}${SYR_NO_GIFT}, she has gone quiet, and she is starting to sit forward. Move?`,
       questionEs:
-        "Está en {currency}175, se ha quedado callada y empieza a echarse hacia delante. ¿Jugada?",
+        `Está en {currency}${SYR_NO_GIFT}, se ha quedado callada y empieza a echarse hacia delante. ¿Jugada?`,
       options: [
         "Say the price again, slower this time, and then hold the silence until she answers",
         "Go straight to the bottom of the ladder — there is nothing left above it worth trying",
@@ -878,9 +909,9 @@ const quizOneEyeDemo: GeneralQuiz = {
       ],
       correctIndex: 3,
       explanation:
-        "\"I never do the other eye. Sometimes, within the speech, I say to do the other eye in order to close.\" That is the whole point of it. At {currency}175, before she stands up, you start the second eye — and WHILE you are doing it the voucher comes out: down to {currency}140, single syringe only. Her face is tilted up, your hands are busy, the room feels finished, and the number moves inside a moment that is about something else entirely.",
+        `"I never do the other eye. Sometimes, within the speech, I say to do the other eye in order to close." That is the whole point of it. Take a tiny break, let her feel it is almost over, then start the second eye — and keep closing while your hands are busy: what is the problem, you said you like it, you said you would use it, is it a bit too expensive? THAT is where the voucher lands, before she has seen the eye at all — {currency}${SYR_NO_GIFT} down to {currency}${SYR_VOUCHER}, single syringe only. Then both eyes together in the mirror, a good hard look, and her answer.`,
       explanationEs:
-        "\"Yo nunca hago el otro ojo. A veces, dentro del discurso, digo que se lo hago para cerrar.\" Para eso está. A {currency}175, antes de que se levante, le empiezas el segundo ojo — y MIENTRAS se lo haces sale el cupón: baja a {currency}140, solo la jeringa sola. Ella con la cara hacia arriba, tú con las manos ocupadas, la cosa parece terminada, y el número se mueve dentro de un momento que va de otra cosa completamente distinta."
+        `"Yo nunca hago el otro ojo. A veces, dentro del discurso, digo que se lo hago para cerrar." Para eso está. Haces una pausa pequeñita, que parezca que esto ya se acaba, y le empiezas el segundo ojo — y sigues cerrando con las manos ocupadas: cuál es el problema, me has dicho que te gusta, me has dicho que lo usarías, ¿es un poco caro? AHÍ es donde cae el cupón, antes de que haya visto el ojo siquiera — de {currency}${SYR_NO_GIFT} a {currency}${SYR_VOUCHER}, solo la jeringa sola. Y luego los dos ojos juntos en el espejo, bien mirados, y su respuesta.`
     },
     {
       question:
@@ -901,9 +932,9 @@ const quizOneEyeDemo: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation:
-        "While applying, describe what is happening: 'You can feel it tightening slightly — that's the hyaluronic acid drawing moisture into the skin. In about 2 minutes you'll see the difference in the mirror.' This builds anticipation, educates the customer, and keeps her engaged during the waiting period. Silence feels awkward; random personal questions feel intrusive; pricing comes AFTER the reveal.",
+        "While applying, describe what is happening: 'You can feel it tightening slightly — that's the hyaluronic acid drawing moisture into the skin. In about 2 minutes you'll see the difference in the mirror.' Those two minutes are the longest part of the demo and they are yours to fill — narrate them and she sits there waiting for a result instead of wondering why she stopped. Silence hands her the exit. Small talk hands her the exit. And the price does not come out until she has seen the mirror.",
       explanationEs:
-        "Mientras aplicas, describe lo que está pasando: 'Puedes sentirlo tensar ligeramente — eso es el ácido hialurónico atrayendo humedad a la piel. En unos 2 minutos verás la diferencia en el espejo.' Esto construye anticipación, educa a la cliente y la mantiene comprometida durante el período de espera. El silencio se siente incómodo; preguntas personales aleatorias se sienten intrusivas; los precios vienen DESPUÉS de la revelación."
+        "Mientras aplicas, describe lo que está pasando: 'Puedes sentirlo tensar ligeramente — eso es el ácido hialurónico atrayendo humedad a la piel. En unos 2 minutos verás la diferencia en el espejo.' Esos dos minutos son la parte más larga de la demo y son tuyos para llenarlos — si los narras, se queda ahí esperando un resultado en vez de preguntándose por qué se ha parado. El silencio le da la salida. La charla de ascensor le da la salida. Y el precio no sale hasta que ha visto el espejo."
     },
     {
       question:
@@ -1130,7 +1161,7 @@ const quizTouristPsych: GeneralQuiz = {
       explanation:
         "An impatient husband can kill a sale by pulling his wife away. The best defense is ENGAGEMENT — get him involved. Hand him the nail file to feel, or say 'Sir, can I show you something amazing in 30 seconds?' Once he sees the product and feels included, he is far less likely to interrupt. An engaged husband often becomes the one saying 'Just get it, babe!'",
       explanationEs:
-        "Un esposo impaciente puede matar una venta alejando a su esposa. La mejor defensa es el COMPROMISO — involúcralo. Entrégale la lima de uñas para que la sienta, o di 'Señor, ¿puedo mostrarle algo increíble en 30 segundos?' Una vez que ve el producto y se siente incluido, es mucho menos probable que interrumpa. Un esposo comprometido a menudo se convierte en quien dice '¡Cómpralo, amor!'"
+        "Un esposo impaciente puede matar una venta alejando a su esposa. La mejor defensa es el COMPROMISO — involúcralo. Entrégale la lima de uñas para que la sienta, o di 'Jefe, ¿te enseño algo increíble en 30 segundos?' Una vez que ve el producto y se siente incluido, es mucho menos probable que interrumpa. Un esposo comprometido a menudo se convierte en quien dice '¡Cómpralo, amor!'"
     },
     {
       question:

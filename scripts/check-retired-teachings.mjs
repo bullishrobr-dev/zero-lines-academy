@@ -42,27 +42,128 @@ const RETIRED = [
       '    distance, not a named rule, and it is not "the 4-metre rule" either.',
   },
   {
-    name: 'naming a disease or condition',
-    /* CLAUDE.md: "Naming a disease or a medical condition the product helps
-       with is not [fine], and that is not squeamishness: it is a claim about a
-       vulnerable person that a seller would be saying out loud to their face."
-       Two product scripts said "dermatologists recommend it for eczema,
-       psoriasis…" in both languages, and no guard had ever looked. Puffery is
-       fine — "the driest skin in the world uses this" is fine. An illness is
-       not. */
+    name: 'reaching for a serious illness to sell a cosmetic',
+    /* Narrowed on the owner's instruction, October 2026. The old version of this
+       rule banned the whole skin vocabulary — eczema, psoriasis, dermatitis,
+       rosacea, acne — plus "dermatologists recommend" and "clinically proven".
+       His call, and he is right that it was over-policed:
+
+         "This app is designed for selling on the street. People can say whatever
+          the hell they want... We are salespeople straight up. We exaggerate.
+          That's what salespeople do."
+
+       So the skin talk is open. Say the peeling is what people with eczema or
+       psoriasis use, say dermatologists recommend it, say it is for the worst,
+       driest, reddest skin you have ever seen. That is ordinary cosmetics
+       selling and it is what the product is actually for.
+
+       What stays shut is the thing he himself called bait in the same breath:
+
+         "Stuff like we're saying, 'It cures cancer,' bait. We're keeping it
+          normal, exaggerating just a tiny bit, nothing too crazy."
+
+       Naming a serious illness is a different move from talking up skin. It is
+       the claim a seller should never make to somebody who may actually be
+       living with it, and commercially it is the one that stops being
+       exaggeration and starts being a medical claim. */
     patterns: [
-      /\b(eczema|psoriasis|psoriasi|dermatitis|rosacea|rosácea|acn[eé]|vitiligo|melasma)\b/i,
-      /\b(cancer|c[áa]ncer|tumou?r|diabet|arthrit|artritis|alzheimer|lupus)\b/i,
-      /(treats?|cures?|heals?|remedy for|trata|cura|remedio para)\s+(your\s+)?(skin\s+)?(condition|disease|enfermedad|afecci[oó]n)/i,
-      /dermatologist(s)? (recommend|prescribe)|los dermat[oó]logos (lo )?recomiendan/i,
-      /clinically proven|cl[ií]nicamente probado|medically proven|m[eé]dicamente probado/i,
+      /\b(cancer|c[áa]ncer|tumou?rs?|diabet\w*|arthrit\w*|artritis|alzheimer|lupus|leukae?mia|leucemia)\b/i,
+      /(cures?|heals?|curar?|cura)\s+(your\s+)?(disease|illness|enfermedad)/i,
     ],
     replacement:
-      'Say it as puffery about the SKIN, not as a claim about an illness: "the\n' +
-      '    driest skin in the world uses this", "people who cannot put anything on\n' +
-      '    their face use this". Never name a condition, never borrow a doctor\n' +
-      "    to vouch for it. A seller says this out loud to somebody who may have\n" +
-      '    the thing you just named.',
+      'Talk up the SKIN as hard as you like — how dry it was, how red, how bad,\n' +
+      '    who recommends it, who else uses it. Do not reach for a serious illness\n' +
+      '    to sell a cosmetic. That is the one that stops being a seller\n' +
+      '    exaggerating and starts being a medical claim.',
+  },
+  {
+    name: 'promising results that outlive the treatment',
+    /* Retired by the owner, October 2026, and he is the one who called it:
+
+         "One thing I used to say for many, many years, just because I've been
+          taught that way and it stuck with me, is that once you finish the
+          1-year treatment, you get 6 to 18 months of permanent results. I want
+          to remove that because this is the only part we kind of lie about,
+          and I honestly see no reason for that."
+
+       The claim stops at the year. One syringe, sixty applications, one a week,
+       do not touch the area for five hours. Nothing may promise the effect
+       outlives the treatment, and nothing volunteers what happens afterwards.
+
+       There IS an answer for when she asks, and it is in the syringe pro tips:
+       carry on if you are happy or stop, and the lines come back slowly, the
+       way muscle fades after you stop going to the gym rather than vanishing
+       overnight. That is true, so it is allowed — a sentence about the effect
+       FADING is the opposite of a sentence promising it holds.
+
+       Deliberately NOT matched: "permanent" on its own. The app says
+       "permanently delete your data" in settings, a quote says regret is
+       permanent, and three quizzes carry "removes wrinkles permanently" as a
+       WRONG answer that a seller has to be able to reject. Each pattern below
+       needs the claim and a DURATION or a guarantee together, which is what
+       the retired line actually was. */
+    patterns: [
+      /\b6\s*(?:-|–|to|a|y)\s*18\s*(?:months?|meses)\b/i,
+      /(?:results?|resultados?|efectos?)[^.!?]{0,60}\b(?:permanent|permanentes?|duraderos?)\b/i,
+      /* English puts the adjective first — "permanent results" — which the
+         pattern above, written for the Spanish word order, walked straight
+         past. Found by running the finished guard against the phrasings the
+         claim actually took rather than against the one line it came from. */
+      /\b(?:permanent|lasting)\s+(?:results?|effects?)\b/i,
+      /\b(?:permanent|permanentes?)\b[^.!?]{0,40}\b(?:for|durante|entre)\s+\d/i,
+      /(?:results?|resultados?)[^.!?]{0,40}\b(?:guaranteed|garantizados?)\b/i,
+      /* "forever" is deliberately NOT banned on its own: the buffer warranty is
+         real and says exactly that — bring the old one back, get a new one,
+         forever. It only fails when it is the RESULT being promised. */
+      /(?:results?|resultados?|efectos?|wrinkles?|arrugas?)[^.!?]{0,40}\b(?:forever|para siempre)\b/i,
+    ],
+    /* Lines that name the claim in order to ban it. Deliberately narrow: a
+       real violation is a positive promise and carries none of these. */
+    allowWhen:
+      /\b(never|nunca|jam[aá]s|do not|don'?t|cannot|can'?t|avoid|evita|no (?:uses|digas|prometas|puedes?|pueden)|no puede cumplir|promises? (?:the|that the) product)\b/i,
+    replacement:
+      'Stop the claim at the year: sixty applications, one a week, five hours\n' +
+      '    without touching it. Never promise the effect outlives the treatment,\n' +
+      "    and never raise what happens afterwards yourself. If SHE asks, the\n" +
+      '    honest answer is in the syringe pro tips — carry on or stop, and the\n' +
+      '    lines come back slowly, like muscle after you stop going to the gym.',
+  },
+  {
+    name: 'conditioning the second eye on the purchase',
+    /* Reversed by the owner, October 2026, after years of the opposite:
+
+         "It says there to condition 'fixing the other eye' if she buys.
+          Absolutely not. Ever since that I've changed the way that I do it...
+          It's not nice. We're actually going to use this to our advantage:
+          make them attach longer and have a little bit more time to convince
+          them to buy."
+
+       The second eye is not the reward for buying, it is the instrument that
+       keeps her in the chair long enough TO buy. A bargain tells her the demo
+       is finished; a customer who asks for it has volunteered to stay, and you
+       take the time and keep closing through it.
+
+       The full order is in CLAUDE.md under "The second eye is a closing
+       device", and the thing that is easy to get wrong is inside it: the
+       voucher comes out while she still cannot see the result, and the mirror
+       is held back so it follows the price rather than justifying it. */
+    patterns: [
+      /if you buy[^.!?]{0,40}(?:the )?other (?:one|eye)/i,
+      /si (?:te lo llevas|lo compras|la compras)[^.!?]{0,40}(?:te hago )?el otro/i,
+      /(?:other|second) eye[^.!?]{0,30}\bif (?:you|she) buys?\b/i,
+      /condition(?:ed|ing)? it on the (?:purchase|sale)/i,
+      /se lo condicionas a la compra|ponle condici[oó]n[^.!?]{0,30}otro/i,
+    ],
+    /* The conditioning has to stay sayable where a lesson is teaching a seller
+       NOT to say it, and it is now the most plausible wrong answer in the
+       corpus — three quizzes carry it as a distractor on purpose. */
+    allowWhen:
+      /\b(?:never|nunca|jam[aá]s|do not|don'?t|not on that list|no longer|any ?more|ya no|used to|was taught|se ense[nñ][oó]|thrown it out|lo ha tirado|retired|retirad|instead|en lugar|no (?:le )?(?:condiciones|negocies))\b/i,
+    replacement:
+      'Never trade it. She asked to stay in the chair — take the time and keep\n' +
+      '    closing through it: the honest question, the two yeses she already\n' +
+      '    gave you, then the voucher while she still cannot see the result. The\n' +
+      '    mirror comes last, after the price, never before it.',
   },
   {
     name: 'the 45-degree angle',
@@ -90,15 +191,31 @@ function walk(dir) {
 
 /* A comment explaining the retirement is not the retirement coming back — this
    file's own patterns would otherwise fail it, and so would the note left in a
-   lesson saying what used to be there. */
+   lesson saying what used to be there.
+
+   This used to be a per-line test for `//`, `*` or an opening `/*`, which only
+   recognised block comments written in the `*`-prefixed house style. A comment
+   in THIS style — continuation lines with no leading asterisk, exactly what you
+   are reading — was scanned as code from its second line onward. It showed up
+   the moment somebody documented the newest retirement and quoted the retired
+   phrase in the explanation: the build went red on the note explaining why the
+   line was gone.
+
+   So block comments are now blanked out of the source before the scan, with
+   their newlines kept so every reported line number still points at the right
+   place in the file. */
+function blankBlockComments(src) {
+  return src.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
+}
+
 const IS_COMMENT = /^\s*(?:\/\/|\*|\/\*)/;
 
 /* Structural exemptions, the same two the walkaway guard needs and for the
    same reason: a rule about what a SELLER SAYS must not fire on the question
    that describes the customer's situation, or on a wrong answer that exists to
-   be rejected. The acne question is the case that proves it — its correct
-   answer refuses the claim and its explanation says "do not put a name on what
-   she has", which is the guard's own argument written out for the seller. */
+   be rejected. A quiz that asks what to do when a customer mentions a serious
+   illness needs to be able to name one in the stem and in the answers it wants
+   rejected, or the lesson cannot be written at all. */
 const NAMING_FIELD =
   /^\s*(?:question|questionEs|title|titleEs|label|labelEs|name|nameEs|head|headEs|subtitle|subtitleEs)\s*:/;
 
@@ -126,7 +243,7 @@ function distractorLines(src) {
 const hits = [];
 for (const file of walk(SRC)) {
   const rel = file.slice(SRC.length + 1).split('\\').join('/');
-  const src = readFileSync(file, 'utf8');
+  const src = blankBlockComments(readFileSync(file, 'utf8'));
   const distractors = distractorLines(src);
   const all = src.split('\n');
   all
@@ -139,7 +256,27 @@ for (const file of walk(SRC)) {
       if (i > 0 && /^\s*(?:question|questionEs|title|titleEs|label|labelEs|subtitle|subtitleEs)\s*:\s*$/.test(all[i - 1])) return;
       if (distractors.has(i + 1)) return;
       for (const r of RETIRED) {
-        if (r.patterns.some((rx) => rx.test(line))) {
+        /* A rule may carry an `allowWhen`: the shape of a line that QUOTES the
+           retired claim in order to forbid it. Three explanations do exactly
+           that — "the one word you never use is PERMANENTLY", and two more
+           listing 'removes your wrinkles forever' among the things that come
+           back on the shop — and they are the guard's own argument written out
+           for the seller. Failing the build on those teaches the next person
+           to delete the rule rather than keep it. */
+        /* Scoped to the SENTENCE, not the line.
+           A line in this corpus is one whole string — often three or four
+           sentences of script — so testing allowWhen against the entire line
+           excuses a real instruction that merely shares a string with the word
+           "never" somewhere else in it. Caught by planting the conditioning
+           into a card that already opened with "Never trade it" and watching
+           the guard wave it through. A rule is forbidden where it is SAID;
+           it is allowed in the sentence that says not to say it. */
+        const offends = (text) =>
+          r.patterns.some((rx) => rx.test(text)) &&
+          !(r.allowWhen && r.allowWhen.test(text));
+        const sentences = line.split(/(?<=[.!?])\s+/);
+        if (!sentences.some(offends)) continue;
+        if (true) {
           hits.push({ rel, line: i + 1, text: line.trim().slice(0, 120), rule: r });
           break;
         }

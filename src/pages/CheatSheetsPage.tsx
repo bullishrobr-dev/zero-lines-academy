@@ -58,7 +58,9 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useMemo, useState, type ReactNode } from 'react';
-import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import {
+  Navigate, useNavigate, useParams, useSearchParams, type NavigateFunction,
+} from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, ArrowRight, BookOpen, ChevronDown, Eye, Lightbulb, MessageCircle,
@@ -105,7 +107,60 @@ interface Hit {
  * a price genuinely does get sent to a colleague.
  */
 function Spoken({ text }: { text: string }) {
-  return <p className="text-body text-ink">{text}</p>;
+  /* Bracketed segments are stage directions — instructions to the SELLER, never
+     words said out loud. Rendered as body text they looked identical to the
+     line they sit next to, so "[Start it. Do NOT let her stand.]" was a thing a
+     seller could read to a customer. Same treatment the price ladder gives a
+     rung's condition: its own chip, caption-sized, clearly not dialogue. */
+  const parts = text.split(/(\[[^\]]*\])/g);
+  return (
+    <div className="space-y-1.5">
+      {parts.map((part, i) => {
+        const body = part.trim();
+        if (!body) return null;
+        const direction = body.startsWith('[') && body.endsWith(']');
+        return direction ? (
+          <p
+            key={i}
+            className="rounded-chip bg-surface-sunken px-2 py-1 text-caption font-semibold text-ink-2"
+          >
+            {body.slice(1, -1)}
+          </p>
+        ) : (
+          <p key={i} className="text-body text-ink">
+            {body}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+/*
+ * The eight objections, as tiles. They are the SAME eight walk-away reasons the
+ * journal uses (encounterChips.ts), so a seller who tapped "Muy caro" on the
+ * last customer taps the same words here and gets the line.
+ *
+ * Drawn on the landing screen as well as on /cheat-sheets/said, because
+ * mid-sale the question is almost always "they just objected, what do I say?"
+ * and a lobby in front of that is a tap nobody has time for.
+ */
+function ObjectionTiles({ isEs, go }: { isEs: boolean; go: NavigateFunction }) {
+  return (
+    <div className="grid grid-cols-2 gap-2.5">
+      {WALK_REASONS.filter((r) => r.id !== 'none').map((r) => (
+        <motion.button
+          key={r.id}
+          type="button"
+          whileTap={{ scale: 0.97 }}
+          onClick={() => go(`/cheat-sheets/said/${r.id}`)}
+          className="min-h-[68px] rounded-card border border-line bg-surface p-3.5 text-left text-body font-semibold text-ink"
+        >
+          “{chipLabel(r, isEs)}”
+        </motion.button>
+      ))}
+    </div>
+  );
 }
 
 /*
@@ -136,6 +191,10 @@ const SEARCH_ALIASES: readonly (readonly string[])[] = [
      and the app teaches it under three different nouns depending on where you
      read it. Any of them should find it. */
   ['handover', 'handover', 'upseller', 'specialist', 'traspaso', 'traspasar', 'especialista'],
+  /* The floor is the manager's to give, never the seller's, so "manager" is the
+     word a seller reaches for at the bottom of the ladder — in whichever
+     language this floor says it. */
+  ['manager', 'encargado', 'supervisor', 'jefe'],
 ];
 
 /**
@@ -249,6 +308,7 @@ export default function CheatSheetsPage() {
     () => ({
       all: t('cheatSheetsAll'),
       opening: t('cheatSheetsOpening'),
+      demo: tr(language, 'The demo', 'La demo'),
       closing: t('cheatSheetsClosing'),
       objection: t('cheatSheetsObjections'),
       partner: t('cheatSheetsPartner'),
@@ -271,6 +331,32 @@ export default function CheatSheetsPage() {
       const body = sub(tr(language, s.text, s.textEs));
       if (match(title, body)) {
         out.push({ key: `s-${s.id}`, badge: categoryLabel[s.category], title, body });
+      }
+    }
+    /*
+     * The price ladders, which were not indexed at all — so "manager",
+     * "voucher", "other eye" and "syringe" returned no rung, and the rungs are
+     * exactly where those words live. A rung's condition is carried INTO the
+     * body in brackets rather than hung underneath it, so the gate arrives
+     * before the words the way it does on the ladder card itself: a seller
+     * scanning mid-sale reads the line and says it.
+     */
+    for (const product of PRODUCT_LADDERS) {
+      const badge = `${tr(language, product.short, product.shortEs)} · ${t('cheatSheetsPriceLadder')}`;
+      const name = tr(language, product.name, product.nameEs);
+      for (const rung of product.rungs) {
+        const label = sub(tr(language, rung.label, rung.labelEs));
+        const words = sub(tr(language, rung.words, rung.wordsEs));
+        const gate = rung.when ? sub(tr(language, rung.when, rung.whenEs ?? rung.when)) : undefined;
+        const body = gate ? `[${gate}] ${words}` : words;
+        if (match(name, label, body)) {
+          out.push({ key: `l-${product.id}-${rung.id}`, badge, title: label, body });
+        }
+      }
+      const proofTitle = tr(language, product.proof.label, product.proof.labelEs);
+      const proofBody = sub(tr(language, product.proof.words, product.proof.wordsEs));
+      if (match(name, proofTitle, proofBody)) {
+        out.push({ key: `l-${product.id}-proof`, badge, title: proofTitle, body: proofBody });
       }
     }
     for (const block of EMERGENCY_BLOCKS) {
@@ -361,24 +447,19 @@ export default function CheatSheetsPage() {
     },
   ];
 
-  /* The landing tiles. "They said…" is first and full width on purpose: it is
-     the reason this screen gets opened at all. */
+  /* The section tiles, which now sit UNDER the eight objections. "They said…"
+     used to be a tile here, and that made the fastest path on the screen cost
+     two taps instead of one — the page's own note says it is the reason this
+     screen gets opened at all, and then put a lobby in front of it. The
+     /cheat-sheets/said screen is still a real URL: it is where the back gesture
+     lands from an answer, and where the old deep links redirect. */
   const tiles: {
     key: Section;
     label: string;
     hint: string;
     icon: LucideIcon;
     accent: 'coral' | 'teal' | 'violet' | 'gold';
-    wide?: boolean;
   }[] = [
-    {
-      key: 'said',
-      label: isEs ? 'Han dicho…' : 'They said…',
-      hint: isEs ? 'La respuesta exacta, ahora' : 'The exact answer, right now',
-      icon: MessagesSquare,
-      accent: 'coral',
-      wide: true,
-    },
     {
       key: 'prices',
       label: t('cheatSheetsPrices'),
@@ -536,49 +617,46 @@ export default function CheatSheetsPage() {
           </section>
         )}
 
-        {/* ── Landing: one screen, five targets ────────────────────────────── */}
+        {/* ── Landing: the eight objections, then the sections ────────────────────────────── */}
         {!searching && section === 'home' && (
-          <div className="grid grid-cols-2 gap-3">
-            {tiles.map((tile) => (
-              <motion.button
-                key={tile.key}
-                type="button"
-                whileTap={{ scale: 0.97 }}
-                onClick={() => navigate(`/cheat-sheets/${tile.key}`)}
-                className={`flex min-h-[104px] flex-col items-start justify-between rounded-card border border-line p-4 text-left ${
-                  ACCENT[tile.accent].tint
-                } ${tile.wide ? 'col-span-2' : ''}`}
-              >
-                <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-chip bg-surface ${ACCENT[tile.accent].text}`}
-                  aria-hidden="true"
+          <div className="space-y-5">
+            <section>
+              <p className="mb-2 flex items-center gap-1.5 text-overline text-ink-3">
+                <MessagesSquare size={14} aria-hidden="true" />
+                {isEs ? 'Han dicho…' : 'They said…'}
+              </p>
+              <ObjectionTiles isEs={isEs} go={navigate} />
+            </section>
+            <div className="grid grid-cols-2 gap-3">
+              {tiles.map((tile) => (
+                <motion.button
+                  key={tile.key}
+                  type="button"
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => navigate(`/cheat-sheets/${tile.key}`)}
+                  className={`flex min-h-[104px] flex-col items-start justify-between rounded-card border border-line p-4 text-left ${
+                    ACCENT[tile.accent].tint
+                  }`}
                 >
-                  <tile.icon size={20} strokeWidth={2.2} />
-                </span>
-                <span className="mt-3">
-                  <span className="block text-body font-semibold text-ink">{tile.label}</span>
-                  <span className="mt-0.5 block text-caption text-ink-2">{tile.hint}</span>
-                </span>
-              </motion.button>
-            ))}
+                  <span
+                    className={`flex h-10 w-10 items-center justify-center rounded-chip bg-surface ${ACCENT[tile.accent].text}`}
+                    aria-hidden="true"
+                  >
+                    <tile.icon size={20} strokeWidth={2.2} />
+                  </span>
+                  <span className="mt-3">
+                    <span className="block text-body font-semibold text-ink">{tile.label}</span>
+                    <span className="mt-0.5 block text-caption text-ink-2">{tile.hint}</span>
+                  </span>
+                </motion.button>
+              ))}
+            </div>
           </div>
         )}
 
         {/* ── "They said…" ─────────────────────────────────────────────────── */}
         {!searching && section === 'said' && !selectedReason && (
-          <div className="grid grid-cols-2 gap-2.5">
-            {WALK_REASONS.filter((r) => r.id !== 'none').map((r) => (
-              <motion.button
-                key={r.id}
-                type="button"
-                whileTap={{ scale: 0.97 }}
-                onClick={() => navigate(`/cheat-sheets/said/${r.id}`)}
-                className="min-h-[68px] rounded-card border border-line bg-surface p-3.5 text-left text-body font-semibold text-ink"
-              >
-                “{chipLabel(r, isEs)}”
-              </motion.button>
-            ))}
-          </div>
+          <ObjectionTiles isEs={isEs} go={navigate} />
         )}
 
         {!searching && section === 'said' && selectedReason && (

@@ -45,8 +45,24 @@ async function run(width, lang) {
     }
 
     /* Every screen a seller can reach, checked for the two things that make a
-       page unusable on a phone: a sideways scroll, and a template token that
-       never got substituted (which is how Gibraltar once read euro prices). */
+       page unusable on a phone: content running off the right-hand edge, and a
+       template token that never got substituted (which is how Gibraltar once
+       read euro prices).
+
+       ── WHY THIS NO LONGER MEASURES scrollWidth ────────────────────────────
+       It used to, and it could not fail. `body { overflow-x: hidden }` in
+       src/index.css and `overflow-x-clip` on <main> in Layout.tsx both exist on
+       purpose — they stop a wide element dragging the whole page sideways — but
+       they also mean the document's scrollWidth never exceeds its clientWidth
+       no matter how far a 320px screen bleeds. The probe was reading the
+       bandage, not the wound, and reported 0px on every route for months.
+
+       So it walks the elements instead and asks each one whether its right edge
+       is past the viewport. That catches what the seller actually loses: a
+       label, a price or a button clipped off the edge where no scroll can reach
+       it. Children of a real horizontal scroller (the snap carousels on Home
+       and Training) are allowed to be wide — that is what the scroller is for —
+       so anything inside an `overflow-x: auto/scroll` ancestor is skipped. */
     const ROUTES = [
       '/home', '/training', '/cheat-sheets', '/cheat-sheets/said', '/cheat-sheets/prices',
       '/street-tracker', '/end-of-shift', '/shift-checkin', '/profile', '/settings',
@@ -55,16 +71,82 @@ async function run(width, lang) {
     ];
     let worstOverflow = 0;
     let worstRoute = '';
+    let worstEl = '';
     let tokenLeak = '';
     let shortest = Infinity;
     let shortestRoute = '';
     for (const r of ROUTES) {
       await go(page, BASE, r);
-      const { scroll, client } = await page.evaluate(() => ({
-        scroll: document.documentElement.scrollWidth,
-        client: document.documentElement.clientWidth,
-      }));
-      if (scroll - client > worstOverflow) { worstOverflow = scroll - client; worstRoute = r; }
+      const bleed = await page.evaluate(() => {
+        const vw = window.innerWidth;
+
+        /* A horizontal scroller's own children are meant to sit outside the
+           viewport — that is the carousel. Its box still gets checked; only
+           what is inside it is excused. */
+        const insideScroller = (el) => {
+          for (let p = el.parentElement; p && p !== document.documentElement; p = p.parentElement) {
+            const ox = getComputedStyle(p).overflowX;
+            if (ox === 'auto' || ox === 'scroll') return true;
+          }
+          return false;
+        };
+
+        /* Enough to find the element in the source without opening a browser:
+           tag, id, the first few classes, and the start of its text. */
+        const describe = (el) => {
+          let sel = el.tagName.toLowerCase();
+          if (el.id) sel += `#${el.id}`;
+          const cls = (el.getAttribute('class') || '')
+            .split(/\s+/).filter(Boolean).slice(0, 4).join('.');
+          if (cls) sel += `.${cls}`;
+          const txt = (el.innerText || el.getAttribute('aria-label') || '')
+            .replace(/\s+/g, ' ').trim().slice(0, 48);
+          return txt ? `${sel} — "${txt}"` : sel;
+        };
+
+        /*
+         * A decorative shape bled off the corner and clipped is a technique,
+         * not a bug — ProfilePage's header hangs a blurred teal circle at
+         * `-right-16 -top-24` inside an `overflow-hidden` card, and it is
+         * `aria-hidden` and `pointer-events-none` precisely because it is
+         * scenery. The seller loses nothing: there is no text in it, nothing
+         * to tap, and the parent clips it.
+         *
+         * So the exemption is deliberately narrow — no text, nothing
+         * interactive, and explicitly marked as decoration. A label, a price
+         * or a button past the edge still fails, which is the whole point of
+         * this check.
+         */
+        const isDecoration = (node) => {
+          if (!(node.getAttribute('aria-hidden') === 'true' ||
+                getComputedStyle(node).pointerEvents === 'none')) return false;
+          if ((node.innerText || '').trim()) return false;
+          if (node.querySelector('a,button,input,select,textarea,[role="button"]')) return false;
+          return true;
+        };
+
+        let over = 0;
+        let el = '';
+        for (const node of document.body.querySelectorAll('*')) {
+          const rect = node.getBoundingClientRect();
+          /* Collapsed, unmounted or display:none — nothing on screen to lose. */
+          if (rect.width <= 0 || rect.height <= 0) continue;
+          const past = rect.right - vw;
+          if (past <= 1 || past <= over) continue;
+          const cs = getComputedStyle(node);
+          if (cs.visibility === 'hidden' || cs.display === 'none') continue;
+          if (insideScroller(node)) continue;
+          if (isDecoration(node)) continue;
+          over = past;
+          el = describe(node);
+        }
+        return { over: Math.round(over), el };
+      });
+      if (bleed.over > worstOverflow) {
+        worstOverflow = bleed.over;
+        worstRoute = r;
+        worstEl = bleed.el;
+      }
       const t = await text(page);
       if (/\{currency\}|\{locationName\}|\{price/.test(t)) tokenLeak = r;
       /* Body text minus the nav bar, which is on every screen and would
@@ -78,8 +160,8 @@ async function run(width, lang) {
       });
       if (body < shortest) { shortest = body; shortestRoute = r; }
     }
-    ok(`no sideways scroll on ${ROUTES.length} routes`, worstOverflow <= 1,
-      worstOverflow > 1 ? `${worstOverflow}px on ${worstRoute}` : '');
+    ok(`nothing runs off the edge on ${ROUTES.length} routes`, worstOverflow <= 1,
+      worstOverflow > 1 ? `${worstOverflow}px past ${width}px on ${worstRoute}: ${worstEl}` : '');
     ok('every price token resolved', !tokenLeak, tokenLeak);
     ok('no route renders empty', shortest > 90, `thinnest was ${shortestRoute} at ${shortest} chars of content`);
 

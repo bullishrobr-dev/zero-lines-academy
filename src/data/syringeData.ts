@@ -5,13 +5,33 @@
  * pricing.ts and this page keeps quoting yesterday's ladder with no build
  * error. They are read out of the ladder now, same as every other screen.
  */
-import { SYRINGE_LADDER } from './pricing';
+import { SYRINGE_LADDER, eachOf, type PriceRung } from './pricing';
 
-const RUNG = (id: string): number => {
+const RUNG_OF = (id: string): PriceRung => {
   const found = SYRINGE_LADDER.steps.find((s) => s.id === id);
   if (!found) throw new Error(`pricing.ts has no syringe rung "${id}"`);
-  return found.price;
+  return found;
 };
+
+const RUNG = (id: string): number => RUNG_OF(id).price;
+
+/*
+ * The two options, named.
+ *
+ * They are the same two every time — that is the point of them — so they are
+ * read out of the ladder once here and quoted from these names everywhere
+ * below. The scripts on this page used to type "{currency}210" and
+ * "{currency}300" straight into the sentence, which is how a sentence ends up
+ * quoting a rung that moved.
+ *
+ * OFFER_1 is on the descent. OPTION_B is not: it is marked `parallel` in
+ * pricing.ts, it costs MORE, and it is presented beside Offer 1 rather than
+ * under it. See `PriceRung.parallel`.
+ */
+const OFFER_1 = RUNG('promo');
+const OPTION_B = RUNG('second-free');
+const OPTION_B_UNITS = RUNG_OF('second-free').units ?? 2;
+const OPTION_B_EACH = eachOf(RUNG_OF('second-free'));
 
 export interface PriceStep {
   price: string;
@@ -61,12 +81,22 @@ export const syringeData = {
     useValue: 'Once/Week',
     useValueEs: '1 vez/semana',
     /*
-     * One syringe is a YEAR of weekly treatments. That is the owner's own line
-     * and it is what demo step 5, the Quick Reference block and every
-     * cost-per-week reframe in the app already say. This tile used to read
-     * "6-18 Months", which is how long the RESULT holds, not how long the
-     * syringe lasts, so the top of the page taught a seller one number and the
-     * bottom of the same page taught them another.
+     * One syringe is a YEAR of weekly treatments — sixty applications. That is
+     * the owner's own line, and as of October 2026 it is the WHOLE line.
+     *
+     * This tile used to read "6-18 Months", and the Treatment Plan script used
+     * to promise "the results can stay between 6 to 18 months" after the year
+     * was finished. He retired it himself:
+     *
+     *   "I used to say that once you finish the 1-year treatment, you get 6 to
+     *    18 months of permanent results. I want to remove that, because this is
+     *    the only part we kind of lie about, and I honestly see no reason for
+     *    that."
+     *
+     * So the claim stops at the year. Nothing in this file may promise the
+     * effect outlives the treatment. What happens afterwards is answered only
+     * if she asks — see the "After the year" pro tip below, and
+     * check-retired-teachings.mjs, which now fails the build on it.
      */
     lastsLabel: 'Lasts',
     lastsLabelEs: 'Duraci\u00f3n',
@@ -157,8 +187,8 @@ export const syringeData = {
         step: '5',
         title: 'The Treatment Plan',
         titleEs: 'El Plan de Tratamiento',
-        text: '"You only need to use it once a week \u2014 that\'s it. The syringe lasts for a whole year of treatments, and the results can stay between 6 to 18 months. The only rule: once you apply it, don\'t touch the area for five hours." (To partner: "You\'re going to have to remind her not to touch it, okay?")',
-        textEs: '"Solo necesitas usarlo una vez por semana \u2014 eso es todo. La jeringa dura para un a\u00f1o completo de tratamientos, y los resultados pueden mantenerse entre 6 y 18 meses. La \u00fanica regla: una vez que lo apliques, no toques el \u00e1rea durante cinco horas." (A la pareja: "Vas a tener que recordarle que no lo toque, \u00bfokey?")',
+        text: '"You only need to use it once a week \u2014 that\'s it. Sixty applications in that syringe, so it is a full year of treatments. The only rule: once you apply it, don\'t touch the area for five hours." (To partner: "You\'re going to have to remind her not to touch it, okay?")',
+        textEs: '"Solo necesitas usarlo una vez por semana \u2014 eso es todo. Sesenta aplicaciones en esa jeringa, as\u00ed que es un a\u00f1o entero de tratamiento. La \u00fanica regla: una vez que lo apliques, no toques el \u00e1rea durante cinco horas." (A la pareja: "Vas a tener que recordarle que no lo toque, \u00bfokey?")',
       },
       {
         step: '6',
@@ -173,6 +203,25 @@ export const syringeData = {
         titleEs: 'Muestra el Ojo No Tratado',
         text: '"Now look at the other eye \u2014 see the difference?" This comparison is EVERYTHING. Let her see the treated vs. untreated. That\'s your close. Turn to the partner: "Sir, be honest \u2014 do you see the difference? Look at the lift, the smoothness, the brightness."',
         textEs: '"Ahora mira el otro ojo \u2014 \u00bfves la diferencia?" Esta comparaci\u00f3n es TODO. D\u00e9jala ver el tratado vs. el no tratado. Ese es tu cierre. G\u00edrate hacia la pareja: "Se\u00f1or, sea honesto \u2014 \u00bfve la diferencia? Mire el lift, la suavidad, el brillo."',
+      },
+      {
+        /*
+         * Added October 2026, in the owner's own order. This is the move the
+         * app had never written down: the second eye is not the reward for
+         * buying, it is the instrument that keeps her in the chair long enough
+         * to buy. It comes AFTER the ladder has stalled, not during the demo —
+         * see "The second eye is a closing device" in CLAUDE.md.
+         *
+         * The part that is easy to get wrong is the order inside it: the
+         * voucher lands while her eye is being done and BEFORE she has seen the
+         * result, and the mirror is held back so it follows the price instead
+         * of justifying it.
+         */
+        step: '8',
+        title: 'The Second Eye \u2014 the last move of the close',
+        titleEs: 'El Segundo Ojo \u2014 el \u00faltimo movimiento del cierre',
+        text: `Only once the ladder has stalled \u2014 {currency}${OPTION_B} did not land, {currency}${OFFER_1} did not land, maybe you are at {currency}${RUNG('no-gift')} with the gift off. Take a tiny break. Let her feel it is almost over. Then: "You know what? Let me fix your other eye." And WHILE YOU DO IT, you keep closing \u2014 "Can I ask you honestly, what's the problem? You told me you like it. You told me you would use it." She said both during the demo; this is what you banked them for. "It's a bit too expensive?" THAT is when the voucher comes out \u2014 hands still busy, before she has seen the result: "I can do this for you, but you cannot be greedy with me. I can only do it on the single one, to open the door for you as a customer." Then the number: {currency}${RUNG('voucher')} for the whole year. Only then the mirror: "Before you decide \u2014 look at both eyes together. Take a good hard look, five or ten seconds, and tell me what you think."`,
+        textEs: `Solo cuando la escalera se ha atascado \u2014 los {currency}${OPTION_B} no han entrado, los {currency}${OFFER_1} tampoco, igual est\u00e1s en {currency}${RUNG('no-gift')} sin el regalo. Haz una pausa peque\u00f1a. Que sienta que ya casi est\u00e1. Y entonces: "\u00bfSabes qu\u00e9? Deja que te arregle el otro ojo." Y MIENTRAS SE LO HACES, sigues cerrando \u2014 "\u00bfTe puedo preguntar honestamente cu\u00e1l es el problema? Me has dicho que te gusta. Me has dicho que lo usar\u00edas." Te dijo las dos cosas en la demo; para esto las guardabas. "\u00bfEs un poco caro?" AH\u00cd es cuando sale el cup\u00f3n \u2014 con las manos todav\u00eda ocupadas, antes de que haya visto el resultado: "Esto te lo puedo hacer, pero no me seas codiciosa. Solo te lo puedo hacer en el individual, para abrirte la puerta como clienta." Y entonces el n\u00famero: {currency}${RUNG('voucher')} por todo el a\u00f1o. Y solo entonces el espejo: "Antes de decidir \u2014 m\u00edrate los dos ojos juntos. M\u00edratelos bien, cinco o diez segundos, y me dices qu\u00e9 te parece."`,
       },
     ] as DemoStep[],
   },
@@ -191,14 +240,16 @@ export const syringeData = {
       '"Sir, you saw the difference \u2014 and that is ONE eye. Now imagine her doing that at home every Sunday, all year. She is going to walk around looking like she slept twelve hours."',
     script1Es:
       '"Se\u00f1or, has visto la diferencia \u2014 y eso es UN ojo. Ahora im\u00e1ginatela haci\u00e9ndoselo en casa cada domingo, todo el a\u00f1o. Va a ir por ah\u00ed como si hubiera dormido doce horas."',
-    option2Intro: 'Now introduce Option 2:',
-    option2IntroEs: 'Ahora introduce la Opci\u00f3n 2:',
+    option2Intro: 'Now introduce Option B:',
+    option2IntroEs: 'Ahora introduce la Opci\u00f3n B:',
     option2Script:
-      '"Pay the normal price of {currency}300, and you\'ll get TWO syringes \u2014 so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows."',
+      `"Pay the normal price of {currency}${OPTION_B}, and you'll get TWO syringes \u2014 so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows."`,
     option2ScriptEs:
-      '"Paga el precio normal de {currency}300, y obtendr\u00e1s DOS jeringas \u2014 as\u00ed puedes tratar ambos ojos, la frente, el labio superior, e incluso los n\u00famero 11 entre las cejas."',
-    advancedLabel: 'Advanced upsell for great customers:',
-    advancedLabelEs: 'Upsell avanzado para buenos clientes:',
+      `"Pagas el precio normal de {currency}${OPTION_B}, y te llevas DOS jeringas \u2014 as\u00ed te haces los dos ojos, la frente, el labio superior, e incluso el entrecejo."`,
+    advancedLabel:
+      `If she has read well all through the demo, push Option B \u2014 and pile gifts on it. You are {currency}${OPTION_B - OFFER_1} ABOVE Offer 1 and miles above your minimum, so the gifts come out of room you already have:`,
+    advancedLabelEs:
+      `Si la has visto bien toda la demostraci\u00f3n, empuja la Opci\u00f3n B \u2014 y \u00e9chale regalos encima. Est\u00e1s {currency}${OPTION_B - OFFER_1} POR ENCIMA de la Oferta 1 y muy por encima de tu m\u00ednimo, as\u00ed que los regalos salen de margen que ya tienes:`,
     advancedScript:
       '"Can I be honest with you? There\'s not a big difference between the two options anyway. I really feel like you\'d use it for those extra areas, and honestly, you\'re the type who will take care of it properly. So I\'ll do something nice \u2014 if you take the bigger option, I\'ll give you both my Day and Night Cream completely free."',
     advancedScriptEs:
@@ -210,13 +261,13 @@ export const syringeData = {
     sectionTitle: 'Interactive Price Ladder',
     sectionTitleEs: 'Escalera de Precios Interactiva',
     description:
-      'Tap each step to expand the exact script. Never skip steps \u2014 go down one at a time.',
+      `This is the way DOWN, and it is for the customer who genuinely cannot reach the two offers \u2014 nobody else. If she reads well you are going UP, to Option B, which is not on here: it sits beside Offer 1 above, at {currency}${OPTION_B}. Tap each step for the exact script. Never skip steps, one at a time.`,
     descriptionEs:
-      'Toca cada paso para expandir el guion exacto. Nunca te saltes pasos \u2014 baja uno a la vez.',
+      `Este es el camino hacia ABAJO, y es para la clienta que de verdad no llega a las dos ofertas \u2014 nadie m\u00e1s. Si la ves bien vas hacia ARRIBA, a la Opci\u00f3n B, que no est\u00e1 aqu\u00ed: va al lado de la Oferta 1, arriba, a {currency}${OPTION_B}. Toca cada paso para ver el guion exacto. Nunca te saltes pasos, uno a la vez.`,
     whatToSay: 'What to say',
     whatToSayEs: 'Qu\u00e9 decir',
     minimumWarning:
-      "\u26a0 This price is NOT yours to give. One voucher, once \u2014 then you go full market and CALL THE MANAGER. A seller who can reach the floor on their own has no floor.",
+      "\u26a0 One voucher, once \u2014 then full market, and you GO AND FETCH THE MANAGER. You are allowed to sell at this price; what you are buying by fetching him is that it sounds like a price somebody had to win, not one that was always there.",
     minimumWarningEs:
       "\u26a0 Este precio NO es tuyo. Un cup\u00f3n, una vez \u2014 luego vas a mercado y LLAMAS AL ENCARGADO. Un vendedor que llega solo al fondo no tiene fondo.",
     voucherHint:
@@ -224,9 +275,9 @@ export const syringeData = {
     voucherHintEs:
       "\ud83d\udca1 Dilo mientras le empiezas el OTRO OJO. Manos ocupadas, cara hacia arriba, la cosa parece terminada \u2014 y el n\u00famero se mueve dentro de un momento que va de otra cosa. Baja la voz, incl\u00ednate. Solo en la jeringa INDIVIDUAL, y no hay segundo cup\u00f3n.",
     highlightHint:
-      "\ud83d\udca1 This is your best-value single-syringe offer. Most customers who want one syringe take this.",
+      `\ud83d\udca1 Offer 1 of the two, and your best-value SINGLE syringe. It never goes out on its own \u2014 Option B goes out with it, beside it, at {currency}${OPTION_B} for ${OPTION_B_UNITS}. Same two options every time, so you always have something concrete to say.`,
     highlightHintEs:
-      "\ud83d\udca1 Esta es tu oferta de mejor valor para jeringa individual. La mayor\u00eda de clientes que quieren una jeringa toman esta.",
+      `\ud83d\udca1 Oferta 1 de las dos, y tu mejor valor en jeringa INDIVIDUAL. Nunca sale sola \u2014 la Opci\u00f3n B sale con ella, al lado, a {currency}${OPTION_B} por ${OPTION_B_UNITS}. Las mismas dos opciones siempre, as\u00ed siempre tienes algo concreto que decir.`,
   },
 
   /* ─── Price Steps (dynamic, bilingual labels + scripts) ─── */
@@ -325,54 +376,56 @@ export const syringeData = {
   offers: {
     heading: 'The Two Offers',
     headingEs: 'Las Dos Ofertas',
-    subtext: 'Always present TWO choices. Let them decide. Then pause — silence is your friend.',
-    subtextEs: 'Siempre presenta DOS opciones. Deja que decidan. Luego haz una pausa — el silencio es tu amigo.',
+    subtext:
+      'The SAME two, every single time — that is why you always have something concrete in your mouth. They go out together: Offer 1, and Option B beside it, never under it. Option B is the bigger one. Then you stop talking and let her pick.',
+    subtextEs:
+      'Las MISMAS dos, siempre — por eso siempre tienes algo concreto que decir. Salen juntas: la Oferta 1, y la Opción B al lado, nunca por debajo. La Opción B es la grande. Luego te callas y dejas que elija ella.',
     option1: {
-      label: 'Option 1',
-      labelEs: 'Opci\u00f3n 1',
+      label: 'Offer 1',
+      labelEs: 'Oferta 1',
       priceLabel: '30% Off + Gift',
       priceLabelEs: '30% Descuento + Regalo',
       text:
-        '"Right now we have an incredible promotion: take it for 30% off, which makes it {currency}210, and you also get a small gift \u2014 you can choose between a Day Cream, Night Cream, Cleanser or Peeling."',
+        `"Right now we have an incredible promotion: take it for 30% off, which makes it {currency}${OFFER_1}, and you also get a small gift \u2014 you can choose between a Day Cream, Night Cream, Cleanser or Peeling."`,
       textEs:
-        '"Ahora mismo tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con un 30% de descuento, lo que lo deja en {currency}210, y adem\u00e1s te llevas un regalito \u2014 puedes elegir entre Crema de D\u00eda, Crema de Noche, Limpiador o Peeling."',
+        `"Ahora mismo tenemos una promoci\u00f3n incre\u00edble: ll\u00e9vatelo con un 30% de descuento, lo que lo deja en {currency}${OFFER_1}, y adem\u00e1s te llevas un regalito \u2014 puedes elegir entre Crema de D\u00eda, Crema de Noche, Limpiador o Peeling."`,
     },
     option2: {
-      label: 'Option 2',
-      labelEs: 'Opci\u00f3n 2',
+      label: 'Option B',
+      labelEs: 'Opci\u00f3n B',
       priceLabel: 'Full Price + 2nd Syringe Free',
       priceLabelEs: 'Precio Completo + 2\u00aa Jeringa Gratis',
       text:
-        '"This one is actually the favourite: pay the normal price of {currency}300 and you get two syringes instead of one \u2014 so you can do both eyes, the forehead, the upper lip, even the number 11s between the eyebrows. A full face treatment that lasts a whole year."',
+        `"This one is actually the favourite: pay the normal price of {currency}${OPTION_B} and you get ${OPTION_B_UNITS} syringes instead of one \u2014 so you can do both eyes, the forehead, the upper lip, even the number 11s between the eyebrows. A full face treatment that lasts a whole year. That is {currency}${OPTION_B_EACH} each."`,
       textEs:
-        '"Esta es en realidad la favorita: pagas el precio normal de {currency}300 y te llevas dos jeringas en vez de una \u2014 as\u00ed puedes hacerte los dos ojos, la frente, el labio superior, hasta las arruguitas del ce\u00f1o. Un tratamiento facial completo que dura un a\u00f1o entero."',
+        `"Esta es en realidad la favorita: pagas el precio normal de {currency}${OPTION_B} y te llevas ${OPTION_B_UNITS} jeringas en vez de una \u2014 as\u00ed puedes hacerte los dos ojos, la frente, el labio superior, hasta las arruguitas del ce\u00f1o. Un tratamiento facial completo que dura un a\u00f1o entero. Te salen a {currency}${OPTION_B_EACH} cada una."`,
     },
     twoChoiceLabel: 'Then ask, and stop talking',
     twoChoiceLabelEs: 'Luego pregunta, y c\u00e1llate',
     twoChoiceScript:
-      '"So \u2014 would you rather have the 30% off at {currency}210 with a free gift, or the two-syringe deal at {currency}300?"',
+      `"So \u2014 would you rather have the 30% off at {currency}${OFFER_1} with a free gift, or the two-syringe deal at {currency}${OPTION_B}?"`,
     twoChoiceScriptEs:
-      '"Entonces \u2014 \u00bfprefieres el 30% de descuento a {currency}210 con un regalo, o la oferta de dos jeringas a {currency}300?"',
+      `"Entonces \u2014 \u00bfprefieres el 30% de descuento a {currency}${OFFER_1} con un regalo, o la oferta de dos jeringas a {currency}${OPTION_B}?"`,
   },
 
   /* ─── Offer 2 ─── */
   offer2: {
-    sectionTitle: 'Offer 2 \u2014 {currency}300 + 2nd Syringe Free',
-    sectionTitleEs: 'Oferta 2 \u2014 {currency}300 + 2da Jeringa Gratis',
+    sectionTitle: `Option B \u2014 {currency}${OPTION_B} + 2nd Syringe Free`,
+    sectionTitleEs: `Opci\u00f3n B \u2014 {currency}${OPTION_B} + 2\u00aa Jeringa Gratis`,
     description:
-      'This is the <strong>favorite option</strong> for most customers. They pay the full {locationName} price but walk away with double the value.',
+      `This is the <strong>favourite option</strong> for most customers, and it is the one you push when she reads well. It is the second of the two \u2014 beside Offer 1, not below it: she pays MORE, {currency}${OPTION_B} against {currency}${OFFER_1}, and walks out with double. {currency}${OPTION_B_EACH} each. You have room for gifts on top from up here.`,
     descriptionEs:
-      'Esta es la <strong>opci\u00f3n favorita</strong> para la mayor\u00eda de clientes. Pagan el precio completo de {locationName} pero se llevan el doble de valor.',
+      `Es la <strong>opci\u00f3n favorita</strong> de la mayor\u00eda, y es la que empujas cuando la ves bien. Es la segunda de las dos \u2014 al lado de la Oferta 1, no por debajo: paga M\u00c1S, {currency}${OPTION_B} frente a {currency}${OFFER_1}, y se lleva el doble. {currency}${OPTION_B_EACH} cada una. Desde aqu\u00ed arriba te sobra margen para a\u00f1adir regalos.`,
     scriptLabel: 'Script',
     scriptLabelEs: 'Gui\u00f3n',
     script:
-      '"This one is actually the favorite: pay the normal price of {currency}300, and you\'ll get two syringes instead of one \u2014 so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows. That\'s a full face treatment that lasts a whole year."',
+      `"This one is actually the favourite: pay the normal price of {currency}${OPTION_B}, and you'll get ${OPTION_B_UNITS} syringes instead of one \u2014 so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows. That's a full face treatment that lasts a whole year, and it works out at {currency}${OPTION_B_EACH} each."`,
     scriptEs:
-      '"Esta es en realidad la favorita: paga el precio normal de {currency}300, y obtendr\u00e1s dos jeringas en lugar de una \u2014 as\u00ed puedes tratar ambos ojos, la frente, el labio superior, e incluso los n\u00famero 11 entre las cejas. Eso es un tratamiento facial completo que dura un a\u00f1o entero."',
+      `"Esta es en realidad la favorita: pagas el precio normal de {currency}${OPTION_B}, y te llevas ${OPTION_B_UNITS} jeringas en lugar de una \u2014 as\u00ed te haces los dos ojos, la frente, el labio superior, e incluso el entrecejo. Es un tratamiento facial completo que dura un a\u00f1o entero, y te sale a {currency}${OPTION_B_EACH} cada una."`,
     whatTheyGetLabel: 'What they get',
     whatTheyGetLabelEs: 'Lo que reciben',
-    whatTheyGetValue: '2 Syringes',
-    whatTheyGetValueEs: '2 Jeringas',
+    whatTheyGetValue: `${OPTION_B_UNITS} Syringes`,
+    whatTheyGetValueEs: `${OPTION_B_UNITS} Jeringas`,
     treatsLabel: 'Treats',
     treatsLabelEs: 'Trata',
     treatsValue: 'Eyes + Forehead + 11s',
@@ -384,6 +437,22 @@ export const syringeData = {
     sectionTitle: 'Pro Tips',
     sectionTitleEs: 'Consejos Pro',
     tips: [
+      {
+        icon: 'HelpCircle',
+        /*
+         * The answer to a question you must never ask for. The owner's rule:
+         * "We don't volunteer this information. We just tell them that it's a
+         * 1-year treatment, but in case the customers ask, the people will
+         * have an answer to be ready."
+         *
+         * It replaces the old promise of 6-18 months of results, which was the
+         * one thing in this manual that was not true.
+         */
+        title: 'If she asks what happens after the year',
+        titleEs: 'Si pregunta qué pasa después del año',
+        text: 'Do not bring this up. It is a one-year treatment and that is where your pitch stops. But if she asks: "After the year you carry on if you are happy with it, or you stop. If you stop, the lines come back slowly — same as the gym. You train for a year, you stop going, your muscles do not vanish overnight. They fade." Honest, and it sells better than a promise she would have caught you on.',
+        textEs: 'No lo saques tú. Es un tratamiento de un año y ahí se acaba tu argumento. Pero si pregunta: "Después del año sigues si estás contenta, o lo dejas. Si lo dejas, las líneas vuelven poco a poco — igual que el gimnasio. Entrenas un año, dejas de ir, y los músculos no desaparecen de un día para otro. Se van bajando." Es honesto, y vende mejor que una promesa que te podría pillar.',
+      },
       {
         icon: 'Euro',
         title: 'Always start with the Europe price',
@@ -400,10 +469,23 @@ export const syringeData = {
       },
       {
         icon: 'Eye',
+        /*
+         * Reversed by the owner, October 2026. This tip used to say to CONDITION
+         * the second eye on the purchase — "if you buy it, I'll do the other
+         * one, yeah?" — and he threw it out:
+         *
+         *   "Absolutely not. Ever since that I've changed the way that I do
+         *    it... It's not nice. We're actually going to use this to our
+         *    advantage: make them attach longer and have a little bit more time
+         *    to convince them to buy."
+         *
+         * The eye is not the reward for buying. It is what keeps her in the
+         * chair long enough TO buy, and the full order is in demo step 8.
+         */
         title: 'She asks for the second eye first?',
         titleEs: '\u00bfTe pide el segundo ojo antes?',
-        text: 'Condition it, do not refuse it: "If you buy it, I\'ll do the other one, yeah?" She pays, she gets it done, no argument and no theatre. What you never do is hand it over to a maybe.',
-        textEs: 'Ponle condici\u00f3n, no le digas que no: "Si te lo llevas, te hago el otro, \u00bfvale?" Si paga, se lo haces, sin discusi\u00f3n y sin teatro. Lo que nunca haces es regal\u00e1rselo a un quiz\u00e1.',
+        text: 'Never make her buy to earn it \u2014 that is a bargain, and it tells her the demo is over. Say yes, and then use the time: "Of course, let me do it." Hands busy, keep closing, and the voucher comes out while she still cannot see the result. The longer she is sitting there, the longer you have.',
+        textEs: 'Nunca le hagas comprar para ganarse el otro \u2014 eso es un trato, y le dice que la demo se ha acabado. Dile que s\u00ed, y aprovecha el tiempo: "Claro, te lo hago." Manos ocupadas, sigues cerrando, y el cup\u00f3n sale mientras todav\u00eda no puede verse el resultado. Cuanto m\u00e1s rato siga sentada, m\u00e1s tiempo tienes t\u00fa.',
       },
       {
         icon: 'Users',
@@ -476,10 +558,10 @@ export const syringeData = {
     lastsLabelEs: 'Duraci\u00f3n:',
     lastsValue: '1 year',
     lastsValueEs: '1 a\u00f1o',
-    resultsLabel: 'Results:',
-    resultsLabelEs: 'Resultados:',
-    resultsValue: '6-18 months',
-    resultsValueEs: '6-18 meses',
+    resultsLabel: 'Inside:',
+    resultsLabelEs: 'Dentro:',
+    resultsValue: '60 applications',
+    resultsValueEs: '60 aplicaciones',
     ruleLabel: 'Rule:',
     ruleLabelEs: 'Regla:',
     ruleValue: 'No touching 5h',

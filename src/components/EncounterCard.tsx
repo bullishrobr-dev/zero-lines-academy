@@ -77,13 +77,17 @@ export default function EncounterCard({ encounter, onWalked, onSold }: Props) {
   }, []);
   void tick;
 
+  /* `surface-feature` IS the teal gradient — see the variant block in
+     index.css, where the tinted variants exist to override it. This card used
+     to carry a `feature-teal` alongside it which was never defined anywhere:
+     it painted nothing and quietly implied a hue the card was not getting. */
   return (
     <motion.section
       layout
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="surface-feature feature-teal mb-4 p-4"
+      className="surface-feature mb-4 p-4"
       aria-live="polite"
     >
       <div className="flex items-center gap-2">
