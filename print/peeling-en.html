@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Peeling</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="lesson">
+<header class="mast">
+  <p class="brand">Weekly Treatment</p>
+  <h1>The Peeling</h1>
+  <p class="sub">Not a Cream — A Treatment</p>
+</header>
+<p class="intro">The peeling is the middle of the ladder. It is not a cream and it does not replace anything she already has at home — it is a once-a-week treatment that takes the dead skin off and makes everything she already owns work ten times harder. It sells on a hand demo and a dermatologist’s name, and it is the easiest thing in the shop to talk about. Just do not stop here: the syringe is the star, and this hand demo is the shortest route to the chair.</p>
+<div class="facts"><div><dt>Use</dt><dd>Once/week</dd></div><div><dt>Bottle lasts</dt><dd>Full year</dd></div><div><dt>Creams work</dt><dd>10× better</dd></div><div><dt>Dermatologist</dt><dd>Approved</dd></div></div>
+<h2>The Hook — Stop Scripts</h2>
+<div class="say"><p class="say-label">The Favorite Trick</p><p class="line">“Let me show you my favorite quick trick for glowing skin. You’ll love this.”</p><p class="line"><span class="cue">Keep it light, no heavy pressure. Then lead inside confidently — don’t wait for a “yes.”</span></p></div>
+<div class="say"><p class="say-label">The Personal Hook</p><p class="line">“What I’m about to show you right now is one of my absolute favorite products — I actually use it myself!”</p><p class="line"><span class="cue">Smile, engage, build trust instantly. Then set the stage:</span></p><p class="line">“Now, this isn’t an anti-aging cream, and it’s not here to replace anything you already use at home. It’s something completely different.”</p></div>
+<div class="say"><p class="say-label">The Separation Pitch</p><p class="line">“This is something completely different. This separates dead skin from living skin. It’s a once-a-week treatment that you use at home on clean skin. What it does is separate all the dry and dead layers from the living ones, giving your skin a fresh, clean, and glowing look. It helps your creams work 10× better because they penetrate deeper and act faster.”</p></div>
+<h2>The Demo — Hand Application</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>Apply to the Hand</h3><p>“This is a once-a-week treatment that you use at home on clean skin. Let me show you on your hand.” Apply a small amount to the back of their hand.</p></div></li><li><span class="n">2</span><div><h3>The “Roll It, Don’t Rub It” Technique</h3><p>Tell them: “Roll it gently with your fingers — don’t rub hard.” The dead skin will start to pill and roll off. This is the visual WOW moment. Let them see the grey/brown particles forming.</p></div></li><li><span class="n">3</span><div><h3>Explain What They’re Seeing</h3><p>“See that? That’s dead skin. Dry, dead layers separating from the living skin underneath.” Point at their hand as you say it, not at yourself — let them keep looking at their own skin.</p></div></li><li><span class="n">4</span><div><h3>The Authority Builder</h3><p>“This is the one doctors and dermatologists actually send people to. The driest skin you have ever seen, skin that cracks, redness that never calms down, people prone to eczema and psoriasis — this is what they use, because it takes the dead off without touching the living. If it is gentle enough for them, imagine what it does for you.” Say it looking at her hand, not at her.</p></div></li><li><span class="n">5</span><div><h3>Show the Fresh Skin</h3><p>Wipe away the rolled-off skin. Have them feel the area. “Be honest — when was the last time your hand felt this smooth? That’s not from the product — that’s YOUR skin, finally breathing.”</p></div></li><li><span class="n">6</span><div><h3>The Longevity Close</h3><p>“The best part? This bottle will last you a full year of treatments. So it’s not something you’ll run out of next month — it’s an actual investment for your skin.”</p></div></li></ol>
+<h2>The Two Offers</h2>
+<div class="callout"><h4>The two anchors come first</h4><p>Say the two anchors first, every time: €200 around Europe, €150 here in Andorra. Both offers below are read against those numbers — without them, €100 is just a price. Then present TWO choices, let them decide, and pause — silence is your friend.</p></div>
+<div class="say"><p class="say-label">Option 1 — 50% Off + Dead Sea Body Scrub Gift</p><p class="line">“Take it for 50% off the Europe price — that’s only €100, and you’ll also get the Dead Sea Body Scrub as a gift. Same mineral treatment, but for your body.”</p></div>
+<div class="say"><p class="say-label">Option 2 — Full Price + Day &amp; Night Cream Free</p><p class="line">“This is the favorite for most customers: if you pay the normal Andorra price of €150, you’ll get the Peeling plus the Day &amp; Night Cream completely free!”</p></div>
+<h2>The Price Ladder</h2>
+<div class="callout"><h4>One step at a time</h4><p>Walk down one step at a time. This is the way DOWN, and it is for the customer who genuinely cannot reach the two offers — nobody else. Option B is not on it: it sits beside Offer 1, and it is more money, not less.</p></div>
+<div class="ladder"><div class="rung t-anchor">
+            <div class="amt"><span class="price">€200</span></div>
+            <div class="body">
+              <p class="rl">Europe Price<span class="badge">Anchor</span></p>
+              <p class="when">Anchor — mention this first to build value</p>
+              <p class="line">“Normally, around Europe, this product goes for €200, because it’s proven and works.”</p>
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€150</span></div>
+            <div class="body">
+              <p class="rl">Andorra Price<span class="badge">Normal</span></p>
+              <p class="when">Our standard price</p>
+              <p class="line">“But here in Andorra, it’s only €150!”</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€100</span></div>
+            <div class="body">
+              <p class="rl">50% Off + Scrub Gift<span class="badge">Offer</span></p>
+              <p class="when">Best value — half the Europe price plus a gift Best-value single. Most customers who hesitate on €150 take this.</p>
+              <p class="line">“Right now, we’ve got an amazing promotion: take it for 50% off the Europe price — that’s only €100 — and you’ll also get the Dead Sea Body Scrub as a gift. Same mineral treatment, but for your body.”</p>
+            </div>
+          </div><div class="rung t-parallel">
+            <div class="amt"><span class="price">€150</span></div>
+            <div class="body">
+              <p class="rl">Option B — Day &amp; Night Cream Free<span class="badge">Option B — beside, not below</span></p>
+              <p class="when">Not a rung. This is Option B, and it goes out BESIDE Offer 1 above it — never under it and never descended to. She pays MORE and walks out with the Day and Night Cream on top. Both go out together and she picks.</p>
+              <p class="line">“This is the favorite for most customers: if you pay the normal Andorra price of €150, you’ll get the Peeling plus the Day &amp; Night Cream completely free!”</p>
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€70</span></div>
+            <div class="body">
+              <p class="rl">Adaptive — Store Credit<span class="badge">Normal</span></p>
+              <p class="when">Remove the scrub, use as credit</p>
+              <p class="line">“You know what, I totally understand. Let’s make it easy — I can take the Scrub out of the deal and put its value straight back to you as credit. That way I can make the Peeling €70 for you.”</p>
+            </div>
+          </div><div class="rung t-voucher">
+            <div class="amt"><span class="price">€50</span></div>
+            <div class="body">
+              <p class="rl">Voucher Close<span class="badge">Voucher — once only</span></p>
+              <p class="when">Drop your voice, make it feel exclusive. Only on the single Peeling, not the combo.</p>
+              <p class="line">“Alright, alright... listen, I just checked, and I can do something a little crazy for you. But you can’t be greedy, okay? I can’t do it on the big option — only on the single Peeling. Remember how I told you I could do it for €70 without any gifts? If you use this voucher, I can actually bring it down to €50, just this one time. But from next time, it goes back to the normal price, alright?”</p>
+            </div>
+          </div><div class="rung t-floor">
+            <div class="amt"><span class="price">€50</span></div>
+            <div class="body">
+              <p class="rl">Minimum<span class="badge">Minimum</span></p>
+              <p class="when">Last resort only. Try everything else first. The voucher lands here and this is the end of the ladder: voucher or no voucher there is nothing underneath it, and on the peeling you do not go and fetch a manager for it.</p>
+              <p class="line">“Look, I really want you to try this, so €50 it is — and that is my floor. Voucher or no voucher, there is nothing underneath it. Just promise me you’ll actually use it, okay? Not once a year — once a week.”</p>
+            </div>
+          </div></div>
+<h2>The Emotional Close</h2>
+<div class="say"><p class="say-label">The Heart Sell — Say With Emotion</p><p class="line">“We always think twice before doing something for ourselves, but come on — when was the last time you actually treated yourself? You work hard, you deserve it. And this isn’t an everyday product — it’s a year of results.”</p><p class="line"><span class="cue">Say this with real emotion — this line closes deals. Then follow with:</span></p><p class="line">“You’re going to love this. So, which one sounds better for you — Option 1 or Option 2?”</p><p class="line"><span class="cue">Pause. Smile. Wait. Don’t fill the silence.</span></p></div>
+<h2>Pro Tips</h2>
+<div class="tips"><div class="tip"><h4>Demo on the hand — always</h4><p>The visual of dead skin rolling off is your strongest proof. Never skip the hand demo.</p></div><div class="tip"><h4>“Roll it, don’t rub it”</h4><p>This phrase is crucial. If they rub too hard, it won’t work. Gentle rolling creates the pilling effect.</p></div><div class="tip"><h4>Mention dermatologists</h4><p>Say it out loud: doctors and dermatologists send people to this. The driest, the most sensitive, people prone to eczema and psoriasis. Nothing you can say about glow lands as hard as the fact that it is what the worst skin in the room uses.</p></div><div class="tip"><h4>A scrub is not this</h4><p>A scrub scratches the dead skin off. This dissolves the glue holding it on and the skin lets go by itself. That is why it is once a week and not every day, and why the bottle lasts a year — you are not sanding your face, you are telling it to let go.</p></div><div class="tip"><h4>“Does it hurt?”</h4><p>“Hurt? You will feel it working — a bit of warmth, a bit of a tingle, about ten seconds in. That is it doing its job, not hurting you.” Never say “no” flat. She can feel something; denying it makes you a liar ten seconds later.</p></div><div class="tip"><h4>Tell her how to use it</h4><p>Clean skin, Sunday night, five minutes. Roll it, rinse it, then your own cream goes on and it works ten times harder because there is nothing dead in the way. Once a week — more is not better, it is just faster through the bottle.</p></div><div class="tip"><h4>One bottle = one year</h4><p>Always emphasize longevity. €100 for a full year of treatments is less than €2 per week. Frame it as an investment.</p></div><div class="tip"><h4>€200 first, always</h4><p>Start with the Europe price. The Andorra price feels like a gift after that anchor.</p></div><div class="tip"><h4>The emotional close is everything</h4><p>“When was the last time you treated yourself?” Say it with genuine feeling. This line works on every demographic.</p></div><div class="tip"><h4>Works on everyone</h4><p>Women, men, young, old — this pitch works on every demographic because it delivers instant visual proof and emotional value.</p></div><div class="tip"><h4>€50 voucher is your secret weapon</h4><p>Only use the €50 close at the very end. If you drop it too early, you leave money on the table.</p></div></div>
+<div class="callout"><h4>One voucher, once</h4><p>You use the voucher once, and on the peeling it lands straight on the floor: €50, single Peeling only, never the combo. There is no second voucher — inventing another one tells her the first was invented too. And unlike the syringe, you do not go and fetch anybody for this number: on the peeling the maths simply stops there.</p></div>
+<div class="callout"><h4>Bridge it up to the eyes</h4><p>Do not stop at the hand. “Feel that patch? That is your skin with the dead taken off it. Sit down one second — the same trick on the eye is the one that makes people scream.” The peeling is the middle of the ladder, not the top of it.</p></div>
+<footer class="foot"><span>Zero Lines · Andorra · prices in €</span><span>Generated from the app — do not hand-edit</span></footer>
+</body>
+</html>

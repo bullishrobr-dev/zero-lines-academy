@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nail Kit</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="lesson">
+<header class="mast">
+  <p class="brand">Beginner Product · 60-Second Demo</p>
+  <h1>Nail Kit</h1>
+  <p class="sub">60-Second Salon Shine</p>
+</header>
+<p class="intro">Sixty seconds, one nail, and a face that lights up — the fastest WOW you will ever get out of a stranger’s hand. Know where it sits before you fall in love with it: the nail kit, the scrub and the body butter are completely beginner products. They are for people who are learning how to sell, or who just want to put some nice energy on the floor. The syringe is the star product — that is what we focus on, and selling one is what a shift is measured on. So a sheet that treated a nail-kit sale as the goal would be teaching you to stay a beginner. Run this one for the practice: once you can get that reaction on demand, on a stranger, with a crowd watching, you can get it on the syringe too. One real promise comes with the kit, and it is the only one in the shop — the buffer. She brings the old one back, she gets a new one, forever.</p>
+<h2>Quick Reference</h2>
+<div class="facts"><div><dt>Demo</dt><dd>60 seconds</dd></div><div><dt>Shine lasts</dt><dd>2 weeks</dd></div><div><dt>No polish</dt><dd>Natural shine</dd></div><div><dt>Warranty</dt><dd>Lifetime — Any Store</dd></div><div><dt>Kit Includes</dt><dd>Buffer, File, Oil, Cream</dd></div><div><dt>Europe Price</dt><dd>€80</dd></div><div><dt>Andorra Price</dt><dd>€60</dd></div></div>
+<h2>The Hook — Stop Scripts</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>The Natural Nail Compliment</h3><p>“Wow! You always keep your nails natural? That’s awesome. Let me give you a small gift — you’re gonna love this.” Say it confidently, smile, and lead inside immediately. No hesitation, no questions.</p></div></li><li><span class="n">2</span><div><h3>Setting the Scene</h3><p>“So this isn’t your typical nail buffer — it’s a professional system that keeps your nails shiny and healthy for up to two weeks without any polish.” Unbox it slowly while you talk — create curiosity and ownership.</p></div></li></ol>
+<div class="say"><p class="say-label">The stop, out loud</p><p class="line">Wow! You always keep your nails natural? That’s awesome. Let me give you a small gift — you’re gonna love this.</p><p class="line">So this isn’t your typical nail buffer — it’s a professional system that keeps your nails shiny and healthy for up to two weeks without any polish.</p></div>
+<h2>The 3-Step Demo</h2>
+<div class="callout"><h4>Build it, do not rush it</h4><p>The magic is in the buildup. Steps 1 and 2 create suspense. Step 3 is the WOW.</p></div>
+<ol class="steps"><li><span class="n">1</span><div><h3>Smooth · Grey Side</h3><p>Hold her hand gently. Start with the first two steps on one nail. “Most buffers you see remove the top layer of your nail to make it shiny — that’s actually bad. It makes the nails weak and thin. This one’s different. It smooths, shapes, but doesn’t remove anything.” Show the nail — not shiny yet. “See? Nothing dramatic yet — now wait for the last step.”</p></div></li><li><span class="n">2</span><div><h3>Polish · White Side — Prep</h3><p>Use the white strip, buff gently. “Feel that? It’s soft, not rough. It’s actually pushing your natural oils up to the surface — that’s what gives the shine and strengthens the nail.”</p></div></li><li><span class="n">3</span><div><h3>Shine (The Close) · THE WOW MOMENT</h3><p>Pause. Lower your voice. Build suspense. “Promise not to scream?” “WOWOWOWOW! 😄 Look at that — that’s your natural nail! No polish, no chemicals — and it stays shiny like this for two whole weeks.” If she’s with a partner or friend, make them part of the reaction — laughter = comfort = buying mode.</p></div></li></ol>
+<div class="say"><p class="say-label">The three beats, out loud</p><p class="line">Most buffers you see remove the top layer of your nail to make it shiny — that’s actually bad. It makes the nails weak and thin. This one’s different. It smooths, shapes, but doesn’t remove anything.</p><p class="line">See? Nothing dramatic yet — now wait for the last step.</p><p class="line">Feel that? It’s soft, not rough. It’s actually pushing your natural oils up to the surface — that’s what gives the shine and strengthens the nail.</p><p class="line">Promise not to scream?</p><p class="line">WOWOWOWOW! 😄 Look at that — that’s your natural nail! No polish, no chemicals — and it stays shiny like this for two whole weeks.</p></div>
+<h2>The Warranty Pitch</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>Present the Full Kit</h3><p>“Everything you saw comes in this full kit — buffer, professional file, cuticle oil, and cream. And the best part — the buffer has a lifetime warranty. No matter what happens — if it breaks, if it wears out, even if your dog eats it — you can exchange it in any of our stores worldwide.”</p></div></li><li><span class="n">2</span><div><h3>Close the Logic</h3><p>Let them laugh — humor lowers the guard. Then close the logic: “It’s one simple kit, one design — there are no colors or versions to choose from. This is the one everyone loves.”</p></div></li></ol>
+<div class="say"><p class="say-label">The warranty, out loud</p><p class="line">Everything you saw comes in this full kit — buffer, professional file, cuticle oil, and cream. And the best part — the buffer has a lifetime warranty. No matter what happens — if it breaks, if it wears out, even if your dog eats it — you can exchange it in any of our stores worldwide.</p><p class="line">It’s one simple kit, one design — there are no colors or versions to choose from. This is the one everyone loves.</p></div>
+<div class="callout"><h4>The buffer warranty is real — say it with confidence</h4><p>The lifetime warranty is one of your strongest closes. It removes all risk and creates unbelievable perceived value. And it is the one lasting promise anybody in this shop is allowed to make: she brings the old buffer back, she gets a new one, forever, in any of our stores. The owner honours it, so say it like you mean it — the dog line is there to make her laugh, not to soften a lie. Everything else stops at the till. No refunds, no returns, no money back, no promise of future service.</p></div>
+<h2>Emotional Connection</h2>
+<div class="say"><p class="say-label">While she is still looking at her hand</p><p class="line">You know, this isn’t just about beauty — it’s about that little daily detail that makes you feel fresh and confident. Every time you look at your hands, you’ll feel clean, polished, and taken care of.</p><p class="line">And if you think about it — €60 for something that replaces salon visits for years — it’s a no-brainer.</p></div>
+<div class="callout"><h4>Tone</h4><p>Keep the tone friendly, not pushy — this pitch should feel like a fun chat, not a sale.</p></div>
+<h2>Price &amp; Offers</h2>
+<div class="ladder"><div class="rung t-anchor">
+            <div class="amt"><span class="price">€80</span></div>
+            <div class="body">
+              <p class="rl">Europe — what these cost back home<span class="badge">Anchor</span></p>
+              <p class="when">Always anchor with Europe first. Nobody pays this — it is the strike-through you say out loud before the real number.</p>
+              
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€60</span></div>
+            <div class="body">
+              <p class="rl">Andorra — one kit<span class="badge">Normal</span></p>
+              <p class="when">The asking price, and what the buffer alone is worth with the warranty on it. Say it once, then go straight to the offer.</p>
+              
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€120</span><span class="each">3 × €40</span></div>
+            <div class="body">
+              <p class="rl">Buy 2, Get 1 Free<span class="badge">Offer</span></p>
+              <p class="when">Classic trio — most popular offer · 3 full Nail Kits · Perfect for gifts · €40 per kit effective</p>
+              <p class="line">Right now we’ve got an amazing offer: if you buy two, you get one free. So you pay €120 and walk away with three full kits. That’s why everyone grabs these during the holidays — they make the perfect Christmas gifts. Small, elegant, and actually useful.</p>
+            </div>
+          </div><div class="rung t-parallel">
+            <div class="amt"><span class="price">€120</span><span class="each">4 × €30</span></div>
+            <div class="body">
+              <p class="rl">Buy 2, Get 2 Free<span class="badge">Option B — beside, not below</span></p>
+              <p class="when">Premium Christmas — four for the price of two · 4 full Nail Kits · One for you, three for gifts · €30 per kit effective</p>
+              <p class="line">You know what, Christmas is coming — let’s do something special. Instead of Buy 2, Get 1, I’ll do Buy 2, Get 2. You’ll get four full kits for €120 — one for you, one for mom, one for sister, one for a friend. Easiest Christmas shopping ever.</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€60</span><span class="each">2 × €30</span></div>
+            <div class="body">
+              <p class="rl">Buy 1, Get 1 Free<span class="badge">Offer</span></p>
+              <p class="when">Flexible combo — cross-sell setup · Nail Kit + Scrub · Nail Kit + Body Butter · Perfect intro pair</p>
+              <p class="line">Tell you what — I’ll do something better for you. Instead of just one kit, I’ll do Buy 1, Get 1 Free for €60, and you can mix and match it with our Scrub or Body Butter. So you can take one Nail Kit and one Scrub — or one Kit and one Butter — still €60 total.</p>
+            </div>
+          </div><div class="rung t-floor">
+            <div class="amt"><span class="price">€30</span></div>
+            <div class="body">
+              <p class="rl">Final Push — Single<span class="badge">Minimum</span></p>
+              <p class="when">Final push — whole kit at half the normal price · Full kit (not just buffer) · Lifetime warranty included · Opens door for return</p>
+              <p class="line">Alright, you know what — I can see how much you loved it. The kit is normally €60, and the buffer alone justifies that with the lifetime warranty. But since it’s the holidays and I really want you to enjoy it, I’ll do the whole kit — buffer, file, oil and cream — for just €30. It’s my way of opening the door — try it, use it, love it. Next time you’re in Andorra, you’ll come back for the second one, I promise.</p>
+            </div>
+          </div></div>
+<div class="callout"><h4>THE RULE — she does not leave the shop</h4><p>If she walks out she is never coming back, so treat every exit as a lost sale. Read the ladder as bundles, not a slide: €120 buys three kits and the same €120 buys four, so the money only really moves at €60 and then at €30. The whole kit at €30 is the bottom rung, not a goodbye — warranty included, in her hands today, and she is a customer. Work all of it before anything ends. Never hand her a card, never write the price down, never send her off to have a think with somebody who is not standing here.</p></div>
+<h2>Pro Tips</h2>
+<div class="tips"><div class="tip"><h4>Let them feel the shine before showing price</h4><p>The WOW moment in Step 3 is your close. Never mention price before they see the mirror. The visual proof sells itself.</p></div><div class="tip"><h4>“Even if your dog eats it” — use the warranty</h4><p>The lifetime warranty is your risk-remover. The 'dog eats it' line makes them laugh and remember. Use it every time.</p></div><div class="tip"><h4>Mention Christmas gifts naturally</h4><p>“Small, elegant, and actually useful.” During peak season, every demo should include a gift reference.</p></div><div class="tip"><h4>Buy 2, Get 2 for amazing buyers</h4><p>When the energy is high and they have a Christmas list — this is your volume close. Four kits at €120 is €30 per kit.</p></div><div class="tip"><h4>Buy 1, Get 1 Mix &amp; Match for quick closes</h4><p>€60 for a Nail Kit + Scrub/Butter is an easy yes. It also sets up your cross-sell perfectly.</p></div><div class="tip"><h4>€30 single kit — the holiday gift line</h4><p>Your graceful exit that still creates a customer. Frame it as a gift from you: 'It’s my way of opening the door.'</p></div><div class="tip"><h4>Build suspense before the WOW</h4><p>“Promise not to scream?” — this line creates anticipation. The contrast between the buildup and the reveal is what makes them buy.</p></div><div class="tip"><h4>Fast, fun, and feel-good</h4><p>This is a 60-second demo. Keep energy high, move quickly, and celebrate their reaction. If they smile, they buy.</p></div></div>
+<h2>Lines We Do Not Cross</h2>
+<ul class="rules"><li>The buffer is the one promise you may make, and it is real: she brings the old buffer back, she gets a new one, forever, in any of our stores. Nothing else gets promised — no refunds, no returns, no money back, no service after the till.</li><li>Nobody leaves to think about it. The whole kit at €30 is the last rung and it happens here, today — no card, no price written down, no voucher to take away.</li><li>A nail kit is never what follows a syringe. Sell a syringe and your job is the handover: the upseller is a specialist who is only here for a short time. You do not pitch a second product on top of it.</li><li>Nails, oils, shine, dry hands — talk all of it up as much as you like. Never reach for a disease to sell a kit.</li><li>Never explain why it is cheaper here. The Europe price beside the Andorra price does the whole job on its own — the shop’s standing in Andorra is not a selling point we voice, in any wording.</li><li>Every number on this sheet is generated from the app. If a rung moves, reprint the sheet; never invent a rung of your own.</li></ul>
+<footer class="foot"><span>Zero Lines · Andorra · prices in €</span><span>Generated from the app — do not hand-edit</span></footer>
+</body>
+</html>

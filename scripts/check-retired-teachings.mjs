@@ -166,6 +166,45 @@ const RETIRED = [
       '    mirror comes last, after the price, never before it.',
   },
   {
+    name: 'the floor as permission rather than theatre',
+    /* The third time this came back, so it gets a rule of its own.
+       check-floor-needs-a-manager.mjs cannot catch it: that guard checks the
+       manager is PRESENT beside the number, and every line below had him. What
+       they got wrong was WHY he is there.
+
+         "Even for the syringe, it's not always necessary to call the manager.
+          We call the manager just for the show. The seller is allowed to sell
+          it for 100."
+
+       So: fetch him, always — but never write that the seller needs him. The
+       survivors this was written for had the English corrected and the Spanish
+       left alone ("un vendedor que llega solo al fondo no tiene fondo"), plus a
+       product page still labelling the rung "Minimum (Manager Only)" and
+       telling a seller "the manager unlocks this, never you". */
+    patterns: [
+      /\b(?:not|never)\s+yours\s+to\s+(?:give|drop)\b/i,
+      /\bno\s+es\s+tuy[oa]\s+para\s+(?:darlo|darla|bajarlo)\b/i,
+      /\bmanager[- ]only\b|\(manager only\)|solo el encargado/i,
+      /\b(?:manager|encargado)\b[^.!?]{0,30}\bunlocks?\b|lo abre el encargado/i,
+      /* "has no bottom" slipped past a pattern that only knew "floor" — found
+         by fixing the Spanish twin and watching the English stay green. */
+      /\bhas no (?:floor|bottom)\b|no tiene (?:suelo|fondo)\b/i,
+      /\bneeds? (?:the )?manager'?s? (?:permission|approval)\b|permiso del encargado/i,
+    ],
+    /* Two things must stay sayable. The customer who comes back months later
+       IS genuinely not the seller's to price — CLAUDE.md says so outright — and
+       a lesson teaching the rule has to be able to name the thing it forbids. */
+    allowScope: 'line',
+    allowWhen:
+      /\b(?:came back|comes back|returning|repeat customer|vuelve|repite|meses despu[eé]s|months later|no longer|ya no|retired|retirad|used to)\b/i,
+    replacement:
+      'Fetch the manager \u2014 always \u2014 but never write that the seller needs\n' +
+      '    him. They are allowed to sell at the floor. What the walk across the\n' +
+      '    shop buys is that the number sounds won rather than available. Fix the\n' +
+      '    Spanish twin too: this rule exists because the English was corrected\n' +
+      '    and the Spanish was not.',
+  },
+  {
     name: 'the 45-degree angle',
     /* "This 45 degree angle is kind of stupid. It's just important to let the
        people know that you don't want to be in their face. Talk to them a
@@ -271,9 +310,17 @@ for (const file of walk(SRC)) {
            into a card that already opened with "Never trade it" and watching
            the guard wave it through. A rule is forbidden where it is SAID;
            it is allowed in the sentence that says not to say it. */
+        /* Scope of the escape, per rule.
+           'sentence' (the default) suits a rule whose exemption is local —
+           "never say X" sits in the same breath as X. 'line' suits one whose
+           exempting context is a neighbouring sentence: the returning customer
+           is named AFTER "the price is not yours to give", so a sentence-scoped
+           test fails a line that CLAUDE.md explicitly endorses. */
+        const exempt = (text) => r.allowWhen && r.allowWhen.test(text);
+        if (r.allowScope === 'line' && exempt(line)) continue;
         const offends = (text) =>
           r.patterns.some((rx) => rx.test(text)) &&
-          !(r.allowWhen && r.allowWhen.test(text));
+          !(r.allowScope === 'line' ? false : exempt(text));
         const sentences = line.split(/(?<=[.!?])\s+/);
         if (!sentences.some(offends)) continue;
         if (true) {

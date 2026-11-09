@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Syringe</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="lesson">
+<header class="mast">
+  <p class="brand">Flagship Product</p>
+  <h1>The Syringe</h1>
+  <p class="sub">Natural Alternative to Botox — Instant Results</p>
+</header>
+<p class="intro">The syringe is the star. Everything else in the shop is practice — this is the one you are measured on, and for your first two weeks it is the only thing you do. Natural alternative to Botox, instant result on one eye, a full year inside the tube. Learn this speech until it comes out of you without thinking. And remember where your job ends: she pays, and then you hand her to the upseller. You do not start selling her a scrub.</p>
+<div class="facts"><div><dt>Use</dt><dd>Once/week</dd></div><div><dt>Lasts</dt><dd>1 year</dd></div><div><dt>Inside</dt><dd>60 applications</dd></div><div><dt>Rule</dt><dd>No touching 5h</dd></div></div>
+<h2>The Hook — Stop Scripts</h2>
+<div class="say"><p class="say-label">The Eye Compliment</p><p class="line">“You look amazing! What do you use for your skin?”</p><p class="line"><span class="cue">Pause, smile warmly, let her respond. Then:</span></p><p class="line">“I want to give you something small — not to replace your cream, because you clearly take care of yourself — but around the eyes… we can do something special there.”</p></div>
+<div class="say"><p class="say-label">With Partner — Engage Both</p><p class="line">“Sir, do you see what I mean? She’s stunning, but the eyes — we can make them look even fresher, right?”</p><p class="line"><span class="cue">Keep it playful and charming — the laughter opens the door. Then lead inside confidently:</span></p><p class="line">“Come, let me show you something incredible. It takes two minutes; you’ll thank me after.”</p></div>
+<div class="say"><p class="say-label">Direct Approach — The Observation</p><p class="line">“The first thing I noticed about you is your eyes... they’re beautiful, but I can see the bags are a bit heavy. I can fix that in two minutes. Come!”</p></div>
+<h2>The Demo — Step by Step</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>Set the Stage</h3><p>“Just to relax you, everything we use here is 100% natural — no parabens, no chemicals, no injections.” (To partner: “Sir, don’t worry — we’re not about to change her face, just a little touch of magic for the eyes.”)</p></div></li><li><span class="n">2</span><div><h3>Clean &amp; Position</h3><p>Have her sit down comfortably. Clean the eye area gently with a cotton pad. Make sure the lighting is good.</p></div></li><li><span class="n">3</span><div><h3>“Look Up, Look Down” Technique</h3><p>“Look up for me, perfect. Thank you.” Apply while the eye is looking upward — this smooths the under-eye area. “Now look down.” Apply to the upper eyelid and crow’s feet area.</p></div></li><li><span class="n">4</span><div><h3>The Narrative While Applying</h3><p>“What I’m about to show you is our #1 best-selling treatment across Europe and North America. It helps the skin stimulate its own collagen production, relaxes the facial muscles, and drains unnecessary fluids — so puffiness, tired eyes, and fine lines disappear naturally.”</p></div></li><li><span class="n">5</span><div><h3>The Treatment Plan</h3><p>“You only need to use it once a week — that’s it. Sixty applications in that syringe, so it is a full year of treatments. The only rule: once you apply it, don’t touch the area for five hours.” (To partner: “You’re going to have to remind her not to touch it, okay?”)</p></div></li><li><span class="n">6</span><div><h3>THE REVEAL — First Eye</h3><p>“Alright, I do this around twenty times a day, and it always looks good — but what just happened to you right now is something else! Promise not to scream?” (Hand her the mirror.) “Woooooow!! Look at that — it’s like you just slept twelve hours.”</p></div></li><li><span class="n">7</span><div><h3>Show the Untreated Eye</h3><p>“Now look at the other eye — see the difference?” This comparison is EVERYTHING. Let her see the treated vs. untreated. That’s your close. Turn to the partner: “Sir, be honest — do you see the difference? Look at the lift, the smoothness, the brightness.”</p></div></li><li><span class="n">8</span><div><h3>The Second Eye — the last move of the close</h3><p>Only once the ladder has stalled — €300 did not land, €210 did not land, maybe you are at €175 with the gift off. Take a tiny break. Let her feel it is almost over. Then: “You know what? Let me fix your other eye.” And WHILE YOU DO IT, you keep closing — “Can I ask you honestly, what’s the problem? You told me you like it. You told me you would use it.” She said both during the demo; this is what you banked them for. “It’s a bit too expensive?” THAT is when the voucher comes out — hands still busy, before she has seen the result: “I can do this for you, but you cannot be greedy with me. I can only do it on the single one, to open the door for you as a customer.” Then the number: €140 for the whole year. Only then the mirror: “Before you decide — look at both eyes together. Take a good hard look, five or ten seconds, and tell me what you think.”</p></div></li></ol>
+<div class="callout"><h4>She asks for the second eye first?</h4><p>Never make her buy to earn it — that is a bargain, and it tells her the demo is over. Say yes, and then use the time: “Of course, let me do it.” Hands busy, keep closing, and the voucher comes out while she still cannot see the result. The longer she is sitting there, the longer you have.</p></div>
+<h2>The Two Offers</h2>
+<div class="callout"><h4>They go out together</h4><p>The SAME two, every single time — that is why you always have something concrete in your mouth. They go out together: Offer 1, and Option B beside it, never under it. Option B is the bigger one. Then you stop talking and let her pick.</p></div>
+<div class="say"><p class="say-label">Offer 1 — 30% Off + Gift</p><p class="line">“Right now we have an incredible promotion: take it for 30% off, which makes it €210, and you also get a small gift — you can choose between a Day Cream, Night Cream, Cleanser or Peeling.”</p></div>
+<div class="say"><p class="say-label">Option B — Full Price + 2nd Syringe Free</p><p class="line">“This one is actually the favourite: pay the normal price of €300 and you get 2 syringes instead of one — so you can do both eyes, the forehead, the upper lip, even the number 11s between the eyebrows. A full face treatment that lasts a whole year. That is €150 each.”</p></div>
+<div class="say"><p class="say-label">Then ask, and stop talking</p><p class="line">“So — would you rather have the 30% off at €210 with a free gift, or the two-syringe deal at €300?”</p></div>
+<h2>The Partner Upsell</h2>
+<div class="tips"><div class="tip"><h4>“One eye did that. Now show him what a year of it looks like”</h4><p>After they see the result on one eye, that’s your opening. The partner has already witnessed the transformation — they’re emotionally invested. Bring him IN, always: he is the first person you work on, not the one you write off. Only if he is genuinely bad energy do you turn and give everything to her.</p></div><div class="tip"><h4>When to push Option B</h4><p>If she has read well all through the demo, push Option B — and pile gifts on it. You are €90 ABOVE Offer 1 and miles above your minimum, so the gifts come out of room you already have:</p></div></div>
+<div class="say"><p class="say-label">After the reveal</p><p class="line">“Sir, you saw the difference — and that is ONE eye. Now imagine her doing that at home every Sunday, all year. She is going to walk around looking like she slept twelve hours.”</p></div>
+<div class="say"><p class="say-label">Now introduce Option B:</p><p class="line">“Pay the normal price of €300, and you’ll get TWO syringes — so you can treat both eyes, the forehead, the upper lip, and even the number 11s between the eyebrows.”</p></div>
+<div class="say"><p class="say-label">And pile the gifts on it</p><p class="line">“Can I be honest with you? There’s not a big difference between the two options anyway. I really feel like you’d use it for those extra areas, and honestly, you’re the type who will take care of it properly. So I’ll do something nice — if you take the bigger option, I’ll give you both my Day and Night Cream completely free.”</p></div>
+<h2>The Price Ladder</h2>
+<div class="callout"><h4>This is the way DOWN</h4><p>This is the way DOWN, and it is for the customer who genuinely cannot reach the two offers — nobody else. If she reads well you are going UP, to Option B, which is not on here: it sits beside Offer 1 above, at €300. Never skip steps, one at a time.</p></div>
+<div class="ladder"><div class="rung t-anchor">
+            <div class="amt"><span class="price">€500</span></div>
+            <div class="body">
+              <p class="rl">Europe Price<span class="badge">Anchor</span></p>
+              <p class="when">Anchor value — always mention this first</p>
+              <p class="line">“Across Europe, this treatment goes for around €500, because it’s one of the only ones that works the moment you put it on — and one syringe is a whole year of it.”</p>
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€300</span></div>
+            <div class="body">
+              <p class="rl">Andorra Price<span class="badge">Normal</span></p>
+              <p class="when">Our standard price</p>
+              <p class="line">“But here in Andorra — you know how special it is here — instead of €500, we charge only €300.”</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€210</span></div>
+            <div class="body">
+              <p class="rl">30% Off + Gift<span class="badge">Offer</span></p>
+              <p class="when">Amazing offer — best value single syringe Offer 1 of the two, and your best-value SINGLE syringe. It never goes out on its own — Option B goes out with it, beside it, at €300 for 2. Same two options every time, so you always have something concrete to say.</p>
+              <p class="line">“Right now, we have an incredible promotion: take it for 30% off, which makes it €210, and you’ll also get a small gift — you can choose between a Day Cream, Night Cream, Cleanser, or Peeling.”</p>
+            </div>
+          </div><div class="rung t-parallel">
+            <div class="amt"><span class="price">€300</span><span class="each">2 × €150</span></div>
+            <div class="body">
+              <p class="rl">Option B — Second Syringe Free<span class="badge">Option B — beside, not below</span></p>
+              <p class="when">Not a rung. This is Option B, and it goes out BESIDE the offer above it — never under it and never descended to. It is MORE money for double the product (€150 each). Both go out together and she picks.</p>
+              <p class="line">“This one is actually the favourite: pay the normal price of €300 and you get 2 syringes instead of one — so you can do both eyes, the forehead, the upper lip, even the number 11s between the eyebrows. A full face treatment that lasts a whole year. That is €150 each.”</p>
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€175</span></div>
+            <div class="body">
+              <p class="rl">Remove Gift<span class="badge">Normal</span></p>
+              <p class="when">Adaptive — take away the gift, lower the price</p>
+              <p class="line">“You know what, I get it. Let’s make it easier. I’ll take away the gift — we usually value it at €35 — and that will bring the syringe by itself down to €175.”</p>
+            </div>
+          </div><div class="rung t-voucher">
+            <div class="amt"><span class="price">€140</span></div>
+            <div class="body">
+              <p class="rl">Voucher Close<span class="badge">Voucher — once only</span></p>
+              <p class="when">Say it while you start her OTHER EYE. Hands busy, face tilted up, the room feels finished — and the number moves inside a moment that is about something else. Voice down, lean in. Only on the SINGLE syringe, and there is no second voucher.</p>
+              <p class="line">“You know what, let me fix your other eye real quick.” <span class="cue">Start the eye. Hands on her face, and NOW you talk money.</span> “Listen, I just checked something and I can do a small crazy offer for you. But you can’t be greedy, okay? Remember I said without the gift it’s €175? With this little 20% voucher it comes down to €140. One time only — next time it goes back to normal.”</p>
+            </div>
+          </div><div class="rung t-floor">
+            <div class="amt"><span class="price">€100</span></div>
+            <div class="body">
+              <p class="rl">Absolute Minimum<span class="badge">Minimum</span></p>
+              <p class="when">One voucher, once — then full market, and you GO AND FETCH THE MANAGER. You are allowed to sell at this price; what you are buying by fetching him is that it sounds like a price somebody had to win, not one that was always there.</p>
+              <p class="line">“Look, I really want you to have this. Give me ten seconds.” <span class="cue">Go and get the manager. You do not invent this number and you do not say it first.</span> MANAGER: “€100. That is the bottom, and only because he asked me for you. Promise me you actually use it once a week.”</p>
+            </div>
+          </div></div>
+<h2>The Voucher Close</h2>
+<div class="say"><p class="say-label">Exact Words — Say This (while you do her other eye)</p><p class="line">You know what, let me fix your other eye real quick. <span class="cue">Start it. Do not stop talking, do not let her stand up.</span> Listen, I just checked something and I can do a small crazy offer for you. But you can’t be greedy, okay? I can’t do this on the double syringe, only on the single one. Remember I told you that without the gift it’s €175? If you use this small 20% voucher, it brings it down to €140. One time only — next time it goes back to normal.</p></div>
+<div class="say"><p class="say-label">The Two Promises</p><p class="line">“You just promise me two things, okay? 1) You’re really going to use it once a week — not once a year. 2) If you’re happy, you’ll tell your friends about us.”</p></div>
+<div class="say"><p class="say-label">The WhatsApp Close</p><p class="line">“You use WhatsApp, right? Perfect. You’ll have my number and email — just let me know if you need anything or if you ever want to try something new later on.”</p></div>
+<div class="callout"><h4>After the sale</h4><p>This creates a personal relationship — not just a transaction. But if she ever walks back in months later wanting another one, that is not your price to name: get the manager, or whoever on the floor has the most experience. It is not your sale to price.</p></div>
+<h2>Pro Tips</h2>
+<div class="tips"><div class="tip"><h4>If she asks what happens after the year</h4><p>Do not bring this up. It is a one-year treatment and that is where your pitch stops. But if she asks: “After the year you carry on if you are happy with it, or you stop. If you stop, the lines come back slowly — same as the gym. You train for a year, you stop going, your muscles do not vanish overnight. They fade.” Honest, and it sells better than a promise she would have caught you on.</p></div><div class="tip"><h4>Always start with the Europe price</h4><p>€500 is the anchor. Everything after feels like a bargain. Never mention the minimum first.</p></div><div class="tip"><h4>One eye only — the other one is your close</h4><p>I never do the other eye. Sometimes, inside the speech, I say I will do it in order to close. That is what it is for: at €175, before she stands up — “you know what, let me fix your other eye real quick” — and the voucher comes out WHILE you are doing it. Never a freebie.</p></div><div class="tip"><h4>Engage the partner ALWAYS</h4><p>Bring him IN first, every time — the joke, the reveal, the close. He is often the real decision-maker. Only if he is genuinely bad energy do you turn and give everything to her.</p></div><div class="tip"><h4>If they smile, they buy</h4><p>Keep humor alive. Playful energy opens wallets. If they’re not smiling, they’re not buying.</p></div><div class="tip"><h4>100% natural — no chemicals</h4><p>Always mention this early. It removes fear and positions the product as safe and premium.</p></div><div class="tip"><h4>Go down the ladder one step at a time</h4><p>Never jump from €300 to €140. Walk down slowly. Each step feels like you’re doing them a favor.</p></div><div class="tip"><h4>One voucher, once — the manager owns the floor</h4><p>You use the voucher once, €175 to €140, with the extra 20%. There is no second voucher — inventing another one tells her the first was invented too. Below that you go full market and you CALL A MANAGER to reach €100.</p></div><div class="tip"><h4>The two promises seal loyalty</h4><p>“Promise me you’ll use it. Promise me you’ll tell your friends.” This turns buyers into ambassadors.</p></div><div class="tip"><h4>This is your crown jewel</h4><p>The syringe pitch is your strongest weapon. It sells on emotion, proof, and trust. Practice it until it’s second nature.</p></div></div>
+<div class="callout"><h4>The claim stops at the year</h4><p>One syringe — 60 applications, once/week, 1 year, and the one rule: no touching 5h. That is the whole promise and it stops there. Nothing you say may make the effect outlive the treatment, and you never volunteer what happens afterwards — if she asks, the answer is in the pro tips.</p></div>
+<div class="callout"><h4>Your job ends at the syringe</h4><p>She paid. Do NOT start selling her a scrub. Build the specialist up — only here a short time, amazing at what he does — “just because you got this, I’m going to spoil you with a small gift. What is more important for you, if you could get it lifted: the cheeks, or the neck? Would that make you happy? Let me check with him, if you have one second.” Then you go and get him. She stays in the chair.</p></div>
+<footer class="foot"><span>Zero Lines · Andorra · prices in €</span><span>Generated from the app — do not hand-edit</span></footer>
+</body>
+</html>

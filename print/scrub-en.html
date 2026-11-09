@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dead Sea Scrub &amp; Body Butter</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="lesson">
+<header class="mast">
+  <p class="brand">Beginner Product · Dead Sea Minerals</p>
+  <h1>Dead Sea Scrub &amp; Body Butter</h1>
+  <p class="sub">Feel the Difference</p>
+</header>
+<p class="intro">The friendliest demo in the shop, and the one you learn on. Know where it sits before you fall in love with it: the scrub, the body butter and the nail kit are completely beginner products. They are for people who are learning how to sell, or who just want to put some nice energy on the floor. The syringe is the star product — that is what we focus on, and selling one is what a shift is measured on. So a sheet that treated a scrub sale as the goal would be teaching you to stay a beginner. Use this for exactly what it is: hands, water, a jar that does not spill and a face that smiles. Nobody says no to feeling nice. Get your mouth working and your confidence up here, then take both to the syringe.</p>
+<h2>Quick Reference</h2>
+<div class="facts"><div><dt>Source</dt><dd>Dead Sea</dd></div><div><dt>Jar Lasts</dt><dd>8-12 Months</dd></div><div><dt>Feeling</dt><dd>Instant Soft</dd></div><div><dt>Europe</dt><dd>€80 each</dd></div><div><dt>Andorra</dt><dd>€60 each</dd></div><div><dt>Core</dt><dd>€120/3 (B2G1)</dd></div><div><dt>Floor</dt><dd>€30 Scrub</dd></div></div>
+<h2>The Hook — Stop Scripts</h2>
+<div class="say"><p class="say-label">Pick one and walk her in</p><p class="line">I’m pretty sure you’ve tried scrubs before, right? This one is a bit different. You’ll love this. It’s one of those products that makes everyone smile.</p><p class="line">Do you ever get dry skin? Ugh, I know — it’s the worst. You know what? Let me give you something amazing. Come!</p></div>
+<h2>The Sensory Demo</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>Place the Salts</h3><p>Place the Dead Sea salts on the back of their hand. “Start rubbing gently.” Let them feel the crystals.</p></div></li><li><span class="n">2</span><div><h3>The Dead Sea Story</h3><p>“Have you heard of the Dead Sea? Lowest place on Earth, highest natural mineral concentration — magnesium, calcium, potassium. These minerals detox, rejuvenate, and calm the skin. From the Dead Sea, the lowest point on Earth.”</p></div></li><li><span class="n">3</span><div><h3>Add Water</h3><p>Add water slowly while they rub. “This is my personal favorite — I use it myself. People with the most difficult skin in the world use this — the driest, the most sensitive, the ones who cannot put anything on themselves. It basically separates the dry, dead layers from the living ones so your skin can breathe.”</p></div></li><li><span class="n">4</span><div><h3>Let Them Feel the Difference</h3><p>Rinse and dry. Wait two beats. “Be honest — when was the last time your hands felt like this? And the best part? The sensation stays — even if you wash your hands a lot or use sanitizer. Since Covid, this became our #1 seller. People were like, 'Finally something that actually helps!'”</p></div></li><li><span class="n">5</span><div><h3>Usage Instructions</h3><p>“Use it once a week. One teaspoon is enough for the whole body. A jar lasts 8–12 months.”</p></div></li></ol>
+<div class="say"><p class="say-label">The demo, out loud</p><p class="line">Start rubbing gently.</p><p class="line">Have you heard of the Dead Sea? Lowest place on Earth, highest natural mineral concentration — magnesium, calcium, potassium. These minerals detox, rejuvenate, and calm the skin. From the Dead Sea, the lowest point on Earth.</p><p class="line">This is my personal favorite — I use it myself. People with the most difficult skin in the world use this — the driest, the most sensitive, the ones who cannot put anything on themselves. It basically separates the dry, dead layers from the living ones so your skin can breathe.</p><p class="line">Be honest — when was the last time your hands felt like this? And the best part? The sensation stays — even if you wash your hands a lot or use sanitizer. Since Covid, this became our #1 seller. People were like, 'Finally something that actually helps!'</p><p class="line">Use it once a week. One teaspoon is enough for the whole body. A jar lasts 8–12 months.</p></div>
+<h2>The Butter Flip Test</h2>
+<div class="callout"><h4>Impossible to fake</h4><p>This is the moment that sells the butter. It’s visual, surprising, and impossible to fake.</p></div>
+<ol class="steps"><li><span class="n">1</span><div><h3>The Demonstration</h3><p>Open the butter, flip it upside down — no spill. Point to the fact that nothing falls out. “To complete the treatment — the Body Butter. Same minerals, ultra-rich. You see how it doesn’t spill? Even if I flip it over, it doesn’t fall. You only need a tiny bit — not because I’m cheap 😄 — because it’s really that concentrated.”</p></div></li><li><span class="n">2</span><div><h3>The Closing Line</h3><p>Let them massage it in. Then: “Imagine this feeling all over the body… and the feet? OMG — the best feeling ever!”</p></div></li></ol>
+<div class="say"><p class="say-label">The flip, out loud</p><p class="line">To complete the treatment — the Body Butter. Same minerals, ultra-rich. You see how it doesn’t spill? Even if I flip it over, it doesn’t fall. You only need a tiny bit — not because I’m cheap 😄 — because it’s really that concentrated.</p><p class="line">Imagine this feeling all over the body… and the feet? OMG — the best feeling ever!</p></div>
+<h2>Price Presentation</h2>
+<div class="say"><p class="say-label">Anchor, then local, then the offer</p><p class="line">I won’t lie — it’s not cheap. Around Europe these go for €80 each.</p><p class="line">But here in Andorra, each one is €60.</p><p class="line">And the best part — our offer is Buy 2, Get 1 Free. So you pay €120 and you leave with three products.</p></div>
+<h2>Combo Offers</h2>
+<div class="ladder"><div class="rung t-anchor">
+            <div class="amt"><span class="price">€80</span></div>
+            <div class="body">
+              <p class="rl">Europe — what these cost back home<span class="badge">Anchor</span></p>
+              <p class="when">Nobody pays this. It is the strike-through you say out loud before the real number.</p>
+              <p class="line">I won’t lie — it’s not cheap. Around Europe these go for €80 each.</p>
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€60</span></div>
+            <div class="body">
+              <p class="rl">Andorra — one jar<span class="badge">Normal</span></p>
+              <p class="when">The asking price. Say it once, then go straight to the offer.</p>
+              <p class="line">But here in Andorra, each one is €60.</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€120</span><span class="each">3 × €40</span></div>
+            <div class="body">
+              <p class="rl">Buy 2, Get 1 Free<span class="badge">Offer</span></p>
+              <p class="when">Our core offer — most popular</p>
+              <p class="line">And the best part — our offer is Buy 2, Get 1 Free. So you pay €120 and you leave with three products.</p>
+            </div>
+          </div><div class="rung t-parallel">
+            <div class="amt"><span class="price">€120</span><span class="each">4 × €30</span></div>
+            <div class="body">
+              <p class="rl">Buy 2, Get 2 Free<span class="badge">Option B — beside, not below</span></p>
+              <p class="when">For premium gift buyers — four products</p>
+              
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€60</span><span class="each">2 × €30</span></div>
+            <div class="body">
+              <p class="rl">Buy 1, Get 1 Free<span class="badge">Offer</span></p>
+              <p class="when">Slimmer variation — fast close</p>
+              
+            </div>
+          </div><div class="rung t-floor">
+            <div class="amt"><span class="price">€30</span></div>
+            <div class="body">
+              <p class="rl">Final Push — Single<span class="badge">Minimum</span></p>
+              <p class="when">Final push — the graceful exit</p>
+              
+            </div>
+          </div></div>
+<div class="callout"><h4>THE RULE — she does not leave the shop</h4><p>If she walks out she is never coming back, so treat every exit as a lost sale. Read the ladder as bundles, not a slide: €120 buys three and the same €120 buys four, so the money only really moves at €60 and then at €30. The single at €30 is the bottom rung, not a goodbye — it puts the product in her hands today and makes her a customer. Work all of it before anything ends. Never hand her a card, never write the price down, never send her off to have a think with somebody who is not standing here.</p></div>
+<h2>Cheat Combos for Sellers</h2>
+<div class="facts"><div><dt>Classic Trio · €120</dt><dd>Scrub + Body Butter + Nail Kit</dd></div><div><dt>Spa Trio · €120</dt><dd>Scrub + Body Butter + Face Cleanser</dd></div><div><dt>Scent Duo · €60</dt><dd>Scrub + Body Butter (Buy 1 Get 1)</dd></div><div><dt>Smart Duo · €60</dt><dd>Scrub + Nail Kit (kit includes cream)</dd></div><div><dt>Gifter’s Four · €120</dt><dd>Buy 2, Get 2 (Christmas special)</dd></div><div><dt>Final Push · €30</dt><dd>Scrub only, no gifts</dd></div></div>
+<h2>Pro Tips</h2>
+<div class="tips"><div class="tip"><h4>Make it sensory — let the hands sell it</h4><p>The feeling is everything. Let them rub, rinse, and feel. Once they feel the softness, the sale is halfway done.</p></div><div class="tip"><h4>The flip test is your secret weapon</h4><p>Flipping the butter jar and showing nothing falls out is a visual proof they can’t argue with. Do it every time.</p></div><div class="tip"><h4>Use Christmas urgency naturally</h4><p>“Stock runs faster closer to the holidays, and I’d hate you to miss colors/scents you like.” Timing closes gifts.</p></div><div class="tip"><h4>Keep the math clean</h4><p>€60 each. €120 for three (Buy 2, Get 1). Simple, round numbers are easier to say yes to.</p></div><div class="tip"><h4>Buy 2, Get 2 for premium buyers</h4><p>When the energy is great and they have a Christmas list — this is your volume play. Same €120, extra product.</p></div><div class="tip"><h4>Buy 1, Get 1 for fast closes</h4><p>For hesitant buyers who still felt the demo — this turns 'maybe' into 'yes' instantly. €60 feels like nothing after €120.</p></div><div class="tip"><h4>€30 Scrub is your final push</h4><p>When nothing else works, the single Scrub at €30 creates a customer today and a bigger sale tomorrow. No gifts, no extras — just the hero product in their hands.</p></div><div class="tip"><h4>Keep it fun — jokes, smiles, easy energy</h4><p>This demo should feel like a spa moment, not a sales pitch. If they smile, they buy.</p></div></div>
+<h2>Lines We Do Not Cross</h2>
+<ul class="rules"><li>Nobody leaves to think about it. The single at €30 is the last rung and it happens here, today — no card, no price written down, no voucher to take away.</li><li>A scrub is never what follows a syringe. Sell a syringe and your job is the handover: the upseller is a specialist who is only here for a short time. You do not pitch a second product on top of it.</li><li>Nothing the shop has to honour afterwards. No refunds, no returns, no money back, no promise of future service — the buffer swap is the nail kit’s, and it is the only one.</li><li>Talk the skin up as much as you like — the driest, the most sensitive, the ones who cannot put anything on themselves. Never reach for a disease to sell a cream.</li><li>Never explain why it is cheaper here. The Europe price beside the Andorra price does the whole job on its own — the shop’s standing in Andorra is not a selling point we voice, in any wording.</li><li>Every number on this sheet is generated from the app. If a rung moves, reprint the sheet; never invent a rung of your own.</li></ul>
+<footer class="foot"><span>Zero Lines · Andorra · prices in €</span><span>Generated from the app — do not hand-edit</span></footer>
+</body>
+</html>

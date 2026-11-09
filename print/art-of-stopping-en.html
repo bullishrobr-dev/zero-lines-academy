@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stop a Stranger, Walk Them In</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="lesson">
+<header class="mast">
+  <p class="brand">Zero Lines Academy · The Art of Stopping</p>
+  <h1>Stop a Stranger, Walk Them In</h1>
+  <p class="sub">The whole sequence in order, the openers, the urgency, and the one more line after the no</p>
+</header>
+<p class="intro">Stopping is the hardest thing in this job and the most important one: no stop, no sale. For your first two weeks it is also the ONLY thing you do — you stand out there, you stop strangers, you walk them in and you hand them to a colleague. No demo, no prices, no close. Everything on this sheet happens in the twenty seconds between a stranger walking past you and a stranger sitting in your chair. Learn it in order, because the order IS the technique.</p>
+<blockquote>People that are new in the job, all they do for the first two weeks is the syringe. They don’t do nothing else. They literally stop people and pass them to other colleagues. They don’t even do the demonstrations themselves. They literally just stop.<cite>The owner</cite></blockquote>
+<div class="callout"><h4>You stop everybody</h4><p>There is no list on this sheet of who to skip, and there never will be. As a newbie you try to stop everybody, just for the sake of practising. Who to go for and who to leave is something time gives you, not something you decide on your second shift. Fast walker, phone in hand, face like a wet Tuesday — you go anyway. Nobody can tell you who was never going to buy, and the moment you start guessing you have stopped practising.</p></div>
+<h2>The sequence — nine steps, always in this order</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>Be stood ready before anybody is near you</h3><p>Out in front of the kiosk where they can see you — not tucked against the wall, and never filling the doorway, because somebody who has to squeeze past you has already decided something about you. Sample already in your hand: you do not want to be rummaging for it while the one you wanted walks past. Hands doing something — holding the sample, sorting the stand, moving. Hands in pockets reads as bored, and bored is invisible.</p></div></li><li><span class="n">2</span><div><h3>Get their attention from four or five metres</h3><p>While they are still walking, and before you take a single step. Eyes up, warm, a second or two — long enough to be a person, not long enough to be a stare. A greeting or a compliment, either does the job. If there are two of them you greet both, because the bored one is the one who takes her away. Leave it until they are nearly level with you and you have left it too late: by the time they turn their head they are already past.</p></div></li><li><span class="n">3</span><div><h3>They look. Now you move.</h3><p>Not before. From the moment their eyes come to yours you have about three seconds to be moving — longer than that and it cools, because they have filed you as shop staff and put the “just looking” wall up. Three seconds is not a rush, it is just not a wobble. Raise the sample and come at them a bit from the side, never planted square in the line they were walking: somebody stepping in beside them for a second, not a checkpoint. And if they never looked, you have lost nothing, because you never moved.</p></div></li><li><span class="n">4</span><div><h3>The sample is a coin toss</h3><p>They take it, lovely. They wave it away, nothing happens. You have not been rejected, because you never asked them for anything. Either way you are still stood in front of them and you carry straight on into the next line, same words, same warmth. Sellers lose people right here by treating a refused sample as an answer. It is not an answer. It is a hand that did not move.</p></div></li><li><span class="n">5</span><div><h3>Say the rush before they can</h3><p>The most common escape in the world is “sorry, I’m in a rush”. So say it first — once it has come out of your mouth they cannot use a reason you have already accepted. Then a question they have to answer with a real answer, because nobody can say yes or no to “what do you use?”. This line runs whether they took the sample or not. The sample was never the point; it was the excuse to be stood in front of them saying this.</p></div></li><li><span class="n">6</span><div><h3>Be impressed, whatever they say</h3><p>A big brand, olive oil, a cream her sister brought back, nothing at all — you are impressed by it. You are not marking her homework, you are finding a bit of common ground and handing her three seconds of feeling good about herself. Then top it: your mother uses the same one, your sister swears by it, you have always wanted to try it. It costs you nothing and it turns a stranger being polite into two people having a conversation.</p></div></li><li><span class="n">7</span><div><h3>The gift, then turn around</h3><p>Give them a reason to move that costs them nothing — and then turn around and walk into the shop. Do NOT check whether they are following you. Checking asks permission, and asking permission gives them the chance to say no. You do not give a damn whether they walk your route: you walk it, and you find out afterwards.</p></div></li><li><span class="n">8</span><div><h3>If they do not follow, nothing happens</h3><p>Same as the sample. You keep going, you get inside, and only then do you turn your head and see who came. Still out there? Call them in warmly — you are not begging, you are holding a door open — then turn back round and keep walking. The walking is what does the persuading, because now there is nothing to say no to. You never walk beside them and you never escort them: you walk first and you call them to come.</p></div></li><li><span class="n">9</span><div><h3>They came in. Now the day starts.</h3><p>The chairs are ready before anybody reaches them, because the ten seconds you spend clearing a seat is the ten seconds she uses to remember she was going somewhere. Facing into the shop, never at the street — if she can see the pavement moving she starts thinking about being back out on it. A chair for him as well. Then she is sitting, somebody has her hand and is already talking. For your first two weeks that somebody is a colleague: you stop, you hand over, you go straight back out, and that IS the job. The handover is quick and warm and it happens with her sitting down, never at the door.</p></div></li></ol>
+<div class="say"><p class="say-label">The lines, in order. Say all five out loud before your shift.</p><p class="line">“Hi guys, how you doing?”</p><p class="line">“Listen, I know you’re in a rush — but can I ask you something really quick? It’s just that you look so good, I have to ask what you normally use on your skin.”</p><p class="line">“Really? No way. My mother swears by that stuff.”</p><p class="line">“You know what — just because you look so amazing, I’m going to give you a small gift. I think you’re going to love it.”</p><p class="line">“Come on guys, it’s two seconds, I promise. Come.”</p></div>
+<ul class="rules"><li>Attention first, feet second. You do not move until they have looked at you.</li><li>Four or five metres, while they are still walking. Leave it until they are nearly level with you and the look comes too late to use.</li><li>Three seconds from the look to your first step.</li><li>Come in a bit from the side. Never stand in the line they were walking.</li><li>A refused sample changes nothing. Same words, same warmth, carry on.</li><li>Never check whether they are following you. Checking is asking permission.</li><li>Never walk beside them and never escort them. You walk first, you call them in, you keep walking.</li><li>Nothing goes in their pocket. No card, no flyer, no price written on anything — that is permission to go and think about it somewhere you are not standing.</li><li>Chairs set before they arrive, backs to the street, one for him as well.</li><li>In your first two weeks you do not demo at all. You stop, you hand over, you go back out for the next one.</li><li>Say the whole thing out loud before a shift, in order. Any one of those lines on its own is just something nice said to a stranger.</li></ul>
+<h2>Openers — the ones that get you the look</h2>
+<div class="say"><p class="say-label">Compliments. Specific, or it sounds like a line.</p><p class="line">“That scarf is gorgeous — that colour was made for you.”</p><p class="line">“Your skin is glowing. What do you use? ... Go on, tell me your secret.”</p><p class="line">“You keep your nails natural? You hardly ever see that, and they look so healthy.”</p><p class="line">“That jacket is serious. You know quality when you see it, I can tell.”</p><p class="line">“You have got a lovely smile on you. Let me make the day even better — two seconds.”</p><p class="line">“You two look like you are having the best day. Come here, I have got something for you.”</p><p class="line">“Beautiful watch. You like things done properly, don’t you.”</p><p class="line">“I love the confidence — you walk like you own the street.”</p></div>
+<div class="tips"><div class="tip"><h4>Specific beats pretty</h4><p>“Nice jacket” is nothing. “That olive green brings your eyes out” is somebody who actually looked. Specific is the entire difference between charm and creepy.</p></div><div class="tip"><h4>Compliment the choice, not the body</h4><p>Clothes, accessories, nails, the way she has done her hair — things she picked. Eyes are the one exception and they work on everybody. Never weight, never body parts.</p></div><div class="tip"><h4>One is plenty</h4><p>One genuine compliment opens the door. Three is flattery and she can hear it. Say it, let it land for a second, then move.</p></div><div class="tip"><h4>Two of them? Include him</h4><p>Compliment her, then bring him in as the one who gets to look: “your wife has unbelievable taste — watch this.” A partner left standing there bored is the person who says “come on, we should go”.</p></div><div class="tip"><h4>If you do not mean it, do not say it</h4><p>A fake compliment is spotted instantly and then you never get a second sentence. Warm and straight sells just as much.</p></div></div>
+<div class="say"><p class="say-label">Make them smile. A smile buys you the ten seconds.</p><p class="line">“I know, I know — another salesperson. But this is the one time today you will be glad somebody stopped you.”</p><p class="line">“Clearly I am terrible at this, because you are still walking. Give me thirty seconds and I will change your mind.”</p><p class="line">“Two minutes. If you do not love it, you can tell me I am rubbish at my job. Deal?”</p><p class="line">“STOP! Don’t make me chase you... all right, I won’t chase you, that would be weird. But seriously — two seconds.”</p><p class="line">“I know what you are thinking: not another one. I think the same thing on my day off.”</p><p class="line">“Don’t worry, it is not that kind of syringe. No needles. Just magic for your eyes, I promise.”</p><p class="line">“Can I ask you something? What made you look over here just now? ... Exactly. Good instincts. Come and see why.”</p></div>
+<div class="tips"><div class="tip"><h4>Light one first</h4><p>They smile, go further. The joke dies, do not chase it — go straight and quick instead: “Fair enough. Thirty seconds, and I’ll show you.” Warm, fast, no sulking. The dead joke costs you nothing; going stiff about it costs you the stop.</p></div><div class="tip"><h4>You are the punchline, never them</h4><p>Self-deprecating only. Never her clothes, never her face, never the fella she is with, and nothing about politics or religion, ever.</p></div><div class="tip"><h4>Hands are funnier than words</h4><p>A face pulled during the demo crosses every language in this centre. When your English and her French are not meeting, do it with your hands.</p></div><div class="tip"><h4>If you are not funny, do not force it</h4><p>Forced humour is worse than none at all. Warm and direct sells exactly as much — know which one you are and lean on it.</p></div></div>
+<h2>One line per product — open on what you can actually see</h2>
+<div class="say"><p class="say-label">The eyes. This is what the shop sells, and everybody has got two.</p><p class="line">“You look amazing — but the eyes... shall we make them look a bit more rested?”</p><p class="line">“Long trip? I can see it in your eyes, and not in a good way. Give me two minutes and I’ll fix it.”</p><p class="line">“You clearly look after yourself. Want to see what I can do around the eyes? Two minutes, like a spa.”</p><p class="line">“Your make-up is flawless. Let me show you something that does that to your eyes with no make-up at all.”</p></div>
+<div class="say"><p class="say-label">The peeling, the scrub, the nails — the smaller doors in.</p><p class="line">“Your skin is lovely, but I can give you the just-back-from-holiday glow in two minutes. Want to see?”</p><p class="line">“The air up here is brutal on skin. This takes every dead layer off — your own cream will work ten times better after it.”</p><p class="line">“Do you ever get dry hands? Ugh, the worst. Right — let me give you something amazing. Come!”</p><p class="line">“Want to feel something incredible? Dead Sea. Lowest place on earth, highest minerals on earth. Your hands have never felt this.”</p><p class="line">“You always keep your nails natural? Good for you. Let me give you a little gift, you are going to love this.”</p><p class="line">“No polish, no chemicals. Watch... nothing yet... and now the last step. There. That is YOUR nail, and it stays like that for two weeks.”</p></div>
+<div class="callout"><h4>One line in. Then you stop choosing.</h4><p>Never open with two products. Two options at four metres is a decision, and a stranger walking past does not want to make one — they want one clear thing to pull them in. And the line is a door, not a contract: you opened on nails and the demo goes to the eyes? Perfect. Nobody sat down expecting a menu. Whichever line worked, the syringe is what the day gets counted in — the scrub and the nail kit are how you learn to sell and how you keep your energy up, not the target. Combo prices belong to whoever is sitting in the chair with her, never to your opening line on the pavement.</p></div>
+<h2>Why it has to be today</h2>
+<div class="say"><p class="say-label">Urgency. Say it like information, then carry on as if you had mentioned the weather.</p><p class="line">“I have got two left. That’s not a line, that’s the drawer.”</p><p class="line">“We’re closing in half an hour, but I can squeeze you in. Two minutes.”</p><p class="line">“That offer is gone tonight. I know, I know — it sounds like a sales line. Have a look at the sign.”</p><p class="line">“The syringe is €300 here. Cross the border and it is back to €500.”</p><p class="line">“Christmas is in two weeks and this is the easiest present you will buy all month.”</p><p class="line">“You have already felt it. You know what it does. What exactly are you going to think about?”</p></div>
+<div class="tips"><div class="tip"><h4>A decision with no deadline never gets made</h4><p>“I’ll think about it” is not a maybe, it is a no with better manners. Give them a reason for it to be today and they decide today.</p></div><div class="tip"><h4>It is all in the delivery</h4><p>The same six words land or die depending on whether you say them like a fact or like a favour you are begging for. Straight face, half a smile, then straight on to something else. Urgency is theatre and they are enjoying it as much as you are.</p></div><div class="tip"><h4>Specific, or nothing</h4><p>“Two left” and “gone at closing” give them something to take hold of. “You should really get it while you’re here” gives them nothing at all.</p></div><div class="tip"><h4>Drop it the second they push back</h4><p>“Fine, fine, I tried” — and straight back to the thing in your hand. Letting go instantly is what makes the next one land. Said again after a no, it turns two seconds of theatre into somebody following a stranger up a walkway.</p></div></div>
+<div class="callout"><h4>The one line you never cross</h4><p>Never promise anything the shop has to honour once they are out of the door. Do not promise refunds, do not promise money back, no ask-for-me-by-name, nothing kept behind the counter for later, nothing in their pocket to take away. You will be on a different pitch tomorrow and somebody else has to have that argument. The one promise that IS real: bring the old buffer back and you get a new one, forever. Say that one with your chest out. Everything else out here is yours to play with.</p></div>
+<h2>They said no. You have got one more line.</h2>
+<div class="callout"><h4>The first “no thanks” is a reflex, not a decision</h4><p>They said it before they had even heard you — the same as saying “fine” when somebody asks how you are. It costs you one more line to find out whether they meant it, and almost nobody on this street spends that line. That is your edge. Throw it from a place of having something good, never from needing the sale: they can smell desperate from four metres.</p></div>
+<div class="say"><p class="say-label">The recovery — one more line, two at the very most.</p><p class="line">“I know, you weren’t planning to stop today. But this is the one time you’ll be glad you did. Thirty seconds?”</p><p class="line">“I get it, you’re busy. But can I ask you something? When was the last time a stranger showed you something that actually impressed you?”</p><p class="line">“Don’t worry about it. How about this — I won’t explain anything at all. Just let me do it. Thirty seconds, and if you don’t love it you walk off. Deal?”</p><p class="line">“I know you weren’t looking for it. I want to GIVE you something. No buying, no catch, just your hands done because they deserve it.”</p><p class="line">“It’s two steps. Put your hand on it, and then tell me no.”</p><p class="line">“You didn’t take your eyes off that peeling. Sixty seconds and you’ll know.”</p><p class="line">“You’re breaking my heart! ... I’m joking. But you are missing out.”</p><p class="line">“That’s the fourth no in a row. You lot are going to make me cry.”</p></div>
+<ul class="rules"><li>One line after the no, always. It is free and almost nobody spends it.</li><li>A second, different line if they are still smiling at you. Not the same one louder.</li><li>A third is somebody following a stranger up a walkway. That has the shop’s name on it, not just yours.</li><li>“Leave me alone”, “I said no”, or anything aggressive — smile, step back, done, immediately.</li><li>Point at the table, never at tomorrow. A tiny specific ask beats an open invitation every single time.</li><li>Name the thing they were looking at. Being properly seen is what turns a walker around.</li><li>If the no is real, mean it: “Fair enough, gorgeous — have a lovely day.” Warm, quick, nothing attached to it. Then straight back out, because the next one is already walking past you.</li></ul>
+<h2>Your own style, found in one morning</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>An hour loud</h3><p>Big, fast, straight in. Louder than is comfortable. Count how many came through the door.</p></div></li><li><span class="n">2</span><div><h3>An hour quiet</h3><p>Slow it right down, warm it up, get them talking before you go anywhere near the product. Count again.</p></div></li><li><span class="n">3</span><div><h3>Read your own numbers</h3><p>One of those hours beat the other, and it is not always the one you expected. The feeling lies — you will swear the loud hour flopped and then find out it did not. The numbers do not lie.</p></div></li><li><span class="n">4</span><div><h3>Stop testing and go</h3><p>Lean into whichever won and stop worrying about the other one. You can borrow bits off it later, once the main thing comes out of you on its own.</p></div></li></ol>
+<div class="tips"><div class="tip"><h4>Two numbers an hour</h4><p>How many you stopped, and how many sat down. That is all the tracking anybody needs.</p></div><div class="tip"><h4>Calm sells as much as loud</h4><p>Copying the top seller word for word falls flat, because that style fits them and not you. A calm, warm seller outsells a loud one any day of the week — as long as the warmth is real.</p></div><div class="tip"><h4>Dead morning, work harder</h4><p>On a quiet morning you go at every single person twice as hard, because the four who walk past might be your whole day. On a packed afternoon it is the opposite: keep it tight, do not grind water with one person, because there is another one outside the second you finish.</p></div><div class="tip"><h4>Get somebody to film you</h4><p>Hand a colleague your phone for three stops and then watch it back. Crossed arms, a smile your eyes are not in, talking too fast, ending every sentence like a question. You will not believe what you do, and you will fix it in a day.</p></div><div class="tip"><h4>Ask a sharp question, not a nice one</h4><p>Not “how am I doing?” — “was my energy high or low on that last one?” Specific questions get specific answers. Then say thank you and use it.</p></div></div>
+<div class="facts"><div><dt>Who you stop</dt><dd>Everybody. There is no list of who to skip.</dd></div><div><dt>Where you get the look</dt><dd>Four or five metres, while they are still walking</dd></div><div><dt>When you move</dt><dd>Within three seconds of their eyes meeting yours</dd></div><div><dt>The sample</dt><dd>Taken or waved away — changes nothing</dd></div><div><dt>Checking if they followed</dt><dd>Never. Walk in, then call them.</dd></div><div><dt>First two weeks</dt><dd>Stop, bring in, hand to a colleague. No demo at all.</dd></div><div><dt>What the day is counted in</dt><dd>Syringes</dd></div><div><dt>Lines after a no</dt><dd>One, two at the most — then the next person</dd></div><div><dt>Goes in their pocket</dt><dd>Nothing. Ever.</dd></div><div><dt>The whole sequence</dt><dd>About twenty seconds, start to finish</dd></div></div>
+<blockquote>Everything else in this app is a variation on this one sequence. Learn the spine first, and then the compliments, the demo and the price all have somewhere to hang.<cite>Zero Lines Method</cite></blockquote>
+<footer class="foot"><span>Zero Lines · Andorra · prices in €</span><span>Generated from the app — do not hand-edit</span></footer>
+</body>
+</html>

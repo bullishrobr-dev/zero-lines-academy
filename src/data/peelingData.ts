@@ -430,8 +430,11 @@ export function getPriceStepsData(
       price: `${currency}${floor}`,
       label: 'Minimum',
       labelEs: 'Mínimo',
-      description: 'Absolute floor — same ${currency}${floor}, nothing below it',
-      descriptionEs: 'Piso absoluto — los mismos ${currency}${floor}, nada por debajo',
+      /* Single-quoted, so neither ${} was ever a template: PeelingPage renders
+         this note and a seller was reading "same $€${floor}" off the screen.
+         Backticks now, and the number comes from PEELING_LADDER like the rest. */
+      description: `Absolute floor — the voucher already brought you here, and there is nothing under ${currency}${floor}`,
+      descriptionEs: `Piso absoluto — el cupón ya te ha traído aquí, y por debajo de ${currency}${floor} no hay nada`,
       script: `"Look, I really want you to try this, so ${currency}${floor} it is — and that is my floor. Voucher or no voucher, there is nothing underneath it. Just promise me you'll actually use it, okay? Not once a year — once a week."`,
       scriptEs: `"Mira, de verdad quiero que lo pruebes, así que ${currency}${floor} — y ese es mi mínimo. Con cupón o sin cupón, no hay nada por debajo. Solo prométeme que lo vas a usar de verdad, ¿vale? No una vez al año — una vez por semana."`,
       isMinimum: true,

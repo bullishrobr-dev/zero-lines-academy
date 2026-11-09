@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Kit de Uñas</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="lesson">
+<header class="mast">
+  <p class="brand">Producto de Principiante · Demo de 60 Segundos</p>
+  <h1>Kit de Uñas</h1>
+  <p class="sub">Brillo de Salón en 60 Segundos</p>
+</header>
+<p class="intro">Sesenta segundos, una uña y una cara que se ilumina — el WOW más rápido que vas a conseguir nunca de un desconocido. Ten claro dónde encaja antes de enamorarte de él: el kit de uñas, el exfoliante y la manteca corporal son productos completamente de principiante. Son para quien está aprendiendo a vender, o para quien solo quiere poner buena energía en la tienda. La jeringa es el producto estrella — es en lo que nos centramos, y vender una es la medida de un turno. Así que una hoja que tratara la venta de un kit de uñas como el objetivo te estaría enseñando a quedarte de principiante. Hazlo para practicar: cuando consigas esa reacción cuando quieras, con un desconocido y con gente mirando, también la conseguirás con la jeringa. El kit trae una promesa de verdad, y es la única de la tienda — la lima. Ella trae la vieja y se lleva una nueva, para siempre.</p>
+<h2>Referencia Rápida</h2>
+<div class="facts"><div><dt>Demo</dt><dd>60 segundos</dd></div><div><dt>Duración del brillo</dt><dd>2 semanas</dd></div><div><dt>Sin esmalte</dt><dd>Brillo natural</dd></div><div><dt>Garantía</dt><dd>De por Vida — Cualquier Tienda</dd></div><div><dt>El Kit Incluye</dt><dd>Lima, Archivo, Aceite, Crema</dd></div><div><dt>Precio Europa</dt><dd>€80</dd></div><div><dt>Precio Andorra</dt><dd>€60</dd></div></div>
+<h2>El Gancho — Scripts de Parada</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>El Cumplido de Uña Natural</h3><p>“¡Wow! ¿Siempre mantienes tus uñas naturales? Eso es genial. Déjame darte un pequeño regalo — te va a encantar.” Dilo con confianza, sonríe y guíala adentro de inmediato. Sin dudar, sin preguntas.</p></div></li><li><span class="n">2</span><div><h3>Preparando la Escena</h3><p>“Así que este no es tu lima de uñas típica — es un sistema profesional que mantiene tus uñas brillantes y saludables por hasta dos semanas sin ningún esmalte.” Desempácalo lentamente mientras hablas — crea curiosidad y sentido de propiedad.</p></div></li></ol>
+<div class="say"><p class="say-label">La parada, en voz alta</p><p class="line">¡Wow! ¿Siempre mantienes tus uñas naturales? Eso es genial. Déjame darte un pequeño regalo — te va a encantar.</p><p class="line">Así que este no es tu lima de uñas típica — es un sistema profesional que mantiene tus uñas brillantes y saludables por hasta dos semanas sin ningún esmalte.</p></div>
+<h2>La Demo de 3 Pasos</h2>
+<div class="callout"><h4>Constrúyelo, no lo corras</h4><p>La magia está en la acumulación. Los pasos 1 y 2 crean suspense. El paso 3 es el WOW.</p></div>
+<ol class="steps"><li><span class="n">1</span><div><h3>Alisar · Lado Gris</h3><p>Sostén su mano suavemente. Empieza con los dos primeros pasos en una uña. “La mayoría de las limas que ves remueven la capa superior de tu uña para hacerla brillar — eso en realidad es malo. Hace las uñas débiles y delgadas. Esta es diferente. Alisa, da forma, pero no remueve nada.” Muestra la uña — aún no brilla. “¿Ves? Nada dramático todavía — ahora espera el último paso.”</p></div></li><li><span class="n">2</span><div><h3>Pulir · Lado Blanco — Preparación</h3><p>Usa la tira blanca, pule suavemente. “¿Sientes eso? Es suave, no áspera. En realidad está empujando tus aceites naturales hacia la superficie — eso es lo que da el brillo y fortalece la uña.”</p></div></li><li><span class="n">3</span><div><h3>Brillo (El Cierre) · EL MOMENTO WOW</h3><p>Pausa. Baja la voz. Crea suspense. “¿Prometes no gritar?” “¡WOWOWOWOW! 😄 ¿Mira eso — esa es tu uña natural! Sin esmalte, sin químicos — y se mantiene brillante así por dos semanas enteras.” Si está con una pareja o amiga, hazlos parte de la reacción — risa = comodidad = modo de compra.</p></div></li></ol>
+<div class="say"><p class="say-label">Los tres pasos, en voz alta</p><p class="line">La mayoría de las limas que ves remueven la capa superior de tu uña para hacerla brillar — eso en realidad es malo. Hace las uñas débiles y delgadas. Esta es diferente. Alisa, da forma, pero no remueve nada.</p><p class="line">¿Ves? Nada dramático todavía — ahora espera el último paso.</p><p class="line">¿Sientes eso? Es suave, no áspera. En realidad está empujando tus aceites naturales hacia la superficie — eso es lo que da el brillo y fortalece la uña.</p><p class="line">¿Prometes no gritar?</p><p class="line">¡WOWOWOWOW! 😄 ¿Mira eso — esa es tu uña natural! Sin esmalte, sin químicos — y se mantiene brillante así por dos semanas enteras.</p></div>
+<h2>El Pitch de Garantía</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>Presenta el Kit Completo</h3><p>“Todo lo que viste viene en este kit completo — lima, archivo profesional, aceite para cutícula y crema. Y lo mejor — la lima tiene garantía de por vida. No importa qué pase — si se rompe, si se desgasta, incluso si tu perro se la come — puedes cambiarla en cualquiera de nuestras tiendas en todo el mundo.”</p></div></li><li><span class="n">2</span><div><h3>Cierra con la Lógica</h3><p>Déjalos reír — el humor baja la guardia. Luego cierra con la lógica: “Es un kit simple, un diseño — no hay colores ni versiones para elegir. Este es el que todos aman.”</p></div></li></ol>
+<div class="say"><p class="say-label">La garantía, en voz alta</p><p class="line">Todo lo que viste viene en este kit completo — lima, archivo profesional, aceite para cutícula y crema. Y lo mejor — la lima tiene garantía de por vida. No importa qué pase — si se rompe, si se desgasta, incluso si tu perro se la come — puedes cambiarla en cualquiera de nuestras tiendas en todo el mundo.</p><p class="line">Es un kit simple, un diseño — no hay colores ni versiones para elegir. Este es el que todos aman.</p></div>
+<div class="callout"><h4>La garantía de la lima es real — dilo con confianza</h4><p>La garantía de por vida es uno de tus cierres más fuertes. Elimina todo riesgo y crea un valor percibido increíble. Y es la única promesa duradera que alguien de esta tienda puede hacer: trae la lima vieja, se lleva una nueva, para siempre, en cualquiera de nuestras tiendas. El dueño la cumple, así que dilo como si lo sintieras — la frase del perro está para que se ría, no para disimular una mentira. Todo lo demás termina en la caja. Sin reembolsos, sin devoluciones, sin dinero de vuelta, sin promesas de servicio futuro.</p></div>
+<h2>Conexión Emocional</h2>
+<div class="say"><p class="say-label">Mientras sigue mirándose la mano</p><p class="line">Sabes, esto no es solo sobre belleza — se trata de ese pequeño detalle diario que te hace sentir fresca y segura. Cada vez que veas tus manos, te sentirás limpia, pulida y cuidada.</p><p class="line">Y si lo piensas — €60 por algo que reemplaza visitas al salón por años — es una decisión fácil.</p></div>
+<div class="callout"><h4>Tono</h4><p>Mantén el tono amigable, no insistente — este pitch debe sentirse como una charla divertida, no como una venta.</p></div>
+<h2>Precio y Ofertas</h2>
+<div class="ladder"><div class="rung t-anchor">
+            <div class="amt"><span class="price">€80</span></div>
+            <div class="body">
+              <p class="rl">Europa — lo que cuestan allí<span class="badge">Ancla</span></p>
+              <p class="when">Ancla siempre con Europa primero. Nadie paga esto — es el precio tachado que dices en voz alta antes del número de verdad.</p>
+              
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€60</span></div>
+            <div class="body">
+              <p class="rl">Andorra — un kit<span class="badge">Normal</span></p>
+              <p class="when">El precio de salida, y lo que vale la lima sola con la garantía puesta. Dilo una vez y pasa directo a la oferta.</p>
+              
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€120</span><span class="each">3 × €40</span></div>
+            <div class="body">
+              <p class="rl">Compra 2, Llévate 1 Gratis<span class="badge">Oferta</span></p>
+              <p class="when">Trío clásico — oferta más popular · 3 Kits de Uñas completos · Perfecto para regalos · €40 por kit efectivo</p>
+              <p class="line">Ahora tenemos una oferta increíble: si compras dos, te llevas uno gratis. Así que pagas €120 y te llevas tres kits completos. Por eso todo el mundo los coge en fiestas — son los regalos de Navidad perfectos. Pequeños, elegantes y realmente útiles.</p>
+            </div>
+          </div><div class="rung t-parallel">
+            <div class="amt"><span class="price">€120</span><span class="each">4 × €30</span></div>
+            <div class="body">
+              <p class="rl">Compra 2, Llévate 2 Gratis<span class="badge">Opción B — al lado, no debajo</span></p>
+              <p class="when">Navidad premium — cuatro por el precio de dos · 4 Kits de Uñas completos · Uno para ti, tres para regalar · €30 por kit efectivo</p>
+              <p class="line">Sabes qué, se acerca la Navidad — hagamos algo especial. En lugar de Compra 2 y Lleva 1, te hago Compra 2 y Lleva 2. Te llevarás cuatro kits completos por €120 — uno para ti, uno para mamá, uno para tu hermana, uno para una amiga. Las compras navideñas más fáciles de la historia.</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€60</span><span class="each">2 × €30</span></div>
+            <div class="body">
+              <p class="rl">Compra 1, Llévate 1 Gratis<span class="badge">Oferta</span></p>
+              <p class="when">Combo flexible — preparación para venta cruzada · Kit de Uñas + Exfoliante · Kit de Uñas + Mantequilla Corporal · Par de introducción perfecto</p>
+              <p class="line">Te digo algo — te hago algo mejor. En lugar de solo un kit, te hago Compra 1 y Lleva 1 Gratis por €60, y puedes mezclar y combinar con nuestro Exfoliante o Mantequilla Corporal. Así que puedes llevar un Kit de Uñas y un Exfoliante — o un Kit y una Mantequilla — siguen siendo €60 en total.</p>
+            </div>
+          </div><div class="rung t-floor">
+            <div class="amt"><span class="price">€30</span></div>
+            <div class="body">
+              <p class="rl">Empuje Final — Individual<span class="badge">Mínimo</span></p>
+              <p class="when">Empujón final — kit completo a mitad de precio · Kit completo (no solo la lima) · Garantía de por vida incluida · Abre la puerta para que vuelva</p>
+              <p class="line">Mira, veo cuánto te encantó. El kit normalmente es €60, y la lima sola ya lo justifica con la garantía de por vida. Pero como son las fiestas y realmente quiero que lo disfrutes, te doy el kit completo — lima, archivo, aceite y crema — por solo €30. Es mi manera de abrir la puerta — pruébalo, úsalo, ámalo. La próxima vez que estés en Andorra, volverás a por el segundo, te lo prometo.</p>
+            </div>
+          </div></div>
+<div class="callout"><h4>LA REGLA — no sale de la tienda</h4><p>Si sale por la puerta no vuelve, así que trata cada salida como una venta perdida. Lee la escalera como lotes, no como una bajada: €120 se lleva tres kits y los mismos €120 se llevan cuatro, así que el dinero solo se mueve de verdad en €60 y luego en €30. El kit entero a €30 es el último escalón, no una despedida — con garantía incluida, en sus manos hoy, y ya es clienta. Recórrela entera antes de que termine nada. Nunca le des una tarjeta, nunca le apuntes el precio, nunca la mandes a pensárselo con alguien que no está aquí delante.</p></div>
+<h2>Consejos Pro</h2>
+<div class="tips"><div class="tip"><h4>Déjalas sentir el brillo antes de mostrar el precio</h4><p>El momento WOW en el Paso 3 es tu cierre. Nunca menciones el precio antes de que vean el espejo. La prueba visual se vende sola.</p></div><div class="tip"><h4>“Incluso si tu perro se la come” — usa la garantía</h4><p>La garantía de por vida es tu eliminador de riesgo. La línea del 'perro se la come' las hace reír y recordar. Úsala siempre.</p></div><div class="tip"><h4>Menciona regalos de Navidad naturalmente</h4><p>“Pequeños, elegantes y realmente útiles.” Durante temporada alta, cada demo debe incluir una referencia a regalos.</p></div><div class="tip"><h4>Compra 2, Lleva 2 para compradores increíbles</h4><p>Cuando la energía es alta y tienen una lista navideña — este es tu cierre por volumen. Cuatro kits a €120 son €30 por kit.</p></div><div class="tip"><h4>Compra 1, Lleva 1 Mezcla y Combina para cierres rápidos</h4><p>€60 por un Kit de Uñas + Exfoliante/Mantequilla es un sí fácil. También prepara tu venta cruzada perfectamente.</p></div><div class="tip"><h4>€30 kit único — la línea de regalo de temporada</h4><p>Tu salida elegante que aún crea un cliente. Enmárcalo como un regalo de ti: 'Es mi manera de abrir la puerta.'</p></div><div class="tip"><h4>Crea suspense antes del WOW</h4><p>“¿Prometes no gritar?” — esta línea crea anticipación. El contraste entre la acumulación y la revelación es lo que las hace comprar.</p></div><div class="tip"><h4>Rápido, divertido y buena onda</h4><p>Esta es una demo de 60 segundos. Mantén la energía alta, muévete rápido y celebra su reacción. Si sonríen, compran.</p></div></div>
+<h2>Líneas Que No Cruzamos</h2>
+<ul class="rules"><li>La lima es la única promesa que puedes hacer, y es real: trae la lima vieja, se lleva una nueva, para siempre, en cualquiera de nuestras tiendas. No se promete nada más — sin reembolsos, sin devoluciones, sin dinero de vuelta, sin servicio después de la caja.</li><li>Nadie se va a pensárselo. El kit entero a €30 es el último escalón y pasa aquí, hoy — sin tarjeta, sin apuntar el precio, sin cupón para llevarse.</li><li>Un kit de uñas nunca es lo que va después de una jeringa. Si vendes una jeringa, tu trabajo es el traspaso: el upseller es un especialista que solo está aquí poco tiempo. No le vendes un segundo producto encima.</li><li>Uñas, aceites, brillo, manos secas — habla de todo eso todo lo que quieras. Nunca eches mano de una enfermedad para vender un kit.</li><li>Nunca expliques por qué es más barato aquí. El precio de Europa junto al precio de Andorra hace todo el trabajo — la situación de la tienda en Andorra no es un argumento de venta que usemos, con ninguna palabra.</li><li>Cada número de esta hoja se genera desde la app. Si se mueve un escalón, reimprime la hoja; nunca te inventes un escalón.</li></ul>
+<footer class="foot"><span>Zero Lines · Andorra · precios en €</span><span>Generado desde la app — no lo edites a mano</span></footer>
+</body>
+</html>

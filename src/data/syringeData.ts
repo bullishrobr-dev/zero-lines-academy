@@ -269,7 +269,7 @@ export const syringeData = {
     minimumWarning:
       "\u26a0 One voucher, once \u2014 then full market, and you GO AND FETCH THE MANAGER. You are allowed to sell at this price; what you are buying by fetching him is that it sounds like a price somebody had to win, not one that was always there.",
     minimumWarningEs:
-      "\u26a0 Este precio NO es tuyo. Un cup\u00f3n, una vez \u2014 luego vas a mercado y LLAMAS AL ENCARGADO. Un vendedor que llega solo al fondo no tiene fondo.",
+      "\u26a0 Un cup\u00f3n, una vez \u2014 luego mercado puro, y VAS A BUSCAR AL ENCARGADO. Puedes vender a este precio; lo que ganas yendo a por \u00e9l es que suene a precio que alguien ha tenido que ganarse, y no a uno que ya estaba ah\u00ed.",
     voucherHint:
       "\ud83d\udca1 Say it while you start her OTHER EYE. Hands busy, face tilted up, the room feels finished \u2014 and the number moves inside a moment that is about something else. Voice down, lean in. Only on the SINGLE syringe, and there is no second voucher.",
     voucherHintEs:
@@ -287,9 +287,9 @@ export const syringeData = {
     europeDescription: 'Anchor value \u2014 always mention this first',
     europeDescriptionEs: 'Valor ancla \u2014 siempre menciona este primero',
     europeScript:
-      '"Across Europe, this treatment goes for around {currency}500, because it\'s one of the only ones that works instantly and lasts long-term."',
+      '"Across Europe, this treatment goes for around {currency}500, because it\'s one of the only ones that works the moment you put it on \u2014 and one syringe is a whole year of it."',
     europeScriptEs:
-      '"En toda Europa, este tratamiento cuesta alrededor de {currency}500, porque es uno de los \u00fanicos que funciona instant\u00e1neamente y dura a largo plazo."',
+      '"En toda Europa, este tratamiento cuesta alrededor de {currency}500, porque es uno de los \u00fanicos que funciona en el momento en que te lo pones \u2014 y una jeringa te da para un a\u00f1o entero."',
 
     locationLabel: '{locationName} Price',
     locationLabelEs: 'Precio {locationName}',
@@ -327,10 +327,14 @@ export const syringeData = {
     voucherScriptEs:
       '"\u00bfSabes qu\u00e9? D\u00e9jame arreglarte el otro ojo rapidito." [Empieza el ojo. Manos en su cara, y AHORA hablas de dinero.] "Mira, acabo de comprobar una cosa y te puedo hacer una locura peque\u00f1ita. Pero no seas avariciosa, \u00bfvale? \u00bfTe acuerdas de que sin el regalo eran {currency}175? Con este cuponcito del 20% se queda en {currency}140. Una sola vez \u2014 la pr\u00f3xima vuelve a lo normal."',
 
-    minimumLabel: 'Minimum (Manager Only)',
-    minimumLabelEs: 'M\u00ednimo (Solo el Encargado)',
-    minimumDescription: 'Full market \u2014 the manager unlocks this, never you',
-    minimumDescriptionEs: 'Mercado puro \u2014 esto lo abre el encargado, nunca t\u00fa',
+    /* "Manager Only" and "the manager unlocks this, never you" were the last
+       of the permission framing on this page. He does not unlock it — the
+       seller is allowed to sell here. He is fetched because a number somebody
+       crossed the shop for lands differently from one you drop to yourself. */
+    minimumLabel: 'Minimum \u2014 fetch him for it',
+    minimumLabelEs: 'M\u00ednimo \u2014 ve a buscarlo',
+    minimumDescription: 'Full market, then go and get him \u2014 it lands from him, never from you',
+    minimumDescriptionEs: 'Mercado puro, y luego vas a por \u00e9l \u2014 de su boca cae, de la tuya no',
     minimumScript:
       '"Look, I really want you to have this. Give me ten seconds." [Go and get the manager. You do not invent this number and you do not say it first.] MANAGER: "{currency}100. That is the bottom, and only because he asked me for you. Promise me you actually use it once a week."',
     minimumScriptEs:

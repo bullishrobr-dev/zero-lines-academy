@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Exfoliante y Manteca Corporal del Mar Muerto</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="lesson">
+<header class="mast">
+  <p class="brand">Producto de Principiante · Minerales del Mar Muerto</p>
+  <h1>Exfoliante y Manteca Corporal del Mar Muerto</h1>
+  <p class="sub">Siente la Diferencia</p>
+</header>
+<p class="intro">La demo más agradecida de la tienda, y la que usas para aprender. Ten claro dónde encaja antes de enamorarte de ella: el exfoliante, la manteca corporal y el kit de uñas son productos completamente de principiante. Son para quien está aprendiendo a vender, o para quien solo quiere poner buena energía en la tienda. La jeringa es el producto estrella — es en lo que nos centramos, y vender una es la medida de un turno. Así que una hoja que tratara la venta de un exfoliante como el objetivo te estaría enseñando a quedarte de principiante. Úsala para lo que es: manos, agua, un bote que no se derrama y una cara que sonríe. Nadie le dice no a sentirse bien. Suéltate aquí, coge confianza, y luego llévate las dos cosas a la jeringa.</p>
+<h2>Referencia Rápida</h2>
+<div class="facts"><div><dt>Origen</dt><dd>Mar Muerto</dd></div><div><dt>Duración</dt><dd>8-12 Meses</dd></div><div><dt>Sensación</dt><dd>Suavidad Instantánea</dd></div><div><dt>Europa</dt><dd>€80 cada uno</dd></div><div><dt>Andorra</dt><dd>€60 cada uno</dd></div><div><dt>Principal</dt><dd>€120/3 (C2L1)</dd></div><div><dt>Mínimo</dt><dd>Scrub €30</dd></div></div>
+<h2>El Gancho — Olvida los Guiones</h2>
+<div class="say"><p class="say-label">Elige uno y llévala dentro</p><p class="line">Estoy seguro de que ya has probado scrubs antes, ¿verdad? Este es un poco diferente. Te va a encantar. Es de esos productos que hacen sonreír a todo el mundo.</p><p class="line">¿Alguna vez se te reseca la piel? Uf, lo sé — es lo peor. ¿Sabes qué? Déjame darte algo increíble. ¡Ven!</p></div>
+<h2>La Demostración Sensorial</h2>
+<ol class="steps"><li><span class="n">1</span><div><h3>Coloca las Sales</h3><p>Coloca las sales del Mar Muerto en el dorso de su mano. “Empieza a frotar suavemente.” Déjalos sentir los cristales.</p></div></li><li><span class="n">2</span><div><h3>La Historia del Mar Muerto</h3><p>“¿Has oído hablar del Mar Muerto? El lugar más bajo de la Tierra, la concentración mineral natural más alta — magnesio, calcio, potasio. Estos minerales desintoxican, rejuvenecen y calman la piel. Del Mar Muerto, el punto más bajo de la Tierra.”</p></div></li><li><span class="n">3</span><div><h3>Agrega Agua</h3><p>Agrega agua lentamente mientras frotan. “Este es mi favorito personal — yo lo uso. Lo usa gente con la piel más difícil del mundo — la más seca, la más sensible, la que no se puede poner nada. Básicamente separa las capas secas y muertas de las vivas para que tu piel pueda respirar.”</p></div></li><li><span class="n">4</span><div><h3>Déjalos Sentir la Diferencia</h3><p>Enjuaga y seca. Espera dos segundos. “Sé honesto — ¿cuándo fue la última vez que tus manos se sintieron así? ¿Y lo mejor? La sensación se queda — aunque te laves las manos mucho o uses desinfectante. Desde el Covid, este se convirtió en nuestro #1 más vendido. La gente decía, '¡Por fin algo que realmente ayuda!'”</p></div></li><li><span class="n">5</span><div><h3>Instrucciones de Uso</h3><p>“Úsalo una vez por semana. Una cucharadita es suficiente para todo el cuerpo. Un frasco dura 8–12 meses.”</p></div></li></ol>
+<div class="say"><p class="say-label">La demo, en voz alta</p><p class="line">Empieza a frotar suavemente.</p><p class="line">¿Has oído hablar del Mar Muerto? El lugar más bajo de la Tierra, la concentración mineral natural más alta — magnesio, calcio, potasio. Estos minerales desintoxican, rejuvenecen y calman la piel. Del Mar Muerto, el punto más bajo de la Tierra.</p><p class="line">Este es mi favorito personal — yo lo uso. Lo usa gente con la piel más difícil del mundo — la más seca, la más sensible, la que no se puede poner nada. Básicamente separa las capas secas y muertas de las vivas para que tu piel pueda respirar.</p><p class="line">Sé honesto — ¿cuándo fue la última vez que tus manos se sintieron así? ¿Y lo mejor? La sensación se queda — aunque te laves las manos mucho o uses desinfectante. Desde el Covid, este se convirtió en nuestro #1 más vendido. La gente decía, '¡Por fin algo que realmente ayuda!'</p><p class="line">Úsalo una vez por semana. Una cucharadita es suficiente para todo el cuerpo. Un frasco dura 8–12 meses.</p></div>
+<h2>La Prueba del Volteo de la Crema</h2>
+<div class="callout"><h4>Imposible de fingir</h4><p>Este es el momento que vende la crema. Es visual, sorprendente e imposible de fingir.</p></div>
+<ol class="steps"><li><span class="n">1</span><div><h3>La Demostración</h3><p>Abre la crema, voltéala — no se derrama. Señala el hecho de que no cae nada. “Para completar el tratamiento — el Body Butter. Los mismos minerales, ultra-concentrado. ¿Ves cómo no se derrama? Aunque lo voltee, no cae. Solo necesitas un poquito — no porque sea tacaño 😄 — porque es realmente tan concentrado.”</p></div></li><li><span class="n">2</span><div><h3>La Frase de Cierre</h3><p>Déjalos masajearlo. Luego: “¡Imagina esta sensación por todo el cuerpo… y los pies? ¡OMG — la mejor sensación del mundo!”</p></div></li></ol>
+<div class="say"><p class="say-label">El volteo, en voz alta</p><p class="line">Para completar el tratamiento — el Body Butter. Los mismos minerales, ultra-concentrado. ¿Ves cómo no se derrama? Aunque lo voltee, no cae. Solo necesitas un poquito — no porque sea tacaño 😄 — porque es realmente tan concentrado.</p><p class="line">¡Imagina esta sensación por todo el cuerpo… y los pies? ¡OMG — la mejor sensación del mundo!</p></div>
+<h2>Presentación del Precio</h2>
+<div class="say"><p class="say-label">Ancla, luego local, luego la oferta</p><p class="line">No te voy a mentir — no es barato. Por Europa estos cuestan €80 cada uno.</p><p class="line">Pero aquí en Andorra, cada uno es €60.</p><p class="line">Y lo mejor — nuestra oferta es Compra 2, Lleva 1 Gratis. Así que pagas €120 y te llevas tres productos.</p></div>
+<h2>Ofertas Combinadas</h2>
+<div class="ladder"><div class="rung t-anchor">
+            <div class="amt"><span class="price">€80</span></div>
+            <div class="body">
+              <p class="rl">Europa — lo que cuestan allí<span class="badge">Ancla</span></p>
+              <p class="when">Nadie paga esto. Es el precio tachado que dices en voz alta antes del número de verdad.</p>
+              <p class="line">No te voy a mentir — no es barato. Por Europa estos cuestan €80 cada uno.</p>
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€60</span></div>
+            <div class="body">
+              <p class="rl">Andorra — un bote<span class="badge">Normal</span></p>
+              <p class="when">El precio de salida. Dilo una vez y pasa directo a la oferta.</p>
+              <p class="line">Pero aquí en Andorra, cada uno es €60.</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€120</span><span class="each">3 × €40</span></div>
+            <div class="body">
+              <p class="rl">Compra 2, Llévate 1 Gratis<span class="badge">Oferta</span></p>
+              <p class="when">Nuestra oferta principal — la más popular</p>
+              <p class="line">Y lo mejor — nuestra oferta es Compra 2, Lleva 1 Gratis. Así que pagas €120 y te llevas tres productos.</p>
+            </div>
+          </div><div class="rung t-parallel">
+            <div class="amt"><span class="price">€120</span><span class="each">4 × €30</span></div>
+            <div class="body">
+              <p class="rl">Compra 2, Llévate 2 Gratis<span class="badge">Opción B — al lado, no debajo</span></p>
+              <p class="when">Para compradores de regalos premium — cuatro productos</p>
+              
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€60</span><span class="each">2 × €30</span></div>
+            <div class="body">
+              <p class="rl">Compra 1, Llévate 1 Gratis<span class="badge">Oferta</span></p>
+              <p class="when">Variación ligera — cierre rápido</p>
+              
+            </div>
+          </div><div class="rung t-floor">
+            <div class="amt"><span class="price">€30</span></div>
+            <div class="body">
+              <p class="rl">Empuje Final — Individual<span class="badge">Mínimo</span></p>
+              <p class="when">Empujón final — la salida elegante</p>
+              
+            </div>
+          </div></div>
+<div class="callout"><h4>LA REGLA — no sale de la tienda</h4><p>Si sale por la puerta no vuelve, así que trata cada salida como una venta perdida. Lee la escalera como lotes, no como una bajada: €120 se lleva tres y los mismos €120 se llevan cuatro, así que el dinero solo se mueve de verdad en €60 y luego en €30. El individual a €30 es el último escalón, no una despedida — le pone el producto en las manos hoy y la convierte en clienta. Recórrela entera antes de que termine nada. Nunca le des una tarjeta, nunca le apuntes el precio, nunca la mandes a pensárselo con alguien que no está aquí delante.</p></div>
+<h2>Combos Rápidos para Vendedores</h2>
+<div class="facts"><div><dt>Trío Clásico · €120</dt><dd>Exfoliante + Manteca Corporal + Kit de Uñas</dd></div><div><dt>Trío Spa · €120</dt><dd>Exfoliante + Manteca Corporal + Limpiador Facial</dd></div><div><dt>Duo Aroma · €60</dt><dd>Exfoliante + Manteca Corporal (Compra 1, Llévate 1)</dd></div><div><dt>Duo Inteligente · €60</dt><dd>Exfoliante + Kit de Uñas (el kit incluye crema)</dd></div><div><dt>Cuatro para Regalar · €120</dt><dd>Compra 2, Llévate 2 (oferta de Navidad)</dd></div><div><dt>Empujón Final · €30</dt><dd>Solo el exfoliante, sin regalos</dd></div></div>
+<h2>Consejos Pro</h2>
+<div class="tips"><div class="tip"><h4>Hazlo sensorial — deja que las manos lo vendan</h4><p>La sensación lo es todo. Déjalos frotar, enjuagar y sentir. Una vez que sientan la suavidad, la venta está a medio camino.</p></div><div class="tip"><h4>La prueba del volteo es tu arma secreta</h4><p>Voltear el frasco de crema y mostrar que no cae nada es una prueba visual con la que no pueden discutir. Hazlo siempre.</p></div><div class="tip"><h4>Usa la urgencia navideña de forma natural</h4><p>“El stock se acaba más rápido cerca de las fiestas, y odiaría que te perdieras colores/aromas que te gustan.” El momento cierra regalos.</p></div><div class="tip"><h4>Mantén la matemática simple</h4><p>€60 cada uno. €120 por tres (Compra 2, Lleva 1). Números redondos y simples son más fáciles de aceptar.</p></div><div class="tip"><h4>Compra 2, Lleva 2 para compradores premium</h4><p>Cuando la energía es buena y tienen una lista navideña — esta es tu jugada de volumen. Los mismos €120, producto extra.</p></div><div class="tip"><h4>Compra 1, Lleva 1 para cierres rápidos</h4><p>Para compradores indecisos que aún sintieron la demo — esto convierte el 'tal vez' en 'sí' al instante. €60 no se siente como nada después de €120.</p></div><div class="tip"><h4>El Scrub a €30 es tu empujón final</h4><p>Cuando nada más funciona, el Scrub individual a €30 crea un cliente hoy y una venta mayor mañana. Sin regalos, sin extras — solo el producto estrella en sus manos.</p></div><div class="tip"><h4>Diviértete — bromas, sonrisas, energía fácil</h4><p>Esta demo debería sentirse como un momento de spa, no como un pitch de venta. Si sonríen, compran.</p></div></div>
+<h2>Líneas Que No Cruzamos</h2>
+<ul class="rules"><li>Nadie se va a pensárselo. El individual a €30 es el último escalón y pasa aquí, hoy — sin tarjeta, sin apuntar el precio, sin cupón para llevarse.</li><li>Un exfoliante nunca es lo que va después de una jeringa. Si vendes una jeringa, tu trabajo es el traspaso: el upseller es un especialista que solo está aquí poco tiempo. No le vendes un segundo producto encima.</li><li>Nada que la tienda tenga que cumplir después. Sin reembolsos, sin devoluciones, sin dinero de vuelta, sin promesas de servicio futuro — el cambio de lima es del kit de uñas, y es el único.</li><li>Habla de la piel todo lo que quieras — la más seca, la más sensible, la de quien no se puede poner nada. Nunca eches mano de una enfermedad para vender una crema.</li><li>Nunca expliques por qué es más barato aquí. El precio de Europa junto al precio de Andorra hace todo el trabajo — la situación de la tienda en Andorra no es un argumento de venta que usemos, con ninguna palabra.</li><li>Cada número de esta hoja se genera desde la app. Si se mueve un escalón, reimprime la hoja; nunca te inventes un escalón.</li></ul>
+<footer class="foot"><span>Zero Lines · Andorra · precios en €</span><span>Generado desde la app — no lo edites a mano</span></footer>
+</body>
+</html>

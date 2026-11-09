@@ -258,7 +258,7 @@ const priceFightAt140Exercise: Exercise = {
         feedback:
           'You just taught her that pushing works, and it took you one sentence. {currency}100 is a floor, not a step, and it is not yours to hand out at all: below the voucher you go full market and you go and fetch a manager, and the number comes out of HIS mouth. Say it yourself on the first ask and you have nothing left — she asks again and all you can say is no, which is exactly the conversation you were trying to avoid.',
         feedbackEs:
-          'Le acabas de enseñar que empujar funciona, y has tardado una frase. {currency}100 es un suelo, no un escalón, y no es tuyo para darlo: por debajo del cupón te pones en modo mercado y vas a buscar al encargado, y el número sale de SU boca. Si lo sueltas tú a la primera te quedas sin nada — te lo pide otra vez y solo puedes decirle que no, que es justo la conversación que querías evitar.',
+          'Le acabas de enseñar que empujar funciona, y has tardado una frase. {currency}100 es un suelo, no un escalón, y vas a buscar a alguien para él: por debajo del cupón te pones en modo mercado y vas a por el encargado, y el número sale de SU boca. No es que no puedas venderlo tú — es que de su boca suena a precio que alguien ha tenido que ganarse. Si lo sueltas tú a la primera te quedas sin nada — te lo pide otra vez y solo puedes decirle que no, que es justo la conversación que querías evitar.',
         score: 20,
       },
       {

@@ -125,9 +125,9 @@ const quizSyringeDeep: GeneralQuiz = {
       ],
       correctIndex: 0,
       explanation:
-        "This is the one price on the ladder that is not yours. You use the voucher once, {currency}175 down to {currency}140, and that is as far as your own authority goes. Below it you go full market, you tell her the number is not yours to give, and you walk off and come back WITH a manager — because a seller who can reach the bottom on their own has no bottom, and she can always ask for one more.",
+        "This is the one price on the ladder you fetch somebody for. You use the voucher once, {currency}175 down to {currency}140. Below it you go full market, and you walk off and come back WITH a manager — not because you need his permission, you can sell at that number, but because a price you drop to on your own sounds like a price that was sitting there all along, and one he crossed the shop for sounds like a price somebody had to win.",
       explanationEs:
-        "Este es el único precio de la escalera que no es tuyo. El cupón lo usas una vez, de {currency}175 a {currency}140, y hasta ahí llega tu autoridad. Por debajo vas a mercado puro, le dices que ese número no es tuyo, y te vas y vuelves CON el encargado — porque un vendedor que puede llegar al fondo él solo no tiene fondo, y ella siempre te puede pedir uno más."
+        "Este es el único precio de la escalera por el que vas a buscar a alguien. El cupón lo usas una vez, de {currency}175 a {currency}140, Por debajo vas a mercado puro, y te vas y vuelves CON el encargado — no porque necesites su permiso, puedes vender a ese número, sino porque un precio al que bajas tú solo suena a precio que ya estaba ahí, y uno por el que él cruza la tienda suena a precio que alguien ha tenido que ganarse."
     },
     {
       question:
@@ -1292,7 +1292,7 @@ const quizObjectionsChampion: GeneralQuiz = {
       ],
       correctIndex: 1,
       explanation:
-        "She did not say no, she said she does not know — and that is a ten-second question she can answer standing exactly where she is. The moment she walks off to check it you have lost her, and 'I will hold it for ten minutes' is that same walk-out with a countdown bolted on. So she checks it here, with her hand still in yours. If the money really is tight the answer is HOW she pays, not a new number: split it, part card and part cash, whatever gets it done. And you do not hand her the bottom of the ladder to be helpful — that price is not yours to give, and offering it before she has even asked teaches her that every number out of your mouth is soft.",
+        "She did not say no, she said she does not know — and that is a ten-second question she can answer standing exactly where she is. The moment she walks off to check it you have lost her, and 'I will hold it for ten minutes' is that same walk-out with a countdown bolted on. So she checks it here, with her hand still in yours. If the money really is tight the answer is HOW she pays, not a new number: split it, part card and part cash, whatever gets it done. And you do not hand her the bottom of the ladder to be helpful — you fetch somebody for that price, and offering it before she has even asked teaches her that every number out of your mouth is soft.",
       explanationEs:
         "No te ha dicho que no, te ha dicho que no lo sabe — y eso es una pregunta de diez segundos que puede contestar justo donde está. En cuanto se va a mirarlo la has perdido, y 'te lo guardo diez minutos' es esa misma fuga con una cuenta atrás encima. Así que lo mira aquí, con su mano todavía en la tuya. Si de verdad va justa de dinero, la respuesta es CÓMO paga, no un número nuevo: pártelo, una parte con tarjeta y otra en efectivo, lo que haga falta. Y no le sueltes el fondo de la escalera por hacerle un favor — ese precio no es tuyo, y ofrecérselo antes de que lo haya pedido le enseña que todos los números que dices son blandos."
     }
