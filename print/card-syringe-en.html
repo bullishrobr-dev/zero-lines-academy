@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Syringe</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="card">
+<header class="mast">
+  <p class="brand">How to come down</p>
+  <h1>The Syringe</h1>
+  <p class="sub">Hyaluronic acid — the star product</p>
+</header>
+<div class="facts"><div><dt>Anchor</dt><dd>€500</dd></div><div><dt>Andorra price</dt><dd>€300</dd></div><div><dt>Minimum</dt><dd>€100</dd></div></div>
+<div class="ladder"><div class="rung t-anchor">
+            <div class="amt"><span class="price">€500</span></div>
+            <div class="body">
+              <p class="rl">Europe Price Anchor<span class="badge">Anchor</span></p>
+              
+              <p class="line">“In our shops in Europe this goes for €500 — but here in Andorra we have a much better price for you.”</p>
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€300</span></div>
+            <div class="body">
+              <p class="rl">Andorra Price<span class="badge">Normal</span></p>
+              
+              <p class="line">“Here it is only €300.”</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€210</span></div>
+            <div class="body">
+              <p class="rl">Offer 1 — 30% Off + Free Gift<span class="badge">Offer</span></p>
+              <p class="when">Offer 1 of 2. It never goes out on its own — Option B goes with it, always the same two.</p>
+              <p class="line">“Right now we have an amazing offer — 30% off, so €210 instead of €300, and you still choose a gift: Day Cream, Night Cream or the Peeling.”</p>
+            </div>
+          </div><div class="rung t-parallel">
+            <div class="amt"><span class="price">€300</span><span class="each">2 × €150</span></div>
+            <div class="body">
+              <p class="rl">Option B — Second Syringe Free<span class="badge">Option B — beside, not below</span></p>
+              <p class="when">Option B, beside Offer 1 — never below it. It is €300, MORE than the €210. You have been reading her all through the demo: if she reads well, push this one, and pile gifts on it — you are still miles above your minimum. The way down is for the customer who genuinely cannot reach it.</p>
+              <p class="line">“Or — and this is the one most people take — you pay the normal €300 and you walk out with TWO syringes. The second one is free: forehead, upper lip, the frown lines between your eyebrows. That is €150 each instead of €210 for one, and I’ll put the Day and Night Cream in as well. Which one do you want?”</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€175</span></div>
+            <div class="body">
+              <p class="rl">Adaptive — Gift Removed<span class="badge">Offer</span></p>
+              
+              <p class="line">“Let me take the gift out of the deal and I can do €175 for the syringe on its own.”</p>
+            </div>
+          </div><div class="rung t-voucher">
+            <div class="amt"><span class="price">€140</span></div>
+            <div class="body">
+              <p class="rl">Voucher Close — 20% Off<span class="badge">Voucher — once only</span></p>
+              <p class="when">Say it while you start her OTHER EYE — hands busy, face tilted up. One voucher, once. There is no second one.</p>
+              <p class="line">“You know what, let me fix your other eye real quick. <span class="cue">start it</span> … Listen, I have a 20% voucher here and I’ll do it for you. But you are being greedy now, eh? €175 down to €140 — the syringe on its own, no gift, and only while you are sitting in front of me.”</p>
+            </div>
+          </div><div class="rung t-floor">
+            <div class="amt"><span class="price">€100</span></div>
+            <div class="body">
+              <p class="rl">Absolute Minimum<span class="badge">Minimum</span></p>
+              <p class="when">FETCH HIM. Full market first, then go — it lands from him, never from you.</p>
+              <p class="line">“Give me ten seconds, I’ll see what I can do for you.” <span class="cue">Go and get the manager.</span> €100 is the lowest this ever goes, and it has to come out of his mouth. Say it yourself and she hears a price that was always there; make him walk over for it and she hears a price you went and got her.</p>
+            </div>
+          </div></div>
+<div class="callout"><h4>Proof move — one eye only, and the other one is the close</h4><p>“Let me do one eye only — then you hold the mirror and tell me if you see the difference.” You never do the second one for free: it comes out at €175 as the cover for the voucher, or after she has paid.</p></div>
+<ul class="rules"><li>One voucher, ONCE: €175 down to €140. There is no second voucher — inventing another one tells her the first was invented too.</li><li>The voucher comes out while you are doing her other eye, and BEFORE she can see the result. The mirror comes last, after the price.</li><li>For €100: full market, then go and fetch the manager. You are allowed to sell at that price — what fetching him buys is that it sounds like a price somebody had to go and win, not one that was always there.</li><li>Option B is not a step down. It sits BESIDE Offer 1, always the same two, and it is the one you push if she reads well.</li></ul>
+<footer class="foot"><span>Zero Lines · Andorra · prices in €</span><span>Generated from the app — do not hand-edit</span></footer>
+</body>
+</html>

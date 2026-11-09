@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scrub · Nail Kit · Body Butter</title>
+<style>
+@page { size: A4; margin: 17mm 15mm 16mm; }
+@page card { size: A5; margin: 10mm 9mm; }
+
+:root {
+  --ink: #171210;
+  --ink-2: #514841;
+  --ink-3: #8a7f76;
+  --rule: #e2d9cf;
+  --paper: #ffffff;
+  --tint: #f7f2eb;
+  --teal: #0b6f68;
+  --teal-tint: #e7f1ef;
+  --coral: #c4392f;
+  --coral-tint: #fbeae7;
+  --gold: #9a6b14;
+  --gold-tint: #f9f0dd;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.serif { font-family: "Caladea", "Cambria", "DejaVu Serif", Georgia, serif; }
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+header.mast { border-bottom: 2.5pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 14pt; }
+.brand {
+  font-size: 7pt; letter-spacing: .19em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 3pt;
+}
+.mast h1 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 25pt; line-height: 1.04; margin: 0; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.mast .sub { margin: 4pt 0 0; color: var(--ink-2); font-size: 10.5pt; }
+.mast .meta { margin: 6pt 0 0; font-size: 7.5pt; color: var(--ink-3); letter-spacing: .04em; }
+
+/* ── Flow ───────────────────────────────────────────────────────────── */
+h2 {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 14pt; margin: 17pt 0 7pt; padding-bottom: 3pt;
+  border-bottom: .8pt solid var(--rule); break-after: avoid;
+}
+h2:first-of-type { margin-top: 4pt; }
+p { margin: 0 0 7pt; }
+.intro { font-size: 11pt; color: var(--ink-2); margin-bottom: 11pt; }
+
+/* ── Numbered beats ─────────────────────────────────────────────────── */
+ol.steps { list-style: none; margin: 0 0 10pt; padding: 0; }
+ol.steps li { display: flex; gap: 9pt; margin-bottom: 9pt; break-inside: avoid; }
+ol.steps .n {
+  flex: none; width: 19pt; height: 19pt; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; margin-top: 1pt;
+}
+ol.steps h3 { font-size: 10.5pt; margin: 0 0 2pt; font-weight: 700; }
+ol.steps p { margin: 0; color: var(--ink-2); }
+
+/* ── Said out loud ──────────────────────────────────────────────────── */
+.say {
+  background: var(--teal-tint); border-left: 2.5pt solid var(--teal);
+  padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.say-label {
+  font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); font-weight: 700; margin: 0 0 4pt;
+}
+.line {
+  font-family: "Caladea", "Cambria", Georgia, serif;
+  font-size: 11pt; line-height: 1.42; margin: 0 0 5pt; color: var(--ink);
+}
+.line:last-child { margin-bottom: 0; }
+.cue {
+  display: inline-block; font-family: "Carlito", sans-serif;
+  font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700; background: var(--coral-tint);
+  padding: .5pt 3.5pt; border-radius: 2pt; margin: 0 1.5pt;
+}
+
+/* ── Tips ───────────────────────────────────────────────────────────── */
+.tips { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin-bottom: 10pt; }
+.tip {
+  background: var(--tint); border-radius: 3pt; padding: 7pt 8pt; break-inside: avoid;
+}
+.tip h4 { margin: 0 0 2pt; font-size: 9.5pt; font-weight: 700; }
+.tip p { margin: 0; font-size: 9.3pt; color: var(--ink-2); }
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+ul.rules { margin: 0 0 10pt; padding: 0; list-style: none; }
+ul.rules li {
+  position: relative; padding-left: 13pt; margin-bottom: 5pt; break-inside: avoid;
+}
+ul.rules li::before {
+  content: ""; position: absolute; left: 0; top: 4.5pt;
+  width: 5pt; height: 5pt; border-radius: 1pt; background: var(--coral);
+}
+
+blockquote {
+  margin: 0 0 10pt; padding: 0 0 0 11pt; border-left: 2.5pt solid var(--gold);
+  font-family: "Caladea", "Cambria", Georgia, serif; font-style: italic;
+  font-size: 11pt; color: var(--ink); break-inside: avoid;
+}
+blockquote cite { display: block; font-style: normal; font-size: 8pt; color: var(--ink-3); margin-top: 3pt; }
+
+.callout {
+  border: 1pt solid var(--gold); background: var(--gold-tint);
+  border-radius: 3pt; padding: 8pt 10pt; margin: 0 0 10pt; break-inside: avoid;
+}
+.callout h4 { margin: 0 0 3pt; font-size: 9.5pt; color: var(--gold); font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; }
+.callout p { margin: 0; }
+
+/* ── Quick facts ────────────────────────────────────────────────────── */
+.facts {
+  display: flex; gap: 0; margin: 0 0 11pt;
+  border: 1pt solid var(--rule); border-radius: 3pt; overflow: hidden;
+}
+.facts > div { flex: 1; padding: 6pt 8pt; border-right: 1pt solid var(--rule); }
+.facts > div:last-child { border-right: 0; }
+.facts dt {
+  font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; margin: 0 0 1pt;
+}
+.facts dd { margin: 0; font-size: 12pt; font-weight: 700; }
+
+/* ── The ladder ─────────────────────────────────────────────────────── */
+.ladder { margin: 0 0 11pt; }
+.rung {
+  display: flex; gap: 9pt; padding: 7pt 9pt; margin-bottom: 4pt;
+  border-radius: 3pt; background: var(--tint);
+  border-left: 3pt solid var(--ink-3); break-inside: avoid;
+}
+.rung .amt { flex: none; width: 52pt; text-align: right; }
+.rung .price {
+  display: block; font-family: "Caladea", Georgia, serif;
+  font-size: 15pt; font-weight: 700; line-height: 1.1;
+}
+.rung .each { display: block; font-size: 7.5pt; color: var(--ink-3); margin-top: 1pt; }
+.rung .body { flex: 1; min-width: 0; }
+.rung .rl { margin: 0 0 2pt; font-weight: 700; font-size: 9.8pt; }
+.rung .badge {
+  display: inline-block; margin-left: 5pt; font-size: 6.8pt; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3);
+  border: .7pt solid var(--rule); border-radius: 2pt; padding: .4pt 3pt;
+  vertical-align: 1.5pt;
+}
+.rung .when { margin: 0 0 3pt; font-size: 8.6pt; color: var(--ink-2); font-style: italic; }
+.rung .line { font-size: 10pt; margin: 0; }
+
+.t-anchor { border-left-color: var(--ink-3); }
+.t-base   { border-left-color: var(--ink-3); }
+.t-promo  { border-left-color: var(--teal); background: var(--teal-tint); }
+/* Option B is drawn as a sibling, not a descent: a dashed rail and an inset,
+   so the eye never reads it as the next step down. */
+.t-parallel {
+  border-left: 3pt dashed var(--gold); background: var(--gold-tint);
+  margin-left: 14pt;
+}
+.t-voucher { border-left-color: var(--gold); background: var(--gold-tint); }
+.t-floor   { border-left-color: var(--coral); background: var(--coral-tint); }
+
+/* ── Card format ────────────────────────────────────────────────────── */
+body.card { page: card; font-size: 9pt; }
+body.card .mast h1 { font-size: 19pt; }
+body.card .mast .sub { font-size: 9pt; }
+body.card header.mast { border-bottom-width: 2pt; padding-bottom: 5pt; margin-bottom: 9pt; }
+body.card .facts dd { font-size: 11pt; }
+body.card .rung { padding: 5pt 7pt; margin-bottom: 3pt; }
+body.card .rung .price { font-size: 13pt; }
+body.card .rung .amt { width: 46pt; }
+body.card .rung .line { font-size: 9pt; }
+body.card .rung .when { font-size: 7.8pt; }
+body.card ul.rules li { font-size: 8.6pt; }
+body.card .callout { padding: 6pt 8pt; }
+
+footer.foot {
+  margin-top: 13pt; padding-top: 6pt; border-top: .8pt solid var(--rule);
+  font-size: 7.2pt; color: var(--ink-3); display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body class="card">
+<header class="mast">
+  <p class="brand">How to come down</p>
+  <h1>Scrub · Nail Kit · Body Butter</h1>
+  <p class="sub">One ladder, three products</p>
+</header>
+<div class="facts"><div><dt>Anchor</dt><dd>€80</dd></div><div><dt>Andorra price</dt><dd>€60</dd></div><div><dt>Minimum</dt><dd>€30</dd></div></div>
+<div class="ladder"><div class="rung t-anchor">
+            <div class="amt"><span class="price">€80</span></div>
+            <div class="body">
+              <p class="rl">Europe Price Anchor<span class="badge">Anchor</span></p>
+              
+              <p class="line">“In Europe each of these is €80 — here in Andorra they are €60 each.”</p>
+            </div>
+          </div><div class="rung t-base">
+            <div class="amt"><span class="price">€60</span></div>
+            <div class="body">
+              <p class="rl">Andorra Price<span class="badge">Normal</span></p>
+              
+              <p class="line">“One jar on its own is €60 — but nobody takes just one once they hear the offer.”</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€120</span><span class="each">3 × €40</span></div>
+            <div class="body">
+              <p class="rl">Buy 2, Get 1 Free<span class="badge">Offer</span></p>
+              
+              <p class="line">“Take any 2 and the third one is free — €120 for 3. Mix them however you like: scrub, body butter, even a Nail Kit.”</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€120</span><span class="each">4 × €30</span></div>
+            <div class="body">
+              <p class="rl">Buy 2, Get 2 Free<span class="badge">Offer</span></p>
+              <p class="when">Only for a group, or at Christmas. Never volunteer it to one person.</p>
+              <p class="line">“We have buy 2 get 1 — but listen, for you I’ll do buy 2, get 2. Same €120, and you walk out with 4. That is an amazing deal.”</p>
+            </div>
+          </div><div class="rung t-promo">
+            <div class="amt"><span class="price">€60</span><span class="each">2 × €30</span></div>
+            <div class="body">
+              <p class="rl">Buy 1, Get 1 Free<span class="badge">Offer</span></p>
+              <p class="when">They love it but do not need three. Shrink the ask, not the value.</p>
+              <p class="line">“My last customer only took one. Let me do something nice for you — buy one, and I’ll give you the other one free. I’ll staple both receipts together. €60 for 2.”</p>
+            </div>
+          </div><div class="rung t-floor">
+            <div class="amt"><span class="price">€30</span></div>
+            <div class="body">
+              <p class="rl">Final Push — Single<span class="badge">Minimum</span></p>
+              <p class="when">Only when you can SEE they love it — they have not stopped touching their hands.</p>
+              <p class="line">“You really love it, don’t you — you haven’t stopped touching your hands. Alright: €30 for the one. But zip it, this stays between us.”</p>
+            </div>
+          </div></div>
+<div class="callout"><h4>Proof move — the flip test</h4><p>“Watch — I turn the jar upside down and nothing falls out. That is how dense the butter is.”</p></div>
+<ul class="rules"><li>These three share one ladder: same anchor, same bundles, same minimum. The product changes, the numbers do not.</li><li>The €120 rungs are BUNDLES, not increases. Always say the per-unit price out loud — that is where the argument lives.</li><li>These are beginner products. They are for learning to sell and for good energy. The syringe is the star: if you finish the day pleased with a nail kit, you aimed low.</li><li>The buffer warranty is real and it is the only one we give: bring the old one back, get a new one, forever. Say it with confidence.</li></ul>
+<footer class="foot"><span>Zero Lines · Andorra · prices in €</span><span>Generated from the app — do not hand-edit</span></footer>
+</body>
+</html>
